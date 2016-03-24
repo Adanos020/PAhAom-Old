@@ -1,0 +1,18 @@
+button.newgame NEW GAME
+button.resume RESUME
+button.save SAVE
+button.load LOAD
+button.options OPTIONS
+button.help HELP
+button.credits CREDITS
+button.quit QUIT
+button.apply APPLY
+
+checkbox.fullscreen FULLSCREEN
+checkbox.vsync VERTICAL SYNCHRONIZATION
+
+text.resolution RESOLUTION:
+text.language LANGUAGE
+text.killurslf Kill yourself.
+text.wholegame WHOLE GAME:
+text.usedlib USED LIBRARY:

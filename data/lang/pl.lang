@@ -1,0 +1,18 @@
+button.newgame NOWA GRA
+button.resume WZNÓW
+button.save ZAPISZ
+button.load WCZYTAJ
+button.options OPCJE
+button.help POMOC
+button.credits AUTORZY
+button.quit WYJDŹ
+button.apply ZASTOSUJ
+
+checkbox.fullscreen PEŁNY EKRAN
+checkbox.vsync SYNCHRONIZACJA PIONOWA
+
+text.resolution ROZDZIELCZOŚĆ:
+text.language JĘZYK
+text.killurslf Zabij się.
+text.wholegame CAŁA GRA:
+text.usedlib UŻYTA BIBLIOTEKA:
