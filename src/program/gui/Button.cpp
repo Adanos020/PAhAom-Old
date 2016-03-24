@@ -2,29 +2,33 @@
 
 namespace rr {
 
-    Button::Button(sf::Vector2f position, std::string str, unsigned chsize, sf::Color c) :Component() {
-        text = new Text(str, chsize, c);
+    Button::Button(Component* parentComponent, sf::Vector2f position, std::string str, unsigned chsize, sf::Color c) :Component() {
+        parent = parentComponent;
+        text = new Text(this, str, chsize, c);
         text->setPosition(sf::Vector2f(position.x+15, position.y-0.5));
 
-        image = new Image(position, 14, "data/graphics/gui.png", 0);
+        image = new Image(this, position, 14, "data/graphics/gui.png", 0);
 
         body.setPosition(position);
         body.setSize(sf::Vector2f(text->getSize().x+20, text->getSize().y*2.1));
         body.setFillColor(sf::Color(0, 0, 0));
     }
 
-    Button::Button(sf::Vector2f position, std::wstring str, unsigned chsize, sf::Color c) :Component() {
-        text = new Text(str, chsize, c);
+    Button::Button(Component* parentComponent, sf::Vector2f position, std::wstring str, unsigned chsize, sf::Color c) :Component() {
+        parent = parentComponent;
+        text = new Text(this, str, chsize, c);
         text->setPosition(sf::Vector2f(position.x+15, position.y-0.5));
 
-        image = new Image(position, 14, "data/graphics/gui.png", 0);
+        image = new Image(this, position, 14, "data/graphics/gui.png", 0);
 
         body.setPosition(position);
         body.setSize(sf::Vector2f(text->getSize().x+20, text->getSize().y*2.1));
         body.setFillColor(sf::Color(0, 0, 0));
     }
 
+    inline Button::Component::~Component() {}
     Button::~Button() {
+        delete image;
         delete text;
     }
 

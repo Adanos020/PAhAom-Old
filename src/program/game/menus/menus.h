@@ -3,20 +3,22 @@
 
 #include "../../gui/gui.h"
 #include "../game.h"
+#include "../../program.h"
 
 namespace rr {
 
     class Game;
+    struct Settings;
 
     class MainMenu {
-    private:
+      private:
         Text* title;
         Window* wMenu;
         Window* wOpts;
         Window* wHelp;
         Window* wCred;
-    public:
-        MainMenu(sf::RenderWindow&);
+      public:
+        MainMenu(sf::RenderWindow&, Settings);
         ~MainMenu();
 
         void buttonEvents(sf::RenderWindow&, Game*);
@@ -24,13 +26,13 @@ namespace rr {
     };
 
     class PauseMenu {
-    private:
+      private:
         Text* title;
         Window* wMenu;
         Window* wOpts;
         Window* wHelp;
-    public:
-        PauseMenu(sf::RenderWindow&);
+      public:
+        PauseMenu(sf::RenderWindow&, Settings);
         ~PauseMenu();
 
         void buttonEvents(sf::RenderWindow&, Game*);

@@ -4,14 +4,16 @@
 #include <ctime>
 #include "menus/menus.h"
 #include "player/player.h"
+#include "../program.h"
 
 namespace rr {
 
     class MainMenu;
     class PauseMenu;
+    struct Settings;
 
     class Game {
-    private:
+      private:
         MainMenu* mainMenu;
         PauseMenu* pauseMenu;
 
@@ -19,13 +21,13 @@ namespace rr {
 
         bool started;
         bool paused;
-    public:
-        Game(sf::RenderWindow&);
+      public:
+        Game(sf::RenderWindow&, Settings);
         ~Game();
 
         void draw(sf::RenderWindow&, sf::View&);
         void buttonEvents(sf::RenderWindow&, sf::View&);
-        void controls(clock_t);
+        void controls(float);
 
         void start(bool);
         void pause(bool);

@@ -4,36 +4,40 @@
 
 namespace rr {
 
-    Window::Window(std::string head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
+    Window::Window(Component* parentComponent, std::string head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
+        parent = parentComponent;
+
         body.setSize(size);
         body.setPosition(position);
         body.setFillColor(sf::Color(c.r, c.g, c.b, 128));
         body.setOutlineColor(c);
         body.setOutlineThickness(5);
 
-        header = new Text(head, 20, sf::Color::Yellow);
+        header = new Text(this, head, 20, sf::Color::Yellow);
         header->setPosition(sf::Vector2f(position.x+5, position.y));
 
         visible = false;
     }
 
-    Window::Window(std::wstring head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
+    Window::Window(Component* parentComponent, std::wstring head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
+        parent = parentComponent;
+
         body.setSize(size);
         body.setPosition(position);
         body.setFillColor(sf::Color(c.r, c.g, c.b, 128));
         body.setOutlineColor(c);
         body.setOutlineThickness(5);
 
-        header = new Text(head, 20, sf::Color::Yellow);
+        header = new Text(this, head, 20, sf::Color::Yellow);
         header->setPosition(sf::Vector2f(position.x+5, position.y));
 
         visible = false;
     }
 
+    inline Window::Component::~Component() {}
     Window::~Window() {
         delete header;
-        for (auto x : components)
-            delete x;
+        components.erase(components.begin(), components.end());
     }
 
     void Window::addComponent(Component* c) {
@@ -43,18 +47,6 @@ namespace rr {
 
     void Window::setVisible(bool b) {
         visible = b;
-    }
-
-    bool Window::isVisible() {
-        return visible;
-    }
-
-    sf::Vector2f Window::getPosition() {
-        return body.getPosition();
-    }
-
-    sf::Vector2f Window::getSize() {
-        return body.getSize();
     }
 
     void Window::draw(sf::RenderWindow& rw) {

@@ -2,7 +2,9 @@
 
 namespace rr {
 
-    Image::Image(sf::Vector2f pos, int iconSize, std::string path, unsigned index) {
+    Image::Image(Component* parentComponent, sf::Vector2f pos, int iconSize, std::string path, unsigned index) {
+        parent = parentComponent;
+
         icn = iconSize;
         skin.loadFromFile(path);
 
@@ -23,15 +25,9 @@ namespace rr {
         body[3].texCoords = sf::Vector2f(tu*icn, (tv+1)*icn);
     }
 
+    inline Image::Component::~Component() {}
     Image::~Image() {}
 
-    sf::Texture Image::getSkin() {
-        return skin;
-    }
-
-    sf::VertexArray Image::getBody() {
-        return body;
-    }
     void Image::change(unsigned index) {
         unsigned tu = index%(skin.getSize().x/icn);
         unsigned tv = index/(skin.getSize().x/icn);
@@ -70,14 +66,6 @@ namespace rr {
         body[1].position = sf::Vector2f(body[0].position.x+s.x, body[0].position.y);
         body[2].position = sf::Vector2f(body[0].position.x+s.x, body[0].position.y+s.y);
         body[3].position = sf::Vector2f(body[0].position.x, body[0].position.y+s.y);
-    }
-
-    sf::Vector2f Image::getPosition() {
-        return body[0].position;
-    }
-
-    sf::Vector2f Image::getSize() {
-        return sf::Vector2f(body[1].position.x-body[0].position.x, body[2].position.y-body[1].position.y);
     }
 
     void Image::draw(sf::RenderWindow& rw) {

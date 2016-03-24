@@ -2,7 +2,9 @@
 
 namespace rr {
 
-    Checkbox::Checkbox(sf::Vector2f pos, std::string txt, int chsize, sf::Color c) :Button(pos, txt, chsize, c) {
+    Checkbox::Checkbox(Component* parentComponent, sf::Vector2f pos, std::string txt, int chsize, sf::Color c) :Button(parentComponent, pos, txt, chsize, c) {
+        parent = parentComponent;
+
         checked = false;
 
         position = pos;
@@ -13,11 +15,13 @@ namespace rr {
         body.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
         body.setOutlineThickness(5);
 
-        image = new Image(pos, 14, "data/graphics/gui.png", 1);
-        text = new Text(txt, sf::Vector2f(pos.x+45, pos.y+body.getSize().y/2-text->getSize().y), chsize);
+        image = new Image(this, pos, 14, "data/graphics/gui.png", 1);
+        text = new Text(this, txt, sf::Vector2f(pos.x+45, pos.y+body.getSize().y/2-text->getSize().y), chsize);
     }
 
-    Checkbox::Checkbox(sf::Vector2f pos, std::wstring txt, int chsize, sf::Color c) :Button(pos, txt, chsize, c) {
+    Checkbox::Checkbox(Component* parentComponent, sf::Vector2f pos, std::wstring txt, int chsize, sf::Color c) :Button(parentComponent, pos, txt, chsize, c) {
+        parent = parentComponent;
+
         position = pos;
 
         body.setSize(sf::Vector2f(35, 35));
@@ -26,18 +30,14 @@ namespace rr {
         body.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
         body.setOutlineThickness(5);
 
-        image = new Image(pos, 14, "data/graphics/gui.png", 1);
-        text = new Text(txt, sf::Vector2f(pos.x+45, pos.y+body.getSize().y/2-text->getSize().y), chsize);
+        image = new Image(this, pos, 14, "data/graphics/gui.png", 1);
+        text = new Text(this, txt, sf::Vector2f(pos.x+45, pos.y+body.getSize().y/2-text->getSize().y), chsize);
     }
 
     Checkbox::~Checkbox() {}
 
     void Checkbox::check(bool b) {
         checked = b;
-    }
-
-    bool Checkbox::isChecked() {
-        return checked;
     }
 
     void Checkbox::setPosition(sf::Vector2f pos) {

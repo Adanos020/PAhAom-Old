@@ -38,16 +38,14 @@ namespace rr {
         body[3].position = sf::Vector2f(pos.x, pos.y+70);
     }
 
-    void Player::go(double ts, direction di) {
+    void Player::go(float ts, direction di) {
         if (di == up) {
             position.y -= ts*velocity;
             setPosition(position);
-        }
-        else if (di == down) {
+        } else if (di == down) {
             position.y += ts*velocity;
             setPosition(position);
-        }
-        else if (di == left) {
+        } else if (di == left) {
             position.x -= ts*velocity;
             setPosition(position);
 
@@ -55,8 +53,7 @@ namespace rr {
             body[1].texCoords = sf::Vector2f(14, 14);
             body[2].texCoords = sf::Vector2f(14, 28);
             body[3].texCoords = sf::Vector2f(0, 28);
-        }
-        else if (di == right) {
+        } else if (di == right) {
             position.x += ts*velocity;
             setPosition(position);
 

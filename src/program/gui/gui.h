@@ -14,10 +14,13 @@ namespace rr {
     class Item;
     class Slot;
     class Text;
+    class Window;
 
     class Component {
+    protected:
+        Component* parent;
     public:
-        virtual ~Component() {}
+        virtual ~Component() = 0;
         virtual bool containsMouseCursor(sf::RenderWindow&) = 0;
         virtual Text* getText() = 0;
         virtual void draw(sf::RenderWindow&) = 0;
@@ -25,9 +28,10 @@ namespace rr {
         virtual void setSize(sf::Vector2f) = 0;
         virtual sf::Vector2f getPosition() = 0;
         virtual sf::Vector2f getSize() = 0;
+        virtual Component* getParentComponent() = 0;
     };
 
-    class Window {
+    class Window :public Component {
     private:
         bool visible;
 
@@ -36,16 +40,21 @@ namespace rr {
 
         Text* header;
     public:
-        Window(std::string head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
-        Window(std::wstring head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
+        Window(Component* parentComponent, std::string head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
+        Window(Component* parentComponent, std::wstring head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
         ~Window();
 
         void addComponent(Component*);
         void setVisible(bool);
+        void setPosition(sf::Vector2f pos) override { body.setPosition(pos); }
+        void setSize(sf::Vector2f siz)     override { body.setSize(siz); }
 
-        bool isVisible();
-        sf::Vector2f getSize();
-        sf::Vector2f getPosition();
+        void draw(sf::RenderWindow&) override;
+
+        bool isVisible()                         { return visible; }
+        sf::Vector2f getSize()          override { return body.getSize(); }
+        sf::Vector2f getPosition()      override { return body.getPosition(); }
+        Component* getParentComponent() override { return parent; }
 
         template<typename T>
         T* getComponent(unsigned index) {
@@ -71,7 +80,8 @@ namespace rr {
             return nullptr;
         }
 
-        void draw(sf::RenderWindow&);
+        bool containsMouseCursor(sf::RenderWindow&) override { return false; }
+        Text* getText()                             override { return nullptr; }
     };
 
     class Bar :public Component {
@@ -80,13 +90,14 @@ namespace rr {
         sf::RectangleShape border;
         sf::RectangleShape bar;
     public:
-        Bar(std::string plain, int max_length, sf::Color, sf::Vector2f pos);
+        Bar(Component* parentComponent, std::string plain, int max_length, sf::Color, sf::Vector2f pos);
         ~Bar();
 
         void setPosition(sf::Vector2f) override;
         void resize(float scale);
+        void draw(sf::RenderWindow&)   override;
 
-        void draw(sf::RenderWindow&) override;
+        Component* getParentComponent() override { return parent; }
     };
 
 
@@ -97,17 +108,18 @@ namespace rr {
         Text* text;
         Image* image;
     public:
-        Button(sf::Vector2f position, std::string, unsigned chsize, sf::Color = sf::Color::White);
-        Button(sf::Vector2f position, std::wstring, unsigned chsize, sf::Color = sf::Color::White);
+        Button(Component* parentComponent, sf::Vector2f position, std::string, unsigned chsize, sf::Color = sf::Color::White);
+        Button(Component* parentComponent, sf::Vector2f position, std::wstring, unsigned chsize, sf::Color = sf::Color::White);
         ~Button();
 
         bool containsMouseCursor(sf::RenderWindow&) override;
-        Text* getText() override;
-        sf::Vector2f getPosition() override;
-        sf::Vector2f getSize() override;
-        void setPosition(sf::Vector2f) override;
+        Text* getText()                             override;
+        sf::Vector2f getPosition()                  override;
+        sf::Vector2f getSize()                      override;
+        Component* getParentComponent()             override { return parent; }
 
-        void draw(sf::RenderWindow&) override;
+        void setPosition(sf::Vector2f) override;
+        void draw(sf::RenderWindow&)   override;
 
         void setSize(sf::Vector2f) override {}
     };
@@ -117,15 +129,16 @@ namespace rr {
         sf::Vector2f position;
         bool checked;
     public:
-        Checkbox(sf::Vector2f pos, std::string txt, int chsize, sf::Color = sf::Color(110, 110, 110, 128));
-        Checkbox(sf::Vector2f pos, std::wstring txt, int chsize, sf::Color = sf::Color(110, 110, 110, 128));
+        Checkbox(Component* parentComponent, sf::Vector2f pos, std::string txt, int chsize, sf::Color = sf::Color(110, 110, 110, 128));
+        Checkbox(Component* parentComponent, sf::Vector2f pos, std::wstring txt, int chsize, sf::Color = sf::Color(110, 110, 110, 128));
         ~Checkbox();
 
         void check(bool b);
-        bool isChecked();
-
         void draw(sf::RenderWindow& rw) override;
-        void setPosition(sf::Vector2f) override;
+        void setPosition(sf::Vector2f)  override;
+
+        bool isChecked()                         { return checked; }
+        Component* getParentComponent() override { return parent; }
     };
 
 
@@ -135,24 +148,25 @@ namespace rr {
         sf::Texture skin;
         int icn;
     public:
-        Image(sf::Vector2f position, int iconSize, std::string path, unsigned index);
+        Image(Component* parentComponent, sf::Vector2f position, int iconSize, std::string path, unsigned index);
         ~Image();
 
         void setPosition(sf::Vector2f) override;
-        void setSize(sf::Vector2f) override;
+        void setSize(sf::Vector2f)     override;
         void change(unsigned index);
         void change(sf::VertexArray, sf::Texture);
         void scale(sf::Vector2f);
         void paint(sf::Color);
-        void draw(sf::RenderWindow&) override;
+        void draw(sf::RenderWindow&)   override;
 
-        sf::Texture getSkin();
-        sf::VertexArray getBody();
-        sf::Vector2f getPosition() override;
-        sf::Vector2f getSize() override;
+        sf::Texture getSkin()                    { return skin; }
+        sf::VertexArray getBody()                { return body; }
+        sf::Vector2f getPosition()      override { return body[0].position; }
+        sf::Vector2f getSize()          override { return sf::Vector2f(body[1].position.x-body[0].position.x, body[2].position.y-body[1].position.y); }
+        Component* getParentComponent() override { return parent; }
 
         virtual bool containsMouseCursor(sf::RenderWindow&) override { return false; }
-        virtual Text* getText() override { return nullptr; }
+        virtual Text* getText()                             override { return nullptr; }
     };
 
     class Slot :public Button {
@@ -164,18 +178,17 @@ namespace rr {
         Image* itemSkin;
         Item* item;
     public:
-        Slot(sf::Vector2f size, sf::Vector2f pos, int icon = 0, sf::Color = sf::Color(110, 110, 110, 128));
+        Slot(Component* parentComponent, sf::Vector2f size, sf::Vector2f pos, int icon = 0, sf::Color = sf::Color(110, 110, 110, 128));
         ~Slot();
-
-        Item* getItem();
 
         bool addItem(double ID, int amount);
         void removeItem(int);
-
         void setPosition(sf::Vector2f) override;
-        void draw(sf::RenderWindow&) override;
+        void draw(sf::RenderWindow&)   override;
 
-        bool isEmpty();
+        Item* getItem()                          { if (!hollow) return item; return nullptr; }
+        bool isEmpty()                           { return hollow; }
+        Component* getParentComponent() override { return parent; }
     };
 
     class Switch :public Component {
@@ -187,34 +200,34 @@ namespace rr {
         std::vector<std::wstring> options;
         unsigned counter;
     public:
-        Switch(std::string lButton, std::string rButton, sf::Vector2f size, sf::Vector2f position);
+        Switch(Component* parentComponent, std::string lButton, std::string rButton, sf::Vector2f size, sf::Vector2f position);
         ~Switch();
 
         void setPosition(sf::Vector2f) override;
-        virtual void setSize(sf::Vector2f) override;
+        void setSize(sf::Vector2f)     override;
         void buttonEvents(sf::RenderWindow&);
-
         void addOption(std::wstring);
         void setCurrentOption(std::wstring);
-        std::wstring getCurrentOption();
+        void draw(sf::RenderWindow&)   override;
 
-        void draw(sf::RenderWindow&) override;
+        std::wstring getCurrentOption()             { return options.at(counter); }
+        virtual sf::Vector2f getPosition() override { return left->getPosition(); }
+        virtual sf::Vector2f getSize()     override { return body.getSize(); }
+        Component* getParentComponent()    override { return parent; }
 
         virtual bool containsMouseCursor(sf::RenderWindow&) override { return false; }
-        virtual Text* getText() override { return nullptr; }
-        virtual sf::Vector2f getPosition() override { return left->getPosition(); }
-        virtual sf::Vector2f getSize() override { return body.getSize(); }
+        virtual Text* getText()                             override { return nullptr; }
     };
 
     class Text :public Component {
     private:
-        sf::Font font;
         sf::Text text;
     public:
-        Text(std::string, unsigned chsize = 30, sf::Color = sf::Color::White);
-        Text(std::wstring, unsigned chsize = 30, sf::Color = sf::Color::White);
-        Text(std::string, sf::Vector2f position, unsigned chsize = 30, sf::Color = sf::Color::White);
-        Text(std::wstring, sf::Vector2f position, unsigned chsize = 30, sf::Color = sf::Color::White);
+        Text(Component* parentComponent, std::string, unsigned chsize = 30, sf::Color = sf::Color::White);
+        Text(Component* parentComponent, std::wstring, unsigned chsize = 30, sf::Color = sf::Color::White);
+        Text(Component* parentComponent, std::string, sf::Vector2f position, unsigned chsize = 30, sf::Color = sf::Color::White);
+        Text(Component* parentComponent, std::wstring, sf::Vector2f position, unsigned chsize = 30, sf::Color = sf::Color::White);
+        ~Text();
 
         void setPosition(sf::Vector2f) override;
         void setCharacterSize(unsigned);
@@ -222,17 +235,18 @@ namespace rr {
         void setString(std::string);
         void setString(std::wstring);
 
-        sf::Vector2f getSize() override;
-        sf::Vector2f getPosition() override;
-        double getCharacterSize();
-        sf::Color getColor();
-        std::string getString();
+        sf::Vector2f getSize()          override { return sf::Vector2f(text.getGlobalBounds().width, text.getGlobalBounds().height); }
+        sf::Vector2f getPosition()      override { return text.getPosition(); }
+        double getCharacterSize()                { return text.getCharacterSize(); }
+        sf::Color getColor()                     { return text.getColor(); }
+        std::string getString()                  { return text.getString(); }
+        Component* getParentComponent() override { return parent; }
 
         void draw(sf::RenderWindow&) override;
 
         virtual bool containsMouseCursor(sf::RenderWindow&) override { return false; }
-        virtual Text* getText() override { return nullptr; }
-        void setSize(sf::Vector2f) override {}
+        virtual Text* getText()                             override { return nullptr; }
+        void setSize(sf::Vector2f)                          override {}
     };
 
 }

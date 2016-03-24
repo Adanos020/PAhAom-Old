@@ -6,7 +6,7 @@
 namespace rr {
 
     class Player {
-    private:
+      private:
         sf::VertexArray body;
         sf::Texture skin;
         sf::Vector2f position;
@@ -17,7 +17,7 @@ namespace rr {
         double sp;
         int exp;
         int lvl;
-    public:
+      public:
         Player(sf::Vector2f pos);
         ~Player();
 
@@ -25,7 +25,7 @@ namespace rr {
 
         void setPosition(sf::Vector2f);
 
-        void go(double timeStep, direction);
+        void go(float timeStep, direction);
         void draw(sf::RenderWindow&);
     };
 

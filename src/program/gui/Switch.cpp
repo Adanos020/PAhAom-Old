@@ -2,7 +2,8 @@
 
 namespace rr {
 
-    Switch::Switch(std::string lButton, std::string rButton, sf::Vector2f size, sf::Vector2f pos) {
+    Switch::Switch(Component* parentComponent, std::string lButton, std::string rButton, sf::Vector2f size, sf::Vector2f pos) {
+        parent = parentComponent;
 
         body.setSize(size);
         body.setPosition(sf::Vector2f(pos.x+size.y+25, pos.y+5));
@@ -10,13 +11,14 @@ namespace rr {
         body.setOutlineColor(sf::Color(108, 108, 108));
         body.setOutlineThickness(5);
 
-        left = new Button(pos, lButton, size.y-3);
-        right = new Button(sf::Vector2f(body.getPosition().x+body.getSize().x+16, pos.y), rButton, size.y-3);
-        text = new Text(L"", sf::Vector2f(body.getPosition().x+10, pos.y-4), size.y);
+        left = new Button(this, pos, lButton, size.y-3);
+        right = new Button(this, sf::Vector2f(body.getPosition().x+body.getSize().x+16, pos.y), rButton, size.y-3);
+        text = new Text(this, L"", sf::Vector2f(body.getPosition().x+10, pos.y-4), size.y);
 
         counter = 0;
     }
 
+    inline Switch::Component::~Component() {}
     Switch::~Switch() {
         delete left;
         delete right;
@@ -66,10 +68,6 @@ namespace rr {
         counter = i;
         text->setString(options.at(counter));
         text->setPosition(sf::Vector2f(body.getPosition().x+body.getSize().x/2-text->getSize().x/2, body.getPosition().y-4));
-    }
-
-    std::wstring Switch::getCurrentOption() {
-        return options.at(counter);
     }
 
     void Switch::draw(sf::RenderWindow& rw) {

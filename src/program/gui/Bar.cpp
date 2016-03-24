@@ -2,7 +2,9 @@
 
 namespace rr {
 
-    Bar::Bar(std::string plain, int max_length, sf::Color c, sf::Vector2f pos) {
+    Bar::Bar(Component* parentComponent, std::string plain, int max_length, sf::Color c, sf::Vector2f pos) {
+        parent = parentComponent;
+
         if (plain == "horizontal") {
             border.setSize(sf::Vector2f(max_length, 5));
             bar.setSize(sf::Vector2f(max_length, 5));
@@ -20,6 +22,7 @@ namespace rr {
         bar.setPosition(pos);
     }
 
+    inline Bar::Component::~Component() {}
     Bar::~Bar() {}
 
     void Bar::setPosition(sf::Vector2f pos) {

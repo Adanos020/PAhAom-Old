@@ -4,7 +4,8 @@
 
 namespace rr {
 
-    Slot::Slot(sf::Vector2f size, sf::Vector2f pos, int icon, sf::Color c) :Button(pos, "", icon) {
+    Slot::Slot(Component* parentComponent, sf::Vector2f size, sf::Vector2f pos, int icon, sf::Color c) :Button(parentComponent, pos, "", icon) {
+        parent = parentComponent;
         hollow = true;
 
         body.setSize(size);
@@ -13,19 +14,14 @@ namespace rr {
         body.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
         body.setOutlineThickness(5);
 
-        image = new Image(pos, 14, "data/graphics/gui.png", icon);
-        itemSkin = new Image(pos, 14, "data/graphics/items.png", 0);
-
-        text = new Text("", sf::Vector2f(pos.x+5, pos.y+45), 202);
+        image = new Image(this, pos, 14, "data/graphics/gui.png", icon);
+        itemSkin = new Image(this, pos, 14, "data/graphics/items.png", 0);
+        text = new Text(this, "", sf::Vector2f(pos.x+5, pos.y+45), 202);
     }
 
     Slot::~Slot() {
-        if (!hollow) delete item;
-    }
-
-    Item* Slot::getItem() {
-        if (!hollow) return item;
-        return nullptr;
+        if (!hollow)
+            delete item;
     }
 
     void Slot::setPosition(sf::Vector2f pos) {
@@ -56,7 +52,6 @@ namespace rr {
             }
             return false;
         }
-
         item = getItemFromID(id, amount, position);
         itemSkin->change(item->getBody(), item->getSkin());
         text->setString(std::to_string(item->getAmount()));
@@ -67,7 +62,7 @@ namespace rr {
 
     void Slot::removeItem(int x) {
         if (!hollow) {
-            item->editAmount(item->getAmount() - x);
+            item->editAmount(item->getAmount()-x);
             text->setString(std::to_string(item->getAmount()));
             text->setCharacterSize(20);
             if (item->getAmount() == 0) {
@@ -77,7 +72,4 @@ namespace rr {
         }
     }
 
-    bool Slot::isEmpty() {
-        return hollow;
-    }
 }

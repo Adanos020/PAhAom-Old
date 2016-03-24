@@ -2,9 +2,9 @@
 
 namespace rr {
 
-    Game::Game(sf::RenderWindow& rw) {
-        mainMenu = new MainMenu(rw);
-        pauseMenu = new PauseMenu(rw);
+    Game::Game(sf::RenderWindow& rw, Settings settings) {
+        mainMenu = new MainMenu(rw, settings);
+        pauseMenu = new PauseMenu(rw, settings);
         player = new Player(sf::Vector2f(10, 10));
 
         paused = started = false;
@@ -28,14 +28,14 @@ namespace rr {
         if (paused) pauseMenu->buttonEvents(rw, this);
     }
 
-    void Game::controls(clock_t timer) {
+    void Game::controls(float timer) {
         if (started && !paused) {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) pause(true);
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player->go((double)timer, Player::up);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player->go((double)timer, Player::down);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player->go((double)timer, Player::left);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player->go((double)timer, Player::right);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player->go(timer, Player::up);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player->go(timer, Player::down);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player->go(timer, Player::left);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player->go(timer, Player::right);
         }
     }
 

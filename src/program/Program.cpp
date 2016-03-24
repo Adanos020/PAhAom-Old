@@ -5,13 +5,16 @@
 #include <ctime>
 #include <string>
 #include <iostream>
+#include <iomanip>
+
+extern std::map<std::string, std::wstring> dictionary;
+extern sf::Font pixelFont;
 
 namespace rr {
 
-    std::map<std::string, std::wstring> dictionary;
-
     Program::Program() {
-        if (readConfig() && readDictionary()) runGame();
+        if (readConfig() && readDictionary() && loadResources())
+            runGame();
     }
 
     Program::~Program() {
@@ -19,13 +22,13 @@ namespace rr {
     }
 
     void Program::runGame() {
-        window.create(sf::VideoMode(resolution.x, resolution.y, 32), "PAHAOM", fullscreen ? sf::Style::Fullscreen : sf::Style::Default);
-        window.setVerticalSyncEnabled(vsync);
-        view.setSize((sf::Vector2f)resolution);
+        window.create(sf::VideoMode(settings.resolution.x, settings.resolution.y, 32), "PAHAOM", (settings.fullscreen)?sf::Style::Fullscreen:sf::Style::Close, settings.csettings);
+        window.setVerticalSyncEnabled(settings.vsync);
+        view.setSize((sf::Vector2f)settings.resolution);
         window.setView(view);
 
         sf::Clock timer;
-        game = new Game(window);
+        game = new Game(window, settings);
 
         while (window.isOpen()) {
             game->controls(timer.getElapsedTime().asMilliseconds());
@@ -47,31 +50,61 @@ namespace rr {
         try {
             iconfig.open("config.cfg");
             if (!iconfig.good()) throw "File not found";
-            puts("Loading a config file...");
+            puts(">Loading a config file...");
+            std::cout << "===PARAM===" << std::setw(44) << "======VALUE======\n";
 
             while (!iconfig.eof()) {
                 std::string param;
                 iconfig >> param;
 
-                if (param[0] == ';') {
+                if (param[0] == ';' || param == "") {
                     std::getline(iconfig, param);
                     continue;
+                } else {
+                    std::cout << param;
+                    if (param == "width:") {
+                        readFile(iconfig, settings.resolution.x);
+                        std::cout << std::setw(37-param.size()+std::to_string(settings.resolution.x).size())
+                                  << settings.resolution.x << '\n';
+                    } else if (param == "height:") {
+                        readFile(iconfig, settings.resolution.y);
+                        std::cout << std::setw(37-param.size()+std::to_string(settings.resolution.y).size())
+                                  << settings.resolution.y << '\n';
+                    } else if (param == "fullscreen:") {
+                        readFile(iconfig, settings.fullscreen);
+                        std::cout << std::setw(37-param.size()+std::to_string(settings.fullscreen).size())
+                                  << settings.fullscreen << '\n';
+                    } else if (param == "vsync:") {
+                        readFile(iconfig, settings.vsync);
+                        std::cout << std::setw(37-param.size()+std::to_string(settings.vsync).size())
+                                  << settings.vsync << '\n';
+                    } else if (param == "lang:") {
+                        iconfig >> settings.language;
+                        std::cout << std::setw(38-param.size()+settings.language.size())
+                                  << settings.language+"\n";
+                    } else if (param == "antialiasing:") {
+                        iconfig >> settings.csettings.antialiasingLevel;
+                        std::cout << std::setw(37-param.size()+std::to_string(settings.csettings.antialiasingLevel).size())
+                                  << settings.csettings.antialiasingLevel << '\n';
+                    } else if (param == "depthbits:") {
+                        iconfig >> settings.csettings.depthBits;
+                        std::cout << std::setw(37-param.size()+std::to_string(settings.csettings.depthBits).size())
+                                  << settings.csettings.depthBits << '\n';
+                    } else if (param == "stencilbits:") {
+                        iconfig >> settings.csettings.stencilBits;
+                        std::cout << std::setw(37-param.size()+std::to_string(settings.csettings.stencilBits).size())
+                                  << settings.csettings.stencilBits << '\n';
+                    } else
+                        throw "Wrong parameter";
                 }
-                else if (param == "") continue;
-                else if (param == "width:") readFile(iconfig, resolution.x);
-                else if (param == "height:") readFile(iconfig, resolution.y);
-                else if (param == "fullscreen:") readFile(iconfig, fullscreen);
-                else if (param == "vsync:") readFile(iconfig, vsync);
-                else if (param == "lang:") iconfig >> language;
-                else throw "Wrong parameter";
             }
         } catch (...) {
-            puts("Error loading config.cfg!");
+            puts("!Error loading config.cfg!");
 
             iconfig.clear();
             iconfig.sync();
 
-            puts("Creating a new config file...");
+            puts(">Creating a new config file...");
             std::ofstream oconfig("config.cfg");
             oconfig.clear();
             oconfig << ";--------------;\n";
@@ -94,30 +127,41 @@ namespace rr {
 
     bool Program::readDictionary() {
         std::wifstream idict;
-        if (language == "en")
+        if (settings.language == "en")
             idict.open("data/lang/en.lang");
-        else if (language == "pl")
+        else if (settings.language == "pl")
             idict.open("data/lang/pl.lang");
-        else if (language == "fc")
+        else if (settings.language == "fc")
             idict.open("data/lang/fc.lang");
 
+        puts(">Loading the dictionary...");
         if (idict.good()) {
+            std::cout << "===WORD===" << std::setw(45) << "===TRANSLATION===\n";
             while (!idict.eof()) {
                 std::wstring word;
                 std::wstring translation;
 
                 idict >> word;
+                if (word[0]==';' || word==L"") {
+                    std::getline(idict, word);
+                    continue;
+                }
                 std::getline(idict, translation);
                 translation.erase(0, 1);
 
-                std::wcout << L"word: \"" + word + L"\"\n";
-                std::wcout << L"translation: \"" + translation + L"\"\n";
+                std::wcout << word << std::setw(38-word.size()+translation.size()) << translation + L"\n";
 
                 dictionary[wtoa(word)] = translation;
             }
             idict.close();
             return true;
         }
+        return false;
+    }
+
+    bool Program::loadResources() {
+        if (pixelFont.loadFromFile("data/font/I-pixel-u-mod.ttf"))
+            return true;
         return false;
     }
 

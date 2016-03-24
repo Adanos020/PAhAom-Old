@@ -8,23 +8,31 @@
 
 namespace rr {
 
+    class Game;
+
+    struct Settings {
+      public:
+        bool vsync;
+        bool fullscreen;
+        std::string language;
+        sf::ContextSettings csettings;
+        sf::Vector2u resolution;
+    };
+
     class Program {
-    private:
+      private:
         Game* game;
+        Settings settings;
 
         sf::RenderWindow window;
         sf::Event event;
         sf::View view;
-        sf::Vector2u resolution;
-
-        bool vsync;
-        bool fullscreen;
-        std::string language;
 
         void runGame();
         bool readConfig();
         bool readDictionary();
-    public:
+        bool loadResources();
+      public:
         Program();
         ~Program();
     };

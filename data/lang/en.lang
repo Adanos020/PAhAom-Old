@@ -11,8 +11,8 @@ button.apply APPLY
 checkbox.fullscreen FULLSCREEN
 checkbox.vsync VERTICAL SYNCHRONIZATION
 
-text.resolution RESOLUTION:
+text.resolution RESOLUTION
 text.language LANGUAGE
 text.killurslf Kill yourself.
-text.wholegame WHOLE GAME:
-text.usedlib USED LIBRARY:
+text.wholegame WHOLE GAME
+text.usedlib USED LIBRARY

@@ -11,8 +11,8 @@ button.apply ZASTOSUJ
 checkbox.fullscreen PEŁNY EKRAN
 checkbox.vsync SYNCHRONIZACJA PIONOWA
 
-text.resolution ROZDZIELCZOŚĆ:
+text.resolution ROZDZIELCZOŚĆ
 text.language JĘZYK
 text.killurslf Zabij się.
-text.wholegame CAŁA GRA:
-text.usedlib UŻYTA BIBLIOTEKA:
+text.wholegame CAŁA GRA
+text.usedlib UŻYTA BIBLIOTEKA
