@@ -33,12 +33,12 @@ namespace rr {
 
     class Window :public Component {
     private:
-        bool visible;
-
         sf::RectangleShape body;
-        std::vector<Component*> components;
 
         Text* header;
+
+        std::vector<Component*> components;
+        bool visible;
     public:
         Window(Component* parentComponent, std::wstring head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
         ~Window();
@@ -97,6 +97,7 @@ namespace rr {
     protected:
         sf::RectangleShape body;
         sf::Color color;
+
         Text* text;
         Image* image;
     public:
@@ -148,6 +149,7 @@ namespace rr {
     private:
         sf::VertexArray body;
         sf::Texture skin;
+
         int icn;
     public:
         Image(Component* parentComponent, sf::Vector2f position, int iconSize, std::string path, unsigned index);
@@ -173,8 +175,6 @@ namespace rr {
 
     class Slot :public Component {
     private:
-        bool hollow;
-
         sf::RectangleShape body;
         sf::Color color;
         sf::Vector2f position;
@@ -183,6 +183,8 @@ namespace rr {
         Image* itemSkin;
         Image* image;
         Item* item;
+
+        bool hollow;
     public:
         Slot(Component* parentComponent, sf::Vector2f size, sf::Vector2f pos, int icon = 0, sf::Color = sf::Color(110, 110, 110, 128));
         ~Slot();

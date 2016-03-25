@@ -11,11 +11,12 @@ namespace rr {
 
     struct Settings {
       public:
+        sf::ContextSettings csettings;
+        sf::Vector2u resolution;
+
         bool vsync;
         bool fullscreen;
         std::string language;
-        sf::ContextSettings csettings;
-        sf::Vector2u resolution;
 
         void print();
         void save();
@@ -23,11 +24,11 @@ namespace rr {
 
     class Program {
       private:
-        Game* game;
-
         sf::RenderWindow window;
         sf::Event event;
         sf::View view;
+
+        Game* game;
 
         void runGame();
         bool readConfig();

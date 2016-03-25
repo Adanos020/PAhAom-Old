@@ -12,7 +12,6 @@ namespace rr {
         sf::Vector2f position;
 
         double velocity;
-
         double hp;
         double sp;
         int exp;

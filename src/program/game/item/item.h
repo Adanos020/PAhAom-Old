@@ -7,6 +7,10 @@ namespace rr {
 
     class Item {
       protected:
+        sf::FloatRect boundBox;
+        sf::Texture skin;
+        sf::VertexArray body;
+
         int amount;
         double ID;
         bool equipable;
@@ -15,39 +19,20 @@ namespace rr {
         std::string description;
         std::string effects;
         std::string requirements;
-        sf::FloatRect boundBox;
-        sf::Texture skin;
-        sf::VertexArray body;
       public:
         virtual ~Item() = default;
         virtual void draw(sf::RenderWindow&) = 0;
         virtual void editAmount(int) = 0;
         virtual void update() = 0;
 
-        virtual double getID()                  {
-            return ID;
-        }
-        virtual int getAmount()                 {
-            return amount;
-        }
-        virtual bool isDisposable()             {
-            return disposable;
-        }
-        virtual bool isEquipable()              {
-            return equipable;
-        }
-        virtual std::string getName()           {
-            return name;
-        }
-        virtual std::string getDescription()    {
-            return description;
-        }
-        virtual sf::Texture getSkin()           {
-            return skin;
-        }
-        virtual sf::VertexArray getBody()       {
-            return body;
-        }
+        virtual double getID()                  { return ID; }
+        virtual int getAmount()                 { return amount; }
+        virtual bool isDisposable()             { return disposable; }
+        virtual bool isEquipable()              { return equipable; }
+        virtual std::string getName()           { return name; }
+        virtual std::string getDescription()    { return description; }
+        virtual sf::Texture getSkin()           { return skin; }
+        virtual sf::VertexArray getBody()       { return body; }
     };
 
     class Potion :public Item {
