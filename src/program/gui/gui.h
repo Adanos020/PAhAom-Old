@@ -40,7 +40,6 @@ namespace rr {
 
         Text* header;
     public:
-        Window(Component* parentComponent, std::string head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
         Window(Component* parentComponent, std::wstring head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
         ~Window();
 
@@ -59,13 +58,6 @@ namespace rr {
         template<typename T>
         T* getComponent(unsigned index) {
             if (std::is_base_of<Component, T>::value) {
-                if (std::is_base_of<Button, T>::value) {
-                    for (unsigned i=0; i<components.size(); i++) {
-                        if (instanceof<Button, Component>(components[i]) && !instanceof<Checkbox, Component>(components[i]) && !instanceof<Slot, Component>(components[i])) {
-                            if (index--==0) return (T*)components[i];
-                        }
-                    }
-                }
                 for (unsigned i=0; i<components.size(); i++) {
                     if (instanceof<T, Component>(components[i])) {
                         if (index--==0) return (T*)components[i];
@@ -108,7 +100,6 @@ namespace rr {
         Text* text;
         Image* image;
     public:
-        Button(Component* parentComponent, sf::Vector2f position, std::string, unsigned chsize, sf::Color = sf::Color::White);
         Button(Component* parentComponent, sf::Vector2f position, std::wstring, unsigned chsize, sf::Color = sf::Color::White);
         ~Button();
 
@@ -124,12 +115,17 @@ namespace rr {
         void setSize(sf::Vector2f) override {}
     };
 
-    class Checkbox :public Button {
+    class Checkbox :public Component {
     private:
+        sf::RectangleShape body;
+        sf::Color color;
         sf::Vector2f position;
+
+        Text* text;
+        Image* image;
+
         bool checked;
     public:
-        Checkbox(Component* parentComponent, sf::Vector2f pos, std::string txt, int chsize, sf::Color = sf::Color(110, 110, 110, 128));
         Checkbox(Component* parentComponent, sf::Vector2f pos, std::wstring txt, int chsize, sf::Color = sf::Color(110, 110, 110, 128));
         ~Checkbox();
 
@@ -137,8 +133,14 @@ namespace rr {
         void draw(sf::RenderWindow& rw) override;
         void setPosition(sf::Vector2f)  override;
 
-        bool isChecked()                         { return checked; }
-        Component* getParentComponent() override { return parent; }
+        bool containsMouseCursor(sf::RenderWindow&) override;
+        sf::Vector2f getPosition()                  override { return body.getPosition(); }
+        sf::Vector2f getSize()                      override { return body.getSize(); }
+        bool isChecked()                                     { return checked;}
+        Component* getParentComponent()             override { return parent; }
+        Text* getText()                             override { return text; }
+
+        void setSize(sf::Vector2f) override {}
     };
 
 
@@ -169,13 +171,17 @@ namespace rr {
         virtual Text* getText()                             override { return nullptr; }
     };
 
-    class Slot :public Button {
+    class Slot :public Component {
     private:
         bool hollow;
 
+        sf::RectangleShape body;
+        sf::Color color;
         sf::Vector2f position;
 
+        Text* text;
         Image* itemSkin;
+        Image* image;
         Item* item;
     public:
         Slot(Component* parentComponent, sf::Vector2f size, sf::Vector2f pos, int icon = 0, sf::Color = sf::Color(110, 110, 110, 128));
@@ -186,21 +192,29 @@ namespace rr {
         void setPosition(sf::Vector2f) override;
         void draw(sf::RenderWindow&)   override;
 
-        Item* getItem()                          { if (!hollow) return item; return nullptr; }
-        bool isEmpty()                           { return hollow; }
-        Component* getParentComponent() override { return parent; }
+        bool containsMouseCursor(sf::RenderWindow&) override;
+        Text* getText()                             override { return nullptr; }
+        sf::Vector2f getPosition()                  override { return body.getPosition(); }
+        sf::Vector2f getSize()                      override { return body.getSize(); }
+        Item* getItem()                                      { if (!hollow) return item; return nullptr; }
+        bool isEmpty()                                       { return hollow; }
+        Component* getParentComponent()             override { return parent; }
+
+        void setSize(sf::Vector2f) override {}
     };
 
     class Switch :public Component {
     private:
         sf::RectangleShape body;
+
         Button* left;
         Button* right;
         Text* text;
+
         std::vector<std::wstring> options;
         unsigned counter;
     public:
-        Switch(Component* parentComponent, std::string lButton, std::string rButton, sf::Vector2f size, sf::Vector2f position);
+        Switch(Component* parentComponent, std::wstring lButton, std::wstring rButton, sf::Vector2f size, sf::Vector2f position);
         ~Switch();
 
         void setPosition(sf::Vector2f) override;
@@ -223,9 +237,7 @@ namespace rr {
     private:
         sf::Text text;
     public:
-        Text(Component* parentComponent, std::string, unsigned chsize = 30, sf::Color = sf::Color::White);
         Text(Component* parentComponent, std::wstring, unsigned chsize = 30, sf::Color = sf::Color::White);
-        Text(Component* parentComponent, std::string, sf::Vector2f position, unsigned chsize = 30, sf::Color = sf::Color::White);
         Text(Component* parentComponent, std::wstring, sf::Vector2f position, unsigned chsize = 30, sf::Color = sf::Color::White);
         ~Text();
 

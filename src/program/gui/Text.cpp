@@ -4,29 +4,10 @@ extern sf::Font pixelFont;
 
 namespace rr {
 
-    Text::Text(Component* parentComponent, std::string str, unsigned chsize, sf::Color c) :Component() {
-        parent = parentComponent;
-
-        text.setFont(pixelFont);
-        text.setCharacterSize(chsize);
-        text.setString(str);
-        text.setColor(c);
-    }
-
     Text::Text(Component* parentComponent, std::wstring str, unsigned chsize, sf::Color c) :Component() {
         parent = parentComponent;
 
         text.setFont(pixelFont);
-        text.setCharacterSize(chsize);
-        text.setString(str);
-        text.setColor(c);
-    }
-
-    Text::Text(Component* parentComponent, std::string str, sf::Vector2f pos, unsigned chsize, sf::Color c) :Component() {
-        parent = parentComponent;
-
-        text.setFont(pixelFont);
-        text.setPosition(pos);
         text.setCharacterSize(chsize);
         text.setString(str);
         text.setColor(c);

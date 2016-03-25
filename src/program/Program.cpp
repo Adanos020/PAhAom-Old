@@ -9,6 +9,7 @@
 
 extern std::map<std::string, std::wstring> dictionary;
 extern sf::Font pixelFont;
+extern rr::Settings settings;
 
 namespace rr {
 
@@ -43,6 +44,7 @@ namespace rr {
             game->draw(window, view);
             window.display();
         }
+        settings.save();
     }
 
     bool Program::readConfig() {
@@ -51,7 +53,6 @@ namespace rr {
             iconfig.open("config.cfg");
             if (!iconfig.good()) throw "File not found";
             puts(">Loading a config file...");
-            std::cout << "===PARAM===" << std::setw(44) << "======VALUE======\n";
 
             while (!iconfig.eof()) {
                 std::string param;
@@ -61,43 +62,36 @@ namespace rr {
                     std::getline(iconfig, param);
                     continue;
                 } else {
-                    std::cout << param;
                     if (param == "width:") {
                         readFile(iconfig, settings.resolution.x);
-                        std::cout << std::setw(37-param.size()+std::to_string(settings.resolution.x).size())
-                                  << settings.resolution.x << '\n';
-                    } else if (param == "height:") {
+                    }
+                    else if (param == "height:") {
                         readFile(iconfig, settings.resolution.y);
-                        std::cout << std::setw(37-param.size()+std::to_string(settings.resolution.y).size())
-                                  << settings.resolution.y << '\n';
-                    } else if (param == "fullscreen:") {
+                    }
+                    else if (param == "fullscreen:") {
                         readFile(iconfig, settings.fullscreen);
-                        std::cout << std::setw(37-param.size()+std::to_string(settings.fullscreen).size())
-                                  << settings.fullscreen << '\n';
-                    } else if (param == "vsync:") {
+                    }
+                    else if (param == "vsync:") {
                         readFile(iconfig, settings.vsync);
-                        std::cout << std::setw(37-param.size()+std::to_string(settings.vsync).size())
-                                  << settings.vsync << '\n';
-                    } else if (param == "lang:") {
+                    }
+                    else if (param == "lang:") {
                         iconfig >> settings.language;
-                        std::cout << std::setw(38-param.size()+settings.language.size())
-                                  << settings.language+"\n";
-                    } else if (param == "antialiasing:") {
+                    }
+                    else if (param == "antialiasing:") {
                         iconfig >> settings.csettings.antialiasingLevel;
-                        std::cout << std::setw(37-param.size()+std::to_string(settings.csettings.antialiasingLevel).size())
-                                  << settings.csettings.antialiasingLevel << '\n';
-                    } else if (param == "depthbits:") {
+
+                    }
+                    else if (param == "depthbits:") {
                         iconfig >> settings.csettings.depthBits;
-                        std::cout << std::setw(37-param.size()+std::to_string(settings.csettings.depthBits).size())
-                                  << settings.csettings.depthBits << '\n';
-                    } else if (param == "stencilbits:") {
+                    }
+                    else if (param == "stencilbits:") {
                         iconfig >> settings.csettings.stencilBits;
-                        std::cout << std::setw(37-param.size()+std::to_string(settings.csettings.stencilBits).size())
-                                  << settings.csettings.stencilBits << '\n';
-                    } else
+                    }
+                    else
                         throw "Wrong parameter";
                 }
             }
+            settings.print();
         } catch (...) {
             puts("!Error loading config.cfg!");
 
@@ -116,6 +110,9 @@ namespace rr {
             oconfig << "vsync:\t\t1\n";
             oconfig << "lang:\t\ten\n";
             oconfig << ";---graphics---;\n";
+            oconfig << "antialiasing:\t4\n";
+            oconfig << "depthbits:\t24\n";
+            oconfig << "stencilbits:\t8\n";
             oconfig << ";--------------;";
 
             oconfig.close();

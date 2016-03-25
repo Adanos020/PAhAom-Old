@@ -4,7 +4,7 @@
 
 namespace rr {
 
-    Slot::Slot(Component* parentComponent, sf::Vector2f size, sf::Vector2f pos, int icon, sf::Color c) :Button(parentComponent, pos, "", icon) {
+    Slot::Slot(Component* parentComponent, sf::Vector2f size, sf::Vector2f pos, int icon, sf::Color c) {
         parent = parentComponent;
         hollow = true;
 
@@ -16,7 +16,7 @@ namespace rr {
 
         image = new Image(this, pos, 14, "data/graphics/gui.png", icon);
         itemSkin = new Image(this, pos, 14, "data/graphics/items.png", 0);
-        text = new Text(this, "", sf::Vector2f(pos.x+5, pos.y+45), 202);
+        text = new Text(this, L"", sf::Vector2f(pos.x+5, pos.y+45), 202);
     }
 
     Slot::~Slot() {
@@ -70,6 +70,15 @@ namespace rr {
                 delete item;
             }
         }
+    }
+
+    bool Slot::containsMouseCursor(sf::RenderWindow& rw) {
+        if (body.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
+            body.setFillColor(sf::Color(128, 128, 128, 255));
+            return true;
+        }
+        body.setFillColor(sf::Color(128, 128, 128, 128));
+        return false;
     }
 
 }

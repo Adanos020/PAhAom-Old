@@ -4,21 +4,6 @@
 
 namespace rr {
 
-    Window::Window(Component* parentComponent, std::string head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
-        parent = parentComponent;
-
-        body.setSize(size);
-        body.setPosition(position);
-        body.setFillColor(sf::Color(c.r, c.g, c.b, 128));
-        body.setOutlineColor(c);
-        body.setOutlineThickness(5);
-
-        header = new Text(this, head, 20, sf::Color::Yellow);
-        header->setPosition(sf::Vector2f(position.x+5, position.y));
-
-        visible = false;
-    }
-
     Window::Window(Component* parentComponent, std::wstring head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
         parent = parentComponent;
 
@@ -37,7 +22,7 @@ namespace rr {
     inline Window::Component::~Component() {}
     Window::~Window() {
         delete header;
-        components.erase(components.begin(), components.end());
+        components.clear();
     }
 
     void Window::addComponent(Component* c) {

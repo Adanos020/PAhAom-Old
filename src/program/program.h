@@ -2,8 +2,7 @@
 #define program_h
 
 #include <SFML/Graphics.hpp>
-#include <fstream>
-#include <map>
+
 #include "game/game.h"
 
 namespace rr {
@@ -17,12 +16,14 @@ namespace rr {
         std::string language;
         sf::ContextSettings csettings;
         sf::Vector2u resolution;
+
+        void print();
+        void save();
     };
 
     class Program {
       private:
         Game* game;
-        Settings settings;
 
         sf::RenderWindow window;
         sf::Event event;

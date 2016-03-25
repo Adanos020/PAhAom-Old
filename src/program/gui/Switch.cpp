@@ -2,7 +2,7 @@
 
 namespace rr {
 
-    Switch::Switch(Component* parentComponent, std::string lButton, std::string rButton, sf::Vector2f size, sf::Vector2f pos) {
+    Switch::Switch(Component* parentComponent, std::wstring lButton, std::wstring rButton, sf::Vector2f size, sf::Vector2f pos) {
         parent = parentComponent;
 
         body.setSize(size);
