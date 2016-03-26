@@ -6,18 +6,26 @@
 namespace rr {
 
     class Player {
+        friend class Game;
       private:
         sf::VertexArray body;
         sf::Texture skin;
         sf::Vector2f position;
 
         double velocity;
-        double hp;
-        double sp;
-        double maxhp;
-        double maxsp;
-        int exp;
-        int lvl;
+
+        struct Stats {
+          public:
+            double hp;
+            double mp;
+            double maxhp;
+            double maxmp;
+            int sp;
+            int exp;
+            int nextlvl;
+            int lvl;
+        };
+        Stats stats;
       public:
         Player(sf::Vector2f pos);
         ~Player();
@@ -25,9 +33,11 @@ namespace rr {
         enum direction { down, left, right, up };
 
         void setPosition(sf::Vector2f);
-
         void go(float timeStep, direction);
         void draw(sf::RenderWindow&);
+        void update();
+
+        Stats getStats() { return stats; }
     };
 
 }

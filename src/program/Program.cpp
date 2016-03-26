@@ -33,6 +33,7 @@ namespace rr {
 
         while (window.isOpen()) {
             game->controls(timer.getElapsedTime().asMilliseconds());
+            game->update();
             timer.restart();
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed) window.close();

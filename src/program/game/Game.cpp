@@ -37,13 +37,29 @@ namespace rr {
 
     void Game::controls(float timer) {
         if (started && !paused) {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) pause(true);
+            #define keyPressed(key) sf::Keyboard::isKeyPressed(key)
+            #define key sf::Keyboard
+            if (keyPressed(key::Escape)) pause(true);
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player->go(timer, Player::up);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player->go(timer, Player::down);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player->go(timer, Player::left);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player->go(timer, Player::right);
+            if (keyPressed(key::Up)) player->go(timer, Player::up);
+            if (keyPressed(key::Down)) player->go(timer, Player::down);
+            if (keyPressed(key::Left)) player->go(timer, Player::left);
+            if (keyPressed(key::Right)) player->go(timer, Player::right);
+
+            if (keyPressed(key::Q)) player->stats.hp--;
+            if (keyPressed(key::W)) player->stats.hp++;
+            if (keyPressed(key::E)) player->stats.mp--;
+            if (keyPressed(key::R)) player->stats.mp++;
+            if (keyPressed(key::T)) player->stats.exp++;
+            if (keyPressed(key::Y)) player->stats.lvl++;
+            #undef keyPressed
+            #undef key
         }
+    }
+
+    void Game::update() {
+        hud->update(player);
+        player->update();
     }
 
     void Game::start(bool b) {

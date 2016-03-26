@@ -22,7 +22,7 @@ namespace rr {
         HUD(sf::RenderWindow&);
         ~HUD();
 
-        void update();
+        void update(Player*);
         void buttonEvents(sf::RenderWindow&, Game*);
         void draw(sf::RenderWindow&, sf::View&);
     };
@@ -43,6 +43,7 @@ namespace rr {
         void draw(sf::RenderWindow&, sf::View&);
         void buttonEvents(sf::RenderWindow&, sf::View&);
         void controls(float);
+        void update();
 
         void start(bool);
         void pause(bool);

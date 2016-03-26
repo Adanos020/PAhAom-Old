@@ -89,8 +89,8 @@ namespace rr {
         void setSize(sf::Vector2f)     override;
         void draw(sf::RenderWindow&)   override;
 
-        sf::Vector2f getPosition()                  override { return bar.getPosition(); }
-        sf::Vector2f getSize()                      override { return bar.getSize(); }
+        sf::Vector2f getPosition()                  override { return border.getPosition(); }
+        sf::Vector2f getSize()                      override { return border.getSize(); }
         Component* getParentComponent() override { return parent; }
 
         bool containsMouseCursor(sf::RenderWindow&) override { return false; }

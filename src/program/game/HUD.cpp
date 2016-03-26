@@ -23,8 +23,11 @@ namespace rr {
         delete tXPlevel;
     }
 
-    void HUD::update() {
-
+    void HUD::update(Player* p) {
+        bHP->setSize(sf::Vector2f(p->getStats().hp/p->getStats().maxhp, 1));
+        bMP->setSize(sf::Vector2f(p->getStats().mp/p->getStats().maxmp, 1));
+        bXP->setSize(sf::Vector2f((float)p->getStats().exp/(float)p->getStats().nextlvl, 1));
+        tXPlevel->setString(std::to_wstring(p->getStats().lvl));
     }
 
     void HUD::buttonEvents(sf::RenderWindow& rw, Game* g) {

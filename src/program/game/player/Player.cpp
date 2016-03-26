@@ -20,10 +20,14 @@ namespace rr {
 
         position = pos;
         velocity = 0.5;
-        hp = 30;
-        sp = 0;
-        exp = 0;
-        lvl = 0;
+        stats.hp = 30.0;
+        stats.mp = 5.0;
+        stats.maxhp = 30.0;
+        stats.maxmp = 5.0;
+        stats.sp = 0;
+        stats.exp = 0;
+        stats.nextlvl = 100;
+        stats.lvl = 0;
     }
 
     Player::~Player() {
@@ -66,6 +70,23 @@ namespace rr {
 
     void Player::draw(sf::RenderWindow& rw) {
         rw.draw(body, &skin);
+    }
+
+    void Player::update() {
+        if (stats.hp>=stats.maxhp)
+            stats.hp = stats.maxhp;
+        if (stats.hp<=0)
+            stats.hp = 0;
+        if (stats.mp<=0)
+            stats.mp = 0;
+        if (stats.mp>=stats.maxmp)
+            stats.mp = stats.maxmp;
+        if (stats.exp>=stats.nextlvl) {
+            stats.exp = 0;
+            stats.nextlvl *= 1.25;
+            stats.lvl++;
+        }
+
     }
 
 }

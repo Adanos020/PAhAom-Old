@@ -35,10 +35,12 @@ namespace rr {
         rw.draw(body);
 
         itemSkin->setPosition(body.getPosition());
-        if (hollow) image->draw(rw);
+        if (hollow)
+            image->draw(rw);
         else {
             itemSkin->draw(rw);
-            if (item->getAmount()>1) text->draw(rw);
+            if (item->getAmount()>1)
+                text->draw(rw);
         }
     }
 
