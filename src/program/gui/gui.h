@@ -86,10 +86,15 @@ namespace rr {
         ~Bar();
 
         void setPosition(sf::Vector2f) override;
-        void resize(float scale);
+        void setSize(sf::Vector2f)     override;
         void draw(sf::RenderWindow&)   override;
 
+        sf::Vector2f getPosition()                  override { return bar.getPosition(); }
+        sf::Vector2f getSize()                      override { return bar.getSize(); }
         Component* getParentComponent() override { return parent; }
+
+        bool containsMouseCursor(sf::RenderWindow&) override { return false; }
+        virtual Text* getText()                     override { return nullptr; }
     };
 
 
@@ -105,9 +110,9 @@ namespace rr {
         ~Button();
 
         bool containsMouseCursor(sf::RenderWindow&) override;
-        Text* getText()                             override;
-        sf::Vector2f getPosition()                  override;
-        sf::Vector2f getSize()                      override;
+        Text* getText()                             override { return text; }
+        sf::Vector2f getPosition()                  override { return body.getPosition(); }
+        sf::Vector2f getSize()                      override { return body.getSize(); }
         Component* getParentComponent()             override { return parent; }
 
         void setPosition(sf::Vector2f) override;

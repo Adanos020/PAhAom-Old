@@ -2,24 +2,31 @@
 
 namespace rr {
 
-    Game::Game(sf::RenderWindow& rw, Settings settings) {
-        mainMenu = new MainMenu(rw, settings);
-        pauseMenu = new PauseMenu(rw, settings);
-        player = new Player(sf::Vector2f(10, 10));
+    Game::Game(sf::RenderWindow& rw) {
+        mainMenu = new MainMenu(rw);
+        pauseMenu = new PauseMenu(rw);
+        hud = new HUD(rw);
+        player = new Player((sf::Vector2f)(rw.getSize()/2u));
 
-        paused = started = false;
+        paused = false;
+        started = false;
     }
 
     Game::~Game() {
         delete mainMenu;
         delete pauseMenu;
+        delete hud;
+        delete player;
     }
 
     void Game::draw(sf::RenderWindow& rw, sf::View& v) {
         if (!started) mainMenu->draw(rw, v);
         else {
             player->draw(rw);
-            if (paused) pauseMenu->draw(rw, v);
+            if (paused)
+                pauseMenu->draw(rw, v);
+            else
+                hud->draw(rw, v);
         }
     }
 

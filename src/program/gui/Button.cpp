@@ -35,18 +35,6 @@ namespace rr {
         image->setPosition(position);
     }
 
-    Text* Button::getText() {
-        return text;
-    }
-
-    sf::Vector2f Button::getPosition() {
-        return body.getPosition();
-    }
-
-    sf::Vector2f Button::getSize() {
-        return body.getSize();
-    }
-
     void Button::draw(sf::RenderWindow& rw) {
         rw.draw(body);
         text->draw(rw);

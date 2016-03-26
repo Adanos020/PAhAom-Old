@@ -10,7 +10,7 @@ extern rr::Settings settings;
 
 namespace rr {
 
-    MainMenu::MainMenu(sf::RenderWindow& rw, Settings settings) {
+    MainMenu::MainMenu(sf::RenderWindow& rw) {
         #define dict(s) dictionary[s]
 
         title = new Text(nullptr, L"PAhAom", 100, sf::Color::Yellow);

@@ -6,7 +6,7 @@ extern rr::Settings settings;
 
 namespace rr {
 
-    PauseMenu::PauseMenu(sf::RenderWindow& rw, Settings settings) {
+    PauseMenu::PauseMenu(sf::RenderWindow& rw) {
         #define dict(s) dictionary[s]
 
         title = new Text(nullptr, L"PAhAom", 100, sf::Color::Yellow);
@@ -133,7 +133,7 @@ namespace rr {
             if (cmc(wOpts, Button, 1) && isMLBPressed)
                 wOpts->setVisible(false);
         } else if (wHelp->isVisible()) {
-            if (cmc(wHelp, Button, 1) && isMLBPressed)
+            if (cmc(wHelp, Button, 0) && isMLBPressed)
                 wHelp->setVisible(false);
         }
 

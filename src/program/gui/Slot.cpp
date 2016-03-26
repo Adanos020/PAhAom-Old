@@ -15,7 +15,7 @@ namespace rr {
         body.setOutlineThickness(5);
 
         image = new Image(this, pos, 14, "data/graphics/gui.png", icon);
-        itemSkin = new Image(this, pos, 14, "data/graphics/items.png", 0);
+        itemSkin = new Image(this, pos, 14, "data/graphics/gui.png", 0);
         text = new Text(this, L"", sf::Vector2f(pos.x+5, pos.y+45), 202);
     }
 

@@ -30,9 +30,11 @@ namespace rr {
         bar.setPosition(pos);
     }
 
-    void Bar::resize(float scale) {
-        if (bar.getSize().x == 5) bar.setScale(1, scale);
-        else if (bar.getSize().y == 5) bar.setScale(scale, 1);
+    void Bar::setSize(sf::Vector2f scale) {
+        if (bar.getSize().x == 5)
+            bar.setScale(1, scale.y);
+        else if (bar.getSize().y == 5)
+            bar.setScale(scale.x, 1);
     }
 
     void Bar::draw(sf::RenderWindow& rw) {

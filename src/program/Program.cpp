@@ -23,13 +23,13 @@ namespace rr {
     }
 
     void Program::runGame() {
-        window.create(sf::VideoMode(settings.resolution.x, settings.resolution.y, 32), "PAHAOM", (settings.fullscreen)?sf::Style::Fullscreen:sf::Style::Close, settings.csettings);
+        window.create(sf::VideoMode(settings.resolution.x, settings.resolution.y, 32), "PAhAom", (settings.fullscreen)?sf::Style::Fullscreen:sf::Style::Close, settings.csettings);
         window.setVerticalSyncEnabled(settings.vsync);
         view.setSize((sf::Vector2f)settings.resolution);
         window.setView(view);
 
         sf::Clock timer;
-        game = new Game(window, settings);
+        game = new Game(window);
 
         while (window.isOpen()) {
             game->controls(timer.getElapsedTime().asMilliseconds());

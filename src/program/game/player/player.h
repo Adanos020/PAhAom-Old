@@ -14,6 +14,8 @@ namespace rr {
         double velocity;
         double hp;
         double sp;
+        double maxhp;
+        double maxsp;
         int exp;
         int lvl;
       public:

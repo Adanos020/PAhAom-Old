@@ -10,19 +10,34 @@ namespace rr {
 
     class MainMenu;
     class PauseMenu;
-    struct Settings;
+
+    class HUD {
+      private:
+        Bar* bHP;
+        Bar* bMP;
+        Bar* bXP;
+        Slot* sCarryOn[5];
+        Text* tXPlevel;
+      public:
+        HUD(sf::RenderWindow&);
+        ~HUD();
+
+        void update();
+        void buttonEvents(sf::RenderWindow&, Game*);
+        void draw(sf::RenderWindow&, sf::View&);
+    };
 
     class Game {
       private:
         MainMenu* mainMenu;
         PauseMenu* pauseMenu;
-
+        HUD* hud;
         Player* player;
 
         bool started;
         bool paused;
       public:
-        Game(sf::RenderWindow&, Settings);
+        Game(sf::RenderWindow&);
         ~Game();
 
         void draw(sf::RenderWindow&, sf::View&);

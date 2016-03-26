@@ -5,10 +5,10 @@
 #include "../game.h"
 #include "../../program.h"
 
+
 namespace rr {
 
     class Game;
-    struct Settings;
 
     class MainMenu {
       private:
@@ -18,7 +18,7 @@ namespace rr {
         Window* wHelp;
         Window* wCred;
       public:
-        MainMenu(sf::RenderWindow&, Settings);
+        MainMenu(sf::RenderWindow&);
         ~MainMenu();
 
         void buttonEvents(sf::RenderWindow&, Game*);
@@ -32,8 +32,19 @@ namespace rr {
         Window* wOpts;
         Window* wHelp;
       public:
-        PauseMenu(sf::RenderWindow&, Settings);
+        PauseMenu(sf::RenderWindow&);
         ~PauseMenu();
+
+        void buttonEvents(sf::RenderWindow&, Game*);
+        void draw(sf::RenderWindow&, sf::View&);
+    };
+
+    class Statistics {
+      private:
+        Window* wStats;
+      public:
+        Statistics(sf::RenderWindow&);
+        ~Statistics();
 
         void buttonEvents(sf::RenderWindow&, Game*);
         void draw(sf::RenderWindow&, sf::View&);
