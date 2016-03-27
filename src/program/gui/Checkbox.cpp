@@ -2,9 +2,11 @@
 
 #include <iostream>
 
+extern sf::Font font_Unifont;
+
 namespace rr {
 
-    Checkbox::Checkbox(Component* parentComponent, sf::Vector2f pos, std::wstring txt, int chsize, sf::Color c) {
+    Checkbox::Checkbox(Component* parentComponent, sf::Vector2f pos, sf::String txt, int chsize, sf::Color c) {
         parent = parentComponent;
 
         position = pos;
@@ -16,11 +18,14 @@ namespace rr {
         body.setOutlineThickness(5);
 
         image = new Image(this, pos, 14, "data/graphics/gui.png", 1);
-        text = new Text(this, txt, sf::Vector2f(0, 0), chsize);
+        text = new Text(this, sf::Vector2f(0, 0), txt, font_Unifont, chsize);
         text->setPosition(sf::Vector2f(pos.x+45, pos.y+body.getSize().y/2-text->getSize().y));
     }
 
-    Checkbox::~Checkbox() {}
+    Checkbox::~Checkbox() {
+        delete image;
+        delete text;
+    }
 
     void Checkbox::check(bool b) {
         checked = b;

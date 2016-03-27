@@ -1,6 +1,7 @@
 #include "game.h"
 
 extern rr::Settings settings;
+extern sf::Font font_Pixel;
 
 namespace rr {
 
@@ -10,7 +11,7 @@ namespace rr {
         bXP = new Bar(nullptr, "horizontal", rw.getSize().x-400, sf::Color(128, 128, 255), sf::Vector2f(rw.getSize().x/2-(rw.getSize().x-400)/2, rw.getSize().y-20));
         for (int i=0; i<5; i++)
             sCarryOn[i] = new Slot(nullptr, sf::Vector2f(75, 75), sf::Vector2f(rw.getSize().x-80, rw.getSize().y/2-250+i*90));
-        tXPlevel = new Text(nullptr, L"24", sf::Vector2f(0, 0), 40, sf::Color::Yellow);
+        tXPlevel = new Text(nullptr, sf::Vector2f(0, 0), L"", font_Pixel, 40, sf::Color::Yellow);
         tXPlevel->setPosition(sf::Vector2f(bXP->getPosition().x+bXP->getSize().x/2-tXPlevel->getSize().x/2, bXP->getPosition().y-tXPlevel->getSize().y));
     }
 
@@ -28,6 +29,7 @@ namespace rr {
         bMP->setSize(sf::Vector2f(p->getStats().mp/p->getStats().maxmp, 1));
         bXP->setSize(sf::Vector2f((float)p->getStats().exp/(float)p->getStats().nextlvl, 1));
         tXPlevel->setString(std::to_wstring(p->getStats().lvl));
+        tXPlevel->setPosition(sf::Vector2f(bXP->getPosition().x+bXP->getSize().x/2-tXPlevel->getSize().x/2, bXP->getPosition().y-tXPlevel->getSize().y));
     }
 
     void HUD::buttonEvents(sf::RenderWindow& rw, Game* g) {

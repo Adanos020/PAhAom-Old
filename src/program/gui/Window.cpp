@@ -2,9 +2,11 @@
 #include <type_traits>
 #include <typeinfo>
 
+extern sf::Font font_Unifont;
+
 namespace rr {
 
-    Window::Window(Component* parentComponent, std::wstring head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
+    Window::Window(Component* parentComponent, sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
         parent = parentComponent;
 
         body.setSize(size);
@@ -13,13 +15,12 @@ namespace rr {
         body.setOutlineColor(c);
         body.setOutlineThickness(5);
 
-        header = new Text(this, head, 20, sf::Color::Yellow);
+        header = new Text(this, sf::Vector2f(0, 0), head, font_Unifont, 20, sf::Color::Yellow);
         header->setPosition(sf::Vector2f(position.x+5, position.y));
 
         visible = false;
     }
 
-    inline Window::Component::~Component() {}
     Window::~Window() {
         delete header;
         components.clear();

@@ -22,7 +22,6 @@ namespace rr {
         bar.setPosition(pos);
     }
 
-    inline Bar::Component::~Component() {}
     Bar::~Bar() {}
 
     void Bar::setPosition(sf::Vector2f pos) {

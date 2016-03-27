@@ -1,18 +1,17 @@
 button.newgame NOWA GRA
-button.resume WZN√ìW
+button.resume WZN”W
 button.save ZAPISZ
 button.load WCZYTAJ
 button.options OPCJE
 button.help POMOC
 button.credits AUTORZY
-button.quit WYJD≈π
-button.apply ZASTOSUJ
+button.quit WYJDø
 
-checkbox.fullscreen PE≈ÅNY EKRAN
+checkbox.fullscreen PEøNY EKRAN
 checkbox.vsync SYNCHRONIZACJA PIONOWA
 
-text.resolution ROZDZIELCZO≈öƒÜ
-text.language JƒòZYK
-text.killurslf Zabij siƒô.
-text.wholegame CA≈ÅA GRA
-text.usedlib U≈ªYTA BIBLIOTEKA
+text.resolution ROZDZIELCZOøø
+text.language JøZYK
+text.killurslf Zabij siø.
+text.wholegame CAøA GRA
+text.usedlib UøYTA BIBLIOTEKA

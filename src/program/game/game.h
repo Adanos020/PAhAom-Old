@@ -36,14 +36,14 @@ namespace rr {
 
         bool started;
         bool paused;
+        void controls(float);
       public:
         Game(sf::RenderWindow&);
         ~Game();
 
         void draw(sf::RenderWindow&, sf::View&);
         void buttonEvents(sf::RenderWindow&, sf::View&);
-        void controls(float);
-        void update();
+        void update(float);
 
         void start(bool);
         void pause(bool);

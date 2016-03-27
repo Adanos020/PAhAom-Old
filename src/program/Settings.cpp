@@ -9,9 +9,7 @@
 namespace rr {
 
     void Settings::print() {
-        puts(">Printing the settings...");
-
-        std::cout << "===PARAM===" << std::setw(44) << "======VALUE======\n";
+        std::cout << "===PARAMETER===" << std::setw(40) << "======VALUE======\n";
         std::cout << "width"       << std::setw(32+std::to_string(resolution.x).size())
                                    << resolution.x << '\n';
         std::cout << "height"      << std::setw(31+std::to_string(resolution.y).size())

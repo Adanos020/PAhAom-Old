@@ -1,20 +1,21 @@
 #include "gui.h"
 
+extern sf::Font font_Unifont;
+
 namespace rr {
 
-    Button::Button(Component* parentComponent, sf::Vector2f position, std::wstring str, unsigned chsize, sf::Color c) :Component() {
+    Button::Button(Component* parentComponent, sf::Vector2f position, sf::String str, unsigned chsize, sf::Color c) :Component() {
         parent = parentComponent;
-        text = new Text(this, str, chsize, c);
+        text = new Text(this, sf::Vector2f(0, 0), str, font_Unifont, chsize, c);
         text->setPosition(sf::Vector2f(position.x+15, position.y-0.5));
 
         image = new Image(this, position, 14, "data/graphics/gui.png", 0);
 
         body.setPosition(position);
-        body.setSize(sf::Vector2f(text->getSize().x+20, text->getSize().y*2.1));
+        body.setSize(sf::Vector2f(text->getSize().x+20, chsize*1.3425));
         body.setFillColor(sf::Color(0, 0, 0));
     }
 
-    inline Button::Component::~Component() {}
     Button::~Button() {
         delete image;
         delete text;

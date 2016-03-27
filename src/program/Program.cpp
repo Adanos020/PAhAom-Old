@@ -1,14 +1,21 @@
 #include "program.h"
 #include "funcs/files.h"
 #include "funcs/funcs.h"
+
+#include <SFML/System/String.hpp>
+
 #include <cstdio>
 #include <ctime>
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
+#include <locale>
+#include <codecvt>
 
-extern std::map<std::string, std::wstring> dictionary;
-extern sf::Font pixelFont;
+extern std::map<std::string, sf::String> dictionary;
+extern sf::Font font_Pixel;
+extern sf::Font font_Unifont;
 extern rr::Settings settings;
 
 namespace rr {
@@ -32,8 +39,7 @@ namespace rr {
         game = new Game(window);
 
         while (window.isOpen()) {
-            game->controls(timer.getElapsedTime().asMilliseconds());
-            game->update();
+            game->update(timer.getElapsedTime().asMilliseconds());
             timer.restart();
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed) window.close();
@@ -93,6 +99,7 @@ namespace rr {
                 }
             }
             settings.print();
+            puts(">Done.");
         } catch (...) {
             puts("!Error loading config.cfg!");
 
@@ -124,41 +131,46 @@ namespace rr {
     }
 
     bool Program::readDictionary() {
-        std::wifstream idict;
-        if (settings.language == "en")
-            idict.open("data/lang/en.lang");
-        else if (settings.language == "pl")
-            idict.open("data/lang/pl.lang");
-        else if (settings.language == "fc")
-            idict.open("data/lang/fc.lang");
 
-        puts(">Loading the dictionary...");
+        // TODO - fix reading the Unicode characters
+
+        std::ifstream idict;
+        if (settings.language == "en")
+            idict = std::ifstream("data/lang/en.lang");
+        else if (settings.language == "pl")
+            idict = std::ifstream("data/lang/pl.lang");
+        else if (settings.language == "fc")
+            idict = std::ifstream("data/lang/fc.lang");
+
         if (idict.good()) {
-            std::cout << "===WORD===" << std::setw(45) << "===TRANSLATION===\n";
+            puts(">Loading the dictionary...");
+            std::cout << "=====WORD======" << std::setw(40) << "===TRANSLATION===\n";
             while (!idict.eof()) {
-                std::wstring word;
-                std::wstring translation;
+                std::string word;
+                std::string translation;
 
                 idict >> word;
-                if (word[0]==';' || word==L"") {
+                if (word[0]==';' || word=="")
                     std::getline(idict, word);
-                    continue;
+                else {
+                    idict.seekg(idict.tellg()+1l);
+                    std::getline(idict, translation);
+                    dictionary[word] = std8ToSf32(translation);
+
+                    std::cout << word << std::setw(38-word.size()+translation.size()) << translation + "\n";
                 }
-                std::getline(idict, translation);
-                translation.erase(0, 1);
-
-                std::wcout << word << std::setw(38-word.size()+translation.size()) << translation + L"\n";
-
-                dictionary[wtoa(word)] = translation;
             }
             idict.close();
+            puts(">Done.");
             return true;
         }
+        puts("!Error loading the dictionary!");
         return false;
     }
 
     bool Program::loadResources() {
-        if (pixelFont.loadFromFile("data/font/I-pixel-u-mod.ttf"))
+        if (font_Unifont.loadFromFile("data/font/unifont-8.0.01.ttf")
+            && font_Pixel.loadFromFile("data/font/I-pixel-u-mod.ttf"))
             return true;
         return false;
     }

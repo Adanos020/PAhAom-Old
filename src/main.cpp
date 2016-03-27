@@ -4,8 +4,9 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 
-std::map<std::string, std::wstring> dictionary;
-sf::Font pixelFont;
+std::map<std::string, sf::String> dictionary;
+sf::Font font_Unifont;
+sf::Font font_Pixel;
 rr::Settings settings;
 
 int main() {

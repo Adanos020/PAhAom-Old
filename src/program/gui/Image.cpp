@@ -25,7 +25,6 @@ namespace rr {
         body[3].texCoords = sf::Vector2f(tu*icn, (tv+1)*icn);
     }
 
-    inline Image::Component::~Component() {}
     Image::~Image() {}
 
     void Image::change(unsigned index) {

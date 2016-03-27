@@ -57,9 +57,10 @@ namespace rr {
         }
     }
 
-    void Game::update() {
+    void Game::update(float timer) {
         hud->update(player);
         player->update();
+        controls(timer);
     }
 
     void Game::start(bool b) {

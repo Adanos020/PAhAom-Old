@@ -6,7 +6,6 @@ button.options OPTIONS
 button.help HELP
 button.credits CREDITS
 button.quit QUIT
-button.apply APPLY
 
 checkbox.fullscreen FULLSCREEN
 checkbox.vsync VERTICAL SYNCHRONIZATION
