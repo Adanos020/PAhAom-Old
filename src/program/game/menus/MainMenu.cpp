@@ -1,3 +1,10 @@
+/**
+ * @file src/program/game/menus/MainMenu.cpp
+ * @author Adam 'Adanos' Gąsior
+ * Used library: SFML 2.3.2 for MinGW GCC
+ * Used compiler: LLVM Clang Compiler
+ */
+
 #include "menus.h"
 #include "../../funcs/funcs.h"
 

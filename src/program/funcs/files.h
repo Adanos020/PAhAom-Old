@@ -1,3 +1,10 @@
+/**
+ * @file src/program/funcs/files.h
+ * @author Adam 'Adanos' Gąsior
+ * Used library: SFML 2.3.2 for MinGW GCC
+ * Used compiler: LLVM Clang Compiler
+ */
+
 #ifndef files_h
 #define files_h
 
@@ -5,6 +12,7 @@
 
 namespace rr {
 
+    /// Reads a bool variable from file
     inline void readFile(std::ifstream& f, bool& x) {
         std::string param;
         f >> x;
@@ -16,6 +24,7 @@ namespace rr {
         }
     }
 
+    /// Reads a char from file
     inline void readFile(std::ifstream& f, char& x) {
         std::string param;
         f >> x;
@@ -27,6 +36,7 @@ namespace rr {
         }
     }
 
+    /// Reads a double from file
     inline void readFile(std::ifstream& f, double& x) {
         std::string param;
         f >> x;
@@ -38,6 +48,7 @@ namespace rr {
         }
     }
 
+    /// Reads a float from file
     inline void readFile(std::ifstream& f, float& x) {
         std::string param;
         f >> x;
@@ -49,6 +60,7 @@ namespace rr {
         }
     }
 
+    /// Reads an int from file
     inline void readFile(std::ifstream& f, int& x) {
         std::string param;
         f >> x;
@@ -60,7 +72,7 @@ namespace rr {
         }
     }
 
-
+    /// Reads a long from file
     inline void readFile(std::ifstream& f, long& x) {
         std::string param;
         f >> x;
@@ -72,6 +84,7 @@ namespace rr {
         }
     }
 
+    /// Reads a long long from file
     inline void readFile(std::ifstream& f, long long& x) {
         std::string param;
         f >> x;
@@ -83,6 +96,7 @@ namespace rr {
         }
     }
 
+    /// Reads a long double from file
     inline void readFile(std::ifstream& f, long double& x) {
         std::string param;
         f >> x;
@@ -94,6 +108,7 @@ namespace rr {
         }
     }
 
+    /// Reads a short from file
     inline void readFile(std::ifstream& f, short& x) {
         std::string param;
         f >> x;
@@ -105,6 +120,7 @@ namespace rr {
         }
     }
 
+    /// Reads an unsigned int from file
     inline void readFile(std::ifstream& f, unsigned& x) {
         std::string param;
         f >> x;

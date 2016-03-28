@@ -1,4 +1,12 @@
+/**
+ * @file src/program/gui/Window.cpp
+ * @author Adam 'Adanos' Gąsior
+ * Used library: SFML 2.3.2 for MinGW GCC
+ * Used compiler: LLVM Clang Compiler
+ */
+
 #include "gui.h"
+
 #include <type_traits>
 #include <typeinfo>
 

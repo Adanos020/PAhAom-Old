@@ -1,3 +1,10 @@
+/**
+ * @file src/program/game/player/player.h
+ * @author Adam 'Adanos' Gąsior
+ * Used library: SFML 2.3.2 for MinGW GCC
+ * Used compiler: LLVM Clang Compiler
+ */
+
 #ifndef player_h
 #define player_h
 
@@ -5,6 +12,7 @@
 
 namespace rr {
 
+    /// Class for the player
     class Player {
         friend class Game;
       private:

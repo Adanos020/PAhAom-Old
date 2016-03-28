@@ -1,3 +1,10 @@
+/**
+ * @file src/program/Program.cpp
+ * @author Adam 'Adanos' Gąsior
+ * Used library: SFML 2.3.2 for MinGW GCC
+ * Used compiler: LLVM Clang Compiler
+ */
+
 #include "program.h"
 #include "funcs/files.h"
 #include "funcs/funcs.h"
@@ -131,9 +138,6 @@ namespace rr {
     }
 
     bool Program::readDictionary() {
-
-        // TODO - fix reading the Unicode characters
-
         std::ifstream idict;
         if (settings.language == "en")
             idict = std::ifstream("data/lang/en.lang");
@@ -155,7 +159,7 @@ namespace rr {
                 else {
                     idict.seekg(idict.tellg()+1l);
                     std::getline(idict, translation);
-                    dictionary[word] = std8ToSf32(translation);
+                    dictionary[word] = utf8ToUtf32(translation);
 
                     std::cout << word << std::setw(38-word.size()+translation.size()) << translation + "\n";
                 }
@@ -169,10 +173,8 @@ namespace rr {
     }
 
     bool Program::loadResources() {
-        if (font_Unifont.loadFromFile("data/font/unifont-8.0.01.ttf")
-            && font_Pixel.loadFromFile("data/font/I-pixel-u-mod.ttf"))
-            return true;
-        return false;
+        return (font_Unifont.loadFromFile("data/font/unifont-8.0.01.ttf")
+             && font_Pixel.loadFromFile("data/font/I-pixel-u-mod.ttf"));
     }
 
 }

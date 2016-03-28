@@ -1,3 +1,10 @@
+/**
+ * @file src/program/gui/Button.cpp
+ * @author Adam 'Adanos' Gąsior
+ * Used library: SFML 2.3.2 for MinGW GCC
+ * Used compiler: LLVM Clang Compiler
+ */
+
 #include "gui.h"
 
 extern sf::Font font_Unifont;

@@ -1,3 +1,10 @@
+/**
+ * @file src/program/game/game.h
+ * @author Adam 'Adanos' Gąsior
+ * Used library: SFML 2.3.2 for MinGW GCC
+ * Used compiler: LLVM Clang Compiler
+ */
+
 #ifndef game_h
 #define game_h
 
@@ -11,6 +18,7 @@ namespace rr {
     class MainMenu;
     class PauseMenu;
 
+    /// Class for the HUD
     class HUD {
       private:
         Bar* bHP;
@@ -27,6 +35,7 @@ namespace rr {
         void draw(sf::RenderWindow&, sf::View&);
     };
 
+    /// Class for the game
     class Game {
       private:
         MainMenu* mainMenu;

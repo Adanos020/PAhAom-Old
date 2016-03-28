@@ -1,3 +1,10 @@
+/**
+ * @file src/program/program.h
+ * @author Adam 'Adanos' Gąsior
+ * Used library: SFML 2.3.2 for MinGW GCC
+ * Used compiler: LLVM Clang Compiler
+ */
+
 #ifndef program_h
 #define program_h
 
@@ -9,6 +16,7 @@ namespace rr {
 
     class Game;
 
+    /// Structure for the game settings
     struct Settings {
       public:
         sf::ContextSettings csettings;
@@ -22,6 +30,7 @@ namespace rr {
         void save();
     };
 
+    /// Class for the program
     class Program {
       private:
         sf::RenderWindow window;

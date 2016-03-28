@@ -1,3 +1,10 @@
+/**
+ * @file src/program/game/item/Potion.cpp
+ * @author Adam 'Adanos' Gąsior
+ * Used library: SFML 2.3.2 for MinGW GCC
+ * Used compiler: LLVM Clang Compiler
+ */
+
 #include "item.h"
 
 namespace rr {
@@ -25,38 +32,6 @@ namespace rr {
         body[1].texCoords = sf::Vector2f((tu+1)*14, tv*14);
         body[2].texCoords = sf::Vector2f((tu+1)*14, (tv+1)*14);
         body[3].texCoords = sf::Vector2f(tu*14, (tv+1)*14);
-
-        if (name != "Unknown item ID") {
-            ID = id;
-            description = "A";
-            if (name.find("Small") != std::string::npos) description += " small";
-            else if (name.find("Medium") != std::string::npos) description += " regular";
-            else if (name.find("Large") != std::string::npos) description += " big";
-            description += " bottle of a";
-
-            if (name.find("healing") != std::string::npos || name.find("health") != std::string::npos) {
-                description += " red liquid that can";
-                body[2].color = body[3].color = sf::Color::Red;
-                if (name.find("bonus") != std::string::npos) description += " increase your max health";
-                else description += " heal you";
-            } else if (name.find("mana") != std::string::npos) {
-                description += " blue liquid that can";
-                body[2].color = body[3].color = sf::Color::Blue;
-                if (name.find("bonus") != std::string::npos) description += " increase your max mana";
-                else description += " restore some of your mana";
-            } else if (name.find("strength") != std::string::npos) {
-                description += " green liquid that can";
-                body[2].color = body[3].color = sf::Color::Green;
-                if (name.find("bonus") != std::string::npos) description += " increase your strength";
-                else description += " increase your strength for some time";
-            } else if (name.find("dexterity") != std::string::npos) {
-                description += " magenta liquid that can";
-                body[2].color = body[3].color = sf::Color::Magenta;
-                if (name.find("bonus") != std::string::npos) description += " increase your dexterity";
-                else description += " increase your dexterity for some time";
-            }
-            description += '.';
-        } else description = "Check if the ID "+std::to_string(ID)+" is on the item ID list.";
     }
 
     Potion::~Potion() {}
