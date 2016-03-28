@@ -93,10 +93,8 @@ namespace rr {
                 component(wHelp, Button, 0)->setPosition(wHelp->getPosition()+sf::Vector2f(wHelp->getSize().x/2-component(wHelp, Button, 0)->getSize().x/2, 379));
         wHelp->setVisible(false);
 
-        if (settings.language=="en")
-            wCred = new Window(nullptr, dict("button.credits"), sf::Vector2f(325, 300), sf::Vector2f(rw.getSize().x-350, rw.getSize().y/2-150));
-        else
-            wCred = new Window(nullptr, dict("button.credits"), sf::Vector2f(375, 300), sf::Vector2f(rw.getSize().x-400, rw.getSize().y/2-150));
+
+        wCred = new Window(nullptr, dict("button.credits"), sf::Vector2f(375, 300), sf::Vector2f(rw.getSize().x-400, rw.getSize().y/2-150));
             wCred->addComponent(new Text(wCred, sf::Vector2f(20, 20), dict("text.wholegame"), font_Unifont, 30));
             wCred->addComponent(new Text(wCred, sf::Vector2f(0, 50), L"\tAdam 'Adanos' Gąsior", font_Unifont, 25, sf::Color::Yellow));
             wCred->addComponent(new Text(wCred, sf::Vector2f(20, 80), dict("text.usedlib"), font_Unifont, 30));
