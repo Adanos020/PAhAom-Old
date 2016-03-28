@@ -140,11 +140,11 @@ namespace rr {
     bool Program::readDictionary() {
         std::ifstream idict;
         if (settings.language == "en")
-            idict = std::ifstream("data/lang/en.lang");
+            idict.open("data/lang/en.lang");
         else if (settings.language == "pl")
-            idict = std::ifstream("data/lang/pl.lang");
+            idict.open("data/lang/pl.lang");
         else if (settings.language == "fc")
-            idict = std::ifstream("data/lang/fc.lang");
+            idict.open("data/lang/fc.lang");
 
         if (idict.good()) {
             puts(">Loading the dictionary...");

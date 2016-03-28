@@ -301,7 +301,7 @@ namespace rr {
         /// Method setting the current option
         void setCurrentOption(sf::String);
 
-        void draw(sf::RenderWindow&)   override;
+        void draw(sf::RenderWindow&) override;
 
         /// Method returning the current option
         sf::String getCurrentOption()               { return options[counter]; }

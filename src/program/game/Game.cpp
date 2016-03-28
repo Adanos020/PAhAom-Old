@@ -54,7 +54,9 @@ namespace rr {
             if (keyPressed(key::Left)) player->go(timer, Player::left);
             if (keyPressed(key::Right)) player->go(timer, Player::right);
 
-            if (keyPressed(key::N)) attributes->update(player);
+            if (keyPressed(key::N)) {
+                attributes->update(player);
+            }
 
             if (keyPressed(key::Q)) player->stats.hp--;
             if (keyPressed(key::W)) player->stats.hp++;
@@ -87,10 +89,12 @@ namespace rr {
     }
 
     bool Game::load() {
+        // there's nothing to load yet, so we can just lie that the load is succeeded
         return true;
     }
 
     bool Game::loadNewGame() {
+        // there's nothing to load yet, so we can just lie that the load is succeeded
         return true;
     }
 
