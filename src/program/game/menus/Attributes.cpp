@@ -30,7 +30,7 @@ namespace rr {
     }
 
     void Attributes::update(Player* p) {
-        puts("Attributes updated!");
+        puts("Attributes updated!"); // yeah...
     }
 
     void Attributes::buttonEvents(sf::RenderWindow& rw) {

@@ -90,7 +90,7 @@ namespace rr {
             wHelp->addComponent(new Text(wHelp, sf::Vector2f(20, 55), dict("text.killurslf"), font_Unifont, 30, sf::Color::Red));
 
             wHelp->addComponent(new Button(wHelp, sf::Vector2f(5, 380), dict("button.quit"), 52));
-                component(wHelp, Button, 0)->setPosition(wHelp->getPosition()+sf::Vector2f(wHelp->getSize().x/2, 225));
+                component(wHelp, Button, 0)->setPosition(wHelp->getPosition()+sf::Vector2f(wHelp->getSize().x/2-component(wHelp, Button, 0)->getSize().x/2, 379));
         wHelp->setVisible(false);
 
         if (settings.language=="en")
@@ -103,7 +103,7 @@ namespace rr {
             wCred->addComponent(new Text(wCred, sf::Vector2f(0, 110), L"\tSFML 2.3.2", font_Unifont, 25, sf::Color::Yellow));
 
             wCred->addComponent(new Button(wCred, sf::Vector2f(5, 225), dict("button.quit"), 52));
-                component(wCred, Button, 0)->setPosition(wCred->getPosition()+sf::Vector2f(wCred->getSize().x/2, 225));
+                component(wCred, Button, 0)->setPosition(wCred->getPosition()+sf::Vector2f(wCred->getSize().x/2-component(wCred, Button, 0)->getSize().x/2, 225));
         wCred->setVisible(false);
 
         #undef dict

@@ -89,7 +89,7 @@ namespace rr {
             wHelp->addComponent(new Text(wHelp, sf::Vector2f(20, 55), dict("text.killurslf"), font_Unifont, 30, sf::Color::Red));
 
             wHelp->addComponent(new Button(wHelp, sf::Vector2f(5, 380), dict("button.quit"), 52));
-                component(wHelp, Button, 0)->setPosition(wHelp->getPosition()+sf::Vector2f(wHelp->getSize().x/2, 225));
+                component(wHelp, Button, 0)->setPosition(wHelp->getPosition()+sf::Vector2f(wHelp->getSize().x/2-component(wHelp, Button, 0)->getSize().x/2, 379));
         wHelp->setVisible(false);
 
         #undef dict
