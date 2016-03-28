@@ -14,18 +14,18 @@ extern sf::Font font_Unifont;
 
 namespace rr {
 
-    Switch::Switch(Component* parentComponent, sf::String lButton, sf::String rButton, sf::Vector2f size, sf::Vector2f pos) {
+    Switch::Switch(Component* parentComponent, sf::Vector2f size, sf::Vector2f pos) {
         parent = parentComponent;
 
         body.setSize(size);
-        body.setPosition(sf::Vector2f(pos.x+size.y+25, pos.y+5));
+        body.setPosition(sf::Vector2f(pos.x+size.y+35, pos.y+5));
         body.setFillColor(sf::Color(128, 128, 128, 128));
         body.setOutlineColor(sf::Color(108, 108, 108));
         body.setOutlineThickness(5);
 
-        left = new Button(this, pos, lButton, size.y-3);
-        right = new Button(this, sf::Vector2f(body.getPosition().x+body.getSize().x+16, pos.y), rButton, size.y-3);
-        text = new Text(this, sf::Vector2f(0, 0), L"test", font_Pixel, size.y);
+        left = new Button(this, pos, L"<", size.y-3);
+        right = new Button(this, sf::Vector2f(body.getPosition().x+body.getSize().x+16, pos.y), L">", size.y-3);
+        text = new Text(this, sf::Vector2f(0, 0), L">TE'EM 'ECTEM", font_Pixel, size.y);
 
         counter = 0;
     }
@@ -38,9 +38,9 @@ namespace rr {
 
     void Switch::setPosition(sf::Vector2f pos) {
         left->setPosition(pos);
-        body.setPosition(sf::Vector2f(pos.x+body.getSize().y+10, pos.y));
+        body.setPosition(sf::Vector2f(pos.x+body.getSize().y+15, pos.y));
         text->setPosition(sf::Vector2f(body.getPosition().x+10, pos.y-4));
-        right->setPosition(sf::Vector2f(pos.x+body.getSize().x+body.getSize().y+16, pos.y));
+        right->setPosition(sf::Vector2f(pos.x+body.getSize().x+body.getSize().y+21, pos.y));
     }
 
     void Switch::setSize(sf::Vector2f s) {

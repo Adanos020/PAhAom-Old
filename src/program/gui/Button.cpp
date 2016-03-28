@@ -19,7 +19,7 @@ namespace rr {
         image = new Image(this, position, 14, "data/graphics/gui.png", 0);
 
         body.setPosition(position);
-        body.setSize(sf::Vector2f(text->getSize().x+20, chsize*1.3425));
+        body.setSize(sf::Vector2f(text->getSize().x+25, chsize*1.3425));
         body.setFillColor(sf::Color(0, 0, 0));
     }
 

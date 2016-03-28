@@ -46,6 +46,7 @@ namespace rr {
         if (started && !paused) {
             #define keyPressed(key) sf::Keyboard::isKeyPressed(key)
             #define key sf::Keyboard
+
             if (keyPressed(key::Escape)) pause(true);
 
             if (keyPressed(key::Up)) player->go(timer, Player::up);
@@ -53,12 +54,15 @@ namespace rr {
             if (keyPressed(key::Left)) player->go(timer, Player::left);
             if (keyPressed(key::Right)) player->go(timer, Player::right);
 
+            if (keyPressed(key::N)) attributes->update(player);
+
             if (keyPressed(key::Q)) player->stats.hp--;
             if (keyPressed(key::W)) player->stats.hp++;
             if (keyPressed(key::E)) player->stats.mp--;
             if (keyPressed(key::R)) player->stats.mp++;
             if (keyPressed(key::T)) player->stats.exp++;
             if (keyPressed(key::Y)) player->stats.lvl++;
+
             #undef keyPressed
             #undef key
         }

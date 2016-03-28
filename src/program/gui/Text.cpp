@@ -16,6 +16,7 @@ namespace rr {
         text.setCharacterSize(chsize);
         text.setString(str);
         text.setColor(c);
+        text.setStyle(sf::Text::Bold);
     }
 
     Text::Text(Component* parentComponent, sf::Vector2f pos, sf::String str, sf::Font& font, unsigned chsize, sf::Color c) :Component() {
@@ -26,6 +27,7 @@ namespace rr {
         text.setCharacterSize(chsize);
         text.setString(str);
         text.setColor(c);
+        text.setStyle(sf::Text::Bold);
     }
 
     Text::~Text() {}

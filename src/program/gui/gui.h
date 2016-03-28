@@ -286,7 +286,7 @@ namespace rr {
         std::vector<sf::String> options;
         unsigned counter;
     public:
-        Switch(Component* parentComponent, sf::String lButton, sf::String rButton, sf::Vector2f size, sf::Vector2f position);
+        Switch(Component* parentComponent, sf::Vector2f size, sf::Vector2f position);
         ~Switch();
 
         void setPosition(sf::Vector2f) override;

@@ -10,6 +10,7 @@
 
 #include "../../gui/gui.h"
 #include "../game.h"
+#include "../player/player.h"
 #include "../../program.h"
 
 
@@ -48,18 +49,6 @@ namespace rr {
         void draw(sf::RenderWindow&, sf::View&);
     };
 
-    /// Class for the player statistics window
-    class Statistics {
-      private:
-        Window* wStats;
-      public:
-        Statistics(sf::RenderWindow&);
-        ~Statistics();
-
-        void buttonEvents(sf::RenderWindow&, Game*);
-        void draw(sf::RenderWindow&, sf::View&);
-    };
-
     /// Class for the player attributes window
     class Attributes {
       private:
@@ -68,7 +57,8 @@ namespace rr {
         Attributes(sf::RenderWindow&);
         ~Attributes();
 
-        void buttonEvents(sf::RenderWindow&, Game*);
+        void update(Player*);
+        void buttonEvents(sf::RenderWindow&);
         void draw(sf::RenderWindow&, sf::View&);
     };
 

@@ -21,7 +21,7 @@ namespace rr {
         title = new Text(nullptr, sf::Vector2f(0, 0), L"PAhAom", font_Pixel, 100, sf::Color::Yellow);
             title->setPosition(sf::Vector2f(rw.getSize().x/2-title->getSize().x/2, 10));
 
-            wMenu = new Window(nullptr, L"", sf::Vector2f(205, 454), sf::Vector2f(25, rw.getSize().y/2-225));
+            wMenu = new Window(nullptr, L"", sf::Vector2f(215, 454), sf::Vector2f(25, rw.getSize().y/2-225));
             wMenu->addComponent(new Button(wOpts, sf::Vector2f(5, 5), dict("button.resume"), 52));
             wMenu->addComponent(new Button(wOpts, sf::Vector2f(5, 80), dict("button.save"), 52));
             wMenu->addComponent(new Button(wOpts, sf::Vector2f(5, 155), dict("button.load"), 52));
@@ -33,7 +33,7 @@ namespace rr {
         /*using the text for the header from a button just to save some space*/
         wOpts = new Window(nullptr, dict("button.options"), sf::Vector2f(330, 454), sf::Vector2f(rw.getSize().x-355, rw.getSize().y/2-220));
             wOpts->addComponent(new Text(wOpts, sf::Vector2f(20, 30), dict("text.resolution"), font_Unifont, 20));
-            wOpts->addComponent(new Switch(wOpts, L"<", L">", sf::Vector2f(220, 25), sf::Vector2f(20, 60)));
+            wOpts->addComponent(new Switch(wOpts, sf::Vector2f(220, 25), sf::Vector2f(20, 60)));
                 wOpts->getComponent<Switch>(0)->addOption(L"1280x720");
                 wOpts->getComponent<Switch>(0)->addOption(L"1440x900");
                 wOpts->getComponent<Switch>(0)->addOption(L"1600x900");
@@ -47,7 +47,7 @@ namespace rr {
 
             wOpts->addComponent(new Text(wOpts, sf::Vector2f(20, 220), dict("text.language"), font_Unifont, 20));
 
-            wOpts->addComponent(new Switch(wOpts, L"<", L">", sf::Vector2f(220, 25), sf::Vector2f(20, 250)));
+            wOpts->addComponent(new Switch(wOpts, sf::Vector2f(220, 25), sf::Vector2f(20, 250)));
                 wOpts->getComponent<Switch>(1)->addOption(L"ENGLISH");
                 wOpts->getComponent<Switch>(1)->addOption(L"POLSKI");
                 wOpts->getComponent<Switch>(1)->addOption(L"DNQUBIÑHBI");
@@ -60,7 +60,7 @@ namespace rr {
 
             wOpts->addComponent(new Text(wOpts, sf::Vector2f(20, 295), L"ANTIALIASING", font_Unifont, 20));
 
-            wOpts->addComponent(new Switch(wOpts, L"<", L">", sf::Vector2f(220, 25), sf::Vector2f(20, 325)));
+            wOpts->addComponent(new Switch(wOpts, sf::Vector2f(220, 25), sf::Vector2f(20, 325)));
                 wOpts->getComponent<Switch>(2)->addOption(L"NONE");
                 wOpts->getComponent<Switch>(2)->addOption(L"x2");
                 wOpts->getComponent<Switch>(2)->addOption(L"x4");
@@ -81,7 +81,7 @@ namespace rr {
             wHelp->addComponent(new Text(wHelp, sf::Vector2f(20, 25), L"Protip:", font_Unifont, 30, sf::Color::Yellow));
             wHelp->addComponent(new Text(wHelp, sf::Vector2f(20, 55), dict("text.killurslf"), font_Unifont, 30, sf::Color::Red));
 
-            wHelp->addComponent(new Button(wHelp, sf::Vector2f(20, 365), dict("button.quit"), 52));
+            wHelp->addComponent(new Button(wHelp, sf::Vector2f(5, 380), dict("button.quit"), 52));
         wHelp->setVisible(false);
 
         #undef dict

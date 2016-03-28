@@ -17,6 +17,7 @@ namespace rr {
 
     class MainMenu;
     class PauseMenu;
+    class Attributes;
 
     /// Class for the HUD
     class HUD {
@@ -40,6 +41,7 @@ namespace rr {
       private:
         MainMenu* mainMenu;
         PauseMenu* pauseMenu;
+        Attributes* attributes;
         HUD* hud;
         Player* player;
 
