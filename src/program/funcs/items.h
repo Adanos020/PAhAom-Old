@@ -8,7 +8,7 @@
 #ifndef item_funcs_h
 #define item_funcs_h
 
-#include "potion.hpp"
+#include "../game/item/potion.hpp"
 
 namespace rr {
 

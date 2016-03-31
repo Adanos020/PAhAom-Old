@@ -11,7 +11,7 @@ namespace rr {
 
     class Potion :public Discoverable, public Item {
       public:
-        static enum Effect {
+        enum Effect {
             HEALING,
             MAGIC,
             STRENGTH,
@@ -22,7 +22,7 @@ namespace rr {
             SLOWNESS,
             WEAKNESS
         };
-        static enum Size {
+        enum Size {
             SMALL,
             MEDIUM,
             BIG
@@ -39,6 +39,8 @@ namespace rr {
         Effect getEffect() { return effect; }
         Size getSize() { return size; }
       private:
+        sf::String discoveredName;
+        sf::String discoveredDescription;
         Effect effect;
         Size size;
     };

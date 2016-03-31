@@ -7,9 +7,9 @@
 
 #include "gui.h"
 #include "../game/item/item.h"
-#include "../game/item/item_funcs.h"
+#include "../funcs/items.h"
 
-extern sf::Font font_Unifont;
+extern sf::Font font_Pixel;
 
 namespace rr {
 
@@ -25,7 +25,7 @@ namespace rr {
 
         image = new Image(this, pos, 14, "data/graphics/gui.png", icon);
         itemSkin = new Image(this, pos, 14, "data/graphics/gui.png", 0);
-        text = new Text(this, sf::Vector2f(pos.x+5, pos.y+45), "", font_Unifont, 202);
+        text = new Text(this, sf::Vector2f(pos.x+5, pos.y+45), "", font_Pixel, 202);
     }
 
     Slot::~Slot() {

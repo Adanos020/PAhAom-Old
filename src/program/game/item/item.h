@@ -44,8 +44,7 @@ namespace rr {
 
     class Discoverable {
       protected:
-        sf::String discoveredName;
-        sf::String discoveredDescription;
+          bool discovered;
       public:
         virtual ~Discoverable() {}
         virtual void reveal() = 0;

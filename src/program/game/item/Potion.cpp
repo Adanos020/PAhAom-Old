@@ -20,6 +20,7 @@ namespace rr {
         effect = e;
         size = s;
         disposable = true;
+        discovered = false;
         ID = 383;
 
         #define dict(s) dictionary[s]
@@ -48,7 +49,6 @@ namespace rr {
         body.setPrimitiveType(sf::Quads);
         body.resize(4);
 
-        int icn;
         int tu = (size+1)%(280/14);
         int tv = (size+1)/(280/14);
 
