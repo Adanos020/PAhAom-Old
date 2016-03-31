@@ -9,7 +9,7 @@
 
 #include <cstdio>
 
-extern std::map<std::string, sf::String> dictionary;
+extern std::map<sf::String, sf::String> dictionary;
 extern sf::Font font_Pixel;
 extern sf::Font font_Unifont;
 

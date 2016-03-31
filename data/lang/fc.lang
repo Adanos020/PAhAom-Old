@@ -16,3 +16,26 @@ text.killurslf >w'eh čabnñ
 text.wholegame UALA TPA
 text.usedlib YX'BITA BNBL'ETEQA
 text.attributes ATVBIBYTBI
+
+item.potion mnqctypa
+item.potion.size.small mala
+item.potion.size.medium w'peah'r
+item.potion.size.big ayx'a
+item.potion.effect.healing leyh'nya
+item.potion.effect.magic matnyha
+item.potion.effect.strength w'nlbi
+item.potion.effect.dexterity čpehyhow'y'n
+item.potion.effect.speed wbibqow'y'n
+item.potion.effect.poison čatpÿ'r
+item.potion.effect.regeneration petehepauñn
+item.potion.effect.slowness ctobolh'eh'r
+item.potion.effect.weakness oclab'eh'r
+item.potion.color.red yevboha
+item.potion.color.blue h'eb'ecqa
+item.potion.color.brown vpohčoba
+item.potion.color.green č'eloha
+item.potion.color.gray wapa
+item.potion.color.pink pyx'oba
+item.potion.color.purple d'eletoba
+item.potion.color.black yapha
+item.potion.color.white b'rla

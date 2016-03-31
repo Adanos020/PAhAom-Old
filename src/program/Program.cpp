@@ -20,7 +20,7 @@
 #include <locale>
 #include <codecvt>
 
-extern std::map<std::string, sf::String> dictionary;
+extern std::map<sf::String, sf::String> dictionary;
 extern sf::Font font_Pixel;
 extern sf::Font font_Unifont;
 extern rr::Settings settings;

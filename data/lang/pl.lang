@@ -16,3 +16,26 @@ text.killurslf Zabij się.
 text.wholegame CAŁA GRA
 text.usedlib UŻYTA BIBLIOTEKA
 text.attributes ATRYBUTY
+
+item.potion mikstura
+item.potion.size.small Mała
+item.potion.size.medium Średnia
+item.potion.size.big Duża
+item.potion.effect.healing lecznicza
+item.potion.effect.magic magiczna
+item.potion.effect.strength siły
+item.potion.effect.dexterity zręczności
+item.potion.effect.speed szybkości
+item.potion.effect.poison zatrucia
+item.potion.effect.regeneration regeneracji
+item.potion.effect.slowness spowolnienia
+item.potion.effect.weakness osłabienia
+item.potion.color.red czerwona
+item.potion.color.blue niebieska
+item.potion.color.brown brązowa
+item.potion.color.green zielona
+item.potion.color.gray szara
+item.potion.color.pink różowa
+item.potion.color.purple fioletowa
+item.potion.color.black czarna
+item.potion.color.white biała

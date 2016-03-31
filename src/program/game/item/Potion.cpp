@@ -5,23 +5,52 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "item.h"
+#include "potion.hpp"
+
+#include <iostream>
+#include <string>
+
+extern std::map<sf::String, sf::String> dictionary;
 
 namespace rr {
 
-    Potion::Potion(double id, std::string itemName, short icon, int am, short val, sf::Vector2f pos) {
-        name = itemName;
+    Potion::Potion(Effect e, Size s, int am, sf::Vector2f pos) {
+        name = "";
         amount = am;
-        bonus = val;
+        effect = e;
+        size = s;
         disposable = true;
+        ID = 383;
+
+        #define dict(s) dictionary[s]
+        sf::String seffect[] = {
+            "healing",
+            "magic",
+            "strength",
+            "dexterity",
+            "speed",
+            "regeneration",
+            "poison",
+            "slowness",
+            "weakness"
+        };
+        sf::String ssize[] = {
+            "small",
+            "medium",
+            "big"
+        };
+        discoveredName = dict("item.potion.size."+ssize[size])+" "+dict("item.potion")+" "+dict("item.potion.effect."+seffect[effect]);
+        discoveredDescription = "";
+        #undef dict
 
         skin.loadFromFile("data/graphics/items.png");
 
         body.setPrimitiveType(sf::Quads);
         body.resize(4);
 
-        int tu = icon%(280/14);
-        int tv = icon/(280/14);
+        int icn;
+        int tu = (size+1)%(280/14);
+        int tv = (size+1)/(280/14);
 
         body[0].position = pos;
         body[1].position = sf::Vector2f(pos.x+70, pos.y);
@@ -35,6 +64,11 @@ namespace rr {
     }
 
     Potion::~Potion() {}
+
+    void Potion::reveal() {
+        name = discoveredName;
+        description = discoveredDescription;
+    }
 
     void Potion::draw(sf::RenderWindow& rw) {
         rw.draw(body, &skin);

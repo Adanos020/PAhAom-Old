@@ -9,6 +9,9 @@
 #define game_h
 
 #include <ctime>
+#include <vector>
+
+#include "item/potion.hpp"
 #include "menus/menus.h"
 #include "player/player.h"
 #include "../program.h"
@@ -44,6 +47,7 @@ namespace rr {
         Attributes* attributes;
         HUD* hud;
         Player* player;
+        std::vector<Potion*> potions;
 
         bool started;
         bool paused;

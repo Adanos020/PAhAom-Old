@@ -8,7 +8,7 @@
 #include "menus.h"
 #include <iostream>
 
-extern std::map<std::string, sf::String> dictionary;
+extern std::map<sf::String, sf::String> dictionary;
 extern rr::Settings settings;
 extern sf::Font font_Unifont;
 extern sf::Font font_Pixel;

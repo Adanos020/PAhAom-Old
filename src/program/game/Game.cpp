@@ -15,6 +15,10 @@ namespace rr {
         hud = new HUD(rw);
         player = new Player((sf::Vector2f)(rw.getSize()/2u));
 
+        potions.push_back(new Potion(Potion::Effect::HEALING, Potion::Size::BIG, 1, sf::Vector2f(200, 200)));
+        potions.push_back(new Potion(Potion::Effect::DEXTERITY, Potion::Size::MEDIUM, 1, sf::Vector2f(400, 200)));
+        potions.push_back(new Potion(Potion::Effect::POISON, Potion::Size::SMALL, 1, sf::Vector2f(600, 200)));
+
         paused = false;
         started = false;
     }
@@ -29,6 +33,8 @@ namespace rr {
     void Game::draw(sf::RenderWindow& rw, sf::View& v) {
         if (!started) mainMenu->draw(rw, v);
         else {
+            for (auto x : potions)
+                x->draw(rw);
             player->draw(rw);
             if (paused)
                 pauseMenu->draw(rw, v);

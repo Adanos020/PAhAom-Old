@@ -1,0 +1,46 @@
+/**
+ * @file src/program/game/item/potion.hpp
+ * @author Adam 'Adanos' Gąsior
+ * Used library: SFML 2.3.2 for MinGW GCC
+ * Used compiler: LLVM Clang Compiler
+ */
+
+#include "item.h"
+
+namespace rr {
+
+    class Potion :public Discoverable, public Item {
+      public:
+        static enum Effect {
+            HEALING,
+            MAGIC,
+            STRENGTH,
+            DEXTERITY,
+            SPEED,
+            REGENERATION,
+            POISON,
+            SLOWNESS,
+            WEAKNESS
+        };
+        static enum Size {
+            SMALL,
+            MEDIUM,
+            BIG
+        };
+
+        Potion(Effect, Size, int am, sf::Vector2f pos = sf::Vector2f(0, 0));
+        ~Potion();
+
+        virtual void reveal()                override;
+        virtual void draw(sf::RenderWindow&) override;
+        virtual void editAmount(int)         override;
+        virtual void update()                override;
+
+        Effect getEffect() { return effect; }
+        Size getSize() { return size; }
+      private:
+        Effect effect;
+        Size size;
+    };
+
+}

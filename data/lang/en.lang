@@ -16,3 +16,26 @@ text.killurslf Kill yourself.
 text.wholegame WHOLE GAME
 text.usedlib USED LIBRARY
 text.attributes ATTRIBUTES
+
+item.potion potion
+item.potion.size.small A small
+item.potion.size.medium A medium
+item.potion.size.big A big
+item.potion.effect.healing of healing
+item.potion.effect.magic of magic
+item.potion.effect.strength of strength
+item.potion.effect.dexterity of dexterity
+item.potion.effect.speed of speed
+item.potion.effect.poison of poison
+item.potion.effect.regeneration of regeneration
+item.potion.effect.slowness of slowness
+item.potion.effect.weakness of weakness
+item.potion.color.red red
+item.potion.color.blue blue
+item.potion.color.brown brown
+item.potion.color.green green
+item.potion.color.gray gray
+item.potion.color.pink pink
+item.potion.color.purple purple
+item.potion.color.black black
+item.potion.color.white white

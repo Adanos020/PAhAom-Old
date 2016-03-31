@@ -53,29 +53,29 @@ namespace rr {
 
     /// Converts an UTF-8 string to an UTF-32 string
     inline sf::String utf8ToUtf32(const std::string& str) {
-        sf::String ret;
+        sf::String res;
         sf::Uint32 c;
 
         auto it=str.begin();
         while (it!=str.end()) {
-            it = sf::Utf8::decode(it,str.end(), c, 0u);
+            it = sf::Utf8::decode(it, str.end(), c, 0u);
             if (c!=0u)
-                ret+=c;
+                res += c;
         }
-        return ret;
+        return res;
     }
 
     /// Converts an UTF-32 string to an UTF-8 string
     inline std::string utf32toUtf8(const sf::String& str) {
-        std::string ret;
+        std::string res;
         char buf[5];
 
         for (auto it=str.begin(); it!=str.end(); ++it) {
             auto end = sf::Utf8::encode(*it, buf);
             *end = '\0';
-            ret+=buf;
+            res += buf;
         }
-        return ret;
+        return res;
     }
 
 }
