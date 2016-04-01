@@ -50,18 +50,13 @@ namespace rr {
         virtual void reveal() = 0;
     };
 
-    class Potion;
-
-    class Spell;
-
-    class ColdWeapon;
-
-    class RangedWeapon;
-
-    class Food;
-
-    class Cash;
-
 }
+
+#include "item_Cash.hpp"
+#include "item_ColdWeapon.hpp"
+#include "item_Food.hpp"
+#include "item_Potion.hpp"
+#include "item_RangedWeapon.hpp"
+#include "item_Spell.hpp"
 
 #endif

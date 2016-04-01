@@ -5,6 +5,9 @@
  * Used compiler: LLVM Clang Compiler
  */
 
+#ifndef item_Potion_hpp
+#define item_Potion_hpp
+
 #include "item.h"
 
 namespace rr {
@@ -39,10 +42,10 @@ namespace rr {
         Effect getEffect() { return effect; }
         Size getSize() { return size; }
       private:
-        sf::String discoveredName;
-        sf::String discoveredDescription;
         Effect effect;
         Size size;
     };
 
 }
+
+#endif // item_Potion_hpp

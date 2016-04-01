@@ -13,7 +13,6 @@
 #include "../player/player.h"
 #include "../../program.h"
 
-
 namespace rr {
 
     class Game;
@@ -58,6 +57,18 @@ namespace rr {
         ~Attributes();
 
         void update(Player*);
+        void buttonEvents(sf::RenderWindow&);
+        void draw(sf::RenderWindow&, sf::View&);
+    };
+
+    /// Class for the player inventory
+    class Inventory {
+      private:
+         Window* wInve;
+      public:
+        Inventory(sf::RenderWindow&);
+        ~Inventory();
+
         void buttonEvents(sf::RenderWindow&);
         void draw(sf::RenderWindow&, sf::View&);
     };

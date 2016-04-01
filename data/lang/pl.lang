@@ -1,21 +1,20 @@
-button.newgame NOWA GRA
-button.resume WZNÓW
-button.save ZAPISZ
-button.load WCZYTAJ
-button.options OPCJE
-button.help POMOC
-button.credits AUTORZY
-button.quit WYJDŹ
-
-checkbox.fullscreen PEŁNY EKRAN
-checkbox.vsync SYNCHRONIZACJA PIONOWA
-
-text.resolution ROZDZIELCZOŚĆ
-text.language JĘZYK
-text.killurslf Zabij się.
-text.wholegame CAŁA GRA
-text.usedlib UŻYTA BIBLIOTEKA
-text.attributes ATRYBUTY
+gui.button.newgame NOWA GRA
+gui.button.resume WZNÓW
+gui.button.save ZAPISZ
+gui.button.load WCZYTAJ
+gui.button.options OPCJE
+gui.button.help POMOC
+gui.button.credits AUTORZY
+gui.button.quit WYJDŹ
+gui.checkbox.fullscreen PEŁNY EKRAN
+gui.checkbox.vsync SYNCHRONIZACJA PIONOWA
+gui.text.resolution ROZDZIELCZOŚĆ
+gui.text.language JĘZYK
+gui.text.killurslf Zabij się.
+gui.text.wholegame CAŁA GRA
+gui.text.usedlib UŻYTA BIBLIOTEKA
+gui.window.attributes ATRYBUTY
+gui.window.inventory EKWIPUNEK
 
 item.potion mikstura
 item.potion.size.small Mała

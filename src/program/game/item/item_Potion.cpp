@@ -5,7 +5,7 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "potion.hpp"
+#include "item_Potion.hpp"
 
 #include <iostream>
 #include <string>
@@ -22,27 +22,6 @@ namespace rr {
         disposable = true;
         discovered = false;
         ID = 383;
-
-        #define dict(s) dictionary[s]
-        sf::String seffect[] = {
-            "healing",
-            "magic",
-            "strength",
-            "dexterity",
-            "speed",
-            "regeneration",
-            "poison",
-            "slowness",
-            "weakness"
-        };
-        sf::String ssize[] = {
-            "small",
-            "medium",
-            "big"
-        };
-        discoveredName = dict("item.potion.size."+ssize[size])+" "+dict("item.potion")+" "+dict("item.potion.effect."+seffect[effect]);
-        discoveredDescription = "";
-        #undef dict
 
         skin.loadFromFile("data/graphics/items.png");
 
@@ -66,8 +45,7 @@ namespace rr {
     Potion::~Potion() {}
 
     void Potion::reveal() {
-        name = discoveredName;
-        description = discoveredDescription;
+        discovered = true;
     }
 
     void Potion::draw(sf::RenderWindow& rw) {

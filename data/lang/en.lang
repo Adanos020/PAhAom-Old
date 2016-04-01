@@ -1,21 +1,20 @@
-button.newgame NEW GAME
-button.resume RESUME
-button.save SAVE
-button.load LOAD
-button.options OPTIONS
-button.help HELP
-button.credits CREDITS
-button.quit QUIT
-
-checkbox.fullscreen FULLSCREEN
-checkbox.vsync VERTICAL SYNCHRONIZATION
-
-text.resolution RESOLUTION
-text.language LANGUAGE
-text.killurslf Kill yourself.
-text.wholegame WHOLE GAME
-text.usedlib USED LIBRARY
-text.attributes ATTRIBUTES
+gui.button.newgame NEW GAME
+gui.button.resume RESUME
+gui.button.save SAVE
+gui.button.load LOAD
+gui.button.options OPTIONS
+gui.button.help HELP
+gui.button.credits CREDITS
+gui.button.quit QUIT
+gui.checkbox.fullscreen FULLSCREEN
+gui.checkbox.vsync VERTICAL SYNCHRONIZATION
+gui.text.resolution RESOLUTION
+gui.text.language LANGUAGE
+gui.text.killurslf Kill yourself.
+gui.text.wholegame WHOLE GAME
+gui.text.usedlib USED LIBRARY
+gui.window.attributes ATTRIBUTES
+gui.window.inventory INVENTORY
 
 item.potion potion
 item.potion.size.small A small

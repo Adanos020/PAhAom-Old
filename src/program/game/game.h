@@ -11,7 +11,7 @@
 #include <ctime>
 #include <vector>
 
-#include "item/potion.hpp"
+#include "item/item_Potion.hpp"
 #include "menus/menus.h"
 #include "player/player.h"
 #include "../program.h"

@@ -1,15 +1,18 @@
 /**
- * @file src/program/game/item/coldweapon.hpp
+ * @file src/program/game/item/food.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: LLVM Clang Compiler
  */
 
+#ifndef item_Food_hpp
+#define item_Food_hpp
+
 #include "item.h"
 
 namespace rr {
 
-    class ColdWeapon :public Item {
+    class Food :public Item {
       private:
       public:
         virtual void draw(sf::RenderWindow&) override;
@@ -18,3 +21,5 @@ namespace rr {
     };
 
 }
+
+#endif // item_Food_hpp
