@@ -11,7 +11,6 @@
 #include "../../gui/gui.h"
 #include "../game.h"
 #include "../player/player.h"
-#include "../../program.h"
 
 namespace rr {
 
@@ -30,7 +29,7 @@ namespace rr {
         ~MainMenu();
 
         void buttonEvents(sf::RenderWindow&, Game*);
-        void draw(sf::RenderWindow&, sf::View&);
+        void draw(sf::RenderWindow&);
     };
 
     /// Class for the pause menu
@@ -40,12 +39,14 @@ namespace rr {
         Window* wMenu;
         Window* wOpts;
         Window* wHelp;
+
+        sf::RectangleShape shadow;
       public:
         PauseMenu(sf::RenderWindow&);
         ~PauseMenu();
 
         void buttonEvents(sf::RenderWindow&, Game*);
-        void draw(sf::RenderWindow&, sf::View&);
+        void draw(sf::RenderWindow&);
     };
 
     /// Class for the player attributes window
@@ -58,7 +59,7 @@ namespace rr {
 
         void update(Player*);
         void buttonEvents(sf::RenderWindow&);
-        void draw(sf::RenderWindow&, sf::View&);
+        void draw(sf::RenderWindow&);
     };
 
     /// Class for the player inventory
@@ -70,7 +71,7 @@ namespace rr {
         ~Inventory();
 
         void buttonEvents(sf::RenderWindow&);
-        void draw(sf::RenderWindow&, sf::View&);
+        void draw(sf::RenderWindow&);
     };
 
 }

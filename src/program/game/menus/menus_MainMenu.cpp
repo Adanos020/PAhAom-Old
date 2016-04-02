@@ -188,13 +188,11 @@ namespace rr {
         #undef component
     }
 
-    void MainMenu::draw(sf::RenderWindow& rw, sf::View& v) {
-        rw.setView(rw.getDefaultView());
+    void MainMenu::draw(sf::RenderWindow& rw) {
         title->draw(rw);
         wMenu->draw(rw);
         wOpts->draw(rw);
         wHelp->draw(rw);
         wCred->draw(rw);
-        rw.setView(v);
     }
 }

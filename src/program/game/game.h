@@ -35,8 +35,7 @@ namespace rr {
         ~HUD();
 
         void update(Player*);
-        void buttonEvents(sf::RenderWindow&, Game*);
-        void draw(sf::RenderWindow&, sf::View&);
+        void draw(sf::RenderWindow&);
     };
 
     /// Class for the game
@@ -58,7 +57,7 @@ namespace rr {
 
         void draw(sf::RenderWindow&, sf::View&);
         void buttonEvents(sf::RenderWindow&, sf::View&);
-        void update(float);
+        void update(float, sf::View&);
 
         void start(bool);
         void pause(bool);

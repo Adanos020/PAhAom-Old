@@ -7,13 +7,15 @@
 
 #include "game.h"
 
+#include <iostream>
+
 namespace rr {
 
     Game::Game(sf::RenderWindow& rw) {
         mainMenu = new MainMenu(rw);
         pauseMenu = new PauseMenu(rw);
         hud = new HUD(rw);
-        player = new Player((sf::Vector2f)(rw.getSize()/2u));
+        player = new Player(sf::Vector2f(0, 0));
 
         potions.push_back(new Potion(Potion::Effect::HEALING, Potion::Size::BIG, 1, sf::Vector2f(200, 200)));
         potions.push_back(new Potion(Potion::Effect::DEXTERITY, Potion::Size::MEDIUM, 1, sf::Vector2f(400, 200)));
@@ -31,15 +33,20 @@ namespace rr {
     }
 
     void Game::draw(sf::RenderWindow& rw, sf::View& v) {
-        if (!started) mainMenu->draw(rw, v);
-        else {
+        if (!started) {
+            rw.setView(rw.getDefaultView());
+            mainMenu->draw(rw);
+            rw.setView(v);
+        } else {
             for (auto x : potions)
                 x->draw(rw);
             player->draw(rw);
+
+            rw.setView(rw.getDefaultView());
+            hud->draw(rw);
             if (paused)
-                pauseMenu->draw(rw, v);
-            else
-                hud->draw(rw, v);
+                pauseMenu->draw(rw);
+            rw.setView(v);
         }
     }
 
@@ -76,7 +83,8 @@ namespace rr {
         }
     }
 
-    void Game::update(float timer) {
+    void Game::update(float timer, sf::View& v) {
+        v.setCenter(player->getPosition());
         hud->update(player);
         player->update();
         controls(timer);
@@ -91,7 +99,7 @@ namespace rr {
     }
 
     void Game::save() {
-
+        // there's nothing to save yet
     }
 
     bool Game::load() {

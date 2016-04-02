@@ -46,7 +46,7 @@ namespace rr {
         game = new Game(window);
 
         while (window.isOpen()) {
-            game->update(timer.getElapsedTime().asMilliseconds());
+            game->update(timer.getElapsedTime().asMilliseconds(), view);
             timer.restart();
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed) window.close();
@@ -139,12 +139,7 @@ namespace rr {
 
     bool Program::readDictionary() {
         std::ifstream idict;
-        if (settings.language == "en")
-            idict.open("data/lang/en.lang");
-        else if (settings.language == "pl")
-            idict.open("data/lang/pl.lang");
-        else if (settings.language == "fc")
-            idict.open("data/lang/fc.lang");
+        idict.open("data/lang/"+settings.language+".lang");
 
         if (idict.good()) {
             puts(">Loading the dictionary...");

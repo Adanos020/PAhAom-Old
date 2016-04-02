@@ -39,19 +39,13 @@ namespace rr {
         tXPlevel->setPosition(sf::Vector2f(bXP->getPosition().x+bXP->getSize().x/2-tXPlevel->getSize().x/2, bXP->getPosition().y-tXPlevel->getSize().y));
     }
 
-    void HUD::buttonEvents(sf::RenderWindow& rw, Game* g) {
-
-    }
-
-    void HUD::draw(sf::RenderWindow& rw, sf::View& v) {
-        rw.setView(rw.getDefaultView());
+    void HUD::draw(sf::RenderWindow& rw) {
         bHP->draw(rw);
         bMP->draw(rw);
         bXP->draw(rw);
         for (auto x : sCarryOn)
             x->draw(rw);
         tXPlevel->draw(rw);
-        rw.setView(v);
     }
 
 }

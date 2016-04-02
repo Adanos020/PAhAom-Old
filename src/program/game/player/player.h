@@ -46,6 +46,7 @@ namespace rr {
         void update();
 
         Stats getStats() { return stats; }
+        sf::Vector2f getPosition() { return body[0].position+sf::Vector2f(32.5, 32.5); }
     };
 
 }

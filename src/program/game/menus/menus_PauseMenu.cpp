@@ -16,6 +16,10 @@ extern sf::Font font_Pixel;
 namespace rr {
 
     PauseMenu::PauseMenu(sf::RenderWindow& rw) {
+        shadow.setSize((sf::Vector2f)rw.getSize());
+        shadow.setPosition(sf::Vector2f(0, 0));
+        shadow.setFillColor(sf::Color(0, 0, 0, 128));
+
         #define dict(s) dictionary[s]
         #define component(w, c, i) w->getComponent<c>(i)
 
@@ -166,12 +170,11 @@ namespace rr {
         #undef component
     }
 
-    void PauseMenu::draw(sf::RenderWindow& rw, sf::View& v) {
-        rw.setView(rw.getDefaultView());
+    void PauseMenu::draw(sf::RenderWindow& rw) {
+        rw.draw(shadow);
         title->draw(rw);
         wMenu->draw(rw);
         wOpts->draw(rw);
         wHelp->draw(rw);
-        rw.setView(v);
     }
 }

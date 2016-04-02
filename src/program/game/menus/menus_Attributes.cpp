@@ -45,10 +45,8 @@ namespace rr {
         #undef cmc
     }
 
-    void Attributes::draw(sf::RenderWindow& rw, sf::View& v) {
-        rw.setView(rw.getDefaultView());
+    void Attributes::draw(sf::RenderWindow& rw) {
         wAttr->draw(rw);
-        rw.setView(v);
     }
 
 }
