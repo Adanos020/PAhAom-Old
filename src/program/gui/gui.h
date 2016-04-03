@@ -139,7 +139,6 @@ namespace rr {
         Button (Component* parentComponent, sf::Vector2f position, sf::String, unsigned chsize, sf::Color = sf::Color::White);
         ~Button();
 
-        // return type--method name--------arguments--------------------body
         bool         containsMouseCursor(sf::RenderWindow&) override;
         Text*        getText            ()                  override { return text; }
         sf::Vector2f getPosition        ()                  override { return body.getPosition(); }
