@@ -18,7 +18,6 @@
 #include <iomanip>
 #include <fstream>
 #include <locale>
-#include <codecvt>
 
 extern std::map<sf::String, sf::String> dictionary;
 extern sf::Font font_Pixel;
