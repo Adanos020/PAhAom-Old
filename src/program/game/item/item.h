@@ -12,11 +12,11 @@
 
 namespace rr {
 
-	class Item {
-    protected:
+    class Item {
+      protected:
           sf::FloatRect boundBox;
             sf::Texture skin;
-		sf::VertexArray body;
+        sf::VertexArray body;
                     int amount;
                  double ID;
                    bool equipable;
@@ -25,30 +25,30 @@ namespace rr {
              sf::String description;
              sf::String effects;
              sf::String requirements;
-    public:
-		virtual ~Item() {}
+      public:
+        virtual ~Item() {}
 
-		virtual void    draw(sf::RenderWindow&) = 0;
-		virtual void    editAmount(int) = 0;
-		virtual void    update() = 0;
+        virtual void    draw          (sf::RenderWindow&) = 0;
+        virtual void    editAmount    (int) = 0;
+        virtual void    update        () = 0;
 
-		double          getID         () { return ID; }
-		int             getAmount     () { return amount; }
-		bool            isDisposable  () { return disposable; }
-		bool            isEquipable   () { return equipable; }
-		sf::String      getName       () { return name; }
-		sf::String      getDescription() { return description; }
-		sf::Texture     getSkin       () { return skin; }
-		sf::VertexArray getBody       () { return body; }
-	};
+        double          getID         () { return ID; }
+        int             getAmount     () { return amount; }
+        bool            isDisposable  () { return disposable; }
+        bool            isEquipable   () { return equipable; }
+        sf::String      getName       () { return name; }
+        sf::String      getDescription() { return description; }
+        sf::Texture     getSkin       () { return skin; }
+        sf::VertexArray getBody       () { return body; }
+    };
 
-	class Discoverable {
-	  protected:
-		bool discovered;
-	  public:
-		virtual ~Discoverable() {}
-		virtual void reveal() = 0;
-	};
+    class Discoverable {
+      protected:
+        bool discovered;
+      public:
+        virtual ~Discoverable() {}
+        virtual void reveal  () = 0;
+    };
 
 }
 

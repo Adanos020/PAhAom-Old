@@ -12,13 +12,13 @@
 
 namespace rr {
 
-	class Food :public Item {
-	  private:
-	  public:
-		virtual void draw      (sf::RenderWindow&) override;
-		virtual void editAmount(int)               override;
-		virtual void update    ()                  override;
-	};
+    class Food :public Item {
+      private:
+      public:
+        virtual void draw      (sf::RenderWindow&) override;
+        virtual void editAmount(int)               override;
+        virtual void update    ()                  override;
+    };
 
 }
 

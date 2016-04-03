@@ -18,56 +18,56 @@
 
 namespace rr {
 
-	class MainMenu;
-	class PauseMenu;
-	class Attributes;
+    class MainMenu;
+    class PauseMenu;
+    class Attributes;
 
 /// Class for the HUD
-	class HUD {
-    private:
-		 Bar* bHP;
-		 Bar* bMP;
-		 Bar* bXP;
-		Slot* sCarryOn[5];
-		Text* tXPlevel;
-    public:
-		HUD (sf::RenderWindow&);
-		~HUD();
+    class HUD {
+      private:
+         Bar* bHP;
+         Bar* bMP;
+         Bar* bXP;
+        Slot* sCarryOn[5];
+        Text* tXPlevel;
+      public:
+        HUD (sf::RenderWindow&);
+        ~HUD();
 
-		void update(Player*);
-		void draw  (sf::RenderWindow&);
-	};
+        void update(Player*);
+        void draw  (sf::RenderWindow&);
+    };
 
 /// Class for the game
-	class Game {
-    private:
+    class Game {
+      private:
                    MainMenu* mainMenu;
                   PauseMenu* pauseMenu;
                  Attributes* attributes;
                         HUD* hud;
                      Player* player;
-		std::vector<Potion*> potions;
+        std::vector<Potion*> potions;
                         bool started;
                         bool paused;
 
-        void controls(float);
-    public:
-		Game (sf::RenderWindow&);
-		~Game();
+        void controls    (float);
+      public:
+        Game (sf::RenderWindow&);
+        ~Game();
 
-		void draw        (sf::RenderWindow&, sf::View&);
-		void buttonEvents(sf::RenderWindow&, sf::View&);
-		void update      (float, sf::View&);
+        void draw        (sf::RenderWindow&, sf::View&);
+        void buttonEvents(sf::RenderWindow&, sf::View&);
+        void update      (float, sf::View&);
 
-		void start       (bool);
-		void pause       (bool);
-		void save        ();
-		bool load        ();
-		bool loadNewGame ();
+        void start       (bool);
+        void pause       (bool);
+        void save        ();
+        bool load        ();
+        bool loadNewGame ();
 
-		bool isStarted   ();
-		bool isPaused    ();
-	};
+        bool isStarted   ();
+        bool isPaused    ();
+    };
 
 }
 
