@@ -12,42 +12,42 @@
 
 namespace rr {
 
-    /// Class for the player
-    class Player {
-        friend class Game;
-      private:
-        sf::VertexArray body;
-        sf::Texture skin;
-        sf::Vector2f position;
+/// Class for the player
+	class Player {
+		friend class Game;
+    private:
+		sf::VertexArray body;
+            sf::Texture skin;
+           sf::Vector2f position;
 
-        double velocity;
+		double velocity;
 
-        struct Stats {
-          public:
-            double hp;
-            double mp;
-            double maxhp;
-            double maxmp;
-            int sp;
-            int exp;
-            int nextlvl;
-            int lvl;
-        };
-        Stats stats;
-      public:
-        Player(sf::Vector2f pos);
-        ~Player();
+		struct Stats {
+        public:
+			double hp;
+			double mp;
+			double maxhp;
+			double maxmp;
+               int sp;
+			   int exp;
+			   int nextlvl;
+			   int lvl;
+		};
+		Stats stats;
+    public:
+		Player(sf::Vector2f pos);
+		~Player();
 
-        enum direction { down, left, right, up };
+		enum direction { down, left, right, up };
 
-        void setPosition(sf::Vector2f);
-        void go(float timeStep, direction);
-        void draw(sf::RenderWindow&);
-        void update();
+		void         setPosition(sf::Vector2f);
+		void         go         (float timeStep, direction);
+		void         draw       (sf::RenderWindow&);
+		void         update     ();
 
-        Stats getStats() { return stats; }
-        sf::Vector2f getPosition() { return body[0].position+sf::Vector2f(32.5, 32.5); }
-    };
+		Stats        getStats   () { return stats; }
+		sf::Vector2f getPosition() { return body[0].position+sf::Vector2f(32.5, 32.5); }
+	};
 
 }
 

@@ -12,43 +12,43 @@
 
 namespace rr {
 
-    class Item {
-      protected:
-        sf::FloatRect boundBox;
-        sf::Texture skin;
-        sf::VertexArray body;
+	class Item {
+    protected:
+          sf::FloatRect boundBox;
+            sf::Texture skin;
+		sf::VertexArray body;
+                    int amount;
+                 double ID;
+                   bool equipable;
+                   bool disposable;
+             sf::String name;
+             sf::String description;
+             sf::String effects;
+             sf::String requirements;
+    public:
+		virtual ~Item() {}
 
-        int amount;
-        double ID;
-        bool equipable;
-        bool disposable;
-        sf::String name;
-        sf::String description;
-        sf::String effects;
-        sf::String requirements;
-      public:
-        virtual ~Item() = default;
-        virtual void draw(sf::RenderWindow&) = 0;
-        virtual void editAmount(int) = 0;
-        virtual void update() = 0;
+		virtual void    draw(sf::RenderWindow&) = 0;
+		virtual void    editAmount(int) = 0;
+		virtual void    update() = 0;
 
-        virtual double getID()                  { return ID; }
-        virtual int getAmount()                 { return amount; }
-        virtual bool isDisposable()             { return disposable; }
-        virtual bool isEquipable()              { return equipable; }
-        virtual sf::String getName()            { return name; }
-        virtual sf::String getDescription()     { return description; }
-        virtual sf::Texture getSkin()           { return skin; }
-        virtual sf::VertexArray getBody()       { return body; }
-    };
+		double          getID         () { return ID; }
+		int             getAmount     () { return amount; }
+		bool            isDisposable  () { return disposable; }
+		bool            isEquipable   () { return equipable; }
+		sf::String      getName       () { return name; }
+		sf::String      getDescription() { return description; }
+		sf::Texture     getSkin       () { return skin; }
+		sf::VertexArray getBody       () { return body; }
+	};
 
-    class Discoverable {
-      protected:
-          bool discovered;
-      public:
-        virtual ~Discoverable() {}
-        virtual void reveal() = 0;
-    };
+	class Discoverable {
+	  protected:
+		bool discovered;
+	  public:
+		virtual ~Discoverable() {}
+		virtual void reveal() = 0;
+	};
 
 }
 

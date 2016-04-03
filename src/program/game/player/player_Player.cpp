@@ -9,91 +9,91 @@
 
 namespace rr {
 
-    Player::Player(sf::Vector2f pos) {
-        skin.loadFromFile("data/graphics/player.png");
+	Player::Player(sf::Vector2f pos) {
+		skin.loadFromFile("data/graphics/player.png");
 
-        body.resize(4);
-        body.setPrimitiveType(sf::Quads);
+		body.resize(4);
+		body.setPrimitiveType(sf::Quads);
 
-        body[0].position = pos;
-        body[1].position = sf::Vector2f(pos.x+70, pos.y);
-        body[2].position = sf::Vector2f(pos.x+70, pos.y+70);
-        body[3].position = sf::Vector2f(pos.x, pos.y+70);
+		body[0].position = pos;
+		body[1].position = sf::Vector2f(pos.x+70, pos.y);
+		body[2].position = sf::Vector2f(pos.x+70, pos.y+70);
+		body[3].position = sf::Vector2f(pos.x, pos.y+70);
 
-        body[0].texCoords = sf::Vector2f(0, 0);
-        body[1].texCoords = sf::Vector2f(14, 0);
-        body[2].texCoords = sf::Vector2f(14, 14);
-        body[3].texCoords = sf::Vector2f(0, 14);
+		body[0].texCoords = sf::Vector2f(0, 0);
+		body[1].texCoords = sf::Vector2f(14, 0);
+		body[2].texCoords = sf::Vector2f(14, 14);
+		body[3].texCoords = sf::Vector2f(0, 14);
 
-        position = pos;
-        velocity = 0.5;
-        stats.hp = 30.0;
-        stats.mp = 5.0;
-        stats.maxhp = 30.0;
-        stats.maxmp = 5.0;
-        stats.sp = 0;
-        stats.exp = 0;
-        stats.nextlvl = 100;
-        stats.lvl = 0;
-    }
+		position = pos;
+		velocity = 0.5;
+		stats.hp = 30.0;
+		stats.mp = 5.0;
+		stats.maxhp = 30.0;
+		stats.maxmp = 5.0;
+		stats.sp = 0;
+		stats.exp = 0;
+		stats.nextlvl = 100;
+		stats.lvl = 0;
+	}
 
-    Player::~Player() {
+	Player::~Player() {
 
-    }
+	}
 
-    void Player::setPosition(sf::Vector2f pos) {
-        if (position != pos) position = pos;
-        body[0].position = pos;
-        body[1].position = sf::Vector2f(pos.x+70, pos.y);
-        body[2].position = sf::Vector2f(pos.x+70, pos.y+70);
-        body[3].position = sf::Vector2f(pos.x, pos.y+70);
-    }
+	void Player::setPosition(sf::Vector2f pos) {
+		if (position != pos) position = pos;
+		body[0].position = pos;
+		body[1].position = sf::Vector2f(pos.x+70, pos.y);
+		body[2].position = sf::Vector2f(pos.x+70, pos.y+70);
+		body[3].position = sf::Vector2f(pos.x, pos.y+70);
+	}
 
-    void Player::go(float ts, direction di) {
-        if (di == up) {
-            position.y -= ts*velocity;
-            setPosition(position);
-        } else if (di == down) {
-            position.y += ts*velocity;
-            setPosition(position);
-        } else if (di == left) {
-            position.x -= ts*velocity;
-            setPosition(position);
+	void Player::go(float ts, direction di) {
+		if (di == up) {
+			position.y -= ts*velocity;
+			setPosition(position);
+		} else if (di == down) {
+			position.y += ts*velocity;
+			setPosition(position);
+		} else if (di == left) {
+			position.x -= ts*velocity;
+			setPosition(position);
 
-            body[0].texCoords = sf::Vector2f(0, 14);
-            body[1].texCoords = sf::Vector2f(14, 14);
-            body[2].texCoords = sf::Vector2f(14, 28);
-            body[3].texCoords = sf::Vector2f(0, 28);
-        } else if (di == right) {
-            position.x += ts*velocity;
-            setPosition(position);
+			body[0].texCoords = sf::Vector2f(0, 14);
+			body[1].texCoords = sf::Vector2f(14, 14);
+			body[2].texCoords = sf::Vector2f(14, 28);
+			body[3].texCoords = sf::Vector2f(0, 28);
+		} else if (di == right) {
+			position.x += ts*velocity;
+			setPosition(position);
 
-            body[0].texCoords = sf::Vector2f(0, 0);
-            body[1].texCoords = sf::Vector2f(14, 0);
-            body[2].texCoords = sf::Vector2f(14, 14);
-            body[3].texCoords = sf::Vector2f(0, 14);
-        }
-    }
+			body[0].texCoords = sf::Vector2f(0, 0);
+			body[1].texCoords = sf::Vector2f(14, 0);
+			body[2].texCoords = sf::Vector2f(14, 14);
+			body[3].texCoords = sf::Vector2f(0, 14);
+		}
+	}
 
-    void Player::draw(sf::RenderWindow& rw) {
-        rw.draw(body, &skin);
-    }
+	void Player::draw(sf::RenderWindow& rw) {
+		rw.draw(body, &skin);
+	}
 
-    void Player::update() {
-        if (stats.hp>=stats.maxhp)
-            stats.hp = stats.maxhp;
-        if (stats.hp<=0)
-            stats.hp = 0;
-        if (stats.mp<=0)
-            stats.mp = 0;
-        if (stats.mp>=stats.maxmp)
-            stats.mp = stats.maxmp;
-        if (stats.exp>=stats.nextlvl) {
-            stats.exp = 0;
-            stats.nextlvl *= 1.25;
-            stats.lvl++;
-        }
+	void Player::update() {
+		if (stats.hp>=stats.maxhp)
+			stats.hp = stats.maxhp;
+		if (stats.hp<=0)
+			stats.hp = 0;
+		if (stats.mp<=0)
+			stats.mp = 0;
+		if (stats.mp>=stats.maxmp)
+			stats.mp = stats.maxmp;
+		if (stats.exp>=stats.nextlvl) {
+			stats.exp = 0;
+			stats.nextlvl *= 1.25;
+			stats.lvl++;
+		}
 
-    }
+	}
 
 }

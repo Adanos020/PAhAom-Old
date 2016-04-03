@@ -17,9 +17,9 @@ sf::Font font_Pixel;
 rr::Settings settings;
 
 int main() {
-    srand(time(0));
-    auto p = new rr::Program();
+	srand(time(0));
+	auto p = new rr::Program();
 
-    delete p;
-    return 0;
+	delete p;
+	return 0;
 }

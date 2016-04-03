@@ -9,43 +9,43 @@
 
 namespace rr {
 
-    Bar::Bar(Component* parentComponent, std::string plain, int max_length, sf::Color c, sf::Vector2f pos) {
-        parent = parentComponent;
+	Bar::Bar(Component* parentComponent, std::string plain, int max_length, sf::Color c, sf::Vector2f pos) {
+		parent = parentComponent;
 
-        if (plain == "horizontal") {
-            border.setSize(sf::Vector2f(max_length, 5));
-            bar.setSize(sf::Vector2f(max_length, 5));
-        } else if (plain == "vertical") {
-            border.setSize(sf::Vector2f(5, max_length));
-            bar.setSize(sf::Vector2f(5, max_length));
-        }
+		if (plain == "horizontal") {
+			border.setSize(sf::Vector2f(max_length, 5));
+			bar.setSize(sf::Vector2f(max_length, 5));
+		} else if (plain == "vertical") {
+			border.setSize(sf::Vector2f(5, max_length));
+			bar.setSize(sf::Vector2f(5, max_length));
+		}
 
-        border.setFillColor(sf::Color::Transparent);
-        border.setOutlineColor(sf::Color(128, 128, 128));
-        border.setOutlineThickness(5);
-        border.setPosition(pos);
+		border.setFillColor(sf::Color::Transparent);
+		border.setOutlineColor(sf::Color(128, 128, 128));
+		border.setOutlineThickness(5);
+		border.setPosition(pos);
 
-        bar.setFillColor(c);
-        bar.setPosition(pos);
-    }
+		bar.setFillColor(c);
+		bar.setPosition(pos);
+	}
 
-    Bar::~Bar() {}
+	Bar::~Bar() {}
 
-    void Bar::setPosition(sf::Vector2f pos) {
-        border.setPosition(pos);
-        bar.setPosition(pos);
-    }
+	void Bar::setPosition(sf::Vector2f pos) {
+		border.setPosition(pos);
+		bar.setPosition(pos);
+	}
 
-    void Bar::setSize(sf::Vector2f scale) {
-        if (bar.getSize().x == 5)
-            bar.setScale(1, scale.y);
-        else if (bar.getSize().y == 5)
-            bar.setScale(scale.x, 1);
-    }
+	void Bar::setSize(sf::Vector2f scale) {
+		if (bar.getSize().x == 5)
+			bar.setScale(1, scale.y);
+		else if (bar.getSize().y == 5)
+			bar.setScale(scale.x, 1);
+	}
 
-    void Bar::draw(sf::RenderWindow& rw) {
-        rw.draw(bar);
-        rw.draw(border);
-    }
+	void Bar::draw(sf::RenderWindow& rw) {
+		rw.draw(bar);
+		rw.draw(border);
+	}
 
 }

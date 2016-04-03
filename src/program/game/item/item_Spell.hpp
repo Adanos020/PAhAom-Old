@@ -12,12 +12,12 @@
 
 namespace rr {
 
-    class Spell :public Item {
-      public:
-        virtual void draw(sf::RenderWindow&) override;
-        virtual void editAmount(int)         override;
-        virtual void update()                override;
-    };
+	class Spell :public Item {
+	  public:
+		virtual void draw      (sf::RenderWindow&) override;
+		virtual void editAmount(int)               override;
+		virtual void update    ()                  override;
+	};
 
 }
 

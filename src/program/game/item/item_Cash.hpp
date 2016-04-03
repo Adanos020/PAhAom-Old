@@ -12,15 +12,15 @@
 
 namespace rr {
 
-    //class Item;
+//class Item;
 
-    class Cash :public Item {
-      private:
-      public:
-        virtual void draw(sf::RenderWindow&) override;
-        virtual void editAmount(int)         override;
-        virtual void update()                override;
-    };
+	class Cash :public Item {
+	  private:
+	  public:
+		virtual void draw      (sf::RenderWindow&) override;
+		virtual void editAmount(int)               override;
+		virtual void update    ()                  override;
+	};
 
 }
 
