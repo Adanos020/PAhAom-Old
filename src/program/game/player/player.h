@@ -28,10 +28,10 @@ namespace rr {
             double mp;
             double maxhp;
             double maxmp;
-            int sp;
-            int exp;
-            int nextlvl;
-            int lvl;
+               int sp;
+               int exp;
+               int nextlvl;
+               int lvl;
         };
         Stats stats;
       public:
