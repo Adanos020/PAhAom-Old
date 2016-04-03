@@ -109,7 +109,7 @@ namespace rr {
 /// Class for a vertical or a horizontal bar component representing any value you assign it to
     class Bar :public Component {
       private:
-        sf::Vector2f position;
+              sf::Vector2f position;
         sf::RectangleShape border;
         sf::RectangleShape bar;
       public:
