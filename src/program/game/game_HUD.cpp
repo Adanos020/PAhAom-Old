@@ -31,6 +31,14 @@ namespace rr {
         delete tXPlevel;
     }
 
+    void HUD::buttonEvents(sf::RenderWindow& rw) {
+#define isMLBPressed sf::Mouse::isButtonPressed(sf::Mouse::Left)
+        for (auto x : sCarryOn) {
+            if (x->containsMouseCursor(rw) && isMLBPressed) {}
+        }
+#undef isMLBPressed
+    }
+
     void HUD::update(Player* p) {
         bHP->setSize(sf::Vector2f(p->getStats().hp/p->getStats().maxhp, 1));
         bMP->setSize(sf::Vector2f(p->getStats().mp/p->getStats().maxmp, 1));

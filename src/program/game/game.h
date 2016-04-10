@@ -20,6 +20,7 @@ namespace rr {
 
     class MainMenu;
     class PauseMenu;
+    class Inventory;
     class Attributes;
 
 /// Class for the HUD
@@ -34,8 +35,9 @@ namespace rr {
          HUD(sf::RenderWindow&);
         ~HUD();
 
-        void update(Player*);
-        void draw  (sf::RenderWindow&);
+        void buttonEvents(sf::RenderWindow&);
+        void update      (Player*);
+        void draw        (sf::RenderWindow&);
     };
 
 /// Class for the game
@@ -44,6 +46,7 @@ namespace rr {
         MainMenu*            mainMenu;
         PauseMenu*           pauseMenu;
         Attributes*          attributes;
+        Inventory*           inventory;
         HUD*                 hud;
         Player*              player;
         std::vector<Potion*> potions;

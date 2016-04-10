@@ -24,20 +24,20 @@ namespace rr {
         body.setPosition(pos);
         body.scale(sf::Vector2f(5, 5));
 
-        position = pos;
-        velocity = 0.5;
-        stats.hp = 30.0;
-        stats.mp = 5.0;
-        stats.maxhp = 30.0;
-        stats.maxmp = 5.0;
-        stats.sp = 0;
-        stats.exp = 0;
+        position      = pos;
+        velocity      = 0.5;
+        stats.hp      = 30.0;
+        stats.mp      = 5.0;
+        stats.maxhp   = 30.0;
+        stats.maxmp   = 5.0;
+        stats.sp      = 0;
+        stats.exp     = 0;
         stats.nextlvl = 100;
-        stats.lvl = 0;
+        stats.lvl     = 0;
     }
 
     Player::~Player() {
-        //delete currentAnimation;
+
     }
 
     void Player::setPosition(sf::Vector2f pos) {
@@ -65,7 +65,7 @@ namespace rr {
     }
 
     void Player::draw(sf::RenderWindow& rw) {
-        rw.draw(body, &skin);
+        rw.draw(body);
     }
 
     void Player::update() {

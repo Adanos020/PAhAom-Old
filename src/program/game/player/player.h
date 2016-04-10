@@ -28,6 +28,7 @@ namespace rr {
             int    nextlvl;
             int    lvl;
         };
+
         sf::Texture        skin;
         sf::Vector2f       position;
         sf::AnimatedSprite body;
@@ -36,7 +37,6 @@ namespace rr {
         sf::Animation*     currentAnimation;
         Stats              stats;
         double             velocity;
-
     public:
          Player(sf::Vector2f pos);
         ~Player();

@@ -39,8 +39,11 @@ namespace rr {
          PauseMenu(sf::RenderWindow&);
         ~PauseMenu();
 
+        void open        ();
         void buttonEvents(sf::RenderWindow&, Game*);
         void draw        (sf::RenderWindow&);
+
+        bool isOpen      ();
     };
 
 /// Class for the player attributes window
@@ -51,9 +54,12 @@ namespace rr {
          Attributes(sf::RenderWindow&);
         ~Attributes();
 
+        void open        ();
         void update      (Player*);
-        void buttonEvents(sf::RenderWindow&);
+        void buttonEvents(sf::RenderWindow&, Game*);
         void draw        (sf::RenderWindow&);
+
+        bool isOpen      ();
     };
 
 /// Class for the player inventory
@@ -64,8 +70,11 @@ namespace rr {
          Inventory(sf::RenderWindow&);
         ~Inventory();
 
-        void buttonEvents(sf::RenderWindow&);
+        void open        ();
+        void buttonEvents(sf::RenderWindow&, Game*);
         void draw        (sf::RenderWindow&);
+
+        bool isOpen      ();
     };
 
 }

@@ -14,10 +14,12 @@ extern rr::Settings settings;
 namespace rr {
 
     Game::Game(sf::RenderWindow& rw) {
-        mainMenu = new MainMenu(rw);
-        pauseMenu = new PauseMenu(rw);
-        hud = new HUD(rw);
-        player = new Player(sf::Vector2f(0, 0));
+        mainMenu   = new MainMenu(rw);
+        pauseMenu  = new PauseMenu(rw);
+        attributes = new Attributes(rw);
+        inventory  = new Inventory(rw);
+        hud        = new HUD(rw);
+        player     = new Player(sf::Vector2f(0, 0));
 
         potions.push_back(new Potion(Potion::Effect::HEALING, Potion::Size::BIG, 1, sf::Vector2f(200, 200)));
         potions.push_back(new Potion(Potion::Effect::DEXTERITY, Potion::Size::MEDIUM, 1, sf::Vector2f(400, 200)));
@@ -46,22 +48,36 @@ namespace rr {
 
             rw.setView(rw.getDefaultView());
             hud->draw(rw);
-            if (paused)
-                pauseMenu->draw(rw);
+            if (pauseMenu ->isOpen())
+                pauseMenu ->draw(rw);
+            if (attributes->isOpen())
+                attributes->draw(rw);
+            if (inventory ->isOpen())
+                inventory ->draw(rw);
             rw.setView(v);
         }
     }
 
     void Game::buttonEvents(sf::RenderWindow& rw, sf::View& v) {
         if (!started) mainMenu->buttonEvents(rw, this);
-        if (paused) pauseMenu->buttonEvents(rw, this);
+        if (pauseMenu->isOpen())
+            pauseMenu->buttonEvents(rw, this);
+        if (inventory->isOpen()) {
+            inventory->buttonEvents(rw, this);
+            hud      ->buttonEvents(rw);
+        }
+        if (attributes->isOpen())
+            attributes->buttonEvents(rw, this);
     }
 
     void Game::controls(float timer) {
         if (started && !paused) {
 #define keyPressed(key) sf::Keyboard::isKeyPressed(key)
 #define key sf::Keyboard
-            if (keyPressed(key::Escape)) pause(true);
+            if (keyPressed(key::Escape)) {
+                pauseMenu->open();
+                pause(true);
+            }
 
             if (keyPressed(settings.keys.move_up))    player->go(timer, Player::UP);
             if (keyPressed(settings.keys.move_down))  player->go(timer, Player::DOWN);
@@ -70,9 +86,12 @@ namespace rr {
 
             if      (keyPressed(settings.keys.open_attributes)) {
                 attributes->update(player);
+                attributes->open();
+                pause(true);
             }
             else if (keyPressed(settings.keys.open_inventory)) {
-
+                inventory->open();
+                pause(true);
             }
             else if (keyPressed(settings.keys.open_map)) {
 

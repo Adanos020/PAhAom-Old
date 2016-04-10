@@ -29,16 +29,23 @@ namespace rr {
         delete wAttr;
     }
 
+    void Attributes::open() {
+        wAttr->setVisible(true);
+    }
+
     void Attributes::update(Player* p) {
         puts("Attributes updated!"); // yeah...
     }
 
-    void Attributes::buttonEvents(sf::RenderWindow& rw) {
+    void Attributes::buttonEvents(sf::RenderWindow& rw, Game* g) {
 #define isMLBPressed sf::Mouse::isButtonPressed(sf::Mouse::Left)
 #define cmc(w, c, x) w->getComponent<c>(x)->containsMouseCursor(rw)
 
         if (wAttr->isVisible()) {
-            if (cmc(wAttr, Button, 0) && isMLBPressed) wAttr->setVisible(false);
+            if (cmc(wAttr, Button, 0) && isMLBPressed) {
+                wAttr->setVisible(false);
+                g->pause(false);
+            }
         }
 
 #undef isMLBPressed
@@ -47,6 +54,10 @@ namespace rr {
 
     void Attributes::draw(sf::RenderWindow& rw) {
         wAttr->draw(rw);
+    }
+
+    bool Attributes::isOpen() {
+        return wAttr->isVisible();
     }
 
 }

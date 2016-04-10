@@ -109,7 +109,7 @@ namespace rr {
                 wHelp->setVisible(false);
             for (int i=0; i<4; i++)
                 component(wMenu, Button, i)->setPosition(wMenu->getPosition()+sf::Vector2f(wMenu->getSize().x/2-component(wMenu, Button, i)->getSize().x/2, 5+i*75));
-            wMenu->setVisible(true);
+            wMenu->setVisible(false);
 #undef wHelp
 #undef dict
 #undef component
@@ -118,6 +118,10 @@ namespace rr {
     PauseMenu::~PauseMenu() {
         delete title;
         delete wMenu;
+    }
+
+    void PauseMenu::open() {
+        wMenu->setVisible(true);
     }
 
     void PauseMenu::buttonEvents(sf::RenderWindow& rw, Game* g) {
@@ -132,10 +136,17 @@ namespace rr {
 #define wCont component(wOpts, Window, 3)
         if (wMenu->isVisible()) {
             if (!wOpts->isVisible() && !wHelp->isVisible()) {
-                if (cmc(wMenu, Button, 0) && isMLBPressed) g->pause(false);
+                if (cmc(wMenu, Button, 0) && isMLBPressed) {
+                    wMenu->setVisible(false);
+                    g->pause(false);
+                }
                 if (cmc(wMenu, Button, 1) && isMLBPressed) wOpts->setVisible(true);
                 if (cmc(wMenu, Button, 2) && isMLBPressed) wHelp->setVisible(true);
-                if (cmc(wMenu, Button, 3) && isMLBPressed) g->start(false);
+                if (cmc(wMenu, Button, 3) && isMLBPressed) {
+                    wMenu->setVisible(false);
+                    g->pause(false);
+                    g->start(false);
+                }
             }
             else if (wOpts->isVisible()) {
                 if (!wGame->isVisible() && !wGrap->isVisible() && !wSoun->isVisible() && !wCont->isVisible()) {
@@ -229,6 +240,7 @@ namespace rr {
 #define wGrap component(wOpts, Window, 1)
 #define wSoun component(wOpts, Window, 2)
 #define wCont component(wOpts, Window, 3)
+        rw.draw(shadow);
         title->draw(rw);
         wMenu->draw(rw);
         wOpts->draw(rw);
@@ -245,4 +257,9 @@ namespace rr {
 #undef wSoun
 #undef wCont
     }
+
+    bool PauseMenu::isOpen() {
+        return wMenu->isVisible();
+    }
+
 }

@@ -24,13 +24,13 @@ namespace rr {
 
         skin.loadFromFile("data/graphics/items.png");
 
-        int tu = (size+1)%(280/14);
-        int tv = (size+1)/(280/14);
+        int tu = (size+1)%20;
+        int tv = (size+1)/20;
 
-        body.setTexture(skin);
+        body.setTexture    (skin);
         body.setTextureRect(sf::IntRect(tu*14, tv*14, 14, 14));
-        body.scale(sf::Vector2f(5, 5));
-        body.setPosition(pos);
+        body.scale         (sf::Vector2f(5, 5));
+        body.setPosition   (pos);
     }
 
     Potion::~Potion() {}
