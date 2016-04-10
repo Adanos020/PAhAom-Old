@@ -13,8 +13,7 @@ extern sf::Font font_Pixel;
 
 namespace rr {
 
-    Slot::Slot(Component* parentComponent, sf::Vector2f size, sf::Vector2f pos, int icon, sf::Color c) {
-        parent = parentComponent;
+    Slot::Slot(sf::Vector2f size, sf::Vector2f pos, int icon, sf::Color c) {
         hollow = true;
 
         body.setSize(size);
@@ -23,9 +22,13 @@ namespace rr {
         body.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
         body.setOutlineThickness(5);
 
-        image = new Image(this, pos, 14, "data/graphics/gui.png", icon);
-        itemSkin = new Image(this, pos, 14, "data/graphics/gui.png", 0);
-        text = new Text(this, sf::Vector2f(pos.x+5, pos.y+45), "", font_Pixel, 202);
+        image = new Image(pos, 14, "data/graphics/gui.png", icon);
+        itemSkin = new Image(pos, 14, "data/graphics/gui.png", 0);
+        text = new Text(sf::Vector2f(pos.x+5, pos.y+45), "", font_Pixel, 202);
+
+        itemSkin->setParentComponent(this);
+        image   ->setParentComponent(this);
+        text    ->setParentComponent(this);
     }
 
     Slot::~Slot() {
@@ -34,10 +37,10 @@ namespace rr {
     }
 
     void Slot::setPosition(sf::Vector2f pos) {
-        body.setPosition(pos);
-        image->setPosition(pos);
+        body     .setPosition(pos);
+        image   ->setPosition(pos);
         itemSkin->setPosition(pos);
-        text->setPosition(sf::Vector2f(pos.x+5, pos.y+35));
+        text    ->setPosition(sf::Vector2f(pos.x+5, pos.y+35));
     }
 
     void Slot::draw(sf::RenderWindow& rw) {

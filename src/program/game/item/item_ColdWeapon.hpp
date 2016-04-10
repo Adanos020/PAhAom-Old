@@ -13,8 +13,10 @@
 namespace rr {
 
     class ColdWeapon :public Item {
-      private:
-      public:
+    private:
+    public:
+         ColdWeapon();
+        ~ColdWeapon();
         virtual void draw      (sf::RenderWindow&) override;
         virtual void editAmount(int)               override;
         virtual void update    ()                  override;

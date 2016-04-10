@@ -18,14 +18,11 @@ namespace rr {
 
 /// Class for the main menu
     class MainMenu {
-      private:
-          Text* title;
+    private:
+        Text*   title;
         Window* wMenu;
-        Window* wOpts;
-        Window* wHelp;
-        Window* wCred;
-      public:
-        MainMenu (sf::RenderWindow&);
+    public:
+         MainMenu(sf::RenderWindow&);
         ~MainMenu();
 
         void buttonEvents(sf::RenderWindow&, Game*);
@@ -34,14 +31,12 @@ namespace rr {
 
 /// Class for the pause menu
     class PauseMenu {
-      private:
-          Text* title;
-        Window* wMenu;
-        Window* wOpts;
-        Window* wHelp;
+    private:
         sf::RectangleShape shadow;
-      public:
-        PauseMenu (sf::RenderWindow&);
+        Text*              title;
+        Window*            wMenu;
+    public:
+         PauseMenu(sf::RenderWindow&);
         ~PauseMenu();
 
         void buttonEvents(sf::RenderWindow&, Game*);
@@ -50,10 +45,10 @@ namespace rr {
 
 /// Class for the player attributes window
     class Attributes {
-      private:
+    private:
         Window* wAttr;
-      public:
-        Attributes (sf::RenderWindow&);
+    public:
+         Attributes(sf::RenderWindow&);
         ~Attributes();
 
         void update      (Player*);
@@ -63,10 +58,10 @@ namespace rr {
 
 /// Class for the player inventory
     class Inventory {
-      private:
+    private:
         Window* wInve;
-      public:
-        Inventory (sf::RenderWindow&);
+    public:
+         Inventory(sf::RenderWindow&);
         ~Inventory();
 
         void buttonEvents(sf::RenderWindow&);

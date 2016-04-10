@@ -9,25 +9,21 @@
 
 namespace rr {
 
-    Text::Text(Component* parentComponent, sf::String str, sf::Font& font, unsigned chsize, sf::Color c) :Component() {
-        parent = parentComponent;
-
-        text.setFont(font);
+    Text::Text(sf::String str, sf::Font& font, unsigned chsize, sf::Color c) :Component() {
+        text.setFont         (font);
         text.setCharacterSize(chsize);
-        text.setString(str);
-        text.setColor(c);
-        text.setStyle(sf::Text::Bold);
+        text.setString       (str);
+        text.setColor        (c);
+        text.setStyle        (sf::Text::Bold);
     }
 
-    Text::Text(Component* parentComponent, sf::Vector2f pos, sf::String str, sf::Font& font, unsigned chsize, sf::Color c) :Component() {
-        parent = parentComponent;
-
-        text.setFont(font);
-        text.setPosition(pos);
+    Text::Text(sf::Vector2f pos, sf::String str, sf::Font& font, unsigned chsize, sf::Color c) :Component() {
+        text.setFont         (font);
+        text.setPosition     (pos);
         text.setCharacterSize(chsize);
-        text.setString(str);
-        text.setColor(c);
-        text.setStyle(sf::Text::Bold);
+        text.setString       (str);
+        text.setColor        (c);
+        text.setStyle        (sf::Text::Bold);
     }
 
     Text::~Text() {}

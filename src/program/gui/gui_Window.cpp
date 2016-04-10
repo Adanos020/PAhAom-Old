@@ -14,17 +14,17 @@ extern sf::Font font_Unifont;
 
 namespace rr {
 
-    Window::Window(Component* parentComponent, sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
-        parent = parentComponent;
-
+    Window::Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
         body.setSize(size);
         body.setPosition(position);
         body.setFillColor(sf::Color(c.r, c.g, c.b, 128));
         body.setOutlineColor(c);
         body.setOutlineThickness(5);
 
-        header = new Text(this, sf::Vector2f(0, 0), head, font_Unifont, 20, sf::Color::Yellow);
+        header = new Text(sf::Vector2f(0, 0), head, font_Unifont, 20, sf::Color::Yellow);
         header->setPosition(sf::Vector2f(position.x+5, position.y));
+
+        header->setParentComponent(this);
 
         visible = false;
     }
@@ -34,8 +34,10 @@ namespace rr {
         components.clear();
     }
 
-    void Window::addComponent(Component* c) {
-        c->setPosition(sf::Vector2f(body.getPosition().x+c->getPosition().x, body.getPosition().y+c->getPosition().y));
+    void Window::addComponent(Component* c, bool attached) {
+        if (attached)
+            c->setPosition(sf::Vector2f(body.getPosition().x+c->getPosition().x, body.getPosition().y+c->getPosition().y));
+        c->setParentComponent(this);
         components.push_back(c);
     }
 

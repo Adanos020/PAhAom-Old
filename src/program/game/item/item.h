@@ -13,19 +13,19 @@
 namespace rr {
 
     class Item {
-      protected:
-          sf::FloatRect boundBox;
-            sf::Texture skin;
-        sf::VertexArray body;
-                    int amount;
-                 double ID;
-                   bool equipable;
-                   bool disposable;
-             sf::String name;
-             sf::String description;
-             sf::String effects;
-             sf::String requirements;
-      public:
+    protected:
+        sf::FloatRect   boundBox;
+        sf::Texture     skin;
+        sf::Sprite      body;
+        sf::String      name;
+        sf::String      description;
+        sf::String      effects;
+        sf::String      requirements;
+        bool            equipable;
+        bool            disposable;
+        double          ID;
+        int             amount;
+    public:
         virtual ~Item() {}
 
         virtual void    draw          (sf::RenderWindow&) = 0;
@@ -36,16 +36,16 @@ namespace rr {
         int             getAmount     () { return amount; }
         bool            isDisposable  () { return disposable; }
         bool            isEquipable   () { return equipable; }
+        sf::Sprite      getBody       () { return body; }
         sf::String      getName       () { return name; }
         sf::String      getDescription() { return description; }
         sf::Texture     getSkin       () { return skin; }
-        sf::VertexArray getBody       () { return body; }
     };
 
     class Discoverable {
-      protected:
+    protected:
         bool discovered;
-      public:
+    public:
         virtual ~Discoverable() {}
         virtual void reveal  () = 0;
     };

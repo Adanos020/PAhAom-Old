@@ -6,6 +6,10 @@ gui.button.options OPTIONS
 gui.button.help HELP
 gui.button.credits CREDITS
 gui.button.quit QUIT
+gui.button.game GAME
+gui.button.graphical GRAPHICS
+gui.button.sound SOUND
+gui.button.controls CONTROLS
 gui.checkbox.fullscreen FULLSCREEN
 gui.checkbox.vsync VERTICAL SYNCHRONIZATION
 gui.text.resolution RESOLUTION

@@ -14,18 +14,20 @@ extern sf::Font font_Unifont;
 
 namespace rr {
 
-    Switch::Switch(Component* parentComponent, sf::Vector2f size, sf::Vector2f pos) {
-        parent = parentComponent;
-
+    Switch::Switch(sf::Vector2f size, sf::Vector2f pos) {
         body.setSize(size);
         body.setPosition(sf::Vector2f(pos.x+size.y+35, pos.y+5));
         body.setFillColor(sf::Color(128, 128, 128, 128));
         body.setOutlineColor(sf::Color(108, 108, 108));
         body.setOutlineThickness(5);
 
-        left = new Button(this, pos, L"<", size.y-3);
-        right = new Button(this, sf::Vector2f(body.getPosition().x+body.getSize().x+16, pos.y), L">", size.y-3);
-        text = new Text(this, sf::Vector2f(0, 0), L">TE'EM 'ECTEM", font_Pixel, size.y);
+        left  = new Button(pos, L"<", size.y-3);
+        right = new Button(sf::Vector2f(body.getPosition().x+body.getSize().x+16, pos.y), L">", size.y-3);
+        text  = new Text(sf::Vector2f(0, 0), L">TE'EM 'ECTEM", font_Pixel, size.y);
+
+        left ->setParentComponent(this);
+        right->setParentComponent(this);
+        text ->setParentComponent(this);
 
         counter = 0;
     }
@@ -88,9 +90,9 @@ namespace rr {
 
     void Switch::draw(sf::RenderWindow& rw) {
         rw.draw(body);
-        left->draw(rw);
+        left ->draw(rw);
         right->draw(rw);
-        text->draw(rw);
+        text ->draw(rw);
     }
 
 }

@@ -13,9 +13,7 @@ extern sf::Font font_Unifont;
 
 namespace rr {
 
-    Checkbox::Checkbox(Component* parentComponent, sf::Vector2f pos, sf::String txt, int chsize, sf::Color c) {
-        parent = parentComponent;
-
+    Checkbox::Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color c) {
         position = pos;
 
         body.setSize(sf::Vector2f(35, 35));
@@ -24,9 +22,12 @@ namespace rr {
         body.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
         body.setOutlineThickness(5);
 
-        image = new Image(this, pos, 14, "data/graphics/gui.png", 1);
-        text = new Text(this, sf::Vector2f(0, 0), txt, font_Unifont, chsize);
+        image = new Image(pos, 14, "data/graphics/gui.png", 1);
+        text  = new Text(sf::Vector2f(0, 0), txt, font_Unifont, chsize);
         text->setPosition(sf::Vector2f(pos.x+45, pos.y+body.getSize().y/2-text->getSize().y));
+
+        image->setParentComponent(this);
+        text ->setParentComponent(this);
     }
 
     Checkbox::~Checkbox() {

@@ -9,9 +9,7 @@
 
 namespace rr {
 
-    Bar::Bar(Component* parentComponent, std::string plain, int max_length, sf::Color c, sf::Vector2f pos) {
-        parent = parentComponent;
-
+    Bar::Bar(std::string plain, int max_length, sf::Color c, sf::Vector2f pos) {
         if (plain == "horizontal") {
             border.setSize(sf::Vector2f(max_length, 5));
             bar.setSize(sf::Vector2f(max_length, 5));

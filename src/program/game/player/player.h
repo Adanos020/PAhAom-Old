@@ -9,33 +9,33 @@
 #define player_h
 
 #include <SFML/Graphics.hpp>
+#include "../../../../lib/AnimatedSprite.hpp"
 
 namespace rr {
 
 /// Class for the player
     class Player {
         friend class Game;
-      private:
-        sf::VertexArray body;
-            sf::Texture skin;
-           sf::Vector2f position;
-
-        double velocity;
-
+    private:
         struct Stats {
-          public:
+        public:
             double hp;
             double mp;
             double maxhp;
             double maxmp;
-               int sp;
-               int exp;
-               int nextlvl;
-               int lvl;
+            int    sp;
+            int    exp;
+            int    nextlvl;
+            int    lvl;
         };
-        Stats stats;
-      public:
-        Player(sf::Vector2f pos);
+        sf::Texture     skin;
+        sf::Vector2f    position;
+        AnimatedSprite  body;
+        Stats           stats;
+        double          velocity;
+
+    public:
+         Player(sf::Vector2f pos);
         ~Player();
 
         enum direction { down, left, right, up };
@@ -45,8 +45,8 @@ namespace rr {
         void         draw       (sf::RenderWindow&);
         void         update     ();
 
-        Stats        getStats   () { return stats; }
-        sf::Vector2f getPosition() { return body[0].position+sf::Vector2f(32.5, 32.5); }
+        Stats        getStats   () const { return stats; }
+        sf::Vector2f getPosition() const { return body.getPosition(); }
     };
 
 }

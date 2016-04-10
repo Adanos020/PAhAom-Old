@@ -24,14 +24,14 @@ namespace rr {
 
 /// Class for the HUD
     class HUD {
-      private:
-         Bar* bHP;
-         Bar* bMP;
-         Bar* bXP;
+    private:
+        Bar*  bHP;
+        Bar*  bMP;
+        Bar*  bXP;
         Slot* sCarryOn[5];
         Text* tXPlevel;
-      public:
-        HUD (sf::RenderWindow&);
+    public:
+         HUD(sf::RenderWindow&);
         ~HUD();
 
         void update(Player*);
@@ -40,19 +40,19 @@ namespace rr {
 
 /// Class for the game
     class Game {
-      private:
-                   MainMenu* mainMenu;
-                  PauseMenu* pauseMenu;
-                 Attributes* attributes;
-                        HUD* hud;
-                     Player* player;
+    private:
+        MainMenu*            mainMenu;
+        PauseMenu*           pauseMenu;
+        Attributes*          attributes;
+        HUD*                 hud;
+        Player*              player;
         std::vector<Potion*> potions;
-                        bool started;
-                        bool paused;
+        bool                 started;
+        bool                 paused;
 
         void controls    (float);
-      public:
-        Game (sf::RenderWindow&);
+    public:
+         Game(sf::RenderWindow&);
         ~Game();
 
         void draw        (sf::RenderWindow&, sf::View&);

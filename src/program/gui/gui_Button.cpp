@@ -11,12 +11,14 @@ extern sf::Font font_Unifont;
 
 namespace rr {
 
-    Button::Button(Component* parentComponent, sf::Vector2f position, sf::String str, unsigned chsize, sf::Color c) :Component() {
-        parent = parentComponent;
-        text = new Text(this, sf::Vector2f(0, 0), str, font_Unifont, chsize, c);
+    Button::Button(sf::Vector2f position, sf::String str, unsigned chsize, sf::Color c) :Component() {
+        text = new Text(sf::Vector2f(0, 0), str, font_Unifont, chsize, c);
         text->setPosition(sf::Vector2f(position.x+15, position.y-0.5));
 
-        image = new Image(this, position, 14, "data/graphics/gui.png", 0);
+        image = new Image(position, 14, "data/graphics/gui.png", 0);
+
+        text ->setParentComponent(this);
+        image->setParentComponent(this);
 
         body.setPosition(position);
         body.setSize(sf::Vector2f(text->getSize().x+25, chsize*1.3425));

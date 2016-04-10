@@ -13,7 +13,7 @@
 namespace rr {
 
     class Potion :public Discoverable, public Item {
-      public:
+    public:
         enum Effect {
             HEALING,
             MAGIC,
@@ -31,7 +31,7 @@ namespace rr {
             BIG
         };
 
-        Potion (Effect, Size, int am, sf::Vector2f pos = sf::Vector2f(0, 0));
+         Potion(Effect, Size, int am, sf::Vector2f pos = sf::Vector2f(0, 0));
         ~Potion();
 
         virtual void draw      (sf::RenderWindow&) override;
@@ -40,10 +40,10 @@ namespace rr {
         virtual void reveal    ()                  override;
 
         Effect getEffect       () { return effect; }
-        Size getSize           () { return size; }
-      private:
+        Size   getSize         () { return size; }
+    private:
         Effect effect;
-          Size size;
+        Size   size;
     };
 
 }

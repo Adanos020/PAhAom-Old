@@ -9,6 +9,8 @@
 
 #include <iostream>
 
+extern rr::Settings settings;
+
 namespace rr {
 
     Game::Game(sf::RenderWindow& rw) {
@@ -62,21 +64,36 @@ namespace rr {
 
             if (keyPressed(key::Escape)) pause(true);
 
-            if (keyPressed(key::Up)) player->go(timer, Player::up);
-            if (keyPressed(key::Down)) player->go(timer, Player::down);
-            if (keyPressed(key::Left)) player->go(timer, Player::left);
-            if (keyPressed(key::Right)) player->go(timer, Player::right);
+            if (keyPressed(settings.keys.move_up))    player->go(timer, Player::up);
+            if (keyPressed(settings.keys.move_down))  player->go(timer, Player::down);
+            if (keyPressed(settings.keys.move_left))  player->go(timer, Player::left);
+            if (keyPressed(settings.keys.move_right)) player->go(timer, Player::right);
 
-            if (keyPressed(key::N)) {
+            if      (keyPressed(settings.keys.open_attributes)) {
                 attributes->update(player);
             }
+            else if (keyPressed(settings.keys.open_inventory)) {
 
-            if (keyPressed(key::Q)) player->stats.hp--;
-            if (keyPressed(key::W)) player->stats.hp++;
-            if (keyPressed(key::E)) player->stats.mp--;
-            if (keyPressed(key::R)) player->stats.mp++;
-            if (keyPressed(key::T)) player->stats.exp++;
-            if (keyPressed(key::Y)) player->stats.lvl++;
+            }
+            else if (keyPressed(settings.keys.open_map)) {
+
+            }
+            else if (keyPressed(settings.keys.open_quests)) {
+
+            }
+
+            if      (keyPressed(settings.keys.useslot_1)) {}
+            else if (keyPressed(settings.keys.useslot_2)) {}
+            else if (keyPressed(settings.keys.useslot_3)) {}
+            else if (keyPressed(settings.keys.useslot_4)) {}
+            else if (keyPressed(settings.keys.useslot_5)) {}
+
+            else if (keyPressed(key::Q)) player->stats.hp--;
+            else if (keyPressed(key::W)) player->stats.hp++;
+            else if (keyPressed(key::E)) player->stats.mp--;
+            else if (keyPressed(key::R)) player->stats.mp++;
+            else if (keyPressed(key::T)) player->stats.exp++;
+            else if (keyPressed(key::Y)) player->stats.lvl++;
 
 #undef keyPressed
 #undef key

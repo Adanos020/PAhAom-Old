@@ -13,8 +13,10 @@
 namespace rr {
 
     class Food :public Item {
-      private:
-      public:
+    private:
+    public:
+         Food();
+        ~Food();
         virtual void draw      (sf::RenderWindow&) override;
         virtual void editAmount(int)               override;
         virtual void update    ()                  override;

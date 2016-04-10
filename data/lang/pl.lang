@@ -6,6 +6,10 @@ gui.button.options OPCJE
 gui.button.help POMOC
 gui.button.credits AUTORZY
 gui.button.quit WYJDŹ
+gui.button.game GRA
+gui.button.graphical GRAFIKA
+gui.button.sound DŹWIĘK
+gui.button.controls STEROWANIE
 gui.checkbox.fullscreen PEŁNY EKRAN
 gui.checkbox.vsync SYNCHRONIZACJA PIONOWA
 gui.text.resolution ROZDZIELCZOŚĆ

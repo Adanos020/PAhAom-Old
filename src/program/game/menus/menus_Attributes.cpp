@@ -18,8 +18,8 @@ namespace rr {
     Attributes::Attributes(sf::RenderWindow& rw) {
 #define dict(s) dictionary[s]
 
-        wAttr = new Window(nullptr, dict("gui.window.attributes"), sf::Vector2f(400, 220), (sf::Vector2f)rw.getSize()/2.f-sf::Vector2f(200, 110));
-        wAttr->addComponent(new Button(wAttr, sf::Vector2f(10, 180), dict("gui.button.quit"), 30));
+        wAttr = new Window(dict("gui.window.attributes"), sf::Vector2f(400, 220), (sf::Vector2f)rw.getSize()/2.f-sf::Vector2f(200, 110));
+            wAttr->addComponent(new Button(sf::Vector2f(10, 180), dict("gui.button.quit"), 30), true);
         wAttr->setVisible(false);
 
 #undef dict
