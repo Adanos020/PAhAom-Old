@@ -9,11 +9,11 @@
 
 namespace rr {
 
-    Bar::Bar(std::string plain, int max_length, sf::Color c, sf::Vector2f pos) {
-        if (plain == "horizontal") {
+    Bar::Bar(Plain plain, int max_length, sf::Color c, sf::Vector2f pos) {
+        if (plain == HORIZONTAL) {
             border.setSize(sf::Vector2f(max_length, 5));
             bar.setSize(sf::Vector2f(max_length, 5));
-        } else if (plain == "vertical") {
+        } else if (plain == VERTICAL) {
             border.setSize(sf::Vector2f(5, max_length));
             bar.setSize(sf::Vector2f(5, max_length));
         }

@@ -115,7 +115,11 @@ namespace rr {
         sf::RectangleShape bar;
         sf::Vector2f       position;
     public:
-         Bar(std::string plain, int max_length, sf::Color, sf::Vector2f pos);
+        enum Plain {
+            HORIZONTAL,
+            VERTICAL
+        };
+         Bar(Plain, int max_length, sf::Color, sf::Vector2f pos);
         ~Bar();
 
         void         setPosition        (sf::Vector2f)      override;

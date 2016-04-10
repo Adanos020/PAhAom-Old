@@ -61,13 +61,12 @@ namespace rr {
         if (started && !paused) {
 #define keyPressed(key) sf::Keyboard::isKeyPressed(key)
 #define key sf::Keyboard
-
             if (keyPressed(key::Escape)) pause(true);
 
-            if (keyPressed(settings.keys.move_up))    player->go(timer, Player::up);
-            if (keyPressed(settings.keys.move_down))  player->go(timer, Player::down);
-            if (keyPressed(settings.keys.move_left))  player->go(timer, Player::left);
-            if (keyPressed(settings.keys.move_right)) player->go(timer, Player::right);
+            if (keyPressed(settings.keys.move_up))    player->go(timer, Player::UP);
+            if (keyPressed(settings.keys.move_down))  player->go(timer, Player::DOWN);
+            if (keyPressed(settings.keys.move_left))  player->go(timer, Player::LEFT);
+            if (keyPressed(settings.keys.move_right)) player->go(timer, Player::RIGHT);
 
             if      (keyPressed(settings.keys.open_attributes)) {
                 attributes->update(player);
@@ -88,13 +87,12 @@ namespace rr {
             else if (keyPressed(settings.keys.useslot_4)) {}
             else if (keyPressed(settings.keys.useslot_5)) {}
 
-            else if (keyPressed(key::Q)) player->stats.hp--;
-            else if (keyPressed(key::W)) player->stats.hp++;
-            else if (keyPressed(key::E)) player->stats.mp--;
-            else if (keyPressed(key::R)) player->stats.mp++;
-            else if (keyPressed(key::T)) player->stats.exp++;
-            else if (keyPressed(key::Y)) player->stats.lvl++;
-
+            else if (keyPressed(key::Numpad1)) player->stats. hp--;
+            else if (keyPressed(key::Numpad2)) player->stats. hp++;
+            else if (keyPressed(key::Numpad3)) player->stats. mp--;
+            else if (keyPressed(key::Numpad4)) player->stats. mp++;
+            else if (keyPressed(key::Numpad5)) player->stats.exp++;
+            else if (keyPressed(key::Numpad6)) player->stats.lvl++;
 #undef keyPressed
 #undef key
         }

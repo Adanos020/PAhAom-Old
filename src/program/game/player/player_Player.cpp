@@ -12,7 +12,17 @@ namespace rr {
     Player::Player(sf::Vector2f pos) {
         skin.loadFromFile("data/graphics/player.png");
 
+        walkingLeft .setSpriteSheet(skin);
+        walkingRight.setSpriteSheet(skin);
+        walkingLeft .addFrame(sf::IntRect(0, 14,  14, 14));
+        walkingRight.addFrame(sf::IntRect(0, 0, 14, 14));
+
+        currentAnimation = &walkingRight;
+
+        body.setLooped(false);
+        body.pause();
         body.setPosition(pos);
+        body.scale(sf::Vector2f(5, 5));
 
         position = pos;
         velocity = 0.5;
@@ -27,37 +37,30 @@ namespace rr {
     }
 
     Player::~Player() {
-
+        //delete currentAnimation;
     }
 
     void Player::setPosition(sf::Vector2f pos) {
-        if (position != pos) position = pos;
+        if (position != pos)
+            position  = pos;
         body.setPosition(pos);
     }
 
     void Player::go(float ts, direction di) {
-        if (di == up) {
+        if        (di == UP) {
             position.y -= ts*velocity;
             setPosition(position);
-        } else if (di == down) {
+        } else if (di == DOWN) {
             position.y += ts*velocity;
             setPosition(position);
-        } else if (di == left) {
+        } else if (di == LEFT) {
             position.x -= ts*velocity;
             setPosition(position);
-/*
-            body[0].texCoords = sf::Vector2f(0, 14);
-            body[1].texCoords = sf::Vector2f(14, 14);
-            body[2].texCoords = sf::Vector2f(14, 28);
-            body[3].texCoords = sf::Vector2f(0, 28);*/
-        } else if (di == right) {
+            currentAnimation = &walkingLeft;
+        } else if (di == RIGHT) {
             position.x += ts*velocity;
             setPosition(position);
-/*
-            body[0].texCoords = sf::Vector2f(0, 0);
-            body[1].texCoords = sf::Vector2f(14, 0);
-            body[2].texCoords = sf::Vector2f(14, 14);
-            body[3].texCoords = sf::Vector2f(0, 14);*/
+            currentAnimation = &walkingRight;
         }
     }
 
@@ -79,7 +82,7 @@ namespace rr {
             stats.nextlvl *= 1.25;
             stats.lvl++;
         }
-
+        body.play(*currentAnimation);
     }
 
 }

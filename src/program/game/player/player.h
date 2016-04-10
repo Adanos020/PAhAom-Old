@@ -28,17 +28,25 @@ namespace rr {
             int    nextlvl;
             int    lvl;
         };
-        sf::Texture     skin;
-        sf::Vector2f    position;
-        AnimatedSprite  body;
-        Stats           stats;
-        double          velocity;
+        sf::Texture        skin;
+        sf::Vector2f       position;
+        sf::AnimatedSprite body;
+        sf::Animation      walkingLeft;
+        sf::Animation      walkingRight;
+        sf::Animation*     currentAnimation;
+        Stats              stats;
+        double             velocity;
 
     public:
          Player(sf::Vector2f pos);
         ~Player();
 
-        enum direction { down, left, right, up };
+        enum direction {
+            UP,
+            DOWN,
+            LEFT,
+            RIGHT
+        };
 
         void         setPosition(sf::Vector2f);
         void         go         (float timeStep, direction);
