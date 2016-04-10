@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/menus/menus.h
+ * @file src/program/game/menus/menus.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: LLVM Clang Compiler
@@ -8,9 +8,9 @@
 #ifndef menus_h
 #define menus_h
 
-#include "../../gui/gui.h"
-#include "../game.h"
-#include "../player/player.h"
+#include "../../gui/gui.hpp"
+#include "../game.hpp"
+#include "../player/player.hpp"
 
 namespace rr {
 

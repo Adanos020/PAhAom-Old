@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/player/player.h
+ * @file src/program/game/player/player.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: LLVM Clang Compiler
@@ -29,7 +29,6 @@ namespace rr {
             int    lvl;
         };
 
-        sf::Texture        skin;
         sf::Vector2f       position;
         sf::AnimatedSprite body;
         sf::Animation      walkingLeft;

@@ -5,50 +5,48 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "menus.h"
-#include "../../funcs/funcs.h"
+#include "menus.hpp"
+#include "../../funcs/funcs.hpp"
 
 #include <string>
 #include <cstdlib>
 #include <iostream>
 
-extern std::map<sf::String, sf::String> dictionary;
-extern rr::Settings settings;
-extern sf::Font font_Pixel;
-extern sf::Font font_Unifont;
+extern rr::Dictionary dictionary;
+extern rr::Settings   settings;
+extern rr::Resources  resources;
 
 namespace rr {
 
     MainMenu::MainMenu(sf::RenderWindow& rw) {
-#define dict(s) dictionary[s]
 #define component(w, c, i) w->getComponent<c>(i)
 
-        title = new Text(sf::Vector2f(0, 0), L"PAhAom", font_Pixel, 100, sf::Color::Yellow);
+        title = new Text(sf::Vector2f(0, 0), L"PAhAom", resources.font.Pixel, 100, sf::Color::Yellow);
         title->setPosition(sf::Vector2f(rw.getSize().x/2-title->getSize().x/2, 10));
 
         wMenu = new Window(L"", sf::Vector2f(244, 454), sf::Vector2f(25, rw.getSize().y/2-225));
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.newgame"), 52), true);
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.load"),    52), true);
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.options"), 52), true);
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.help"),    52), true);
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.credits"), 52), true);
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.quit"),    52), true);
+            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.newgame, 52), true);
+            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.load,    52), true);
+            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.options, 52), true);
+            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.help,    52), true);
+            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.credits, 52), true);
+            wMenu->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit,    52), true);
 
-            wMenu->addComponent(new Window(dict("gui.button.options"), sf::Vector2f(330, 405), sf::Vector2f(rw.getSize().x-355, rw.getSize().y/2-202.5)), false);
+            wMenu->addComponent(new Window(dictionary.gui.button.options, sf::Vector2f(330, 405), sf::Vector2f(rw.getSize().x-355, rw.getSize().y/2-202.5)), false);
 #define wOpts component(wMenu, Window, 0)
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.game"),      52), true);
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.graphical"), 52), true);
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.sound"),     52), true);
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.controls"),  52), true);
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.save"),      30), true);
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.quit"),      30), true);
+                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.game,      52), true);
+                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.graphical, 52), true);
+                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.sound,     52), true);
+                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.controls,  52), true);
+                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.save,      30), true);
+                wOpts->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit,      30), true);
                 for (int i=0; i<4; i++)
                     component(wOpts, Button, i)->setPosition(wOpts->getPosition()+sf::Vector2f(wOpts->getSize().x/2-component(wOpts, Button, i)->getSize().x/2, 30+i*75));
                 component(wOpts, Button, 4)->setPosition(wOpts->getPosition()+sf::Vector2f(wOpts->getSize().x/2-(component(wOpts, Button, 4)->getSize().x+component(wOpts, Button, 5)->getSize().x+5)/2, 350));
                 component(wOpts, Button, 5)->setPosition(component(wOpts, Button, 4)->getPosition()+sf::Vector2f(component(wOpts, Button, 4)->getSize().x+5, 0));
-                wOpts->addComponent(new Window(dict("gui.button.game"), sf::Vector2f(340, 354), sf::Vector2f(rw.getSize().x/2-170, rw.getSize().y/2-177)), false);
+                wOpts->addComponent(new Window(dictionary.gui.button.game, sf::Vector2f(340, 354), sf::Vector2f(rw.getSize().x/2-170, rw.getSize().y/2-177)), false);
 #define wGame component(wOpts, Window, 0)
-                    wGame->addComponent(new Text(sf::Vector2f(10, 30), dict("gui.text.language")), true);
+                    wGame->addComponent(new Text(sf::Vector2f(10, 30), dictionary.gui.text.language, resources.font.Unifont), true);
                     wGame->addComponent(new Switch(sf::Vector2f(220, 25), sf::Vector2f(20, 80)), true);
                         component(wGame, Switch, 0)->addOption(L"ENGLISH");
                         component(wGame, Switch, 0)->addOption(L"POLSKI");
@@ -59,23 +57,23 @@ namespace rr {
                             component(wGame, Switch, 0)->setCurrentOption(L"POLSKI");
                         else if (settings.language == "fc")
                             component(wGame, Switch, 0)->setCurrentOption(L"DNQUBIÑHBI");
-                    wGame->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.quit"), 30), true);
+                    wGame->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
                     component(wGame, Button, 0)->setPosition(sf::Vector2f(rw.getSize().x/2-component(wGame, Button, 0)->getSize().x/2, rw.getSize().y/2+172-component(wGame, Button, 0)->getSize().y));
 #undef wGame
-                wOpts->addComponent(new Window(dict("gui.button.graphical"), sf::Vector2f(340, 434), sf::Vector2f(rw.getSize().x/2-170, rw.getSize().y/2-217)), false);
+                wOpts->addComponent(new Window(dictionary.gui.button.graphical, sf::Vector2f(340, 434), sf::Vector2f(rw.getSize().x/2-170, rw.getSize().y/2-217)), false);
 #define wGrap component(wOpts, Window, 1)
-                    wGrap->addComponent(new Text(sf::Vector2f(20, 30), dict("gui.text.resolution"), font_Unifont, 20), true);
+                    wGrap->addComponent(new Text(sf::Vector2f(20, 30), dictionary.gui.text.resolution, resources.font.Unifont, 20), true);
                     wGrap->addComponent(new Switch(sf::Vector2f(220, 25), sf::Vector2f(20, 60)), true);
                         component(wGrap, Switch, 0)->addOption(L"1280x720");
                         component(wGrap, Switch, 0)->addOption(L"1440x900");
                         component(wGrap, Switch, 0)->addOption(L"1600x900");
                         component(wGrap, Switch, 0)->addOption(L"1920x1080");
                         component(wGrap, Switch, 0)->setCurrentOption(std::to_wstring(settings.resolution.x)+L"x"+std::to_wstring(settings.resolution.y));
-                    wGrap->addComponent(new Checkbox(sf::Vector2f(15, 170), dict("gui.checkbox.fullscreen"), 15), true);
+                    wGrap->addComponent(new Checkbox(sf::Vector2f(15, 170), dictionary.gui.checkbox.fullscreen, 15), true);
                         component(wGrap, Checkbox, 0)->check(settings.fullscreen);
-                    wGrap->addComponent(new Checkbox(sf::Vector2f(15, 120), dict("gui.checkbox.vsync"), 15), true);
+                    wGrap->addComponent(new Checkbox(sf::Vector2f(15, 120), dictionary.gui.checkbox.vsync, 15), true);
                         component(wGrap, Checkbox, 1)->check(settings.vsync);
-                    wGrap->addComponent(new Text(sf::Vector2f(20, 295), L"ANTIALIASING", font_Unifont, 20), true);
+                    wGrap->addComponent(new Text(sf::Vector2f(20, 295), L"ANTIALIASING", resources.font.Unifont, 20), true);
 
                     wGrap->addComponent(new Switch(sf::Vector2f(220, 25), sf::Vector2f(20, 325)), true);
                         component(wGrap, Switch, 1)->addOption(L"NONE");
@@ -86,38 +84,38 @@ namespace rr {
                             component(wGrap, Switch, 1)->setCurrentOption(L"NONE");
                         else
                             component(wGrap, Switch, 1)->setCurrentOption(L"x"+std::to_wstring(settings.csettings.antialiasingLevel));
-                    wGrap->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.quit"), 30), true);
+                    wGrap->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
                     component(wGrap, Button, 0)->setPosition(sf::Vector2f(rw.getSize().x/2-component(wGrap, Button, 0)->getSize().x/2, rw.getSize().y/2+202-component(wGrap, Button, 0)->getSize().y));
 #undef wGrap
-                wOpts->addComponent(new Window(dict("gui.button.sound"), sf::Vector2f(300, 454), sf::Vector2f(rw.getSize().x/2-150, rw.getSize().y/2-225)), false);
+                wOpts->addComponent(new Window(dictionary.gui.button.sound, sf::Vector2f(300, 454), sf::Vector2f(rw.getSize().x/2-150, rw.getSize().y/2-225)), false);
 #define wSoun component(wOpts, Window, 2)
-                    wSoun->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.quit"), 30), true);
+                    wSoun->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
                     component(wSoun, Button, 0)->setPosition(sf::Vector2f(rw.getSize().x/2-component(wSoun, Button, 0)->getSize().x/2, rw.getSize().y/2+172-component(wSoun, Button, 0)->getSize().y));
 #undef wSoun
-                wOpts->addComponent(new Window(dict("gui.button.controls"), sf::Vector2f(300, 454), sf::Vector2f(rw.getSize().x/2-150, rw.getSize().y/2-225)), false);
+                wOpts->addComponent(new Window(dictionary.gui.button.controls, sf::Vector2f(300, 454), sf::Vector2f(rw.getSize().x/2-150, rw.getSize().y/2-225)), false);
 #define wCont component(wOpts, Window, 3)
-                    wCont->addComponent(new Button(sf::Vector2f(0, 0), dict("gui.button.quit"), 30), true);
+                    wCont->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
                     component(wCont, Button, 0)->setPosition(sf::Vector2f(rw.getSize().x/2-component(wCont, Button, 0)->getSize().x/2, rw.getSize().y/2+172-component(wCont, Button, 0)->getSize().y));
 #undef wCont
                 wOpts->setVisible(false);
 #undef wOpts
-            wMenu->addComponent(new Window(dict("gui.button.help"), sf::Vector2f(325, 454), sf::Vector2f(rw.getSize().x-350, rw.getSize().y/2-225)), false);
+            wMenu->addComponent(new Window(dictionary.gui.button.help, sf::Vector2f(325, 454), sf::Vector2f(rw.getSize().x-350, rw.getSize().y/2-225)), false);
 #define wHelp component(wMenu, Window, 1)
-                wHelp->addComponent(new Text(sf::Vector2f(20, 25), L"Pro tip:", font_Unifont, 30, sf::Color::Yellow), true);
-                wHelp->addComponent(new Text(sf::Vector2f(20, 55), dict("gui.text.killurslf"), font_Unifont, 30, sf::Color::Red), true);
+                wHelp->addComponent(new Text(sf::Vector2f(20, 25), L"Pro tip:", resources.font.Unifont, 30, sf::Color::Yellow), true);
+                wHelp->addComponent(new Text(sf::Vector2f(20, 55), dictionary.gui.text.killurslf, resources.font.Unifont, 30, sf::Color::Red), true);
 
-                wHelp->addComponent(new Button(sf::Vector2f(5, 380), dict("gui.button.quit"), 52), true);
+                wHelp->addComponent(new Button(sf::Vector2f(5, 380), dictionary.gui.button.quit, 52), true);
                 component(wHelp, Button, 0)->setPosition(wHelp->getPosition()+sf::Vector2f(wHelp->getSize().x/2-component(wHelp, Button, 0)->getSize().x/2, 379));
             wHelp->setVisible(false);
 #undef wHelp
-            wMenu->addComponent(new Window(dict("gui.button.credits"), sf::Vector2f(375, 300), sf::Vector2f(rw.getSize().x-400, rw.getSize().y/2-150)), false);
+            wMenu->addComponent(new Window(dictionary.gui.button.credits, sf::Vector2f(375, 300), sf::Vector2f(rw.getSize().x-400, rw.getSize().y/2-150)), false);
 #define wCred component(wMenu, Window, 2)
-                wCred->addComponent(new Text(sf::Vector2f(20, 20), dict("gui.text.wholegame"), font_Unifont, 30), true);
-                wCred->addComponent(new Text(sf::Vector2f(0, 50), L"\tAdam 'Adanos' Gąsior", font_Unifont, 25, sf::Color::Yellow), true);
-                wCred->addComponent(new Text(sf::Vector2f(20, 80), dict("gui.text.usedlib"), font_Unifont, 30), true);
-                wCred->addComponent(new Text(sf::Vector2f(0, 110), L"\tSFML 2.3.2", font_Unifont, 25, sf::Color::Yellow), true);
+                wCred->addComponent(new Text(sf::Vector2f(20, 20), dictionary.gui.text.wholegame, resources.font.Unifont, 30), true);
+                wCred->addComponent(new Text(sf::Vector2f(0, 50), L"\tAdam 'Adanos' Gąsior", resources.font.Unifont, 25, sf::Color::Yellow), true);
+                wCred->addComponent(new Text(sf::Vector2f(20, 80), dictionary.gui.text.usedlib, resources.font.Unifont, 30), true);
+                wCred->addComponent(new Text(sf::Vector2f(0, 110), L"\tSFML 2.3.2", resources.font.Unifont, 25, sf::Color::Yellow), true);
 
-                wCred->addComponent(new Button(sf::Vector2f(5, 225), dict("gui.button.quit"), 52), true);
+                wCred->addComponent(new Button(sf::Vector2f(5, 225), dictionary.gui.button.quit, 52), true);
                     component(wCred, Button, 0)->setPosition(wCred->getPosition()+sf::Vector2f(wCred->getSize().x/2-component(wCred, Button, 0)->getSize().x/2, 225));
                 wCred->setVisible(false);
             for (int i=0; i<6; i++)

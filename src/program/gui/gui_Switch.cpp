@@ -5,12 +5,13 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "gui.h"
+#include "gui.hpp"
 
 #include <iostream>
 
-extern sf::Font font_Pixel;
-extern sf::Font font_Unifont;
+#include "../program.hpp"
+
+extern rr::Resources resources;
 
 namespace rr {
 
@@ -23,7 +24,7 @@ namespace rr {
 
         left  = new Button(pos, L"<", size.y-3);
         right = new Button(sf::Vector2f(body.getPosition().x+body.getSize().x+16, pos.y), L">", size.y-3);
-        text  = new Text(sf::Vector2f(0, 0), L">TE'EM 'ECTEM", font_Pixel, size.y);
+        text  = new Text(sf::Vector2f(0, 0), L">TE'EM 'ECTEM", resources.font.Pixel, size.y);
 
         left ->setParentComponent(this);
         right->setParentComponent(this);

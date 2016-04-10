@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/game.h
+ * @file src/program/game/game.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: LLVM Clang Compiler
@@ -12,9 +12,9 @@
 #include <vector>
 
 #include "item/item_Potion.hpp"
-#include "menus/menus.h"
-#include "player/player.h"
-#include "../program.h"
+#include "menus/menus.hpp"
+#include "player/player.hpp"
+#include "../program.hpp"
 
 namespace rr {
 

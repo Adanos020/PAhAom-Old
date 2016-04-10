@@ -5,7 +5,7 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "game.h"
+#include "game.hpp"
 
 #include <iostream>
 

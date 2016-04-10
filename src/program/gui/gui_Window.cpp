@@ -5,12 +5,13 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "gui.h"
+#include "gui.hpp"
+#include "../program.hpp"
 
 #include <type_traits>
 #include <typeinfo>
 
-extern sf::Font font_Unifont;
+extern rr::Resources resources;
 
 namespace rr {
 
@@ -21,7 +22,7 @@ namespace rr {
         body.setOutlineColor(c);
         body.setOutlineThickness(5);
 
-        header = new Text(sf::Vector2f(0, 0), head, font_Unifont, 20, sf::Color::Yellow);
+        header = new Text(sf::Vector2f(0, 0), head, resources.font.Unifont, 20, sf::Color::Yellow);
         header->setPosition(sf::Vector2f(position.x+5, position.y));
 
         header->setParentComponent(this);

@@ -8,7 +8,7 @@
 #ifndef item_Potion_hpp
 #define item_Potion_hpp
 
-#include "item.h"
+#include "item.hpp"
 
 namespace rr {
 

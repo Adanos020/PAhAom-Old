@@ -5,16 +5,15 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "program/program.h"
+#include "program/program.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <map>
 #include <SFML/Graphics.hpp>
 
-std::map<sf::String, sf::String> dictionary;
-sf::Font font_Unifont;
-sf::Font font_Pixel;
-rr::Settings settings;
+rr::Dictionary dictionary;
+rr::Resources  resources;
+rr::Settings   settings;
 
 int main() {
     srand(time(0));

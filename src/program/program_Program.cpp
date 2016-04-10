@@ -5,23 +5,15 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "program.h"
-#include "funcs/files.h"
-#include "funcs/funcs.h"
+#include "program.hpp"
+#include "funcs/files.hpp"
+#include "funcs/funcs.hpp"
 
 #include <SFML/System/String.hpp>
 
-#include <cstdio>
-#include <string>
-#include <iostream>
-#include <iomanip>
-#include <fstream>
-
-extern std::map<sf::String, sf::String> dictionary;
-extern sf::Font font_Pixel;
-extern sf::Font font_Unifont;
-extern rr::Settings settings;
-extern bool debug;
+extern rr::Dictionary dictionary;
+extern rr::Resources  resources;
+extern rr::Settings   settings;
 
 namespace rr {
 
@@ -34,41 +26,10 @@ namespace rr {
         delete game;
     }
 
-    bool Program::readDictionary() {
-        std::ifstream idict;
-        idict.open("data/lang/"+settings.language+".lang");
-
-        if (idict.good()) {
-            puts(">Loading the dictionary...");
-            std::cout << "=====WORD======" << std::setw(40) << "===TRANSLATION===\n";
-            while (!idict.eof()) {
-                std::string word;
-                std::string translation;
-
-                idict >> word;
-                if (word[0] == ';' || word == "")
-                    std::getline(idict, word);
-                else {
-                    idict.seekg(idict.tellg()+1l);
-                    std::getline(idict, translation);
-                    dictionary[word] = utf8ToUtf32(translation);
-
-                    std::cout << word << std::setw(38-word.size()+translation.size()) << translation + "\n";
-                }
-            }
-            idict.close();
-            puts(">Done.");
-            return true;
-        }
-        puts("!Error loading the dictionary!");
-        return false;
-    }
-
     bool Program::loadResources() {
-        return (font_Unifont.loadFromFile("data/font/unifont-8.0.01.ttf")
-                && font_Pixel.loadFromFile("data/font/I-pixel-u-mod.ttf")
-                && settings.load()
-                && readDictionary());
+        return (resources .load()
+             && settings  .load()
+             && dictionary.load());
     }
 
     void Program::runGame() {

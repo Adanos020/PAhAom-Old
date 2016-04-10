@@ -5,8 +5,8 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "program.h"
-#include "funcs/files.h"
+#include "program.hpp"
+#include "funcs/files.hpp"
 
 #include <cstdio>
 #include <iostream>

@@ -5,7 +5,7 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "gui.h"
+#include "gui.hpp"
 
 namespace rr {
 

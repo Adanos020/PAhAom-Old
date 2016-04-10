@@ -8,7 +8,7 @@
 #ifndef item_Cash_hpp
 #define item_Cash_hpp
 
-#include "item.h"
+#include "item.hpp"
 
 namespace rr {
 

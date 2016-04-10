@@ -1,5 +1,5 @@
 /**
- * @file src/program/gui/gui.h
+ * @file src/program/gui/gui.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: LLVM Clang Compiler
@@ -10,10 +10,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "../funcs/funcs.h"
-#include "../game/item/item.h"
-
-extern sf::Font font_Unifont;
+#include "../funcs/funcs.hpp"
+#include "../game/item/item.hpp"
 
 namespace rr {
 
@@ -188,11 +186,10 @@ namespace rr {
 /// Class for an image component which can be loaded from a file
     class Image :public Component {
     private:
-        sf::Texture     skin;
         sf::Sprite      body;
         int             icn;
     public:
-         Image(sf::Vector2f position, int iconSize, std::string path, unsigned index);
+         Image(sf::Vector2f position, int iconSize, sf::Texture, unsigned index);
         ~Image();
 
         void            setPosition       (sf::Vector2f)      override;
@@ -213,7 +210,7 @@ namespace rr {
         void            draw              (sf::RenderWindow&) override;
 
         /// Method returning the image's texture
-        sf::Texture     getSkin           ()                           { return skin; }
+        sf::Texture     getSkin           ()                           { return *body.getTexture(); }
 
         /// Method returning the image's body
         sf::Sprite      getBody           ()                           { return body; }
@@ -306,8 +303,8 @@ namespace rr {
     private:
         sf::Text text;
     public:
-         Text(sf::String, sf::Font& = font_Unifont, unsigned chsize = 30, sf::Color = sf::Color::White);
-         Text(sf::Vector2f position, sf::String, sf::Font& = font_Unifont, unsigned chsize = 30, sf::Color = sf::Color::White);
+         Text(sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White);
+         Text(sf::Vector2f position, sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White);
         ~Text();
 
         void          setPosition        (sf::Vector2f)      override;

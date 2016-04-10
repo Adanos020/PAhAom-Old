@@ -5,21 +5,21 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "menus.h"
+#include "menus.hpp"
 
 #include <cstdio>
 
-extern std::map<sf::String, sf::String> dictionary;
-extern sf::Font font_Pixel;
-extern sf::Font font_Unifont;
+extern rr::Dictionary dictionary;
+
+extern rr::Resources resources;
 
 namespace rr {
 
     Attributes::Attributes(sf::RenderWindow& rw) {
 #define dict(s) dictionary[s]
 
-        wAttr = new Window(dict("gui.window.attributes"), sf::Vector2f(400, 220), (sf::Vector2f)rw.getSize()/2.f-sf::Vector2f(200, 110));
-            wAttr->addComponent(new Button(sf::Vector2f(10, 180), dict("gui.button.quit"), 30), true);
+        wAttr = new Window(dictionary.gui.window.attributes, sf::Vector2f(400, 220), (sf::Vector2f)rw.getSize()/2.f-sf::Vector2f(200, 110));
+            wAttr->addComponent(new Button(sf::Vector2f(10, 180), dictionary.gui.button.quit, 30), true);
         wAttr->setVisible(false);
 
 #undef dict

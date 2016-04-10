@@ -8,7 +8,7 @@
 #ifndef item_Spell_hpp
 #define item_Spell_hpp
 
-#include "item.h"
+#include "item.hpp"
 
 namespace rr {
 

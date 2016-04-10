@@ -5,17 +5,18 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "gui.h"
+#include "gui.hpp"
+#include "../program.hpp"
 
-extern sf::Font font_Unifont;
+extern rr::Resources resources;
 
 namespace rr {
 
     Button::Button(sf::Vector2f position, sf::String str, unsigned chsize, sf::Color c) :Component() {
-        text = new Text(sf::Vector2f(0, 0), str, font_Unifont, chsize, c);
+        text = new Text(sf::Vector2f(0, 0), str, resources.font.Unifont, chsize, c);
         text->setPosition(sf::Vector2f(position.x+15, position.y-0.5));
 
-        image = new Image(position, 14, "data/graphics/gui.png", 0);
+        image = new Image(position, 14, resources.texture.gui, 0);
 
         text ->setParentComponent(this);
         image->setParentComponent(this);

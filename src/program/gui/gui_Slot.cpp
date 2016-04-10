@@ -5,11 +5,12 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "gui.h"
-#include "../game/item/item.h"
-#include "../funcs/items.h"
+#include "gui.hpp"
+#include "../game/item/item.hpp"
+#include "../funcs/items.hpp"
+#include "../program.hpp"
 
-extern sf::Font font_Pixel;
+extern rr::Resources resources;
 
 namespace rr {
 
@@ -22,9 +23,9 @@ namespace rr {
         body.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
         body.setOutlineThickness(5);
 
-        image = new Image(pos, 14, "data/graphics/gui.png", icon);
-        itemSkin = new Image(pos, 14, "data/graphics/gui.png", 0);
-        text = new Text(sf::Vector2f(pos.x+5, pos.y+45), "", font_Pixel, 202);
+        image = new Image(pos, 14, resources.texture.gui, icon);
+        itemSkin = new Image(pos, 14, resources.texture.gui, 0);
+        text = new Text(sf::Vector2f(pos.x+5, pos.y+45), "", resources.font.Pixel, 202);
 
         itemSkin->setParentComponent(this);
         image   ->setParentComponent(this);

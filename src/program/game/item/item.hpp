@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/item/item.h
+ * @file src/program/game/item/item.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: LLVM Clang Compiler
@@ -15,7 +15,6 @@ namespace rr {
     class Item {
     protected:
         sf::FloatRect   boundBox;
-        sf::Texture     skin;
         sf::Sprite      body;
         sf::String      name;
         sf::String      description;
@@ -39,7 +38,7 @@ namespace rr {
         sf::Sprite      getBody       () { return body; }
         sf::String      getName       () { return name; }
         sf::String      getDescription() { return description; }
-        sf::Texture     getSkin       () { return skin; }
+        sf::Texture     getSkin       () { return *body.getTexture(); }
     };
 
     class Discoverable {

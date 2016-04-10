@@ -5,10 +5,10 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "game.h"
+#include "game.hpp"
 
-extern rr::Settings settings;
-extern sf::Font font_Pixel;
+extern rr::Settings  settings;
+extern rr::Resources resources;
 
 namespace rr {
 
@@ -18,7 +18,7 @@ namespace rr {
         bXP = new Bar(Bar::HORIZONTAL, rw.getSize().x-400, sf::Color(128, 128, 255), sf::Vector2f(rw.getSize().x/2-(rw.getSize().x-400)/2, rw.getSize().y-20));
         for (int i=0; i<5; i++)
             sCarryOn[i] = new Slot(sf::Vector2f(75, 75), sf::Vector2f(rw.getSize().x-80, rw.getSize().y/2-250+i*90));
-        tXPlevel = new Text(sf::Vector2f(0, 0), L"", font_Pixel, 40, sf::Color::Yellow);
+        tXPlevel = new Text(sf::Vector2f(0, 0), L"", resources.font.Pixel, 40, sf::Color::Yellow);
         tXPlevel->setPosition(sf::Vector2f(bXP->getPosition().x+bXP->getSize().x/2-tXPlevel->getSize().x/2, bXP->getPosition().y-tXPlevel->getSize().y));
     }
 

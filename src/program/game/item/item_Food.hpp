@@ -8,7 +8,7 @@
 #ifndef item_Food_hpp
 #define item_Food_hpp
 
-#include "item.h"
+#include "item.hpp"
 
 namespace rr {
 

@@ -8,7 +8,7 @@
 #ifndef item_ColdWeapon_hpp
 #define item_ColdWeapon_hpp
 
-#include "item.h"
+#include "item.hpp"
 
 namespace rr {
 

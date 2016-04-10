@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/item/item_funcs.h
+ * @file src/program/game/item/items.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: LLVM Clang Compiler
@@ -8,7 +8,7 @@
 #ifndef item_funcs_h
 #define item_funcs_h
 
-#include "../game/item/item.h"
+#include "../game/item/item.hpp"
 
 namespace rr {
 

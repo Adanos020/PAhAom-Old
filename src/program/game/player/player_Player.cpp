@@ -5,15 +5,16 @@
  * Used compiler: LLVM Clang Compiler
  */
 
-#include "player.h"
+#include "player.hpp"
+#include "../../program.hpp"
+
+extern rr::Resources resources;
 
 namespace rr {
 
     Player::Player(sf::Vector2f pos) {
-        skin.loadFromFile("data/graphics/player.png");
-
-        walkingLeft .setSpriteSheet(skin);
-        walkingRight.setSpriteSheet(skin);
+        walkingLeft .setSpriteSheet(resources.texture.player);
+        walkingRight.setSpriteSheet(resources.texture.player);
         walkingLeft .addFrame(sf::IntRect(0, 14,  14, 14));
         walkingRight.addFrame(sf::IntRect(0, 0, 14, 14));
 

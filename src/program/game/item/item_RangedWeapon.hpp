@@ -8,7 +8,7 @@
 #ifndef item_RangedWeapon_hpp
 #define item_RangedWeapon_hpp
 
-#include "item.h"
+#include "item.hpp"
 
 namespace rr {
 

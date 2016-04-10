@@ -6,10 +6,11 @@
  */
 
 #include "item_Potion.hpp"
+#include "../../program.hpp"
 
 #include <string>
 
-extern std::map<sf::String, sf::String> dictionary;
+extern rr::Resources resources;
 
 namespace rr {
 
@@ -22,12 +23,10 @@ namespace rr {
         discovered = false;
         ID         = 383;
 
-        skin.loadFromFile("data/graphics/items.png");
-
         int tu = (size+1)%20;
         int tv = (size+1)/20;
 
-        body.setTexture    (skin);
+        body.setTexture    (resources.texture.items);
         body.setTextureRect(sf::IntRect(tu*14, tv*14, 14, 14));
         body.scale         (sf::Vector2f(5, 5));
         body.setPosition   (pos);
