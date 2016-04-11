@@ -27,18 +27,17 @@ namespace rr {
     public:
         virtual ~Item() {}
 
-        virtual void    draw              (sf::RenderWindow&) = 0;
-        virtual void    editAmount        (int)               = 0;
-        virtual void    update            ()                  = 0;
+        virtual void       draw          (sf::RenderWindow&) = 0;
+        virtual void       editAmount    (int)               = 0;
+        virtual void       update        ()                  = 0;
 
-        double             getID          () { return ID; }
-        int                getAmount      () { return amount; }
-        bool               isDisposable   () { return disposable; }
-        bool               isEquipable    () { return equipable; }
-        sf::Sprite         getBody        () { return body; }
-        sf::String         getName        () { return name; }
-        sf::String         getDescription () { return description; }
-        const sf::Texture* getSkin        () { return body.getTexture(); }
+        double             getID         () { return ID; }
+        int                getAmount     () { return amount; }
+        bool               isDisposable  () { return disposable; }
+        bool               isEquipable   () { return equipable; }
+        sf::Sprite         getBody       () { return body; }
+        sf::String         getName       () { return name; }
+        sf::String         getDescription() { return description; }
     };
 
     class Discoverable {
