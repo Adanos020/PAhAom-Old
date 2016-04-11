@@ -149,7 +149,7 @@ namespace rr {
 #undef wOpts
 
             wMenu->addComponent(new Window(dictionary.gui.button.help, sf::Vector2f(325, 454),
-                                           sf::Vector2f(rw.getSize().x/2-162.5, rw.getSize().y/2-225)), false);
+                                           sf::Vector2f(rw.getSize().x-350, rw.getSize().y/2-225)), false);
 
 #define wHelp component(wMenu, Window, 1)
 
@@ -161,7 +161,8 @@ namespace rr {
 
 #undef wHelp
 
-            wMenu->addComponent(new Window(dictionary.gui.button.credits, sf::Vector2f(375, 300), sf::Vector2f(rw.getSize().x/2-187.5, rw.getSize().y/2-150)), false);
+            wMenu->addComponent(new Window(dictionary.gui.button.credits, sf::Vector2f(375, 300),
+                                           sf::Vector2f(rw.getSize().x-400, rw.getSize().y/2-150)), false);
 #define wCred component(wMenu, Window, 2)
 
                 wCred->addComponent(new Text(sf::Vector2f(20, 20), dictionary.gui.text.wholegame, resources.font.Unifont, 30),                    true);
@@ -260,8 +261,29 @@ namespace rr {
                         puts(">Done.");
                         wOpts->setVisible(false);
                     }
-                    if (cmc(wOpts, Button, 5) && isMLBPressed)
+                    if (cmc(wOpts, Button, 5) && isMLBPressed) {
+                        if      (settings.game.language == "en")
+                            component(wGame, Switch, 0)->setCurrentOption(L"ENGLISH");
+                        else if (settings.game.language == "pl")
+                            component(wGame, Switch, 0)->setCurrentOption(L"POLSKI");
+                        else if (settings.game.language == "fc")
+                            component(wGame, Switch, 0)->setCurrentOption(L"DNQUBIÑHBI");
+
+                        component(wGrap, Switch, 0)->setCurrentOption(std::to_wstring(settings.graphics.resolution.x)+L"x"+std::to_wstring(settings.graphics.resolution.y));
+                        component(wGrap, Checkbox, 0)->check(settings.graphics.fullscreen);
+                        component(wGrap, Checkbox, 1)->check(settings.graphics.vsync);
+                        if (settings.graphics.csettings.antialiasingLevel == 0)
+                            component(wGrap, Switch, 1)->setCurrentOption(L"NONE");
+                        else
+                            component(wGrap, Switch, 1)->setCurrentOption(L"x"+std::to_wstring(settings.graphics.csettings.antialiasingLevel));
+
+                        component(wSoun, Checkbox, 0)->check(settings.sound.music_muted);
+                        component(wSoun, Slider,   0)->setValue(settings.sound.music_volume);
+                        component(wSoun, Checkbox, 1)->check(settings.sound.effects_muted);
+                        component(wSoun, Slider,   1)->setValue(settings.sound.effects_volume);
+
                         wOpts->setVisible(false);
+                    }
                 }
 
                 else if (wGame->isVisible()) {
