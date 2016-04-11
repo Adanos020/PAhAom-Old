@@ -189,36 +189,33 @@ namespace rr {
         sf::Sprite      body;
         int             icn;
     public:
-         Image(sf::Vector2f position, int iconSize, sf::Texture, unsigned index);
+         Image(sf::Vector2f position, int iconSize, unsigned index);
         ~Image();
 
-        void            setPosition       (sf::Vector2f)      override;
-        void            setSize           (sf::Vector2f)      override;
+        void          setPosition         (sf::Vector2f)      override;
+        void          setSize             (sf::Vector2f)      override;
 
         /// Method changing the image's index
-        void            change            (unsigned index);
+        void          change              (unsigned index);
 
         /// Method changing the image's body and texture
-        void            change            (sf::Sprite, sf::Texture);
+        void          change              (sf::Sprite, sf::Texture);
 
         /// Method scaling the body's size
-        void            scale             (sf::Vector2f);
+        void          scale               (sf::Vector2f);
 
         /// Method painting the body to a given color
-        void            paint             (sf::Color);
+        void          paint               (sf::Color);
 
-        void            draw              (sf::RenderWindow&) override;
-
-        /// Method returning the image's texture
-        sf::Texture     getSkin           ()                           { return *body.getTexture(); }
+        void          draw                (sf::RenderWindow&) override;
 
         /// Method returning the image's body
-        sf::Sprite      getBody           ()                           { return body; }
+        sf::Sprite    getBody             ()                           { return body; }
 
-        sf::Vector2f    getPosition       ()                  override { return body.getPosition(); }
-        sf::Vector2f    getSize           ()                  override { return sf::Vector2f(body.getGlobalBounds().width, body.getGlobalBounds().height); }
+        sf::Vector2f  getPosition         ()                  override { return body.getPosition(); }
+        sf::Vector2f  getSize             ()                  override { return sf::Vector2f(body.getGlobalBounds().width, body.getGlobalBounds().height); }
 
-        virtual bool containsMouseCursor  (sf::RenderWindow&) override { return false; }
+        virtual bool  containsMouseCursor (sf::RenderWindow&) override { return false; }
         virtual Text* getText             ()                  override { return nullptr; }
     };
 

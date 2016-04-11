@@ -23,8 +23,8 @@ namespace rr {
         body.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
         body.setOutlineThickness(5);
 
-        image = new Image(pos, 14, resources.texture.gui, 1);
-        text  = new Text(sf::Vector2f(0, 0), txt, resources.font.Unifont, chsize);
+        image = new Image(pos, 14, 1);
+        text  = new Text (sf::Vector2f(0, 0), txt, resources.font.Unifont, chsize);
         text->setPosition(sf::Vector2f(pos.x+45, pos.y+body.getSize().y/2-text->getSize().y));
 
         image->setParentComponent(this);
@@ -41,14 +41,15 @@ namespace rr {
     }
 
     void Checkbox::setPosition(sf::Vector2f pos) {
-        body.setPosition(pos);
-        text->setPosition(sf::Vector2f(pos.x+45, pos.y+body.getSize().y/2-text->getSize().y));
+        body  .setPosition(pos);
+        text ->setPosition(sf::Vector2f(pos.x+45, pos.y+body.getSize().y/2-text->getSize().y));
         image->setPosition(pos);
     }
 
     void Checkbox::draw(sf::RenderWindow& rw) {
         rw.draw(body);
-        if (checked) image->draw(rw);
+        if (checked)
+            image->draw(rw);
         text->draw(rw);
     }
 

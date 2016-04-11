@@ -29,6 +29,8 @@ namespace rr {
             sf::Texture gui;
             sf::Texture player;
             sf::Texture items;
+            sf::Texture tileset;
+            sf::Texture keyboard;
         } texture;
 
         bool load();

@@ -6,27 +6,30 @@
  */
 
 #include "gui.hpp"
+#include "../program.hpp"
+
+extern rr::Resources resources;
 
 namespace rr {
 
-    Image::Image(sf::Vector2f pos, int iconSize, sf::Texture skin, unsigned index) {
+    Image::Image(sf::Vector2f pos, int iconSize, unsigned index) {
         icn         = iconSize;
-        unsigned tu = index%(skin.getSize().x/icn);
-        unsigned tv = index/(skin.getSize().x/icn);
+        unsigned tu = index%(resources.texture.gui.getSize().x/icn);
+        unsigned tv = index/(resources.texture.gui.getSize().y/icn);
 
         body.setPosition(pos);
-        body.setTexture(skin);
-        body.setTextureRect(sf::IntRect(tu*14, tv*14, 14, 14));
+        body.setTexture(resources.texture.gui);
+        body.setTextureRect(sf::IntRect(tu*icn, tv*icn, icn, icn));
         body.scale(sf::Vector2f(5, 5));
     }
 
     Image::~Image() {}
 
     void Image::change(unsigned index) {
-        unsigned tu = index%((*body.getTexture()).getSize().x/icn);
-        unsigned tv = index/((*body.getTexture()).getSize().x/icn);
+        unsigned tu = index%(body.getTexture()->getSize().x/icn);
+        unsigned tv = index/(body.getTexture()->getSize().y/icn);
 
-        body.setTextureRect(sf::IntRect(tu*14, tv*14, 14, 14));
+        body.setTextureRect(sf::IntRect(tu*icn, tv*icn, icn, icn));
     }
 
     void Image::change(sf::Sprite va, sf::Texture tx) {
