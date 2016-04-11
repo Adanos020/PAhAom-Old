@@ -17,6 +17,9 @@ gui.text.language JĘZYK
 gui.text.killurslf Zabij się.
 gui.text.wholegame CAŁA GRA
 gui.text.usedlib UŻYTA BIBLIOTEKA
+gui.text.music MUZYKA
+gui.text.effects EFEKTY
+gui.text.mute WYCISZ
 gui.window.attributes ATRYBUTY
 gui.window.inventory EKWIPUNEK
 

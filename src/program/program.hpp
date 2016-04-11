@@ -2,7 +2,7 @@
  * @file src/program/program.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: LLVM Clang Compiler
+ * Used compiler: GNU GCC
  */
 
 #ifndef program_h
@@ -68,6 +68,9 @@ namespace rr {
                 sf::String killurslf;
                 sf::String wholegame;
                 sf::String usedlib;
+                sf::String music;
+                sf::String effects;
+                sf::String mute;
             } text;
             struct {
             public:
@@ -118,7 +121,8 @@ namespace rr {
 
 /// Structure for the game settings
     struct Settings {
-    public:/// Structure for the key bindings
+    public:
+    /// Structure for the key bindings
         struct {
         public:
             sf::Keyboard::Key move_up;
@@ -141,11 +145,21 @@ namespace rr {
             sf::Keyboard::Key useslot_4;
             sf::Keyboard::Key useslot_5;
         }                   keys;
-        sf::ContextSettings csettings;
-        sf::Vector2u        resolution;
-        bool                vsync;
-        bool                fullscreen;
-        std::string         language;
+        struct {
+            float music_volume;
+            float effects_volume;
+            bool  music_muted;
+            bool  effects_muted;
+        } sound;
+        struct {
+            sf::ContextSettings csettings;
+            sf::Vector2u        resolution;
+            bool                vsync;
+            bool                fullscreen;
+        } graphics;
+        struct {
+            std::string language;
+        } game;
 
         void print();
         void save ();

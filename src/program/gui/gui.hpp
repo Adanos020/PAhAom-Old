@@ -2,7 +2,7 @@
  * @file src/program/gui/gui.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: LLVM Clang Compiler
+ * Used compiler: GNU GCC
  */
 
 #ifndef gui_h
@@ -217,6 +217,40 @@ namespace rr {
 
         virtual bool  containsMouseCursor (sf::RenderWindow&) override { return false; }
         virtual Text* getText             ()                  override { return nullptr; }
+    };
+
+/// Class for a slider component
+    class Slider :public Component {
+    public:
+        enum Plain {
+            HORIZONTAL,
+            VERTICAL
+        };
+    private:
+        sf::RectangleShape border;
+        sf::Vector2f       valueLimit;
+        Button*            indicator;
+        Button*            bLeft;
+        Button*            bRight;
+        Text*              label;
+        Plain              plain;
+        float              value;
+    public:
+         Slider(Plain, sf::Vector2f position, sf::Vector2f size, sf::Vector2f min_max = sf::Vector2f(0, 100));
+        ~Slider();
+
+        void         setPosition        (sf::Vector2f)      override;
+        void         setSize            (sf::Vector2f)      override;
+        void         setValue           (int);
+        void         draw               (sf::RenderWindow&) override;
+        void         buttonEvents       (sf::RenderWindow&);
+
+        sf::Vector2f getPosition        ()                  override { return bLeft->getPosition(); }
+        sf::Vector2f getSize            ()                  override { return border.getSize(); }
+        Text*        getText            ()                  override { return label; }
+        int          getValue           ()                           { return value; }
+
+        virtual bool containsMouseCursor(sf::RenderWindow&) override { return false; }
     };
 
 /// Class for a slot component which can contain any instance of the class Item

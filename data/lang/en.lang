@@ -17,6 +17,9 @@ gui.text.language LANGUAGE
 gui.text.killurslf Kill yourself.
 gui.text.wholegame WHOLE GAME
 gui.text.usedlib USED LIBRARY
+gui.text.music MUSIC
+gui.text.effects EFFECTS
+gui.text.mute MUTE
 gui.window.attributes ATTRIBUTES
 gui.window.inventory INVENTORY
 

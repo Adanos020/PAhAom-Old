@@ -12,7 +12,7 @@ namespace rr {
 
     bool Dictionary::load() {
         std::ifstream idict;
-        idict.open("data/lang/"+settings.language+".lang");
+        idict.open("data/lang/"+settings.game.language+".lang");
 
         if (idict.good()) {
             puts(">Loading the dictionary...");
@@ -49,6 +49,9 @@ namespace rr {
                     else if (word == "gui.text.killurslf")  gui.text.killurslf  = utf8ToUtf32(translation);
                     else if (word == "gui.text.wholegame")  gui.text.wholegame  = utf8ToUtf32(translation);
                     else if (word == "gui.text.usedlib")    gui.text.usedlib    = utf8ToUtf32(translation);
+                    else if (word == "gui.text.music")      gui.text.music      = utf8ToUtf32(translation);
+                    else if (word == "gui.text.effects")    gui.text.effects    = utf8ToUtf32(translation);
+                    else if (word == "gui.text.mute")       gui.text.mute       = utf8ToUtf32(translation);
 
                     else if (word == "gui.window.attributes") gui.window.attributes = utf8ToUtf32(translation);
                     else if (word == "gui.window.inventory")  gui.window.inventory  = utf8ToUtf32(translation);

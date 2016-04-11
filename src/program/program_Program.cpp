@@ -2,7 +2,7 @@
  * @file src/program/Program.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: LLVM Clang Compiler
+ * Used compiler: GNU GCC
  */
 
 #include "program.hpp"
@@ -33,9 +33,9 @@ namespace rr {
     }
 
     void Program::runGame() {
-        window.create(sf::VideoMode(settings.resolution.x, settings.resolution.y, 32), "PAhAom", (settings.fullscreen)?sf::Style::Fullscreen:sf::Style::Close, settings.csettings);
-        window.setVerticalSyncEnabled(settings.vsync);
-        view.setSize((sf::Vector2f)settings.resolution);
+        window.create(sf::VideoMode(settings.graphics.resolution.x, settings.graphics.resolution.y, 32), "PAhAom", (settings.graphics.fullscreen)?sf::Style::Fullscreen:sf::Style::Close, settings.graphics.csettings);
+        window.setVerticalSyncEnabled(settings.graphics.vsync);
+        view.setSize((sf::Vector2f)settings.graphics.resolution);
         window.setView(view);
 
         game = new Game(window);

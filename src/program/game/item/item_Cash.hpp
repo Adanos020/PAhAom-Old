@@ -2,7 +2,7 @@
  * @file src/program/game/item/cash.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: LLVM Clang Compiler
+ * Used compiler: GNU GCC
  */
 
 #ifndef item_Cash_hpp
