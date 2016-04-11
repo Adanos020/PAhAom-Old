@@ -55,9 +55,9 @@ namespace rr {
 
 #define wGame component(wOpts, Window, 0)
 
-                    wGame->addComponent(new Text(sf::Vector2f(10, 30), dictionary.gui.text.language, resources.font.Unifont), true);
+                    wGame->addComponent(new Text(sf::Vector2f(10, 30), dictionary.gui.text.language, resources.font.Unifont, 20), true);
 
-                    wGame->addComponent(new Switch(sf::Vector2f(220, 25), sf::Vector2f(20, 80)), true);
+                    wGame->addComponent(new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60)), true);
                         component(wGame, Switch, 0)->addOption(L"ENGLISH");
                         component(wGame, Switch, 0)->addOption(L"POLSKI");
                         component(wGame, Switch, 0)->addOption(L"DNQUBIÑHBI");
@@ -81,7 +81,7 @@ namespace rr {
 
                     wGrap->addComponent(new Text(sf::Vector2f(20, 30), dictionary.gui.text.resolution, resources.font.Unifont, 20), true);
 
-                    wGrap->addComponent(new Switch(sf::Vector2f(220, 25), sf::Vector2f(20, 60)), true);
+                    wGrap->addComponent(new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60)), true);
                         component(wGrap, Switch, 0)->addOption(L"1280x720");
                         component(wGrap, Switch, 0)->addOption(L"1440x900");
                         component(wGrap, Switch, 0)->addOption(L"1600x900");
@@ -96,7 +96,7 @@ namespace rr {
 
                     wGrap->addComponent(new Text(sf::Vector2f(20, 295), L"ANTIALIASING", resources.font.Unifont, 20), true);
 
-                    wGrap->addComponent(new Switch(sf::Vector2f(220, 25), sf::Vector2f(20, 325)), true);
+                    wGrap->addComponent(new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 325)), true);
                         component(wGrap, Switch, 1)->addOption(L"NONE");
                         component(wGrap, Switch, 1)->addOption(L"x2");
                         component(wGrap, Switch, 1)->addOption(L"x4");

@@ -6,9 +6,6 @@
  */
 
 #include "gui.hpp"
-
-#include <iostream>
-
 #include "../program.hpp"
 
 extern rr::Resources resources;
@@ -17,14 +14,14 @@ namespace rr {
 
     Switch::Switch(sf::Vector2f size, sf::Vector2f pos) {
         body.setSize(size);
-        body.setPosition(sf::Vector2f(pos.x+size.y+35, pos.y+5));
+        body.setPosition(sf::Vector2f(pos.x+44, pos.y+5));
         body.setFillColor(sf::Color(128, 128, 128, 128));
         body.setOutlineColor(sf::Color(108, 108, 108));
         body.setOutlineThickness(5);
 
-        left  = new Button(pos, L"<", size.y-3);
-        right = new Button(sf::Vector2f(body.getPosition().x+body.getSize().x+16, pos.y), L">", size.y-3);
-        text  = new Text(sf::Vector2f(0, 0), L">TE'EM 'ECTEM", resources.font.Pixel, size.y);
+        left  = new Button(pos, "<", 30);
+        right = new Button(sf::Vector2f(body.getPosition().x+body.getSize().x+24, pos.y), ">", 30);
+        text  = new Text(sf::Vector2f(0, 0), L">TE'EM 'ECTEM", resources.font.Unifont, size.y);
 
         left ->setParentComponent(this);
         right->setParentComponent(this);
@@ -40,10 +37,10 @@ namespace rr {
     }
 
     void Switch::setPosition(sf::Vector2f pos) {
-        left->setPosition(pos);
-        body.setPosition(sf::Vector2f(pos.x+body.getSize().y+15, pos.y));
-        text->setPosition(sf::Vector2f(body.getPosition().x+10, pos.y-4));
-        right->setPosition(sf::Vector2f(pos.x+body.getSize().x+body.getSize().y+21, pos.y));
+        left ->setPosition(pos);
+        body  .setPosition(sf::Vector2f(pos.x+44, pos.y+5));
+        text ->setPosition(sf::Vector2f(body.getPosition().x+10, pos.y-4));
+        right->setPosition(sf::Vector2f(pos.x+body.getSize().x+body.getSize().y+24, pos.y));
     }
 
     void Switch::setSize(sf::Vector2f s) {

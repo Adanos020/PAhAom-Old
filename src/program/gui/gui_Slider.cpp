@@ -8,8 +8,6 @@
 #include "gui.hpp"
 #include "../program.hpp"
 
-#include <iostream>
-
 extern rr::Resources resources;
 
 namespace rr {
@@ -40,11 +38,11 @@ namespace rr {
     }
 
     void Slider::setPosition(sf::Vector2f pos) {
-        bLeft ->setPosition   (pos);
-        border .setPosition   (bLeft ->getPosition()+sf::Vector2f(bLeft->getSize().x+10, 5));
-        bRight->setPosition   (border .getPosition()+sf::Vector2f(border.getSize().x+10, -5));
+        bLeft    ->setPosition(pos);
+        border    .setPosition(bLeft ->getPosition()+sf::Vector2f(bLeft->getSize().x+10, 5));
+        bRight   ->setPosition(border .getPosition()+sf::Vector2f(border.getSize().x+10, -5));
         indicator->setPosition(border .getPosition()+sf::Vector2f(-5, -5));
-        label ->setPosition   (bRight->getPosition()+sf::Vector2f(10, 0));
+        label    ->setPosition(bRight->getPosition()+sf::Vector2f(10, 0));
     }
 
     void Slider::setSize(sf::Vector2f siz) {
@@ -90,6 +88,7 @@ namespace rr {
         }
 
 #undef isMLBPressed
+#undef mousePosition
     }
 
 }
