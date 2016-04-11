@@ -19,11 +19,15 @@ namespace rr {
 /// Structure for the resources
     struct Resources {
     public:
+
+    /// Structure for the fonts
         struct {
         public:
             sf::Font Unifont;
             sf::Font Pixel;
         } font;
+
+    /// Structure for the textures
         struct {
         public:
             sf::Texture gui;
@@ -33,14 +37,18 @@ namespace rr {
             sf::Texture keyboard;
         } texture;
 
+    /// Method loading the resources
         bool load();
     };
 
 /// Structure for the dictionary
     struct Dictionary {
     public:
+    /// Structure for the gui part of the dictionary
         struct {
         public:
+
+    /// Structure for the button part of the gui dictionary
             struct {
             public:
                 sf::String newgame;
@@ -56,11 +64,15 @@ namespace rr {
                 sf::String sound;
                 sf::String controls;
             } button;
+
+    /// Structure for the checkbox part of the gui dictionary
             struct {
             public:
                 sf::String fullscreen;
                 sf::String vsync;
             } checkbox;
+
+    /// Structure for the text part of the gui dictionary
             struct {
             public:
                 sf::String resolution;
@@ -72,15 +84,23 @@ namespace rr {
                 sf::String effects;
                 sf::String mute;
             } text;
+
+    /// Structure for the button part of the gui dictionary
             struct {
             public:
                 sf::String attributes;
                 sf::String inventory;
             } window;
         } gui;
+
+    /// Structure for the item part of the dictionary
         struct {
         public:
+
+    /// Structure for the potion part of the item dictionary
             struct {
+
+        /// Structure for the size part of the potion dictionary
             public:
                 sf::String potion;
                 struct {
@@ -89,6 +109,8 @@ namespace rr {
                     sf::String medium;
                     sf::String big;
                 } size;
+
+        /// Structure for the color part of the potion dictionary
                 struct {
                 public:
                     sf::String red;
@@ -101,6 +123,8 @@ namespace rr {
                     sf::String black;
                     sf::String white;
                 } color;
+
+        /// Structure for the effect part of the potion dictionary
                 struct {
                 public:
                     sf::String healing;
@@ -116,6 +140,7 @@ namespace rr {
             } potion;
         } item;
 
+    /// Method loading the dictionary
         bool load();
     };
 
@@ -145,24 +170,35 @@ namespace rr {
             sf::Keyboard::Key useslot_4;
             sf::Keyboard::Key useslot_5;
         }                   keys;
+
+    /// Structure for the sound settings
         struct {
             float music_volume;
             float effects_volume;
             bool  music_muted;
             bool  effects_muted;
         } sound;
+
+    /// Structure for the video settings
         struct {
             sf::ContextSettings csettings;
             sf::Vector2u        resolution;
             bool                vsync;
             bool                fullscreen;
         } graphics;
+
+    /// Structure for the game settings
         struct {
             std::string language;
         } game;
 
+    /// Method printing the actual settings
         void print();
+
+    /// Method overwriting the actual settings
         void save ();
+
+    /// Method loading the actual settings
         bool load ();
     };
 
@@ -176,11 +212,23 @@ namespace rr {
 
         Game*            game;
 
+
+    /// Method loading all the resources, settings and dictionary
         bool loadResources ();
+
+    /// Method running the game
         void runGame       ();
+
+    /// Method running the game's main loop
         void mainLoop      ();
+
+    /// Method for handling the window events
         void handleEvents  ();
+
+    /// Updates the game's state
         void update        (sf::Clock&);
+
+    /// Method drawing the game's component
         void draw          ();
     public:
          Program();

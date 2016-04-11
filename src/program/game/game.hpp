@@ -35,8 +35,13 @@ namespace rr {
          HUD(sf::RenderWindow&);
         ~HUD();
 
+    /// Method for handling the button events
         void buttonEvents(sf::RenderWindow&);
+
+    /// Updates the HUD state
         void update      (Player*);
+
+    /// Method drawing the HUD components
         void draw        (sf::RenderWindow&);
     };
 
@@ -58,17 +63,34 @@ namespace rr {
          Game(sf::RenderWindow&);
         ~Game();
 
+    /// Method drawing the game components
         void draw        (sf::RenderWindow&, sf::View&);
+
+    /// Method for handling the button events
         void buttonEvents(sf::RenderWindow&, sf::View&);
+
+    /// Method drawing the game components
         void update      (float, sf::View&);
 
+    /// Method starting the game or not, depending on the argument's value
         void start       (bool);
+
+    /// Method pause the game or not, depending on the argument's value
         void pause       (bool);
+
+    /// Method saving the game progress
         void save        ();
+
+    /// Method loading the game progress
         bool load        ();
+
+    /// Method the new game
         bool loadNewGame ();
 
+    /// Method telling if the game is started
         bool isStarted   ();
+
+    /// Method telling if the game is paused
         bool isPaused    ();
     };
 

@@ -28,34 +28,34 @@ namespace rr {
     private:
         Component* parentComponent;
     public:
-        /// Virtual destructor
+    /// Virtual destructor
         virtual ~Component() {}
 
-        /// Method telling if this component is touched by the mouse cursor
+    /// Method telling if this component is touched by the mouse cursor
         virtual bool         containsMouseCursor(sf::RenderWindow&) = 0;
 
-        /// Method returning the current component being an instance of class Text
+    /// Returns the current component being an instance of class Text
         virtual Text*        getText            ()                  = 0;
 
-        /// Method drawing the component on the screen
+    /// Method drawing the component on the screen
         virtual void         draw               (sf::RenderWindow&) = 0;
 
-        /// Method setting the component's body's position
+    /// Sets the component's body's position
         virtual void         setPosition        (sf::Vector2f)      = 0;
 
-        /// Method setting the component's body's size
+    /// Sets the component's body's size
         virtual void         setSize            (sf::Vector2f)      = 0;
 
-        /// Method returning the component's body's position
+    /// Returns the component's body's position
         virtual sf::Vector2f getPosition        ()                  = 0;
 
-        /// Method returning the component's body's size
+    /// Returns the component's body's size
         virtual sf::Vector2f getSize            ()                  = 0;
 
-        /// Method setting the component's parent component
+    /// Sets the component's parent component
         void                 setParentComponent (Component* p) { parentComponent = p; }
 
-        /// Method returning the component's parent component
+    /// Returns the component's parent component
         Component*           getParentComponent ()             { return parentComponent; }
     };
 
@@ -70,23 +70,23 @@ namespace rr {
          Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
         ~Window();
 
-        /// Method adding a given component to the internal window
+    /// Adds a given component to the internal window
         void         addComponent      (Component*, bool attached);
 
-        /// Method setting the internal window visible or not, depending on the value of the given argument
+    /// Sets the internal window visible or not, depending on the value of the given argument
         void         setVisible        (bool);
 
         void         setPosition       (sf::Vector2f pos)   override { body.setPosition(pos); }
         void         setSize           (sf::Vector2f siz)   override { body.setSize(siz); }
         void         draw              (sf::RenderWindow&)  override;
 
-        /// Method telling if the internal window is visible
+    /// Method telling if the internal window is visible
         bool         isVisible         ()                            { return visible; }
 
         sf::Vector2f getSize           ()                   override { return body.getSize(); }
         sf::Vector2f getPosition       ()                   override { return body.getPosition(); }
 
-        /// Method returning the internal window's component of a given type and index
+    /// Returns the internal window's component of a given type and index
         template<typename T>
         T*           getComponent      (unsigned index)              { if (std::is_base_of<Component, T>::value) {
                                                                           for (unsigned i=0; i<components.size(); i++) {
@@ -165,7 +165,7 @@ namespace rr {
          Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color = sf::Color(110, 110, 110, 128));
         ~Checkbox();
 
-        /// Method setting the checkbox checked or not, depending on the value of the given argument
+    /// Sets the checkbox checked or not, depending on the value of the given argument
         void         check(bool b);
 
         void         draw               (sf::RenderWindow& rw) override;
@@ -175,7 +175,7 @@ namespace rr {
         sf::Vector2f getPosition        ()                     override { return body.getPosition(); }
         sf::Vector2f getSize            ()                     override { return body.getSize(); }
 
-        /// Method telling if the checkbox is checked
+    /// Method telling if the checkbox is checked
         bool         isChecked          ()                              { return checked; }
 
         Text*        getText            ()                     override { return text; }
@@ -195,21 +195,21 @@ namespace rr {
         void          setPosition         (sf::Vector2f)      override;
         void          setSize             (sf::Vector2f)      override;
 
-        /// Method changing the image's index
+    /// Method changing the image's index
         void          change              (unsigned index);
 
-        /// Method changing the image's body and texture
+    /// Method changing the image's body and texture
         void          change              (sf::Sprite, sf::Texture);
 
-        /// Method scaling the body's size
+    /// Method scaling the body's size
         void          scale               (sf::Vector2f);
 
-        /// Method painting the body to a given color
+    /// Method painting the body to a given color
         void          paint               (sf::Color);
 
         void          draw                (sf::RenderWindow&) override;
 
-        /// Method returning the image's body
+    /// Returns the image's body
         sf::Sprite    getBody             ()                           { return body; }
 
         sf::Vector2f  getPosition         ()                  override { return body.getPosition(); }
@@ -241,6 +241,8 @@ namespace rr {
 
         void         setPosition        (sf::Vector2f)      override;
         void         setSize            (sf::Vector2f)      override;
+
+    /// Sets the actual value of the slider
         void         setValue           (int);
         void         draw               (sf::RenderWindow&) override;
         void         buttonEvents       (sf::RenderWindow&);
@@ -248,6 +250,8 @@ namespace rr {
         sf::Vector2f getPosition        ()                  override { return bLeft->getPosition(); }
         sf::Vector2f getSize            ()                  override { return border.getSize(); }
         Text*        getText            ()                  override { return label; }
+
+    /// Returns the actual value of the slider
         int          getValue           ()                           { return value; }
 
         virtual bool containsMouseCursor(sf::RenderWindow&) override { return false; }
@@ -268,10 +272,10 @@ namespace rr {
          Slot(sf::Vector2f size, sf::Vector2f pos, int icon = 0, sf::Color = sf::Color(110, 110, 110, 128));
         ~Slot();
 
-        /// Method adding an item to the slot
+    /// Adds an item to the slot
         bool         addItem            (double ID, int amount);
 
-        /// Method removing the item from the slot
+    /// Removes the item from the slot
         void         removeItem         (int);
 
         void         setPosition        (sf::Vector2f)      override;
@@ -282,13 +286,13 @@ namespace rr {
         sf::Vector2f getPosition        ()                  override { return body.getPosition(); }
         sf::Vector2f getSize            ()                  override { return body.getSize(); }
 
-        /// Method returning the item contained in the slot
+    /// Returns the item contained in the slot
         Item*        getItem            ()                           { if (!hollow)
                                                                            return item;
                                                                            return nullptr;
                                                                      }
 
-        /// Method telling if the slot is empty
+    /// Method telling if the slot is empty
         bool         isEmpty            ()                           { return hollow; }
         void         setSize            (sf::Vector2f) override      {}
     };
@@ -309,18 +313,18 @@ namespace rr {
         void                 setPosition        (sf::Vector2f)      override;
         void                 setSize            (sf::Vector2f)      override;
 
-        /// Method handling the button events
+    /// Method for handling the button events
         void                 buttonEvents       (sf::RenderWindow&);
 
-        /// Method adding an option to the switch
+    /// Adds an option to the switch
         void                 addOption          (sf::String);
 
-        /// Method setting the current option
+    /// Sets the current option
         void                 setCurrentOption   (sf::String);
 
         void                 draw               (sf::RenderWindow&) override;
 
-        /// Method returning the current option
+    /// Returns the current option
         sf::String           getCurrentOption   ()                           { return options[counter]; }
         virtual sf::Vector2f getPosition        ()                  override { return left->getPosition(); }
         virtual sf::Vector2f getSize            ()                  override { return body.getSize(); }
@@ -340,28 +344,28 @@ namespace rr {
 
         void          setPosition        (sf::Vector2f)      override;
 
-        /// Method setting the text's character size
+    /// Sets the text's character size
         void          setCharacterSize   (unsigned);
 
-        /// Method setting the text's color
+    /// Sets the text's color
         void          setColor           (sf::Color);
 
-        /// Method setting the text's string
+    /// Sets the text's string
         void          setString          (sf::String);
 
-        /// Method setting the text's font
+    /// Sets the text's font
         void          setFont            (sf::Font);
 
         sf::Vector2f  getSize            ()                  override { return sf::Vector2f(text.getGlobalBounds().width, text.getGlobalBounds().height); }
         sf::Vector2f  getPosition        ()                  override { return text.getPosition(); }
 
-        /// Method returning the text's character size
+    /// Returns the text's character size
         int           getCharacterSize   ()                           { return text.getCharacterSize(); }
 
-        /// Method returning the text's color
+    /// Returns the text's color
         sf::Color     getColor           ()                           { return text.getColor(); }
 
-        /// Method returning the text's string
+    /// Returns the text's string
         sf::String    getString          ()                           { return text.getString(); }
 
         void          draw               (sf::RenderWindow&) override;

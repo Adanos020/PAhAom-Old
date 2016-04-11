@@ -12,9 +12,10 @@
 
 namespace rr {
 
-    inline Item* getItemFromID(double ID, int amount, sf::Vector2f pos) {
+/// Returns an instance of the Item class depending on the given ID and amount
+    inline Item* getItemFromID(double ID, int amount) {
         /*unknown ID?*/
-        return new Potion(Potion::Effect::HEALING, Potion::Size::BIG, amount, pos);
+        return new Potion(Potion::Effect::HEALING, Potion::Size::BIG, amount, sf::Vector2f(0, 0));
     }
 
 }

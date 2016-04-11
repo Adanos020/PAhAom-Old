@@ -12,6 +12,7 @@
 
 namespace rr {
 
+/// Class for an item
     class Item {
     protected:
         sf::FloatRect   boundBox;
@@ -25,27 +26,52 @@ namespace rr {
         double          ID;
         int             amount;
     public:
+    /// A virtual destructor
         virtual ~Item() {}
 
+    /// Method drawing the item's sprite
         virtual void       draw          (sf::RenderWindow&) = 0;
-        virtual void       editAmount    (int)               = 0;
+
+    /// Updates the item's status
         virtual void       update        ()                  = 0;
 
-        double             getID         () { return ID; }
-        int                getAmount     () { return amount; }
-        bool               isDisposable  () { return disposable; }
-        bool               isEquipable   () { return equipable; }
-        sf::Sprite         getBody       () { return body; }
-        sf::String         getName       () { return name; }
-        sf::String         getDescription() { return description; }
+    /// Method changing the amount
+        void               editAmount    (int x)            { amount = x; }
+
+    /// Sets the item's position
+        void               setPosition   (sf::Vector2f pos) { body.setPosition(pos); }
+
+    /// Returns the item's ID
+        double             getID         ()                 { return ID; }
+
+    /// Returns the amount of this item
+        int                getAmount     ()                 { return amount; }
+
+    /// Method telling if the item is disposable
+        bool               isDisposable  ()                 { return disposable; }
+
+    /// Method telling if the item is equipable
+        bool               isEquipable   ()                 { return equipable; }
+
+    /// Returns the sprite of this item
+        sf::Sprite         getBody       ()                 { return body; }
+
+    /// Returns the name of this item
+        sf::String         getName       ()                 { return name; }
+
+    /// Returns the description of this item
+        sf::String         getDescription()                 { return description; }
     };
 
     class Discoverable {
     protected:
         bool discovered;
     public:
+    /// A virtual destructor
         virtual ~Discoverable() {}
-        virtual void reveal  () = 0;
+
+    /// Method reveling the discoverable item's properties
+        virtual void reveal () = 0;
     };
 
 }

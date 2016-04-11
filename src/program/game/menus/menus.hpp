@@ -25,7 +25,10 @@ namespace rr {
          MainMenu(sf::RenderWindow&);
         ~MainMenu();
 
+    /// Method for handling the button events
         void buttonEvents(sf::RenderWindow&, Game*);
+
+    /// Method drawing the main menu's components
         void draw        (sf::RenderWindow&);
     };
 
@@ -39,10 +42,16 @@ namespace rr {
          PauseMenu(sf::RenderWindow&);
         ~PauseMenu();
 
+    /// Method opening the pause menu
         void open        ();
+
+    /// Method for handling the button events
         void buttonEvents(sf::RenderWindow&, Game*);
+
+    /// Method drawing the pause menu's components
         void draw        (sf::RenderWindow&);
 
+    /// Method telling if the pause menu is open
         bool isOpen      ();
     };
 
@@ -54,11 +63,19 @@ namespace rr {
          Attributes(sf::RenderWindow&);
         ~Attributes();
 
+    /// Method opening the player attributes window
         void open        ();
+
+    /// Updates the info about the player attributes
         void update      (Player*);
+
+    /// Method for handling the button events
         void buttonEvents(sf::RenderWindow&, Game*);
+
+    /// Method drawing the player attributes components
         void draw        (sf::RenderWindow&);
 
+    /// Method telling if the player attributes is open
         bool isOpen      ();
     };
 
@@ -70,10 +87,16 @@ namespace rr {
          Inventory(sf::RenderWindow&);
         ~Inventory();
 
+    /// Method opening the inventory window
         void open        ();
+
+    /// Method for handling the button events
         void buttonEvents(sf::RenderWindow&, Game*);
+
+    /// Method drawing the inventory components
         void draw        (sf::RenderWindow&);
 
+    /// Method telling if the inventory is open
         bool isOpen      ();
     };
 

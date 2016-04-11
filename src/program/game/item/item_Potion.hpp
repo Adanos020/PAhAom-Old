@@ -35,7 +35,6 @@ namespace rr {
         ~Potion();
 
         virtual void draw      (sf::RenderWindow&) override;
-        virtual void editAmount(int)               override;
         virtual void update    ()                  override;
         virtual void reveal    ()                  override;
 

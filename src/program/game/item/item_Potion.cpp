@@ -42,10 +42,6 @@ namespace rr {
         rw.draw(body);
     }
 
-    void Potion::editAmount(int am) {
-        amount = am;
-    }
-
     void Potion::update() {
         boundBox = body.getGlobalBounds();
     }

@@ -47,12 +47,22 @@ namespace rr {
             RIGHT
         };
 
+    /// Sets the player character's position
         void         setPosition(sf::Vector2f);
+
+    /// Method making the player character's move in a given direction
         void         go         (float timeStep, direction);
+
+    /// Method drawing the player character
         void         draw       (sf::RenderWindow&);
+
+    /// Updates the state of the player character
         void         update     ();
 
+    /// Returns the player statistics
         Stats        getStats   () const { return stats; }
+
+    /// Returns the position of the player character
         sf::Vector2f getPosition() const { return body.getPosition(); }
     };
 
