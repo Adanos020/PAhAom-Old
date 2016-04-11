@@ -120,8 +120,8 @@ namespace rr {
             wMenu->addComponent(new Window(dictionary.gui.button.help, sf::Vector2f(325, 454),
                                            sf::Vector2f(rw.getSize().x/2-162.5, rw.getSize().y/2-225)), false);
 #define wHelp component(wMenu, Window, 1)
-                wHelp->addComponent(new Text(sf::Vector2f(20, 25), L"Pro tip:", resources.font.Unifont, 30, sf::Color::Yellow), true);
-                wHelp->addComponent(new Text(sf::Vector2f(20, 55), dictionary.gui.text.killurslf, resources.font.Unifont, 30, sf::Color::Red), true);
+                wHelp->addComponent(new Text(sf::Vector2f(20, 25), L"Pro tip:",                   resources.font.Unifont, 30, sf::Color::Yellow), true);
+                wHelp->addComponent(new Text(sf::Vector2f(20, 55), dictionary.gui.text.killurslf, resources.font.Unifont, 30, sf::Color::Red),    true);
 
                 wHelp->addComponent(new Button(sf::Vector2f(5, 380), dictionary.gui.button.quit, 52), true);
                 component(wHelp, Button, 0)->setPosition(wHelp->getPosition()+sf::Vector2f(wHelp->getSize().x/2-component(wHelp, Button, 0)->getSize().x/2, 379));
@@ -258,11 +258,9 @@ namespace rr {
         }
 
     void PauseMenu::draw(sf::RenderWindow& rw) {
-#define component(w, c, i) w->getComponent<c>(i)
         rw.draw(shadow);
         title->draw(rw);
         wMenu->draw(rw);
-#undef component
     }
 
     bool PauseMenu::isOpen() {

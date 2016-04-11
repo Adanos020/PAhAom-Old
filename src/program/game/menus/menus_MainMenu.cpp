@@ -120,8 +120,8 @@ namespace rr {
             wMenu->addComponent(new Window(dictionary.gui.button.help, sf::Vector2f(325, 454),
                                            sf::Vector2f(rw.getSize().x/2-162.5, rw.getSize().y/2-225)), false);
 #define wHelp component(wMenu, Window, 1)
-                wHelp->addComponent(new Text(sf::Vector2f(20, 25), L"Pro tip:", resources.font.Unifont, 30, sf::Color::Yellow), true);
-                wHelp->addComponent(new Text(sf::Vector2f(20, 55), dictionary.gui.text.killurslf, resources.font.Unifont, 30, sf::Color::Red), true);
+                wHelp->addComponent(new Text(sf::Vector2f(20, 25), L"Pro tip:",                   resources.font.Unifont, 30, sf::Color::Yellow), true);
+                wHelp->addComponent(new Text(sf::Vector2f(20, 55), dictionary.gui.text.killurslf, resources.font.Unifont, 30, sf::Color::Red),    true);
 
                 wHelp->addComponent(new Button(sf::Vector2f(5, 380), dictionary.gui.button.quit, 52), true);
                 component(wHelp, Button, 0)->setPosition(wHelp->getPosition()+sf::Vector2f(wHelp->getSize().x/2-component(wHelp, Button, 0)->getSize().x/2, 379));
@@ -177,6 +177,7 @@ namespace rr {
                 if (cmc(wMenu, Button, 5) && isMLBPressed)
                     rw.close();
             }
+
             else if (wOpts->isVisible()) {
                 if (!wGame->isVisible() && !wGrap->isVisible() && !wSoun->isVisible() && !wCont->isVisible()) {
                     if (cmc(wOpts, Button, 0) && isMLBPressed)
@@ -219,11 +220,13 @@ namespace rr {
                     if (cmc(wOpts, Button, 5) && isMLBPressed)
                         wOpts->setVisible(false);
                 }
+
                 else if (wGame->isVisible()) {
                     component(wGame, Switch, 0)->buttonEvents(rw);
                     if (cmc(wGame, Button, 0) && isMLBPressed)
                         wGame->setVisible(false);
                 }
+
                 else if (wGrap->isVisible()) {
                     for (unsigned i=0; i<2; i++) {
                         if (cmc(wGrap, Checkbox, i) && isMLBPressed) {
@@ -247,10 +250,12 @@ namespace rr {
                         wCont->setVisible(false);
                 }
             }
+
             else if (wHelp->isVisible()) {
                 if (cmc(wHelp, Button, 0) && isMLBPressed)
                     wHelp->setVisible(false);
             }
+
             else if (wCred->isVisible()) {
                 if (cmc(wCred, Button, 0) && isMLBPressed)
                     wCred->setVisible(false);
@@ -269,10 +274,8 @@ namespace rr {
     }
 
     void MainMenu::draw(sf::RenderWindow& rw) {
-#define component(w, c, i) w->getComponent<c>(i)
         title->draw(rw);
         wMenu->draw(rw);
-#undef component
     }
 
 }
