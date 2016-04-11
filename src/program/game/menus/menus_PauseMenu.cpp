@@ -121,11 +121,13 @@ namespace rr {
                     wSoun->addComponent(new Slider(Slider::HORIZONTAL, sf::Vector2f(20, 85), sf::Vector2f(175, 30)), true);
                     wSoun->addComponent(new Checkbox(sf::Vector2f(175, 40), dictionary.gui.text.mute, 20), true);
                     component(wSoun, Checkbox, 0)->check(settings.sound.music_muted);
+                    component(wSoun, Slider,   0)->setValue(settings.sound.music_volume);
 
                     wSoun->addComponent(new Text(sf::Vector2f(20, 160), dictionary.gui.text.effects, resources.font.Unifont), true);
                     wSoun->addComponent(new Slider(Slider::HORIZONTAL, sf::Vector2f(20, 205), sf::Vector2f(175, 30)), true);
                     wSoun->addComponent(new Checkbox(sf::Vector2f(175, 160), dictionary.gui.text.mute, 20), true);
                     component(wSoun, Checkbox, 1)->check(settings.sound.effects_muted);
+                    component(wSoun, Slider,   1)->setValue(settings.sound.effects_volume);
 
                     wSoun->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
                     component(wSoun, Button, 0)->setPosition(sf::Vector2f(wSoun->getPosition().x+wSoun->getSize().x/2-component(wSoun, Button, 0)->getSize().x/2,
@@ -213,18 +215,19 @@ namespace rr {
                         wCont->setVisible(true);
 
                     if (cmc(wOpts, Button, 4) && isMLBPressed) {
-                        std::vector<std::string> splitted = split(wtoa(component(wGrap, Switch, 0)->getCurrentOption()), 'x');
-
-                        settings.graphics.resolution = sf::Vector2u(atoi(splitted[0].c_str()), atoi(splitted[1].c_str()));
-                        settings.graphics.fullscreen = component(wGrap, Checkbox, 0)->isChecked();
-                        settings.graphics.vsync = component(wGrap, Checkbox, 1)->isChecked();
-
+                        puts(">Saving the settings...");
                         if      (component(wGame, Switch, 0)->getCurrentOption() == L"ENGLISH")
                             settings.game.language = "en";
                         else if (component(wGame, Switch, 0)->getCurrentOption() == L"POLSKI")
                             settings.game.language = "pl";
                         else if (component(wGame, Switch, 0)->getCurrentOption() == L"DNQUBIÑHBI")
                             settings.game.language = "fc";
+
+                        std::vector<std::string> splitted = split(wtoa(component(wGrap, Switch, 0)->getCurrentOption()), 'x');
+
+                        settings.graphics.resolution = sf::Vector2u(atoi(splitted[0].c_str()), atoi(splitted[1].c_str()));
+                        settings.graphics.fullscreen = component(wGrap, Checkbox, 0)->isChecked();
+                        settings.graphics.vsync      = component(wGrap, Checkbox, 1)->isChecked();
 
                         if      (component(wGrap, Switch, 1)->getCurrentOption() == L"x2")
                             settings.graphics.csettings.antialiasingLevel = 2;
@@ -235,8 +238,14 @@ namespace rr {
                         else
                             settings.graphics.csettings.antialiasingLevel = 0;
 
+                        settings.sound.music_muted    = component(wSoun, Checkbox, 0)->isChecked();
+                        settings.sound.music_volume   = component(wSoun, Slider, 0)->getValue();
+                        settings.sound.effects_muted  = component(wSoun, Checkbox, 1)->isChecked();
+                        settings.sound.effects_volume = component(wSoun, Slider, 1)->getValue();
+
                         settings.print();
                         settings.save ();
+                        puts(">Done.");
                         wOpts->setVisible(false);
                     }
                     if (cmc(wOpts, Button, 5) && isMLBPressed)
@@ -265,6 +274,16 @@ namespace rr {
                 }
 
                 else if (wSoun->isVisible()) {
+                    for (int i=0; i<2; i++) {
+                        if (cmc(wSoun, Checkbox, i) && isMLBPressed) {
+                            if (!component(wSoun, Checkbox, i)->isChecked())
+                                component(wSoun, Checkbox, i)->check(true);
+                            else
+                                component(wSoun, Checkbox, i)->check(false);
+                        }
+                        component(wSoun, Slider, 0)->buttonEvents(rw);
+                        component(wSoun, Slider, 1)->buttonEvents(rw);
+                    }
                     if (cmc(wSoun, Button, 0) && isMLBPressed)
                         wSoun->setVisible(false);
                 }
