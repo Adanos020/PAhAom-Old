@@ -17,35 +17,35 @@
 namespace rr {
 
     void Settings::print() {
-        std::cout << "===PARAMETER===" << std::setw(40) << "======VALUE======\n";
-        std::cout << "--------------------Game settings----------------------\n";
-        std::cout << "lang"            << std::setw(33+language                                   .size()) << language                    << '\n';
-        std::cout << "------------------Graphical settings-------------------\n";
-        std::cout << "width"           << std::setw(32+std::to_string(resolution.x)               .size()) << resolution.x                << '\n';
-        std::cout << "height"          << std::setw(31+std::to_string(resolution.y)               .size()) << resolution.y                << '\n';
-        std::cout << "fullscreen"      << std::setw(27+std::to_string(fullscreen)                 .size()) << fullscreen                  << '\n';
-        std::cout << "vsync"           << std::setw(32+std::to_string(vsync)                      .size()) << vsync                       << '\n';
-        std::cout << "antialiasing"    << std::setw(25+std::to_string(csettings.antialiasingLevel).size()) << csettings.antialiasingLevel << '\n';
-        std::cout << "depthbits"       << std::setw(28+std::to_string(csettings.depthBits)        .size()) << csettings.depthBits         << '\n';
-        std::cout << "stencilbits"     << std::setw(26+std::to_string(csettings.stencilBits)      .size()) << csettings.stencilBits       << '\n';
-        std::cout << "-----------------------Controls------------------------\n";
-        std::cout << "move_up"         << std::setw(30+std::to_string(keys.move_up)               .size()) << keys.move_up                << '\n';
-        std::cout << "move_down"       << std::setw(28+std::to_string(keys.move_down)             .size()) << keys.move_down              << '\n';
-        std::cout << "move_left"       << std::setw(28+std::to_string(keys.move_left)             .size()) << keys.move_left              << '\n';
-        std::cout << "move_right"      << std::setw(27+std::to_string(keys.move_left)             .size()) << keys.move_right             << '\n';
-        std::cout << "interact"        << std::setw(29+std::to_string(keys.move_left)             .size()) << keys.interact               << '\n';
-        std::cout << "attack"          << std::setw(32+std::to_string(keys.move_left)             .size()) << keys.attack                 << '\n';
-        std::cout << "pickup"          << std::setw(32+std::to_string(keys.move_left)             .size()) << keys.pickup                 << '\n';
-        std::cout << "open_inventory"  << std::setw(24+std::to_string(keys.move_left)             .size()) << keys.open_inventory         << '\n';
-        std::cout << "open_attributes" << std::setw(22+std::to_string(keys.move_left)             .size()) << keys.open_attributes        << '\n';
-        std::cout << "open_quests"     << std::setw(27+std::to_string(keys.move_left)             .size()) << keys.open_quests            << '\n';
-        std::cout << "open_map"        << std::setw(30+std::to_string(keys.move_left)             .size()) << keys.open_map               << '\n';
-        std::cout << "useslot_1"       << std::setw(29+std::to_string(keys.move_left)             .size()) << keys.useslot_1              << '\n';
-        std::cout << "useslot_2"       << std::setw(29+std::to_string(keys.move_left)             .size()) << keys.useslot_2              << '\n';
-        std::cout << "useslot_3"       << std::setw(29+std::to_string(keys.move_left)             .size()) << keys.useslot_3              << '\n';
-        std::cout << "useslot_4"       << std::setw(29+std::to_string(keys.move_left)             .size()) << keys.useslot_4              << '\n';
-        std::cout << "useslot_5"       << std::setw(29+std::to_string(keys.move_left)             .size()) << keys.useslot_5              << '\n';
-        std::cout << "-------------------------------------------------------\n";
+        std::cout << "+========PARAMETER========|===========VALUE===========+\n";
+        std::cout << "+-------------------Game settings---------------------+\n";
+        std::cout << "|lang                     |" << language                    << std::setw(29-language.size())                                    << "|\n";
+        std::cout << "+-----------------Graphical settings------------------+\n";
+        std::cout << "|width                    |" << resolution.x                << std::setw(29-std::to_string(resolution.x)               .size()) << "|\n";
+        std::cout << "|height                   |" << resolution.y                << std::setw(29-std::to_string(resolution.y)               .size()) << "|\n";
+        std::cout << "|fullscreen               |" << fullscreen                  << std::setw(29-std::to_string(fullscreen)                 .size()) << "|\n";
+        std::cout << "|vsync                    |" << vsync                       << std::setw(29-std::to_string(vsync)                      .size()) << "|\n";
+        std::cout << "|antialiasing             |" << csettings.antialiasingLevel << std::setw(29-std::to_string(csettings.antialiasingLevel).size()) << "|\n";
+        std::cout << "|depthbits                |" << csettings.depthBits         << std::setw(29-std::to_string(csettings.depthBits)        .size()) << "|\n";
+        std::cout << "|stencilbits              |" << csettings.stencilBits       << std::setw(29-std::to_string(csettings.stencilBits)      .size()) << "|\n";
+        std::cout << "+----------------------Controls-----------------------+\n";
+        std::cout << "|move_up                  |" << keys.move_up                << std::setw(29-std::to_string(keys.move_up)               .size()) << "|\n";
+        std::cout << "|move_down                |" << keys.move_down              << std::setw(29-std::to_string(keys.move_down)             .size()) << "|\n";
+        std::cout << "|move_left                |" << keys.move_left              << std::setw(29-std::to_string(keys.move_left)             .size()) << "|\n";
+        std::cout << "|move_right               |" << keys.move_right             << std::setw(29-std::to_string(keys.move_right)            .size()) << "|\n";
+        std::cout << "|interact                 |" << keys.interact               << std::setw(29-std::to_string(keys.interact)              .size()) << "|\n";
+        std::cout << "|attack                   |" << keys.attack                 << std::setw(29-std::to_string(keys.attack)                .size()) << "|\n";
+        std::cout << "|pickup                   |" << keys.pickup                 << std::setw(29-std::to_string(keys.pickup)                .size()) << "|\n";
+        std::cout << "|open_inventory           |" << keys.open_inventory         << std::setw(29-std::to_string(keys.open_inventory)        .size()) << "|\n";
+        std::cout << "|open_attributes          |" << keys.open_attributes        << std::setw(29-std::to_string(keys.open_attributes)       .size()) << "|\n";
+        std::cout << "|open_quests              |" << keys.open_quests            << std::setw(29-std::to_string(keys.open_quests)           .size()) << "|\n";
+        std::cout << "|open_map                 |" << keys.open_map               << std::setw(29-std::to_string(keys.open_map)              .size()) << "|\n";
+        std::cout << "|useslot_1                |" << keys.useslot_1              << std::setw(29-std::to_string(keys.useslot_1)             .size()) << "|\n";
+        std::cout << "|useslot_2                |" << keys.useslot_2              << std::setw(29-std::to_string(keys.useslot_2)             .size()) << "|\n";
+        std::cout << "|useslot_3                |" << keys.useslot_3              << std::setw(29-std::to_string(keys.useslot_3)             .size()) << "|\n";
+        std::cout << "|useslot_4                |" << keys.useslot_4              << std::setw(29-std::to_string(keys.useslot_4)             .size()) << "|\n";
+        std::cout << "|useslot_5                |" << keys.useslot_5              << std::setw(29-std::to_string(keys.useslot_5)             .size()) << "|\n";
+        std::cout << "+-----------------------------------------------------+\n";
     }
 
     void Settings::save() {
@@ -54,6 +54,9 @@ namespace rr {
         std::ofstream oconfig("config.cfg");
         oconfig.clear();
 
+        oconfig << ";---------------;\n";
+        oconfig << ";-game settings-;\n";
+        oconfig << "lang:\t\t"         + language                                   +"\n";
         oconfig << ";---------------;\n";
         oconfig << ";video  settings;\n";
         oconfig << ";----screen-----;\n";
@@ -65,9 +68,6 @@ namespace rr {
         oconfig << "antialiasing:\t"   + std::to_string(csettings.antialiasingLevel)+"\n";
         oconfig << "depthbits:\t"      + std::to_string(csettings.depthBits)        +"\n";
         oconfig << "stencilbits:\t"    + std::to_string(csettings.stencilBits)      +"\n";
-        oconfig << ";---------------;\n";
-        oconfig << ";system settings;\n";
-        oconfig << "lang:\t\t"         + language                                   +"\n";
         oconfig << ";---------------;\n";
         oconfig << ";--key binding--;\n";
         oconfig << ";---movement----;\n";
@@ -111,11 +111,11 @@ namespace rr {
                     std::getline(iconfig, param);
                     continue;
                 } else {
-                    if      (param == "width:")             readFile(iconfig, resolution.x);
+                    if      (param == "lang:")              iconfig >> language;
+                    else if (param == "width:")             readFile(iconfig, resolution.x);
                     else if (param == "height:")            readFile(iconfig, resolution.y);
                     else if (param == "fullscreen:")        readFile(iconfig, fullscreen);
                     else if (param == "vsync:")             readFile(iconfig, vsync);
-                    else if (param == "lang:")              iconfig >> language;
                     else if (param == "antialiasing:")      readFile(iconfig, csettings.antialiasingLevel);
                     else if (param == "depthbits:")         readFile(iconfig, csettings.depthBits);
                     else if (param == "stencilbits:")       readFile(iconfig, csettings.stencilBits);

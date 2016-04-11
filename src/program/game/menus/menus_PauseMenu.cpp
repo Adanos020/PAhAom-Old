@@ -34,7 +34,8 @@ namespace rr {
             for (int i=0; i<4; i++)
                 component(wMenu, Button, i)->setPosition(wMenu->getPosition()+sf::Vector2f(wMenu->getSize().x/2-component(wMenu, Button, i)->getSize().x/2, 5+i*75));
 
-            wMenu->addComponent(new Window(dictionary.gui.button.options, sf::Vector2f(330, 405), sf::Vector2f(rw.getSize().x/2-165, rw.getSize().y/2-202.5)), false);
+            wMenu->addComponent(new Window(dictionary.gui.button.options, sf::Vector2f(330, 405),
+                                           sf::Vector2f(rw.getSize().x/2-165, rw.getSize().y/2-202.5)), false);
 #define wOpts component(wMenu, Window, 0)
                 wOpts->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.game,      52), true);
                 wOpts->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.graphical, 52), true);
@@ -46,9 +47,12 @@ namespace rr {
                     component(wOpts, Button, i)->setPosition(wOpts->getPosition()+sf::Vector2f(wOpts->getSize().x/2-component(wOpts, Button, i)->getSize().x/2, 30+i*75));
                 component(wOpts, Button, 4)->setPosition(wOpts->getPosition()+sf::Vector2f(wOpts->getSize().x/2-(component(wOpts, Button, 4)->getSize().x+component(wOpts, Button, 5)->getSize().x+5)/2, 350));
                 component(wOpts, Button, 5)->setPosition(component(wOpts, Button, 4)->getPosition()+sf::Vector2f(component(wOpts, Button, 4)->getSize().x+5, 0));
-                wOpts->addComponent(new Window(dictionary.gui.button.game, sf::Vector2f(340, 354), sf::Vector2f(rw.getSize().x-365, rw.getSize().y/2-177)), false);
+
+                wOpts->addComponent(new Window(dictionary.gui.button.game, sf::Vector2f(340, 354),
+                                               sf::Vector2f(rw.getSize().x-365, rw.getSize().y/2-177)), false);
 #define wGame component(wOpts, Window, 0)
                     wGame->addComponent(new Text(sf::Vector2f(10, 30), dictionary.gui.text.language, resources.font.Unifont), true);
+
                     wGame->addComponent(new Switch(sf::Vector2f(220, 25), sf::Vector2f(20, 80)), true);
                         component(wGame, Switch, 0)->addOption(L"ENGLISH");
                         component(wGame, Switch, 0)->addOption(L"POLSKI");
@@ -59,22 +63,29 @@ namespace rr {
                             component(wGame, Switch, 0)->setCurrentOption(L"POLSKI");
                         else if (settings.language == "fc")
                             component(wGame, Switch, 0)->setCurrentOption(L"DNQUBIÑHBI");
+
                     wGame->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
-                    component(wGame, Button, 0)->setPosition(sf::Vector2f(wGame->getPosition().x+wGame->getSize().x/2-component(wGame, Button, 0)->getSize().x/2, wGame->getPosition().y+wGame->getSize().y-component(wGame, Button, 0)->getSize().y-10));
+                    component(wGame, Button, 0)->setPosition(sf::Vector2f(wGame->getPosition().x+wGame->getSize().x/2-component(wGame, Button, 0)->getSize().x/2,
+                                                                          wGame->getPosition().y+wGame->getSize().y-component(wGame, Button, 0)->getSize().y-10));
 #undef wGame
-                wOpts->addComponent(new Window(dictionary.gui.button.graphical, sf::Vector2f(340, 434), sf::Vector2f(rw.getSize().x-365, rw.getSize().y/2-217)), false);
+                wOpts->addComponent(new Window(dictionary.gui.button.graphical, sf::Vector2f(340, 434),
+                                               sf::Vector2f(rw.getSize().x-365, rw.getSize().y/2-217)), false);
 #define wGrap component(wOpts, Window, 1)
                     wGrap->addComponent(new Text(sf::Vector2f(20, 30), dictionary.gui.text.resolution, resources.font.Unifont, 20), true);
+
                     wGrap->addComponent(new Switch(sf::Vector2f(220, 25), sf::Vector2f(20, 60)), true);
                         component(wGrap, Switch, 0)->addOption(L"1280x720");
                         component(wGrap, Switch, 0)->addOption(L"1440x900");
                         component(wGrap, Switch, 0)->addOption(L"1600x900");
                         component(wGrap, Switch, 0)->addOption(L"1920x1080");
                         component(wGrap, Switch, 0)->setCurrentOption(std::to_wstring(settings.resolution.x)+L"x"+std::to_wstring(settings.resolution.y));
+
                     wGrap->addComponent(new Checkbox(sf::Vector2f(15, 170), dictionary.gui.checkbox.fullscreen, 15), true);
                         component(wGrap, Checkbox, 0)->check(settings.fullscreen);
+
                     wGrap->addComponent(new Checkbox(sf::Vector2f(15, 120), dictionary.gui.checkbox.vsync, 15), true);
                         component(wGrap, Checkbox, 1)->check(settings.vsync);
+
                     wGrap->addComponent(new Text(sf::Vector2f(20, 295), L"ANTIALIASING", resources.font.Unifont, 20), true);
 
                     wGrap->addComponent(new Switch(sf::Vector2f(220, 25), sf::Vector2f(20, 325)), true);
@@ -86,31 +97,35 @@ namespace rr {
                             component(wGrap, Switch, 1)->setCurrentOption(L"NONE");
                         else
                             component(wGrap, Switch, 1)->setCurrentOption(L"x"+std::to_wstring(settings.csettings.antialiasingLevel));
+
                     wGrap->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
-                    component(wGrap, Button, 0)->setPosition(sf::Vector2f(wGrap->getPosition().x+wGrap->getSize().x/2-component(wGrap, Button, 0)->getSize().x/2, wGrap->getPosition().y+wGrap->getSize().y-component(wGrap, Button, 0)->getSize().y-10));
+                    component(wGrap, Button, 0)->setPosition(sf::Vector2f(wGrap->getPosition().x+wGrap->getSize().x/2-component(wGrap, Button, 0)->getSize().x/2,
+                                                                          wGrap->getPosition().y+wGrap->getSize().y-component(wGrap, Button, 0)->getSize().y-10));
 #undef wGrap
-                wOpts->addComponent(new Window(dictionary.gui.button.sound, sf::Vector2f(300, 454), sf::Vector2f(rw.getSize().x-325, rw.getSize().y/2-225)), false);
+                wOpts->addComponent(new Window(dictionary.gui.button.sound, sf::Vector2f(300, 454),
+                                               sf::Vector2f(rw.getSize().x-325, rw.getSize().y/2-225)), false);
 #define wSoun component(wOpts, Window, 2)
                     wSoun->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
-                    component(wSoun, Button, 0)->setPosition(sf::Vector2f(wSoun->getPosition().x+wSoun->getSize().x/2-component(wSoun, Button, 0)->getSize().x/2, wSoun->getPosition().y+wSoun->getSize().y-component(wSoun, Button, 0)->getSize().y-10));
+                    component(wSoun, Button, 0)->setPosition(sf::Vector2f(wSoun->getPosition().x+wSoun->getSize().x/2-component(wSoun, Button, 0)->getSize().x/2,
+                                                                          wSoun->getPosition().y+wSoun->getSize().y-component(wSoun, Button, 0)->getSize().y-10));
 #undef wSoun
-                wOpts->addComponent(new Window(dictionary.gui.button.controls, sf::Vector2f(300, 454), sf::Vector2f(rw.getSize().x-325, rw.getSize().y/2-225)), false);
+                wOpts->addComponent(new Window(dictionary.gui.button.controls, sf::Vector2f(300, 454),
+                                               sf::Vector2f(rw.getSize().x-325, rw.getSize().y/2-225)), false);
 #define wCont component(wOpts, Window, 3)
                     wCont->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
-                    component(wCont, Button, 0)->setPosition(sf::Vector2f(wCont->getPosition().x+wCont->getSize().x/2-component(wCont, Button, 0)->getSize().x/2, wCont->getPosition().y+wCont->getSize().y-component(wCont, Button, 0)->getSize().y-10));
+                    component(wCont, Button, 0)->setPosition(sf::Vector2f(wCont->getPosition().x+wCont->getSize().x/2-component(wCont, Button, 0)->getSize().x/2,
+                                                                          wCont->getPosition().y+wCont->getSize().y-component(wCont, Button, 0)->getSize().y-10));
 #undef wCont
-                wOpts->setVisible(false);
 #undef wOpts
-            wMenu->addComponent(new Window(dictionary.gui.button.help, sf::Vector2f(325, 454), sf::Vector2f(rw.getSize().x/2-162.5, rw.getSize().y/2-225)), false);
+            wMenu->addComponent(new Window(dictionary.gui.button.help, sf::Vector2f(325, 454),
+                                           sf::Vector2f(rw.getSize().x/2-162.5, rw.getSize().y/2-225)), false);
 #define wHelp component(wMenu, Window, 1)
                 wHelp->addComponent(new Text(sf::Vector2f(20, 25), L"Pro tip:", resources.font.Unifont, 30, sf::Color::Yellow), true);
                 wHelp->addComponent(new Text(sf::Vector2f(20, 55), dictionary.gui.text.killurslf, resources.font.Unifont, 30, sf::Color::Red), true);
 
                 wHelp->addComponent(new Button(sf::Vector2f(5, 380), dictionary.gui.button.quit, 52), true);
                 component(wHelp, Button, 0)->setPosition(wHelp->getPosition()+sf::Vector2f(wHelp->getSize().x/2-component(wHelp, Button, 0)->getSize().x/2, 379));
-            wHelp->setVisible(false);
 #undef wHelp
-            wMenu->setVisible(false);
 #undef dict
 #undef component
     }
@@ -148,16 +163,21 @@ namespace rr {
                     g->start(false);
                 }
             }
+
             else if (wOpts->isVisible()) {
                 if (!wGame->isVisible() && !wGrap->isVisible() && !wSoun->isVisible() && !wCont->isVisible()) {
                     if (cmc(wOpts, Button, 0) && isMLBPressed)
                         wGame->setVisible(true);
+
                     if (cmc(wOpts, Button, 1) && isMLBPressed)
                         wGrap->setVisible(true);
+
                     if (cmc(wOpts, Button, 2) && isMLBPressed)
                         wSoun->setVisible(true);
+
                     if (cmc(wOpts, Button, 3) && isMLBPressed)
                         wCont->setVisible(true);
+
                     if (cmc(wOpts, Button, 4) && isMLBPressed) {
                         std::vector<std::string> splitted = split(wtoa(component(wGrap, Switch, 0)->getCurrentOption()), 'x');
 
@@ -188,11 +208,13 @@ namespace rr {
                     if (cmc(wOpts, Button, 5) && isMLBPressed)
                         wOpts->setVisible(false);
                 }
+
                 else if (wGame->isVisible()) {
                     component(wGame, Switch, 0)->buttonEvents(rw);
                     if (cmc(wGame, Button, 0) && isMLBPressed)
                         wGame->setVisible(false);
                 }
+
                 else if (wGrap->isVisible()) {
                     for (unsigned i=0; i<2; i++) {
                         if (cmc(wGrap, Checkbox, i) && isMLBPressed) {
@@ -207,15 +229,18 @@ namespace rr {
                     if (cmc(wGrap, Button, 0) && isMLBPressed)
                         wGrap->setVisible(false);
                 }
+
                 else if (wSoun->isVisible()) {
                     if (cmc(wSoun, Button, 0) && isMLBPressed)
                         wSoun->setVisible(false);
                 }
+
                 else if (wCont->isVisible()) {
                     if (cmc(wCont, Button, 0) && isMLBPressed)
                         wCont->setVisible(false);
                 }
             }
+
             else if (wHelp->isVisible()) {
                 if (cmc(wHelp, Button, 0) && isMLBPressed)
                     wHelp->setVisible(false);
