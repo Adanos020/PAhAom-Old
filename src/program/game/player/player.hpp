@@ -27,14 +27,13 @@ namespace rr {
             int    exp;
             int    nextlvl;
             int    lvl;
-        };
+        } stats;
 
         sf::Vector2f       position;
         sf::AnimatedSprite body;
         sf::Animation      walkingLeft;
         sf::Animation      walkingRight;
         sf::Animation*     currentAnimation;
-        Stats              stats;
         double             velocity;
     public:
          Player(sf::Vector2f pos);

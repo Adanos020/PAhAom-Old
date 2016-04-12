@@ -23,6 +23,7 @@ namespace rr {
         body.setLooped(false);
         body.pause();
         body.setPosition(pos);
+        body.setOrigin(sf::Vector2f(7, 7));
         body.scale(sf::Vector2f(5, 5));
 
         position      = pos;

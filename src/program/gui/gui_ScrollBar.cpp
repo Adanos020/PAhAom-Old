@@ -1,5 +1,5 @@
 /**
- * @file src/program/gui/Slider.cpp
+ * @file src/program/gui/ScrollBar.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -12,7 +12,7 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Slider::Slider(Plain p, sf::Vector2f position, sf::Vector2f size, sf::Vector2f min_max) {
+    ScrollBar::ScrollBar(Plain p, sf::Vector2f position, sf::Vector2f size, sf::Vector2f min_max) {
         valueLimit = min_max;
         value      = valueLimit.x;
         plain      = p;
@@ -30,14 +30,14 @@ namespace rr {
         label->setPosition(border.getPosition()+sf::Vector2f(border.getSize().x/2-label->getSize().x/2, -5));
     }
 
-    Slider::~Slider() {
+    ScrollBar::~ScrollBar() {
         delete indicator;
         delete bLeft;
         delete bRight;
         delete label;
     }
 
-    void Slider::setPosition(sf::Vector2f pos) {
+    void ScrollBar::setPosition(sf::Vector2f pos) {
         bLeft    ->setPosition(pos);
         border    .setPosition(bLeft ->getPosition()+sf::Vector2f(bLeft->getSize().x+10, 5));
         bRight   ->setPosition(border .getPosition()+sf::Vector2f(border.getSize().x+10, -5));
@@ -45,13 +45,13 @@ namespace rr {
         label    ->setPosition(bRight->getPosition()+sf::Vector2f(10, 0));
     }
 
-    void Slider::setSize(sf::Vector2f siz) {
+    void ScrollBar::setSize(sf::Vector2f siz) {
         border .setSize(siz);
         bRight->setPosition(border .getPosition()+sf::Vector2f(border.getSize().x+10, 0));
         label ->setPosition(bRight->getPosition()+sf::Vector2f(10, 0));
     }
 
-    void Slider::setValue(int val) {
+    void ScrollBar::setValue(int val) {
         value = val;
         if (value < valueLimit.x)
             value = valueLimit.x;
@@ -62,7 +62,7 @@ namespace rr {
         label->setPosition(border.getPosition()+sf::Vector2f(border.getSize().x/2-label->getSize().x/2, -5));
     }
 
-    void Slider::draw(sf::RenderWindow& rw) {
+    void ScrollBar::draw(sf::RenderWindow& rw) {
         rw.draw(border);
         bLeft    ->draw(rw);
         bRight   ->draw(rw);
@@ -70,25 +70,29 @@ namespace rr {
         label    ->draw(rw);
     }
 
-    void Slider::buttonEvents(sf::RenderWindow& rw) {
-#define isMLBPressed sf::Mouse::isButtonPressed(sf::Mouse::Left)
+    void ScrollBar::buttonEvents(sf::RenderWindow& rw) {
+
 #define mousePosition sf::Mouse::getPosition(rw)
 
-        if (indicator->containsMouseCursor(rw) && isMLBPressed) {
-            if (mousePosition.x >= border.getPosition().x+5 && mousePosition.x <= border.getPosition().x+border.getSize().x-indicator->getSize().x+17) {
+        if ((indicator->isPressed(rw) || indicator->isHeld())) {
+            if (border.getGlobalBounds().contains((sf::Vector2f)mousePosition)) {
                 indicator->setPosition(sf::Vector2f(mousePosition.x-5, indicator->getPosition().y));
                 setValue((valueLimit.y*(indicator->getPosition().x-border.getPosition().x-3))/(border.getSize().x-indicator->getSize().x+6)+valueLimit.x);
             }
+            if      (mousePosition.x <= border.getPosition().x+5)
+                setValue(0);
+            else if (mousePosition.x >= border.getPosition().x+border.getSize().x-indicator->getSize().x+17)
+                setValue(valueLimit.y);
         }
-        if (bLeft->containsMouseCursor(rw) && isMLBPressed) {
+        if (bLeft->isPressed(rw)) {
             setValue(getValue()-1);
         }
-        if (bRight->containsMouseCursor(rw) && isMLBPressed) {
+        if (bRight->isPressed(rw)) {
             setValue(getValue()+1);
         }
 
-#undef isMLBPressed
 #undef mousePosition
+
     }
 
 }

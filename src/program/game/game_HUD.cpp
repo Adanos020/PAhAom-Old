@@ -32,11 +32,11 @@ namespace rr {
     }
 
     void HUD::buttonEvents(sf::RenderWindow& rw) {
-#define isMLBPressed sf::Mouse::isButtonPressed(sf::Mouse::Left)
+
         for (auto x : sCarryOn) {
-            if (x->containsMouseCursor(rw) && isMLBPressed) {}
+            if (x->isPressed(rw)) {}
         }
-#undef isMLBPressed
+
     }
 
     void HUD::update(Player* p) {

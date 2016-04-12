@@ -97,4 +97,14 @@ namespace rr {
         return false;
     }
 
+    bool Slot::isPressed(sf::RenderWindow& rw) {
+        if (containsMouseCursor(rw) && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            held = true;
+            return true;
+        }
+        if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            held = false;
+        return false;
+    }
+
 }

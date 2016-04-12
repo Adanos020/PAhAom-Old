@@ -13,7 +13,7 @@ extern rr::Resources resources;
 namespace rr {
 
     Button::Button(sf::Vector2f position, sf::String str, unsigned chsize, sf::Color c) :Component() {
-        text = new Text(sf::Vector2f(0, 0), str, resources.font.Unifont, chsize, c);
+        text  = new Text(sf::Vector2f(0, 0), str, resources.font.Unifont, chsize, c);
         text->setPosition(sf::Vector2f(position.x+15, position.y-0.5));
 
         image = new Image(position, 14, 0);
@@ -24,6 +24,8 @@ namespace rr {
         body.setPosition(position);
         body.setSize(sf::Vector2f(text->getSize().x+25, chsize*1.3425));
         body.setFillColor(sf::Color(0, 0, 0));
+
+        held = false;
     }
 
     Button::~Button() {
@@ -40,9 +42,19 @@ namespace rr {
         return false;
     }
 
+    bool Button::isPressed(sf::RenderWindow& rw) {
+        if (containsMouseCursor(rw) && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            held = true;
+            return true;
+        }
+        if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            held = false;
+        return false;
+    }
+
     void Button::setPosition(sf::Vector2f position) {
-        body.setPosition(position);
-        text->setPosition(sf::Vector2f(position.x+10, position.y-0.5));
+        body  .setPosition(position);
+        text ->setPosition(sf::Vector2f(position.x+10, position.y-0.5));
         image->setPosition(position);
     }
 

@@ -72,8 +72,10 @@ namespace rr {
 
     void Game::controls(float timer) {
         if (started && !paused) {
+
 #define keyPressed(key) sf::Keyboard::isKeyPressed(key)
 #define key sf::Keyboard
+
             if (keyPressed(key::Escape)) {
                 pauseMenu->open();
                 pause(true);
@@ -112,16 +114,18 @@ namespace rr {
             else if (keyPressed(key::Numpad4)) player->stats. mp++;
             else if (keyPressed(key::Numpad5)) player->stats.exp++;
             else if (keyPressed(key::Numpad6)) player->stats.lvl++;
+
 #undef keyPressed
 #undef key
+
         }
     }
 
     void Game::update(float timer, sf::View& v) {
-        v.setCenter(player->getPosition());
-        hud->update(player);
-        player->update();
         controls(timer);
+        player->update();
+        hud->update(player);
+        v.setCenter(player->getPosition());
     }
 
     void Game::start(bool b) {

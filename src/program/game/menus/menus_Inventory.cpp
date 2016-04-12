@@ -30,22 +30,20 @@ namespace rr {
     }
 
     void Inventory::buttonEvents(sf::RenderWindow& rw, Game* g) {
-#define isMLBPressed sf::Mouse::isButtonPressed(sf::Mouse::Left)
-#define cmc(w, c, x) w->getComponent<c>(x)->containsMouseCursor(rw)
+
 #define component(w, c, i) w->getComponent<c>(i)
         if (wInve->isVisible()) {
-            if (cmc(wInve, Button, 0) && isMLBPressed){
+            if (component(wInve, Button, 0)->isPressed(rw)){
                 wInve->setVisible(false);
                 g->pause(false);
             }
             for (int i=0; i<32; i++) {
-                if (cmc(wInve, Slot, i) && isMLBPressed) {
+                if (component(wInve, Slot, i)->isPressed(rw)) {
 
                 }
             }
         }
-#undef isMLBPressed
-#undef cmc
+
 #undef component
     }
 

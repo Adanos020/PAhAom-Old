@@ -119,16 +119,16 @@ namespace rr {
 #define wSoun component(wOpts, Window, 2)
 
                     wSoun->addComponent(new Text(sf::Vector2f(20, 40), dictionary.gui.text.music, resources.font.Unifont), true);
-                    wSoun->addComponent(new Slider(Slider::HORIZONTAL, sf::Vector2f(20, 85), sf::Vector2f(175, 30)), true);
+                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 85), sf::Vector2f(175, 30)), true);
                     wSoun->addComponent(new Checkbox(sf::Vector2f(175, 40), dictionary.gui.text.mute, 20), true);
                     component(wSoun, Checkbox, 0)->check(settings.sound.music_muted);
-                    component(wSoun, Slider,   0)->setValue(settings.sound.music_volume);
+                    component(wSoun, ScrollBar,   0)->setValue(settings.sound.music_volume);
 
                     wSoun->addComponent(new Text(sf::Vector2f(20, 160), dictionary.gui.text.effects, resources.font.Unifont), true);
-                    wSoun->addComponent(new Slider(Slider::HORIZONTAL, sf::Vector2f(20, 205), sf::Vector2f(175, 30)), true);
+                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 205), sf::Vector2f(175, 30)), true);
                     wSoun->addComponent(new Checkbox(sf::Vector2f(175, 160), dictionary.gui.text.mute, 20), true);
                     component(wSoun, Checkbox, 1)->check(settings.sound.effects_muted);
-                    component(wSoun, Slider,   1)->setValue(settings.sound.effects_volume);
+                    component(wSoun, ScrollBar,   1)->setValue(settings.sound.effects_volume);
 
                     wSoun->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
                     component(wSoun, Button, 0)->setPosition(sf::Vector2f(wSoun->getPosition().x+wSoun->getSize().x/2-component(wSoun, Button, 0)->getSize().x/2,
@@ -156,8 +156,9 @@ namespace rr {
                 wHelp->addComponent(new Text(sf::Vector2f(20, 25), L"Pro tip:",                   resources.font.Unifont, 30, sf::Color::Yellow), true);
                 wHelp->addComponent(new Text(sf::Vector2f(20, 55), dictionary.gui.text.killurslf, resources.font.Unifont, 30, sf::Color::Red),    true);
 
-                wHelp->addComponent(new Button(sf::Vector2f(5, 380), dictionary.gui.button.quit, 52), true);
-                component(wHelp, Button, 0)->setPosition(wHelp->getPosition()+sf::Vector2f(wHelp->getSize().x/2-component(wHelp, Button, 0)->getSize().x/2, 379));
+                wHelp->addComponent(new Button(sf::Vector2f(5, 380), dictionary.gui.button.quit, 30), true);
+                component(wHelp, Button, 0)->setPosition(sf::Vector2f(wHelp->getPosition().x+wHelp->getSize().x/2-component(wHelp, Button, 0)->getSize().x/2,
+                                                                      wHelp->getPosition().y+wHelp->getSize().y-component(wHelp, Button, 0)->getSize().y-10));
 
 #undef wHelp
 
@@ -170,8 +171,9 @@ namespace rr {
                 wCred->addComponent(new Text(sf::Vector2f(20, 80), dictionary.gui.text.usedlib,   resources.font.Unifont, 30),                    true);
                 wCred->addComponent(new Text(sf::Vector2f(0, 110), L"\tSFML 2.3.2",               resources.font.Unifont, 25, sf::Color::Yellow), true);
 
-                wCred->addComponent(new Button(sf::Vector2f(5, 225), dictionary.gui.button.quit, 52), true);
-                    component(wCred, Button, 0)->setPosition(wCred->getPosition()+sf::Vector2f(wCred->getSize().x/2-component(wCred, Button, 0)->getSize().x/2, 225));
+                wCred->addComponent(new Button(sf::Vector2f(5, 225), dictionary.gui.button.quit, 30), true);
+                    component(wCred, Button, 0)->setPosition(sf::Vector2f(wCred->getPosition().x+wCred->getSize().x/2-component(wCred, Button, 0)->getSize().x/2,
+                                                             wCred->getPosition().y+wCred->getSize().y-component(wCred, Button, 0)->getSize().y-10));
 
             wMenu->setVisible(true);
 
@@ -188,8 +190,6 @@ namespace rr {
 
     void MainMenu::buttonEvents(sf::RenderWindow& rw, Game* g) {
 
-#define isMLBPressed sf::Mouse::isButtonPressed(sf::Mouse::Left)
-#define cmc(w, c, x) w->getComponent<c>(x)->containsMouseCursor(rw)
 #define component(w, c, i) w->getComponent<c>(i)
 #define wOpts component(wMenu, Window, 0)
 #define wHelp component(wMenu, Window, 1)
@@ -201,33 +201,33 @@ namespace rr {
 
         if (wMenu->isVisible()) {
             if (!wOpts->isVisible() && !wHelp->isVisible() && !wCred->isVisible()) {
-                if (cmc(wMenu, Button, 0) && isMLBPressed) if (g->loadNewGame()) {
+                if (component(wMenu, Button, 0)->isPressed(rw)) if (g->loadNewGame()) {
                         g->start(true);
                         g->pause(false);
                     }
-                if (cmc(wMenu, Button, 1) && isMLBPressed)
+                if (component(wMenu, Button, 1)->isPressed(rw))
                     if (g->load()) g->start(true);
-                if (cmc(wMenu, Button, 2) && isMLBPressed)
+                if (component(wMenu, Button, 2)->isPressed(rw))
                     wOpts->setVisible(true);
-                if (cmc(wMenu, Button, 3) && isMLBPressed)
+                if (component(wMenu, Button, 3)->isPressed(rw))
                     wHelp->setVisible(true);
-                if (cmc(wMenu, Button, 4) && isMLBPressed)
+                if (component(wMenu, Button, 4)->isPressed(rw))
                     wCred->setVisible(true);
-                if (cmc(wMenu, Button, 5) && isMLBPressed)
+                if (component(wMenu, Button, 5)->isPressed(rw))
                     rw.close();
             }
 
             else if (wOpts->isVisible()) {
                 if (!wGame->isVisible() && !wGrap->isVisible() && !wSoun->isVisible() && !wCont->isVisible()) {
-                    if (cmc(wOpts, Button, 0) && isMLBPressed)
+                    if (component(wOpts, Button, 0)->isPressed(rw))
                         wGame->setVisible(true);
-                    if (cmc(wOpts, Button, 1) && isMLBPressed)
+                    if (component(wOpts, Button, 1)->isPressed(rw))
                         wGrap->setVisible(true);
-                    if (cmc(wOpts, Button, 2) && isMLBPressed)
+                    if (component(wOpts, Button, 2)->isPressed(rw))
                         wSoun->setVisible(true);
-                    if (cmc(wOpts, Button, 3) && isMLBPressed)
+                    if (component(wOpts, Button, 3)->isPressed(rw))
                         wCont->setVisible(true);
-                    if (cmc(wOpts, Button, 4) && isMLBPressed) {
+                    if (component(wOpts, Button, 4)->isPressed(rw)) {
                         puts(">Saving the settings...");
                         if      (component(wGame, Switch, 0)->getCurrentOption() == L"ENGLISH")
                             settings.game.language = "en";
@@ -252,16 +252,16 @@ namespace rr {
                             settings.graphics.csettings.antialiasingLevel = 0;
 
                         settings.sound.music_muted    = component(wSoun, Checkbox, 0)->isChecked();
-                        settings.sound.music_volume   = component(wSoun, Slider, 0)->getValue();
+                        settings.sound.music_volume   = component(wSoun, ScrollBar, 0)->getValue();
                         settings.sound.effects_muted  = component(wSoun, Checkbox, 1)->isChecked();
-                        settings.sound.effects_volume = component(wSoun, Slider, 1)->getValue();
+                        settings.sound.effects_volume = component(wSoun, ScrollBar, 1)->getValue();
 
                         settings.print();
                         settings.save ();
                         puts(">Done.");
                         wOpts->setVisible(false);
                     }
-                    if (cmc(wOpts, Button, 5) && isMLBPressed) {
+                    if (component(wOpts, Button, 5)->isPressed(rw)) {
                         if      (settings.game.language == "en")
                             component(wGame, Switch, 0)->setCurrentOption(L"ENGLISH");
                         else if (settings.game.language == "pl")
@@ -278,9 +278,9 @@ namespace rr {
                             component(wGrap, Switch, 1)->setCurrentOption(L"x"+std::to_wstring(settings.graphics.csettings.antialiasingLevel));
 
                         component(wSoun, Checkbox, 0)->check(settings.sound.music_muted);
-                        component(wSoun, Slider,   0)->setValue(settings.sound.music_volume);
+                        component(wSoun, ScrollBar,   0)->setValue(settings.sound.music_volume);
                         component(wSoun, Checkbox, 1)->check(settings.sound.effects_muted);
-                        component(wSoun, Slider,   1)->setValue(settings.sound.effects_volume);
+                        component(wSoun, ScrollBar,   1)->setValue(settings.sound.effects_volume);
 
                         wOpts->setVisible(false);
                     }
@@ -288,13 +288,13 @@ namespace rr {
 
                 else if (wGame->isVisible()) {
                     component(wGame, Switch, 0)->buttonEvents(rw);
-                    if (cmc(wGame, Button, 0) && isMLBPressed)
+                    if (component(wGame, Button, 0)->isPressed(rw))
                         wGame->setVisible(false);
                 }
 
                 else if (wGrap->isVisible()) {
                     for (unsigned i=0; i<2; i++) {
-                        if (cmc(wGrap, Checkbox, i) && isMLBPressed) {
+                        if (component(wGrap, Checkbox, i)->isPressed(rw)) {
                             if (!component(wGrap, Checkbox, i)->isChecked())
                                 component(wGrap, Checkbox, i)->check(true);
                             else
@@ -303,42 +303,40 @@ namespace rr {
                     }
                     component(wGrap, Switch, 0)->buttonEvents(rw);
                     component(wGrap, Switch, 1)->buttonEvents(rw);
-                    if (cmc(wGrap, Button, 0) && isMLBPressed)
+                    if (component(wGrap, Button, 0)->isPressed(rw))
                         wGrap->setVisible(false);
                 }
                 else if (wSoun->isVisible()) {
                     for (int i=0; i<2; i++) {
-                        if (cmc(wSoun, Checkbox, i) && isMLBPressed) {
+                        if (component(wSoun, Checkbox, i)->isPressed(rw)) {
                             if (!component(wSoun, Checkbox, i)->isChecked())
                                 component(wSoun, Checkbox, i)->check(true);
                             else
                                 component(wSoun, Checkbox, i)->check(false);
                         }
-                        component(wSoun, Slider, 0)->buttonEvents(rw);
-                        component(wSoun, Slider, 1)->buttonEvents(rw);
+                        component(wSoun, ScrollBar, 0)->buttonEvents(rw);
+                        component(wSoun, ScrollBar, 1)->buttonEvents(rw);
                     }
-                    if (cmc(wSoun, Button, 0) && isMLBPressed)
+                    if (component(wSoun, Button, 0)->isPressed(rw))
                         wSoun->setVisible(false);
                 }
                 else if (wCont->isVisible()) {
-                    if (cmc(wCont, Button, 0) && isMLBPressed)
+                    if (component(wCont, Button, 0)->isPressed(rw))
                         wCont->setVisible(false);
                 }
             }
 
             else if (wHelp->isVisible()) {
-                if (cmc(wHelp, Button, 0) && isMLBPressed)
+                if (component(wHelp, Button, 0)->isPressed(rw))
                     wHelp->setVisible(false);
             }
 
             else if (wCred->isVisible()) {
-                if (cmc(wCred, Button, 0) && isMLBPressed)
+                if (component(wCred, Button, 0)->isPressed(rw))
                     wCred->setVisible(false);
             }
         }
 
-#undef isMLBPressed
-#undef cmc
 #undef component
 #undef wOpts
 #undef wHelp

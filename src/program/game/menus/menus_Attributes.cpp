@@ -10,19 +10,19 @@
 #include <cstdio>
 
 extern rr::Dictionary dictionary;
-
 extern rr::Resources resources;
 
 namespace rr {
 
     Attributes::Attributes(sf::RenderWindow& rw) {
-#define dict(s) dictionary[s]
-
-        wAttr = new Window(dictionary.gui.window.attributes, sf::Vector2f(400, 230), (sf::Vector2f)rw.getSize()/2.f-sf::Vector2f(200, 115));
-            wAttr->addComponent(new Button(sf::Vector2f(10, 180), dictionary.gui.button.quit, 30), true);
-        wAttr->setVisible(false);
-
-#undef dict
+#define component(w, c, i) w->getComponent<c>(i)
+        wAttr = new Window(dictionary.gui.window.attributes, sf::Vector2f(400, 300), (sf::Vector2f)rw.getSize()/2.f-sf::Vector2f(200, 150));
+            wAttr->addComponent(new Text(sf::Vector2f(10,  20), "stats",  resources.font.Unifont, 30),                   true); // stats
+            wAttr->addComponent(new Text(sf::Vector2f(250, 20), "values", resources.font.Unifont, 30, sf::Color::Green), true); // values
+            wAttr->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
+                component(wAttr, Button, 0)->setPosition(sf::Vector2f(wAttr->getPosition().x+wAttr->getSize().x/2-component(wAttr, Button, 0)->getSize().x/2,
+                                                                      wAttr->getPosition().y+wAttr->getSize().y-component(wAttr, Button, 0)->getSize().y-10));
+#undef component
     }
 
     Attributes::~Attributes() {
@@ -38,18 +38,16 @@ namespace rr {
     }
 
     void Attributes::buttonEvents(sf::RenderWindow& rw, Game* g) {
-#define isMLBPressed sf::Mouse::isButtonPressed(sf::Mouse::Left)
-#define cmc(w, c, x) w->getComponent<c>(x)->containsMouseCursor(rw)
+#define component(w, c, x) w->getComponent<c>(x)
 
         if (wAttr->isVisible()) {
-            if (cmc(wAttr, Button, 0) && isMLBPressed) {
+            if (component(wAttr, Button, 0)->isPressed(rw)) {
                 wAttr->setVisible(false);
                 g->pause(false);
             }
         }
 
-#undef isMLBPressed
-#undef cmc
+#undef component
     }
 
     void Attributes::draw(sf::RenderWindow& rw) {
