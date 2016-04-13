@@ -173,7 +173,7 @@ namespace rr {
 
                 wCred->addComponent(new Button(sf::Vector2f(5, 225), dictionary.gui.button.quit, 30), true);
                     component(wCred, Button, 0)->setPosition(sf::Vector2f(wCred->getPosition().x+wCred->getSize().x/2-component(wCred, Button, 0)->getSize().x/2,
-                                                             wCred->getPosition().y+wCred->getSize().y-component(wCred, Button, 0)->getSize().y-10));
+                                                                          wCred->getPosition().y+wCred->getSize().y-component(wCred, Button, 0)->getSize().y-10));
 
             wMenu->setVisible(true);
 

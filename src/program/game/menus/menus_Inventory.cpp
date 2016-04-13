@@ -29,6 +29,10 @@ namespace rr {
         wInve->setVisible(true);
     }
 
+    void Inventory::close() {
+        wInve->setVisible(false);
+    }
+
     void Inventory::buttonEvents(sf::RenderWindow& rw, Game* g) {
 
 #define component(w, c, i) w->getComponent<c>(i)
@@ -45,6 +49,7 @@ namespace rr {
         }
 
 #undef component
+
     }
 
     void Inventory::draw(sf::RenderWindow& rw) {

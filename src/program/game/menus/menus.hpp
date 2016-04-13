@@ -45,6 +45,9 @@ namespace rr {
     /// Method opening the pause menu
         void open        ();
 
+    /// Method closing the pause menu window
+        void close       ();
+
     /// Method for handling the button events
         void buttonEvents(sf::RenderWindow&, Game*);
 
@@ -65,6 +68,9 @@ namespace rr {
 
     /// Method opening the player attributes window
         void open        ();
+
+    /// Method closing the player attributes window
+        void close       ();
 
     /// Updates the info about the player attributes
         void update      (Player*);
@@ -89,6 +95,9 @@ namespace rr {
 
     /// Method opening the inventory window
         void open        ();
+
+    /// Method closing the inventory window
+        void close       ();
 
     /// Method for handling the button events
         void buttonEvents(sf::RenderWindow&, Game*);

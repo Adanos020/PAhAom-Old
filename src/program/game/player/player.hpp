@@ -50,7 +50,7 @@ namespace rr {
         void         setPosition(sf::Vector2f);
 
     /// Method making the player character's move in a given direction
-        void         go         (float timeStep, direction);
+        void         move       (float timeStep, direction);
 
     /// Method drawing the player character
         void         draw       (sf::RenderWindow&);

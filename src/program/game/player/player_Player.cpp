@@ -48,7 +48,7 @@ namespace rr {
         body.setPosition(pos);
     }
 
-    void Player::go(float ts, direction di) {
+    void Player::move(float ts, direction di) {
         if        (di == UP) {
             position.y -= ts*velocity;
             setPosition(position);

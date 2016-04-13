@@ -33,6 +33,10 @@ namespace rr {
         wAttr->setVisible(true);
     }
 
+    void Attributes::close() {
+        wAttr->setVisible(false);
+    }
+
     void Attributes::update(Player* p) {
         puts("Attributes updated!"); // yeah...
     }

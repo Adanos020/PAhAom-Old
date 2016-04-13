@@ -174,6 +174,34 @@ namespace rr {
         wMenu->setVisible(true);
     }
 
+    void PauseMenu::close() {
+
+#define component(w, c, i) w->getComponent<c>(i)
+#define wOpts component(wMenu, Window, 0)
+#define wHelp component(wMenu, Window, 1)
+#define wGame component(wOpts, Window, 0)
+#define wGrap component(wOpts, Window, 1)
+#define wSoun component(wOpts, Window, 2)
+#define wCont component(wOpts, Window, 3)
+
+        wMenu->setVisible(false);
+        wOpts->setVisible(false);
+        wGame->setVisible(false);
+        wGrap->setVisible(false);
+        wSoun->setVisible(false);
+        wCont->setVisible(false);
+        wHelp->setVisible(false);
+
+#undef component
+#undef wOpts
+#undef wHelp
+#undef wGame
+#undef wGrap
+#undef wSoun
+#undef wCont
+
+    }
+
     void PauseMenu::buttonEvents(sf::RenderWindow& rw, Game* g) {
 
 #define component(w, c, i) w->getComponent<c>(i)

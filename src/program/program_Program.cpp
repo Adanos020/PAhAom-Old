@@ -37,6 +37,7 @@ namespace rr {
         window.setVerticalSyncEnabled(settings.graphics.vsync);
         view.setSize((sf::Vector2f)settings.graphics.resolution);
         window.setView(view);
+        window.setKeyRepeatEnabled(false);
 
         game = new Game(window);
         mainLoop();
@@ -53,9 +54,13 @@ namespace rr {
 
     void Program::handleEvents() {
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) window.close();
-            if (event.type == sf::Event::Resized) view.setSize((sf::Vector2f)window.getSize());
+            if (event.type == sf::Event::Closed)
+                window.close();
+            if (event.type == sf::Event::Resized)
+                view.setSize((sf::Vector2f)window.getSize());
             game->buttonEvents(window, view);
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape && game->isStarted())
+                game->pause(!game->isPaused());
         }
     }
 

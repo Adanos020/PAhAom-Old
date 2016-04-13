@@ -59,7 +59,8 @@ namespace rr {
     }
 
     void Game::buttonEvents(sf::RenderWindow& rw, sf::View& v) {
-        if (!started) mainMenu->buttonEvents(rw, this);
+        if (!started)
+            mainMenu->buttonEvents(rw, this);
         if (pauseMenu->isOpen())
             pauseMenu->buttonEvents(rw, this);
         if (inventory->isOpen()) {
@@ -76,24 +77,19 @@ namespace rr {
 #define keyPressed(key) sf::Keyboard::isKeyPressed(key)
 #define key sf::Keyboard
 
-            if (keyPressed(key::Escape)) {
-                pauseMenu->open();
-                pause(true);
-            }
-
-            if (keyPressed(settings.keys.move_up))    player->go(timer, Player::UP);
-            if (keyPressed(settings.keys.move_down))  player->go(timer, Player::DOWN);
-            if (keyPressed(settings.keys.move_left))  player->go(timer, Player::LEFT);
-            if (keyPressed(settings.keys.move_right)) player->go(timer, Player::RIGHT);
+            if (keyPressed(settings.keys.move_up))    player->move(timer, Player::UP);
+            if (keyPressed(settings.keys.move_down))  player->move(timer, Player::DOWN);
+            if (keyPressed(settings.keys.move_left))  player->move(timer, Player::LEFT);
+            if (keyPressed(settings.keys.move_right)) player->move(timer, Player::RIGHT);
 
             if      (keyPressed(settings.keys.open_attributes)) {
                 attributes->update(player);
                 attributes->open();
-                pause(true);
+                paused = true;
             }
             else if (keyPressed(settings.keys.open_inventory)) {
                 inventory->open();
-                pause(true);
+                paused = true;
             }
             else if (keyPressed(settings.keys.open_map)) {
 
@@ -134,6 +130,13 @@ namespace rr {
 
     void Game::pause(bool b) {
         paused = b;
+        if (paused)
+            pauseMenu->open();
+        else {
+            pauseMenu ->close();
+            inventory ->close();
+            attributes->close();
+        }
     }
 
     void Game::save() {
