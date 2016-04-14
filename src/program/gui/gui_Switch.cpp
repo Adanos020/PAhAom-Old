@@ -56,7 +56,7 @@ namespace rr {
                 counter = options.size()-1;
             text->setString(options[counter]);
             text->setPosition(sf::Vector2f(body.getPosition().x+body.getSize().x/2-text->getSize().x/2, body.getPosition().y-4));
-        } else if (left->isPressed(rw, e)) {
+        } else if (right->isPressed(rw, e)) {
             if (counter<options.size()-1)
                 counter++;
             else
