@@ -45,3 +45,15 @@ item.potion.color.pink pink
 item.potion.color.purple purple
 item.potion.color.black black
 item.potion.color.white white
+
+player.attributes.health HEALTH
+player.attributes.strength STRENGTH
+player.attributes.dexterity DEXTERITY
+player.attributes.experience EXPERIENCE
+player.attributes.level LEVEL
+player.attributes.skill_points SKILL POINTS
+player.skills.crafting CRAFTING
+player.skills.alchemy ALCHEMY
+player.skills.cold_weapon_mastery COLD WEAPON
+player.skills.ranged_weapon_mastery RANGED WEAPON
+player.skills.better_sight EAGLE EYE

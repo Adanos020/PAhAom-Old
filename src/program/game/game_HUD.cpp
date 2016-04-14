@@ -40,10 +40,11 @@ namespace rr {
     }
 
     void HUD::update(Player* p) {
-        bHP->setSize(sf::Vector2f(p->getStats().hp/p->getStats().maxhp, 1));
-        bMP->setSize(sf::Vector2f(p->getStats().mp/p->getStats().maxmp, 1));
-        bXP->setSize(sf::Vector2f((float)p->getStats().exp/(float)p->getStats().nextlvl, 1));
-        tXPlevel->setString(std::to_wstring(p->getStats().lvl));
+        bHP->setSize(sf::Vector2f(p->getAttributes().health/p->getAttributes().maxHealth, 1));
+        bMP->setSize(sf::Vector2f(p->getAttributes().mana/p->getAttributes().maxMana, 1));
+        bXP->setSize(sf::Vector2f((float)p->getAttributes().experience/(float)p->getAttributes().nextLevel, 1));
+
+        tXPlevel->setString(std::to_wstring((int)p->getAttributes().level));
         tXPlevel->setPosition(sf::Vector2f(bXP->getPosition().x+bXP->getSize().x/2-tXPlevel->getSize().x/2, bXP->getPosition().y-tXPlevel->getSize().y));
     }
 

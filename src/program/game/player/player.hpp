@@ -17,24 +17,33 @@ namespace rr {
     class Player {
         friend class Game;
     private:
-        struct Stats {
+    /// Structure for the player attributes
+        struct Attrs {
         public:
-            double hp;
-            double mp;
-            double maxhp;
-            double maxmp;
-            int    sp;
-            int    exp;
-            int    nextlvl;
-            int    lvl;
-        } stats;
+            float health;
+            float mana;
+            float maxHealth;
+            float maxMana;
+            float strength;
+            float dexterity;
+            float experience;
+            float nextLevel;
+            float level;
+            float skillPoints;
+
+            bool  crafting;
+            bool  alchemy;
+            bool  cold_weapon_mastery;
+            bool  ranged_weapon_mastery;
+            bool  better_sight;
+        } attrs;
 
         sf::Vector2f       position;
         sf::AnimatedSprite body;
         sf::Animation      walkingLeft;
         sf::Animation      walkingRight;
         sf::Animation*     currentAnimation;
-        double             velocity;
+        float              velocity;
     public:
          Player(sf::Vector2f pos);
         ~Player();
@@ -47,22 +56,22 @@ namespace rr {
         };
 
     /// Sets the player character's position
-        void         setPosition(sf::Vector2f);
+        void         setPosition     (sf::Vector2f);
 
     /// Method making the player character's move in a given direction
-        void         move       (float timeStep, direction);
+        void         move            (float timeStep, direction);
 
     /// Method drawing the player character
-        void         draw       (sf::RenderWindow&);
+        void         draw            (sf::RenderWindow&);
 
     /// Updates the state of the player character
-        void         update     ();
+        void         update          ();
 
     /// Returns the player statistics
-        Stats        getStats   () const { return stats; }
+        Attrs        getAttributes   () const { return attrs; }
 
     /// Returns the position of the player character
-        sf::Vector2f getPosition() const { return body.getPosition(); }
+        sf::Vector2f getPosition     () const { return body.getPosition(); }
     };
 
 }

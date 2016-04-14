@@ -33,9 +33,10 @@ namespace rr {
     }
 
     void Program::runGame() {
-        window.create(sf::VideoMode(settings.graphics.resolution.x, settings.graphics.resolution.y, 32), "PAhAom", (settings.graphics.fullscreen)?sf::Style::Fullscreen:sf::Style::Close, settings.graphics.csettings);
-        window.setVerticalSyncEnabled(settings.graphics.vsync);
         view.setSize((sf::Vector2f)settings.graphics.resolution);
+
+        window.create(sf::VideoMode(settings.graphics.resolution.x, settings.graphics.resolution.y, 32), "PAhAom", settings.graphics.fullscreen?(sf::Style::Fullscreen):(sf::Style::Close), settings.graphics.csettings);
+        window.setVerticalSyncEnabled(settings.graphics.vsync);
         window.setView(view);
         window.setKeyRepeatEnabled(false);
 

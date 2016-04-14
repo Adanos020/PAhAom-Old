@@ -26,16 +26,25 @@ namespace rr {
         body.setOrigin(sf::Vector2f(7, 7));
         body.scale(sf::Vector2f(5, 5));
 
-        position      = pos;
-        velocity      = 0.5;
-        stats.hp      = 30.0;
-        stats.mp      = 5.0;
-        stats.maxhp   = 30.0;
-        stats.maxmp   = 5.0;
-        stats.sp      = 0;
-        stats.exp     = 0;
-        stats.nextlvl = 100;
-        stats.lvl     = 0;
+        position          = pos;
+        velocity          = 0.5f;
+
+        attrs.health      =  30.f;
+        attrs.mana        =   5.f;
+        attrs.maxHealth   =  30.f;
+        attrs.maxMana     =   5.f;
+        attrs.strength    =  10.f;
+        attrs.dexterity   =  10.f;
+        attrs.skillPoints =   0.f;
+        attrs.experience  =   0.f;
+        attrs.nextLevel   = 100.f;
+        attrs.level       =   0.f;
+
+        attrs.crafting              = true;
+        attrs.alchemy               = false;
+        attrs.cold_weapon_mastery   = true;
+        attrs.ranged_weapon_mastery = true;
+        attrs.better_sight          = false;
     }
 
     Player::~Player() {
@@ -71,18 +80,26 @@ namespace rr {
     }
 
     void Player::update() {
-        if (stats.hp>=stats.maxhp)
-            stats.hp = stats.maxhp;
-        if (stats.hp<=0)
-            stats.hp = 0;
-        if (stats.mp<=0)
-            stats.mp = 0;
-        if (stats.mp>=stats.maxmp)
-            stats.mp = stats.maxmp;
-        if (stats.exp>=stats.nextlvl) {
-            stats.exp = 0;
-            stats.nextlvl *= 1.25;
-            stats.lvl++;
+        if (attrs.health >= attrs.maxHealth)
+            attrs.health  = attrs.maxHealth;
+        if (attrs.health <= 0)
+            attrs.health  = 0;
+        if (attrs.mana <= 0)
+            attrs.mana  = 0;
+        if (attrs.mana >= attrs.maxMana)
+            attrs.mana  = attrs.maxMana;
+        if (attrs.experience>=attrs.nextLevel) {
+            attrs.experience = 0;
+            attrs.nextLevel *= 1.25f;
+            attrs.level     ++;
+
+            float temp       = attrs.health/attrs.maxHealth;
+            attrs.maxHealth += 10;
+            attrs.health     = temp*attrs.maxHealth;
+
+            temp             = attrs.mana/attrs.maxMana;
+            attrs.maxMana   += 1;
+            attrs.mana       = temp*attrs.maxMana;
         }
         body.play(*currentAnimation);
     }

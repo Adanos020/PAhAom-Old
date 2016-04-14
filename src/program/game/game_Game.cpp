@@ -104,12 +104,12 @@ namespace rr {
             else if (keyPressed(settings.keys.useslot_4)) {}
             else if (keyPressed(settings.keys.useslot_5)) {}
 
-            else if (keyPressed(key::Numpad1)) player->stats. hp--;
-            else if (keyPressed(key::Numpad2)) player->stats. hp++;
-            else if (keyPressed(key::Numpad3)) player->stats. mp--;
-            else if (keyPressed(key::Numpad4)) player->stats. mp++;
-            else if (keyPressed(key::Numpad5)) player->stats.exp++;
-            else if (keyPressed(key::Numpad6)) player->stats.lvl++;
+            else if (keyPressed(key::Numpad1)) player->attrs.health    --;
+            else if (keyPressed(key::Numpad2)) player->attrs.health    ++;
+            else if (keyPressed(key::Numpad3)) player->attrs.mana      --;
+            else if (keyPressed(key::Numpad4)) player->attrs.mana      ++;
+            else if (keyPressed(key::Numpad5)) player->attrs.experience++;
+            else if (keyPressed(key::Numpad6)) player->attrs.level     ++;
 
 #undef keyPressed
 #undef key

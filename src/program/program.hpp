@@ -140,6 +140,31 @@ namespace rr {
             } potion;
         } item;
 
+    /// Structure for the player part of the dictionary
+        struct {
+        public:
+
+        /// Structure for player attributes
+            struct {
+                sf::String health;
+                sf::String strength;
+                sf::String dexterity;
+                sf::String experience;
+                sf::String level;
+                sf::String skill_points;
+            } attributes;
+
+        /// Structure for player skills
+            struct {
+                sf::String crafting;
+                sf::String alchemy;
+                sf::String cold_weapon_mastery;
+                sf::String ranged_weapon_mastery;
+                sf::String better_sight;
+            } skills;
+
+        } player;
+
     /// Method loading the dictionary
         bool load();
     };

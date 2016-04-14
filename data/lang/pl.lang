@@ -20,6 +20,7 @@ gui.text.usedlib UŻYTA BIBLIOTEKA
 gui.text.music MUZYKA
 gui.text.effects EFEKTY
 gui.text.mute WYCISZ
+
 gui.window.attributes ATRYBUTY
 gui.window.inventory EKWIPUNEK
 
@@ -45,3 +46,15 @@ item.potion.color.pink różowa
 item.potion.color.purple fioletowa
 item.potion.color.black czarna
 item.potion.color.white biała
+
+player.attributes.health ZDROWIE
+player.attributes.strength SIŁA
+player.attributes.dexterity ZRĘCZNOŚĆ
+player.attributes.experience DOŚWIADCZENIE
+player.attributes.level POZIOM
+player.attributes.skill_points PUNKTY UMIEJĘTNOŚCI
+player.skills.crafting RZEMIEŚLNICTWO
+player.skills.alchemy ALCHEMIA
+player.skills.cold_weapon_mastery BROŃ BIAŁA
+player.skills.ranged_weapon_mastery BROŃ DYSTANSOWA
+player.skills.better_sight SOKOLI WZROK

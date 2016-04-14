@@ -44,14 +44,14 @@ namespace rr {
                     else if (word == "gui.checkbox.fullscreen") gui.checkbox.fullscreen = utf8ToUtf32(translation);
                     else if (word == "gui.checkbox.vsync")      gui.checkbox.vsync      = utf8ToUtf32(translation);
 
-                    else if (word == "gui.text.resolution") gui.text.resolution = utf8ToUtf32(translation);
-                    else if (word == "gui.text.language")   gui.text.language   = utf8ToUtf32(translation);
-                    else if (word == "gui.text.killurslf")  gui.text.killurslf  = utf8ToUtf32(translation);
-                    else if (word == "gui.text.wholegame")  gui.text.wholegame  = utf8ToUtf32(translation);
-                    else if (word == "gui.text.usedlib")    gui.text.usedlib    = utf8ToUtf32(translation);
-                    else if (word == "gui.text.music")      gui.text.music      = utf8ToUtf32(translation);
-                    else if (word == "gui.text.effects")    gui.text.effects    = utf8ToUtf32(translation);
-                    else if (word == "gui.text.mute")       gui.text.mute       = utf8ToUtf32(translation);
+                    else if (word == "gui.text.resolution")   gui.text.resolution   = utf8ToUtf32(translation);
+                    else if (word == "gui.text.language")     gui.text.language     = utf8ToUtf32(translation);
+                    else if (word == "gui.text.killurslf")    gui.text.killurslf    = utf8ToUtf32(translation);
+                    else if (word == "gui.text.wholegame")    gui.text.wholegame    = utf8ToUtf32(translation);
+                    else if (word == "gui.text.usedlib")      gui.text.usedlib      = utf8ToUtf32(translation);
+                    else if (word == "gui.text.music")        gui.text.music        = utf8ToUtf32(translation);
+                    else if (word == "gui.text.effects")      gui.text.effects      = utf8ToUtf32(translation);
+                    else if (word == "gui.text.mute")         gui.text.mute         = utf8ToUtf32(translation);
 
                     else if (word == "gui.window.attributes") gui.window.attributes = utf8ToUtf32(translation);
                     else if (word == "gui.window.inventory")  gui.window.inventory  = utf8ToUtf32(translation);
@@ -82,6 +82,19 @@ namespace rr {
                     else if (word == "item.potion.color.purple") item.potion.color.purple = utf8ToUtf32(translation);
                     else if (word == "item.potion.color.black")  item.potion.color.black  = utf8ToUtf32(translation);
                     else if (word == "item.potion.color.white")  item.potion.color.white  = utf8ToUtf32(translation);
+
+                    else if (word == "player.attributes.health")       player.attributes.health       = utf8ToUtf32(translation);
+                    else if (word == "player.attributes.strength")     player.attributes.strength     = utf8ToUtf32(translation);
+                    else if (word == "player.attributes.dexterity")    player.attributes.dexterity    = utf8ToUtf32(translation);
+                    else if (word == "player.attributes.experience")   player.attributes.experience   = utf8ToUtf32(translation);
+                    else if (word == "player.attributes.level")        player.attributes.level        = utf8ToUtf32(translation);
+                    else if (word == "player.attributes.skill_points") player.attributes.skill_points = utf8ToUtf32(translation);
+
+                    else if (word == "player.skills.crafting")              player.skills.crafting              = utf8ToUtf32(translation);
+                    else if (word == "player.skills.alchemy")               player.skills.alchemy               = utf8ToUtf32(translation);
+                    else if (word == "player.skills.cold_weapon_mastery")   player.skills.cold_weapon_mastery   = utf8ToUtf32(translation);
+                    else if (word == "player.skills.ranged_weapon_mastery") player.skills.ranged_weapon_mastery = utf8ToUtf32(translation);
+                    else if (word == "player.skills.better_sight")          player.skills.better_sight          = utf8ToUtf32(translation);
 
                     std::cout << word << std::setw(38-word.size()+translation.size()) << translation + "\n";
                 }
