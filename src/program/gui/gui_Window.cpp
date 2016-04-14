@@ -1,5 +1,5 @@
 /**
- * @file src/program/gui/Window.cpp
+ * @file src/program/gui/gui_Window.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -7,9 +7,6 @@
 
 #include "gui.hpp"
 #include "../program.hpp"
-
-#include <type_traits>
-#include <typeinfo>
 
 extern rr::Resources resources;
 

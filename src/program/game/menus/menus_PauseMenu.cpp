@@ -1,12 +1,11 @@
 /**
- * @file src/program/game/menus/PauseMenu.cpp
+ * @file src/program/game/menus/menus_PauseMenu.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
  */
 
 #include "menus.hpp"
-#include <iostream>
 
 extern rr::Dictionary dictionary;
 extern rr::Settings settings;
@@ -202,7 +201,7 @@ namespace rr {
 
     }
 
-    void PauseMenu::buttonEvents(sf::RenderWindow& rw, Game* g) {
+    void PauseMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
 
 #define component(w, c, i) w->getComponent<c>(i)
 #define wOpts component(wMenu, Window, 0)
@@ -214,13 +213,13 @@ namespace rr {
 
         if (wMenu->isVisible()) {
             if (!wOpts->isVisible() && !wHelp->isVisible()) {
-                if (component(wMenu, Button, 0)->isPressed(rw)) {
+                if (component(wMenu, Button, 0)->isPressed(rw, e)) {
                     wMenu->setVisible(false);
                     g->pause(false);
                 }
-                if (component(wMenu, Button, 1)->isPressed(rw)) wOpts->setVisible(true);
-                if (component(wMenu, Button, 2)->isPressed(rw)) wHelp->setVisible(true);
-                if (component(wMenu, Button, 3)->isPressed(rw)) {
+                if (component(wMenu, Button, 1)->isPressed(rw, e)) wOpts->setVisible(true);
+                if (component(wMenu, Button, 2)->isPressed(rw, e)) wHelp->setVisible(true);
+                if (component(wMenu, Button, 3)->isPressed(rw, e)) {
                     wMenu->setVisible(false);
                     g->pause(false);
                     g->start(false);
@@ -229,19 +228,19 @@ namespace rr {
 
             else if (wOpts->isVisible()) {
                 if (!wGame->isVisible() && !wGrap->isVisible() && !wSoun->isVisible() && !wCont->isVisible()) {
-                    if (component(wOpts, Button, 0)->isPressed(rw))
+                    if (component(wOpts, Button, 0)->isPressed(rw, e))
                         wGame->setVisible(true);
 
-                    if (component(wOpts, Button, 1)->isPressed(rw))
+                    if (component(wOpts, Button, 1)->isPressed(rw, e))
                         wGrap->setVisible(true);
 
-                    if (component(wOpts, Button, 2)->isPressed(rw))
+                    if (component(wOpts, Button, 2)->isPressed(rw, e))
                         wSoun->setVisible(true);
 
-                    if (component(wOpts, Button, 3)->isPressed(rw))
+                    if (component(wOpts, Button, 3)->isPressed(rw, e))
                         wCont->setVisible(true);
 
-                    if (component(wOpts, Button, 4)->isPressed(rw)) {
+                    if (component(wOpts, Button, 4)->isPressed(rw, e)) {
                         puts(">Saving the settings...");
                         if      (component(wGame, Switch, 0)->getCurrentOption() == L"ENGLISH")
                             settings.game.language = "en";
@@ -275,7 +274,7 @@ namespace rr {
                         puts(">Done.");
                         wOpts->setVisible(false);
                     }
-                    if (component(wOpts, Button, 5)->isPressed(rw)) {
+                    if (component(wOpts, Button, 5)->isPressed(rw, e)) {
                         if      (settings.game.language == "en")
                             component(wGame, Switch, 0)->setCurrentOption(L"ENGLISH");
                         else if (settings.game.language == "pl")
@@ -301,49 +300,49 @@ namespace rr {
                 }
 
                 else if (wGame->isVisible()) {
-                    component(wGame, Switch, 0)->buttonEvents(rw);
-                    if (component(wGame, Button, 0)->isPressed(rw))
+                    component(wGame, Switch, 0)->buttonEvents(rw, e);
+                    if (component(wGame, Button, 0)->isPressed(rw, e))
                         wGame->setVisible(false);
                 }
 
                 else if (wGrap->isVisible()) {
                     for (unsigned i=0; i<2; i++) {
-                        if (component(wGrap, Checkbox, i)->isPressed(rw)) {
+                        if (component(wGrap, Checkbox, i)->isPressed(rw, e)) {
                             if (!component(wGrap, Checkbox, i)->isChecked())
                                 component(wGrap, Checkbox, i)->check(true);
                             else
                                 component(wGrap, Checkbox, i)->check(false);
                         }
                     }
-                    component(wGrap, Switch, 0)->buttonEvents(rw);
-                    component(wGrap, Switch, 1)->buttonEvents(rw);
-                    if (component(wGrap, Button, 0)->isPressed(rw))
+                    component(wGrap, Switch, 0)->buttonEvents(rw, e);
+                    component(wGrap, Switch, 1)->buttonEvents(rw, e);
+                    if (component(wGrap, Button, 0)->isPressed(rw, e))
                         wGrap->setVisible(false);
                 }
 
                 else if (wSoun->isVisible()) {
                     for (int i=0; i<2; i++) {
-                        if (component(wSoun, Checkbox, i)->isPressed(rw)) {
+                        if (component(wSoun, Checkbox, i)->isPressed(rw, e)) {
                             if (!component(wSoun, Checkbox, i)->isChecked())
                                 component(wSoun, Checkbox, i)->check(true);
                             else
                                 component(wSoun, Checkbox, i)->check(false);
                         }
-                        component(wSoun, ScrollBar, 0)->buttonEvents(rw);
-                        component(wSoun, ScrollBar, 1)->buttonEvents(rw);
+                        component(wSoun, ScrollBar, 0)->buttonEvents(rw, e);
+                        component(wSoun, ScrollBar, 1)->buttonEvents(rw, e);
                     }
-                    if (component(wSoun, Button, 0)->isPressed(rw))
+                    if (component(wSoun, Button, 0)->isPressed(rw, e))
                         wSoun->setVisible(false);
                 }
 
                 else if (wCont->isVisible()) {
-                    if (component(wCont, Button, 0)->isPressed(rw))
+                    if (component(wCont, Button, 0)->isPressed(rw, e))
                         wCont->setVisible(false);
                 }
             }
 
             else if (wHelp->isVisible()) {
-                if (component(wHelp, Button, 0)->isPressed(rw))
+                if (component(wHelp, Button, 0)->isPressed(rw, e))
                     wHelp->setVisible(false);
             }
         }

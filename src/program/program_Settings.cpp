@@ -1,5 +1,5 @@
 /**
- * @file src/program/Settings.cpp
+ * @file src/program/program_Settings.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -8,7 +8,6 @@
 #include "program.hpp"
 #include "funcs/files.hpp"
 
-#include <cstdio>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -54,7 +53,7 @@ namespace rr {
     }
 
     void Settings::save() {
-        puts(">Saving the settings...");
+        std::cout << ">Saving the settings...\n";
 
         std::ofstream oconfig("config.cfg");
         oconfig.clear();
@@ -111,7 +110,7 @@ namespace rr {
             std::ifstream iconfig("config.cfg");
             if (!iconfig.good())
                 throw "File not found";
-            puts(">Loading a config file...");
+            std::cout << ">Loading a config file...\n";
 
             while (!iconfig.eof()) {
                 std::string param;
@@ -155,10 +154,10 @@ namespace rr {
             }
             iconfig.close();
             print();
-            puts(">Done.");
+            std::cout << ">Done.\n";
         } catch (...) {
-            puts("!Error loading config.cfg!");
-            puts(">Creating a new config file...");
+            std::cout << "!Error loading config.cfg!\n";
+            std::cout << ">Creating a new config file...\n";
 
             game.language                        = "en";
             graphics.resolution.x                = 1280;

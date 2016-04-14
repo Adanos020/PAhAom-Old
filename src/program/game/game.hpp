@@ -36,7 +36,7 @@ namespace rr {
         ~HUD();
 
     /// Method for handling the button events
-        void buttonEvents(sf::RenderWindow&);
+        void buttonEvents(sf::RenderWindow&, sf::Event&);
 
     /// Updates the HUD state
         void update      (Player*);
@@ -67,7 +67,7 @@ namespace rr {
         void draw        (sf::RenderWindow&, sf::View&);
 
     /// Method for handling the button events
-        void buttonEvents(sf::RenderWindow&, sf::View&);
+        void buttonEvents(sf::RenderWindow&, sf::Event&, sf::View&);
 
     /// Method drawing the game components
         void update      (float, sf::View&);

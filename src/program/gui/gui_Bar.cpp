@@ -1,5 +1,5 @@
 /**
- * @file src/program/gui/Bar.cpp
+ * @file src/program/gui/gui_Bar.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC

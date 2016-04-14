@@ -59,53 +59,6 @@ namespace rr {
         Component*           getParentComponent ()             const { return parentComponent; }
     };
 
-/// Class for an internal window component which also can be a component of another internal window component
-    class Window :public Component {
-    private:
-        sf::RectangleShape      body;
-        std::vector<Component*> components;
-        Text*                   header;
-        bool                    visible;
-    public:
-         Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
-        ~Window();
-
-    /// Adds a given component to the internal window
-        void         addComponent      (Component*, bool attached);
-
-    /// Sets the internal window visible or not, depending on the value of the given argument
-        void         setVisible        (bool);
-
-        void         setPosition       (sf::Vector2f pos)         override { body.setPosition(pos); }
-        void         setSize           (sf::Vector2f siz)         override { body.setSize(siz); }
-        void         draw              (sf::RenderWindow&)        override;
-
-    /// Method telling if the internal window is visible
-        bool         isVisible         ()                   const          { return visible; }
-
-        sf::Vector2f getSize           ()                   const override { return body.getSize(); }
-        sf::Vector2f getPosition       ()                   const override { return body.getPosition(); }
-
-    /// Returns the internal window's component of a given type and index
-        template<typename T>
-        T*           getComponent      (unsigned index)     const          {   if (std::is_base_of<Component, T>::value) {
-                                                                                   for (unsigned i=0; i<components.size(); i++) {
-                                                                                       if (instanceof < T, Component>(components[i])) {
-                                                                                           if (index-- == 0) return (T*)components[i];
-                                                                                       }
-                                                                                   }
-                                                                               } else {
-                                                                                   puts("element of given type not found");
-                                                                                   return nullptr;
-                                                                               }
-                                                                               puts("element with a given index not found");
-                                                                               return nullptr;
-                                                                           }
-
-        bool         containsMouseCursor(sf::RenderWindow&)       override { return false; }
-        Text*        getText()                              const override { return header; }
-    };
-
 /// Class for a vertical or a horizontal bar component representing any value you assign it to
     class Bar :public Component {
     private:
@@ -144,7 +97,7 @@ namespace rr {
         ~Button();
 
         bool         containsMouseCursor(sf::RenderWindow&)       override;
-        bool         isPressed          (sf::RenderWindow&);
+        bool         isPressed          (sf::RenderWindow&, sf::Event&);
         bool         isHeld             ()                  const          { return held; }
         Text*        getText            ()                  const override { return text; }
         sf::Vector2f getPosition        ()                  const override { return body.getPosition(); }
@@ -176,7 +129,7 @@ namespace rr {
         void         setPosition        (sf::Vector2f)               override;
 
         bool         containsMouseCursor(sf::RenderWindow&)          override;
-        bool         isPressed          (sf::RenderWindow&);
+        bool         isPressed          (sf::RenderWindow&, sf::Event&);
         sf::Vector2f getPosition        ()                     const override { return body.getPosition(); }
         sf::Vector2f getSize            ()                     const override { return body.getSize(); }
 
@@ -250,7 +203,7 @@ namespace rr {
     /// Sets the actual value of the scroll bar
         void         setValue           (int);
         void         draw               (sf::RenderWindow&) override;
-        void         buttonEvents       (sf::RenderWindow&);
+        void         buttonEvents       (sf::RenderWindow&, sf::Event&);
 
         sf::Vector2f getPosition        ()                  const override { return bLeft->getPosition(); }
         sf::Vector2f getSize            ()                  const override { return border.getSize(); }
@@ -288,7 +241,7 @@ namespace rr {
         void         draw               (sf::RenderWindow&) override;
 
         bool         containsMouseCursor(sf::RenderWindow&) override;
-        bool         isPressed          (sf::RenderWindow&);
+        bool         isPressed          (sf::RenderWindow&, sf::Event&);
         bool         isHeld             ()                  const          { return held; }
         Text*        getText            ()                  const override { return nullptr; }
         sf::Vector2f getPosition        ()                  const override { return body.getPosition(); }
@@ -322,7 +275,7 @@ namespace rr {
         void                 setSize            (sf::Vector2f)            override;
 
     /// Method for handling the button events
-        void                 buttonEvents       (sf::RenderWindow&);
+        void                 buttonEvents       (sf::RenderWindow&, sf::Event&);
 
     /// Adds an option to the switch
         void                 addOption          (sf::String);
@@ -381,6 +334,53 @@ namespace rr {
         virtual bool  containsMouseCursor(sf::RenderWindow&)       override { return false; }
         virtual Text* getText            ()                  const override { return (Text*)this; }
         void          setSize            (sf::Vector2f)            override {}
+    };
+
+/// Class for an internal window component which also can be a component of another internal window component
+    class Window :public Component {
+    private:
+        sf::RectangleShape      body;
+        std::vector<Component*> components;
+        Text*                   header;
+        bool                    visible;
+    public:
+         Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
+        ~Window();
+
+    /// Adds a given component to the internal window
+        void         addComponent      (Component*, bool attached);
+
+    /// Sets the internal window visible or not, depending on the value of the given argument
+        void         setVisible        (bool);
+
+        void         setPosition       (sf::Vector2f pos)         override { body.setPosition(pos); }
+        void         setSize           (sf::Vector2f siz)         override { body.setSize(siz); }
+        void         draw              (sf::RenderWindow&)        override;
+
+    /// Method telling if the internal window is visible
+        bool         isVisible         ()                   const          { return visible; }
+
+        sf::Vector2f getSize           ()                   const override { return body.getSize(); }
+        sf::Vector2f getPosition       ()                   const override { return body.getPosition(); }
+
+    /// Returns the internal window's component of a given type and index
+        template<typename T>
+        T*           getComponent      (unsigned index)     const          {   if (std::is_base_of<Component, T>::value) {
+                                                                                   for (unsigned i=0; i<components.size(); i++) {
+                                                                                       if (instanceof < T, Component>(components[i])) {
+                                                                                           if (index-- == 0) return (T*)components[i];
+                                                                                       }
+                                                                                   }
+                                                                               } else {
+                                                                                   puts("element of given type not found");
+                                                                                   return nullptr;
+                                                                               }
+                                                                               puts("element with a given index not found");
+                                                                               return nullptr;
+                                                                           }
+
+        bool         containsMouseCursor(sf::RenderWindow&)       override { return false; }
+        Text*        getText()                              const override { return header; }
     };
 
 }

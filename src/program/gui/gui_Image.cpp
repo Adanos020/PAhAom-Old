@@ -1,5 +1,5 @@
 /**
- * @file src/program/gui/Image.cpp
+ * @file src/program/gui/gui_Image.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC

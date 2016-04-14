@@ -1,13 +1,11 @@
 /**
- * @file src/program/game/Game.cpp
+ * @file src/program/game/game_Game.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
  */
 
 #include "game.hpp"
-
-#include <iostream>
 
 extern rr::Settings settings;
 
@@ -58,17 +56,17 @@ namespace rr {
         }
     }
 
-    void Game::buttonEvents(sf::RenderWindow& rw, sf::View& v) {
+    void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& e, sf::View& v) {
         if (!started)
-            mainMenu->buttonEvents(rw, this);
+            mainMenu->buttonEvents(rw, e, this);
         if (pauseMenu->isOpen())
-            pauseMenu->buttonEvents(rw, this);
+            pauseMenu->buttonEvents(rw, e, this);
         if (inventory->isOpen()) {
-            inventory->buttonEvents(rw, this);
-            hud      ->buttonEvents(rw);
+            inventory->buttonEvents(rw, e, this);
+            hud      ->buttonEvents(rw, e);
         }
         if (attributes->isOpen())
-            attributes->buttonEvents(rw, this);
+            attributes->buttonEvents(rw, e, this);
     }
 
     void Game::controls(float timer) {

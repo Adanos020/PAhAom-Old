@@ -59,7 +59,8 @@ namespace rr {
                 window.close();
             if (event.type == sf::Event::Resized)
                 view.setSize((sf::Vector2f)window.getSize());
-            game->buttonEvents(window, view);
+
+            game->buttonEvents(window, event, view);
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape && game->isStarted())
                 game->pause(!game->isPaused());
         }

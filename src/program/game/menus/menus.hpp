@@ -26,7 +26,7 @@ namespace rr {
         ~MainMenu();
 
     /// Method for handling the button events
-        void buttonEvents(sf::RenderWindow&, Game*);
+        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
     /// Method drawing the main menu's components
         void draw        (sf::RenderWindow&);
@@ -49,7 +49,7 @@ namespace rr {
         void close       ();
 
     /// Method for handling the button events
-        void buttonEvents(sf::RenderWindow&, Game*);
+        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
     /// Method drawing the pause menu's components
         void draw        (sf::RenderWindow&);
@@ -61,6 +61,7 @@ namespace rr {
 /// Class for the player attributes window
     class Attributes {
     private:
+        sf::RectangleShape shadow;
         Window* wAttr;
     public:
          Attributes(sf::RenderWindow&);
@@ -76,7 +77,7 @@ namespace rr {
         void update      (Player*);
 
     /// Method for handling the button events
-        void buttonEvents(sf::RenderWindow&, Game*);
+        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
     /// Method drawing the player attributes components
         void draw        (sf::RenderWindow&);
@@ -88,6 +89,7 @@ namespace rr {
 /// Class for the player inventory
     class Inventory {
     private:
+        sf::RectangleShape shadow;
         Window* wInve;
     public:
          Inventory(sf::RenderWindow&);
@@ -100,12 +102,62 @@ namespace rr {
         void close       ();
 
     /// Method for handling the button events
-        void buttonEvents(sf::RenderWindow&, Game*);
+        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
     /// Method drawing the inventory components
         void draw        (sf::RenderWindow&);
 
     /// Method telling if the inventory is open
+        bool isOpen      ();
+    };
+
+/// Class for the task list
+    class Quests {
+    private:
+        sf::RectangleShape shadow;
+        Window* wInve;
+    public:
+         Quests(sf::RenderWindow&);
+        ~Quests();
+
+    /// Method opening the task list window
+        void open        ();
+
+    /// Method closing the task list window
+        void close       ();
+
+    /// Method for handling the button events
+        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
+
+    /// Method drawing the task list components
+        void draw        (sf::RenderWindow&);
+
+    /// Method telling if the task list is open
+        bool isOpen      ();
+    };
+
+/// Class for the game map
+    class GameMap {
+    private:
+        sf::RectangleShape shadow;
+        Window* wGmap;
+    public:
+         GameMap(sf::RenderWindow&);
+        ~GameMap();
+
+    /// Method opening the game map window
+        void open        ();
+
+    /// Method closing the game map window
+        void close       ();
+
+    /// Method for handling the button events
+        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
+
+    /// Method drawing the game map components
+        void draw        (sf::RenderWindow&);
+
+    /// Method telling if the game map is open
         bool isOpen      ();
     };
 

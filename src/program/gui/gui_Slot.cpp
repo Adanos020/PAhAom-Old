@@ -1,5 +1,5 @@
 /**
- * @file src/program/gui/Slot.cpp
+ * @file src/program/gui/gui_Slot.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -97,12 +97,12 @@ namespace rr {
         return false;
     }
 
-    bool Slot::isPressed(sf::RenderWindow& rw) {
-        if (containsMouseCursor(rw) && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    bool Slot::isPressed(sf::RenderWindow& rw, sf::Event& e) {
+        if (containsMouseCursor(rw) && e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left) {
             held = true;
             return true;
         }
-        if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (e.type == sf::Event::MouseButtonReleased)
             held = false;
         return false;
     }

@@ -1,5 +1,5 @@
 /**
- * @file src/program/gui/ScrollBar.cpp
+ * @file src/program/gui/gui_ScrollBar.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -70,11 +70,11 @@ namespace rr {
         label    ->draw(rw);
     }
 
-    void ScrollBar::buttonEvents(sf::RenderWindow& rw) {
+    void ScrollBar::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
 
 #define mousePosition sf::Mouse::getPosition(rw)
 
-        if ((indicator->isPressed(rw) || indicator->isHeld())) {
+        if ((indicator->isPressed(rw, e) || indicator->isHeld())) {
             if (border.getGlobalBounds().contains((sf::Vector2f)mousePosition)) {
                 indicator->setPosition(sf::Vector2f(mousePosition.x-5, indicator->getPosition().y));
                 setValue((valueLimit.y*(indicator->getPosition().x-border.getPosition().x-3))/(border.getSize().x-indicator->getSize().x+6)+valueLimit.x);
@@ -84,10 +84,10 @@ namespace rr {
             else if (mousePosition.x >= border.getPosition().x+border.getSize().x-indicator->getSize().x+17)
                 setValue(valueLimit.y);
         }
-        if (bLeft->isPressed(rw)) {
+        if (bLeft->isPressed(rw, e)) {
             setValue(getValue()-1);
         }
-        if (bRight->isPressed(rw)) {
+        if (bRight->isPressed(rw, e)) {
             setValue(getValue()+1);
         }
 

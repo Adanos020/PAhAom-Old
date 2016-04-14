@@ -1,5 +1,5 @@
 /**
- * @file src/program/gui/Switch.cpp
+ * @file src/program/gui/gui_Switch.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -48,15 +48,15 @@ namespace rr {
         right->setPosition(sf::Vector2f(s.x+s.x+s.y+11, s.y));
     }
 
-    void Switch::buttonEvents(sf::RenderWindow& rw) {
-        if (left->containsMouseCursor(rw) && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    void Switch::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
+        if (left->isPressed(rw, e)) {
             if (counter > 0)
                 counter--;
             else
                 counter = options.size()-1;
             text->setString(options[counter]);
             text->setPosition(sf::Vector2f(body.getPosition().x+body.getSize().x/2-text->getSize().x/2, body.getPosition().y-4));
-        } else if (right->containsMouseCursor(rw) && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        } else if (left->isPressed(rw, e)) {
             if (counter<options.size()-1)
                 counter++;
             else
