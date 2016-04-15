@@ -115,7 +115,7 @@ namespace rr {
     class Quests {
     private:
         sf::RectangleShape shadow;
-        Window* wInve;
+        Window* wQues;
     public:
          Quests(sf::RenderWindow&);
         ~Quests();

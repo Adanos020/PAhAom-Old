@@ -54,10 +54,8 @@ namespace rr {
 #define component(w, c, i) w->getComponent<c>(i)
 
         if (wInve->isVisible()) {
-            if (component(wInve, Button, 0)->isPressed(rw, e)){
-                wInve->setVisible(false);
+            if (component(wInve, Button, 0)->isPressed(rw, e))
                 g->pause(false);
-            }
             for (int i=0; i<32; i++) {
                 if (component(wInve, Slot, i)->isPressed(rw, e)) {
 

@@ -12,16 +12,18 @@ extern rr::Settings settings;
 namespace rr {
 
     Game::Game(sf::RenderWindow& rw) {
-        mainMenu   = new MainMenu(rw);
-        pauseMenu  = new PauseMenu(rw);
+        mainMenu   = new MainMenu  (rw);
+        pauseMenu  = new PauseMenu (rw);
         attributes = new Attributes(rw);
-        inventory  = new Inventory(rw);
-        hud        = new HUD(rw);
+        inventory  = new Inventory (rw);
+        quests     = new Quests    (rw);
+        gameMap    = new GameMap   (rw);
+        hud        = new HUD       (rw);
         player     = new Player(sf::Vector2f(0, 0));
 
-        potions.push_back(new Potion(Potion::Effect::HEALING, Potion::Size::BIG, 1, sf::Vector2f(200, 200)));
+        potions.push_back(new Potion(Potion::Effect::HEALING,   Potion::Size::BIG,    1, sf::Vector2f(200, 200)));
         potions.push_back(new Potion(Potion::Effect::DEXTERITY, Potion::Size::MEDIUM, 1, sf::Vector2f(400, 200)));
-        potions.push_back(new Potion(Potion::Effect::POISON, Potion::Size::SMALL, 1, sf::Vector2f(600, 200)));
+        potions.push_back(new Potion(Potion::Effect::POISON,    Potion::Size::SMALL,  1, sf::Vector2f(600, 200)));
 
         paused = false;
         started = false;
@@ -30,6 +32,10 @@ namespace rr {
     Game::~Game() {
         delete mainMenu;
         delete pauseMenu;
+        delete attributes;
+        delete inventory;
+        delete quests;
+        delete gameMap;
         delete hud;
         delete player;
     }
@@ -52,6 +58,10 @@ namespace rr {
                 attributes->draw(rw);
             if (inventory ->isOpen())
                 inventory ->draw(rw);
+            if (quests->isOpen())
+                quests->draw(rw);
+            if (gameMap->isOpen())
+                gameMap->draw(rw);
             rw.setView(v);
         }
     }
@@ -67,6 +77,10 @@ namespace rr {
         }
         if (attributes->isOpen())
             attributes->buttonEvents(rw, e, this);
+        if (quests->isOpen())
+            quests->buttonEvents(rw, e, this);
+        if (gameMap->isOpen())
+            gameMap->buttonEvents(rw, e, this);
     }
 
     void Game::controls(float timer) {
@@ -90,10 +104,12 @@ namespace rr {
                 paused = true;
             }
             else if (keyPressed(settings.keys.open_map)) {
-
+                gameMap->open();
+                paused = true;
             }
             else if (keyPressed(settings.keys.open_quests)) {
-
+                quests->open();
+                paused = true;
             }
 
             if      (keyPressed(settings.keys.useslot_1)) {}
@@ -117,8 +133,10 @@ namespace rr {
 
     void Game::update(float timer, sf::View& v) {
         controls(timer);
-        player->update();
-        hud->update(player);
+
+        player->update(      );
+        hud   ->update(player);
+
         v.setCenter(player->getPosition());
     }
 
@@ -134,6 +152,8 @@ namespace rr {
             pauseMenu ->close();
             inventory ->close();
             attributes->close();
+            quests    ->close();
+            gameMap   ->close();
         }
     }
 

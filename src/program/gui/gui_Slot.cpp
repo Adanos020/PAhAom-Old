@@ -72,6 +72,7 @@ namespace rr {
         itemSkin->change(item->getBody(), resources.texture.items);
         text->setString(std::to_string(item->getAmount()));
         text->setCharacterSize(20);
+
         hollow = false;
         return true;
     }

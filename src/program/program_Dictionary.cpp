@@ -55,6 +55,8 @@ namespace rr {
 
                     else if (word == "gui.window.attributes") gui.window.attributes = utf8ToUtf32(translation);
                     else if (word == "gui.window.inventory")  gui.window.inventory  = utf8ToUtf32(translation);
+                    else if (word == "gui.window.quests")     gui.window.quests     = utf8ToUtf32(translation);
+                    else if (word == "gui.window.game_map")   gui.window.game_map   = utf8ToUtf32(translation);
 
 
                     else if (word == "item.potion")  item.potion.potion = utf8ToUtf32(translation);
@@ -82,6 +84,7 @@ namespace rr {
                     else if (word == "item.potion.color.purple") item.potion.color.purple = utf8ToUtf32(translation);
                     else if (word == "item.potion.color.black")  item.potion.color.black  = utf8ToUtf32(translation);
                     else if (word == "item.potion.color.white")  item.potion.color.white  = utf8ToUtf32(translation);
+
 
                     else if (word == "player.attributes.health")       player.attributes.health       = utf8ToUtf32(translation);
                     else if (word == "player.attributes.strength")     player.attributes.strength     = utf8ToUtf32(translation);

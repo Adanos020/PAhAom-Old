@@ -22,6 +22,8 @@ gui.text.effects EFFECTS
 gui.text.mute MUTE
 gui.window.attributes ATTRIBUTES
 gui.window.inventory INVENTORY
+gui.window.quests QUESTS
+gui.window.game_map MAP
 
 item.potion potion
 item.potion.size.small A small

@@ -194,7 +194,7 @@ namespace rr {
         Plain              plain;
         float              value;
     public:
-         ScrollBar(Plain, sf::Vector2f position, sf::Vector2f size, sf::Vector2f min_max = sf::Vector2f(0, 100));
+         ScrollBar(Plain, sf::Vector2f position, float length, sf::Vector2f min_max = sf::Vector2f(0, 100));
         ~ScrollBar();
 
         void         setPosition        (sf::Vector2f)      override;

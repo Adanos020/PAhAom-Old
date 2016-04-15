@@ -8,9 +8,8 @@
 #include "menus.hpp"
 
 extern rr::Dictionary dictionary;
-extern rr::Settings settings;
-extern rr::Resources resources;
-
+extern rr::Settings   settings;
+extern rr::Resources  resources;
 
 namespace rr {
 
@@ -19,13 +18,12 @@ namespace rr {
         shadow.setPosition(sf::Vector2f(0, 0));
         shadow.setFillColor(sf::Color(0, 0, 0, 128));
 
-#define dict(s) dictionary[s]
 #define component(w, c, i) w->getComponent<c>(i)
 
-        title = new Text(sf::Vector2f(0, 0), L"PAhAom", resources.font.Pixel, 100, sf::Color::Yellow);
+        title = new Text(sf::Vector2f(0, 0), "PAhAom", resources.font.Pixel, 100, sf::Color::Yellow);
         title->setPosition(sf::Vector2f(rw.getSize().x/2-title->getSize().x/2, 10));
 
-        wMenu = new Window(L"", sf::Vector2f(244, 306), sf::Vector2f(25, rw.getSize().y/2-153));
+        wMenu = new Window("", sf::Vector2f(244, 306), sf::Vector2f(25, rw.getSize().y/2-153));
             wMenu->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.resume,  52), true);
             wMenu->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.options, 52), true);
             wMenu->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.help,    52), true);
@@ -57,13 +55,13 @@ namespace rr {
                     wGame->addComponent(new Text(sf::Vector2f(10, 30), dictionary.gui.text.language, resources.font.Unifont, 20), true);
 
                     wGame->addComponent(new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60)), true);
-                        component(wGame, Switch, 0)->addOption(L"ENGLISH");
-                        component(wGame, Switch, 0)->addOption(L"POLSKI");
+                        component(wGame, Switch, 0)->addOption("ENGLISH");
+                        component(wGame, Switch, 0)->addOption("POLSKI");
                         component(wGame, Switch, 0)->addOption(L"DNQUBIÑHBI");
                         if      (settings.game.language == "en")
-                            component(wGame, Switch, 0)->setCurrentOption(L"ENGLISH");
+                            component(wGame, Switch, 0)->setCurrentOption("ENGLISH");
                         else if (settings.game.language == "pl")
-                            component(wGame, Switch, 0)->setCurrentOption(L"POLSKI");
+                            component(wGame, Switch, 0)->setCurrentOption("POLSKI");
                         else if (settings.game.language == "fc")
                             component(wGame, Switch, 0)->setCurrentOption(L"DNQUBIÑHBI");
 
@@ -81,10 +79,10 @@ namespace rr {
                     wGrap->addComponent(new Text(sf::Vector2f(20, 30), dictionary.gui.text.resolution, resources.font.Unifont, 20), true);
 
                     wGrap->addComponent(new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60)), true);
-                        component(wGrap, Switch, 0)->addOption(L"1280x720");
-                        component(wGrap, Switch, 0)->addOption(L"1440x900");
-                        component(wGrap, Switch, 0)->addOption(L"1600x900");
-                        component(wGrap, Switch, 0)->addOption(L"1920x1080");
+                        component(wGrap, Switch, 0)->addOption("1280x720");
+                        component(wGrap, Switch, 0)->addOption("1440x900");
+                        component(wGrap, Switch, 0)->addOption("1600x900");
+                        component(wGrap, Switch, 0)->addOption("1920x1080");
                         component(wGrap, Switch, 0)->setCurrentOption(std::to_wstring(settings.graphics.resolution.x)+L"x"+std::to_wstring(settings.graphics.resolution.y));
 
                     wGrap->addComponent(new Checkbox(sf::Vector2f(15, 170), dictionary.gui.checkbox.fullscreen, 15), true);
@@ -93,17 +91,17 @@ namespace rr {
                     wGrap->addComponent(new Checkbox(sf::Vector2f(15, 120), dictionary.gui.checkbox.vsync, 15), true);
                         component(wGrap, Checkbox, 1)->check(settings.graphics.vsync);
 
-                    wGrap->addComponent(new Text(sf::Vector2f(20, 295), L"ANTIALIASING", resources.font.Unifont, 20), true);
+                    wGrap->addComponent(new Text(sf::Vector2f(20, 295), "ANTIALIASING", resources.font.Unifont, 20), true);
 
                     wGrap->addComponent(new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 325)), true);
-                        component(wGrap, Switch, 1)->addOption(L"NONE");
-                        component(wGrap, Switch, 1)->addOption(L"x2");
-                        component(wGrap, Switch, 1)->addOption(L"x4");
-                        component(wGrap, Switch, 1)->addOption(L"x8");
+                        component(wGrap, Switch, 1)->addOption("NONE");
+                        component(wGrap, Switch, 1)->addOption("x2");
+                        component(wGrap, Switch, 1)->addOption("x4");
+                        component(wGrap, Switch, 1)->addOption("x8");
                         if (settings.graphics.csettings.antialiasingLevel == 0)
-                            component(wGrap, Switch, 1)->setCurrentOption(L"NONE");
+                            component(wGrap, Switch, 1)->setCurrentOption("NONE");
                         else
-                            component(wGrap, Switch, 1)->setCurrentOption(L"x"+std::to_wstring(settings.graphics.csettings.antialiasingLevel));
+                            component(wGrap, Switch, 1)->setCurrentOption("x"+std::to_string(settings.graphics.csettings.antialiasingLevel));
 
                     wGrap->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
                     component(wGrap, Button, 0)->setPosition(sf::Vector2f(wGrap->getPosition().x+wGrap->getSize().x/2-component(wGrap, Button, 0)->getSize().x/2,
@@ -117,13 +115,13 @@ namespace rr {
 #define wSoun component(wOpts, Window, 2)
 
                     wSoun->addComponent(new Text(sf::Vector2f(20, 40), dictionary.gui.text.music, resources.font.Unifont), true);
-                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 85), sf::Vector2f(175, 30)), true);
+                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 85), 175), true);
                     wSoun->addComponent(new Checkbox(sf::Vector2f(175, 40), dictionary.gui.text.mute, 20), true);
                     component(wSoun, Checkbox, 0)->check(settings.sound.music_muted);
                     component(wSoun, ScrollBar,   0)->setValue(settings.sound.music_volume);
 
                     wSoun->addComponent(new Text(sf::Vector2f(20, 160), dictionary.gui.text.effects, resources.font.Unifont), true);
-                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 205), sf::Vector2f(175, 30)), true);
+                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 205), 175), true);
                     wSoun->addComponent(new Checkbox(sf::Vector2f(175, 160), dictionary.gui.text.mute, 20), true);
                     component(wSoun, Checkbox, 1)->check(settings.sound.effects_muted);
                     component(wSoun, ScrollBar,   1)->setValue(settings.sound.effects_volume);
@@ -151,7 +149,7 @@ namespace rr {
 
 #define wHelp component(wMenu, Window, 1)
 
-                wHelp->addComponent(new Text(sf::Vector2f(20, 25), L"Pro tip:",                   resources.font.Unifont, 30, sf::Color::Yellow), true);
+                wHelp->addComponent(new Text(sf::Vector2f(20, 25), "Pro tip:",                    resources.font.Unifont, 30, sf::Color::Yellow), true);
                 wHelp->addComponent(new Text(sf::Vector2f(20, 55), dictionary.gui.text.killurslf, resources.font.Unifont, 30, sf::Color::Red),    true);
 
                 wHelp->addComponent(new Button(sf::Vector2f(5, 380), dictionary.gui.button.quit, 30), true);
@@ -213,14 +211,13 @@ namespace rr {
 
         if (wMenu->isVisible()) {
             if (!wOpts->isVisible() && !wHelp->isVisible()) {
-                if (component(wMenu, Button, 0)->isPressed(rw, e)) {
-                    wMenu->setVisible(false);
+                if (component(wMenu, Button, 0)->isPressed(rw, e))
                     g->pause(false);
-                }
-                if (component(wMenu, Button, 1)->isPressed(rw, e)) wOpts->setVisible(true);
-                if (component(wMenu, Button, 2)->isPressed(rw, e)) wHelp->setVisible(true);
+                if (component(wMenu, Button, 1)->isPressed(rw, e))
+                    wOpts->setVisible(true);
+                if (component(wMenu, Button, 2)->isPressed(rw, e))
+                    wHelp->setVisible(true);
                 if (component(wMenu, Button, 3)->isPressed(rw, e)) {
-                    wMenu->setVisible(false);
                     g->pause(false);
                     g->start(false);
                 }
@@ -242,24 +239,24 @@ namespace rr {
 
                     if (component(wOpts, Button, 4)->isPressed(rw, e)) {
                         puts(">Saving the settings...");
-                        if      (component(wGame, Switch, 0)->getCurrentOption() == L"ENGLISH")
+                        if      (component(wGame, Switch, 0)->getCurrentOption() == "ENGLISH")
                             settings.game.language = "en";
-                        else if (component(wGame, Switch, 0)->getCurrentOption() == L"POLSKI")
+                        else if (component(wGame, Switch, 0)->getCurrentOption() == "POLSKI")
                             settings.game.language = "pl";
-                        else if (component(wGame, Switch, 0)->getCurrentOption() == L"DNQUBIÑHBI")
+                        else if (component(wGame, Switch, 0)->getCurrentOption() == "DNQUBIÑHBI")
                             settings.game.language = "fc";
 
-                        std::vector<std::string> splitted = split(wtoa(component(wGrap, Switch, 0)->getCurrentOption()), 'x');
+                        std::vector<std::string> splitted = split(component(wGrap, Switch, 0)->getCurrentOption(), 'x');
 
                         settings.graphics.resolution = sf::Vector2u(atoi(splitted[0].c_str()), atoi(splitted[1].c_str()));
                         settings.graphics.fullscreen = component(wGrap, Checkbox, 0)->isChecked();
                         settings.graphics.vsync      = component(wGrap, Checkbox, 1)->isChecked();
 
-                        if      (component(wGrap, Switch, 1)->getCurrentOption() == L"x2")
+                        if      (component(wGrap, Switch, 1)->getCurrentOption() == "x2")
                             settings.graphics.csettings.antialiasingLevel = 2;
-                        else if (component(wGrap, Switch, 1)->getCurrentOption() == L"x4")
+                        else if (component(wGrap, Switch, 1)->getCurrentOption() == "x4")
                             settings.graphics.csettings.antialiasingLevel = 4;
-                        else if (component(wGrap, Switch, 1)->getCurrentOption() == L"x8")
+                        else if (component(wGrap, Switch, 1)->getCurrentOption() == "x8")
                             settings.graphics.csettings.antialiasingLevel = 8;
                         else
                             settings.graphics.csettings.antialiasingLevel = 0;
@@ -276,24 +273,24 @@ namespace rr {
                     }
                     if (component(wOpts, Button, 5)->isPressed(rw, e)) {
                         if      (settings.game.language == "en")
-                            component(wGame, Switch, 0)->setCurrentOption(L"ENGLISH");
+                            component(wGame, Switch, 0)->setCurrentOption("ENGLISH");
                         else if (settings.game.language == "pl")
-                            component(wGame, Switch, 0)->setCurrentOption(L"POLSKI");
+                            component(wGame, Switch, 0)->setCurrentOption("POLSKI");
                         else if (settings.game.language == "fc")
-                            component(wGame, Switch, 0)->setCurrentOption(L"DNQUBIÑHBI");
+                            component(wGame, Switch, 0)->setCurrentOption("DNQUBIÑHBI");
 
-                        component(wGrap, Switch, 0)->setCurrentOption(std::to_wstring(settings.graphics.resolution.x)+L"x"+std::to_wstring(settings.graphics.resolution.y));
+                        component(wGrap, Switch, 0)->setCurrentOption(std::to_string(settings.graphics.resolution.x)+"x"+std::to_string(settings.graphics.resolution.y));
                         component(wGrap, Checkbox, 0)->check(settings.graphics.fullscreen);
                         component(wGrap, Checkbox, 1)->check(settings.graphics.vsync);
                         if (settings.graphics.csettings.antialiasingLevel == 0)
-                            component(wGrap, Switch, 1)->setCurrentOption(L"NONE");
+                            component(wGrap, Switch, 1)->setCurrentOption("NONE");
                         else
-                            component(wGrap, Switch, 1)->setCurrentOption(L"x"+std::to_wstring(settings.graphics.csettings.antialiasingLevel));
+                            component(wGrap, Switch, 1)->setCurrentOption("x"+std::to_string(settings.graphics.csettings.antialiasingLevel));
 
-                        component(wSoun, Checkbox, 0)->check(settings.sound.music_muted);
-                        component(wSoun, ScrollBar,   0)->setValue(settings.sound.music_volume);
-                        component(wSoun, Checkbox, 1)->check(settings.sound.effects_muted);
-                        component(wSoun, ScrollBar,   1)->setValue(settings.sound.effects_volume);
+                        component(wSoun, Checkbox,  0)->check(settings.sound.music_muted);
+                        component(wSoun, ScrollBar, 0)->setValue(settings.sound.music_volume);
+                        component(wSoun, Checkbox,  1)->check(settings.sound.effects_muted);
+                        component(wSoun, ScrollBar, 1)->setValue(settings.sound.effects_volume);
 
                         wOpts->setVisible(false);
                     }

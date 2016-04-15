@@ -22,6 +22,8 @@ namespace rr {
     class PauseMenu;
     class Inventory;
     class Attributes;
+    class Quests;
+    class GameMap;
 
 /// Class for the HUD
     class HUD {
@@ -52,6 +54,8 @@ namespace rr {
         PauseMenu*           pauseMenu;
         Attributes*          attributes;
         Inventory*           inventory;
+        Quests*              quests;
+        GameMap*             gameMap;
         HUD*                 hud;
         Player*              player;
         std::vector<Potion*> potions;

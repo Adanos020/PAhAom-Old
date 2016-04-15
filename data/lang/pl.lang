@@ -20,9 +20,10 @@ gui.text.usedlib UŻYTA BIBLIOTEKA
 gui.text.music MUZYKA
 gui.text.effects EFEKTY
 gui.text.mute WYCISZ
-
 gui.window.attributes ATRYBUTY
 gui.window.inventory EKWIPUNEK
+gui.window.quests ZADANIA
+gui.window.game_map MAPA
 
 item.potion mikstura
 item.potion.size.small Mała

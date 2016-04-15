@@ -76,10 +76,8 @@ namespace rr {
 #define component(w, c, x) w->getComponent<c>(x)
 
         if (wAttr->isVisible()) {
-            if (component(wAttr, Button, 0)->isPressed(rw, e)) {
-                wAttr->setVisible(false);
+            if (component(wAttr, Button, 0)->isPressed(rw, e))
                 g->pause(false);
-            }
         }
 
 #undef component

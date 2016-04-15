@@ -14,7 +14,7 @@ gui.checkbox.fullscreen TELHBI EQPAH
 gui.checkbox.vsync CBIHXPOH'NČAU'R T'EHOBA
 gui.text.resolution POČYELYOW'Y'
 gui.text.language 'EHČBIQ
-gui.text.killurslf >w'eh čabnñ
+gui.text.killurslf .w'eh čabnñ
 gui.text.wholegame UALA TPA
 gui.text.usedlib YX'BITA BNBL'ETEQA
 gui.text.music MYČBIQA
@@ -22,6 +22,8 @@ gui.text.effects EDEQTBI
 gui.text.mute VBIY'NW
 gui.window.attributes ATVBIBYTBI
 gui.window.inventory EQBNTYHEQ
+gui.window.quests ČÅH'R
+gui.window.game_map MATA
 
 item.potion mnqctypa
 item.potion.size.small mala

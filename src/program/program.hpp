@@ -90,6 +90,8 @@ namespace rr {
             public:
                 sf::String attributes;
                 sf::String inventory;
+                sf::String quests;
+                sf::String game_map;
             } window;
         } gui;
 

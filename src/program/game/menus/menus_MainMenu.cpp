@@ -115,16 +115,16 @@ namespace rr {
 #define wSoun component(wOpts, Window, 2)
 
                     wSoun->addComponent(new Text(sf::Vector2f(20, 40), dictionary.gui.text.music, resources.font.Unifont), true);
-                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 85), sf::Vector2f(175, 30)), true);
+                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 85), 175), true);
                     wSoun->addComponent(new Checkbox(sf::Vector2f(175, 40), dictionary.gui.text.mute, 20), true);
                     component(wSoun, Checkbox, 0)->check(settings.sound.music_muted);
                     component(wSoun, ScrollBar,   0)->setValue(settings.sound.music_volume);
 
                     wSoun->addComponent(new Text(sf::Vector2f(20, 160), dictionary.gui.text.effects, resources.font.Unifont), true);
-                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 205), sf::Vector2f(175, 30)), true);
+                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 205), 175), true);
                     wSoun->addComponent(new Checkbox(sf::Vector2f(175, 160), dictionary.gui.text.mute, 20), true);
-                    component(wSoun, Checkbox, 1)->check(settings.sound.effects_muted);
-                    component(wSoun, ScrollBar,   1)->setValue(settings.sound.effects_volume);
+                    component(wSoun, Checkbox,  1)->check(settings.sound.effects_muted);
+                    component(wSoun, ScrollBar, 1)->setValue(settings.sound.effects_volume);
 
                     wSoun->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
                     component(wSoun, Button, 0)->setPosition(sf::Vector2f(wSoun->getPosition().x+wSoun->getSize().x/2-component(wSoun, Button, 0)->getSize().x/2,
@@ -138,6 +138,7 @@ namespace rr {
 #define wCont component(wOpts, Window, 3)
 
                     wCont->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
+                    wCont->addComponent(new ScrollBar(ScrollBar::VERTICAL, sf::Vector2f(30, 30), 175, sf::Vector2f(0, 100)), true);
                     component(wCont, Button, 0)->setPosition(sf::Vector2f(wCont->getPosition().x+wCont->getSize().x/2-component(wCont, Button, 0)->getSize().x/2,
                                                                           wCont->getPosition().y+wCont->getSize().y-component(wCont, Button, 0)->getSize().y-10));
 
@@ -317,6 +318,7 @@ namespace rr {
                         wSoun->setVisible(false);
                 }
                 else if (wCont->isVisible()) {
+                    component(wCont, ScrollBar, 0)->buttonEvents(rw, e);
                     if (component(wCont, Button, 0)->isPressed(rw, e))
                         wCont->setVisible(false);
                 }
