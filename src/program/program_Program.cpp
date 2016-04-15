@@ -11,7 +11,7 @@
 
 #include <SFML/System/String.hpp>
 
-extern rr::Dictionary dictionary;
+
 extern rr::Resources  resources;
 extern rr::Settings   settings;
 
@@ -27,9 +27,8 @@ namespace rr {
     }
 
     bool Program::loadResources() {
-        return (resources .load()
-             && settings  .load()
-             && dictionary.load());
+        return (settings  .load()
+             && resources .load());
     }
 
     void Program::runGame() {

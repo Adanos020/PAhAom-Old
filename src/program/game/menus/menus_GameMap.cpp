@@ -7,7 +7,6 @@
 
 #include "menus.hpp"
 
-extern rr::Dictionary dictionary;
 extern rr::Settings settings;
 extern rr::Resources resources;
 
@@ -20,9 +19,10 @@ namespace rr {
 
 #define component(w, c, i) w->getComponent<c>(i)
 
-        wGmap = new Window(dictionary.gui.window.game_map, sf::Vector2f(725, 470), sf::Vector2f(rw.getSize().x/2-362.5, rw.getSize().y/2-225));
-            wGmap->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
-            component(wGmap, Button, 0)->setPosition(sf::Vector2f(wGmap->getPosition().x+wGmap->getSize().x-component(wGmap, Button, 0)->getSize().x-15, rw.getSize().y/2+225-component(wGmap, Button, 0)->getSize().y-5));
+        wGmap = new Window(resources.dictionary["gui.window.game_map"], sf::Vector2f(725, 470), sf::Vector2f(rw.getSize().x/2-362.5, rw.getSize().y/2-225));
+            wGmap->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
+            component(wGmap, Button, 0)->setPosition(sf::Vector2f(wGmap->getPosition().x+wGmap->getSize().x-component(wGmap, Button, 0)->getSize().x-15,
+                                                                  rw.getSize().y/2+225-component(wGmap, Button, 0)->getSize().y-5));
 
 #undef component
 

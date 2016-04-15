@@ -7,7 +7,7 @@
 
 #include "menus.hpp"
 
-extern rr::Dictionary dictionary;
+
 extern rr::Resources  resources;
 
 namespace rr {
@@ -19,17 +19,17 @@ namespace rr {
 
 #define component(w, c, i) w->getComponent<c>(i)
 
-        wAttr = new Window(dictionary.gui.window.attributes, sf::Vector2f(900, 310), (sf::Vector2f)rw.getSize()/2.f-sf::Vector2f(450, 155));
-            wAttr->addComponent(new Text(sf::Vector2f(10,  25), dictionary.player.attributes.health        +":\n"
+        wAttr = new Window(resources.dictionary["gui.window.attributes"], sf::Vector2f(900, 310), (sf::Vector2f)rw.getSize()/2.f-sf::Vector2f(450, 155));
+            wAttr->addComponent(new Text(sf::Vector2f(10,  25), resources.dictionary["player.attributes.health"]        +":\n"
                                                                +"MANA:\n"
-                                                               +dictionary.player.attributes.strength      +":\n"
-                                                               +dictionary.player.attributes.dexterity     +":\n"
-                                                               +dictionary.player.attributes.experience    +":\n"
-                                                               +dictionary.player.attributes.level         +":\n"
-                                                               +dictionary.player.attributes.skill_points  +":"  , resources.font.Unifont, 30), true); // attrs
+                                                               +resources.dictionary["player.attributes.strength"]      +":\n"
+                                                               +resources.dictionary["player.attributes.dexterity"]     +":\n"
+                                                               +resources.dictionary["player.attributes.experience"]    +":\n"
+                                                               +resources.dictionary["player.attributes.level"]         +":\n"
+                                                               +resources.dictionary["player.attributes.skill_points"]  +":"  , resources.font.Unifont, 30), true); // attrs
             wAttr->addComponent(new Text(sf::Vector2f(400, 25), "", resources.font.Unifont, 30, sf::Color::Yellow), true);             // values
             wAttr->addComponent(new Text(sf::Vector2f(600, 25), "", resources.font.Unifont, 30, sf::Color::Green),  true);             // skills
-            wAttr->addComponent(new Button(sf::Vector2f(0, 0), dictionary.gui.button.quit, 30), true);
+            wAttr->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
                 component(wAttr, Button, 0)->setPosition(sf::Vector2f(wAttr->getPosition().x+wAttr->getSize().x/2-component(wAttr, Button, 0)->getSize().x/2,
                                                                       wAttr->getPosition().y+wAttr->getSize().y-component(wAttr, Button, 0)->getSize().y-10));
 
@@ -61,11 +61,11 @@ namespace rr {
                                             +std::to_string((int)p->getAttributes().level      )                                                      +"\n"
                                             +std::to_string((int)p->getAttributes().skillPoints));
 
-        component(wAttr, Text, 2)->setString((p->getAttributes().crafting               ? dictionary.player.skills.crafting               : sf::String("-"))
-                                       +"\n"+(p->getAttributes().alchemy                ? dictionary.player.skills.alchemy                : sf::String("-"))
-                                       +"\n"+(p->getAttributes().cold_weapon_mastery    ? dictionary.player.skills.cold_weapon_mastery    : sf::String("-"))
-                                       +"\n"+(p->getAttributes().ranged_weapon_mastery  ? dictionary.player.skills.ranged_weapon_mastery  : sf::String("-"))
-                                       +"\n"+(p->getAttributes().better_sight           ? dictionary.player.skills.better_sight           : sf::String("-")));
+        component(wAttr, Text, 2)->setString((p->getAttributes().crafting               ? resources.dictionary["player.skills.crafting"]               : sf::String("-"))
+                                       +"\n"+(p->getAttributes().alchemy                ? resources.dictionary["player.skills.alchemy"]                : sf::String("-"))
+                                       +"\n"+(p->getAttributes().cold_weapon_mastery    ? resources.dictionary["player.skills.cold_weapon_mastery"]    : sf::String("-"))
+                                       +"\n"+(p->getAttributes().ranged_weapon_mastery  ? resources.dictionary["player.skills.ranged_weapon_mastery"]  : sf::String("-"))
+                                       +"\n"+(p->getAttributes().better_sight           ? resources.dictionary["player.skills.better_sight"]           : sf::String("-")));
 
 #undef component
 

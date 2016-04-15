@@ -8,10 +8,8 @@
 #include "program/program.hpp"
 #include <cstdlib>
 #include <ctime>
-#include <map>
 #include <SFML/Graphics.hpp>
 
-rr::Dictionary dictionary;
 rr::Resources  resources;
 rr::Settings   settings;
 

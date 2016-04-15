@@ -20,6 +20,22 @@ gui.text.usedlib USED LIBRARY
 gui.text.music MUSIC
 gui.text.effects EFFECTS
 gui.text.mute MUTE
+gui.text.move_up Move up
+gui.text.move_down Move down
+gui.text.move_left Move left
+gui.text.move_right Move right
+gui.text.interact Interact
+gui.text.attack Attack
+gui.text.pickup Pick up
+gui.text.open_inventory Open inventory
+gui.text.open_attributes Open attributes
+gui.text.open_quests Open quest list
+gui.text.open_map Open map
+gui.text.useslot_1 Use slot 1
+gui.text.useslot_2 Use slot 2
+gui.text.useslot_3 Use slot 3
+gui.text.useslot_4 Use slot 4
+gui.text.useslot_5 Use slot 5
 gui.window.attributes ATTRIBUTES
 gui.window.inventory INVENTORY
 gui.window.quests QUESTS

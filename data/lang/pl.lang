@@ -20,6 +20,22 @@ gui.text.usedlib UŻYTA BIBLIOTEKA
 gui.text.music MUZYKA
 gui.text.effects EFEKTY
 gui.text.mute WYCISZ
+gui.text.move_up Idź w górę
+gui.text.move_down Idź w dół
+gui.text.move_left Idź w lewo
+gui.text.move_right Idź w prawo
+gui.text.interact Działaj
+gui.text.attack Atakuj
+gui.text.pickup Podnieś
+gui.text.open_inventory Otwórz ekwipunek
+gui.text.open_attributes Otwórz atrybuty
+gui.text.open_quests Otwórz listę zadań
+gui.text.open_map Otwórz mapę
+gui.text.useslot_1 Użyj schowka nr 1
+gui.text.useslot_2 Użyj schowka nr 2
+gui.text.useslot_3 Użyj schowka nr 3
+gui.text.useslot_4 Użyj schowka nr 4
+gui.text.useslot_5 Użyj schowka nr 5
 gui.window.attributes ATRYBUTY
 gui.window.inventory EKWIPUNEK
 gui.window.quests ZADANIA

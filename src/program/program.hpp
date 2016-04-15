@@ -9,6 +9,7 @@
 #define program_h
 
 #include <SFML/Graphics.hpp>
+#include <map>
 
 #include "game/game.hpp"
 
@@ -37,137 +38,12 @@ namespace rr {
             sf::Texture keyboard;
         } texture;
 
+        std::map<sf::String, sf::String> dictionary;
+
+    /// Separate method loading the dict
+        bool loadDict();
+
     /// Method loading the resources
-        bool load();
-    };
-
-/// Structure for the dictionary
-    struct Dictionary {
-    public:
-    /// Structure for the gui part of the dictionary
-        struct {
-        public:
-
-    /// Structure for the button part of the gui dictionary
-            struct {
-            public:
-                sf::String newgame;
-                sf::String resume;
-                sf::String save;
-                sf::String load;
-                sf::String options;
-                sf::String help;
-                sf::String credits;
-                sf::String quit;
-                sf::String game;
-                sf::String graphical;
-                sf::String sound;
-                sf::String controls;
-            } button;
-
-    /// Structure for the checkbox part of the gui dictionary
-            struct {
-            public:
-                sf::String fullscreen;
-                sf::String vsync;
-            } checkbox;
-
-    /// Structure for the text part of the gui dictionary
-            struct {
-            public:
-                sf::String resolution;
-                sf::String language;
-                sf::String killurslf;
-                sf::String wholegame;
-                sf::String usedlib;
-                sf::String music;
-                sf::String effects;
-                sf::String mute;
-            } text;
-
-    /// Structure for the button part of the gui dictionary
-            struct {
-            public:
-                sf::String attributes;
-                sf::String inventory;
-                sf::String quests;
-                sf::String game_map;
-            } window;
-        } gui;
-
-    /// Structure for the item part of the dictionary
-        struct {
-        public:
-
-    /// Structure for the potion part of the item dictionary
-            struct {
-
-        /// Structure for the size part of the potion dictionary
-            public:
-                sf::String potion;
-                struct {
-                public:
-                    sf::String small;
-                    sf::String medium;
-                    sf::String big;
-                } size;
-
-        /// Structure for the color part of the potion dictionary
-                struct {
-                public:
-                    sf::String red;
-                    sf::String blue;
-                    sf::String brown;
-                    sf::String green;
-                    sf::String gray;
-                    sf::String pink;
-                    sf::String purple;
-                    sf::String black;
-                    sf::String white;
-                } color;
-
-        /// Structure for the effect part of the potion dictionary
-                struct {
-                public:
-                    sf::String healing;
-                    sf::String magic;
-                    sf::String strength;
-                    sf::String dexterity;
-                    sf::String speed;
-                    sf::String poison;
-                    sf::String regeneration;
-                    sf::String slowness;
-                    sf::String weakness;
-                } effect;
-            } potion;
-        } item;
-
-    /// Structure for the player part of the dictionary
-        struct {
-        public:
-
-        /// Structure for player attributes
-            struct {
-                sf::String health;
-                sf::String strength;
-                sf::String dexterity;
-                sf::String experience;
-                sf::String level;
-                sf::String skill_points;
-            } attributes;
-
-        /// Structure for player skills
-            struct {
-                sf::String crafting;
-                sf::String alchemy;
-                sf::String cold_weapon_mastery;
-                sf::String ranged_weapon_mastery;
-                sf::String better_sight;
-            } skills;
-
-        } player;
-
-    /// Method loading the dictionary
         bool load();
     };
 
