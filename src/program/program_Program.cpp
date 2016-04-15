@@ -11,9 +11,8 @@
 
 #include <SFML/System/String.hpp>
 
-
-extern rr::Resources  resources;
-extern rr::Settings   settings;
+extern rr::Resources resources;
+extern rr::Settings  settings;
 
 namespace rr {
 
@@ -43,15 +42,6 @@ namespace rr {
         mainLoop();
     }
 
-    void Program::mainLoop() {
-        sf::Clock timer;
-        while (window.isOpen()) {
-            handleEvents();
-            update(timer);
-            draw();
-        }
-    }
-
     void Program::handleEvents() {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
@@ -74,6 +64,15 @@ namespace rr {
         window.clear();
         game->draw(window, view);
         window.display();
+    }
+
+    void Program::mainLoop() {
+        sf::Clock timer;
+        while (window.isOpen()) {
+            handleEvents();
+            update(timer);
+            draw();
+        }
     }
 
 }

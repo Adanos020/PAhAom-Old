@@ -131,14 +131,32 @@ namespace rr {
 
 #undef wSoun
 
-                wOpts->addComponent(new Window(resources.dictionary["gui.button.controls"], sf::Vector2f(300, 454),
-                                               sf::Vector2f(rw.getSize().x-325, rw.getSize().y/2-225)), false);
+                wOpts->addComponent(new Window(resources.dictionary["gui.button.controls"], sf::Vector2f(400, 550),
+                                               sf::Vector2f(rw.getSize().x-425, rw.getSize().y/2-275)), false);
 
 #define wCont component(wOpts, Window, 3)
 
+                    wCont->addComponent(new Text(sf::Vector2f(20, 25), resources.dictionary["gui.text.move_up"        ]+"\n"
+                                                                      +resources.dictionary["gui.text.move_down"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.move_left"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.move_right"     ]+"\n"
+                                                                      +resources.dictionary["gui.text.interact"       ]+"\n"
+                                                                      +resources.dictionary["gui.text.attack"         ]+"\n"
+                                                                      +resources.dictionary["gui.text.pickup"         ]+"\n"
+                                                                      +resources.dictionary["gui.text.open_inventory" ]+"\n"
+                                                                      +resources.dictionary["gui.text.open_attributes"]+"\n"
+                                                                      +resources.dictionary["gui.text.open_quests"    ]+"\n"
+                                                                      +resources.dictionary["gui.text.open_map"       ]+"\n"
+                                                                      +resources.dictionary["gui.text.useslot_1"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.useslot_2"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.useslot_3"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.useslot_4"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.useslot_5"      ]+"\n", resources.font.Unifont, 25), true);
+                    for (int i=0; i<16; i++)
+                        wCont->addComponent(new Button(sf::Vector2f(300, 27*i+27.5f), "-", 20), true);
                     wCont->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
-                    component(wCont, Button, 0)->setPosition(sf::Vector2f(wCont->getPosition().x+wCont->getSize().x/2-component(wCont, Button, 0)->getSize().x/2,
-                                                                          wCont->getPosition().y+wCont->getSize().y-component(wCont, Button, 0)->getSize().y-10));
+                    component(wCont, Button, 16)->setPosition(sf::Vector2f(wCont->getPosition().x+wCont->getSize().x/2-component(wCont, Button, 16)->getSize().x/2,
+                                                                          wCont->getPosition().y+wCont->getSize().y-component(wCont, Button, 16)->getSize().y-10));
 
 #undef wCont
 #undef wOpts
@@ -243,7 +261,7 @@ namespace rr {
                             settings.game.language = "en";
                         else if (component(wGame, Switch, 0)->getCurrentOption() == "POLSKI")
                             settings.game.language = "pl";
-                        else if (component(wGame, Switch, 0)->getCurrentOption() == "DNQUBIÑHBI")
+                        else if (component(wGame, Switch, 0)->getCurrentOption() == L"DNQUBIÑHBI")
                             settings.game.language = "fc";
 
                         std::vector<std::string> splitted = split(component(wGrap, Switch, 0)->getCurrentOption(), 'x');
@@ -261,9 +279,9 @@ namespace rr {
                         else
                             settings.graphics.csettings.antialiasingLevel = 0;
 
-                        settings.sound.music_muted    = component(wSoun, Checkbox, 0)->isChecked();
+                        settings.sound.music_muted    = component(wSoun, Checkbox,  0)->isChecked();
                         settings.sound.music_volume   = component(wSoun, ScrollBar, 0)->getValue();
-                        settings.sound.effects_muted  = component(wSoun, Checkbox, 1)->isChecked();
+                        settings.sound.effects_muted  = component(wSoun, Checkbox,  1)->isChecked();
                         settings.sound.effects_volume = component(wSoun, ScrollBar, 1)->getValue();
 
                         settings.print();
@@ -277,7 +295,7 @@ namespace rr {
                         else if (settings.game.language == "pl")
                             component(wGame, Switch, 0)->setCurrentOption("POLSKI");
                         else if (settings.game.language == "fc")
-                            component(wGame, Switch, 0)->setCurrentOption("DNQUBIÑHBI");
+                            component(wGame, Switch, 0)->setCurrentOption(L"DNQUBIÑHBI");
 
                         component(wGrap, Switch, 0)->setCurrentOption(std::to_string(settings.graphics.resolution.x)+"x"+std::to_string(settings.graphics.resolution.y));
                         component(wGrap, Checkbox, 0)->check(settings.graphics.fullscreen);
@@ -333,9 +351,13 @@ namespace rr {
                         wSoun->setVisible(false);
                 }
 
-
                 else if (wCont->isVisible()) {
-                    if (component(wCont, Button, 0)->isPressed(rw, e))
+                    for (int i=0; i<16; i++) {
+                        if (component(wCont, Button, i)->isPressed(rw, e)) {
+
+                        }
+                    }
+                    if (component(wCont, Button, 16)->isPressed(rw, e))
                         wCont->setVisible(false);
                 }
 

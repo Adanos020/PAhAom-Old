@@ -136,38 +136,24 @@ namespace rr {
 
 #define wCont component(wOpts, Window, 3)
 
-                    wCont->addComponent(new Text(sf::Vector2f(20, 25), resources.dictionary["gui.text.move_up"]        +"\n"
-                                                                      +resources.dictionary["gui.text.move_down"]      +"\n"
-                                                                      +resources.dictionary["gui.text.move_left"]      +"\n"
-                                                                      +resources.dictionary["gui.text.move_right"]     +"\n"
-                                                                      +resources.dictionary["gui.text.interact"]       +"\n"
-                                                                      +resources.dictionary["gui.text.attack"]         +"\n"
-                                                                      +resources.dictionary["gui.text.pickup"]         +"\n"
-                                                                      +resources.dictionary["gui.text.open_inventory"] +"\n"
+                    wCont->addComponent(new Text(sf::Vector2f(20, 25), resources.dictionary["gui.text.move_up"        ]+"\n"
+                                                                      +resources.dictionary["gui.text.move_down"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.move_left"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.move_right"     ]+"\n"
+                                                                      +resources.dictionary["gui.text.interact"       ]+"\n"
+                                                                      +resources.dictionary["gui.text.attack"         ]+"\n"
+                                                                      +resources.dictionary["gui.text.pickup"         ]+"\n"
+                                                                      +resources.dictionary["gui.text.open_inventory" ]+"\n"
                                                                       +resources.dictionary["gui.text.open_attributes"]+"\n"
-                                                                      +resources.dictionary["gui.text.open_quests"]    +"\n"
-                                                                      +resources.dictionary["gui.text.open_map"]       +"\n"
-                                                                      +resources.dictionary["gui.text.useslot_1"]      +"\n"
-                                                                      +resources.dictionary["gui.text.useslot_2"]      +"\n"
-                                                                      +resources.dictionary["gui.text.useslot_3"]      +"\n"
-                                                                      +resources.dictionary["gui.text.useslot_4"]      +"\n"
-                                                                      +resources.dictionary["gui.text.useslot_5"]      +"\n", resources.font.Unifont, 25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300,  25), "up",    25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300,  53), "down",  25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300,  81), "left",  25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 109), "right", 25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 137), "int",   25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 165), "att",   25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 205), "pick",  25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 235), "oin",   25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 265), "oat",   25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 295), "oqu",   25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 325), "oma",   25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 355), "us1",   25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 385), "us2",   25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 415), "us3",   25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 445), "us4",   25), true);
-                    wCont->addComponent(new Button(sf::Vector2f(300, 475), "us5",   25), true);
+                                                                      +resources.dictionary["gui.text.open_quests"    ]+"\n"
+                                                                      +resources.dictionary["gui.text.open_map"       ]+"\n"
+                                                                      +resources.dictionary["gui.text.useslot_1"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.useslot_2"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.useslot_3"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.useslot_4"      ]+"\n"
+                                                                      +resources.dictionary["gui.text.useslot_5"      ]+"\n", resources.font.Unifont, 25), true);
+                    for (int i=0; i<16; i++)
+                        wCont->addComponent(new Button(sf::Vector2f(300, 27*i+27.5f), "-", 20), true);
                     wCont->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
                     component(wCont, Button, 16)->setPosition(sf::Vector2f(wCont->getPosition().x+wCont->getSize().x/2-component(wCont, Button, 16)->getSize().x/2,
                                                                           wCont->getPosition().y+wCont->getSize().y-component(wCont, Button, 16)->getSize().y-10));
@@ -180,7 +166,7 @@ namespace rr {
 
 #define wHelp component(wMenu, Window, 1)
 
-                wHelp->addComponent(new Text(sf::Vector2f(20, 25), "Pro tip:",                    resources.font.Unifont, 30, sf::Color::Yellow), true);
+                wHelp->addComponent(new Text(sf::Vector2f(20, 25), "Pro tip:",                                 resources.font.Unifont, 30, sf::Color::Yellow), true);
                 wHelp->addComponent(new Text(sf::Vector2f(20, 55), resources.dictionary["gui.text.killurslf"], resources.font.Unifont, 30, sf::Color::Red),    true);
 
                 wHelp->addComponent(new Button(sf::Vector2f(5, 380), resources.dictionary["gui.button.quit"], 30), true);
@@ -349,8 +335,12 @@ namespace rr {
                         wSoun->setVisible(false);
                 }
 
-
                 else if (wCont->isVisible()) {
+                    for (int i=0; i<16; i++) {
+                        if (component(wCont, Button, i)->isPressed(rw, e)) {
+
+                        }
+                    }
                     if (component(wCont, Button, 16)->isPressed(rw, e))
                         wCont->setVisible(false);
                 }

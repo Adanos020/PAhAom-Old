@@ -7,9 +7,7 @@
 
 #include "menus.hpp"
 
-
-extern rr::Settings settings;
-
+extern rr::Settings  settings;
 extern rr::Resources resources;
 
 namespace rr {

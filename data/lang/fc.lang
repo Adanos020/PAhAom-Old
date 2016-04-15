@@ -29,7 +29,7 @@ gui.text.attack ataqyñ
 gui.text.pickup toah'ew'
 gui.text.open_inventory eqbntyheq otbyxi
 gui.text.open_attributes atvbibytbi otbyxi
-gui.text.open_quests lncteh čåh' otbyxi 
+gui.text.open_quests lncteh čåh' otbyxi
 gui.text.open_map mateh otbyxi
 gui.text.useslot_1 cxobqa 1 yx'biñ
 gui.text.useslot_2 cxobqa 2 yx'biñ
@@ -67,10 +67,10 @@ item.potion.color.white b'rla
 player.attributes.health ČAPOB'E
 player.attributes.strength W'NLA
 player.attributes.dexterity ČPEHAHOW'Y'
-player.attributes.experience AOW'B'RÄYEH'E
+player.attributes.experience AOW'B'RAYEH'E
 player.attributes.level TOČ'EM
 player.attributes.skill_points TYHQTBI YM'E'EHTHOW'Y'N
-player.skills.crafting XIEM'ECTLNCTBO
+player.skills.crafting XIEM'EW'LNCTBO
 player.skills.alchemy ALXEM'R
 player.skills.cold_weapon_mastery VPOH' B'RLA
 player.skills.ranged_weapon_mastery VPOH' ABICTAHCOBA
