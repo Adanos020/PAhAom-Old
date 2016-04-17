@@ -35,7 +35,7 @@ namespace rr {
     }
 
     bool Button::containsMouseCursor(sf::RenderWindow& rw) {
-        if (body.getGlobalBounds().contains(rw))) {
+        if (body.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
             body.setFillColor(sf::Color(128, 128, 128, 255));
             return true;
         }
