@@ -38,10 +38,10 @@ namespace rr {
                 quad[3].position = sf::Vector2f(i*tileSize.x*5    , (j+1)*tileSize.y*5);
 
                 // define its 4 texture coordinates
-                quad[0].texCoords = sf::Vector2f(tu*tileSize.x    , tv*tileSize.y);
-                quad[1].texCoords = sf::Vector2f((tu+1)*tileSize.x, tv*tileSize.y);
-                quad[2].texCoords = sf::Vector2f((tu+1)*tileSize.x, (tv+1)*tileSize.y);
-                quad[3].texCoords = sf::Vector2f(tu*tileSize.x    , (tv+1)*tileSize.y);
+                quad[0].texCoords = sf::Vector2f(tu*tileSize.x+0.0625f    , tv*tileSize.y+0.0625f);
+                quad[1].texCoords = sf::Vector2f((tu+1)*tileSize.x-0.0625f, tv*tileSize.y+0.0625f);
+                quad[2].texCoords = sf::Vector2f((tu+1)*tileSize.x-0.0625f, (tv+1)*tileSize.y-0.0625f);
+                quad[3].texCoords = sf::Vector2f(tu*tileSize.x+0.0625f    , (tv+1)*tileSize.y-0.0625f);
             }
             return true;
         }
