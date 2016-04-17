@@ -12,17 +12,17 @@ extern rr::Resources  resources;
 
 namespace rr {
 
-    PauseMenu::PauseMenu(sf::RenderWindow& rw) {
-        shadow.setSize((sf::Vector2f)rw.getSize());
+    PauseMenu::PauseMenu() {
+        shadow.setSize((sf::Vector2f)settings.graphics.resolution);
         shadow.setPosition(sf::Vector2f(0, 0));
         shadow.setFillColor(sf::Color(0, 0, 0, 128));
 
 #define component(w, c, i) w->getComponent<c>(i)
 
         title = new Text(sf::Vector2f(0, 0), "PAhAom", resources.font.Pixel, 100, sf::Color::Yellow);
-        title->setPosition(sf::Vector2f(rw.getSize().x/2-title->getSize().x/2, 10));
+        title->setPosition(sf::Vector2f(settings.graphics.resolution.x/2-title->getSize().x/2, 10));
 
-        wMenu = new Window("", sf::Vector2f(244, 306), sf::Vector2f(25, rw.getSize().y/2-153));
+        wMenu = new Window("", sf::Vector2f(244, 306), sf::Vector2f(25, settings.graphics.resolution.y/2-153));
             wMenu->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.resume"],  52), true);
             wMenu->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.options"], 52), true);
             wMenu->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.help"],    52), true);
@@ -31,7 +31,7 @@ namespace rr {
                 component(wMenu, Button, i)->setPosition(wMenu->getPosition()+sf::Vector2f(wMenu->getSize().x/2-component(wMenu, Button, i)->getSize().x/2, 5+i*75));
 
             wMenu->addComponent(new Window(resources.dictionary["gui.button.options"], sf::Vector2f(330, 405),
-                                           sf::Vector2f(rw.getSize().x/2-165, rw.getSize().y/2-202.5)), false);
+                                           sf::Vector2f(settings.graphics.resolution.x/2-165, settings.graphics.resolution.y/2-202.5)), false);
 
 #define wOpts component(wMenu, Window, 0)
 
@@ -47,7 +47,7 @@ namespace rr {
                 component(wOpts, Button, 5)->setPosition(component(wOpts, Button, 4)->getPosition()+sf::Vector2f(component(wOpts, Button, 4)->getSize().x+5, 0));
 
                 wOpts->addComponent(new Window(resources.dictionary["gui.button.game"], sf::Vector2f(340, 354),
-                                               sf::Vector2f(rw.getSize().x-365, rw.getSize().y/2-177)), false);
+                                               sf::Vector2f(settings.graphics.resolution.x-365, settings.graphics.resolution.y/2-177)), false);
 
 #define wGame component(wOpts, Window, 0)
 
@@ -71,7 +71,7 @@ namespace rr {
 #undef wGame
 
                 wOpts->addComponent(new Window(resources.dictionary["gui.button.graphical"], sf::Vector2f(340, 434),
-                                               sf::Vector2f(rw.getSize().x-365, rw.getSize().y/2-217)), false);
+                                               sf::Vector2f(settings.graphics.resolution.x-365, settings.graphics.resolution.y/2-217)), false);
 
 #define wGrap component(wOpts, Window, 1)
 
@@ -109,7 +109,7 @@ namespace rr {
 #undef wGrap
 
                 wOpts->addComponent(new Window(resources.dictionary["gui.button.sound"], sf::Vector2f(300, 330),
-                                               sf::Vector2f(rw.getSize().x-325, rw.getSize().y/2-165)), false);
+                                               sf::Vector2f(settings.graphics.resolution.x-325, settings.graphics.resolution.y/2-165)), false);
 
 #define wSoun component(wOpts, Window, 2)
 
@@ -132,7 +132,7 @@ namespace rr {
 #undef wSoun
 
                 wOpts->addComponent(new Window(resources.dictionary["gui.button.controls"], sf::Vector2f(400, 550),
-                                               sf::Vector2f(rw.getSize().x-425, rw.getSize().y/2-275)), false);
+                                               sf::Vector2f(settings.graphics.resolution.x-425, settings.graphics.resolution.y/2-275)), false);
 
 #define wCont component(wOpts, Window, 3)
 
@@ -162,7 +162,7 @@ namespace rr {
 #undef wOpts
 
             wMenu->addComponent(new Window(resources.dictionary["gui.button.help"], sf::Vector2f(325, 454),
-                                           sf::Vector2f(rw.getSize().x-350, rw.getSize().y/2-225)), false);
+                                           sf::Vector2f(settings.graphics.resolution.x-350, settings.graphics.resolution.y/2-225)), false);
 
 #define wHelp component(wMenu, Window, 1)
 

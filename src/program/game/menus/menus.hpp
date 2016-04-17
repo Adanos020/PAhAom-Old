@@ -22,7 +22,7 @@ namespace rr {
         Text*   title;
         Window* wMenu;
     public:
-         MainMenu(sf::RenderWindow&);
+         MainMenu();
         ~MainMenu();
 
     /// Method for handling the button events
@@ -39,7 +39,7 @@ namespace rr {
         Text*              title;
         Window*            wMenu;
     public:
-         PauseMenu(sf::RenderWindow&);
+         PauseMenu();
         ~PauseMenu();
 
     /// Method opening the pause menu
@@ -64,7 +64,7 @@ namespace rr {
         sf::RectangleShape shadow;
         Window* wAttr;
     public:
-         Attributes(sf::RenderWindow&);
+         Attributes();
         ~Attributes();
 
     /// Method opening the player attributes window
@@ -92,7 +92,7 @@ namespace rr {
         sf::RectangleShape shadow;
         Window* wInve;
     public:
-         Inventory(sf::RenderWindow&);
+         Inventory();
         ~Inventory();
 
     /// Method opening the inventory window
@@ -117,7 +117,7 @@ namespace rr {
         sf::RectangleShape shadow;
         Window* wQues;
     public:
-         Quests(sf::RenderWindow&);
+         Quests();
         ~Quests();
 
     /// Method opening the task list window
@@ -142,7 +142,7 @@ namespace rr {
         sf::RectangleShape shadow;
         Window* wGmap;
     public:
-         GameMap(sf::RenderWindow&);
+         GameMap();
         ~GameMap();
 
     /// Method opening the game map window

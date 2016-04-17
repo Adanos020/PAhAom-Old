@@ -12,13 +12,13 @@ extern rr::Settings settings;
 namespace rr {
 
     Game::Game(sf::RenderWindow& rw) {
-        mainMenu   = new MainMenu  (rw);
-        pauseMenu  = new PauseMenu (rw);
-        attributes = new Attributes(rw);
-        inventory  = new Inventory (rw);
-        quests     = new Quests    (rw);
-        gameMap    = new GameMap   (rw);
-        hud        = new HUD       (rw);
+        mainMenu   = new MainMenu  ();
+        pauseMenu  = new PauseMenu ();
+        attributes = new Attributes();
+        inventory  = new Inventory ();
+        quests     = new Quests    ();
+        gameMap    = new GameMap   ();
+        hud        = new HUD       ();
         player     = new Player(sf::Vector2f(0, 0));
 
         items.push_back(new Potion(Potion::Effect::HEALING,   Potion::Size::BIG,    1, sf::Vector2f(200, 200)));
@@ -30,7 +30,7 @@ namespace rr {
 
         gameView.setSize((sf::Vector2f)settings.graphics.resolution);
         mapView .setCenter(0, 0);
-        mapView .setSize(rw.getSize().x*3, rw.getSize().y*3);
+        mapView .setSize(5000*(settings.graphics.resolution.x/settings.graphics.resolution.y), 2500);
         mapView .setViewport(sf::FloatRect(0.125f, 0.125f, 0.75f, 0.75f));
 
         rw.setView(gameView);
@@ -49,7 +49,7 @@ namespace rr {
 
     void Game::draw(sf::RenderWindow& rw) {
         if (!started) {
-            rw.setView(rw.getDefaultView());
+            rw.setView(sf::View((sf::Vector2f)settings.graphics.resolution/2.f, (sf::Vector2f)settings.graphics.resolution));
             mainMenu->draw(rw);
             rw.setView(gameView);
         }
@@ -59,7 +59,7 @@ namespace rr {
                 x->draw(rw);
             player->draw(rw);
 
-            rw.setView(rw.getDefaultView());
+            rw.setView(sf::View((sf::Vector2f)settings.graphics.resolution/2.f, (sf::Vector2f)settings.graphics.resolution));
             hud->draw(rw);
             if (pauseMenu ->isOpen())
                 pauseMenu ->draw(rw);
@@ -80,11 +80,8 @@ namespace rr {
     }
 
     void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
-        if (e.type == sf::Event::Resized)
-            gameView.setSize((sf::Vector2f)rw.getSize());
-
         if (!started)
-            mainMenu->buttonEvents(rw, e, this);
+            mainMenu ->buttonEvents(rw, e, this);
         if (pauseMenu->isOpen())
             pauseMenu->buttonEvents(rw, e, this);
         if (inventory->isOpen()) {
@@ -93,10 +90,10 @@ namespace rr {
         }
         if (attributes->isOpen())
             attributes->buttonEvents(rw, e, this);
-        if (quests->isOpen())
-            quests->buttonEvents(rw, e, this);
-        if (gameMap->isOpen())
-            gameMap->buttonEvents(rw, e, this);
+        if (quests    ->isOpen())
+            quests    ->buttonEvents(rw, e, this);
+        if (gameMap   ->isOpen())
+            gameMap   ->buttonEvents(rw, e, this);
     }
 
     void Game::controls(float timer) {

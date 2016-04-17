@@ -7,19 +7,19 @@
 
 #include "menus.hpp"
 
-
-extern rr::Resources  resources;
+extern rr::Settings  settings;
+extern rr::Resources resources;
 
 namespace rr {
 
-    Attributes::Attributes(sf::RenderWindow& rw) {
-        shadow.setSize((sf::Vector2f)rw.getSize());
+    Attributes::Attributes() {
+        shadow.setSize((sf::Vector2f)settings.graphics.resolution);
         shadow.setPosition(sf::Vector2f(0, 0));
         shadow.setFillColor(sf::Color(0, 0, 0, 128));
 
 #define component(w, c, i) w->getComponent<c>(i)
 
-        wAttr = new Window(resources.dictionary["gui.window.attributes"], sf::Vector2f(900, 310), (sf::Vector2f)rw.getSize()/2.f-sf::Vector2f(450, 155));
+        wAttr = new Window(resources.dictionary["gui.window.attributes"], sf::Vector2f(900, 310), (sf::Vector2f)settings.graphics.resolution/2.f-sf::Vector2f(450, 155));
             wAttr->addComponent(new Text(sf::Vector2f(10,  25), resources.dictionary["player.attributes.health"]        +":\n"
                                                                +"MANA:\n"
                                                                +resources.dictionary["player.attributes.strength"]      +":\n"

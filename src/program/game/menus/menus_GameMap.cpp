@@ -7,18 +7,18 @@
 
 #include "menus.hpp"
 
-extern rr::Settings settings;
+extern rr::Settings  settings;
 extern rr::Resources resources;
 
 namespace rr {
 
-    GameMap::GameMap(sf::RenderWindow& rw) {
-        shadow.setSize((sf::Vector2f)rw.getSize());
+    GameMap::GameMap() {
+        shadow.setSize((sf::Vector2f)settings.graphics.resolution);
         shadow.setPosition(sf::Vector2f(0, 0));
         shadow.setFillColor(sf::Color(0, 0, 0, 128));
 
 #define component(w, c, i) w->getComponent<c>(i)
-        wGmap = new Window(resources.dictionary["gui.window.game_map"], sf::Vector2f(settings.graphics.resolution.x*0.75, settings.graphics.resolution.y*0.75+75), sf::Vector2f(rw.getSize().x/8, rw.getSize().y/8-25));
+        wGmap = new Window(resources.dictionary["gui.window.game_map"], sf::Vector2f(settings.graphics.resolution.x*0.75, settings.graphics.resolution.y*0.75+75), sf::Vector2f(settings.graphics.resolution.x/8, settings.graphics.resolution.y/8-25));
             wGmap->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
             component(wGmap, Button, 0)->setPosition(sf::Vector2f(wGmap->getPosition().x+wGmap->getSize().x/2-component(wGmap, Button, 0)->getSize().x/2,
                                                                   wGmap->getPosition().y+wGmap->getSize().y  -component(wGmap, Button, 0)->getSize().y-5));

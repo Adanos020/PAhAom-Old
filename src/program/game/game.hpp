@@ -34,7 +34,7 @@ namespace rr {
         Slot* sCarryOn[5];
         Text* tXPlevel;
     public:
-         HUD(sf::RenderWindow&);
+         HUD();
         ~HUD();
 
     /// Method for handling the button events

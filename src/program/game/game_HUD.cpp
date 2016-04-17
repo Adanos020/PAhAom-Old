@@ -12,12 +12,12 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    HUD::HUD(sf::RenderWindow& rw) {
-        bHP = new Bar(Bar::HORIZONTAL, 150, sf::Color::Red, sf::Vector2f(15, rw.getSize().y-20));
-        bMP = new Bar(Bar::HORIZONTAL, 150, sf::Color::Blue, sf::Vector2f(rw.getSize().x-165, rw.getSize().y-20));
-        bXP = new Bar(Bar::HORIZONTAL, rw.getSize().x-400, sf::Color(128, 128, 255), sf::Vector2f(rw.getSize().x/2-(rw.getSize().x-400)/2, rw.getSize().y-20));
+    HUD::HUD() {
+        bHP = new Bar(Bar::HORIZONTAL, 150, sf::Color::Red, sf::Vector2f(15, settings.graphics.resolution.y-20));
+        bMP = new Bar(Bar::HORIZONTAL, 150, sf::Color::Blue, sf::Vector2f(settings.graphics.resolution.x-165, settings.graphics.resolution.y-20));
+        bXP = new Bar(Bar::HORIZONTAL, settings.graphics.resolution.x-400, sf::Color(128, 128, 255), sf::Vector2f(settings.graphics.resolution.x/2-(settings.graphics.resolution.x-400)/2, settings.graphics.resolution.y-20));
         for (int i=0; i<5; i++) {
-            sCarryOn[i] = new Slot(sf::Vector2f(75, 75), sf::Vector2f(rw.getSize().x-80, rw.getSize().y/2-250+i*90));
+            sCarryOn[i] = new Slot(sf::Vector2f(75, 75), sf::Vector2f(settings.graphics.resolution.x-80, settings.graphics.resolution.y/2-250+i*90));
         }
         tXPlevel = new Text(sf::Vector2f(0, 0), L"", resources.font.Pixel, 40, sf::Color::Yellow);
         tXPlevel->setPosition(sf::Vector2f(bXP->getPosition().x+bXP->getSize().x/2-tXPlevel->getSize().x/2, bXP->getPosition().y-tXPlevel->getSize().y));

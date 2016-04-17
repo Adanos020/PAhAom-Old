@@ -9,6 +9,7 @@
 #include "../program.hpp"
 
 extern rr::Resources resources;
+extern rr::Settings  settings;
 
 namespace rr {
 
@@ -34,7 +35,7 @@ namespace rr {
     }
 
     bool Button::containsMouseCursor(sf::RenderWindow& rw) {
-        if (body.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
+        if (body.getGlobalBounds().contains(rw))) {
             body.setFillColor(sf::Color(128, 128, 128, 255));
             return true;
         }
