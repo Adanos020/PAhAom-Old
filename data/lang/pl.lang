@@ -15,7 +15,7 @@ gui.checkbox.vsync SYNCHRONIZACJA PIONOWA
 gui.text.resolution ROZDZIELCZOŚĆ
 gui.text.language JĘZYK
 gui.text.killurslf Zabij się.
-gui.text.wholegame CAŁA GRA
+gui.text.programming PROGRAMOWANIE
 gui.text.usedlib UŻYTA BIBLIOTEKA
 gui.text.music MUZYKA
 gui.text.effects EFEKTY

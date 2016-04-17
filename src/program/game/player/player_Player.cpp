@@ -15,8 +15,8 @@ namespace rr {
     Player::Player(sf::Vector2f pos) {
         walkingLeft .setSpriteSheet(resources.texture.player);
         walkingRight.setSpriteSheet(resources.texture.player);
-        walkingLeft .addFrame(sf::IntRect(0, 14,  14, 14));
-        walkingRight.addFrame(sf::IntRect(0, 0, 14, 14));
+        walkingLeft .addFrame(sf::IntRect(0, 16, 16, 16));
+        walkingRight.addFrame(sf::IntRect(0, 0,  16, 16));
 
         currentAnimation = &walkingRight;
 

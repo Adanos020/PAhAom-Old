@@ -28,41 +28,41 @@ namespace rr {
         randomizeItems();
 
 
-        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::BIG   , 1, sf::Vector2f(0,   -190)));
-        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::MEDIUM, 1, sf::Vector2f(0,   -120)));
-        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::SMALL , 1, sf::Vector2f(0,    -50)));
+        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::BIG   , 1, sf::Vector2f(70,  190)));
+        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::MEDIUM, 1, sf::Vector2f(70,  120)));
+        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::SMALL , 1, sf::Vector2f(70,   50)));
 
-        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::BIG   , 1, sf::Vector2f(70,  -190)));
-        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::MEDIUM, 1, sf::Vector2f(70,  -120)));
-        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::SMALL , 1, sf::Vector2f(70,   -50)));
+        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::BIG   , 1, sf::Vector2f(140, 190)));
+        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::MEDIUM, 1, sf::Vector2f(140, 120)));
+        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::SMALL , 1, sf::Vector2f(140,  50)));
 
-        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::BIG   , 1, sf::Vector2f(140, -190)));
-        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::MEDIUM, 1, sf::Vector2f(140, -120)));
-        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::SMALL , 1, sf::Vector2f(140,  -50)));
+        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::BIG   , 1, sf::Vector2f(210, 190)));
+        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::MEDIUM, 1, sf::Vector2f(210, 120)));
+        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::SMALL , 1, sf::Vector2f(210,  50)));
 
-        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::BIG   , 1, sf::Vector2f(210, -190)));
-        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::MEDIUM, 1, sf::Vector2f(210, -120)));
-        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::SMALL , 1, sf::Vector2f(210,  -50)));
+        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::BIG   , 1, sf::Vector2f(280, 190)));
+        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::MEDIUM, 1, sf::Vector2f(280, 120)));
+        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::SMALL , 1, sf::Vector2f(280,  50)));
 
-        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::BIG   , 1, sf::Vector2f(280, -190)));
-        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::MEDIUM, 1, sf::Vector2f(280, -120)));
-        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::SMALL , 1, sf::Vector2f(280,  -50)));
+        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::BIG   , 1, sf::Vector2f(350, 190)));
+        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::MEDIUM, 1, sf::Vector2f(350, 120)));
+        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::SMALL , 1, sf::Vector2f(350,  50)));
 
-        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::BIG   , 1, sf::Vector2f(350, -190)));
-        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::MEDIUM, 1, sf::Vector2f(350, -120)));
-        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::SMALL , 1, sf::Vector2f(350,  -50)));
+        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::BIG   , 1, sf::Vector2f(420, 190)));
+        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::MEDIUM, 1, sf::Vector2f(420, 120)));
+        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::SMALL , 1, sf::Vector2f(420,  50)));
 
-        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::BIG   , 1, sf::Vector2f(420, -190)));
-        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::MEDIUM, 1, sf::Vector2f(420, -120)));
-        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::SMALL , 1, sf::Vector2f(420,  -50)));
+        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::BIG   , 1, sf::Vector2f(490, 190)));
+        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::MEDIUM, 1, sf::Vector2f(490, 120)));
+        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::SMALL , 1, sf::Vector2f(490,  50)));
 
-        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::BIG   , 1, sf::Vector2f(490, -190)));
-        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::MEDIUM, 1, sf::Vector2f(490, -120)));
-        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::SMALL , 1, sf::Vector2f(490,  -50)));
+        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::BIG   , 1, sf::Vector2f(560, 190)));
+        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::MEDIUM, 1, sf::Vector2f(560, 120)));
+        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::SMALL , 1, sf::Vector2f(560,  50)));
 
-        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::BIG   , 1, sf::Vector2f(560, -190)));
-        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::MEDIUM, 1, sf::Vector2f(560, -120)));
-        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::SMALL , 1, sf::Vector2f(560,  -50)));
+        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::BIG   , 1, sf::Vector2f(630, 190)));
+        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::MEDIUM, 1, sf::Vector2f(630, 120)));
+        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::SMALL , 1, sf::Vector2f(630, 50)));
 
 
         paused  = false;
@@ -269,7 +269,7 @@ namespace rr {
         int tmap[128];
         for (int i=0; i<128; i++)
             itilemap >> tmap[i];
-        tileMap->load(sf::Vector2u(14, 14), tmap, sf::Vector2u(16, 8));
+        tileMap->load(sf::Vector2u(16, 16), tmap, sf::Vector2u(16, 8));
         return true;
     }
 
@@ -278,7 +278,7 @@ namespace rr {
         int tmap[128];
         for (int i=0; i<128; i++)
             itilemap >> tmap[i];
-        tileMap->load(sf::Vector2u(14, 14), tmap, sf::Vector2u(16, 8));
+        tileMap->load(sf::Vector2u(16, 16), tmap, sf::Vector2u(16, 8));
         return true;
     }
 

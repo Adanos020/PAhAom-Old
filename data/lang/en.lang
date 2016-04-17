@@ -15,7 +15,7 @@ gui.checkbox.vsync VERTICAL SYNCHRONIZATION
 gui.text.resolution RESOLUTION
 gui.text.language LANGUAGE
 gui.text.killurslf Kill yourself.
-gui.text.wholegame WHOLE GAME
+gui.text.programming PROGRAMMING
 gui.text.usedlib USED LIBRARY
 gui.text.music MUSIC
 gui.text.effects EFFECTS

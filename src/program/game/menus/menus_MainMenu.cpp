@@ -179,10 +179,12 @@ namespace rr {
                                            sf::Vector2f(settings.graphics.resolution.x-400, settings.graphics.resolution.y/2-150)), false);
 #define wCred component(wMenu, Window, 2)
 
-                wCred->addComponent(new Text(sf::Vector2f(20, 20), resources.dictionary["gui.text.wholegame"], resources.font.Unifont, 30),                    true);
-                wCred->addComponent(new Text(sf::Vector2f(0, 50),  L"\tAdam 'Adanos' Gąsior",     resources.font.Unifont, 25, sf::Color::Yellow), true);
-                wCred->addComponent(new Text(sf::Vector2f(20, 80), resources.dictionary["gui.text.usedlib"],   resources.font.Unifont, 30),                    true);
-                wCred->addComponent(new Text(sf::Vector2f(0, 110), "\tSFML 2.3.2",               resources.font.Unifont, 25, sf::Color::Yellow), true);
+                wCred->addComponent(new Text(sf::Vector2f(20,  20), resources.dictionary["gui.text.programming"], resources.font.Unifont, 30),  true);
+                wCred->addComponent(new Text(sf::Vector2f( 0,  50),  L"\tAdam 'Adanos' Gąsior", resources.font.Unifont, 25, sf::Color::Yellow), true);
+                wCred->addComponent(new Text(sf::Vector2f(20,  80), resources.dictionary["gui.button.graphical"], resources.font.Unifont, 30),  true);
+                wCred->addComponent(new Text(sf::Vector2f( 0, 110), "\tJan Lewandowski"       , resources.font.Unifont, 25, sf::Color::Yellow), true);
+                wCred->addComponent(new Text(sf::Vector2f(20, 140), resources.dictionary["gui.text.usedlib"    ], resources.font.Unifont, 30),  true);
+                wCred->addComponent(new Text(sf::Vector2f( 0, 170), "\tSFML 2.3.2"            , resources.font.Unifont, 25, sf::Color::Yellow), true);
 
                 wCred->addComponent(new Button(sf::Vector2f(5, 225), resources.dictionary["gui.button.quit"], 30), true);
                     component(wCred, Button, 0)->setPosition(sf::Vector2f(wCred->getPosition().x+wCred->getSize().x/2-component(wCred, Button, 0)->getSize().x/2,
