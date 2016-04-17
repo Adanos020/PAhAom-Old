@@ -251,7 +251,7 @@ namespace rr {
 
                         std::vector<std::string> splitted = split(wtoa(component(wGrap, Switch, 0)->getCurrentOption()), 'x');
 
-                        settings.graphics.resolution = sf::Vector2u(atoi(splitted[0].c_str()), atoi(splitted[1].c_str()));
+                        settings.graphics.resolution = sf::Vector2u(stoi(splitted[0]), stoi(splitted[1]));
                         settings.graphics.fullscreen = component(wGrap, Checkbox, 0)->isChecked();
                         settings.graphics.vsync      = component(wGrap, Checkbox, 1)->isChecked();
 

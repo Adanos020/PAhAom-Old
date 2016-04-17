@@ -50,6 +50,9 @@ namespace rr {
 /// Class for the game
     class Game {
     private:
+        sf::View             gameView;
+        sf::View             mapView;
+
         MainMenu*            mainMenu;
         PauseMenu*           pauseMenu;
         Attributes*          attributes;
@@ -58,7 +61,8 @@ namespace rr {
         GameMap*             gameMap;
         HUD*                 hud;
         Player*              player;
-        std::vector<Potion*> potions;
+        std::vector<Item*>   items;
+
         bool                 started;
         bool                 paused;
 
@@ -68,13 +72,13 @@ namespace rr {
         ~Game();
 
     /// Method drawing the game components
-        void draw        (sf::RenderWindow&, sf::View&);
+        void draw        (sf::RenderWindow&);
 
     /// Method for handling the button events
-        void buttonEvents(sf::RenderWindow&, sf::Event&, sf::View&);
+        void buttonEvents(sf::RenderWindow&, sf::Event&);
 
     /// Method drawing the game components
-        void update      (float, sf::View&);
+        void update      (float);
 
     /// Method starting the game or not, depending on the argument's value
         void start       (bool);

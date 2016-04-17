@@ -266,7 +266,7 @@ namespace rr {
 
                         std::vector<std::string> splitted = split(component(wGrap, Switch, 0)->getCurrentOption(), 'x');
 
-                        settings.graphics.resolution = sf::Vector2u(atoi(splitted[0].c_str()), atoi(splitted[1].c_str()));
+                        settings.graphics.resolution = sf::Vector2u(stoi(splitted[0]), stoi(splitted[1]));
                         settings.graphics.fullscreen = component(wGrap, Checkbox, 0)->isChecked();
                         settings.graphics.vsync      = component(wGrap, Checkbox, 1)->isChecked();
 
@@ -280,9 +280,9 @@ namespace rr {
                             settings.graphics.csettings.antialiasingLevel = 0;
 
                         settings.sound.music_muted    = component(wSoun, Checkbox,  0)->isChecked();
-                        settings.sound.music_volume   = component(wSoun, ScrollBar, 0)->getValue();
+                        settings.sound.music_volume   = component(wSoun, ScrollBar, 0)->getValue ();
                         settings.sound.effects_muted  = component(wSoun, Checkbox,  1)->isChecked();
-                        settings.sound.effects_volume = component(wSoun, ScrollBar, 1)->getValue();
+                        settings.sound.effects_volume = component(wSoun, ScrollBar, 1)->getValue ();
 
                         settings.print();
                         settings.save ();
@@ -297,7 +297,7 @@ namespace rr {
                         else if (settings.game.language == "fc")
                             component(wGame, Switch, 0)->setCurrentOption(L"DNQUBIÑHBI");
 
-                        component(wGrap, Switch, 0)->setCurrentOption(std::to_string(settings.graphics.resolution.x)+"x"+std::to_string(settings.graphics.resolution.y));
+                        component(wGrap, Switch  , 0)->setCurrentOption(std::to_string(settings.graphics.resolution.x)+"x"+std::to_string(settings.graphics.resolution.y));
                         component(wGrap, Checkbox, 0)->check(settings.graphics.fullscreen);
                         component(wGrap, Checkbox, 1)->check(settings.graphics.vsync);
                         if (settings.graphics.csettings.antialiasingLevel == 0)

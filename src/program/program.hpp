@@ -111,7 +111,6 @@ namespace rr {
     private:
         sf::Event        event;
         sf::RenderWindow window;
-        sf::View         view;
 
         Game*            game;
 

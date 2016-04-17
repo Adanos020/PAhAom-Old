@@ -26,16 +26,13 @@ namespace rr {
     }
 
     bool Program::loadResources() {
-        return (settings  .load()
-             && resources .load());
+        return (settings .load()
+             && resources.load());
     }
 
     void Program::runGame() {
-        view.setSize((sf::Vector2f)settings.graphics.resolution);
-
         window.create(sf::VideoMode(settings.graphics.resolution.x, settings.graphics.resolution.y, 32), "PAhAom", settings.graphics.fullscreen?(sf::Style::Fullscreen):(sf::Style::Close), settings.graphics.csettings);
         window.setVerticalSyncEnabled(settings.graphics.vsync);
-        window.setView(view);
         window.setKeyRepeatEnabled(false);
 
         game = new Game(window);
@@ -46,23 +43,21 @@ namespace rr {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
-            if (event.type == sf::Event::Resized)
-                view.setSize((sf::Vector2f)window.getSize());
 
-            game->buttonEvents(window, event, view);
+            game->buttonEvents(window, event);
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape && game->isStarted())
                 game->pause(!game->isPaused());
         }
     }
 
     void Program::update(sf::Clock& timer) {
-        game->update(timer.getElapsedTime().asMilliseconds(), view);
+        game->update(timer.getElapsedTime().asMilliseconds());
         timer.restart();
     }
 
     void Program::draw() {
         window.clear();
-        game->draw(window, view);
+        game->draw(window);
         window.display();
     }
 

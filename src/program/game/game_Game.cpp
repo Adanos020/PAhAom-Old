@@ -21,12 +21,19 @@ namespace rr {
         hud        = new HUD       (rw);
         player     = new Player(sf::Vector2f(0, 0));
 
-        potions.push_back(new Potion(Potion::Effect::HEALING,   Potion::Size::BIG,    1, sf::Vector2f(200, 200)));
-        potions.push_back(new Potion(Potion::Effect::DEXTERITY, Potion::Size::MEDIUM, 1, sf::Vector2f(400, 200)));
-        potions.push_back(new Potion(Potion::Effect::POISON,    Potion::Size::SMALL,  1, sf::Vector2f(600, 200)));
+        items.push_back(new Potion(Potion::Effect::HEALING,   Potion::Size::BIG,    1, sf::Vector2f(200, 200)));
+        items.push_back(new Potion(Potion::Effect::DEXTERITY, Potion::Size::MEDIUM, 1, sf::Vector2f(400, 200)));
+        items.push_back(new Potion(Potion::Effect::POISON,    Potion::Size::SMALL,  1, sf::Vector2f(600, 200)));
 
-        paused = false;
+        paused  = false;
         started = false;
+
+        gameView.setSize((sf::Vector2f)settings.graphics.resolution);
+        mapView .setCenter(0, 0);
+        mapView .setSize(rw.getSize().x*3, rw.getSize().y*3);
+        mapView .setViewport(sf::FloatRect(0.125f, 0.125f, 0.75f, 0.75f));
+
+        rw.setView(gameView);
     }
 
     Game::~Game() {
@@ -40,13 +47,15 @@ namespace rr {
         delete player;
     }
 
-    void Game::draw(sf::RenderWindow& rw, sf::View& v) {
+    void Game::draw(sf::RenderWindow& rw) {
         if (!started) {
             rw.setView(rw.getDefaultView());
             mainMenu->draw(rw);
-            rw.setView(v);
-        } else {
-            for (auto x : potions)
+            rw.setView(gameView);
+        }
+        else {
+            rw.setView(gameView);
+            for (auto x : items)
                 x->draw(rw);
             player->draw(rw);
 
@@ -58,15 +67,22 @@ namespace rr {
                 attributes->draw(rw);
             if (inventory ->isOpen())
                 inventory ->draw(rw);
-            if (quests->isOpen())
-                quests->draw(rw);
-            if (gameMap->isOpen())
-                gameMap->draw(rw);
-            rw.setView(v);
+            if (quests    ->isOpen())
+                quests    ->draw(rw);
+            if (gameMap   ->isOpen()) {
+                gameMap   ->draw(rw);
+                rw.setView(mapView);
+                for (auto x : items)
+                    x ->draw(rw);
+                player->draw(rw);
+            }
         }
     }
 
-    void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& e, sf::View& v) {
+    void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
+        if (e.type == sf::Event::Resized)
+            gameView.setSize((sf::Vector2f)rw.getSize());
+
         if (!started)
             mainMenu->buttonEvents(rw, e, this);
         if (pauseMenu->isOpen())
@@ -131,13 +147,13 @@ namespace rr {
         }
     }
 
-    void Game::update(float timer, sf::View& v) {
+    void Game::update(float timer) {
         controls(timer);
 
         player->update(      );
         hud   ->update(player);
 
-        v.setCenter(player->getPosition());
+        gameView.setCenter(player->getPosition());
     }
 
     void Game::start(bool b) {
