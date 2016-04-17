@@ -15,7 +15,7 @@ namespace rr {
     Attributes::Attributes() {
         shadow.setSize((sf::Vector2f)settings.graphics.resolution);
         shadow.setPosition(sf::Vector2f(0, 0));
-        shadow.setFillColor(sf::Color(0, 0, 0, 128));
+        shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
 #define component(w, c, i) w->getComponent<c>(i)
 

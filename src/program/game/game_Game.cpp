@@ -6,12 +6,13 @@
  */
 
 #include "game.hpp"
+#include <fstream>
 
 extern rr::Settings settings;
 
 namespace rr {
 
-    Game::Game(sf::RenderWindow& rw) {
+    Game::Game() {
         mainMenu   = new MainMenu  ();
         pauseMenu  = new PauseMenu ();
         attributes = new Attributes();
@@ -19,7 +20,14 @@ namespace rr {
         quests     = new Quests    ();
         gameMap    = new GameMap   ();
         hud        = new HUD       ();
-        player     = new Player(sf::Vector2f(0, 0));
+        player     = new Player    (sf::Vector2f(0, 0));
+        tileMap    = new TileMap   ();
+
+        std::ifstream itilemap("data/newgame/world.pah");
+        int tmap[128];
+        for (int i=0; i<128; i++)
+            itilemap >> tmap[i];
+        tileMap->load(sf::Vector2u(14, 14), tmap, sf::Vector2u(16, 8));
 
         items.push_back(new Potion(Potion::Effect::HEALING,   Potion::Size::BIG,    1, sf::Vector2f(200, 200)));
         items.push_back(new Potion(Potion::Effect::DEXTERITY, Potion::Size::MEDIUM, 1, sf::Vector2f(400, 200)));
@@ -32,8 +40,6 @@ namespace rr {
         mapView .setCenter(0, 0);
         mapView .setSize(5000*(settings.graphics.resolution.x/settings.graphics.resolution.y), 2500);
         mapView .setViewport(sf::FloatRect(0.125f, 0.125f, 0.75f, 0.75f));
-
-        rw.setView(gameView);
     }
 
     Game::~Game() {
@@ -55,6 +61,7 @@ namespace rr {
         }
         else {
             rw.setView(gameView);
+            rw.draw(*tileMap);
             for (auto x : items)
                 x->draw(rw);
             player->draw(rw);
@@ -72,6 +79,7 @@ namespace rr {
             if (gameMap   ->isOpen()) {
                 gameMap   ->draw(rw);
                 rw.setView(mapView);
+                rw.draw(*tileMap);
                 for (auto x : items)
                     x ->draw(rw);
                 player->draw(rw);

@@ -47,6 +47,16 @@ namespace rr {
         void draw        (sf::RenderWindow&);
     };
 
+    class TileMap : public sf::Drawable, public sf::Transformable {
+    public:
+        bool load(sf::Vector2u tileSize, const int* tiles, sf::Vector2u mapSize);
+    private:
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+        sf::VertexArray m_vertices;
+        sf::Texture m_tileset;
+    };
+
 /// Class for the game
     class Game {
     private:
@@ -60,6 +70,7 @@ namespace rr {
         Quests*              quests;
         GameMap*             gameMap;
         HUD*                 hud;
+        TileMap*             tileMap;
         Player*              player;
         std::vector<Item*>   items;
 
@@ -68,7 +79,7 @@ namespace rr {
 
         void controls    (float);
     public:
-         Game(sf::RenderWindow&);
+         Game();
         ~Game();
 
     /// Method drawing the game components

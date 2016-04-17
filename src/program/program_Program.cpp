@@ -35,7 +35,7 @@ namespace rr {
         window.setVerticalSyncEnabled(settings.graphics.vsync);
         window.setKeyRepeatEnabled(false);
 
-        game = new Game(window);
+        game = new Game();
         mainLoop();
     }
 

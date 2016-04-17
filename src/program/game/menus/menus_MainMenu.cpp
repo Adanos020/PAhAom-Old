@@ -8,8 +8,8 @@
 #include "menus.hpp"
 #include "../../funcs/funcs.hpp"
 
-extern rr::Settings   settings;
-extern rr::Resources  resources;
+extern rr::Settings  settings;
+extern rr::Resources resources;
 
 namespace rr {
 
