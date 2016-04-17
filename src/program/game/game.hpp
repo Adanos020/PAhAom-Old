@@ -77,7 +77,8 @@ namespace rr {
         bool                 started;
         bool                 paused;
 
-        void controls    (float);
+        void controls      (float);
+        void randomizeItems();
     public:
          Game();
         ~Game();

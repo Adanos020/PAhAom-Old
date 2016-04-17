@@ -16,7 +16,7 @@ namespace rr {
     class Item {
     protected:
         sf::FloatRect   boundBox;
-        sf::Sprite      body;
+        sf::VertexArray body;
         sf::String      name;
         sf::String      description;
         sf::String      effects;
@@ -39,7 +39,11 @@ namespace rr {
         void               editAmount    (int x)            { amount = x; }
 
     /// Sets the item's position
-        void               setPosition   (sf::Vector2f pos) { body.setPosition(pos); }
+        void               setPosition   (sf::Vector2f pos) { body[0].position = pos;
+                                                              body[1].position = sf::Vector2f(pos.x+60, pos.y);
+                                                              body[2].position = sf::Vector2f(pos.x+60, pos.y+60);
+                                                              body[3].position = sf::Vector2f(pos.x   , pos.y+60);
+                                                            }
 
     /// Returns the item's ID
         double             getID         ()                 { return ID; }
@@ -54,7 +58,7 @@ namespace rr {
         bool               isEquipable   ()                 { return equipable; }
 
     /// Returns the sprite of this item
-        sf::Sprite         getBody       ()                 { return body; }
+        sf::VertexArray    getBody       ()                 { return body; }
 
     /// Returns the name of this item
         sf::String         getName       ()                 { return name; }

@@ -7,8 +7,11 @@
 
 #include "game.hpp"
 #include <fstream>
+#include <cstdlib>
+#include <iostream>
 
 extern rr::Settings settings;
+sf::Color potionColors[9];
 
 namespace rr {
 
@@ -23,15 +26,45 @@ namespace rr {
         player     = new Player    (sf::Vector2f(0, 0));
         tileMap    = new TileMap   ();
 
-        std::ifstream itilemap("data/newgame/world.pah");
-        int tmap[128];
-        for (int i=0; i<128; i++)
-            itilemap >> tmap[i];
-        tileMap->load(sf::Vector2u(14, 14), tmap, sf::Vector2u(16, 8));
+        randomizeItems();
 
-        items.push_back(new Potion(Potion::Effect::HEALING,   Potion::Size::BIG,    1, sf::Vector2f(200, 200)));
-        items.push_back(new Potion(Potion::Effect::DEXTERITY, Potion::Size::MEDIUM, 1, sf::Vector2f(400, 200)));
-        items.push_back(new Potion(Potion::Effect::POISON,    Potion::Size::SMALL,  1, sf::Vector2f(600, 200)));
+
+        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::BIG   , 1, sf::Vector2f(0,   -190)));
+        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::MEDIUM, 1, sf::Vector2f(0,   -120)));
+        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::SMALL , 1, sf::Vector2f(0,    -50)));
+
+        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::BIG   , 1, sf::Vector2f(50,  -190)));
+        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::MEDIUM, 1, sf::Vector2f(50,  -120)));
+        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::SMALL , 1, sf::Vector2f(50,   -50)));
+
+        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::BIG   , 1, sf::Vector2f(100, -190)));
+        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::MEDIUM, 1, sf::Vector2f(100, -120)));
+        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::SMALL , 1, sf::Vector2f(100,  -50)));
+
+        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::BIG   , 1, sf::Vector2f(150, -190)));
+        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::MEDIUM, 1, sf::Vector2f(150, -120)));
+        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::SMALL , 1, sf::Vector2f(150,  -50)));
+
+        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::BIG   , 1, sf::Vector2f(200, -190)));
+        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::MEDIUM, 1, sf::Vector2f(200, -120)));
+        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::SMALL , 1, sf::Vector2f(200,  -50)));
+
+        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::BIG   , 1, sf::Vector2f(250, -190)));
+        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::MEDIUM, 1, sf::Vector2f(250, -120)));
+        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::SMALL , 1, sf::Vector2f(250,  -50)));
+
+        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::BIG   , 1, sf::Vector2f(300, -190)));
+        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::MEDIUM, 1, sf::Vector2f(300, -120)));
+        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::SMALL , 1, sf::Vector2f(300,  -50)));
+
+        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::BIG   , 1, sf::Vector2f(350, -190)));
+        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::MEDIUM, 1, sf::Vector2f(350, -120)));
+        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::SMALL , 1, sf::Vector2f(350,  -50)));
+
+        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::BIG   , 1, sf::Vector2f(400, -190)));
+        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::MEDIUM, 1, sf::Vector2f(400, -120)));
+        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::SMALL , 1, sf::Vector2f(400,  -50)));
+
 
         paused  = false;
         started = false;
@@ -51,57 +84,6 @@ namespace rr {
         delete gameMap;
         delete hud;
         delete player;
-    }
-
-    void Game::draw(sf::RenderWindow& rw) {
-        if (!started) {
-            rw.setView(sf::View((sf::Vector2f)settings.graphics.resolution/2.f, (sf::Vector2f)settings.graphics.resolution));
-            mainMenu->draw(rw);
-            rw.setView(gameView);
-        }
-        else {
-            rw.setView(gameView);
-            rw.draw(*tileMap);
-            for (auto x : items)
-                x->draw(rw);
-            player->draw(rw);
-
-            rw.setView(sf::View((sf::Vector2f)settings.graphics.resolution/2.f, (sf::Vector2f)settings.graphics.resolution));
-            hud->draw(rw);
-            if (pauseMenu ->isOpen())
-                pauseMenu ->draw(rw);
-            if (attributes->isOpen())
-                attributes->draw(rw);
-            if (inventory ->isOpen())
-                inventory ->draw(rw);
-            if (quests    ->isOpen())
-                quests    ->draw(rw);
-            if (gameMap   ->isOpen()) {
-                gameMap   ->draw(rw);
-                rw.setView(mapView);
-                rw.draw(*tileMap);
-                for (auto x : items)
-                    x ->draw(rw);
-                player->draw(rw);
-            }
-        }
-    }
-
-    void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
-        if (!started)
-            mainMenu ->buttonEvents(rw, e, this);
-        if (pauseMenu->isOpen())
-            pauseMenu->buttonEvents(rw, e, this);
-        if (inventory->isOpen()) {
-            inventory->buttonEvents(rw, e, this);
-            hud      ->buttonEvents(rw, e);
-        }
-        if (attributes->isOpen())
-            attributes->buttonEvents(rw, e, this);
-        if (quests    ->isOpen())
-            quests    ->buttonEvents(rw, e, this);
-        if (gameMap   ->isOpen())
-            gameMap   ->buttonEvents(rw, e, this);
     }
 
     void Game::controls(float timer) {
@@ -152,6 +134,107 @@ namespace rr {
         }
     }
 
+    void Game::randomizeItems() {
+    // potions
+        {
+            int pot[9];
+            for (int i=0; i<9; i++) {
+            hell:
+                int  x      = rand()%9;
+                bool exists = false;
+                for (int j=0; j<i; j++) {
+                    if (pot[j] == x) {
+                        exists = true;
+                        goto hell; // PURE EVIL
+                    }
+                }
+                if (!exists) {
+                    pot[i] = x;
+                    switch (x) {
+                    case 0:
+                        potionColors[i] = sf::Color::Red;
+                        break;
+                    case 1:
+                        potionColors[i] = sf::Color::Blue;
+                        break;
+                    case 2:
+                        potionColors[i] = sf::Color(64, 64, 0);
+                        break;
+                    case 3:
+                        potionColors[i] = sf::Color::Green;
+                        break;
+                    case 4:
+                        potionColors[i] = sf::Color(128, 128, 128);
+                        break;
+                    case 5:
+                        potionColors[i] = sf::Color(255, 172, 172);
+                        break;
+                    case 6:
+                        potionColors[i] = sf::Color::Magenta;
+                        break;
+                    case 7:
+                        potionColors[i] = sf::Color::Black;
+                        break;
+                    case 8:
+                        potionColors[i] = sf::Color::White;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    void Game::draw(sf::RenderWindow& rw) {
+        if (!started) {
+            rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
+            mainMenu->draw(rw);
+            rw.setView(gameView);
+        }
+        else {
+            rw.setView(gameView);
+            rw.draw(*tileMap);
+            for (auto x : items)
+                x->draw(rw);
+            player->draw(rw);
+
+            rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
+            hud->draw(rw);
+            if (pauseMenu ->isOpen())
+                pauseMenu ->draw(rw);
+            if (attributes->isOpen())
+                attributes->draw(rw);
+            if (inventory ->isOpen())
+                inventory ->draw(rw);
+            if (quests    ->isOpen())
+                quests    ->draw(rw);
+            if (gameMap   ->isOpen()) {
+                gameMap   ->draw(rw);
+                rw.setView(mapView);
+                rw.draw(*tileMap);
+                for (auto x : items)
+                    x ->draw(rw);
+                player->draw(rw);
+            }
+        }
+    }
+
+    void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
+        if (!started)
+            mainMenu ->buttonEvents(rw, e, this);
+        if (pauseMenu->isOpen())
+            pauseMenu->buttonEvents(rw, e, this);
+        if (inventory->isOpen()) {
+            inventory->buttonEvents(rw, e, this);
+            hud      ->buttonEvents(rw, e);
+        }
+        if (attributes->isOpen())
+            attributes->buttonEvents(rw, e, this);
+        if (quests    ->isOpen())
+            quests    ->buttonEvents(rw, e, this);
+        if (gameMap   ->isOpen())
+            gameMap   ->buttonEvents(rw, e, this);
+    }
+
     void Game::update(float timer) {
         controls(timer);
 
@@ -183,12 +266,20 @@ namespace rr {
     }
 
     bool Game::load() {
-        // there's nothing to load yet, so we can just lie that the load is succeeded
+        std::ifstream itilemap("data/newgame/world.pah");
+        int tmap[128];
+        for (int i=0; i<128; i++)
+            itilemap >> tmap[i];
+        tileMap->load(sf::Vector2u(14, 14), tmap, sf::Vector2u(16, 8));
         return true;
     }
 
     bool Game::loadNewGame() {
-        // there's nothing to load yet, so we can just lie that the load is succeeded
+        std::ifstream itilemap("data/newgame/world.pah");
+        int tmap[128];
+        for (int i=0; i<128; i++)
+            itilemap >> tmap[i];
+        tileMap->load(sf::Vector2u(14, 14), tmap, sf::Vector2u(16, 8));
         return true;
     }
 
