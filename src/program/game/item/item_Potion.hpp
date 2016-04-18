@@ -24,12 +24,12 @@ namespace rr {
             POISON,
             SLOWNESS,
             WEAKNESS
-        };
+        } effect;
         enum Size {
             SMALL,
             MEDIUM,
             BIG
-        };
+        } size;
 
          Potion(Effect, Size, int am, sf::Vector2f pos = sf::Vector2f(0, 0));
         ~Potion();
@@ -37,12 +37,6 @@ namespace rr {
         virtual void draw      (sf::RenderWindow&) override;
         virtual void update    ()                  override;
         virtual void reveal    ()                  override;
-
-        Effect getEffect       () { return effect; }
-        Size   getSize         () { return size; }
-    private:
-        Effect effect;
-        Size   size;
     };
 
 }

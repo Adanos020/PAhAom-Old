@@ -79,6 +79,7 @@ namespace rr {
 
         void controls      (float);
         void randomizeItems();
+        void placeObjects  (const char*);
     public:
          Game();
         ~Game();

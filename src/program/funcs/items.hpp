@@ -14,8 +14,48 @@ namespace rr {
 
 /// Returns an instance of the Item class depending on the given ID and amount
     inline Item* getItemFromID(double ID, int amount) {
+
+        switch ((int)(ID*100)) {
+        /* POTIONS */
+        case 100: return new Potion(Potion::Effect::HEALING     , Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
+        case 110: return new Potion(Potion::Effect::HEALING     , Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;
+        case 120: return new Potion(Potion::Effect::HEALING     , Potion::Size::BIG   , amount, sf::Vector2f(0, 0)); break;
+
+        case 101: return new Potion(Potion::Effect::MAGIC       , Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
+        case 111: return new Potion(Potion::Effect::MAGIC       , Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;
+        case 121: return new Potion(Potion::Effect::MAGIC       , Potion::Size::BIG   , amount, sf::Vector2f(0, 0)); break;
+
+        case 102: return new Potion(Potion::Effect::STRENGTH    , Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
+        case 112: return new Potion(Potion::Effect::STRENGTH    , Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;
+        case 122: return new Potion(Potion::Effect::STRENGTH    , Potion::Size::BIG   , amount, sf::Vector2f(0, 0)); break;
+
+        case 103: return new Potion(Potion::Effect::DEXTERITY   , Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
+        case 113: return new Potion(Potion::Effect::DEXTERITY   , Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;
+        case 123: return new Potion(Potion::Effect::DEXTERITY   , Potion::Size::BIG   , amount, sf::Vector2f(0, 0)); break;
+
+        case 104: return new Potion(Potion::Effect::SPEED       , Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
+        case 114: return new Potion(Potion::Effect::SPEED       , Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;
+        case 124: return new Potion(Potion::Effect::SPEED       , Potion::Size::BIG   , amount, sf::Vector2f(0, 0)); break;
+
+        case 105: return new Potion(Potion::Effect::REGENERATION, Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
+        case 115: return new Potion(Potion::Effect::REGENERATION, Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;
+        case 125: return new Potion(Potion::Effect::REGENERATION, Potion::Size::BIG   , amount, sf::Vector2f(0, 0)); break;
+
+        case 106: return new Potion(Potion::Effect::POISON      , Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
+        case 116: return new Potion(Potion::Effect::POISON      , Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;
+        case 126: return new Potion(Potion::Effect::POISON      , Potion::Size::BIG   , amount, sf::Vector2f(0, 0)); break;
+
+        case 107: return new Potion(Potion::Effect::SLOWNESS    , Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
+        case 117: return new Potion(Potion::Effect::SLOWNESS    , Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;
+        case 127: return new Potion(Potion::Effect::SLOWNESS    , Potion::Size::BIG   , amount, sf::Vector2f(0, 0)); break;
+
+        case 108: return new Potion(Potion::Effect::WEAKNESS    , Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
+        case 118: return new Potion(Potion::Effect::WEAKNESS    , Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;
+        case 128: return new Potion(Potion::Effect::WEAKNESS    , Potion::Size::BIG   , amount, sf::Vector2f(0, 0)); break;
+        }
+
         /*unknown ID?*/
-        return new Potion(Potion::Effect::HEALING, Potion::Size::BIG, amount, sf::Vector2f(0, 0));
+        return nullptr;
     }
 
 }

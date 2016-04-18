@@ -6,8 +6,12 @@
  */
 
 #include "game.hpp"
+#include "../funcs/files.hpp"
+#include "../funcs/items.hpp"
 #include <fstream>
 #include <cstdlib>
+#include <string>
+#include <iostream>
 
 extern rr::Settings settings;
 extern sf::Color    potionColors[9];
@@ -25,52 +29,12 @@ namespace rr {
         player     = new Player    (sf::Vector2f(0, 0));
         tileMap    = new TileMap   ();
 
-        randomizeItems();
-
-
-        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::BIG   , 1, sf::Vector2f(70,  190)));
-        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::MEDIUM, 1, sf::Vector2f(70,  120)));
-        items.push_back(new Potion(Potion::Effect::MAGIC       , Potion::Size::SMALL , 1, sf::Vector2f(70,   50)));
-
-        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::BIG   , 1, sf::Vector2f(140, 190)));
-        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::MEDIUM, 1, sf::Vector2f(140, 120)));
-        items.push_back(new Potion(Potion::Effect::STRENGTH    , Potion::Size::SMALL , 1, sf::Vector2f(140,  50)));
-
-        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::BIG   , 1, sf::Vector2f(210, 190)));
-        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::MEDIUM, 1, sf::Vector2f(210, 120)));
-        items.push_back(new Potion(Potion::Effect::DEXTERITY   , Potion::Size::SMALL , 1, sf::Vector2f(210,  50)));
-
-        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::BIG   , 1, sf::Vector2f(280, 190)));
-        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::MEDIUM, 1, sf::Vector2f(280, 120)));
-        items.push_back(new Potion(Potion::Effect::SPEED       , Potion::Size::SMALL , 1, sf::Vector2f(280,  50)));
-
-        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::BIG   , 1, sf::Vector2f(350, 190)));
-        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::MEDIUM, 1, sf::Vector2f(350, 120)));
-        items.push_back(new Potion(Potion::Effect::REGENERATION, Potion::Size::SMALL , 1, sf::Vector2f(350,  50)));
-
-        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::BIG   , 1, sf::Vector2f(420, 190)));
-        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::MEDIUM, 1, sf::Vector2f(420, 120)));
-        items.push_back(new Potion(Potion::Effect::POISON      , Potion::Size::SMALL , 1, sf::Vector2f(420,  50)));
-
-        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::BIG   , 1, sf::Vector2f(490, 190)));
-        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::MEDIUM, 1, sf::Vector2f(490, 120)));
-        items.push_back(new Potion(Potion::Effect::SLOWNESS    , Potion::Size::SMALL , 1, sf::Vector2f(490,  50)));
-
-        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::BIG   , 1, sf::Vector2f(560, 190)));
-        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::MEDIUM, 1, sf::Vector2f(560, 120)));
-        items.push_back(new Potion(Potion::Effect::WEAKNESS    , Potion::Size::SMALL , 1, sf::Vector2f(560,  50)));
-
-        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::BIG   , 1, sf::Vector2f(630, 190)));
-        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::MEDIUM, 1, sf::Vector2f(630, 120)));
-        items.push_back(new Potion(Potion::Effect::HEALING     , Potion::Size::SMALL , 1, sf::Vector2f(630, 50)));
-
-
         paused  = false;
         started = false;
 
         gameView.setSize((sf::Vector2f)settings.graphics.resolution);
         mapView .setCenter(0, 0);
-        mapView .setSize(5000*(settings.graphics.resolution.x/settings.graphics.resolution.y), 2500);
+        mapView .setSize(4000*((float)settings.graphics.resolution.x/(float)settings.graphics.resolution.y), 4000);
         mapView .setViewport(sf::FloatRect(0.125f, 0.125f, 0.75f, 0.75f));
     }
 
@@ -140,44 +104,66 @@ namespace rr {
             for (int i=0; i<9; i++) {
             hell:
                 int  x      = rand()%9;
-                bool exists = false;
                 for (int j=0; j<i; j++) {
-                    if (pot[j] == x) {
-                        exists = true;
-                        goto hell; // PURE EVIL
+                    if (pot[j] == x)
+                        goto hell; // Literally, you fucking elitists
+                }
+                pot[i] = x;
+                switch (x) {
+                case 0:
+                    potionColors[i] = sf::Color::Red;
+                    break;
+                case 1:
+                    potionColors[i] = sf::Color::Blue;
+                    break;
+                case 2:
+                    potionColors[i] = sf::Color(32, 32, 0);
+                    break;
+                case 3:
+                    potionColors[i] = sf::Color::Green;
+                    break;
+                case 4:
+                    potionColors[i] = sf::Color(128, 128, 128);
+                    break;
+                case 5:
+                    potionColors[i] = sf::Color(255, 172, 172);
+                    break;
+                case 6:
+                    potionColors[i] = sf::Color::Magenta;
+                    break;
+                case 7:
+                    potionColors[i] = sf::Color::Black;
+                    break;
+                case 8:
+                    potionColors[i] = sf::Color::White;
+                    break;
+                }
+            }
+        }
+    }
+
+    void Game::placeObjects(const char* path) {
+        std::ifstream iobjects(path);
+        if (iobjects.good()) {
+            std::string buff;
+            while (iobjects >> buff) {
+                if (buff[0] == '#' || buff == "") {
+                    std::getline(iobjects, buff);
+                }
+                try {
+                    if (buff == "item") {
+                        double id;
+                        int amount, posx, posy;
+                        readFile(iobjects, id);
+                        readFile(iobjects, amount);
+                        readFile(iobjects, posx);
+                        readFile(iobjects, posy);
+
+                        items.push_back(getItemFromID(id, amount));
+                        items.back()->setPosition(sf::Vector2f(posx, posy));
                     }
                 }
-                if (!exists) {
-                    pot[i] = x;
-                    switch (x) {
-                    case 0:
-                        potionColors[i] = sf::Color::Red;
-                        break;
-                    case 1:
-                        potionColors[i] = sf::Color::Blue;
-                        break;
-                    case 2:
-                        potionColors[i] = sf::Color(32, 32, 0);
-                        break;
-                    case 3:
-                        potionColors[i] = sf::Color::Green;
-                        break;
-                    case 4:
-                        potionColors[i] = sf::Color(128, 128, 128);
-                        break;
-                    case 5:
-                        potionColors[i] = sf::Color(255, 172, 172);
-                        break;
-                    case 6:
-                        potionColors[i] = sf::Color::Magenta;
-                        break;
-                    case 7:
-                        potionColors[i] = sf::Color::Black;
-                        break;
-                    case 8:
-                        potionColors[i] = sf::Color::White;
-                        break;
-                    }
+                catch (...) {
                 }
             }
         }
@@ -188,8 +174,7 @@ namespace rr {
             rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
             mainMenu->draw(rw);
             rw.setView(gameView);
-        }
-        else {
+        } else {
             rw.setView(gameView);
             rw.draw(*tileMap);
             for (auto x : items)
@@ -265,20 +250,25 @@ namespace rr {
     }
 
     bool Game::load() {
-        std::ifstream itilemap("data/newgame/world.pah");
-        int tmap[128];
-        for (int i=0; i<128; i++)
+        std::ifstream itilemap("data/savedgame/world.pah");
+        int tmap[220];
+        for (int i=0; i<220; i++)
             itilemap >> tmap[i];
-        tileMap->load(sf::Vector2u(16, 16), tmap, sf::Vector2u(16, 8));
+        tileMap->load(sf::Vector2u(16, 16), tmap, sf::Vector2u(20, 11));
+
+        placeObjects("data/savedgame/objects.pah");
         return true;
     }
 
     bool Game::loadNewGame() {
         std::ifstream itilemap("data/newgame/world.pah");
-        int tmap[128];
-        for (int i=0; i<128; i++)
+        int tmap[220];
+        for (int i=0; i<220; i++)
             itilemap >> tmap[i];
-        tileMap->load(sf::Vector2u(16, 16), tmap, sf::Vector2u(16, 8));
+        tileMap->load(sf::Vector2u(16, 16), tmap, sf::Vector2u(20, 11));
+
+        randomizeItems();
+        placeObjects("data/newgame/objects.pah");
         return true;
     }
 
