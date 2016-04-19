@@ -1,35 +1,3 @@
-item 1.00 1 #small potion of healing
-item 1.10 1 #medium potion of healing
-item 1.20 1 #big potion of healing
-
-item 1.01 1 #small potion of mana
-item 1.11 1 #medium potion of mana
-item 1.21 1 #big potion of mana
-
-item 1.02 1 #small potion of strength
-item 1.12 1 #medium potion of strength
-item 1.22 1 #big potion of strength
-
-item 1.03 1 #small potion of dexterity
-item 1.13 1 #medium potion of dexterity
-item 1.23 1 #big potion of dexterity
-
-item 1.04 1 #small potion of speed
-item 1.14 1 #medium potion of speed
-item 1.24 1 #big potion of speed
-
-item 1.05 1 #small potion of regeneration
-item 1.15 1 #medium potion of regeneration
-item 1.25 1 #big potion of regeneration
-
-item 1.06 1 #small potion of poison
-item 1.16 1 #medium potion of poison
-item 1.26 1 #big potion of poison
-
-item 1.07 1 #small potion of slowness
-item 1.17 1 #medium potion of slowness
-item 1.27 1 #big potion of slowness
-
-item 1.08 1 #small potion of weakness
-item 1.18 1 #medium potion of weakness
-item 1.28 1 #big potion of weakness
+item
+chest special
+chest regular

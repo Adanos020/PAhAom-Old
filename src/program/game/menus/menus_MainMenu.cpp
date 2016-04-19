@@ -216,10 +216,8 @@ namespace rr {
 
         if (wMenu->isVisible()) {
             if (!wOpts->isVisible() && !wHelp->isVisible() && !wCred->isVisible()) {
-                if (component(wMenu, Button, 0)->isPressed(rw, e)) if (g->loadNewGame()) {
-                        g->start(true);
-                        g->pause(false);
-                    }
+                if (component(wMenu, Button, 0)->isPressed(rw, e))
+                    g->loadNewGame();
                 if (component(wMenu, Button, 1)->isPressed(rw, e))
                     if (g->load()) g->start(true);
                 if (component(wMenu, Button, 2)->isPressed(rw, e))

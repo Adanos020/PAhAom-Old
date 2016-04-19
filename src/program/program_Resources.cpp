@@ -22,6 +22,7 @@ namespace rr {
              && texture.player  .loadFromFile("data/graphics/player.png")
              && texture.items   .loadFromFile("data/graphics/items.png")
              && texture.tileset .loadFromFile("data/graphics/tileset.png")
+             && texture.objects .loadFromFile("data/graphics/objects.png")
              && texture.keyboard.loadFromFile("data/graphics/keyboard.png")
              && loadDict());
     }
@@ -48,10 +49,10 @@ namespace rr {
                 }
             }
             idict.close();
-            puts(">Done.");
+            std::cout << ">Done.\n";
             return true;
         }
-        puts("!Error loading the dictionary!");
+        std::cout << "!Error loading the dictionary!\n";
         return false;
     }
 

@@ -6,7 +6,7 @@
  */
 
 #include "gui.hpp"
-#include "../game/item/item.hpp"
+#include "../game/entities/item/item.hpp"
 #include "../funcs/items.hpp"
 #include "../program.hpp"
 

@@ -6,11 +6,9 @@
  */
 
 #include "game.hpp"
-#include "../funcs/files.hpp"
-#include "../funcs/items.hpp"
-#include <fstream>
 #include <cstdlib>
 #include <string>
+#include <iostream>
 
 extern rr::Settings settings;
 extern sf::Color    potionColors[9];
@@ -141,64 +139,22 @@ namespace rr {
         }
     }
 
-    void Game::generateWorld() {
-        const int width  = 78,
-                  height = 44; // size of the whole level
-
-        for (int l=0, tmap[width*height]; l<25; l++) {
-            for (int i=0; i<width*height; i++) {
-                if (i%width == 0 || (i+1)%width == 0 || i<width || i>width*(height-1))
-                    tmap[i] = 0; // 0 stands for a wall
-                else {
-                    tmap[i] = 1; // 1 stands for a floor
-
-                }
-            }
-
-            level[l] = new Level(sf::Vector2u(16, 16), tmap, sf::Vector2u(width, height));
-        }
-    }
-
-    void Game::placeObjects(const char* path) {
-        std::ifstream iobjects(path);
-        if (iobjects.good()) {
-            std::string buff;
-            while (iobjects >> buff) {
-                if (buff[0] == '#' || buff == "")
-                    std::getline(iobjects, buff);
-                else {
-                    try {
-                        if (buff == "item") {
-                            double id;
-                            int amount;
-                            readFile(iobjects, id);
-                            readFile(iobjects, amount);
-
-                            items.push_back(getItemFromID(id, amount));
-                            items.back()->setPosition(sf::Vector2f((rand()%76+1)*80, (rand()%42+1)*80));
-                        }
-                    }
-                    catch (...) {
-                    }
-                }
-            }
-        }
-    }
-
     bool Game::load() {
-        std::ifstream itilemap("data/savedgame/world.pah");
-        int tmap[220];
-        for (int i=0; i<220; i++)
-            itilemap >> tmap[i];
-        for (int i=0; i<25; i++)
-            level[i] = new Level(sf::Vector2u(16, 16), tmap, sf::Vector2u(20, 11));
+        for (int l=0; l<25; l++) {
+            level[l] = new Level();
+            level[l]->loadFromFile("data/savedgame/");
+        }
         return true;
     }
 
     bool Game::loadNewGame() {
-        generateWorld();
         randomizeItems();
-        placeObjects("data/savedgame/objects.pah");
+        for (int l=0; l<25; l++) {
+            level[l] = new Level();
+            level[l]->generateWorld();
+        }
+        start(true);
+        pause(false);
         return true;
     }
 
@@ -214,8 +170,7 @@ namespace rr {
         } else {
             rw.setView(gameView);
             rw.draw(*level[levelNumber]);
-            for (auto x : items)
-                x->draw(rw);
+            level[levelNumber]->drawObjects(rw);
             player->draw(rw);
 
             rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
@@ -232,11 +187,19 @@ namespace rr {
                 gameMap   ->draw(rw);
                 rw.setView(mapView);
                 rw.draw(*level[levelNumber]);
-                for (auto x : items)
-                    x ->draw(rw);
+                level[levelNumber]->drawObjects(rw);
                 player->draw(rw);
             }
         }
+    }
+
+    void Game::update(float timer) {
+        controls(timer);
+
+        player->update();
+        hud   ->update(player);
+
+        gameView.setCenter(player->getPosition()+sf::Vector2f(16, 16));
     }
 
     void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
@@ -254,15 +217,6 @@ namespace rr {
             quests    ->buttonEvents(rw, e, this);
         if (gameMap   ->isOpen())
             gameMap   ->buttonEvents(rw, e, this);
-    }
-
-    void Game::update(float timer) {
-        controls(timer);
-
-        player->update();
-        hud   ->update(player);
-
-        gameView.setCenter(player->getPosition());
     }
 
     void Game::start(bool b) {

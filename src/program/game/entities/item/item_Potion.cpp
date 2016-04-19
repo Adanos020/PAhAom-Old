@@ -5,8 +5,10 @@
  * Used compiler: GNU GCC
  */
 
+#include <iostream>
+
 #include "item_Potion.hpp"
-#include "../../program.hpp"
+#include "../../../program.hpp"
 
 extern rr::Resources resources;
 extern sf::Color     potionColors[9];
@@ -20,7 +22,7 @@ namespace rr {
         size       = s;
         disposable = true;
         discovered = false;
-        ID         = 1+size/10+effect/100;
+        ID         = 100 + size*10 + effect;
 
         int tu = (size+1)%20;
         int tv = (size+1)/20;

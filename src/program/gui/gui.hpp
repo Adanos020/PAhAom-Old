@@ -11,7 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "../funcs/funcs.hpp"
-#include "../game/item/item.hpp"
+#include "../game/entities/item/item.hpp"
 
 namespace rr {
 

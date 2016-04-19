@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/item/item.hpp
+ * @file src/program/game/entities/item/item.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -10,10 +10,12 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../entities.hpp"
+
 namespace rr {
 
 /// Class for an item
-    class Item {
+    class Item :public Entity {
     protected:
         sf::FloatRect   boundBox;
         sf::VertexArray body;
@@ -23,14 +25,11 @@ namespace rr {
         sf::String      requirements;
         bool            equipable;
         bool            disposable;
-        double          ID;
+        int             ID;
         int             amount;
     public:
     /// A virtual destructor
         virtual ~Item() {}
-
-    /// Method drawing the item's sprite
-        virtual void       draw          (sf::RenderWindow&) = 0;
 
     /// Updates the item's status
         virtual void       update        ()                  = 0;
@@ -46,7 +45,7 @@ namespace rr {
                                                             }
 
     /// Returns the item's ID
-        double             getID         ()                 { return ID; }
+        int                getID         ()                 { return ID; }
 
     /// Returns the amount of this item
         int                getAmount     ()                 { return amount; }

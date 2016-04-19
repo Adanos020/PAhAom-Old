@@ -5,8 +5,8 @@
  * Used compiler: GNU GCC
  */
 
-#ifndef program_h
-#define program_h
+#ifndef program_hpp
+#define program_hpp
 
 #include <SFML/Graphics.hpp>
 #include <map>
@@ -35,6 +35,7 @@ namespace rr {
             sf::Texture player;
             sf::Texture items;
             sf::Texture tileset;
+            sf::Texture objects;
             sf::Texture keyboard;
         } texture;
 

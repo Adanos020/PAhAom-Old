@@ -20,10 +20,10 @@ namespace rr {
 #define dict(x) dictionary[x]
 #define component(w, c, i) w->getComponent<c>(i)
 
-        wInve = new Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(725, 470), sf::Vector2f(settings.graphics.resolution.x/2-362.5, settings.graphics.resolution.y/2-225));
+        wInve = new Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), sf::Vector2f(settings.graphics.resolution.x/2-382.5f, settings.graphics.resolution.y/2-225));
             for (int i=0; i<8; i++) {
                 for (int j=0; j<4; j++) {
-                    wInve->addComponent(new Slot(sf::Vector2f(75, 75), sf::Vector2f(10+i*90, 30+j*90)), true);
+                    wInve->addComponent(new Slot(sf::Vector2f(80, 80), sf::Vector2f(10+i*95, 30+j*95)), true);
                 }
             }
             wInve->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);

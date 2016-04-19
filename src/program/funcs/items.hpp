@@ -8,14 +8,15 @@
 #ifndef item_funcs_h
 #define item_funcs_h
 
-#include "../game/item/item.hpp"
+#include <iostream>
+
+#include "../game/entities/item/item.hpp"
 
 namespace rr {
 
 /// Returns an instance of the Item class depending on the given ID and amount
-    inline Item* getItemFromID(double ID, int amount) {
-
-        switch ((int)(ID*100)) {
+    inline Item* getItemFromID(int ID, int amount) {
+        switch (ID) {
         /* POTIONS */
         case 100: return new Potion(Potion::Effect::HEALING     , Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
         case 110: return new Potion(Potion::Effect::HEALING     , Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;
@@ -54,7 +55,7 @@ namespace rr {
         case 128: return new Potion(Potion::Effect::WEAKNESS    , Potion::Size::BIG   , amount, sf::Vector2f(0, 0)); break;
 
         /*unknown ID?*/
-        default : return nullptr;
+        default : std::cout << "UNKNOWN ITEM ID" << '\n'; return nullptr;
         }
 
     }

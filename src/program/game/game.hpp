@@ -5,16 +5,16 @@
  * Used compiler: GNU GCC
  */
 
-#ifndef game_h
-#define game_h
+#ifndef game_hpp
+#define game_hpp
 
 #include <ctime>
 #include <vector>
 
-#include "item/item_Potion.hpp"
+#include "../program.hpp"
 #include "menus/menus.hpp"
 #include "player/player.hpp"
-#include "../program.hpp"
+#include "entities/entities.hpp"
 
 namespace rr {
 
@@ -53,9 +53,20 @@ namespace rr {
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
         sf::VertexArray m_vertices;
-        sf::VertexArray wall_collision_mask;
+
+        std::vector<Entity*> entities;
     public:
-        Level(sf::Vector2u tileSize, const int* tiles, sf::Vector2u mapSize);
+        Level();
+
+        void                generateWorld();
+        void                loadFromFile (const char* pathToFolder);
+
+        void                drawObjects  (sf::RenderWindow&);
+
+        void                addItem      (Item* , sf::Vector2f position);
+        void                addChest     (Chest*);
+
+        std::vector<Entity*>getItems     () const { return entities; }
     };
 
 /// Class for the game
@@ -73,16 +84,13 @@ namespace rr {
         HUD*                 hud;
         Level*               level[25];
         Player*              player;
-        std::vector<Item*>   items;
 
         bool                 started;
         bool                 paused;
         unsigned             levelNumber;
 
         void controls      (float);
-        void generateWorld ();
         void randomizeItems();
-        void placeObjects  (const char*);
     public:
          Game();
         ~Game();
