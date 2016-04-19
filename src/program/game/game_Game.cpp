@@ -11,7 +11,6 @@
 #include <fstream>
 #include <cstdlib>
 #include <string>
-#include <iostream>
 
 extern rr::Settings settings;
 extern sf::Color    potionColors[9];
@@ -19,23 +18,23 @@ extern sf::Color    potionColors[9];
 namespace rr {
 
     Game::Game() {
-        mainMenu   = new MainMenu  ();
-        pauseMenu  = new PauseMenu ();
-        attributes = new Attributes();
-        inventory  = new Inventory ();
-        quests     = new Quests    ();
-        gameMap    = new GameMap   ();
-        hud        = new HUD       ();
-        player     = new Player    (sf::Vector2f(0, 0));
-        tileMap    = new TileMap   ();
-
-        paused  = false;
-        started = false;
-
         gameView.setSize((sf::Vector2f)settings.graphics.resolution);
-        mapView .setCenter(0, 0);
-        mapView .setSize(4000*((float)settings.graphics.resolution.x/(float)settings.graphics.resolution.y), 4000);
+        mapView .setSize(3520*((float)settings.graphics.resolution.x/(float)settings.graphics.resolution.y), 3520);
+        mapView .setCenter(mapView.getSize()/2.f);
         mapView .setViewport(sf::FloatRect(0.125f, 0.125f, 0.75f, 0.75f));
+
+        mainMenu    = new MainMenu  ();
+        pauseMenu   = new PauseMenu ();
+        attributes  = new Attributes();
+        inventory   = new Inventory ();
+        quests      = new Quests    ();
+        gameMap     = new GameMap   ();
+        hud         = new HUD       ();
+        player      = new Player    (sf::Vector2f(mapView.getCenter()));
+
+        paused      = false;
+        started     = false;
+        levelNumber = 0;
     }
 
     Game::~Game() {
@@ -103,7 +102,7 @@ namespace rr {
             int pot[9];
             for (int i=0; i<9; i++) {
             hell:
-                int  x      = rand()%9;
+                int x = rand()%9;
                 for (int j=0; j<i; j++) {
                     if (pot[j] == x)
                         goto hell; // Literally, you fucking elitists
@@ -142,31 +141,69 @@ namespace rr {
         }
     }
 
+    void Game::generateWorld() {
+        const int width  = 78,
+                  height = 44; // size of the whole level
+
+        for (int l=0, tmap[width*height]; l<25; l++) {
+            for (int i=0; i<width*height; i++) {
+                if (i%width == 0 || (i+1)%width == 0 || i<width || i>width*(height-1))
+                    tmap[i] = 0; // 0 stands for a wall
+                else {
+                    tmap[i] = 1; // 1 stands for a floor
+
+                }
+            }
+
+            level[l] = new Level(sf::Vector2u(16, 16), tmap, sf::Vector2u(width, height));
+        }
+    }
+
     void Game::placeObjects(const char* path) {
         std::ifstream iobjects(path);
         if (iobjects.good()) {
             std::string buff;
             while (iobjects >> buff) {
-                if (buff[0] == '#' || buff == "") {
+                if (buff[0] == '#' || buff == "")
                     std::getline(iobjects, buff);
-                }
-                try {
-                    if (buff == "item") {
-                        double id;
-                        int amount, posx, posy;
-                        readFile(iobjects, id);
-                        readFile(iobjects, amount);
-                        readFile(iobjects, posx);
-                        readFile(iobjects, posy);
+                else {
+                    try {
+                        if (buff == "item") {
+                            double id;
+                            int amount;
+                            readFile(iobjects, id);
+                            readFile(iobjects, amount);
 
-                        items.push_back(getItemFromID(id, amount));
-                        items.back()->setPosition(sf::Vector2f(posx, posy));
+                            items.push_back(getItemFromID(id, amount));
+                            items.back()->setPosition(sf::Vector2f((rand()%76+1)*80, (rand()%42+1)*80));
+                        }
                     }
-                }
-                catch (...) {
+                    catch (...) {
+                    }
                 }
             }
         }
+    }
+
+    bool Game::load() {
+        std::ifstream itilemap("data/savedgame/world.pah");
+        int tmap[220];
+        for (int i=0; i<220; i++)
+            itilemap >> tmap[i];
+        for (int i=0; i<25; i++)
+            level[i] = new Level(sf::Vector2u(16, 16), tmap, sf::Vector2u(20, 11));
+        return true;
+    }
+
+    bool Game::loadNewGame() {
+        generateWorld();
+        randomizeItems();
+        placeObjects("data/savedgame/objects.pah");
+        return true;
+    }
+
+    void Game::save() {
+        // there's nothing to save yet
     }
 
     void Game::draw(sf::RenderWindow& rw) {
@@ -176,7 +213,7 @@ namespace rr {
             rw.setView(gameView);
         } else {
             rw.setView(gameView);
-            rw.draw(*tileMap);
+            rw.draw(*level[levelNumber]);
             for (auto x : items)
                 x->draw(rw);
             player->draw(rw);
@@ -194,7 +231,7 @@ namespace rr {
             if (gameMap   ->isOpen()) {
                 gameMap   ->draw(rw);
                 rw.setView(mapView);
-                rw.draw(*tileMap);
+                rw.draw(*level[levelNumber]);
                 for (auto x : items)
                     x ->draw(rw);
                 player->draw(rw);
@@ -222,7 +259,7 @@ namespace rr {
     void Game::update(float timer) {
         controls(timer);
 
-        player->update(      );
+        player->update();
         hud   ->update(player);
 
         gameView.setCenter(player->getPosition());
@@ -243,33 +280,6 @@ namespace rr {
             quests    ->close();
             gameMap   ->close();
         }
-    }
-
-    void Game::save() {
-        // there's nothing to save yet
-    }
-
-    bool Game::load() {
-        std::ifstream itilemap("data/savedgame/world.pah");
-        int tmap[220];
-        for (int i=0; i<220; i++)
-            itilemap >> tmap[i];
-        tileMap->load(sf::Vector2u(16, 16), tmap, sf::Vector2u(20, 11));
-
-        placeObjects("data/savedgame/objects.pah");
-        return true;
-    }
-
-    bool Game::loadNewGame() {
-        std::ifstream itilemap("data/newgame/world.pah");
-        int tmap[220];
-        for (int i=0; i<220; i++)
-            itilemap >> tmap[i];
-        tileMap->load(sf::Vector2u(16, 16), tmap, sf::Vector2u(20, 11));
-
-        randomizeItems();
-        placeObjects("data/newgame/objects.pah");
-        return true;
     }
 
     bool Game::isStarted() {

@@ -52,10 +52,11 @@ namespace rr {
         case 108: return new Potion(Potion::Effect::WEAKNESS    , Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
         case 118: return new Potion(Potion::Effect::WEAKNESS    , Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;
         case 128: return new Potion(Potion::Effect::WEAKNESS    , Potion::Size::BIG   , amount, sf::Vector2f(0, 0)); break;
-        }
 
         /*unknown ID?*/
-        return nullptr;
+        default : return nullptr;
+        }
+
     }
 
 }

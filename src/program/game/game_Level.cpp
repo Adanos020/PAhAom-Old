@@ -1,27 +1,37 @@
 /**
- * @file src/program/game/menus/game_TileMap.cpp
+ * @file src/program/game/menus/game_Level.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
  */
 
 #include "game.hpp"
+#include "../program.hpp"
+
+extern rr::Resources resources;
 
 namespace rr {
 
-    bool TileMap::load(sf::Vector2u tileSize, const int* tiles, sf::Vector2u mapSize) {
-        if (!m_tileset.loadFromFile("data/graphics/tileset.png"))
-            return false;
-
+    Level::Level(sf::Vector2u tileSize, const int* tiles, sf::Vector2u mapSize) {
         m_vertices.setPrimitiveType(sf::Quads);
         m_vertices.resize(mapSize.x*mapSize.y*4);
 
+        wall_collision_mask.setPrimitiveType(sf::Points);
+        wall_collision_mask.resize(4);
+
         for (unsigned int i=0; i<mapSize.x; ++i) {
             for (unsigned int j=0; j<mapSize.y; ++j) {
-                int tileNumber = tiles[i+j*mapSize.x];
+                int tileNumber;
+                if      (tiles[i+j*mapSize.x] == 0) {
+                    tileNumber = rand()%2+1;
+                }
+                else if (tiles[i+j*mapSize.x] == 1) {
+                    tileNumber = rand()%5+10;
+                }
 
-                int tu = tileNumber%(m_tileset.getSize().x/tileSize.x);
-                int tv = tileNumber/(m_tileset.getSize().x/tileSize.x);
+
+                int tu = tileNumber%(resources.texture.tileset.getSize().x/tileSize.x);
+                int tv = tileNumber/(resources.texture.tileset.getSize().y/tileSize.y);
 
                 sf::Vertex* quad = &m_vertices[(i+j*mapSize.x)*4];
 
@@ -36,12 +46,11 @@ namespace rr {
                 quad[3].texCoords = sf::Vector2f(  tu  *tileSize.x+0.03125f, (tv+1)*tileSize.y-0.03125f);
             }
         }
-        return true;
     }
 
-    void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         states.transform *= getTransform();
-        states.texture = &m_tileset;
+        states.texture = &resources.texture.tileset;
         target.draw(m_vertices, states);
     }
 

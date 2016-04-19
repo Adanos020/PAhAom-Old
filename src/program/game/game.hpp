@@ -47,14 +47,15 @@ namespace rr {
         void draw        (sf::RenderWindow&);
     };
 
-    class TileMap : public sf::Drawable, public sf::Transformable {
-    public:
-        bool load(sf::Vector2u tileSize, const int* tiles, sf::Vector2u mapSize);
+/// Class for the tile map
+    class Level : public sf::Drawable, public sf::Transformable {
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
         sf::VertexArray m_vertices;
-        sf::Texture m_tileset;
+        sf::VertexArray wall_collision_mask;
+    public:
+        Level(sf::Vector2u tileSize, const int* tiles, sf::Vector2u mapSize);
     };
 
 /// Class for the game
@@ -70,14 +71,16 @@ namespace rr {
         Quests*              quests;
         GameMap*             gameMap;
         HUD*                 hud;
-        TileMap*             tileMap;
+        Level*               level[25];
         Player*              player;
         std::vector<Item*>   items;
 
         bool                 started;
         bool                 paused;
+        unsigned             levelNumber;
 
         void controls      (float);
+        void generateWorld ();
         void randomizeItems();
         void placeObjects  (const char*);
     public:
