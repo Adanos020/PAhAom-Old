@@ -25,7 +25,7 @@ namespace rr {
             REGULAR,
             SPECIAL
         } type;
-         Chest(sf::Vector2f position, Type t, Item*);
+         Chest(Type t, Item*);
         ~Chest();
 
         void  setPosition(sf::Vector2f)      override;

@@ -12,7 +12,7 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Chest::Chest(sf::Vector2f position, Type t, Item* i) {
+    Chest::Chest(Type t, Item* i) {
         item = i;
         type = t;
 
@@ -29,11 +29,10 @@ namespace rr {
         body.setTextureRect(sf::IntRect(tu*16, tv*16, 16, 16));
         body.setTexture(resources.texture.objects);
         body.setScale(sf::Vector2f(5.f, 5.f));
-        body.setPosition(position);
     }
 
     Chest::~Chest() {
-        //delete item;
+        delete item;
     }
 
     void Chest::setPosition(sf::Vector2f pos) {

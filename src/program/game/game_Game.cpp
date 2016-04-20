@@ -141,8 +141,8 @@ namespace rr {
 
     bool Game::load() {
         for (int l=0; l<25; l++) {
-            level[l] = new Level();
-            level[l]->loadFromFile("data/savedgame/");
+            level.push_back(new Level());
+            level.back()->loadFromFile("data/savedgame/");
         }
         return true;
     }
@@ -150,8 +150,8 @@ namespace rr {
     bool Game::loadNewGame() {
         randomizeItems();
         for (int l=0; l<25; l++) {
-            level[l] = new Level();
-            level[l]->generateWorld();
+            level.push_back(new Level());
+            level.back()->generateWorld();
         }
         start(true);
         pause(false);

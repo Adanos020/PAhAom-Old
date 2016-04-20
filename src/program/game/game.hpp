@@ -48,25 +48,24 @@ namespace rr {
     };
 
 /// Class for the tile map
-    class Level : public sf::Drawable, public sf::Transformable {
+    class Level :public sf::Drawable, public sf::Transformable {
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
         sf::VertexArray m_vertices;
+        sf::VertexArray grid;
 
         std::vector<Entity*> entities;
     public:
-        Level();
+         Level();
+        ~Level();
 
-        void                generateWorld();
-        void                loadFromFile (const char* pathToFolder);
+        void                 generateWorld();
+        void                 loadFromFile (const char* pathToFolder);
+        void                 drawObjects  (sf::RenderWindow&) const;
+        void                 addEntity    (Entity*, sf::Vector2f position);
 
-        void                drawObjects  (sf::RenderWindow&);
-
-        void                addItem      (Item* , sf::Vector2f position);
-        void                addChest     (Chest*);
-
-        std::vector<Entity*>getItems     () const { return entities; }
+        std::vector<Entity*> getEntities  () const { return entities; }
     };
 
 /// Class for the game
@@ -82,7 +81,7 @@ namespace rr {
         Quests*              quests;
         GameMap*             gameMap;
         HUD*                 hud;
-        Level*               level[25];
+        std::vector<Level*>  level;
         Player*              player;
 
         bool                 started;

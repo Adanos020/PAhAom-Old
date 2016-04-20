@@ -27,7 +27,7 @@ namespace rr {
                 }
             }
             wInve->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
-            component(wInve, Button, 0)->setPosition(sf::Vector2f(wInve->getPosition().x+wInve->getSize().x-component(wInve, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+225-component(wInve, Button, 0)->getSize().y-5));
+            component(wInve, Button, 0)->setPosition(sf::Vector2f(wInve->getPosition().x+wInve->getSize().x-component(wInve, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(wInve, Button, 0)->getSize().y-5));
         wInve->setVisible(false);
 
 #undef dict
