@@ -17,9 +17,9 @@ namespace rr {
 
     Game::Game() {
         gameView.setSize((sf::Vector2f)settings.graphics.resolution);
-        mapView .setSize(3440.5f*((float)settings.graphics.resolution.x/(float)settings.graphics.resolution.y), 3440);
+        mapView .setSize(6160, 3440);
         mapView .setCenter(mapView.getSize()/2.f);
-        mapView .setViewport(sf::FloatRect(0.125f, 0.125f, 0.75f, 0.75f));
+        mapView .setViewport(sf::FloatRect(0.125f, 0.125f, 0.77f, 0.745f));
 
         mainMenu    = new MainMenu  ();
         pauseMenu   = new PauseMenu ();
