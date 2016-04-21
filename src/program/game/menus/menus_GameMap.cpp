@@ -19,7 +19,7 @@ namespace rr {
 
 #define component(w, c, i) w->getComponent<c>(i)
 
-        wGmap = new Window(resources.dictionary["gui.window.game_map"], sf::Vector2f(settings.graphics.resolution.x*0.75-3, settings.graphics.resolution.y*0.75+75),
+        wGmap = new Window(resources.dictionary["gui.window.game_map"], sf::Vector2f(settings.graphics.resolution.x*0.75, settings.graphics.resolution.y*0.75+77),
                                                                         sf::Vector2f(settings.graphics.resolution.x/8, settings.graphics.resolution.y/8-25));
             wGmap->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
             component(wGmap, Button, 0)->setPosition(sf::Vector2f(wGmap->getPosition().x+wGmap->getSize().x/2-component(wGmap, Button, 0)->getSize().x/2,

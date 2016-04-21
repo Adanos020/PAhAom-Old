@@ -17,7 +17,7 @@ namespace rr {
 
     Game::Game() {
         gameView.setSize((sf::Vector2f)settings.graphics.resolution);
-        mapView .setSize(3520*((float)settings.graphics.resolution.x/(float)settings.graphics.resolution.y), 3520);
+        mapView .setSize(3440.5f*((float)settings.graphics.resolution.x/(float)settings.graphics.resolution.y), 3440);
         mapView .setCenter(mapView.getSize()/2.f);
         mapView .setViewport(sf::FloatRect(0.125f, 0.125f, 0.75f, 0.75f));
 
@@ -141,8 +141,9 @@ namespace rr {
 
     bool Game::load() {
         for (int l=0; l<25; l++) {
-            level.push_back(new Level());
-            level.back()->loadFromFile("data/savedgame/");
+            level.push_back(new Level(sf::Vector2i(77, 43)));
+            if (!level.back()->loadFromFile("data/savedgame/"))
+                return false;
         }
         return true;
     }
@@ -150,7 +151,7 @@ namespace rr {
     bool Game::loadNewGame() {
         randomizeItems();
         for (int l=0; l<25; l++) {
-            level.push_back(new Level());
+            level.push_back(new Level(sf::Vector2i(77, 43)));
             level.back()->generateWorld();
         }
         start(true);

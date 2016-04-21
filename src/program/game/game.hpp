@@ -54,14 +54,17 @@ namespace rr {
 
         sf::VertexArray m_vertices;
         sf::VertexArray grid;
+        sf::Vector2i    size;
 
         std::vector<Entity*> entities;
     public:
-         Level();
+         Level(sf::Vector2i levelSize);
         ~Level();
 
+        void                 mazeDigger   (int maze[][43], int, int);
+        int*                 genDirections(int num);
         void                 generateWorld();
-        void                 loadFromFile (const char* pathToFolder);
+        bool                 loadFromFile (const char* pathToFolder);
         void                 drawObjects  (sf::RenderWindow&) const;
         void                 addEntity    (Entity*, sf::Vector2f position);
 
@@ -88,7 +91,10 @@ namespace rr {
         bool                 paused;
         unsigned             levelNumber;
 
+    /// Method for the keyboard controls
         void controls      (float);
+
+    /// Method randomizing the disposable items' colors/symbols
         void randomizeItems();
     public:
          Game();

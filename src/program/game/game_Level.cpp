@@ -14,12 +14,13 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Level::Level() {
+    Level::Level(sf::Vector2i levelSize) {
+        size = levelSize;
         m_vertices.setPrimitiveType(sf::Quads);
-        m_vertices.resize(13728);
+        m_vertices.resize(size.x*size.y*4);
 
         grid.setPrimitiveType(sf::Points);
-        grid.resize(3432);
+        grid.resize(size.x*size.y);
     }
 
     Level::~Level() {
@@ -44,54 +45,135 @@ namespace rr {
             x->draw(rw);
     }
 
+    int* Level::genDirections(int num) {
+        int* directions = new int[num];
+        for (int i=0; i<num; i++) {
+            directions[i] = rand()%4+1;
+        }
+        return directions;
+    }
+
+    void Level::mazeDigger(int maze[][43], int r, int c) {
+    // at this point we generate an array of random directions
+        int number = rand()%100+100;
+        int* directions = genDirections(number);
+
+        for (int i = 0; i<number; i++) {
+            switch(directions[i]) {
+            case 1: // Up
+                if (r-2 <= 0)
+                    continue;
+                if (maze[r-2][c] != 2) {
+                    maze[r-2][c] = 2;
+                    maze[r-1][c] = 2;
+                    mazeDigger(maze, r-2, c);
+                }
+                break;
+            case 2: // Right
+                if (c+2 >= size.y-1)
+                    continue;
+                if (maze[r][c+2] != 2) {
+                    maze[r][c+2]  = 2;
+                    maze[r][c+1]  = 2;
+                    mazeDigger(maze, r, c+2);
+                }
+                break;
+            case 3: // Down
+                if (r+2 >= size.x-1)
+                    continue;
+                if (maze[r+2][c] != 2) {
+                    maze[r+2][c]  = 2;
+                    maze[r+1][c]  = 2;
+                    mazeDigger(maze, r+2, c);
+                }
+                break;
+            case 4: // Left
+                if (c-2 <= 0)
+                    continue;
+                if (maze[r][c-2] != 2) {
+                    maze[r][c-2]  = 2;
+                    maze[r][c-1]  = 2;
+                    mazeDigger(maze, r, c-2);
+                }
+                break;
+            }
+        }
+    }
+
     void Level::generateWorld() {
         /* generate the tile map */ {
-            int tiles[3432];
-            for (int i=0; i<3432; i++) {
-                if (i%78 == 0 || (i+1)%78 == 0 || i<78 || i>3354)
-                    tiles[i] = 1;
-                else {
-                    tiles[i] = (rand()%250)?2:0;
+         // GENERATING A MAZE
+         // first we create an 2-dimensional array filled with 1's representing a wall
+            int tiles[77][43];
+
+            for (int i=0; i<size.x; i++)
+                for (int j=0; j<size.y; j++)
+                    tiles[i][j] = 1;
+         // then we pick a random cell with an odd number to be our starting point
+            int row = rand()%((int)size.y/2)*2+1;
+            int col = rand()%((int)size.x/2)*2+1;
+            tiles[row][col] = 2;
+         // now this point we start digging a maze with a recursive method
+            mazeDigger(tiles, row, col);
+
+         // GENERATING A GRID
+            for (int i=0; i<size.x; i++) {
+                for (int j=0; j<size.y; j++) {
+                    int cell = i+j*size.x;
+                    grid[cell].position = sf::Vector2f(i*80, j*80);
+                    switch (tiles[i][j]) {
+                         // giving the grid points a color to distinguish whether a cell is a wall/floor/chasm
+                    case 0: grid[cell].color = sf::Color::Black; break; // black cell means there is a chasm
+                    case 1: grid[cell].color = sf::Color::White; break; // white stands for a wall
+                    case 2: grid[cell].color = sf::Color::Green; break; // and green represents the floor
+                    }
                 }
             }
 
-            for (unsigned int i=0; i<78; ++i) {
-                for (unsigned int j=0; j<44; ++j) {
+         // TURNING A MAZE INTO A TILE MAP
+            for (int i=0; i<size.x; ++i) {
+                for (int j=0; j<size.y; ++j) {
                     int tileNumber;
 
-                    switch (tiles[i+j*78]) {        // giving the grid points a color to distinguish whether a cell is a wall/floor/chasm
-                    case 0: tileNumber = 0           ; grid[i+j*78].color = sf::Color::Black; break; // black cell means there is a chasm
-                    case 1: tileNumber = rand()%14+1 ; grid[i+j*78].color = sf::Color::White; break; // white stands for a wall
-                    case 2: tileNumber = rand()%10+15; grid[i+j*78].color = sf::Color::Blue ; break; // and blue represents the floor
+                 // assigning an appropriate tile number to a given cell
+                    switch (tiles[i][j]) {
+                         // chasm
+                    case 0: tileNumber = 0 ; break;
+                         // wall
+                    case 1:
+                        tileNumber = rand()%14+2;
+                        break;
+                         // floor
+                    case 2: tileNumber = 64; break;
                     }
 
                     int tu = tileNumber%(resources.texture.tileset.getSize().x/16);
                     int tv = tileNumber/(resources.texture.tileset.getSize().y/16);
 
-                    sf::Vertex* quad = &m_vertices[(i+j*78)*4];
+                    sf::Vertex* quad = &m_vertices[(i+j*size.x)*4];
 
                     quad[0].position = sf::Vector2f(  i  *80,   j  *80);
                     quad[1].position = sf::Vector2f((i+1)*80,   j  *80);
                     quad[2].position = sf::Vector2f((i+1)*80, (j+1)*80);
                     quad[3].position = sf::Vector2f(  i  *80, (j+1)*80);
 
-                    quad[0].texCoords = sf::Vector2f(  tu  *16+0.03125f,   tv  *16+0.03125f);
-                    quad[1].texCoords = sf::Vector2f((tu+1)*16-0.03125f,   tv  *16+0.03125f);
-                    quad[2].texCoords = sf::Vector2f((tu+1)*16-0.03125f, (tv+1)*16-0.03125f);
-                    quad[3].texCoords = sf::Vector2f(  tu  *16+0.03125f, (tv+1)*16-0.03125f);
-
-                    grid[i+j*78].position = sf::Vector2f(i*80, j*80);
+                    quad[0].texCoords = sf::Vector2f(  tu  *16+0.0625f,   tv  *16+0.0625f);
+                    quad[1].texCoords = sf::Vector2f((tu+1)*16-0.0625f,   tv  *16+0.0625f);
+                    quad[2].texCoords = sf::Vector2f((tu+1)*16-0.0625f, (tv+1)*16-0.0625f);
+                    quad[3].texCoords = sf::Vector2f(  tu  *16+0.0625f, (tv+1)*16-0.0625f);
                 }
             }
         }
 
+        #if 1
         /* generate the objects */ {
-            // here we generate the items
-            for (int i=0; i<20; i++) {
+         // here we generate the items
+            for (int i=0; i<25; i++) {
                 while (true) {
-                    int x=rand()%3432;
-                    // now we use the cell's color to distinguish which type of tile is in a randomised cell
-                    if (grid[x].color == sf::Color::Blue && grid[x].color != sf::Color::Cyan) {
+                    int x=rand()%(size.x*size.y);
+                 // now we use the cell's color to distinguish which type of tile is in a randomised cell
+                 // - if the cell is green (floor) and not cyan (occupied) then you can place an item on it
+                    if (grid[x].color == sf::Color::Green && grid[x].color != sf::Color::Cyan) {
                         addEntity(getItemFromID(100 + (rand()%3)*10 + rand()%9, 1), grid[x].position);
                         grid[x].color = sf::Color::Cyan; // cyan means that the cell is occupied by an object
                         break;
@@ -101,19 +183,23 @@ namespace rr {
             // here we generate the chests
             for (int i=0; i<15; i++) {
                 while (true) {
-                    int x=rand()%3432;
-                    if (grid[x].color == sf::Color::Blue && grid[x].color != sf::Color::Cyan) {
-                        addEntity(new Chest((rand()%20)?Chest::REGULAR:Chest::SPECIAL, getItemFromID(100+(rand()%3)*10+rand()%9, 1)), grid[x].position);
+                    int x=rand()%(size.x*size.y);
+                    // just doing the same checking as in the item generating section
+                    if (grid[x].color == sf::Color::Green && grid[x].color != sf::Color::Cyan) {
+                        // here we choose randomly whether the chest has to be the special (probability = 5%) or the regular one (p = 95%)
+                        addEntity(new Chest((rand()%20)?Chest::REGULAR:Chest::SPECIAL,
+                                            getItemFromID(100+(rand()%3)*10+rand()%9, 1)), grid[x].position);
                         grid[x].color = sf::Color::Cyan;
                         break;
                     }
                 }
             }
         }
+        #endif // 0
     }
 
-    void Level::loadFromFile(const char*) {
-
+    bool Level::loadFromFile(const char*) {
+        return true;
     }
 
 }
