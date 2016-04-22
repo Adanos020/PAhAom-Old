@@ -61,7 +61,7 @@ namespace rr {
          Level(sf::Vector2i levelSize);
         ~Level();
 
-        void                 mazeDigger   (int maze[][43], int, int);
+        void                 mazeDigger   (int** maze, int, int);
         int*                 genDirections(int num);
         void                 generateWorld();
         bool                 loadFromFile (const char* pathToFolder);

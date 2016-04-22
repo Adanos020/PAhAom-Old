@@ -17,6 +17,10 @@ namespace rr {
 /// Returns an instance of the Item class depending on the given ID and amount
     inline Item* getItemFromID(int ID, int amount) {
         switch (ID) {
+        /* CASH */
+        case 1  : return new Cash  (Cash::BRONZE, amount, sf::Vector2f(0, 0)); break;
+        case 2  : return new Cash  (Cash::SILVER, amount, sf::Vector2f(0, 0)); break;
+        case 3  : return new Cash  (Cash::GOLDEN, amount, sf::Vector2f(0, 0)); break;
         /* POTIONS */
         case 100: return new Potion(Potion::Effect::HEALING     , Potion::Size::SMALL , amount, sf::Vector2f(0, 0)); break;
         case 110: return new Potion(Potion::Effect::HEALING     , Potion::Size::MEDIUM, amount, sf::Vector2f(0, 0)); break;

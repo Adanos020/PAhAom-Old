@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/item/potion.hpp
+ * @file src/program/game/item/item_Potion.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -13,6 +13,7 @@
 namespace rr {
 
     class Potion :public Discoverable, public Item {
+    private:
     public:
         enum Effect {
             HEALING,
@@ -34,9 +35,11 @@ namespace rr {
          Potion(Effect, Size, int am, sf::Vector2f pos = sf::Vector2f(0, 0));
         ~Potion();
 
-        virtual void draw      (sf::RenderWindow&) override;
-        virtual void update    ()                  override;
-        virtual void reveal    ()                  override;
+        virtual void draw       (sf::RenderWindow&) override;
+        virtual void update     ()                  override;
+        virtual void reveal     ()                  override;
+
+        void         setPosition(sf::Vector2f)      override;
     };
 
 }

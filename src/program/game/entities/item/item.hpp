@@ -39,9 +39,9 @@ namespace rr {
 
     /// Sets the item's position
         void               setPosition   (sf::Vector2f pos) { body[0].position = pos;
-                                                              body[1].position = sf::Vector2f(pos.x+60, pos.y);
-                                                              body[2].position = sf::Vector2f(pos.x+60, pos.y+60);
-                                                              body[3].position = sf::Vector2f(pos.x   , pos.y+60);
+                                                              body[1].position = sf::Vector2f(pos.x+80, pos.y);
+                                                              body[2].position = sf::Vector2f(pos.x+80, pos.y+80);
+                                                              body[3].position = sf::Vector2f(pos.x   , pos.y+80);
                                                             }
 
     /// Returns the item's ID
@@ -79,6 +79,7 @@ namespace rr {
 
 }
 
+#include "item_Book.hpp"
 #include "item_Cash.hpp"
 #include "item_ColdWeapon.hpp"
 #include "item_Food.hpp"

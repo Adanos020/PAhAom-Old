@@ -140,7 +140,7 @@ namespace rr {
     }
 
     bool Game::load() {
-        for (int l=0; l<25; l++) {
+        for (int l=0; l<1; l++) {
             level.push_back(new Level(sf::Vector2i(77, 43)));
             if (!level.back()->loadFromFile("data/savedgame/"))
                 return false;
@@ -150,7 +150,7 @@ namespace rr {
 
     bool Game::loadNewGame() {
         randomizeItems();
-        for (int l=0; l<25; l++) {
+        for (int l=0; l<1; l++) {
             level.push_back(new Level(sf::Vector2i(77, 43)));
             level.back()->generateWorld();
         }

@@ -53,14 +53,14 @@ namespace rr {
         return directions;
     }
 
-    void Level::mazeDigger(int maze[][43], int r, int c) {
-    // at this point we generate an array of random directions
+    void Level::mazeDigger(int** maze, int r, int c) {
+     // at this point we generate an array of random directions
         int number = rand()%100+100;
         int* directions = genDirections(number);
-
+     // and now let's start digging
         for (int i = 0; i<number; i++) {
             switch(directions[i]) {
-            case 1: // Up
+            case 1:
                 if (r-2 <= 0)
                     continue;
                 if (maze[r-2][c] != 2) {
@@ -69,7 +69,7 @@ namespace rr {
                     mazeDigger(maze, r-2, c);
                 }
                 break;
-            case 2: // Right
+            case 2:
                 if (c+2 >= size.y-1)
                     continue;
                 if (maze[r][c+2] != 2) {
@@ -78,7 +78,7 @@ namespace rr {
                     mazeDigger(maze, r, c+2);
                 }
                 break;
-            case 3: // Down
+            case 3:
                 if (r+2 >= size.x-1)
                     continue;
                 if (maze[r+2][c] != 2) {
@@ -87,7 +87,7 @@ namespace rr {
                     mazeDigger(maze, r+2, c);
                 }
                 break;
-            case 4: // Left
+            case 4:
                 if (c-2 <= 0)
                     continue;
                 if (maze[r][c-2] != 2) {
@@ -104,7 +104,9 @@ namespace rr {
         /* generate the tile map */ {
          // GENERATING A MAZE
          // first we create an 2-dimensional array filled with 1's representing a wall
-            int tiles[77][43];
+            int** tiles = new int*[size.x];
+            for (int i=0; i<size.x; i++)
+                tiles[i] = new int[size.y];
 
             for (int i=0; i<size.x; i++)
                 for (int j=0; j<size.y; j++)
@@ -137,14 +139,55 @@ namespace rr {
 
                  // assigning an appropriate tile number to a given cell
                     switch (tiles[i][j]) {
-                         // chasm
+                 // chasm
                     case 0: tileNumber = 0 ; break;
-                         // wall
+                 // wall
                     case 1:
                         tileNumber = rand()%14+2;
+                        enum Neighbour {
+                            NONE,
+                            TOP, BOTTOM, LEFT, RIGHT,
+                            TOP_BOTTOM, TOP_LEFT, TOP_RIGHT, LEFT_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT,
+                            NO_TOP, NO_RIGHT, NO_LEFT, NO_BOTTOM,
+                            ALL
+                        };
+                        if ((i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] == 1) && (j>0 && tiles[i][j-1] == 1) && (j<size.y-1 && tiles[i][j+1] == 1))
+                            tileNumber += Neighbour::ALL*16;
+
+                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] != 1))
+                            tileNumber += Neighbour::NO_TOP*16;
+                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] != 1))
+                            tileNumber += Neighbour::NO_BOTTOM*16;
+                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] != 1))
+                            tileNumber += Neighbour::NO_LEFT*16;
+                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] == 1))
+                            tileNumber += Neighbour::NO_RIGHT*16;
+
+                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] != 1))
+                            tileNumber += Neighbour::LEFT_RIGHT*16;
+                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] != 1))
+                            tileNumber += Neighbour::BOTTOM_RIGHT*16;
+                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] == 1))
+                            tileNumber += Neighbour::BOTTOM_LEFT*16;
+                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] == 1))
+                            tileNumber += Neighbour::TOP_BOTTOM*16;
+                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] != 1))
+                            tileNumber += Neighbour::TOP_RIGHT*16;
+                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] == 1))
+                            tileNumber += Neighbour::TOP_LEFT*16;
+
+                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] == 1))
+                            tileNumber += Neighbour::TOP*16;
+                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] == 1))
+                            tileNumber += Neighbour::BOTTOM*16;
+                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] == 1))
+                            tileNumber += Neighbour::LEFT*16;
+                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] != 1))
+                            tileNumber += Neighbour::RIGHT*16;
+
                         break;
-                         // floor
-                    case 2: tileNumber = 64; break;
+                 // floor
+                    case 2: tileNumber = 32; break;
                     }
 
                     int tu = tileNumber%(resources.texture.tileset.getSize().x/16);
@@ -168,7 +211,7 @@ namespace rr {
         #if 1
         /* generate the objects */ {
          // here we generate the items
-            for (int i=0; i<25; i++) {
+            for (int i=0; i<rand()%10; i++) {
                 while (true) {
                     int x=rand()%(size.x*size.y);
                  // now we use the cell's color to distinguish which type of tile is in a randomised cell
@@ -180,8 +223,8 @@ namespace rr {
                     }
                 }
             }
-            // here we generate the chests
-            for (int i=0; i<15; i++) {
+         // here we generate the chests
+            for (int i=0; i<rand()%5; i++) {
                 while (true) {
                     int x=rand()%(size.x*size.y);
                     // just doing the same checking as in the item generating section
@@ -189,6 +232,19 @@ namespace rr {
                         // here we choose randomly whether the chest has to be the special (probability = 5%) or the regular one (p = 95%)
                         addEntity(new Chest((rand()%20)?Chest::REGULAR:Chest::SPECIAL,
                                             getItemFromID(100+(rand()%3)*10+rand()%9, 1)), grid[x].position);
+                        grid[x].color = sf::Color::Cyan;
+                        break;
+                    }
+                }
+            }
+         // here we generate the cash
+            for (int i=0; i<15; i++) {
+                while (true) {
+                    int x=rand()%(size.x*size.y);
+                    // same story here
+                    if (grid[x].color == sf::Color::Green && grid[x].color != sf::Color::Cyan) {
+                        // here we choose randomly the type of a coin
+                        addEntity(getItemFromID(rand()%3+1, rand()%100), grid[x].position);
                         grid[x].color = sf::Color::Cyan;
                         break;
                     }

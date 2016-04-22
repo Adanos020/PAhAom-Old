@@ -5,8 +5,6 @@
  * Used compiler: GNU GCC
  */
 
-#include <iostream>
-
 #include "item_Potion.hpp"
 #include "../../../program.hpp"
 
@@ -24,26 +22,38 @@ namespace rr {
         discovered = false;
         ID         = 100 + size*10 + effect;
 
-        int tu = (size+1)%20;
-        int tv = (size+1)/20;
+        int tu = (size+1)%16;
+        int tv = (size+1)/16;
 
-        body.resize(4);
+        body.resize(8);
         body.setPrimitiveType(sf::Quads);
 
-        body[0].position = pos;
-        body[1].position = sf::Vector2f(pos.x+70, pos.y);
-        body[2].position = sf::Vector2f(pos.x+70, pos.y+70);
-        body[3].position = sf::Vector2f(pos.x   , pos.y+70);
+     // setting the vertices of the flask
+        body[0].position  = pos;
+        body[1].position  = sf::Vector2f(pos.x+80, pos.y);
+        body[2].position  = sf::Vector2f(pos.x+80, pos.y+80);
+        body[3].position  = sf::Vector2f(pos.x   , pos.y+80);
 
-        body[0].texCoords = sf::Vector2f(  tu  *14+0.03125f,   tv  *14+0.03125f);
-        body[1].texCoords = sf::Vector2f((tu+1)*14-0.03125f,   tv  *14+0.03125f);
-        body[2].texCoords = sf::Vector2f((tu+1)*14-0.03125f, (tv+1)*14-0.03125f);
-        body[3].texCoords = sf::Vector2f(  tu  *14+0.03125f, (tv+1)*14-0.03125f);
+        body[0].texCoords = sf::Vector2f(  tu  *16+0.03125f,   tv  *16+0.03125f);
+        body[1].texCoords = sf::Vector2f((tu+1)*16-0.03125f,   tv  *16+0.03125f);
+        body[2].texCoords = sf::Vector2f((tu+1)*16-0.03125f, (tv+1)*16-0.03125f);
+        body[3].texCoords = sf::Vector2f(  tu  *16+0.03125f, (tv+1)*16-0.03125f);
 
-        body[0].color = sf::Color::White;
-        body[1].color = sf::Color::White;
-        body[2].color = potionColors[effect];
-        body[3].color = potionColors[effect];
+     // setting the vertices of the liquid
+        body[4].position  = body[0].position;
+        body[5].position  = body[1].position;
+        body[6].position  = body[2].position;
+        body[7].position  = body[3].position;
+
+        body[4].texCoords = body[0].texCoords+sf::Vector2f(0, 16);
+        body[5].texCoords = body[1].texCoords+sf::Vector2f(0, 16);
+        body[6].texCoords = body[2].texCoords+sf::Vector2f(0, 16);
+        body[7].texCoords = body[3].texCoords+sf::Vector2f(0, 16);
+
+        body[4].color     = potionColors[effect];
+        body[5].color     = potionColors[effect];
+        body[6].color     = potionColors[effect];
+        body[7].color     = potionColors[effect];
     }
 
     Potion::~Potion() {}
@@ -57,7 +67,19 @@ namespace rr {
     }
 
     void Potion::update() {
-        boundBox = sf::FloatRect(body[0].position.x, body[0].position.y, 14, 14);
+        boundBox = sf::FloatRect(body[0].position.x, body[0].position.y, 16, 16);
+    }
+
+    void Potion::setPosition(sf::Vector2f pos) {
+        body[0].position = pos;
+        body[1].position = sf::Vector2f(pos.x+80, pos.y   );
+        body[2].position = sf::Vector2f(pos.x+80, pos.y+80);
+        body[3].position = sf::Vector2f(pos.x   , pos.y+80);
+
+        body[4].position = body[0].position;
+        body[5].position = body[1].position;
+        body[6].position = body[2].position;
+        body[7].position = body[3].position;
     }
 
 }
