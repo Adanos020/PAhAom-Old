@@ -58,10 +58,10 @@ namespace rr {
 
         std::vector<Entity*> entities;
     public:
-         Level(sf::Vector2i levelSize);
+         Level();
         ~Level();
 
-        void                 mazeDigger   (int** maze, int, int);
+        void                 mazeDigger   (int maze[][43], int, int);
         int*                 genDirections(int num);
         void                 generateWorld();
         bool                 loadFromFile (const char* pathToFolder);

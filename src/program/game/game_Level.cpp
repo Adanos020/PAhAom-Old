@@ -14,8 +14,8 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Level::Level(sf::Vector2i levelSize) {
-        size = levelSize;
+    Level::Level() {
+        size = sf::Vector2i(77, 43);
         m_vertices.setPrimitiveType(sf::Quads);
         m_vertices.resize(size.x*size.y*4);
 
@@ -53,7 +53,7 @@ namespace rr {
         return directions;
     }
 
-    void Level::mazeDigger(int** maze, int r, int c) {
+    void Level::mazeDigger(int maze[][43], int r, int c) {
      // at this point we generate an array of random directions
         int number = rand()%100+100;
         int* directions = genDirections(number);
@@ -104,9 +104,7 @@ namespace rr {
         /* generate the tile map */ {
          // GENERATING A MAZE
          // first we create an 2-dimensional array filled with 1's representing a wall
-            int** tiles = new int*[size.x];
-            for (int i=0; i<size.x; i++)
-                tiles[i] = new int[size.y];
+            int tiles[77][43];
 
             for (int i=0; i<size.x; i++)
                 for (int j=0; j<size.y; j++)
@@ -151,7 +149,7 @@ namespace rr {
                             NO_TOP, NO_RIGHT, NO_LEFT, NO_BOTTOM,
                             ALL
                         };
-                        if ((i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] == 1) && (j>0 && tiles[i][j-1] == 1) && (j<size.y-1 && tiles[i][j+1] == 1))
+                        if ((i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] != 1) && (j>0 && tiles[i][j-1] != 1) && (j<size.y-1 && tiles[i][j+1] != 1))
                             tileNumber += Neighbour::ALL*16;
 
                         else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] != 1))
@@ -238,7 +236,7 @@ namespace rr {
                 }
             }
          // here we generate the cash
-            for (int i=0; i<15; i++) {
+            for (int i=0; i<rand()%15; i++) {
                 while (true) {
                     int x=rand()%(size.x*size.y);
                     // same story here

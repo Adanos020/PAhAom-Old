@@ -140,8 +140,8 @@ namespace rr {
     }
 
     bool Game::load() {
-        for (int l=0; l<1; l++) {
-            level.push_back(new Level(sf::Vector2i(77, 43)));
+        for (int l=0; l<5; l++) {
+            level.push_back(new Level());
             if (!level.back()->loadFromFile("data/savedgame/"))
                 return false;
         }
@@ -150,8 +150,8 @@ namespace rr {
 
     bool Game::loadNewGame() {
         randomizeItems();
-        for (int l=0; l<1; l++) {
-            level.push_back(new Level(sf::Vector2i(77, 43)));
+        for (int l=0; l<5; l++) {
+            level.push_back(new Level());
             level.back()->generateWorld();
         }
         start(true);
@@ -218,6 +218,19 @@ namespace rr {
             quests    ->buttonEvents(rw, e, this);
         if (gameMap   ->isOpen())
             gameMap   ->buttonEvents(rw, e, this);
+
+        if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Add) {
+            if (levelNumber<level.size()-1)
+                levelNumber++;
+            else
+                levelNumber = 0;
+        }
+        else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Subtract) {
+            if (levelNumber>0)
+                levelNumber--;
+            else
+                levelNumber = level.size()-1;
+        }
     }
 
     void Game::start(bool b) {
