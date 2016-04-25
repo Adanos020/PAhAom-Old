@@ -12,7 +12,7 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Player::Player(sf::Vector2f pos) {
+    Player::Player() {
         walkingLeft .setSpriteSheet(resources.texture.player);
         walkingRight.setSpriteSheet(resources.texture.player);
         walkingLeft .addFrame(sf::IntRect(0, 16, 16, 16));
@@ -22,10 +22,10 @@ namespace rr {
 
         body.setLooped(false);
         body.pause();
-        body.setPosition(pos);
+        body.setPosition(sf::Vector2f(0, 0));
         body.scale(sf::Vector2f(5, 5));
 
-        position          = pos;
+        position          = sf::Vector2f(0, 0);
         velocity          = 0.5f;
 
         attrs.health      =  30.f;

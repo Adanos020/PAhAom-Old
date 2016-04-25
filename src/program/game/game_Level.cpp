@@ -55,7 +55,7 @@ namespace rr {
 
     void Level::mazeDigger(int maze[][43], int r, int c) {
      // at this point we generate an array of random directions
-        int number = rand()%100+100;
+        int number = rand()%5+5;
         int* directions = genDirections(number);
      // and now let's start digging
         for (int i = 0; i<number; i++) {
@@ -110,8 +110,8 @@ namespace rr {
                 for (int j=0; j<size.y; j++)
                     tiles[i][j] = 1;
          // then we pick a random cell with an odd number to be our starting point
-            int row = rand()%((int)size.y/2)*2+1;
-            int col = rand()%((int)size.x/2)*2+1;
+            int row = rand()%(size.y/2); row += (row%2)?0:1;
+            int col = rand()%(size.x/2); col += (col%2)?0:1;
             tiles[row][col] = 2;
          // now this point we start digging a maze with a recursive method
             mazeDigger(tiles, row, col);
@@ -149,43 +149,80 @@ namespace rr {
                             NO_TOP, NO_RIGHT, NO_LEFT, NO_BOTTOM,
                             ALL
                         };
-                        if ((i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] != 1) && (j>0 && tiles[i][j-1] != 1) && (j<size.y-1 && tiles[i][j+1] != 1))
-                            tileNumber += Neighbour::ALL*16;
+                        if (i>0 && i<size.x-1 && j>0 && j<size.y-1) {
+                            if ((tiles[i-1][j] != 1) && (tiles[i+1][j] != 1) && (tiles[i][j-1] != 1) && (tiles[i][j+1] != 1))
+                                tileNumber += Neighbour::ALL*16;
 
-                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] != 1))
-                            tileNumber += Neighbour::NO_TOP*16;
-                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] != 1))
-                            tileNumber += Neighbour::NO_BOTTOM*16;
-                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] != 1))
-                            tileNumber += Neighbour::NO_LEFT*16;
-                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] == 1))
-                            tileNumber += Neighbour::NO_RIGHT*16;
+                            else if ((tiles[i][j-1] == 1) && (tiles[i][j+1] != 1) && (tiles[i-1][j] != 1) && (tiles[i+1][j] != 1))
+                                tileNumber += Neighbour::NO_TOP*16;
+                            else if ((tiles[i][j-1] != 1) && (tiles[i][j+1] == 1) && (tiles[i-1][j] != 1) && (tiles[i+1][j] != 1))
+                                tileNumber += Neighbour::NO_BOTTOM*16;
+                            else if ((tiles[i][j-1] != 1) && (tiles[i][j+1] != 1) && (tiles[i-1][j] == 1) && (tiles[i+1][j] != 1))
+                                tileNumber += Neighbour::NO_LEFT*16;
+                            else if ((tiles[i][j-1] != 1) && (tiles[i][j+1] != 1) && (tiles[i-1][j] != 1) && (tiles[i+1][j] == 1))
+                                tileNumber += Neighbour::NO_RIGHT*16;
 
-                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] != 1))
-                            tileNumber += Neighbour::LEFT_RIGHT*16;
-                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] != 1))
-                            tileNumber += Neighbour::BOTTOM_RIGHT*16;
-                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] == 1))
-                            tileNumber += Neighbour::BOTTOM_LEFT*16;
-                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] == 1))
-                            tileNumber += Neighbour::TOP_BOTTOM*16;
-                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] != 1))
-                            tileNumber += Neighbour::TOP_RIGHT*16;
-                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] == 1))
-                            tileNumber += Neighbour::TOP_LEFT*16;
+                            else if ((tiles[i][j-1] == 1) && (tiles[i][j+1] == 1) && (tiles[i-1][j] != 1) && (tiles[i+1][j] != 1))
+                                tileNumber += Neighbour::LEFT_RIGHT*16;
+                            else if ((tiles[i][j-1] == 1) && (tiles[i][j+1] != 1) && (tiles[i-1][j] == 1) && (tiles[i+1][j] != 1))
+                                tileNumber += Neighbour::BOTTOM_RIGHT*16;
+                            else if ((tiles[i][j-1] == 1) && (tiles[i][j+1] != 1) && (tiles[i-1][j] != 1) && (tiles[i+1][j] == 1))
+                                tileNumber += Neighbour::BOTTOM_LEFT*16;
+                            else if ((tiles[i][j-1] != 1) && (tiles[i][j+1] != 1) && (tiles[i-1][j] == 1) && (tiles[i+1][j] == 1))
+                                tileNumber += Neighbour::TOP_BOTTOM*16;
+                            else if ((tiles[i][j-1] != 1) && (tiles[i][j+1] == 1) && (tiles[i-1][j] == 1) && (tiles[i+1][j] != 1))
+                                tileNumber += Neighbour::TOP_RIGHT*16;
+                            else if ((tiles[i][j-1] != 1) && (tiles[i][j+1] == 1) && (tiles[i-1][j] != 1) && (tiles[i+1][j] == 1))
+                                tileNumber += Neighbour::TOP_LEFT*16;
 
-                        else if ((j>0 && tiles[i][j-1] != 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] == 1))
-                            tileNumber += Neighbour::TOP*16;
-                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] != 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] == 1))
-                            tileNumber += Neighbour::BOTTOM*16;
-                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] != 1) && (i<size.x-1 && tiles[i+1][j] == 1))
-                            tileNumber += Neighbour::LEFT*16;
-                        else if ((j>0 && tiles[i][j-1] == 1) && (j<size.x-1 && tiles[i][j+1] == 1) && (i>0 && tiles[i-1][j] == 1) && (i<size.x-1 && tiles[i+1][j] != 1))
-                            tileNumber += Neighbour::RIGHT*16;
-
+                            else if ((tiles[i][j-1] != 1) && (tiles[i][j+1] == 1) && (tiles[i-1][j] == 1) && (tiles[i+1][j] == 1))
+                                tileNumber += Neighbour::TOP*16;
+                            else if ((tiles[i][j-1] == 1) && (tiles[i][j+1] != 1) && (tiles[i-1][j] == 1) && (tiles[i+1][j] == 1))
+                                tileNumber += Neighbour::BOTTOM*16;
+                            else if ((tiles[i][j-1] == 1) && (tiles[i][j+1] == 1) && (tiles[i-1][j] != 1) && (tiles[i+1][j] == 1))
+                                tileNumber += Neighbour::LEFT*16;
+                            else if ((tiles[i][j-1] == 1) && (tiles[i][j+1] == 1) && (tiles[i-1][j] == 1) && (tiles[i+1][j] != 1))
+                                tileNumber += Neighbour::RIGHT*16;
+                        } else if (i == 0) {
+                            if (j > 0 && j < size.y-1) {
+                                if      ((tiles[i+1][j] != 1))
+                                    tileNumber += Neighbour::LEFT_RIGHT*16;
+                                else if ((tiles[i+1][j] == 1))
+                                    tileNumber += Neighbour::LEFT*16;
+                            }
+                            else if (j == 0) {
+                                tileNumber += Neighbour::TOP_LEFT*16;
+                            }
+                            else if (j == size.y-1) {
+                                tileNumber += Neighbour::BOTTOM_LEFT*16;
+                            }
+                        } else if (i == size.x-1) {
+                            if (j > 0 && j < size.y-1) {
+                                if      ((tiles[i-1][j] != 1))
+                                    tileNumber += Neighbour::LEFT_RIGHT*16;
+                                else if ((tiles[i-1][j] == 1))
+                                    tileNumber += Neighbour::RIGHT*16;
+                            }
+                            else if (j == 0) {
+                                tileNumber += Neighbour::TOP_RIGHT*16;
+                            }
+                            else if (j == size.y-1) {
+                                tileNumber += Neighbour::BOTTOM_RIGHT*16;
+                            }
+                        } else if (j == 0 && i > 0 && i < size.x-1) {
+                            if      ((tiles[i][j+1] != 1))
+                                tileNumber += Neighbour::TOP_BOTTOM*16;
+                            else if ((tiles[i][j+1] == 1))
+                                tileNumber += Neighbour::TOP*16;
+                        } else if (j == size.y-1 && i > 0 && i < size.x-1) {
+                            if      ((tiles[i][j-1] != 1))
+                                tileNumber += Neighbour::TOP_BOTTOM*16;
+                            else if ((tiles[i][j-1] == 1))
+                                tileNumber += Neighbour::BOTTOM*16;
+                        }
                         break;
                  // floor
-                    case 2: tileNumber = 32; break;
+                    case 2: tileNumber = 64; break;
                     }
 
                     int tu = tileNumber%(resources.texture.tileset.getSize().x/16);
@@ -208,6 +245,22 @@ namespace rr {
 
         #if 1
         /* generate the objects */ {
+         // here we place the starting point
+            for (int i=rand()%size.x*size.y; ; i=rand()%size.x*size.y) {
+                if (grid[i].color == sf::Color::Green) {
+                    startingPoint = grid[i].position;
+                    grid[i].color = sf::Color::Cyan;
+                    break;
+                }
+            }
+         // here we place the ending point
+            for (int i=rand()%size.x*size.y; ; i=rand()%size.x*size.y) {
+                if (grid[i].color == sf::Color::Green) {
+                    endingPoint   = grid[i].position;
+                    grid[i].color = sf::Color::Cyan;
+                    break;
+                }
+            }
          // here we generate the items
             for (int i=0; i<rand()%10; i++) {
                 while (true) {

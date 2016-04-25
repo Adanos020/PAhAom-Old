@@ -45,7 +45,7 @@ namespace rr {
         sf::Animation*     currentAnimation;
         float              velocity;
     public:
-         Player(sf::Vector2f pos);
+         Player();
         ~Player();
 
         enum direction {

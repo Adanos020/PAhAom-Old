@@ -55,20 +55,24 @@ namespace rr {
         sf::VertexArray m_vertices;
         sf::VertexArray grid;
         sf::Vector2i    size;
+        sf::Vector2f    startingPoint;
+        sf::Vector2f    endingPoint;
 
         std::vector<Entity*> entities;
     public:
          Level();
         ~Level();
 
-        void                 mazeDigger   (int maze[][43], int, int);
-        int*                 genDirections(int num);
-        void                 generateWorld();
-        bool                 loadFromFile (const char* pathToFolder);
-        void                 drawObjects  (sf::RenderWindow&) const;
-        void                 addEntity    (Entity*, sf::Vector2f position);
+        void                 mazeDigger      (int maze[][43], int, int);
+        int*                 genDirections   (int num);
+        void                 generateWorld   ();
+        bool                 loadFromFile    (const char* pathToFolder);
+        void                 drawObjects     (sf::RenderWindow&) const;
+        void                 addEntity       (Entity*, sf::Vector2f position);
 
-        std::vector<Entity*> getEntities  () const { return entities; }
+        std::vector<Entity*> getEntities     () const { return entities     ; }
+        sf::Vector2f         getStartingPoint() const { return startingPoint; }
+        sf::Vector2f         getEndingPoint  () const { return endingPoint  ; }
     };
 
 /// Class for the game

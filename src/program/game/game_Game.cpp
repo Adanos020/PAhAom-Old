@@ -28,7 +28,7 @@ namespace rr {
         quests      = new Quests    ();
         gameMap     = new GameMap   ();
         hud         = new HUD       ();
-        player      = new Player    (sf::Vector2f(mapView.getCenter()));
+        player      = new Player    ();
 
         paused      = false;
         started     = false;
@@ -154,6 +154,7 @@ namespace rr {
             level.push_back(new Level());
             level.back()->generateWorld();
         }
+        player->setPosition(level[0]->getStartingPoint());
         start(true);
         pause(false);
         return true;
@@ -224,12 +225,14 @@ namespace rr {
                 levelNumber++;
             else
                 levelNumber = 0;
+            player->setPosition(level[levelNumber]->getStartingPoint());
         }
         else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Subtract) {
             if (levelNumber>0)
                 levelNumber--;
             else
                 levelNumber = level.size()-1;
+            player->setPosition(level[levelNumber]->getEndingPoint());
         }
     }
 
