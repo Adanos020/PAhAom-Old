@@ -5,3 +5,14 @@
  * Used compiler: GNU GCC
  */
 
+#include "item_Book.hpp"
+#include "../../../program.hpp"
+
+extern rr::Resources resources;
+extern sf::Color potionColors[9];
+
+namespace rr {
+
+
+
+}

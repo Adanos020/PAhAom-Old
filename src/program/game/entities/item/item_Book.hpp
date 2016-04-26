@@ -13,9 +13,14 @@
 namespace rr {
 
     class Book :public Discoverable, public Item {
-    private:
     public:
-         Book();
+        enum Type {
+            MANA_REGEN,
+            FASTER_LEARNING,
+            SPELLS_LEARNING,
+
+        } type;
+         Book(Type, int am, sf::Vector2f pos);
         ~Book();
 
         virtual void draw      (sf::RenderWindow&) override;

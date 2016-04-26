@@ -20,14 +20,13 @@ namespace rr {
             BRONZE,
             SILVER,
             GOLDEN
-        };
+        } type;
          Cash(Type, int am, sf::Vector2f pos);
         ~Cash();
 
         virtual void draw      (sf::RenderWindow&) override;
         virtual void update    ()                  override;
     private:
-        Type type;
 	};
 
 }

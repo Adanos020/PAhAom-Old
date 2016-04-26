@@ -49,30 +49,44 @@ namespace rr {
 
 /// Class for the tile map
     class Level :public sf::Drawable, public sf::Transformable {
-    private:
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
-        sf::VertexArray m_vertices;
-        sf::VertexArray grid;
-        sf::Vector2i    size;
-        sf::Vector2f    startingPoint;
-        sf::Vector2f    endingPoint;
-
-        std::vector<Entity*> entities;
     public:
          Level();
         ~Level();
 
-        void                 mazeDigger      (int maze[][43], int, int);
-        int*                 genDirections   (int num);
+        enum Cell {
+            CHASM,
+            WALL,
+            ROOM,
+            CORRIDOR,
+            ENTRANCE,
+            OCCUPIED
+        };
         void                 generateWorld   ();
         bool                 loadFromFile    (const char* pathToFolder);
         void                 drawObjects     (sf::RenderWindow&) const;
-        void                 addEntity       (Entity*, sf::Vector2f position);
 
-        std::vector<Entity*> getEntities     () const { return entities     ; }
-        sf::Vector2f         getStartingPoint() const { return startingPoint; }
-        sf::Vector2f         getEndingPoint  () const { return endingPoint  ; }
+        std::vector<Entity*>             getEntities     () const { return entities     ; }
+        sf::Vector2f                     getStartingPoint() const { return startingPoint; }
+        sf::Vector2f                     getEndingPoint  () const { return endingPoint  ; }
+        std::vector<std::vector<Cell>>   getGrid         () const { return grid         ; }
+    private:
+        virtual void draw           (sf::RenderTarget& target, sf::RenderStates states) const;
+
+        void         digRooms       ();
+        void         digCorridors   (int, int);
+        bool         isOnBorder     (int, int);
+        int*         genDirections  (int num);
+        void         placeEntities  ();
+        void         addEntity      (Entity*, sf::Vector2f position);
+        void         generateTileMap();
+
+        sf::VertexArray      m_vertices;
+        sf::Vector2i         size;
+        sf::Vector2f         startingPoint;
+        sf::Vector2f         endingPoint;
+
+        std::vector<Entity*> entities;
+        std::vector<std::vector<Cell>>   grid;
     };
 
 /// Class for the game
