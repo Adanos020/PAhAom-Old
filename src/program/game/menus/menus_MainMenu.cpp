@@ -21,12 +21,12 @@ namespace rr {
         title->setPosition(sf::Vector2f(settings.graphics.resolution.x/2-title->getSize().x/2, 10));
 
         wMenu = new Window(L"", sf::Vector2f(244, 454), sf::Vector2f(25, settings.graphics.resolution.y/2-225));
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.newgame"], 52), true);
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.load"],    52), true);
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.options"], 52), true);
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.help"],    52), true);
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.credits"], 52), true);
-            wMenu->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"],    52), true);
+            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.newgame"], 52);
+            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.load"],    52);
+            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.options"], 52);
+            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.help"],    52);
+            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.credits"], 52);
+            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"],    52);
             for (int i=0; i<6; i++)
                 component(wMenu, Button, i)->setPosition(wMenu->getPosition()+sf::Vector2f(wMenu->getSize().x/2-component(wMenu, Button, i)->getSize().x/2, 5+i*75));
 
@@ -35,12 +35,12 @@ namespace rr {
 
 #define wOpts component(wMenu, Window, 0)
 
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.game"],      52), true);
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.graphical"], 52), true);
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.sound"],     52), true);
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.controls"],  52), true);
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.save"],      30), true);
-                wOpts->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"],      30), true);
+                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.game"],      52);
+                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.graphical"], 52);
+                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.sound"],     52);
+                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.controls"],  52);
+                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.save"],      30);
+                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"],      30);
                 for (int i=0; i<4; i++)
                     component(wOpts, Button, i)->setPosition(wOpts->getPosition()+sf::Vector2f(wOpts->getSize().x/2-component(wOpts, Button, i)->getSize().x/2, 30+i*75));
                 component(wOpts, Button, 4)->setPosition(wOpts->getPosition()+sf::Vector2f(wOpts->getSize().x/2-(component(wOpts, Button, 4)->getSize().x+component(wOpts, Button, 5)->getSize().x+5)/2, 350));
@@ -51,9 +51,9 @@ namespace rr {
 
 #define wGame component(wOpts, Window, 0)
 
-                    wGame->addComponent(new Text(sf::Vector2f(10, 30), resources.dictionary["gui.text.language"], resources.font.Unifont, 20), true);
+                    *wGame += new Text(sf::Vector2f(10, 30), resources.dictionary["gui.text.language"], resources.font.Unifont, 20);
 
-                    wGame->addComponent(new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60)), true);
+                    *wGame += new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60));
                         component(wGame, Switch, 0)->addOption("ENGLISH");
                         component(wGame, Switch, 0)->addOption("POLSKI");
                         component(wGame, Switch, 0)->addOption(L"DNQUBIÑHBI");
@@ -64,7 +64,7 @@ namespace rr {
                         else if (settings.game.language == "fc")
                             component(wGame, Switch, 0)->setCurrentOption(L"DNQUBIÑHBI");
 
-                    wGame->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
+                    *wGame += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
                     component(wGame, Button, 0)->setPosition(sf::Vector2f(wGame->getPosition().x+wGame->getSize().x/2-component(wGame, Button, 0)->getSize().x/2,
                                                                           wGame->getPosition().y+wGame->getSize().y-component(wGame, Button, 0)->getSize().y-10));
 
@@ -75,24 +75,24 @@ namespace rr {
 
 #define wGrap component(wOpts, Window, 1)
 
-                    wGrap->addComponent(new Text(sf::Vector2f(20, 30), resources.dictionary["gui.text.resolution"], resources.font.Unifont, 20), true);
+                    *wGrap += new Text(sf::Vector2f(20, 30), resources.dictionary["gui.text.resolution"], resources.font.Unifont, 20);
 
-                    wGrap->addComponent(new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60)), true);
+                    *wGrap += new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60));
                         component(wGrap, Switch, 0)->addOption("1280x720");
                         component(wGrap, Switch, 0)->addOption("1440x900");
                         component(wGrap, Switch, 0)->addOption("1600x900");
                         component(wGrap, Switch, 0)->addOption("1920x1080");
                         component(wGrap, Switch, 0)->setCurrentOption(std::to_wstring(settings.graphics.resolution.x)+L"x"+std::to_wstring(settings.graphics.resolution.y));
 
-                    wGrap->addComponent(new Checkbox(sf::Vector2f(15, 170), resources.dictionary["gui.checkbox.fullscreen"], 15), true);
+                    *wGrap += new Checkbox(sf::Vector2f(15, 170), resources.dictionary["gui.checkbox.fullscreen"], 15);
                         component(wGrap, Checkbox, 0)->check(settings.graphics.fullscreen);
 
-                    wGrap->addComponent(new Checkbox(sf::Vector2f(15, 120), resources.dictionary["gui.checkbox.vsync"], 15), true);
+                    *wGrap += new Checkbox(sf::Vector2f(15, 120), resources.dictionary["gui.checkbox.vsync"], 15);
                         component(wGrap, Checkbox, 1)->check(settings.graphics.vsync);
 
-                    wGrap->addComponent(new Text(sf::Vector2f(20, 295), "ANTIALIASING", resources.font.Unifont, 20), true);
+                    *wGrap += new Text(sf::Vector2f(20, 295), "ANTIALIASING", resources.font.Unifont, 20);
 
-                    wGrap->addComponent(new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 325)), true);
+                    *wGrap += new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 325));
                         component(wGrap, Switch, 1)->addOption("NONE");
                         component(wGrap, Switch, 1)->addOption("x2");
                         component(wGrap, Switch, 1)->addOption("x4");
@@ -102,7 +102,7 @@ namespace rr {
                         else
                             component(wGrap, Switch, 1)->setCurrentOption("x"+std::to_string(settings.graphics.csettings.antialiasingLevel));
 
-                    wGrap->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
+                    *wGrap += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
                     component(wGrap, Button, 0)->setPosition(sf::Vector2f(wGrap->getPosition().x+wGrap->getSize().x/2-component(wGrap, Button, 0)->getSize().x/2,
                                                                           wGrap->getPosition().y+wGrap->getSize().y-component(wGrap, Button, 0)->getSize().y-10));
 
@@ -113,19 +113,19 @@ namespace rr {
 
 #define wSoun component(wOpts, Window, 2)
 
-                    wSoun->addComponent(new Text(sf::Vector2f(20, 40), resources.dictionary["gui.text.music"], resources.font.Unifont), true);
-                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 85), 175), true);
-                    wSoun->addComponent(new Checkbox(sf::Vector2f(175, 40), resources.dictionary["gui.text.mute"], 20), true);
+                    *wSoun += new Text(sf::Vector2f(20, 40), resources.dictionary["gui.text.music"], resources.font.Unifont);
+                    *wSoun += new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 85), 175);
+                    *wSoun += new Checkbox(sf::Vector2f(175, 40), resources.dictionary["gui.text.mute"], 20);
                     component(wSoun, Checkbox, 0)->check(settings.sound.music_muted);
                     component(wSoun, ScrollBar,   0)->setValue(settings.sound.music_volume);
 
-                    wSoun->addComponent(new Text(sf::Vector2f(20, 160), resources.dictionary["gui.text.effects"], resources.font.Unifont), true);
-                    wSoun->addComponent(new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 205), 175), true);
-                    wSoun->addComponent(new Checkbox(sf::Vector2f(175, 160), resources.dictionary["gui.text.mute"], 20), true);
+                    *wSoun += new Text(sf::Vector2f(20, 160), resources.dictionary["gui.text.effects"], resources.font.Unifont);
+                    *wSoun += new ScrollBar(ScrollBar::HORIZONTAL, sf::Vector2f(20, 205), 175);
+                    *wSoun += new Checkbox(sf::Vector2f(175, 160), resources.dictionary["gui.text.mute"], 20);
                     component(wSoun, Checkbox,  1)->check(settings.sound.effects_muted);
                     component(wSoun, ScrollBar, 1)->setValue(settings.sound.effects_volume);
 
-                    wSoun->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
+                    *wSoun += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
                     component(wSoun, Button, 0)->setPosition(sf::Vector2f(wSoun->getPosition().x+wSoun->getSize().x/2-component(wSoun, Button, 0)->getSize().x/2,
                                                                           wSoun->getPosition().y+wSoun->getSize().y-component(wSoun, Button, 0)->getSize().y-10));
 
@@ -136,7 +136,7 @@ namespace rr {
 
 #define wCont component(wOpts, Window, 3)
 
-                    wCont->addComponent(new Text(sf::Vector2f(20, 25), resources.dictionary["gui.text.move_up"        ]+"\n"
+                    *wCont += new Text(sf::Vector2f(20, 25), resources.dictionary["gui.text.move_up"        ]+"\n"
                                                                       +resources.dictionary["gui.text.move_down"      ]+"\n"
                                                                       +resources.dictionary["gui.text.move_left"      ]+"\n"
                                                                       +resources.dictionary["gui.text.move_right"     ]+"\n"
@@ -151,10 +151,10 @@ namespace rr {
                                                                       +resources.dictionary["gui.text.useslot_2"      ]+"\n"
                                                                       +resources.dictionary["gui.text.useslot_3"      ]+"\n"
                                                                       +resources.dictionary["gui.text.useslot_4"      ]+"\n"
-                                                                      +resources.dictionary["gui.text.useslot_5"      ]+"\n", resources.font.Unifont, 25), true);
+                                                                      +resources.dictionary["gui.text.useslot_5"      ]+"\n", resources.font.Unifont, 25);
                     for (int i=0; i<16; i++)
-                        wCont->addComponent(new Button(sf::Vector2f(300, 27*i+27.5f), "-", 20), true);
-                    wCont->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
+                        *wCont += new Button(sf::Vector2f(300, 27*i+27.5f), "-", 20);
+                    *wCont += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
                     component(wCont, Button, 16)->setPosition(sf::Vector2f(wCont->getPosition().x+wCont->getSize().x/2-component(wCont, Button, 16)->getSize().x/2,
                                                                           wCont->getPosition().y+wCont->getSize().y-component(wCont, Button, 16)->getSize().y-10));
 
@@ -166,10 +166,10 @@ namespace rr {
 
 #define wHelp component(wMenu, Window, 1)
 
-                wHelp->addComponent(new Text(sf::Vector2f(20, 25), "Pro tip:",                                 resources.font.Unifont, 30, sf::Color::Yellow), true);
-                wHelp->addComponent(new Text(sf::Vector2f(20, 55), resources.dictionary["gui.text.killurslf"], resources.font.Unifont, 30, sf::Color::Red),    true);
+                *wHelp += new Text(sf::Vector2f(20, 25), "Pro tip:",                                 resources.font.Unifont, 30, sf::Color::Yellow);
+                *wHelp += new Text(sf::Vector2f(20, 55), resources.dictionary["gui.text.killurslf"], resources.font.Unifont, 30, sf::Color::Red);
 
-                wHelp->addComponent(new Button(sf::Vector2f(5, 380), resources.dictionary["gui.button.quit"], 30), true);
+                *wHelp += new Button(sf::Vector2f(5, 380), resources.dictionary["gui.button.quit"], 30);
                 component(wHelp, Button, 0)->setPosition(sf::Vector2f(wHelp->getPosition().x+wHelp->getSize().x/2-component(wHelp, Button, 0)->getSize().x/2,
                                                                       wHelp->getPosition().y+wHelp->getSize().y-component(wHelp, Button, 0)->getSize().y-10));
 
@@ -179,14 +179,14 @@ namespace rr {
                                            sf::Vector2f(settings.graphics.resolution.x-400, settings.graphics.resolution.y/2-150)), false);
 #define wCred component(wMenu, Window, 2)
 
-                wCred->addComponent(new Text(sf::Vector2f(20,  20), resources.dictionary["gui.text.programming"], resources.font.Unifont, 30),  true);
-                wCred->addComponent(new Text(sf::Vector2f( 0,  50),  L"\tAdam 'Adanos' Gąsior", resources.font.Unifont, 25, sf::Color::Yellow), true);
-                wCred->addComponent(new Text(sf::Vector2f(20,  80), resources.dictionary["gui.button.graphical"], resources.font.Unifont, 30),  true);
-                wCred->addComponent(new Text(sf::Vector2f( 0, 110), "\tJan Lewandowski"       , resources.font.Unifont, 25, sf::Color::Yellow), true);
-                wCred->addComponent(new Text(sf::Vector2f(20, 140), resources.dictionary["gui.text.usedlib"    ], resources.font.Unifont, 30),  true);
-                wCred->addComponent(new Text(sf::Vector2f( 0, 170), "\tSFML 2.3.2"            , resources.font.Unifont, 25, sf::Color::Yellow), true);
+                *wCred += new Text(sf::Vector2f(20,  20), resources.dictionary["gui.text.programming"], resources.font.Unifont, 30);
+                *wCred += new Text(sf::Vector2f( 0,  50),  L"\tAdam 'Adanos' Gąsior", resources.font.Unifont, 25, sf::Color::Yellow);
+                *wCred += new Text(sf::Vector2f(20,  80), resources.dictionary["gui.button.graphical"], resources.font.Unifont, 30);
+                *wCred += new Text(sf::Vector2f( 0, 110), "\tJan Lewandowski"       , resources.font.Unifont, 25, sf::Color::Yellow);
+                *wCred += new Text(sf::Vector2f(20, 140), resources.dictionary["gui.text.usedlib"    ], resources.font.Unifont, 30);
+                *wCred += new Text(sf::Vector2f( 0, 170), "\tSFML 2.3.2"            , resources.font.Unifont, 25, sf::Color::Yellow);
 
-                wCred->addComponent(new Button(sf::Vector2f(5, 225), resources.dictionary["gui.button.quit"], 30), true);
+                *wCred += new Button(sf::Vector2f(5, 225), resources.dictionary["gui.button.quit"], 30);
                     component(wCred, Button, 0)->setPosition(sf::Vector2f(wCred->getPosition().x+wCred->getSize().x/2-component(wCred, Button, 0)->getSize().x/2,
                                                                           wCred->getPosition().y+wCred->getSize().y-component(wCred, Button, 0)->getSize().y-10));
 

@@ -23,10 +23,10 @@ namespace rr {
         wInve = new Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), sf::Vector2f(settings.graphics.resolution.x/2-382.5f, settings.graphics.resolution.y/2-225));
             for (int i=0; i<8; i++) {
                 for (int j=0; j<4; j++) {
-                    wInve->addComponent(new Slot(sf::Vector2f(80, 80), sf::Vector2f(10+i*95, 30+j*95)), true);
+                    *wInve += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10+i*95, 30+j*95));
                 }
             }
-            wInve->addComponent(new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30), true);
+            *wInve += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
             component(wInve, Button, 0)->setPosition(sf::Vector2f(wInve->getPosition().x+wInve->getSize().x-component(wInve, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(wInve, Button, 0)->getSize().y-5));
         wInve->setVisible(false);
 

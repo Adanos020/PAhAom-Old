@@ -367,8 +367,9 @@ namespace rr {
         template<typename T>
         T*           getComponent      (unsigned index)     const          {   if (std::is_base_of<Component, T>::value) {
                                                                                    for (unsigned i=0; i<components.size(); i++) {
-                                                                                       if (instanceof < T, Component>(components[i])) {
-                                                                                           if (index-- == 0) return (T*)components[i];
+                                                                                       if (instanceof<T, Component>(components[i])) {
+                                                                                           if (index-- == 0)
+                                                                                                return (T*)components[i];
                                                                                        }
                                                                                    }
                                                                                } else {
@@ -381,6 +382,12 @@ namespace rr {
 
         bool         containsMouseCursor(sf::RenderWindow&)       override { return false; }
         Text*        getText()                              const override { return header; }
+
+    /// Opeartor overload allowing to add the attached components without calling the addComponent method manually
+        Window& operator+=(Component* c) {
+            this->addComponent(c, true);
+            return *this;
+        }
     };
 
 }

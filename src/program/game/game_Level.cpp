@@ -43,185 +43,155 @@ namespace rr {
     }
 
     void Level::generateWorld() {
-         // first we create an 2-dimensional array filled with 1's representing a wall
-            for (int i=0; i<size.x; i++)
-                for (int j=0; j<size.y; j++)
-                    grid[i].push_back(WALL);
+     // first we create an 2-dimensional array filled with 1's representing a wall
+        for (int i=0; i<size.x; i++)
+            for (int j=0; j<size.y; j++)
+                grid[i].push_back(WALL);
 
-         // at this point we generate some rooms to our level
-            digRooms();
+     // at this point we generate some rooms to our level
+        digRooms();
 
-         // then we pick the entrance cells to be our starting points and start digging corridors to another entrance
-            for (int i=0; i<size.x; i++) {
-                for (int j=0; j>size.y; j++) {
-                    if (grid[i][j] == ENTRANCE)
-                        digCorridors(i, j);
-                }
+     // then we pick the entrance cells to be our starting points and start digging corridors among the rooms
+        for (int i=1; i<size.x; i+=2) {
+            for (int j=1; j<size.y; j+=2) {
+                if (grid[i][j] != WALL)
+                    continue;
+                fillWithMaze(i, j);
             }
+        }
 
-         // here we generate the entities
-            placeEntities();
+     // after that we generate the entrances between the rooms and corridors
+        connectRooms();
 
-         // in the end we generate the tile map from the created array
-            generateTileMap();
+     // and then we can get rid of the dead ends of the corridors
+        removeDeadEnds();
+
+     // here we generate the entities
+        placeEntities();
+
+     // in the end we generate the tile map from the created array
+        generateTileMap();
     }
 
     void Level::digRooms() {
-        int rooms = 20;
-        for (int TT=0; TT<rooms; TT++) {
-         // choosing a random position of the top left corner of the room
-            sf::Vector2i tlpos = sf::Vector2i(rand()%(size.x-5), rand()%(size.y-5));
-            tlpos += sf::Vector2i((tlpos.x%2)?0:1, (tlpos.y%2)?0:1);
-            while (grid[ tlpos.x ][ tlpos.y ] == ROOM
-                || grid[tlpos.x-1][ tlpos.y ] == ROOM || grid[ tlpos.x ][tlpos.y-1] == ROOM || grid[tlpos.x+1][ tlpos.y ] == ROOM || grid[ tlpos.x ][tlpos.y+1] == ROOM
-                || grid[tlpos.x-1][tlpos.y-1] == ROOM || grid[tlpos.x-1][tlpos.y+1] == ROOM || grid[tlpos.x+1][tlpos.y-1] == ROOM || grid[tlpos.x+1][tlpos.y-1] == ROOM) {
-                    tlpos = sf::Vector2i(rand()%(size.x-5), rand()%(size.y-5));
-                    tlpos += sf::Vector2i((tlpos.x%2)?0:1, (tlpos.y%2)?0:1);
-                }
+        for (int i=0; i<100; i++) {
+            sf::Vector2i rsize((rand()%4+1)*2+1, (rand()%4+1)*2+1);
+            sf::Vector2i rpos(rand()%((size.x-rsize.x)/2)*2+1, rand()%((size.y-rsize.y)/2)*2+1);
 
-         // now we set a random odd size of the room
-            sf::Vector2i rsize = sf::Vector2i(rand()%(size.x-tlpos.x)/3+3, rand()%(size.y-tlpos.y)/3+3);
-            rsize -= sf::Vector2i((rsize.x%2)?0:1, (rsize.y%2)?0:1);
-
-         // here we adjust the size of the room to avoid conflicts with the other rooms
-            for (int i=tlpos.x; i<tlpos.x+rsize.x; i++) {
-                for (int j=tlpos.y; j<tlpos.y+rsize.y; j++) {
-                    if (grid[i][j] == ROOM) {
-                        rsize.x -= 2;
-                        rsize.y -= 2;
-                    }
+            bool overlaps = false;
+            for (int i=rpos.x; i<rpos.x+rsize.x; i++) {
+                if (grid[i][rpos.y-1] == ROOM || grid[i][rpos.y+rsize.y+1] == ROOM) {
+                    overlaps = true;
+                    break;
                 }
             }
-            if (rsize.x<3 || rsize.y<3) {
-                TT--;
+            for (int i=rpos.y; i<rpos.y+rsize.y && !overlaps; i++) {
+                if (grid[rpos.x-1][i] == ROOM || grid[rpos.x+rsize.x][i] == ROOM) {
+                    overlaps = true;
+                    break;
+                }
+            }
+
+            if (overlaps)
                 continue;
-            }
 
-         // making some blank space for the room
-            for (int x=tlpos.x; x<tlpos.x+rsize.x; x++) {
-                for (int y=tlpos.y; y<tlpos.y+rsize.y; y++) {
-                    grid[x][y] = ROOM;
-                }
-            }
-         // generating a random number of exits
-            for (bool fin = false; !fin;) {
-                int genw = rand()%4;
-                int genx = 2*rand()%(rsize.x/2); genx += (genx%2)?0:1;
-                int geny = 2*rand()%(rsize.y/2); geny += (geny%2)?0:1;
-                switch (genw) {
-                case 0:
-                    if (!isOnBorder(tlpos.x-1, geny)) {
-                        grid[   tlpos.x-1   ][tlpos.y+rand()%geny] = ENTRANCE;
-                        fin = true;
-                    }
-                    break;
-                case 1:
-                    if (!isOnBorder(tlpos.x+rsize.x, geny)) {
-                        grid[tlpos.x+rsize.x][tlpos.y+geny] = ENTRANCE;
-                        fin = true;
-                    }
-                    break;
-                case 2:
-                    if (!isOnBorder(genx, tlpos.y-1)) {
-                        grid[tlpos.x+genx][   tlpos.y-1   ] = ENTRANCE;
-                    }
-                    break;
-                case 3:
-                    if (!isOnBorder(genx, tlpos.y+rsize.y)) {
-                        grid[tlpos.x+genx][tlpos.y+rsize.y] = ENTRANCE;
-                    }
-                    break;
-                }
-            }
-
-            for (int i=tlpos.x; i<tlpos.x+rsize.x; i+=2) { // top wall
-                if ((!isOnBorder(i, tlpos.y-1)       && grid[i][   tlpos.y-1   ] == WALL)
-                    && (grid[i-1][   tlpos.y-1   ] != ENTRANCE && grid[i+1][   tlpos.y-1   ] != ENTRANCE)
-                    && rand()%(2*rsize.x) == 0) {
-                    grid[i][tlpos.y-1] = ENTRANCE;
-                }                                          // bottom wall
-                if ((!isOnBorder(i, tlpos.y+rsize.y) && grid[i][tlpos.y+rsize.y] == WALL)
-                    && (grid[i-1][tlpos.y+rsize.y] != ENTRANCE && grid[i+1][tlpos.y+rsize.y] != ENTRANCE)
-                    && rand()%(2*rsize.x) == 0) {
-                    grid[i][tlpos.y+rsize.y] = ENTRANCE;
-                }
-            }
-            for (int i=tlpos.y; i<tlpos.y+rsize.y; i+=2) { // left wall
-                if ((!isOnBorder(tlpos.x-1, i)       && grid[   tlpos.x-1   ][i] == WALL)
-                    && (grid[tlpos.y+rsize.y][i-1] != ENTRANCE && grid[tlpos.y+rsize.y][i+1] != ENTRANCE)
-                    && rand()%(2*rsize.y) == 0) {
-                    grid[tlpos.x-1][i] = ENTRANCE;
-                }                                          // right wall
-                if ((!isOnBorder(tlpos.x+rsize.x, i) && grid[tlpos.x+rsize.x][i] == WALL)
-                    && (grid[tlpos.x+rsize.x][i-1] != ENTRANCE && grid[tlpos.x+rsize.x][i+1] != ENTRANCE)
-                    && rand()%(2*rsize.y) == 0) {
-                    grid[tlpos.x+rsize.x][i] = ENTRANCE;
+            for (int i=rpos.x; i<rpos.x+rsize.x; i++) {
+                for (int j=rpos.y; j<rpos.y+rsize.y; j++) {
+                    grid[i][j] = ROOM;
                 }
             }
         }
     }
 
-    void Level::digCorridors(int r, int c) {
-     // at this point we generate an array of random directions
-        int number = rand()%5+5;
-        int* directions = genDirections(number);
+    void Level::fillWithMaze(int r, int c) {
+ // at this point we generate an array of random directions
+        int number = rand()%100+100;
+        int* directions = new int[number];
+        for (int i=0; i<number; i++) {
+            directions[i] = rand()%4+1;
+        }
      // and now let's start digging
         for (int i = 0; i<number; i++) {
             switch(directions[i]) {
-            case 1:
+            case 1: // UP
                 if (r-2 <= 0)
                     continue;
-                if (grid[r-1][c] == ENTRANCE)
-                    return;
-                else if (grid[r-2][c] == WALL) {
+                if (grid[r-2][c] == WALL) {
                     grid[r-2][c] = CORRIDOR;
                     grid[r-1][c] = CORRIDOR;
-                    digCorridors(r-2, c);
+                    fillWithMaze(r-2, c);
                 }
                 break;
-            case 2:
+            case 2: // RIGHT
                 if (c+2 >= size.y-1)
                     continue;
-                if (grid[r][c+1] == ENTRANCE)
-                    return;
-                else if (grid[r][c+2] == WALL) {
-                    grid[r][c+2]  = CORRIDOR;
-                    grid[r][c+1]  = CORRIDOR;
-                    digCorridors(r, c+2);
+                if (grid[r][c+2] == WALL) {
+                    grid[r][c+2] = CORRIDOR;
+                    grid[r][c+1] = CORRIDOR;
+                    fillWithMaze(r, c+2);
                 }
                 break;
-            case 3:
+            case 3: // DOWN
                 if (r+2 >= size.x-1)
                     continue;
-                if (grid[r+1][c] == ENTRANCE)
-                    return;
-                else if (grid[r+2][c] == WALL) {
-                    grid[r+2][c]  = CORRIDOR;
-                    grid[r+1][c]  = CORRIDOR;
-                    digCorridors(r+2, c);
+                if (grid[r+2][c] == WALL) {
+                    grid[r+2][c] = CORRIDOR;
+                    grid[r+1][c] = CORRIDOR;
+                    fillWithMaze(r+2, c);
                 }
                 break;
-            case 4:
+            case 4: // LEFT
                 if (c-2 <= 0)
                     continue;
-                if (grid[r][c-1] == ENTRANCE)
-                    return;
-                else if (grid[r][c-2] == WALL) {
-                    grid[r][c-2]  = CORRIDOR;
-                    grid[r][c-1]  = CORRIDOR;
-                    digCorridors(r, c-2);
+                if (grid[r][c-2] == WALL) {
+                    grid[r][c-2] = CORRIDOR;
+                    grid[r][c-1] = CORRIDOR;
+                    fillWithMaze(r, c-2);
                 }
                 break;
             }
         }
     }
 
-    int* Level::genDirections(int num) {
-        int* directions = new int[num];
-        for (int i=0; i<num; i++) {
-            directions[i] = rand()%4+1;
+    void Level::connectRooms() {
+        for (int i=1; i<size.x-1; i++) {
+            for (int j=1; j<size.y-1; j++) {
+                if (((grid[i-1][j] != WALL && grid[i+1][j] != WALL && (grid[i-1][j] == ROOM)?true:grid[i-1][j] != grid[i+1][j])
+                  || (grid[i][j-1] != WALL && grid[i][j+1] != WALL && (grid[i][j-1] == ROOM)?true:grid[i][j-1] != grid[i][j+1])) && grid[i][j] == WALL && !(rand()%10))
+                    grid[i][j] = ENTRANCE;
+            }
         }
-        return directions;
+    }
+
+    void Level::removeDeadEnds() {
+        bool done = false;
+
+        while (!done) {
+            done = true;
+            for (int i=1; i<size.x-1; i++) {
+                for (int j=1; j<size.y-1; j++) {
+                    if (grid[i][j] == WALL)
+                        continue;
+
+                    // If it only has one exit, it's a dead end.
+                    int exits = 0;
+                    if (grid[i-1][j] != WALL)
+                        exits++;
+                    if (grid[i+1][j] != WALL)
+                        exits++;
+                    if (grid[i][j-1] != WALL)
+                        exits++;
+                    if (grid[i][j+1] != WALL)
+                        exits++;
+
+                    if (exits > 1)
+                        continue;
+
+                    done = false;
+                    grid[i][j] = WALL;
+                }
+            }
+        }
     }
 
     void Level::generateTileMap() {

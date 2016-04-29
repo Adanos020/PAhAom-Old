@@ -61,32 +61,33 @@ namespace rr {
             ENTRANCE,
             OCCUPIED
         };
-        void                 generateWorld   ();
-        bool                 loadFromFile    (const char* pathToFolder);
-        void                 drawObjects     (sf::RenderWindow&) const;
+        void                           generateWorld   ();
+        bool                           loadFromFile    (const char* pathToFolder);
+        void                           drawObjects     (sf::RenderWindow&) const;
 
-        std::vector<Entity*>             getEntities     () const { return entities     ; }
-        sf::Vector2f                     getStartingPoint() const { return startingPoint; }
-        sf::Vector2f                     getEndingPoint  () const { return endingPoint  ; }
-        std::vector<std::vector<Cell>>   getGrid         () const { return grid         ; }
+        std::vector<Entity*>           getEntities     () const { return entities     ; }
+        sf::Vector2f                   getStartingPoint() const { return startingPoint; }
+        sf::Vector2f                   getEndingPoint  () const { return endingPoint  ; }
+        std::vector<std::vector<Cell>> getGrid         () const { return grid         ; }
     private:
         virtual void draw           (sf::RenderTarget& target, sf::RenderStates states) const;
 
         void         digRooms       ();
-        void         digCorridors   (int, int);
-        bool         isOnBorder     (int, int);
-        int*         genDirections  (int num);
+        void         fillWithMaze   (int, int);
+        void         connectRooms   ();
+        void         removeDeadEnds ();
         void         placeEntities  ();
         void         addEntity      (Entity*, sf::Vector2f position);
         void         generateTileMap();
+        bool         isOnBorder     (int, int);
 
         sf::VertexArray      m_vertices;
         sf::Vector2i         size;
         sf::Vector2f         startingPoint;
         sf::Vector2f         endingPoint;
 
-        std::vector<Entity*> entities;
-        std::vector<std::vector<Cell>>   grid;
+        std::vector<Entity*>           entities;
+        std::vector<std::vector<Cell>> grid;
     };
 
 /// Class for the game

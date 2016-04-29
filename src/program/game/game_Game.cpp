@@ -17,7 +17,7 @@ namespace rr {
 
     Game::Game() {
         gameView.setSize((sf::Vector2f)settings.graphics.resolution);
-        mapView .setSize(6160, 3440);
+        mapView .setSize(6160.f, 3440.f);
         mapView .setCenter(mapView.getSize()/2.f);
         mapView .setViewport(sf::FloatRect(0.115f, 0.1275f, 0.77f, 0.745f));
 
