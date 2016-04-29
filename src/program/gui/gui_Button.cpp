@@ -24,6 +24,7 @@ namespace rr {
 
         body.setPosition(position);
         body.setSize(sf::Vector2f(text->getSize().x+25, chsize*1.3425));
+        text->setPosition(sf::Vector2f(position.x+body.getSize().x/2-text->getSize().x/2-chsize/20, position.y-0.5));
         body.setFillColor(sf::Color(0, 0, 0));
 
         held = false;
@@ -55,7 +56,7 @@ namespace rr {
 
     void Button::setPosition(sf::Vector2f position) {
         body  .setPosition(position);
-        text ->setPosition(sf::Vector2f(position.x+10, position.y-0.5));
+        text ->setPosition(sf::Vector2f(position.x+body.getSize().x/2-text->getSize().x/2-text->getCharacterSize()/20, position.y-0.5));
         image->setPosition(position);
     }
 

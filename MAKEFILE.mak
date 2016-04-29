@@ -40,9 +40,9 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
 OUT_RELEASE = bin/Release/pahaom
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/src/program/gui/gui_Button.o $(OBJDIR_DEBUG)/src/program/game/game_Level.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_Attributes.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_GameMap.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_Inventory.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_MainMenu.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_PauseMenu.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_Quests.o $(OBJDIR_DEBUG)/src/program/game/player/player_Player.o $(OBJDIR_DEBUG)/src/program/gui/gui_Bar.o $(OBJDIR_DEBUG)/src/program/game/game_HUD.o $(OBJDIR_DEBUG)/src/program/gui/gui_Checkbox.o $(OBJDIR_DEBUG)/src/program/gui/gui_Image.o $(OBJDIR_DEBUG)/src/program/gui/gui_ScrollBar.o $(OBJDIR_DEBUG)/src/program/gui/gui_Slot.o $(OBJDIR_DEBUG)/src/program/gui/gui_Switch.o $(OBJDIR_DEBUG)/src/program/gui/gui_Text.o $(OBJDIR_DEBUG)/src/program/gui/gui_Window.o $(OBJDIR_DEBUG)/src/program/program_Program.o $(OBJDIR_DEBUG)/src/program/program_Resources.o $(OBJDIR_DEBUG)/src/program/program_Settings.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Book.o $(OBJDIR_DEBUG)/lib/Animation.o $(OBJDIR_DEBUG)/src/main.o $(OBJDIR_DEBUG)/src/program/game/entities/chest/chest_Chest.o $(OBJDIR_DEBUG)/lib/AnimatedSprite.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Cash.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Potion.o $(OBJDIR_DEBUG)/src/program/game/game_Game.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/src/program/gui/gui_Bar.o $(OBJDIR_DEBUG)/src/program/game/game_HUD.o $(OBJDIR_DEBUG)/src/program/game/game_Level.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_Attributes.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_GameMap.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_Inventory.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_MainMenu.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_PauseMenu.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_Quests.o $(OBJDIR_DEBUG)/src/program/game/player/player_Player.o $(OBJDIR_DEBUG)/src/program/game/game_Game.o $(OBJDIR_DEBUG)/src/program/gui/gui_Button.o $(OBJDIR_DEBUG)/src/program/gui/gui_Checkbox.o $(OBJDIR_DEBUG)/src/program/gui/gui_Image.o $(OBJDIR_DEBUG)/src/program/gui/gui_ScrollBar.o $(OBJDIR_DEBUG)/src/program/gui/gui_Slot.o $(OBJDIR_DEBUG)/src/program/gui/gui_Switch.o $(OBJDIR_DEBUG)/src/program/gui/gui_Text.o $(OBJDIR_DEBUG)/src/program/gui/gui_Window.o $(OBJDIR_DEBUG)/src/program/program_Program.o $(OBJDIR_DEBUG)/src/program/program_Resources.o $(OBJDIR_DEBUG)/src/program/program_Settings.o $(OBJDIR_DEBUG)/lib/Animation.o $(OBJDIR_DEBUG)/src/main.o $(OBJDIR_DEBUG)/src/program/game/entities/chest/chest_Chest.o $(OBJDIR_DEBUG)/lib/AnimatedSprite.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Book.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Cash.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Potion.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/src/program/gui/gui_Button.o $(OBJDIR_RELEASE)/src/program/game/game_Level.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_Attributes.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_GameMap.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_Inventory.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_MainMenu.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_PauseMenu.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_Quests.o $(OBJDIR_RELEASE)/src/program/game/player/player_Player.o $(OBJDIR_RELEASE)/src/program/gui/gui_Bar.o $(OBJDIR_RELEASE)/src/program/game/game_HUD.o $(OBJDIR_RELEASE)/src/program/gui/gui_Checkbox.o $(OBJDIR_RELEASE)/src/program/gui/gui_Image.o $(OBJDIR_RELEASE)/src/program/gui/gui_ScrollBar.o $(OBJDIR_RELEASE)/src/program/gui/gui_Slot.o $(OBJDIR_RELEASE)/src/program/gui/gui_Switch.o $(OBJDIR_RELEASE)/src/program/gui/gui_Text.o $(OBJDIR_RELEASE)/src/program/gui/gui_Window.o $(OBJDIR_RELEASE)/src/program/program_Program.o $(OBJDIR_RELEASE)/src/program/program_Resources.o $(OBJDIR_RELEASE)/src/program/program_Settings.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Book.o $(OBJDIR_RELEASE)/lib/Animation.o $(OBJDIR_RELEASE)/src/main.o $(OBJDIR_RELEASE)/src/program/game/entities/chest/chest_Chest.o $(OBJDIR_RELEASE)/lib/AnimatedSprite.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Cash.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Potion.o $(OBJDIR_RELEASE)/src/program/game/game_Game.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/src/program/gui/gui_Bar.o $(OBJDIR_RELEASE)/src/program/game/game_HUD.o $(OBJDIR_RELEASE)/src/program/game/game_Level.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_Attributes.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_GameMap.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_Inventory.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_MainMenu.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_PauseMenu.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_Quests.o $(OBJDIR_RELEASE)/src/program/game/player/player_Player.o $(OBJDIR_RELEASE)/src/program/game/game_Game.o $(OBJDIR_RELEASE)/src/program/gui/gui_Button.o $(OBJDIR_RELEASE)/src/program/gui/gui_Checkbox.o $(OBJDIR_RELEASE)/src/program/gui/gui_Image.o $(OBJDIR_RELEASE)/src/program/gui/gui_ScrollBar.o $(OBJDIR_RELEASE)/src/program/gui/gui_Slot.o $(OBJDIR_RELEASE)/src/program/gui/gui_Switch.o $(OBJDIR_RELEASE)/src/program/gui/gui_Text.o $(OBJDIR_RELEASE)/src/program/gui/gui_Window.o $(OBJDIR_RELEASE)/src/program/program_Program.o $(OBJDIR_RELEASE)/src/program/program_Resources.o $(OBJDIR_RELEASE)/src/program/program_Settings.o $(OBJDIR_RELEASE)/lib/Animation.o $(OBJDIR_RELEASE)/src/main.o $(OBJDIR_RELEASE)/src/program/game/entities/chest/chest_Chest.o $(OBJDIR_RELEASE)/lib/AnimatedSprite.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Book.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Cash.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Potion.o
 
 all: debug release
 
@@ -55,10 +55,10 @@ before_debug:
 	test -d $(OBJDIR_DEBUG)/src/program/game/menus || mkdir -p $(OBJDIR_DEBUG)/src/program/game/menus
 	test -d $(OBJDIR_DEBUG)/src/program/game/player || mkdir -p $(OBJDIR_DEBUG)/src/program/game/player
 	test -d $(OBJDIR_DEBUG)/src/program || mkdir -p $(OBJDIR_DEBUG)/src/program
-	test -d $(OBJDIR_DEBUG)/src/program/game/entities/item || mkdir -p $(OBJDIR_DEBUG)/src/program/game/entities/item
 	test -d $(OBJDIR_DEBUG)/lib || mkdir -p $(OBJDIR_DEBUG)/lib
 	test -d $(OBJDIR_DEBUG)/src || mkdir -p $(OBJDIR_DEBUG)/src
 	test -d $(OBJDIR_DEBUG)/src/program/game/entities/chest || mkdir -p $(OBJDIR_DEBUG)/src/program/game/entities/chest
+	test -d $(OBJDIR_DEBUG)/src/program/game/entities/item || mkdir -p $(OBJDIR_DEBUG)/src/program/game/entities/item
 
 after_debug: 
 
@@ -67,8 +67,11 @@ debug: before_debug out_debug after_debug
 out_debug: before_debug $(OBJ_DEBUG) $(DEP_DEBUG)
 	$(LD) $(LIBDIR_DEBUG) -o $(OUT_DEBUG) $(OBJ_DEBUG)  $(LDFLAGS_DEBUG) $(LIB_DEBUG)
 
-$(OBJDIR_DEBUG)/src/program/gui/gui_Button.o: src/program/gui/gui_Button.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/gui/gui_Button.cpp -o $(OBJDIR_DEBUG)/src/program/gui/gui_Button.o
+$(OBJDIR_DEBUG)/src/program/gui/gui_Bar.o: src/program/gui/gui_Bar.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/gui/gui_Bar.cpp -o $(OBJDIR_DEBUG)/src/program/gui/gui_Bar.o
+
+$(OBJDIR_DEBUG)/src/program/game/game_HUD.o: src/program/game/game_HUD.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/game_HUD.cpp -o $(OBJDIR_DEBUG)/src/program/game/game_HUD.o
 
 $(OBJDIR_DEBUG)/src/program/game/game_Level.o: src/program/game/game_Level.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/game_Level.cpp -o $(OBJDIR_DEBUG)/src/program/game/game_Level.o
@@ -94,11 +97,11 @@ $(OBJDIR_DEBUG)/src/program/game/menus/menus_Quests.o: src/program/game/menus/me
 $(OBJDIR_DEBUG)/src/program/game/player/player_Player.o: src/program/game/player/player_Player.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/player/player_Player.cpp -o $(OBJDIR_DEBUG)/src/program/game/player/player_Player.o
 
-$(OBJDIR_DEBUG)/src/program/gui/gui_Bar.o: src/program/gui/gui_Bar.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/gui/gui_Bar.cpp -o $(OBJDIR_DEBUG)/src/program/gui/gui_Bar.o
+$(OBJDIR_DEBUG)/src/program/game/game_Game.o: src/program/game/game_Game.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/game_Game.cpp -o $(OBJDIR_DEBUG)/src/program/game/game_Game.o
 
-$(OBJDIR_DEBUG)/src/program/game/game_HUD.o: src/program/game/game_HUD.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/game_HUD.cpp -o $(OBJDIR_DEBUG)/src/program/game/game_HUD.o
+$(OBJDIR_DEBUG)/src/program/gui/gui_Button.o: src/program/gui/gui_Button.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/gui/gui_Button.cpp -o $(OBJDIR_DEBUG)/src/program/gui/gui_Button.o
 
 $(OBJDIR_DEBUG)/src/program/gui/gui_Checkbox.o: src/program/gui/gui_Checkbox.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/gui/gui_Checkbox.cpp -o $(OBJDIR_DEBUG)/src/program/gui/gui_Checkbox.o
@@ -130,9 +133,6 @@ $(OBJDIR_DEBUG)/src/program/program_Resources.o: src/program/program_Resources.c
 $(OBJDIR_DEBUG)/src/program/program_Settings.o: src/program/program_Settings.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/program_Settings.cpp -o $(OBJDIR_DEBUG)/src/program/program_Settings.o
 
-$(OBJDIR_DEBUG)/src/program/game/entities/item/item_Book.o: src/program/game/entities/item/item_Book.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entities/item/item_Book.cpp -o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Book.o
-
 $(OBJDIR_DEBUG)/lib/Animation.o: lib/Animation.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c lib/Animation.cpp -o $(OBJDIR_DEBUG)/lib/Animation.o
 
@@ -145,14 +145,14 @@ $(OBJDIR_DEBUG)/src/program/game/entities/chest/chest_Chest.o: src/program/game/
 $(OBJDIR_DEBUG)/lib/AnimatedSprite.o: lib/AnimatedSprite.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c lib/AnimatedSprite.cpp -o $(OBJDIR_DEBUG)/lib/AnimatedSprite.o
 
+$(OBJDIR_DEBUG)/src/program/game/entities/item/item_Book.o: src/program/game/entities/item/item_Book.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entities/item/item_Book.cpp -o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Book.o
+
 $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Cash.o: src/program/game/entities/item/item_Cash.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entities/item/item_Cash.cpp -o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Cash.o
 
 $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Potion.o: src/program/game/entities/item/item_Potion.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entities/item/item_Potion.cpp -o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Potion.o
-
-$(OBJDIR_DEBUG)/src/program/game/game_Game.o: src/program/game/game_Game.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/game_Game.cpp -o $(OBJDIR_DEBUG)/src/program/game/game_Game.o
 
 clean_debug: 
 	rm -f $(OBJ_DEBUG) $(OUT_DEBUG)
@@ -162,10 +162,10 @@ clean_debug:
 	rm -rf $(OBJDIR_DEBUG)/src/program/game/menus
 	rm -rf $(OBJDIR_DEBUG)/src/program/game/player
 	rm -rf $(OBJDIR_DEBUG)/src/program
-	rm -rf $(OBJDIR_DEBUG)/src/program/game/entities/item
 	rm -rf $(OBJDIR_DEBUG)/lib
 	rm -rf $(OBJDIR_DEBUG)/src
 	rm -rf $(OBJDIR_DEBUG)/src/program/game/entities/chest
+	rm -rf $(OBJDIR_DEBUG)/src/program/game/entities/item
 
 before_release: 
 	test -d bin/Release || mkdir -p bin/Release
@@ -174,10 +174,10 @@ before_release:
 	test -d $(OBJDIR_RELEASE)/src/program/game/menus || mkdir -p $(OBJDIR_RELEASE)/src/program/game/menus
 	test -d $(OBJDIR_RELEASE)/src/program/game/player || mkdir -p $(OBJDIR_RELEASE)/src/program/game/player
 	test -d $(OBJDIR_RELEASE)/src/program || mkdir -p $(OBJDIR_RELEASE)/src/program
-	test -d $(OBJDIR_RELEASE)/src/program/game/entities/item || mkdir -p $(OBJDIR_RELEASE)/src/program/game/entities/item
 	test -d $(OBJDIR_RELEASE)/lib || mkdir -p $(OBJDIR_RELEASE)/lib
 	test -d $(OBJDIR_RELEASE)/src || mkdir -p $(OBJDIR_RELEASE)/src
 	test -d $(OBJDIR_RELEASE)/src/program/game/entities/chest || mkdir -p $(OBJDIR_RELEASE)/src/program/game/entities/chest
+	test -d $(OBJDIR_RELEASE)/src/program/game/entities/item || mkdir -p $(OBJDIR_RELEASE)/src/program/game/entities/item
 
 after_release: 
 
@@ -186,8 +186,11 @@ release: before_release out_release after_release
 out_release: before_release $(OBJ_RELEASE) $(DEP_RELEASE)
 	$(LD) $(LIBDIR_RELEASE) -o $(OUT_RELEASE) $(OBJ_RELEASE)  $(LDFLAGS_RELEASE) $(LIB_RELEASE)
 
-$(OBJDIR_RELEASE)/src/program/gui/gui_Button.o: src/program/gui/gui_Button.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/gui/gui_Button.cpp -o $(OBJDIR_RELEASE)/src/program/gui/gui_Button.o
+$(OBJDIR_RELEASE)/src/program/gui/gui_Bar.o: src/program/gui/gui_Bar.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/gui/gui_Bar.cpp -o $(OBJDIR_RELEASE)/src/program/gui/gui_Bar.o
+
+$(OBJDIR_RELEASE)/src/program/game/game_HUD.o: src/program/game/game_HUD.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/game_HUD.cpp -o $(OBJDIR_RELEASE)/src/program/game/game_HUD.o
 
 $(OBJDIR_RELEASE)/src/program/game/game_Level.o: src/program/game/game_Level.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/game_Level.cpp -o $(OBJDIR_RELEASE)/src/program/game/game_Level.o
@@ -213,11 +216,11 @@ $(OBJDIR_RELEASE)/src/program/game/menus/menus_Quests.o: src/program/game/menus/
 $(OBJDIR_RELEASE)/src/program/game/player/player_Player.o: src/program/game/player/player_Player.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/player/player_Player.cpp -o $(OBJDIR_RELEASE)/src/program/game/player/player_Player.o
 
-$(OBJDIR_RELEASE)/src/program/gui/gui_Bar.o: src/program/gui/gui_Bar.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/gui/gui_Bar.cpp -o $(OBJDIR_RELEASE)/src/program/gui/gui_Bar.o
+$(OBJDIR_RELEASE)/src/program/game/game_Game.o: src/program/game/game_Game.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/game_Game.cpp -o $(OBJDIR_RELEASE)/src/program/game/game_Game.o
 
-$(OBJDIR_RELEASE)/src/program/game/game_HUD.o: src/program/game/game_HUD.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/game_HUD.cpp -o $(OBJDIR_RELEASE)/src/program/game/game_HUD.o
+$(OBJDIR_RELEASE)/src/program/gui/gui_Button.o: src/program/gui/gui_Button.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/gui/gui_Button.cpp -o $(OBJDIR_RELEASE)/src/program/gui/gui_Button.o
 
 $(OBJDIR_RELEASE)/src/program/gui/gui_Checkbox.o: src/program/gui/gui_Checkbox.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/gui/gui_Checkbox.cpp -o $(OBJDIR_RELEASE)/src/program/gui/gui_Checkbox.o
@@ -249,9 +252,6 @@ $(OBJDIR_RELEASE)/src/program/program_Resources.o: src/program/program_Resources
 $(OBJDIR_RELEASE)/src/program/program_Settings.o: src/program/program_Settings.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/program_Settings.cpp -o $(OBJDIR_RELEASE)/src/program/program_Settings.o
 
-$(OBJDIR_RELEASE)/src/program/game/entities/item/item_Book.o: src/program/game/entities/item/item_Book.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entities/item/item_Book.cpp -o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Book.o
-
 $(OBJDIR_RELEASE)/lib/Animation.o: lib/Animation.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c lib/Animation.cpp -o $(OBJDIR_RELEASE)/lib/Animation.o
 
@@ -264,14 +264,14 @@ $(OBJDIR_RELEASE)/src/program/game/entities/chest/chest_Chest.o: src/program/gam
 $(OBJDIR_RELEASE)/lib/AnimatedSprite.o: lib/AnimatedSprite.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c lib/AnimatedSprite.cpp -o $(OBJDIR_RELEASE)/lib/AnimatedSprite.o
 
+$(OBJDIR_RELEASE)/src/program/game/entities/item/item_Book.o: src/program/game/entities/item/item_Book.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entities/item/item_Book.cpp -o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Book.o
+
 $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Cash.o: src/program/game/entities/item/item_Cash.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entities/item/item_Cash.cpp -o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Cash.o
 
 $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Potion.o: src/program/game/entities/item/item_Potion.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entities/item/item_Potion.cpp -o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Potion.o
-
-$(OBJDIR_RELEASE)/src/program/game/game_Game.o: src/program/game/game_Game.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/game_Game.cpp -o $(OBJDIR_RELEASE)/src/program/game/game_Game.o
 
 clean_release: 
 	rm -f $(OBJ_RELEASE) $(OUT_RELEASE)
@@ -281,10 +281,10 @@ clean_release:
 	rm -rf $(OBJDIR_RELEASE)/src/program/game/menus
 	rm -rf $(OBJDIR_RELEASE)/src/program/game/player
 	rm -rf $(OBJDIR_RELEASE)/src/program
-	rm -rf $(OBJDIR_RELEASE)/src/program/game/entities/item
 	rm -rf $(OBJDIR_RELEASE)/lib
 	rm -rf $(OBJDIR_RELEASE)/src
 	rm -rf $(OBJDIR_RELEASE)/src/program/game/entities/chest
+	rm -rf $(OBJDIR_RELEASE)/src/program/game/entities/item
 
 .PHONY: before_debug after_debug clean_debug before_release after_release clean_release
 

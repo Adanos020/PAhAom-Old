@@ -17,10 +17,9 @@ namespace rr {
         shadow.setPosition(sf::Vector2f(0, 0));
         shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
-#define dict(x) dictionary[x]
 #define component(w, c, i) w->getComponent<c>(i)
 
-        wInve = new Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), sf::Vector2f(settings.graphics.resolution.x/2-382.5f, settings.graphics.resolution.y/2-225));
+        wInve = new Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f)(settings.graphics.resolution/2u-sf::Vector2u(382, 225)));
             for (int i=0; i<8; i++) {
                 for (int j=0; j<4; j++) {
                     *wInve += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10+i*95, 30+j*95));
@@ -30,7 +29,6 @@ namespace rr {
             component(wInve, Button, 0)->setPosition(sf::Vector2f(wInve->getPosition().x+wInve->getSize().x-component(wInve, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(wInve, Button, 0)->getSize().y-5));
         wInve->setVisible(false);
 
-#undef dict
 #undef component
 
     }
