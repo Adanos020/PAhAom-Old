@@ -12,7 +12,7 @@
 
 namespace rr {
 
-    class Food :public Item {
+    class Food : public Item {
     private:
     public:
          Food();

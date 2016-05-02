@@ -34,7 +34,7 @@
 
 namespace sf {
 
-    class AnimatedSprite :public sf::Drawable, public sf::Transformable {
+    class AnimatedSprite : public sf::Drawable, public sf::Transformable {
     public:
         explicit AnimatedSprite(sf::Time frameTime = sf::seconds(0.2f), bool paused = false, bool looped = true);
 

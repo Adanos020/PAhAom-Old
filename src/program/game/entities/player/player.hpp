@@ -9,12 +9,13 @@
 #define player_h
 
 #include <SFML/Graphics.hpp>
-#include "../../../../lib/AnimatedSprite.hpp"
+#include "../entities.hpp"
+#include "../../../../../lib/AnimatedSprite.hpp"
 
 namespace rr {
 
 /// Class for the player
-    class Player {
+    class Player : public Entity {
         friend class Game;
     private:
     /// Structure for the player attributes
@@ -55,23 +56,24 @@ namespace rr {
             RIGHT
         };
 
-    /// Sets the player character's position
-        void         setPosition     (sf::Vector2f);
-
     /// Method making the player character's move in a given direction
-        void         move            (float timeStep, direction);
+        void          move            (float timeStep, direction);
 
     /// Method drawing the player character
-        void         draw            (sf::RenderWindow&);
+        void          draw            (sf::RenderWindow&);
 
     /// Updates the state of the player character
-        void         update          ();
+        void          update          ();
 
     /// Returns the player statistics
-        Attrs        getAttributes   () const { return attrs; }
+        Attrs         getAttributes   ()          const          { return attrs; }
 
     /// Returns the position of the player character
-        sf::Vector2f getPosition     () const { return body.getPosition(); }
+        sf::Vector2f  getPosition     ()          const          { return body.getPosition(); }
+
+        void          setPosition     (sf::Vector2f)    override;
+        bool          intersects      (Entity* e) const override { return e->getBounds().intersects(this->getBounds()); }
+        sf::FloatRect getBounds       ()          const override { return body.getGlobalBounds(); }
     };
 
 }

@@ -36,6 +36,7 @@ gui.text.useslot_2 Use slot 2
 gui.text.useslot_3 Use slot 3
 gui.text.useslot_4 Use slot 4
 gui.text.useslot_5 Use slot 5
+gui.text.press_a_key Press a key...
 gui.window.attributes ATTRIBUTES
 gui.window.inventory INVENTORY
 gui.window.quests QUESTS

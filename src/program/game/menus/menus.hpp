@@ -10,7 +10,7 @@
 
 #include "../../gui/gui.hpp"
 #include "../game.hpp"
-#include "../player/player.hpp"
+#include "../entities/player/player.hpp"
 
 namespace rr {
 

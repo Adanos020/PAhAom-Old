@@ -23,11 +23,11 @@ namespace rr {
 
         wMenu = new Window("", sf::Vector2f(244, 454), sf::Vector2f(25, settings.graphics.resolution.y/2-225));
             *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.newgame"], 52);
-            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.load"],    52);
+            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.load"   ], 52);
             *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.options"], 52);
-            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.help"],    52);
+            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.help"   ], 52);
             *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.credits"], 52);
-            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"],    52);
+            *wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"   ], 52);
             for (int i=0; i<6; i++)
                 component(wMenu, Button, i)->setPosition(wMenu->getPosition()+sf::Vector2f(wMenu->getSize().x/2-component(wMenu, Button, i)->getSize().x/2, 5+i*75));
 
@@ -36,12 +36,12 @@ namespace rr {
 
 #define wOpts component(wMenu, Window, 0)
 
-                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.game"],      52);
+                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.game"     ], 52);
                 *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.graphical"], 52);
-                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.sound"],     52);
-                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.controls"],  52);
-                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.save"],      30);
-                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"],      30);
+                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.sound"    ], 52);
+                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.controls" ], 52);
+                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.save"     ], 30);
+                *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"     ], 30);
                 for (int i=0; i<4; i++)
                     component(wOpts, Button, i)->setPosition(wOpts->getPosition()+sf::Vector2f(wOpts->getSize().x/2-component(wOpts, Button, i)->getSize().x/2, 30+i*75));
                 component(wOpts, Button, 4)->setPosition(wOpts->getPosition()+sf::Vector2f(wOpts->getSize().x/2-(component(wOpts, Button, 4)->getSize().x+component(wOpts, Button, 5)->getSize().x+5)/2, 350));
@@ -153,26 +153,33 @@ namespace rr {
                                                             +resources.dictionary["gui.text.useslot_3"      ]+"\n"
                                                             +resources.dictionary["gui.text.useslot_4"      ]+"\n"
                                                             +resources.dictionary["gui.text.useslot_5"      ]+"\n", resources.font.Unifont, 25);
-                    *wCont += new Button(sf::Vector2f(300,  27.5f), getKeyName(settings.keys.move_up)        , 20);
-                    *wCont += new Button(sf::Vector2f(300,  54.5f), getKeyName(settings.keys.move_down)      , 20);
-                    *wCont += new Button(sf::Vector2f(300,  81.5f), getKeyName(settings.keys.move_left)      , 20);
-                    *wCont += new Button(sf::Vector2f(300, 108.5f), getKeyName(settings.keys.move_right)     , 20);
-                    *wCont += new Button(sf::Vector2f(300, 135.5f), getKeyName(settings.keys.interact)       , 20);
-                    *wCont += new Button(sf::Vector2f(300, 162.5f), getKeyName(settings.keys.attack)         , 20);
-                    *wCont += new Button(sf::Vector2f(300, 189.5f), getKeyName(settings.keys.pickup)         , 20);
-                    *wCont += new Button(sf::Vector2f(300, 216.5f), getKeyName(settings.keys.open_inventory) , 20);
+                    *wCont += new Button(sf::Vector2f(300,  27.5f), getKeyName(settings.keys.move_up        ), 20);
+                    *wCont += new Button(sf::Vector2f(300,  54.5f), getKeyName(settings.keys.move_down      ), 20);
+                    *wCont += new Button(sf::Vector2f(300,  81.5f), getKeyName(settings.keys.move_left      ), 20);
+                    *wCont += new Button(sf::Vector2f(300, 108.5f), getKeyName(settings.keys.move_right     ), 20);
+                    *wCont += new Button(sf::Vector2f(300, 135.5f), getKeyName(settings.keys.interact       ), 20);
+                    *wCont += new Button(sf::Vector2f(300, 162.5f), getKeyName(settings.keys.attack         ), 20);
+                    *wCont += new Button(sf::Vector2f(300, 189.5f), getKeyName(settings.keys.pickup         ), 20);
+                    *wCont += new Button(sf::Vector2f(300, 216.5f), getKeyName(settings.keys.open_inventory ), 20);
                     *wCont += new Button(sf::Vector2f(300, 243.5f), getKeyName(settings.keys.open_attributes), 20);
-                    *wCont += new Button(sf::Vector2f(300, 270.5f), getKeyName(settings.keys.open_quests)    , 20);
-                    *wCont += new Button(sf::Vector2f(300, 297.5f), getKeyName(settings.keys.open_map)       , 20);
-                    *wCont += new Button(sf::Vector2f(300, 324.5f), getKeyName(settings.keys.useslot_1)      , 20);
-                    *wCont += new Button(sf::Vector2f(300, 351.5f), getKeyName(settings.keys.useslot_2)      , 20);
-                    *wCont += new Button(sf::Vector2f(300, 378.5f), getKeyName(settings.keys.useslot_3)      , 20);
-                    *wCont += new Button(sf::Vector2f(300, 405.5f), getKeyName(settings.keys.useslot_4)      , 20);
-                    *wCont += new Button(sf::Vector2f(300, 432.5f), getKeyName(settings.keys.useslot_5)      , 20);
+                    *wCont += new Button(sf::Vector2f(300, 270.5f), getKeyName(settings.keys.open_quests    ), 20);
+                    *wCont += new Button(sf::Vector2f(300, 297.5f), getKeyName(settings.keys.open_map       ), 20);
+                    *wCont += new Button(sf::Vector2f(300, 324.5f), getKeyName(settings.keys.useslot_1      ), 20);
+                    *wCont += new Button(sf::Vector2f(300, 351.5f), getKeyName(settings.keys.useslot_2      ), 20);
+                    *wCont += new Button(sf::Vector2f(300, 378.5f), getKeyName(settings.keys.useslot_3      ), 20);
+                    *wCont += new Button(sf::Vector2f(300, 405.5f), getKeyName(settings.keys.useslot_4      ), 20);
+                    *wCont += new Button(sf::Vector2f(300, 432.5f), getKeyName(settings.keys.useslot_5      ), 20);
                     *wCont += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
                     component(wCont, Button, 16)->setPosition(sf::Vector2f(wCont->getPosition().x+wCont->getSize().x/2-component(wCont, Button, 16)->getSize().x/2,
-                                                                          wCont->getPosition().y+wCont->getSize().y-component(wCont, Button, 16)->getSize().y-10));
+                                                                           wCont->getPosition().y+wCont->getSize().y-component(wCont, Button, 16)->getSize().y-10));
 
+                    wCont->addComponent(new Window("", sf::Vector2f(310, 50), (sf::Vector2f)(settings.graphics.resolution/2u-sf::Vector2u(155, 25)), sf::Color::Red), false);
+
+#define wWait component(wCont, Window, 0)
+
+                        *wWait += new Text(resources.dictionary["gui.text.press_a_key"], resources.font.Unifont, 30);
+
+#undef wWait
 #undef wCont
 #undef wOpts
 
@@ -196,10 +203,12 @@ namespace rr {
 
                 *wCred += new Text(sf::Vector2f(20,  20), resources.dictionary["gui.text.programming"], resources.font.Unifont, 30);
                 *wCred += new Text(sf::Vector2f( 0,  50),  L"\tAdam 'Adanos' Gąsior", resources.font.Unifont, 25, sf::Color::Yellow);
+
                 *wCred += new Text(sf::Vector2f(20,  80), resources.dictionary["gui.button.graphical"], resources.font.Unifont, 30);
-                *wCred += new Text(sf::Vector2f( 0, 110), "\tJan Lewandowski"       , resources.font.Unifont, 25, sf::Color::Yellow);
-                *wCred += new Text(sf::Vector2f(20, 140), resources.dictionary["gui.text.usedlib"    ], resources.font.Unifont, 30);
-                *wCred += new Text(sf::Vector2f( 0, 170), "\tSFML 2.3.2"            , resources.font.Unifont, 25, sf::Color::Yellow);
+                *wCred += new Text(sf::Vector2f( 0, 110), "\tJan Lewandowski", resources.font.Unifont, 25, sf::Color::Yellow);
+
+                *wCred += new Text(sf::Vector2f(20, 140), resources.dictionary["gui.text.usedlib"], resources.font.Unifont, 30);
+                *wCred += new Text(sf::Vector2f( 0, 170), "\tSFML 2.3.2", resources.font.Unifont, 25, sf::Color::Yellow);
 
                 *wCred += new Button(sf::Vector2f(5, 225), resources.dictionary["gui.button.quit"], 30);
                     component(wCred, Button, 0)->setPosition(sf::Vector2f(wCred->getPosition().x+wCred->getSize().x/2-component(wCred, Button, 0)->getSize().x/2,
@@ -225,6 +234,7 @@ namespace rr {
 #define wGrap component(wOpts, Window, 1)
 #define wSoun component(wOpts, Window, 2)
 #define wCont component(wOpts, Window, 3)
+#define wWait component(wCont, Window, 0)
 #define wHelp component(wMenu, Window, 1)
 #define wCred component(wMenu, Window, 2)
 
@@ -385,14 +395,20 @@ namespace rr {
 
                 else if (wCont->isVisible()) {
                     for (int i=0; i<16; i++) {
-                        if (component(wCont, Button, i)->isPressed(rw, e)) {
-
+                        if (!wWait->isVisible() && component(wCont, Button, i)->isPressed(rw, e)) {
+                            wWait->setVisible(true);
+                            wWait->setParentComponent(component(wCont, Button, i));
+                        }
+                        else if (wWait->isVisible() && e.type == sf::Event::KeyPressed) {
+                            if (e.key.code != sf::Keyboard::Escape)
+                                wWait->getParentComponent()->getText()->setString(getKeyName(e.key.code));
+                            wWait->setParentComponent(wCont);
+                            wWait->setVisible(false);
                         }
                     }
-                    if (component(wCont, Button, 16)->isPressed(rw, e))
+                    if (!wWait->isVisible() && component(wCont, Button, 16)->isPressed(rw, e))
                         wCont->setVisible(false);
                 }
-
 
             }
 
@@ -413,6 +429,7 @@ namespace rr {
 #undef wGrap
 #undef wSoun
 #undef wCont
+#undef wWait
 #undef wHelp
 #undef wCred
 

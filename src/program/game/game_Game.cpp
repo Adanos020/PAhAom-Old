@@ -151,6 +151,7 @@ namespace rr {
     bool Game::loadNewGame() {
         randomizeItems();
         for (int l=0; l<5; l++) {
+            std::cout << "LEVEL " << l << '\n';
             level.push_back(new Level());
             level.back()->generateWorld();
         }
@@ -220,19 +221,21 @@ namespace rr {
         if (gameMap   ->isOpen())
             gameMap   ->buttonEvents(rw, e, this);
 
-        if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Add) {
-            if (levelNumber<level.size()-1)
-                levelNumber++;
-            else
-                levelNumber = 0;
-            player->setPosition(level[levelNumber]->getStartingPoint());
-        }
-        else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Subtract) {
-            if (levelNumber>0)
-                levelNumber--;
-            else
-                levelNumber = level.size()-1;
-            player->setPosition(level[levelNumber]->getEndingPoint());
+        if (started) {
+            if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Add) {
+                if (levelNumber<level.size()-1)
+                    levelNumber++;
+                else
+                    levelNumber = 0;
+                player->setPosition(level[levelNumber]->getStartingPoint());
+            }
+            else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Subtract) {
+                if (levelNumber>0)
+                    levelNumber--;
+                else
+                    levelNumber = level.size()-1;
+                player->setPosition(level[levelNumber]->getEndingPoint());
+            }
         }
     }
 

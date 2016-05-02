@@ -36,6 +36,7 @@ gui.text.useslot_2 Użyj schowka nr 2
 gui.text.useslot_3 Użyj schowka nr 3
 gui.text.useslot_4 Użyj schowka nr 4
 gui.text.useslot_5 Użyj schowka nr 5
+gui.text.press_a_key Naciśnij klawisz...
 gui.window.attributes ATRYBUTY
 gui.window.inventory EKWIPUNEK
 gui.window.quests ZADANIA

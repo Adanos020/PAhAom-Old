@@ -14,7 +14,7 @@ namespace rr {
 
 //class Item;
 
-	class Cash :public Item {
+	class Cash : public Item {
     public:
         enum Type {
             BRONZE,

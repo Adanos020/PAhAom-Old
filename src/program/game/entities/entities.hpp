@@ -9,20 +9,29 @@
 #define entities_hpp
 
 namespace rr {
+
     class Entity {
     public:
         virtual ~Entity() {}
 
-    /// Method drawing the entity's sprite
-        virtual void draw       (sf::RenderWindow&) = 0;
+    /// Draws the entity's sprite
+        virtual void          draw       (sf::RenderWindow&) = 0;
 
-    /// Method setting the entity's position
-        virtual void setPosition(sf::Vector2f pos ) = 0;
+    /// Sets the entity's position
+        virtual void          setPosition(sf::Vector2f pos ) = 0;
+
+    /// Tells if this entity collides with another one
+        virtual bool          intersects (Entity*) const     = 0;
+
+    /// Returns the entity's bound box
+        virtual sf::FloatRect getBounds  ()        const     = 0;
     };
+
 }
 
-#include "item/item.hpp"
 #include "chest/chest.hpp"
+#include "door/door.hpp"
+#include "item/item.hpp"
 
 #endif // entities_hpp
 

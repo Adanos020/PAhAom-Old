@@ -15,7 +15,7 @@
 namespace rr {
 
 /// Class for an item
-    class Item :public Entity {
+    class Item : public Entity {
     protected:
         sf::FloatRect   boundBox;
         sf::VertexArray body;
@@ -35,35 +35,37 @@ namespace rr {
         virtual void       update        ()                  = 0;
 
     /// Method changing the amount
-        void               editAmount    (int x)            { amount = x; }
-
-    /// Sets the item's position
-        void               setPosition   (sf::Vector2f pos) { body[0].position = pos;
-                                                              body[1].position = sf::Vector2f(pos.x+80, pos.y);
-                                                              body[2].position = sf::Vector2f(pos.x+80, pos.y+80);
-                                                              body[3].position = sf::Vector2f(pos.x   , pos.y+80);
-                                                            }
+        void               editAmount    (int x)                     { amount = x; }
 
     /// Returns the item's ID
-        int                getID         ()                 { return ID; }
+        int                getID         ()                          { return ID; }
 
     /// Returns the amount of this item
-        int                getAmount     ()                 { return amount; }
+        int                getAmount     ()                          { return amount; }
 
     /// Method telling if the item is disposable
-        bool               isDisposable  ()                 { return disposable; }
+        bool               isDisposable  ()                          { return disposable; }
 
     /// Method telling if the item is equipable
-        bool               isEquipable   ()                 { return equipable; }
+        bool               isEquipable   ()                          { return equipable; }
 
     /// Returns the sprite of this item
-        sf::VertexArray    getBody       ()                 { return body; }
+        sf::VertexArray    getBody       ()                          { return body; }
 
     /// Returns the name of this item
-        sf::String         getName       ()                 { return name; }
+        sf::String         getName       ()                          { return name; }
 
     /// Returns the description of this item
-        sf::String         getDescription()                 { return description; }
+        sf::String         getDescription()                          { return description; }
+
+        void               setPosition   (sf::Vector2f pos) override { body[0].position = pos;
+                                                                       body[1].position = sf::Vector2f(pos.x+80, pos.y);
+                                                                       body[2].position = sf::Vector2f(pos.x+80, pos.y+80);
+                                                                       body[3].position = sf::Vector2f(pos.x   , pos.y+80);
+                                                                     }
+
+        bool               intersects    (Entity* e) const  override { return (e->getBounds().intersects(this->getBounds())); }
+        sf::FloatRect      getBounds     ()          const  override { return sf::FloatRect(body[0].position, body[2].position-body[0].position); }
     };
 
     class Discoverable {

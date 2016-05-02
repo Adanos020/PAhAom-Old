@@ -84,8 +84,8 @@ namespace rr {
         case sf::Keyboard::Delete:    return "Delete";
         case sf::Keyboard::Add:       return "+";
         case sf::Keyboard::Subtract:  return L"–";
-        case sf::Keyboard::Multiply:  return "×";
-        case sf::Keyboard::Divide:    return "÷";
+        case sf::Keyboard::Multiply:  return L"×";
+        case sf::Keyboard::Divide:    return L"÷";
         case sf::Keyboard::Left:      return L"←";
         case sf::Keyboard::Right:     return L"→";
         case sf::Keyboard::Up:        return L"↑";
@@ -178,7 +178,7 @@ inline sf::Keyboard::Key getKeyCode(sf::String keyName) { // I would use a switc
         if (keyName == sf::String("-"))         return sf::Keyboard::Dash;
         if (keyName == sf::String("Space"))     return sf::Keyboard::Space;
         if (keyName == sf::String("Return"))    return sf::Keyboard::Return;
-        if (keyName == sf::String("←B"))        return sf::Keyboard::BackSpace;
+        if (keyName == sf::String(L"←B"))       return sf::Keyboard::BackSpace;
         if (keyName == sf::String("Tab"))       return sf::Keyboard::Tab;
         if (keyName == sf::String(L"Pg↑"))      return sf::Keyboard::PageUp;
         if (keyName == sf::String(L"Pg↓"))      return sf::Keyboard::PageDown;
@@ -188,8 +188,8 @@ inline sf::Keyboard::Key getKeyCode(sf::String keyName) { // I would use a switc
         if (keyName == sf::String("Delete"))    return sf::Keyboard::Delete;
         if (keyName == sf::String("+"))         return sf::Keyboard::Add;
         if (keyName == sf::String(L"–"))        return sf::Keyboard::Subtract;
-        if (keyName == sf::String("×"))         return sf::Keyboard::Multiply;
-        if (keyName == sf::String("÷"))         return sf::Keyboard::Divide;
+        if (keyName == sf::String(L"×"))        return sf::Keyboard::Multiply;
+        if (keyName == sf::String(L"÷"))        return sf::Keyboard::Divide;
         if (keyName == sf::String(L"←"))        return sf::Keyboard::Left;
         if (keyName == sf::String(L"→"))        return sf::Keyboard::Right;
         if (keyName == sf::String(L"↑"))        return sf::Keyboard::Up;

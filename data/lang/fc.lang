@@ -20,10 +20,10 @@ gui.text.usedlib YX'BITA BNBL'ETEQA
 gui.text.music MYČBIQA
 gui.text.effects EDEQTBI
 gui.text.mute VBIY'NW
-gui.text.move_up ny' b typeh
-gui.text.move_down ny' b ayl
-gui.text.move_left ny' b lebo
-gui.text.move_right ny' b tpabo
+gui.text.move_up b typeh ny'
+gui.text.move_down b ayl ny'
+gui.text.move_left b lebo ny'
+gui.text.move_right b tpabo ny'
 gui.text.interact y'rlañ
 gui.text.attack ataqyñ
 gui.text.pickup toah'ew'
@@ -36,6 +36,7 @@ gui.text.useslot_2 cxobqa 2 yx'biñ
 gui.text.useslot_3 cxobqa 3 yx'biñ
 gui.text.useslot_4 cxobqa 4 yx'biñ
 gui.text.useslot_5 cxobqa 5 yx'biñ
+gui.text.press_a_key .qlabnw hay'nw'h'nñ
 gui.window.attributes ATVBIBYTBI
 gui.window.inventory EQBNTYHEQ
 gui.window.quests ČÅH'R

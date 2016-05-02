@@ -13,7 +13,7 @@
 
 #include "../program.hpp"
 #include "menus/menus.hpp"
-#include "player/player.hpp"
+#include "entities/player/player.hpp"
 #include "entities/entities.hpp"
 
 namespace rr {
@@ -48,7 +48,7 @@ namespace rr {
     };
 
 /// Class for the tile map
-    class Level :public sf::Drawable, public sf::Transformable {
+    class Level : public sf::Drawable, public sf::Transformable {
     public:
          Level();
         ~Level();
@@ -68,7 +68,7 @@ namespace rr {
         std::vector<Entity*>           getEntities     () const { return entities     ; }
         sf::Vector2f                   getStartingPoint() const { return startingPoint; }
         sf::Vector2f                   getEndingPoint  () const { return endingPoint  ; }
-        std::vector<std::vector<Cell>> getGrid         () const { return grid         ; }
+        std::vector<std::vector<Cell>> getTiles        () const { return tiles        ; }
     private:
         virtual void draw           (sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -81,13 +81,16 @@ namespace rr {
         void         generateTileMap();
         bool         isOnBorder     (int, int);
 
-        sf::VertexArray      m_vertices;
-        sf::Vector2i         size;
-        sf::Vector2f         startingPoint;
-        sf::Vector2f         endingPoint;
+        sf::VertexArray tilemap;
+        sf::Vector2i    size;
+        sf::Vector2f    startingPoint;
+        sf::Vector2f    endingPoint;
 
         std::vector<Entity*>           entities;
-        std::vector<std::vector<Cell>> grid;
+        std::vector<std::vector<Cell>> tiles;
+        std::vector<sf::IntRect>       rooms;
+        std::vector<std::vector<int>>  regions;
+        int                            region_count;
     };
 
 /// Class for the game

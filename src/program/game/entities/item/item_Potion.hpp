@@ -12,7 +12,7 @@
 
 namespace rr {
 
-    class Potion :public Discoverable, public Item {
+    class Potion : public Discoverable, public Item {
     private:
     public:
         enum Effect {

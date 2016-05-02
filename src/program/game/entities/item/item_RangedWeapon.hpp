@@ -12,7 +12,7 @@
 
 namespace rr {
 
-    class RangedWeapon :public Item {
+    class RangedWeapon : public Item {
     private:
     public:
          RangedWeapon();

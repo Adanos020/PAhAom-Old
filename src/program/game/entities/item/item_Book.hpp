@@ -12,7 +12,7 @@
 
 namespace rr {
 
-    class Book :public Discoverable, public Item {
+    class Book : public Discoverable, public Item {
     public:
         enum Type {
             MANA_REGEN,

@@ -6,7 +6,7 @@
  */
 
 #include "player.hpp"
-#include "../../program.hpp"
+#include "../../../program.hpp"
 
 extern rr::Resources resources;
 

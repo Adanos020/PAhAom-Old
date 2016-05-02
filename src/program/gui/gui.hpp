@@ -60,7 +60,7 @@ namespace rr {
     };
 
 /// Class for a vertical or a horizontal bar component representing any value you assign it to
-    class Bar :public Component {
+    class Bar : public Component {
     private:
         sf::RectangleShape border;
         sf::RectangleShape bar;
@@ -85,7 +85,7 @@ namespace rr {
     };
 
 /// Class for a button component which by being clicked can cause any action you assign to it
-    class Button :public Component {
+    class Button : public Component {
     protected:
         sf::Color          color;
         sf::RectangleShape body;
@@ -109,7 +109,7 @@ namespace rr {
     };
 
 /// Class for a checkbox component which can be checked or unchecked, depending on the parity of the number of clicks performed on it
-    class Checkbox :public Component {
+    class Checkbox : public Component {
     private:
         sf::Color          color;
         sf::RectangleShape body;
@@ -142,7 +142,7 @@ namespace rr {
     };
 
 /// Class for an image component which can be loaded from a file
-    class Image :public Component {
+    class Image : public Component {
     private:
         sf::Sprite      body;
         int             icn;
@@ -178,7 +178,7 @@ namespace rr {
     };
 
 /// Class for a ScrollBar component
-    class ScrollBar :public Component {
+    class ScrollBar : public Component {
     public:
         enum Plain {
             HORIZONTAL,
@@ -216,7 +216,7 @@ namespace rr {
     };
 
 /// Class for a slot component which can contain any instance of the class Item
-    class Slot :public Component {
+    class Slot : public Component {
     private:
         sf::Color          color;
         sf::RectangleShape body;
@@ -259,7 +259,7 @@ namespace rr {
     };
 
 /// Class for a switch component which can contain as many options you add to it and switch between them
-    class Switch :public Component {
+    class Switch : public Component {
     private:
         sf::RectangleShape      body;
         std::vector<sf::String> options;
@@ -295,7 +295,7 @@ namespace rr {
     };
 
 /// A class for a text component
-    class Text :public Component {
+    class Text : public Component {
     private:
         sf::Text text;
     public:
@@ -337,7 +337,7 @@ namespace rr {
     };
 
 /// Class for an internal window component which also can be a component of another internal window component
-    class Window :public Component {
+    class Window : public Component {
     private:
         sf::RectangleShape      body;
         std::vector<Component*> components;

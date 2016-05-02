@@ -12,7 +12,7 @@
 
 namespace rr {
 
-    class Spell :public Item {
+    class Spell : public Item {
     private:
     public:
          Spell();
