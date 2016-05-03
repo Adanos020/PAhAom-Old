@@ -56,24 +56,31 @@ namespace rr {
 
     void Player::move(float ts, std::vector<std::vector<Level::Cell> > tiles, Direction di) {
         if (di == UP) {
-            if (tiles[position.x][position.y-1] != Level::WALL)
+            if (tiles[position.x][position.y-1] != Level::WALL) {
                 setPosition(sf::Vector2i(position.x, position.y-1));
+                sf::sleep(sf::seconds(0.1f));
+            }
         }
         else if (di == DOWN) {
-            if (tiles[position.x][position.y+1] != Level::WALL)
+            if (tiles[position.x][position.y+1] != Level::WALL) {
                 setPosition(sf::Vector2i(position.x, position.y+1));
+                sf::sleep(sf::seconds(0.1f));
+            }
         }
         else if (di == LEFT) {
-            if (tiles[position.x-1][position.y] != Level::WALL)
+            if (tiles[position.x-1][position.y] != Level::WALL) {
                 setPosition(sf::Vector2i(position.x-1, position.y));
+                sf::sleep(sf::seconds(0.1f));
+            }
             currentAnimation = &walkingLeft;
         }
         else if (di == RIGHT) {
-            if (tiles[position.x+1][position.y] != Level::WALL)
+            if (tiles[position.x+1][position.y] != Level::WALL) {
                 setPosition(sf::Vector2i(position.x+1, position.y));
+                sf::sleep(sf::seconds(0.1f));
+            }
             currentAnimation = &walkingRight;
         }
-        sf::sleep(sf::seconds(0.05f));
     }
 
     void Player::draw(sf::RenderWindow& rw) {
