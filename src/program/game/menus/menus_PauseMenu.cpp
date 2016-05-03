@@ -6,8 +6,8 @@
  */
 
 #include "menus.hpp"
+#include "../../program.hpp"
 #include "../../funcs/strings.hpp"
-#include "../../funcs/keys.hpp"
 
 extern rr::Settings  settings;
 extern rr::Resources resources;

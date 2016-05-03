@@ -20,7 +20,7 @@ namespace rr {
             SPELLS_LEARNING,
 
         } type;
-         Book(Type, int am, sf::Vector2f pos);
+         Book(Type, int am, sf::Vector2i pos);
         ~Book();
 
         virtual void draw      (sf::RenderWindow&) override;

@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/player/player.hpp
+ * @file src/program/game/entities/player/player.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -9,10 +9,12 @@
 #define player_h
 
 #include <SFML/Graphics.hpp>
-#include "../entities.hpp"
+#include "../../level.hpp"
 #include "../../../../../lib/AnimatedSprite.hpp"
 
 namespace rr {
+
+    class Level;
 
 /// Class for the player
     class Player : public Entity {
@@ -39,7 +41,7 @@ namespace rr {
             bool  better_sight;
         } attrs;
 
-        sf::Vector2f       position;
+        sf::Vector2i       position;
         sf::AnimatedSprite body;
         sf::Animation      walkingLeft;
         sf::Animation      walkingRight;
@@ -49,17 +51,17 @@ namespace rr {
          Player();
         ~Player();
 
-        enum direction {
+        enum Direction {
             UP,
             DOWN,
             LEFT,
             RIGHT
         };
 
-    /// Method making the player character's move in a given direction
-        void          move            (float timeStep, direction);
+    /// Moves the player's character's to a cell in a given direction
+        void          move            (float timeStep, std::vector<std::vector<Level::Cell> >, Direction);
 
-    /// Method drawing the player character
+    /// Draws the player's character
         void          draw            (sf::RenderWindow&);
 
     /// Updates the state of the player character
@@ -69,9 +71,9 @@ namespace rr {
         Attrs         getAttributes   ()          const          { return attrs; }
 
     /// Returns the position of the player character
-        sf::Vector2f  getPosition     ()          const          { return body.getPosition(); }
+        sf::Vector2i  getPosition     ()          const          { return position; }
 
-        void          setPosition     (sf::Vector2f)    override;
+        void          setPosition     (sf::Vector2i)    override;
         bool          intersects      (Entity* e) const override { return e->getBounds().intersects(this->getBounds()); }
         sf::FloatRect getBounds       ()          const override { return body.getGlobalBounds(); }
     };

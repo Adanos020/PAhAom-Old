@@ -13,7 +13,7 @@ extern sf::Color     potionColors[9];
 
 namespace rr {
 
-    Potion::Potion(Effect e, Size s, int am, sf::Vector2f pos) {
+    Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos) {
         name       = "";
         amount     = am;
         effect     = e;
@@ -29,10 +29,10 @@ namespace rr {
         body.setPrimitiveType(sf::Quads);
 
      // setting the vertices of the flask
-        body[0].position  = pos;
-        body[1].position  = sf::Vector2f(pos.x+80, pos.y);
-        body[2].position  = sf::Vector2f(pos.x+80, pos.y+80);
-        body[3].position  = sf::Vector2f(pos.x   , pos.y+80);
+        body[0].position  = (sf::Vector2f)pos*80.f;
+        body[1].position  = sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
+        body[2].position  = sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
+        body[3].position  = sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
 
         body[0].texCoords = sf::Vector2f(  tu  *16+0.03125f,   tv  *16+0.03125f);
         body[1].texCoords = sf::Vector2f((tu+1)*16-0.03125f,   tv  *16+0.03125f);
@@ -70,11 +70,11 @@ namespace rr {
         boundBox = sf::FloatRect(body[0].position.x, body[0].position.y, 16, 16);
     }
 
-    void Potion::setPosition(sf::Vector2f pos) {
-        body[0].position = pos;
-        body[1].position = sf::Vector2f(pos.x+80, pos.y   );
-        body[2].position = sf::Vector2f(pos.x+80, pos.y+80);
-        body[3].position = sf::Vector2f(pos.x   , pos.y+80);
+    void Potion::setPosition(sf::Vector2i pos) {
+        body[0].position = (sf::Vector2f)pos*80.f;
+        body[1].position = sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
+        body[2].position = sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
+        body[3].position = sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
 
         body[4].position = body[0].position;
         body[5].position = body[1].position;

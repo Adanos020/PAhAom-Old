@@ -34,11 +34,6 @@ namespace rr {
     Chest::~Chest() {
         delete item;
     }
-
-    void Chest::setPosition(sf::Vector2f pos) {
-        body.setPosition(pos);
-    }
-
     void Chest::draw(sf::RenderWindow& rw) {
         rw.draw(body);
     }

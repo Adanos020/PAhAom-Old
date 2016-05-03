@@ -21,7 +21,7 @@ namespace rr {
             SILVER,
             GOLDEN
         } type;
-         Cash(Type, int am, sf::Vector2f pos);
+         Cash(Type, int am, sf::Vector2i pos);
         ~Cash();
 
         virtual void draw      (sf::RenderWindow&) override;

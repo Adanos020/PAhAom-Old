@@ -68,7 +68,7 @@ namespace rr {
             return false;
         }
         item = getItemFromID(id, amount);
-        item->setPosition(position);
+        item->setPosition((sf::Vector2i)position);
         //itemSkin->change(item->getBody(), resources.texture.items);
         text->setString(std::to_string(item->getAmount()));
         text->setCharacterSize(20);

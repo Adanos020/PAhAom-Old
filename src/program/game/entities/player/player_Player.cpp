@@ -25,7 +25,7 @@ namespace rr {
         body.setPosition(sf::Vector2f(0, 0));
         body.scale(sf::Vector2f(5, 5));
 
-        position          = sf::Vector2f(0, 0);
+        position          = sf::Vector2i(0, 0);
         velocity          = 0.5f;
 
         attrs.health      =  30.f;
@@ -39,39 +39,41 @@ namespace rr {
         attrs.nextLevel   = 100.f;
         attrs.level       =   0.f;
 
-        attrs.crafting              = true;
+        attrs.crafting              = false;
         attrs.alchemy               = false;
-        attrs.cold_weapon_mastery   = true;
-        attrs.ranged_weapon_mastery = true;
+        attrs.cold_weapon_mastery   = false;
+        attrs.ranged_weapon_mastery = false;
         attrs.better_sight          = false;
     }
 
-    Player::~Player() {
+    Player::~Player() {}
 
-    }
-
-    void Player::setPosition(sf::Vector2f pos) {
+    void Player::setPosition(sf::Vector2i pos) {
         if (position != pos)
             position  = pos;
-        body.setPosition(pos);
+        body.setPosition((sf::Vector2f)pos*80.f);
     }
 
-    void Player::move(float ts, direction di) {
-        if        (di == UP) {
-            position.y -= ts*velocity;
-            setPosition(position);
-        } else if (di == DOWN) {
-            position.y += ts*velocity;
-            setPosition(position);
-        } else if (di == LEFT) {
-            position.x -= ts*velocity;
-            setPosition(position);
+    void Player::move(float ts, std::vector<std::vector<Level::Cell> > tiles, Direction di) {
+        if (di == UP) {
+            if (tiles[position.x][position.y-1] != Level::WALL)
+                setPosition(sf::Vector2i(position.x, position.y-1));
+        }
+        else if (di == DOWN) {
+            if (tiles[position.x][position.y+1] != Level::WALL)
+                setPosition(sf::Vector2i(position.x, position.y+1));
+        }
+        else if (di == LEFT) {
+            if (tiles[position.x-1][position.y] != Level::WALL)
+                setPosition(sf::Vector2i(position.x-1, position.y));
             currentAnimation = &walkingLeft;
-        } else if (di == RIGHT) {
-            position.x += ts*velocity;
-            setPosition(position);
+        }
+        else if (di == RIGHT) {
+            if (tiles[position.x+1][position.y] != Level::WALL)
+                setPosition(sf::Vector2i(position.x+1, position.y));
             currentAnimation = &walkingRight;
         }
+        sf::sleep(sf::seconds(0.05f));
     }
 
     void Player::draw(sf::RenderWindow& rw) {

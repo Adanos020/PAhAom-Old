@@ -8,6 +8,8 @@
 #ifndef entities_hpp
 #define entities_hpp
 
+#include <SFML/Graphics.hpp>
+
 namespace rr {
 
     class Entity {
@@ -18,7 +20,7 @@ namespace rr {
         virtual void          draw       (sf::RenderWindow&) = 0;
 
     /// Sets the entity's position
-        virtual void          setPosition(sf::Vector2f pos ) = 0;
+        virtual void          setPosition(sf::Vector2i pos ) = 0;
 
     /// Tells if this entity collides with another one
         virtual bool          intersects (Entity*) const     = 0;
@@ -32,6 +34,7 @@ namespace rr {
 #include "chest/chest.hpp"
 #include "door/door.hpp"
 #include "item/item.hpp"
+#include "player/player.hpp"
 
 #endif // entities_hpp
 

@@ -21,7 +21,7 @@ namespace rr {
         void          setOpen    (bool);
         bool          isOpen     ()                           { return open; }
 
-        void          setPosition(sf::Vector2f pos)  override { body.setPosition(pos); }
+        void          setPosition(sf::Vector2i pos)  override { body.setPosition((sf::Vector2f)pos*80.f); }
         void          draw       (sf::RenderWindow&) override;
         bool          intersects (Entity* e) const   override { return e->getBounds().intersects(this->getBounds()); }
         sf::FloatRect getBounds  ()          const   override { return body.getGlobalBounds(); }

@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/menus/game_Level.cpp
+ * @file src/program/game/level_Level.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -209,7 +209,7 @@ namespace rr {
 
      // then we iterate on each room and give it a random numbers of entrances
         for (unsigned it=0; it<rooms.size(); it++) {
-            for (int entrances = rand()%((rooms[it].width<rooms[it].height)?rooms[it].width:rooms[it].height)/2+1; entrances>0; entrances--) {
+            for (int entrances = rand()%3+3; entrances>0; entrances--) {
                 sf::Vector2i position;
                 bool found = false;
 
@@ -422,13 +422,13 @@ namespace rr {
         for (int x=1; x<size.x-1; x++) {
             for (int y=1; y<size.y-1; y++) {
                 if (tiles[x][y] == ENTRANCE)
-                    addEntity(new Door(false), sf::Vector2f(x*80, y*80));
+                    addEntity(new Door(false), sf::Vector2i(x, y));
             }
         }
     // here we place the starting point
         for (int x=rand()%size.x, y=size.y; ; x=rand()%size.x, y=rand()%size.y) {
             if (tiles[x][y] == ROOM) {
-                startingPoint = sf::Vector2f(x*80, y*80);
+                startingPoint = sf::Vector2i(x, y);
                 tiles[x][y] = OCCUPIED;
                 break;
             }
@@ -436,7 +436,7 @@ namespace rr {
     // here we place the ending point
         for (int x=rand()%size.x, y=size.y; ; x=rand()%size.x, y=rand()%size.y) {
             if (tiles[x][y] == ROOM && tiles[x][y] != OCCUPIED) {
-                endingPoint = sf::Vector2f(x*80, y*80);
+                endingPoint = sf::Vector2i(x, y);
                 tiles[x][y] = OCCUPIED;
                 break;
             }
@@ -446,7 +446,7 @@ namespace rr {
             while (true) {
                 int x=rand()%size.x, y=rand()%size.y;
                 if (tiles[x][y] == ROOM && tiles[x][y] != OCCUPIED) {
-                    addEntity(getItemFromID(100 + (rand()%3)*10 + rand()%9, 1), sf::Vector2f(x*80, y*80));
+                    addEntity(getItemFromID(100 + (rand()%3)*10 + rand()%9, 1), sf::Vector2i(x, y));
                     tiles[x][y] = OCCUPIED;
                     break;
                 }
@@ -460,7 +460,7 @@ namespace rr {
                 if (tiles[x][y] == ROOM && tiles[x][y] != OCCUPIED) {
                     // here we choose randomly whether the chest has to be the special (probability = 5%) or the regular one (p = 95%)
                     addEntity(new Chest((rand()%20)?Chest::REGULAR:Chest::SPECIAL,
-                                        getItemFromID(100+(rand()%3)*10+rand()%9, 1)), sf::Vector2f(x*80, y*80));
+                                        getItemFromID(100+(rand()%3)*10+rand()%9, 1)), sf::Vector2i(x, y));
                     tiles[x][y] = OCCUPIED;
                     break;
                 }
@@ -473,7 +473,7 @@ namespace rr {
                 // same story here
                 if (tiles[x][y] == ROOM && tiles[x][y] != OCCUPIED) {
                     // here we choose randomly the type of a coin
-                    addEntity(getItemFromID(rand()%3+1, rand()%100), sf::Vector2f(x*80, y*80));
+                    addEntity(getItemFromID(rand()%3+1, rand()%100), sf::Vector2i(x, y));
                     tiles[x][y] = OCCUPIED;
                     break;
                 }
@@ -481,7 +481,7 @@ namespace rr {
         }
     }
 
-    void Level::addEntity(Entity* e, sf::Vector2f position) {
+    void Level::addEntity(Entity* e, sf::Vector2i position) {
         if (e != nullptr) {
             entities.push_back(e);
             entities.back()->setPosition(position);

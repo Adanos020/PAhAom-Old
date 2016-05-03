@@ -6,6 +6,7 @@
  */
 
 #include "game.hpp"
+#include "../program.hpp"
 
 extern rr::Settings  settings;
 extern rr::Resources resources;

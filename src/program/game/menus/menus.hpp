@@ -10,11 +10,11 @@
 
 #include "../../gui/gui.hpp"
 #include "../game.hpp"
-#include "../entities/player/player.hpp"
 
 namespace rr {
 
     class Game;
+    class Player;
 
 /// Class for the main menu
     class MainMenu {

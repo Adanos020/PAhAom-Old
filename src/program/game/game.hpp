@@ -11,9 +11,7 @@
 #include <ctime>
 #include <vector>
 
-#include "../program.hpp"
 #include "menus/menus.hpp"
-#include "entities/player/player.hpp"
 #include "entities/entities.hpp"
 
 namespace rr {
@@ -24,74 +22,8 @@ namespace rr {
     class Attributes;
     class Quests;
     class GameMap;
-
-/// Class for the HUD
-    class HUD {
-    private:
-        Bar*  bHP;
-        Bar*  bMP;
-        Bar*  bXP;
-        Slot* sCarryOn[5];
-        Text* tXPlevel;
-    public:
-         HUD();
-        ~HUD();
-
-    /// Method for handling the button events
-        void buttonEvents(sf::RenderWindow&, sf::Event&);
-
-    /// Updates the HUD state
-        void update      (Player*);
-
-    /// Method drawing the HUD components
-        void draw        (sf::RenderWindow&);
-    };
-
-/// Class for the tile map
-    class Level : public sf::Drawable, public sf::Transformable {
-    public:
-         Level();
-        ~Level();
-
-        enum Cell {
-            CHASM,
-            WALL,
-            ROOM,
-            CORRIDOR,
-            ENTRANCE,
-            OCCUPIED
-        };
-        void                           generateWorld   ();
-        bool                           loadFromFile    (const char* pathToFolder);
-        void                           drawObjects     (sf::RenderWindow&) const;
-
-        std::vector<Entity*>           getEntities     () const { return entities     ; }
-        sf::Vector2f                   getStartingPoint() const { return startingPoint; }
-        sf::Vector2f                   getEndingPoint  () const { return endingPoint  ; }
-        std::vector<std::vector<Cell>> getTiles        () const { return tiles        ; }
-    private:
-        virtual void draw           (sf::RenderTarget& target, sf::RenderStates states) const;
-
-        void         digRooms       ();
-        void         fillWithMaze   (int, int);
-        void         connectRooms   ();
-        void         removeDeadEnds ();
-        void         placeEntities  ();
-        void         addEntity      (Entity*, sf::Vector2f position);
-        void         generateTileMap();
-        bool         isOnBorder     (int, int);
-
-        sf::VertexArray tilemap;
-        sf::Vector2i    size;
-        sf::Vector2f    startingPoint;
-        sf::Vector2f    endingPoint;
-
-        std::vector<Entity*>           entities;
-        std::vector<std::vector<Cell>> tiles;
-        std::vector<sf::IntRect>       rooms;
-        std::vector<std::vector<int>>  regions;
-        int                            region_count;
-    };
+    class HUD;
+    class Level;
 
 /// Class for the game
     class Game {
@@ -151,6 +83,28 @@ namespace rr {
 
     /// Method telling if the game is paused
         bool isPaused    ();
+    };
+
+/// Class for the HUD
+    class HUD {
+    private:
+        Bar*  bHP;
+        Bar*  bMP;
+        Bar*  bXP;
+        Slot* sCarryOn[5];
+        Text* tXPlevel;
+    public:
+         HUD();
+        ~HUD();
+
+    /// Method for handling the button events
+        void buttonEvents(sf::RenderWindow&, sf::Event&);
+
+    /// Updates the HUD state
+        void update      (Player*);
+
+    /// Method drawing the HUD components
+        void draw        (sf::RenderWindow&);
     };
 
 }

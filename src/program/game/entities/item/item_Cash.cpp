@@ -12,7 +12,7 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Cash::Cash(Type t, int am, sf::Vector2f pos) {
+    Cash::Cash(Type t, int am, sf::Vector2i pos) {
         amount = am;
         type   = t;
         ID     = type+1;
@@ -20,10 +20,10 @@ namespace rr {
         body.resize(4);
         body.setPrimitiveType(sf::Quads);
 
-        body[0].position  = pos;
-        body[1].position  = sf::Vector2f(pos.x+80, pos.y);
-        body[2].position  = sf::Vector2f(pos.x+80, pos.y+80);
-        body[3].position  = sf::Vector2f(pos.x   , pos.y+80);
+        body[0].position  = (sf::Vector2f)pos*80.f;
+        body[1].position  = sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
+        body[2].position  = sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
+        body[3].position  = sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
 
         int tu = (type+32)%16;
         int tv = (type+32)/16;

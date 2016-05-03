@@ -6,6 +6,7 @@
  */
 
 #include "menus.hpp"
+#include "../../program.hpp"
 #include "../../funcs/strings.hpp"
 #include "../../funcs/keys.hpp"
 

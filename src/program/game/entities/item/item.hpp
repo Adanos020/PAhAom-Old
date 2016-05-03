@@ -58,10 +58,10 @@ namespace rr {
     /// Returns the description of this item
         sf::String         getDescription()                          { return description; }
 
-        void               setPosition   (sf::Vector2f pos) override { body[0].position = pos;
-                                                                       body[1].position = sf::Vector2f(pos.x+80, pos.y);
-                                                                       body[2].position = sf::Vector2f(pos.x+80, pos.y+80);
-                                                                       body[3].position = sf::Vector2f(pos.x   , pos.y+80);
+        void               setPosition   (sf::Vector2i pos) override { body[0].position = (sf::Vector2f)pos*80.f;
+                                                                       body[1].position = sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
+                                                                       body[2].position = sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
+                                                                       body[3].position = sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
                                                                      }
 
         bool               intersects    (Entity* e) const  override { return (e->getBounds().intersects(this->getBounds())); }

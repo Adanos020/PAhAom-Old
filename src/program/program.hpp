@@ -114,23 +114,22 @@ namespace rr {
 
         Game*            game;
 
-
-    /// Method loading all the resources, settings and dictionary
+    /// Loads all the resources, settings and dictionary
         bool loadResources ();
 
-    /// Method running the game
+    /// Runs the game
         void runGame       ();
 
-    /// Method running the game's main loop
+    /// Runs the game's main loop
         void mainLoop      ();
 
-    /// Method for handling the window events
+    /// Handles the window events
         void handleEvents  ();
 
     /// Updates the game's state
         void update        (sf::Clock&);
 
-    /// Method drawing the game's component
+    /// Draws the game's components
         void draw          ();
     public:
          Program();

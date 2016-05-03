@@ -6,6 +6,7 @@
  */
 
 #include "game.hpp"
+#include "../program.hpp"
 #include <cstdlib>
 #include <string>
 #include <iostream>
@@ -52,10 +53,10 @@ namespace rr {
 #define keyPressed(key) sf::Keyboard::isKeyPressed(key)
 #define key sf::Keyboard
 
-            if (keyPressed(settings.keys.move_up))    player->move(timer, Player::UP);
-            if (keyPressed(settings.keys.move_down))  player->move(timer, Player::DOWN);
-            if (keyPressed(settings.keys.move_left))  player->move(timer, Player::LEFT);
-            if (keyPressed(settings.keys.move_right)) player->move(timer, Player::RIGHT);
+            if (keyPressed(settings.keys.move_up))    player->move(timer, level[levelNumber]->getTiles(), Player::UP);
+            if (keyPressed(settings.keys.move_down))  player->move(timer, level[levelNumber]->getTiles(), Player::DOWN);
+            if (keyPressed(settings.keys.move_left))  player->move(timer, level[levelNumber]->getTiles(), Player::LEFT);
+            if (keyPressed(settings.keys.move_right)) player->move(timer, level[levelNumber]->getTiles(), Player::RIGHT);
 
             if      (keyPressed(settings.keys.open_attributes)) {
                 attributes->update(player);
@@ -151,7 +152,6 @@ namespace rr {
     bool Game::loadNewGame() {
         randomizeItems();
         for (int l=0; l<5; l++) {
-            std::cout << "LEVEL " << l << '\n';
             level.push_back(new Level());
             level.back()->generateWorld();
         }
@@ -202,7 +202,7 @@ namespace rr {
         player->update();
         hud   ->update(player);
 
-        gameView.setCenter(player->getPosition()+sf::Vector2f(16, 16));
+        gameView.setCenter(sf::Vector2f(player->getBounds().left+16, player->getBounds().top+16));
     }
 
     void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
