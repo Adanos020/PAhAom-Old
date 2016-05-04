@@ -13,103 +13,120 @@ extern rr::Resources resources;
 namespace rr {
 
     Player::Player() {
-        walkingLeft .setSpriteSheet(resources.texture.player);
-        walkingRight.setSpriteSheet(resources.texture.player);
-        walkingLeft .addFrame(sf::IntRect(0, 16, 16, 16));
-        walkingRight.addFrame(sf::IntRect(0, 0,  16, 16));
+        _walkingLeft .setSpriteSheet(resources.texture.player);
+        _walkingRight.setSpriteSheet(resources.texture.player);
+        _walkingLeft .addFrame(sf::IntRect(0, 16, 16, 16));
+        _walkingRight.addFrame(sf::IntRect(0, 0,  16, 16));
 
-        currentAnimation = &walkingRight;
+        _currentAnimation = &_walkingRight;
 
-        body.setLooped(false);
-        body.pause();
-        body.setPosition(sf::Vector2f(0, 0));
-        body.scale(sf::Vector2f(5, 5));
+        _body.setLooped(false);
+        _body.pause();
+        _body.setPosition(sf::Vector2f(0, 0));
+        _body.scale(sf::Vector2f(5, 5));
 
-        position          = sf::Vector2i(0, 0);
-        velocity          = 0.5f;
+        _position          = sf::Vector2i(0, 0);
+        _velocity          = 0.75f;
 
-        attrs.health      =  30.f;
-        attrs.mana        =   5.f;
-        attrs.maxHealth   =  30.f;
-        attrs.maxMana     =   5.f;
-        attrs.strength    =  10.f;
-        attrs.dexterity   =  10.f;
-        attrs.skillPoints =   0.f;
-        attrs.experience  =   0.f;
-        attrs.nextLevel   = 100.f;
-        attrs.level       =   0.f;
+        _attrs.health      =  30.f;
+        _attrs.mana        =   5.f;
+        _attrs.maxHealth   =  30.f;
+        _attrs.maxMana     =   5.f;
+        _attrs.strength    =  10.f;
+        _attrs.dexterity   =  10.f;
+        _attrs.skillPoints =   0.f;
+        _attrs.experience  =   0.f;
+        _attrs.nextLevel   = 100.f;
+        _attrs.level       =   0.f;
 
-        attrs.crafting              = false;
-        attrs.alchemy               = false;
-        attrs.cold_weapon_mastery   = false;
-        attrs.ranged_weapon_mastery = false;
-        attrs.better_sight          = false;
+        _attrs.crafting              = false;
+        _attrs.alchemy               = false;
+        _attrs.cold_weapon_mastery   = false;
+        _attrs.ranged_weapon_mastery = false;
+        _attrs.better_sight          = false;
+
+        _moving = false;
     }
 
     Player::~Player() {}
 
     void Player::setPosition(sf::Vector2i pos) {
-        if (position != pos)
-            position  = pos;
-        body.setPosition((sf::Vector2f)pos*80.f);
+        if (_position != pos) {
+            _position  = pos;
+            _body.setPosition((sf::Vector2f)pos*80.f);
+        }
     }
 
-    void Player::move(float ts, std::vector<std::vector<Level::Cell> > tiles, Direction di) {
-        if (di == UP) {
-            if (tiles[position.x][position.y-1] != Level::WALL) {
-                setPosition(sf::Vector2i(position.x, position.y-1));
-                sf::sleep(sf::seconds(0.1f));
+    void Player::move(std::vector<std::vector<Level::Cell> > tiles, Direction di) {
+        if (di == UP && !_moving) {
+            if (tiles[_position.x][_position.y-1] != Level::WALL) {
+                _position = sf::Vector2i(_position.x, _position.y-1);
+                _moving = true;
             }
         }
-        else if (di == DOWN) {
-            if (tiles[position.x][position.y+1] != Level::WALL) {
-                setPosition(sf::Vector2i(position.x, position.y+1));
-                sf::sleep(sf::seconds(0.1f));
+        if (di == DOWN && !_moving) {
+            if (tiles[_position.x][_position.y+1] != Level::WALL) {
+                _position = sf::Vector2i(_position.x, _position.y+1);
+                _moving = true;
             }
         }
-        else if (di == LEFT) {
-            if (tiles[position.x-1][position.y] != Level::WALL) {
-                setPosition(sf::Vector2i(position.x-1, position.y));
-                sf::sleep(sf::seconds(0.1f));
+        if (di == LEFT && !_moving) {
+            if (tiles[_position.x-1][_position.y] != Level::WALL) {
+                _position = sf::Vector2i(_position.x-1, _position.y);
+                _moving = true;
             }
-            currentAnimation = &walkingLeft;
+            _currentAnimation = &_walkingLeft;
         }
-        else if (di == RIGHT) {
-            if (tiles[position.x+1][position.y] != Level::WALL) {
-                setPosition(sf::Vector2i(position.x+1, position.y));
-                sf::sleep(sf::seconds(0.1f));
+        if (di == RIGHT && !_moving) {
+            if (tiles[_position.x+1][_position.y] != Level::WALL) {
+                _position = sf::Vector2i(_position.x+1, _position.y);
+                _moving = true;
             }
-            currentAnimation = &walkingRight;
+            _currentAnimation = &_walkingRight;
         }
     }
 
     void Player::draw(sf::RenderWindow& rw) {
-        rw.draw(body);
+        rw.draw(_body);
     }
 
-    void Player::update() {
-        if (attrs.health >= attrs.maxHealth)
-            attrs.health  = attrs.maxHealth;
-        if (attrs.health <= 0)
-            attrs.health  = 0;
-        if (attrs.mana <= 0)
-            attrs.mana  = 0;
-        if (attrs.mana >= attrs.maxMana)
-            attrs.mana  = attrs.maxMana;
-        if (attrs.experience>=attrs.nextLevel) {
-            attrs.experience = 0;
-            attrs.nextLevel *= 1.25f;
-            attrs.level     ++;
-
-            float temp       = attrs.health/attrs.maxHealth;
-            attrs.maxHealth += 10;
-            attrs.health     = temp*attrs.maxHealth;
-
-            temp             = attrs.mana/attrs.maxMana;
-            attrs.maxMana   += 1;
-            attrs.mana       = temp*attrs.maxMana;
+    void Player::update(float timeStep) {
+        if (_moving) {
+            sf::Vector2f offset = _body.getPosition()-(sf::Vector2f)_position*80.f;
+            if (offset != sf::Vector2f(0, 0)) {
+                if (offset.x <  0 && offset.y == 0) _body.move(sf::Vector2f( timeStep*_velocity,  0));
+                if (offset.x >  0 && offset.y == 0) _body.move(sf::Vector2f(-timeStep*_velocity,  0));
+                if (offset.x == 0 && offset.y <  0) _body.move(sf::Vector2f( 0,  timeStep*_velocity));
+                if (offset.x == 0 && offset.y >  0) _body.move(sf::Vector2f( 0, -timeStep*_velocity));
+            }
+            else
+                _moving = false;
+            if ((abs(offset.x) < 15 && abs(offset.x) > 0) || (abs(offset.y) < 15 && abs(offset.y) > 0))
+                _body.setPosition((sf::Vector2f)_position*80.f);
         }
-        body.play(*currentAnimation);
+
+        if (_attrs.health >= _attrs.maxHealth)
+            _attrs.health  = _attrs.maxHealth;
+        if (_attrs.health <= 0)
+            _attrs.health  = 0;
+        if (_attrs.mana <= 0)
+            _attrs.mana  = 0;
+        if (_attrs.mana >= _attrs.maxMana)
+            _attrs.mana  = _attrs.maxMana;
+        if (_attrs.experience>=_attrs.nextLevel) {
+            _attrs.experience = 0;
+            _attrs.nextLevel *= 1.25f;
+            _attrs.level     ++;
+
+            float temp        = _attrs.health/_attrs.maxHealth;
+            _attrs.maxHealth += 10;
+            _attrs.health     = temp*_attrs.maxHealth;
+
+            temp              = _attrs.mana/_attrs.maxMana;
+            _attrs.maxMana   += 1;
+            _attrs.mana       = temp*_attrs.maxMana;
+        }
+        _body.play(*_currentAnimation);
     }
 
 }

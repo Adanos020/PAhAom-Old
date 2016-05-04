@@ -28,25 +28,25 @@ namespace rr {
 /// Class for the game
     class Game {
     private:
-        sf::View             gameView;
-        sf::View             mapView;
+        sf::View             _gameView;
+        sf::View             _mapView;
 
-        MainMenu*            mainMenu;
-        PauseMenu*           pauseMenu;
-        Attributes*          attributes;
-        Inventory*           inventory;
-        Quests*              quests;
-        GameMap*             gameMap;
-        HUD*                 hud;
-        std::vector<Level*>  level;
-        Player*              player;
+        MainMenu*            _mainMenu;
+        PauseMenu*           _pauseMenu;
+        Attributes*          _attributes;
+        Inventory*           _inventory;
+        Quests*              _quests;
+        GameMap*             _gameMap;
+        HUD*                 _hud;
+        std::vector<Level*>  _level;
+        Player*              _player;
 
-        bool                 started;
-        bool                 paused;
-        unsigned             levelNumber;
+        bool                 _started;
+        bool                 _paused;
+        unsigned             _levelNumber;
 
     /// Method for the keyboard controls
-        void controls      (float);
+        void controls      ();
 
     /// Method randomizing the disposable items' colors/symbols
         void randomizeItems();
@@ -88,11 +88,11 @@ namespace rr {
 /// Class for the HUD
     class HUD {
     private:
-        Bar*  bHP;
-        Bar*  bMP;
-        Bar*  bXP;
-        Slot* sCarryOn[5];
-        Text* tXPlevel;
+        Bar*  _bHP;
+        Bar*  _bMP;
+        Bar*  _bXP;
+        Slot* _sCarryOn[5];
+        Text* _tXPlevel;
     public:
          HUD();
         ~HUD();

@@ -17,63 +17,63 @@ extern sf::Color    potionColors[9];
 namespace rr {
 
     Game::Game() {
-        gameView.setSize((sf::Vector2f)settings.graphics.resolution);
-        mapView .setSize(6160.f, 3440.f);
-        mapView .setCenter(mapView.getSize()/2.f);
-        mapView .setViewport(sf::FloatRect(0.115f, 0.1275f, 0.77f, 0.745f));
+        _mainMenu   = new MainMenu();
+        _pauseMenu  = new PauseMenu();
+        _attributes = new Attributes();
+        _inventory  = new Inventory();
+        _quests     = new Quests();
+        _gameMap    = new GameMap();
+        _hud        = new HUD();
+        _player     = new Player();
 
-        mainMenu    = new MainMenu  ();
-        pauseMenu   = new PauseMenu ();
-        attributes  = new Attributes();
-        inventory   = new Inventory ();
-        quests      = new Quests    ();
-        gameMap     = new GameMap   ();
-        hud         = new HUD       ();
-        player      = new Player    ();
+        _gameView.setSize((sf::Vector2f)settings.graphics.resolution);
+        _mapView .setSize(6160.f, 3440.f);
+        _mapView .setCenter(_mapView.getSize()/2.f);
+        _mapView .setViewport(sf::FloatRect(0.115f, 0.1275f, 0.77f, 0.745f));
 
-        paused      = false;
-        started     = false;
-        levelNumber = 0;
+        _paused      = false;
+        _started     = false;
+        _levelNumber = 0;
     }
 
     Game::~Game() {
-        delete mainMenu;
-        delete pauseMenu;
-        delete attributes;
-        delete inventory;
-        delete quests;
-        delete gameMap;
-        delete hud;
-        delete player;
+        delete _mainMenu;
+        delete _pauseMenu;
+        delete _attributes;
+        delete _inventory;
+        delete _quests;
+        delete _gameMap;
+        delete _hud;
+        delete _player;
     }
 
-    void Game::controls(float timer) {
-        if (started && !paused) {
+    void Game::controls() {
+        if (_started && !_paused) {
 
 #define keyPressed(key) sf::Keyboard::isKeyPressed(key)
 #define key sf::Keyboard
 
-            if (keyPressed(settings.keys.move_up))    player->move(timer, level[levelNumber]->getTiles(), Player::UP);
-            if (keyPressed(settings.keys.move_down))  player->move(timer, level[levelNumber]->getTiles(), Player::DOWN);
-            if (keyPressed(settings.keys.move_left))  player->move(timer, level[levelNumber]->getTiles(), Player::LEFT);
-            if (keyPressed(settings.keys.move_right)) player->move(timer, level[levelNumber]->getTiles(), Player::RIGHT);
+            if (keyPressed(settings.keys.move_up))    _player->move(_level[_levelNumber]->getTiles(), Player::UP);
+            if (keyPressed(settings.keys.move_down))  _player->move(_level[_levelNumber]->getTiles(), Player::DOWN);
+            if (keyPressed(settings.keys.move_left))  _player->move(_level[_levelNumber]->getTiles(), Player::LEFT);
+            if (keyPressed(settings.keys.move_right)) _player->move(_level[_levelNumber]->getTiles(), Player::RIGHT);
 
             if      (keyPressed(settings.keys.open_attributes)) {
-                attributes->update(player);
-                attributes->open();
-                paused = true;
+                _attributes->update(_player);
+                _attributes->open();
+                _paused = true;
             }
             else if (keyPressed(settings.keys.open_inventory)) {
-                inventory->open();
-                paused = true;
+                _inventory->open();
+                _paused = true;
             }
             else if (keyPressed(settings.keys.open_map)) {
-                gameMap->open();
-                paused = true;
+                _gameMap->open();
+                _paused = true;
             }
             else if (keyPressed(settings.keys.open_quests)) {
-                quests->open();
-                paused = true;
+                _quests->open();
+                _paused = true;
             }
 
             if      (keyPressed(settings.keys.useslot_1)) {}
@@ -82,12 +82,12 @@ namespace rr {
             else if (keyPressed(settings.keys.useslot_4)) {}
             else if (keyPressed(settings.keys.useslot_5)) {}
 
-            else if (keyPressed(key::Numpad1)) player->attrs.health    --;
-            else if (keyPressed(key::Numpad2)) player->attrs.health    ++;
-            else if (keyPressed(key::Numpad3)) player->attrs.mana      --;
-            else if (keyPressed(key::Numpad4)) player->attrs.mana      ++;
-            else if (keyPressed(key::Numpad5)) player->attrs.experience++;
-            else if (keyPressed(key::Numpad6)) player->attrs.level     ++;
+            else if (keyPressed(key::Numpad1)) _player->_attrs.health    --;
+            else if (keyPressed(key::Numpad2)) _player->_attrs.health    ++;
+            else if (keyPressed(key::Numpad3)) _player->_attrs.mana      --;
+            else if (keyPressed(key::Numpad4)) _player->_attrs.mana      ++;
+            else if (keyPressed(key::Numpad5)) _player->_attrs.experience++;
+            else if (keyPressed(key::Numpad6)) _player->_attrs.level     ++;
 
 #undef keyPressed
 #undef key
@@ -142,8 +142,8 @@ namespace rr {
 
     bool Game::load() {
         for (int l=0; l<5; l++) {
-            level.push_back(new Level());
-            if (!level.back()->loadFromFile("data/savedgame/"))
+            _level.push_back(new Level());
+            if (!_level.back()->loadFromFile("data/savedgame/"))
                 return false;
         }
         return true;
@@ -152,10 +152,10 @@ namespace rr {
     bool Game::loadNewGame() {
         randomizeItems();
         for (int l=0; l<5; l++) {
-            level.push_back(new Level());
-            level.back()->generateWorld();
+            _level.push_back(new Level());
+            _level.back()->generateWorld();
         }
-        player->setPosition(level[0]->getStartingPoint());
+        _player->setPosition(_level[0]->getStartingPoint());
         start(true);
         pause(false);
         return true;
@@ -166,102 +166,102 @@ namespace rr {
     }
 
     void Game::draw(sf::RenderWindow& rw) {
-        if (!started) {
+        if (!_started) {
             rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
-            mainMenu->draw(rw);
-            rw.setView(gameView);
+            _mainMenu->draw(rw);
+            rw.setView(_gameView);
         } else {
-            rw.setView(gameView);
-            rw.draw(*level[levelNumber]);
-            level[levelNumber]->drawObjects(rw);
-            player->draw(rw);
+            rw.setView(_gameView);
+            rw.draw(*_level[_levelNumber]);
+            _level[_levelNumber]->drawObjects(rw);
+            _player->draw(rw);
 
             rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
-            hud->draw(rw);
-            if (pauseMenu ->isOpen())
-                pauseMenu ->draw(rw);
-            if (attributes->isOpen())
-                attributes->draw(rw);
-            if (inventory ->isOpen())
-                inventory ->draw(rw);
-            if (quests    ->isOpen())
-                quests    ->draw(rw);
-            if (gameMap   ->isOpen()) {
-                gameMap   ->draw(rw);
-                rw.setView(mapView);
-                rw.draw(*level[levelNumber]);
-                level[levelNumber]->drawObjects(rw);
-                player->draw(rw);
+            _hud->draw(rw);
+            if (_pauseMenu ->isOpen())
+                _pauseMenu ->draw(rw);
+            if (_attributes->isOpen())
+                _attributes->draw(rw);
+            if (_inventory ->isOpen())
+                _inventory ->draw(rw);
+            if (_quests    ->isOpen())
+                _quests    ->draw(rw);
+            if (_gameMap   ->isOpen()) {
+                _gameMap   ->draw(rw);
+                rw.setView(_mapView);
+                rw.draw(*_level[_levelNumber]);
+                _level[_levelNumber]->drawObjects(rw);
+                _player->draw(rw);
             }
         }
     }
 
     void Game::update(float timer) {
-        controls(timer);
+        controls();
 
-        player->update();
-        hud   ->update(player);
+        _player->update(timer);
+        _hud   ->update(_player);
 
-        gameView.setCenter(sf::Vector2f(player->getBounds().left+16, player->getBounds().top+16));
+        _gameView.setCenter(sf::Vector2f(_player->getBounds().left+16, _player->getBounds().top+16));
     }
 
     void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
-        if (!started)
-            mainMenu ->buttonEvents(rw, e, this);
-        if (pauseMenu->isOpen())
-            pauseMenu->buttonEvents(rw, e, this);
-        if (inventory->isOpen()) {
-            inventory->buttonEvents(rw, e, this);
-            hud      ->buttonEvents(rw, e);
+        if (!_started)
+            _mainMenu ->buttonEvents(rw, e, this);
+        if (_pauseMenu->isOpen())
+            _pauseMenu->buttonEvents(rw, e, this);
+        if (_inventory->isOpen()) {
+            _inventory->buttonEvents(rw, e, this);
+            _hud      ->buttonEvents(rw, e);
         }
-        if (attributes->isOpen())
-            attributes->buttonEvents(rw, e, this);
-        if (quests    ->isOpen())
-            quests    ->buttonEvents(rw, e, this);
-        if (gameMap   ->isOpen())
-            gameMap   ->buttonEvents(rw, e, this);
+        if (_attributes->isOpen())
+            _attributes->buttonEvents(rw, e, this);
+        if (_quests    ->isOpen())
+            _quests    ->buttonEvents(rw, e, this);
+        if (_gameMap   ->isOpen())
+            _gameMap   ->buttonEvents(rw, e, this);
 
-        if (started) {
+        if (_started) {
             if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Add) {
-                if (levelNumber<level.size()-1)
-                    levelNumber++;
+                if (_levelNumber<_level.size()-1)
+                    _levelNumber++;
                 else
-                    levelNumber = 0;
-                player->setPosition(level[levelNumber]->getStartingPoint());
+                    _levelNumber = 0;
+                _player->setPosition(_level[_levelNumber]->getStartingPoint());
             }
             else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Subtract) {
-                if (levelNumber>0)
-                    levelNumber--;
+                if (_levelNumber>0)
+                    _levelNumber--;
                 else
-                    levelNumber = level.size()-1;
-                player->setPosition(level[levelNumber]->getEndingPoint());
+                    _levelNumber = _level.size()-1;
+                _player->setPosition(_level[_levelNumber]->getEndingPoint());
             }
         }
     }
 
     void Game::start(bool b) {
-        started = b;
+        _started = b;
     }
 
     void Game::pause(bool b) {
-        paused = b;
-        if (paused)
-            pauseMenu->open();
+        _paused = b;
+        if (_paused)
+            _pauseMenu->open();
         else {
-            pauseMenu ->close();
-            inventory ->close();
-            attributes->close();
-            quests    ->close();
-            gameMap   ->close();
+            _pauseMenu ->close();
+            _inventory ->close();
+            _attributes->close();
+            _quests    ->close();
+            _gameMap   ->close();
         }
     }
 
     bool Game::isStarted() {
-        return started;
+        return _started;
     }
 
     bool Game::isPaused() {
-        return paused;
+        return _paused;
     }
 
 }

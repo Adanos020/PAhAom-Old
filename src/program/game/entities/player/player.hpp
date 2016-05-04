@@ -39,14 +39,15 @@ namespace rr {
             bool  cold_weapon_mastery;
             bool  ranged_weapon_mastery;
             bool  better_sight;
-        } attrs;
+        } _attrs;
 
-        sf::Vector2i       position;
-        sf::AnimatedSprite body;
-        sf::Animation      walkingLeft;
-        sf::Animation      walkingRight;
-        sf::Animation*     currentAnimation;
-        float              velocity;
+        sf::Vector2i       _position;
+        sf::AnimatedSprite _body;
+        sf::Animation      _walkingLeft;
+        sf::Animation      _walkingRight;
+        sf::Animation*     _currentAnimation;
+        float              _velocity;
+        bool               _moving;
     public:
          Player();
         ~Player();
@@ -59,23 +60,23 @@ namespace rr {
         };
 
     /// Moves the player's character's to a cell in a given direction
-        void          move            (float timeStep, std::vector<std::vector<Level::Cell> >, Direction);
+        void          move            (std::vector<std::vector<Level::Cell> >, Direction);
 
     /// Draws the player's character
         void          draw            (sf::RenderWindow&);
 
     /// Updates the state of the player character
-        void          update          ();
+        void          update          (float timeStep);
 
     /// Returns the player statistics
-        Attrs         getAttributes   ()          const          { return attrs; }
+        Attrs         getAttributes   ()          const          { return _attrs; }
 
     /// Returns the position of the player character
-        sf::Vector2i  getPosition     ()          const          { return position; }
+        sf::Vector2i  getPosition     ()          const          { return _position; }
 
         void          setPosition     (sf::Vector2i)    override;
         bool          intersects      (Entity* e) const override { return e->getBounds().intersects(this->getBounds()); }
-        sf::FloatRect getBounds       ()          const override { return body.getGlobalBounds(); }
+        sf::FloatRect getBounds       ()          const override { return _body.getGlobalBounds(); }
     };
 
 }

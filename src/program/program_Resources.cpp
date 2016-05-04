@@ -33,7 +33,6 @@ namespace rr {
 
         if (idict.good()) {
             puts(">Loading the dictionary...");
-            std::cout << "=====WORD======" << std::setw(40) << "===TRANSLATION===\n";
             while (!idict.eof()) {
                 std::string word;
                 std::string translation;
@@ -45,7 +44,6 @@ namespace rr {
                     idict.seekg(idict.tellg()+1l);
                     std::getline(idict, translation);
                     dictionary[word] = utf8ToUtf32(translation);
-                    std::cout << word << std::setw(38-word.size()+translation.size()) << translation + "\n";
                 }
             }
             idict.close();
