@@ -13,84 +13,84 @@ extern rr::Resources resources;
 namespace rr {
 
     Switch::Switch(sf::Vector2f size, sf::Vector2f pos) {
-        _body.setSize(size);
-        _body.setPosition(sf::Vector2f(pos.x+44, pos.y+5));
-        _body.setFillColor(sf::Color(128, 128, 128, 128));
-        _body.setOutlineColor(sf::Color(108, 108, 108));
-        _body.setOutlineThickness(5);
+        body_.setSize(size);
+        body_.setPosition(sf::Vector2f(pos.x+44, pos.y+5));
+        body_.setFillColor(sf::Color(128, 128, 128, 128));
+        body_.setOutlineColor(sf::Color(108, 108, 108));
+        body_.setOutlineThickness(5);
 
-        _left  = new Button(pos, "<", 30);
-        _right = new Button(sf::Vector2f(_body.getPosition().x+_body.getSize().x+24, pos.y), ">", 30);
-        _text  = new Text(sf::Vector2f(0, 0), L">TE'EM 'ECTEM", resources.font.Unifont, size.y);
+        left_  = new Button(pos, "<", 30);
+        right_ = new Button(sf::Vector2f(body_.getPosition().x+body_.getSize().x+24, pos.y), ">", 30);
+        text_  = new Text(sf::Vector2f(0, 0), L">TE'EM 'ECTEM", resources.font.Unifont, size.y);
 
-        _left ->setParentComponent(this);
-        _right->setParentComponent(this);
-        _text ->setParentComponent(this);
+        left_ ->setParentComponent(this);
+        right_->setParentComponent(this);
+        text_ ->setParentComponent(this);
 
-        _counter = 0;
+        counter_ = 0;
     }
 
     Switch::~Switch() {
-        delete _left;
-        delete _right;
-        delete _text;
+        delete left_;
+        delete right_;
+        delete text_;
     }
 
     void Switch::setPosition(sf::Vector2f pos) {
-        _left ->setPosition(pos);
-        _body  .setPosition(sf::Vector2f(pos.x+44, pos.y+5));
-        _text ->setPosition(sf::Vector2f(_body.getPosition().x+10, pos.y-4));
-        _right->setPosition(sf::Vector2f(pos.x+_body.getSize().x+_body.getSize().y+24, pos.y));
+        left_ ->setPosition(pos);
+        body_  .setPosition(sf::Vector2f(pos.x+44, pos.y+5));
+        text_ ->setPosition(sf::Vector2f(body_.getPosition().x+10, pos.y-4));
+        right_->setPosition(sf::Vector2f(pos.x+body_.getSize().x+body_.getSize().y+24, pos.y));
     }
 
     void Switch::setSize(sf::Vector2f s) {
-        _body.setSize(s);
-        _right->setPosition(sf::Vector2f(s.x+s.x+s.y+11, s.y));
+        body_.setSize(s);
+        right_->setPosition(sf::Vector2f(s.x+s.x+s.y+11, s.y));
     }
 
     void Switch::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
-        if (_left->isPressed(rw, e)) {
-            if (_counter > 0)
-                _counter--;
+        if (left_->isPressed(rw, e)) {
+            if (counter_ > 0)
+                counter_--;
             else
-                _counter = _options.size()-1;
-            _text->setString(_options[_counter]);
-            _text->setPosition(sf::Vector2f(_body.getPosition().x+_body.getSize().x/2-_text->getSize().x/2, _body.getPosition().y-4));
-        } else if (_right->isPressed(rw, e)) {
-            if (_counter<_options.size()-1)
-                _counter++;
+                counter_ = options_.size()-1;
+            text_->setString(options_[counter_]);
+            text_->setPosition(sf::Vector2f(body_.getPosition().x+body_.getSize().x/2-text_->getSize().x/2, body_.getPosition().y-4));
+        } else if (right_->isPressed(rw, e)) {
+            if (counter_<options_.size()-1)
+                counter_++;
             else
-                _counter = 0;
-            _text->setString(_options[_counter]);
-            _text->setPosition(sf::Vector2f(_body.getPosition().x+_body.getSize().x/2-_text->getSize().x/2, _body.getPosition().y-4));
+                counter_ = 0;
+            text_->setString(options_[counter_]);
+            text_->setPosition(sf::Vector2f(body_.getPosition().x+body_.getSize().x/2-text_->getSize().x/2, body_.getPosition().y-4));
         }
     }
 
     void Switch::addOption(sf::String opt) {
-        _options.push_back(opt);
-        if (_options.size() == 1) {
-            _text->setString(_options[_counter]);
-            _text->setPosition(sf::Vector2f(_body.getPosition().x+_body.getSize().x/2-_text->getSize().x/2, _body.getPosition().y-4));
+        options_.push_back(opt);
+        if (options_.size() == 1) {
+            text_->setString(options_[counter_]);
+            text_->setPosition(sf::Vector2f(body_.getPosition().x+body_.getSize().x/2-text_->getSize().x/2, body_.getPosition().y-4));
         }
     }
 
     void Switch::setCurrentOption(sf::String o) {
         int i = 0;
-        for (auto x : _options) {
+        for (auto x : options_) {
             if (x == o)
                 break;
             i++;
         }
-        _counter = i;
-        _text->setString(_options[_counter]);
-        _text->setPosition(sf::Vector2f(_body.getPosition().x+_body.getSize().x/2-_text->getSize().x/2, _body.getPosition().y-4));
+        counter_ = i;
+        text_->setString(options_[counter_]);
+        text_->setPosition(sf::Vector2f(body_.getPosition().x+body_.getSize().x/2-text_->getSize().x/2, body_.getPosition().y-4));
     }
 
     void Switch::draw(sf::RenderWindow& rw) {
-        rw.draw(_body);
-        _left ->draw(rw);
-        _right->draw(rw);
-        _text ->draw(rw);
+        rw.draw(body_);
+        left_ ->draw(rw);
+        right_->draw(rw);
+        text_ ->draw(rw);
     }
 
 }

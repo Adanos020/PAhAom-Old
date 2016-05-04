@@ -11,21 +11,21 @@ namespace rr {
 
     class Door : public Entity {
     private:
-        sf::Sprite _body;
-        bool       _locked;
-        bool       _open;
-        bool       _withoutWindow;
+        sf::Sprite body_;
+        bool       locked_;
+        bool       open_;
+        bool       withoutWindow_;
     public:
          Door(bool lock);
         ~Door();
 
         void          setOpen    (bool);
-        bool          isOpen     () const                     { return _open; }
+        bool          isOpen     () const                     { return open_; }
 
-        void          setPosition(sf::Vector2i pos)  override { _body.setPosition((sf::Vector2f)pos*80.f); }
+        void          setPosition(sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }
         void          draw       (sf::RenderWindow&) override;
         bool          intersects (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
-        sf::FloatRect getBounds  ()          const   override { return _body.getGlobalBounds(); }
+        sf::FloatRect getBounds  ()          const   override { return body_.getGlobalBounds(); }
     };
 
 }

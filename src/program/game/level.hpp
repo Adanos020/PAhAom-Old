@@ -31,10 +31,10 @@ namespace rr {
         bool                           loadFromFile    (const char* pathToFolder);
         void                           drawObjects     (sf::RenderWindow&) const;
 
-        std::vector<Entity*>           getEntities     () const { return _entities     ; }
-        sf::Vector2i                   getStartingPoint() const { return _startingPoint; }
-        sf::Vector2i                   getEndingPoint  () const { return _endingPoint  ; }
-        std::vector<std::vector<Cell>> getTiles        () const { return _tiles        ; }
+        std::vector<Entity*>           getEntities     () const { return entities_     ; }
+        sf::Vector2i                   getStartingPoint() const { return startingPoint_; }
+        sf::Vector2i                   getEndingPoint  () const { return endingPoint_  ; }
+        std::vector<std::vector<Cell>> getTiles        () const { return tiles_        ; }
     private:
         virtual void draw           (sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -47,16 +47,16 @@ namespace rr {
         void         generateTileMap();
         bool         isOnBorder     (int, int);
 
-        sf::VertexArray _tilemap;
-        sf::Vector2i    _size;
-        sf::Vector2i    _startingPoint;
-        sf::Vector2i    _endingPoint;
+        sf::VertexArray tilemap_;
+        sf::Vector2i    size_;
+        sf::Vector2i    startingPoint_;
+        sf::Vector2i    endingPoint_;
 
-        std::vector<Entity*>           _entities;
-        std::vector<std::vector<Cell>> _tiles;
-        std::vector<sf::IntRect>       _rooms;
-        std::vector<std::vector<int>>  _regions;
-        int                            _region_count;
+        std::vector<Entity*>           entities_;
+        std::vector<std::vector<Cell>> tiles_;
+        std::vector<sf::IntRect>       rooms_;
+        std::vector<std::vector<int>>  regions_;
+        int                            region_count_;
     };
 
 }

@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/player/player_Player.cpp
+ * @file src/program/game/entites/player/player_Player.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -13,122 +13,118 @@ extern rr::Resources resources;
 namespace rr {
 
     Player::Player() {
-        _walkingLeft .setSpriteSheet(resources.texture.player);
-        _walkingRight.setSpriteSheet(resources.texture.player);
-        _walkingLeft .addFrame(sf::IntRect(0, 16, 16, 16));
-        _walkingRight.addFrame(sf::IntRect(0, 0,  16, 16));
+        walkingLeft_ .setSpriteSheet(resources.texture.player);
+        walkingRight_.setSpriteSheet(resources.texture.player);
+        walkingLeft_ .addFrame(sf::IntRect(0, 16, 16, 16));
+        walkingRight_.addFrame(sf::IntRect(0, 0,  16, 16));
 
-        _currentAnimation = &_walkingRight;
+        currentAnimation_ = &walkingRight_;
 
-        _body.setLooped(false);
-        _body.pause();
-        _body.setPosition(sf::Vector2f(0, 0));
-        _body.scale(sf::Vector2f(5, 5));
+        body_.setLooped(false);
+        body_.pause();
+        body_.setPosition(sf::Vector2f(0, 0));
+        body_.scale(sf::Vector2f(5, 5));
 
-        _position          = sf::Vector2i(0, 0);
-        _velocity          = 0.9f;
+        position_          = sf::Vector2i(0, 0);
+        velocity_          = 0.9f;
 
-        _attrs.health      =  30.f;
-        _attrs.mana        =   5.f;
-        _attrs.maxHealth   =  30.f;
-        _attrs.maxMana     =   5.f;
-        _attrs.strength    =  10.f;
-        _attrs.dexterity   =  10.f;
-        _attrs.skillPoints =   0.f;
-        _attrs.experience  =   0.f;
-        _attrs.nextLevel   = 100.f;
-        _attrs.level       =   0.f;
+        attrs_.health      =  30.f;
+        attrs_.mana        =   5.f;
+        attrs_.maxHealth   =  30.f;
+        attrs_.maxMana     =   5.f;
+        attrs_.strength    =  10.f;
+        attrs_.dexterity   =  10.f;
+        attrs_.skillPoints =   0.f;
+        attrs_.experience  =   0.f;
+        attrs_.nextLevel   = 100.f;
+        attrs_.level       =   0.f;
 
-        _attrs.crafting              = false;
-        _attrs.alchemy               = false;
-        _attrs.cold_weapon_mastery   = false;
-        _attrs.ranged_weapon_mastery = false;
-        _attrs.better_sight          = false;
+        attrs_.crafting              = false;
+        attrs_.alchemy               = false;
+        attrs_.cold_weapon_mastery   = false;
+        attrs_.ranged_weapon_mastery = false;
+        attrs_.better_sight          = false;
 
-        _moving = false;
+        moving_ = false;
     }
 
     Player::~Player() {}
 
     void Player::setPosition(sf::Vector2i pos) {
-        if (_position != pos) {
-            _position  = pos;
-            _body.setPosition((sf::Vector2f)pos*80.f);
+        if (position_ != pos) {
+            position_  = pos;
+            body_.setPosition((sf::Vector2f)pos*80.f);
         }
     }
 
     void Player::move(std::vector<std::vector<Level::Cell> > tiles, Direction di) {
-        if (!_moving) {
+        if (!moving_) {
             if (di == UP) {
-                if (tiles[_position.x][_position.y-1] != Level::WALL) {
-                    _position = sf::Vector2i(_position.x, _position.y-1);
-                    _moving = true;
+                if (tiles[position_.x][position_.y-1] != Level::WALL) {
+                    position_ = sf::Vector2i(position_.x, position_.y-1);
+                    moving_ = true;
                 }
             }
             if (di == DOWN) {
-                if (tiles[_position.x][_position.y+1] != Level::WALL) {
-                    _position = sf::Vector2i(_position.x, _position.y+1);
-                    _moving = true;
+                if (tiles[position_.x][position_.y+1] != Level::WALL) {
+                    position_ = sf::Vector2i(position_.x, position_.y+1);
+                    moving_ = true;
                 }
             }
             if (di == LEFT) {
-                if (tiles[_position.x-1][_position.y] != Level::WALL) {
-                    _position = sf::Vector2i(_position.x-1, _position.y);
-                    _moving = true;
+                if (tiles[position_.x-1][position_.y] != Level::WALL) {
+                    position_ = sf::Vector2i(position_.x-1, position_.y);
+                    moving_ = true;
                 }
-                _currentAnimation = &_walkingLeft;
+                currentAnimation_ = &walkingLeft_;
             }
             if (di == RIGHT) {
-                if (tiles[_position.x+1][_position.y] != Level::WALL) {
-                    _position = sf::Vector2i(_position.x+1, _position.y);
-                    _moving = true;
+                if (tiles[position_.x+1][position_.y] != Level::WALL) {
+                    position_ = sf::Vector2i(position_.x+1, position_.y);
+                    moving_ = true;
                 }
-                _currentAnimation = &_walkingRight;
+                currentAnimation_ = &walkingRight_;
             }
         }
     }
 
     void Player::draw(sf::RenderWindow& rw) {
-        rw.draw(_body);
+        rw.draw(body_);
     }
 
     void Player::update(float timeStep) {
-        if (_moving) {
-            sf::Vector2f offset = _body.getPosition()-(sf::Vector2f)_position*80.f;
+        if (moving_) {
+            sf::Vector2f offset = body_.getPosition()-(sf::Vector2f)position_*80.f;
             if (offset != sf::Vector2f(0, 0)) {
-                if (offset.x <  0 && offset.y == 0) _body.move(sf::Vector2f( timeStep*_velocity,  0));
-                if (offset.x >  0 && offset.y == 0) _body.move(sf::Vector2f(-timeStep*_velocity,  0));
-                if (offset.x == 0 && offset.y <  0) _body.move(sf::Vector2f( 0,  timeStep*_velocity));
-                if (offset.x == 0 && offset.y >  0) _body.move(sf::Vector2f( 0, -timeStep*_velocity));
+                if (offset.x <  0 && offset.y == 0) body_.move(sf::Vector2f( timeStep*velocity_,  0));
+                if (offset.x >  0 && offset.y == 0) body_.move(sf::Vector2f(-timeStep*velocity_,  0));
+                if (offset.x == 0 && offset.y <  0) body_.move(sf::Vector2f( 0,  timeStep*velocity_));
+                if (offset.x == 0 && offset.y >  0) body_.move(sf::Vector2f( 0, -timeStep*velocity_));
             }
             else
-                _moving = false;
-            if ((abs(offset.x) < 20*_velocity && abs(offset.x) > 0) || (abs(offset.y) < 20*_velocity && abs(offset.y) > 0))
-                _body.setPosition((sf::Vector2f)_position*80.f);
+                moving_ = false;
+            if ((abs(offset.x) < 20*velocity_ && abs(offset.x) > 0) || (abs(offset.y) < 20*velocity_ && abs(offset.y) > 0))
+                body_.setPosition((sf::Vector2f)position_*80.f);
         }
 
-        if (_attrs.health >= _attrs.maxHealth)
-            _attrs.health  = _attrs.maxHealth;
-        if (_attrs.health <= 0)
-            _attrs.health  = 0;
-        if (_attrs.mana <= 0)
-            _attrs.mana  = 0;
-        if (_attrs.mana >= _attrs.maxMana)
-            _attrs.mana  = _attrs.maxMana;
-        if (_attrs.experience>=_attrs.nextLevel) {
-            _attrs.experience = 0;
-            _attrs.nextLevel *= 1.25f;
-            _attrs.level     ++;
+        if (attrs_.health >= attrs_.maxHealth) attrs_.health = attrs_.maxHealth;
+        if (attrs_.health <= 0)                attrs_.health = 0;
+        if (attrs_.mana <= 0)                  attrs_.mana = 0;
+        if (attrs_.mana >= attrs_.maxMana)     attrs_.mana = attrs_.maxMana;
+        if (attrs_.experience>=attrs_.nextLevel) {
+            attrs_.experience = 0;
+            attrs_.nextLevel *= 1.25f;
+            attrs_.level     ++;
 
-            float temp        = _attrs.health/_attrs.maxHealth;
-            _attrs.maxHealth += 10;
-            _attrs.health     = temp*_attrs.maxHealth;
+            float temp        = attrs_.health/attrs_.maxHealth;
+            attrs_.maxHealth += 10;
+            attrs_.health     = temp*attrs_.maxHealth;
 
-            temp              = _attrs.mana/_attrs.maxMana;
-            _attrs.maxMana   += 1;
-            _attrs.mana       = temp*_attrs.maxMana;
+            temp              = attrs_.mana/attrs_.maxMana;
+            attrs_.maxMana   += 1;
+            attrs_.mana       = temp*attrs_.maxMana;
         }
-        _body.play(*_currentAnimation);
+        body_.play(*currentAnimation_);
     }
 
 }

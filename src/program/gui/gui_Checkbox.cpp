@@ -13,58 +13,58 @@ extern rr::Resources resources;
 namespace rr {
 
     Checkbox::Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color c) {
-        _body.setSize(sf::Vector2f(35, 35));
-        _body.setPosition(pos);
-        _body.setFillColor(c);
-        _body.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
-        _body.setOutlineThickness(5);
+        body_.setSize(sf::Vector2f(35, 35));
+        body_.setPosition(pos);
+        body_.setFillColor(c);
+        body_.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
+        body_.setOutlineThickness(5);
 
-        _text  = new Text (sf::Vector2f(0, 0), txt, resources.font.Unifont, chsize);
-        _image = new Image(pos, 14, 1);
-        _text->setPosition(sf::Vector2f(pos.x+45, pos.y+_body.getSize().y/2-_text->getSize().y));
+        text_  = new Text (sf::Vector2f(0, 0), txt, resources.font.Unifont, chsize);
+        image_ = new Image(pos, 14, 1);
+        text_->setPosition(sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_->getSize().y));
 
-        _image->setParentComponent(this);
-        _text ->setParentComponent(this);
+        image_->setParentComponent(this);
+        text_ ->setParentComponent(this);
     }
 
     Checkbox::~Checkbox() {
-        delete _image;
-        delete _text;
+        delete image_;
+        delete text_;
     }
 
     void Checkbox::check(bool b) {
-        _checked = b;
+        checked_ = b;
     }
 
     void Checkbox::setPosition(sf::Vector2f pos) {
-        _body  .setPosition(pos);
-        _text ->setPosition(sf::Vector2f(pos.x+45, pos.y+_body.getSize().y/2-_text->getSize().y));
-        _image->setPosition(pos);
+        body_  .setPosition(pos);
+        text_ ->setPosition(sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_->getSize().y));
+        image_->setPosition(pos);
     }
 
     void Checkbox::draw(sf::RenderWindow& rw) {
-        rw.draw(_body);
-        if (_checked)
-            _image->draw(rw);
-        _text->draw(rw);
+        rw.draw(body_);
+        if (checked_)
+            image_->draw(rw);
+        text_->draw(rw);
     }
 
     bool Checkbox::containsMouseCursor(sf::RenderWindow& rw) {
-        if (_body.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
-            _body.setFillColor(sf::Color(128, 128, 128, 255));
+        if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
+            body_.setFillColor(sf::Color(128, 128, 128, 255));
             return true;
         }
-        _body.setFillColor(sf::Color(128, 128, 128, 128));
+        body_.setFillColor(sf::Color(128, 128, 128, 128));
         return false;
     }
 
     bool Checkbox::isPressed(sf::RenderWindow& rw, sf::Event& e) {
         if (containsMouseCursor(rw) && e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left) {
-            _held = true;
+            held_ = true;
             return true;
         }
         if (e.type == sf::Event::MouseButtonReleased)
-            _held = false;
+            held_ = false;
         return false;
     }
 

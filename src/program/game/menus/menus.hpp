@@ -19,8 +19,8 @@ namespace rr {
 /// Class for the main menu
     class MainMenu {
     private:
-        Text*   _title;
-        Window* _wMenu;
+        Text*   title_;
+        Window* wMenu_;
     public:
          MainMenu();
         ~MainMenu();
@@ -35,9 +35,9 @@ namespace rr {
 /// Class for the pause menu
     class PauseMenu {
     private:
-        sf::RectangleShape _shadow;
-        Text*              _title;
-        Window*            _wMenu;
+        sf::RectangleShape shadow_;
+        Text*              title_;
+        Window*            wMenu_;
     public:
          PauseMenu();
         ~PauseMenu();
@@ -61,8 +61,8 @@ namespace rr {
 /// Class for the player attributes window
     class Attributes {
     private:
-        sf::RectangleShape _shadow;
-        Window*            _wAttr;
+        sf::RectangleShape shadow_;
+        Window*            wAttr_;
     public:
          Attributes();
         ~Attributes();
@@ -89,8 +89,8 @@ namespace rr {
 /// Class for the player inventory
     class Inventory {
     private:
-        sf::RectangleShape _shadow;
-        Window*            _wInve;
+        sf::RectangleShape shadow_;
+        Window*            wInve_;
     public:
          Inventory();
         ~Inventory();
@@ -114,8 +114,8 @@ namespace rr {
 /// Class for the task list
     class Quests {
     private:
-        sf::RectangleShape _shadow;
-        Window*            _wQues;
+        sf::RectangleShape shadow_;
+        Window*            wQues_;
     public:
          Quests();
         ~Quests();
@@ -139,8 +139,8 @@ namespace rr {
 /// Class for the game map
     class GameMap {
     private:
-        sf::RectangleShape _shadow;
-        Window*            _wGmap;
+        sf::RectangleShape shadow_;
+        Window*            wGmap_;
     public:
          GameMap();
         ~GameMap();

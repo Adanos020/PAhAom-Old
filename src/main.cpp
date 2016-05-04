@@ -13,6 +13,7 @@
 rr::Resources  resources;
 rr::Settings   settings;
 sf::Color      potionColors[9];
+
 int main() {
     srand(time(0));
     auto p = new rr::Program();

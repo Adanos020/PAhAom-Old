@@ -1,5 +1,5 @@
 /**
- * @file src/program/gui/gui__bar.cpp
+ * @file src/program/gui/gui_bar_.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -11,39 +11,39 @@ namespace rr {
 
     Bar::Bar(Plain plain, int max_length, sf::Color c, sf::Vector2f pos) {
         if (plain == HORIZONTAL) {
-            _border.setSize(sf::Vector2f(max_length, 5));
-            _bar.setSize(sf::Vector2f(max_length, 5));
+            border_.setSize(sf::Vector2f(max_length, 5));
+            bar_.setSize(sf::Vector2f(max_length, 5));
         } else if (plain == VERTICAL) {
-            _border.setSize(sf::Vector2f(5, max_length));
-            _bar.setSize(sf::Vector2f(5, max_length));
+            border_.setSize(sf::Vector2f(5, max_length));
+            bar_.setSize(sf::Vector2f(5, max_length));
         }
 
-        _border.setFillColor(sf::Color::Transparent);
-        _border.setOutlineColor(sf::Color(128, 128, 128));
-        _border.setOutlineThickness(5);
-        _border.setPosition(pos);
+        border_.setFillColor(sf::Color::Transparent);
+        border_.setOutlineColor(sf::Color(128, 128, 128));
+        border_.setOutlineThickness(5);
+        border_.setPosition(pos);
 
-        _bar.setFillColor(c);
-        _bar.setPosition(pos);
+        bar_.setFillColor(c);
+        bar_.setPosition(pos);
     }
 
     Bar::~Bar() {}
 
     void Bar::setPosition(sf::Vector2f pos) {
-        _border.setPosition(pos);
-        _bar.setPosition(pos);
+        border_.setPosition(pos);
+        bar_.setPosition(pos);
     }
 
     void Bar::setSize(sf::Vector2f scale) {
-        if (_bar.getSize().x == 5)
-            _bar.setScale(1, scale.y);
-        else if (_bar.getSize().y == 5)
-            _bar.setScale(scale.x, 1);
+        if (bar_.getSize().x == 5)
+            bar_.setScale(1, scale.y);
+        else if (bar_.getSize().y == 5)
+            bar_.setScale(scale.x, 1);
     }
 
     void Bar::draw(sf::RenderWindow& rw) {
-        rw.draw(_bar);
-        rw.draw(_border);
+        rw.draw(bar_);
+        rw.draw(border_);
     }
 
 }

@@ -14,55 +14,55 @@ extern rr::Settings  settings;
 namespace rr {
 
     Button::Button(sf::Vector2f position, sf::String str, unsigned chsize, sf::Color c) :Component() {
-        _text  = new Text(sf::Vector2f(0, 0), str, resources.font.Unifont, chsize, c);
-        _text->setPosition(sf::Vector2f(position.x+15, position.y-0.5));
+        text_  = new Text(sf::Vector2f(0, 0), str, resources.font.Unifont, chsize, c);
+        text_->setPosition(sf::Vector2f(position.x+15, position.y-0.5));
 
-        _image = new Image(position, 14, 0);
+        image_ = new Image(position, 14, 0);
 
-        _text ->setParentComponent(this);
-        _image->setParentComponent(this);
+        text_ ->setParentComponent(this);
+        image_->setParentComponent(this);
 
-        _body.setPosition(position);
-        _body.setSize(sf::Vector2f(_text->getSize().x+25, chsize*1.3425));
-        _text->setPosition(sf::Vector2f(position.x+_body.getSize().x/2-_text->getSize().x/2-chsize/20, position.y-0.5));
-        _body.setFillColor(sf::Color(0, 0, 0));
+        body_.setPosition(position);
+        body_.setSize(sf::Vector2f(text_->getSize().x+25, chsize*1.3425));
+        text_->setPosition(sf::Vector2f(position.x+body_.getSize().x/2-text_->getSize().x/2-chsize/20, position.y-0.5));
+        body_.setFillColor(sf::Color(0, 0, 0));
 
-        _held = false;
+        held_ = false;
     }
 
     Button::~Button() {
-        delete _image;
-        delete _text;
+        delete image_;
+        delete text_;
     }
 
     bool Button::containsMouseCursor(sf::RenderWindow& rw) {
-        if (_body.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
-            _body.setFillColor(sf::Color(128, 128, 128, 255));
+        if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
+            body_.setFillColor(sf::Color(128, 128, 128, 255));
             return true;
         }
-        _body.setFillColor(sf::Color(128, 128, 128, 128));
+        body_.setFillColor(sf::Color(128, 128, 128, 128));
         return false;
     }
 
     bool Button::isPressed(sf::RenderWindow& rw, sf::Event& e) {
         if (containsMouseCursor(rw) && e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left) {
-            _held = true;
+            held_ = true;
             return true;
         }
         if (e.type == sf::Event::MouseButtonReleased)
-            _held = false;
+            held_ = false;
         return false;
     }
 
     void Button::setPosition(sf::Vector2f position) {
-        _body  .setPosition(position);
-        _text ->setPosition(sf::Vector2f(position.x+_body.getSize().x/2-_text->getSize().x/2-_text->getCharacterSize()/20, position.y-0.5));
-        _image->setPosition(position);
+        body_  .setPosition(position);
+        text_ ->setPosition(sf::Vector2f(position.x+body_.getSize().x/2-text_->getSize().x/2-text_->getCharacterSize()/20, position.y-0.5));
+        image_->setPosition(position);
     }
 
     void Button::draw(sf::RenderWindow& rw) {
-        rw.draw(_body);
-        _text->draw(rw);
+        rw.draw(body_);
+        text_->draw(rw);
     }
 
 }

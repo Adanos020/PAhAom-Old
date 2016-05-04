@@ -20,18 +20,17 @@ namespace rr {
             BRONZE,
             SILVER,
             GOLDEN
-        } _type;
+        } type_;
         enum Size {
             SMALL,
             BIG
-        } _size;
+        } size_;
 
          Coin(Type, Size, int am, sf::Vector2i pos);
         ~Coin();
 
         virtual void draw      (sf::RenderWindow&) override;
         virtual void update    ()                  override;
-    private:
 	};
 
 }

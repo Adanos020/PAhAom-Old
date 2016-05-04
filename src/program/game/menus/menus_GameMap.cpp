@@ -14,40 +14,40 @@ extern rr::Resources resources;
 namespace rr {
 
     GameMap::GameMap() {
-        _shadow.setSize((sf::Vector2f)settings.graphics.resolution);
-        _shadow.setPosition(sf::Vector2f(0, 0));
-        _shadow.setFillColor(sf::Color(0, 0, 0, 172));
+        shadow_.setSize((sf::Vector2f)settings.graphics.resolution);
+        shadow_.setPosition(sf::Vector2f(0, 0));
+        shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
 #define component(w, c, i) w->getComponent<c>(i)
 
-        _wGmap = new Window(resources.dictionary["gui.window.game_map"], sf::Vector2f(settings.graphics.resolution.x*0.77f , settings.graphics.resolution.y*0.745f+77),
+        wGmap_ = new Window(resources.dictionary["gui.window.game_map"], sf::Vector2f(settings.graphics.resolution.x*0.77f , settings.graphics.resolution.y*0.745f+77),
                                                                          sf::Vector2f(settings.graphics.resolution.x*0.115f, settings.graphics.resolution.y*0.1275f-25));
-            *_wGmap += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
-            component(_wGmap, Button, 0)->setPosition(sf::Vector2f(_wGmap->getPosition().x+_wGmap->getSize().x/2-component(_wGmap, Button, 0)->getSize().x/2,
-                                                                   _wGmap->getPosition().y+_wGmap->getSize().y  -component(_wGmap, Button, 0)->getSize().y-5));
+            *wGmap_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
+            component(wGmap_, Button, 0)->setPosition(sf::Vector2f(wGmap_->getPosition().x+wGmap_->getSize().x/2-component(wGmap_, Button, 0)->getSize().x/2,
+                                                                   wGmap_->getPosition().y+wGmap_->getSize().y  -component(wGmap_, Button, 0)->getSize().y-5));
 
 #undef component
 
     }
 
     GameMap::~GameMap() {
-        delete _wGmap;
+        delete wGmap_;
     }
 
     void GameMap::open() {
-        _wGmap->setVisible(true);
+        wGmap_->setVisible(true);
     }
 
     void GameMap::close() {
-        _wGmap->setVisible(false);
+        wGmap_->setVisible(false);
     }
 
     void GameMap::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
 
 #define component(w, c, i) w->getComponent<c>(i)
 
-        if (_wGmap->isVisible()) {
-            if (component(_wGmap, Button, 0)->isPressed(rw, e)) {
+        if (wGmap_->isVisible()) {
+            if (component(wGmap_, Button, 0)->isPressed(rw, e)) {
                 g->pause(false);
             }
         }
@@ -57,12 +57,12 @@ namespace rr {
     }
 
     void GameMap::draw(sf::RenderWindow& rw) {
-        rw.draw(_shadow);
-        _wGmap->draw(rw);
+        rw.draw(shadow_);
+        wGmap_->draw(rw);
     }
 
     bool GameMap::isOpen() {
-        return _wGmap->isVisible();
+        return wGmap_->isVisible();
     }
 
 }

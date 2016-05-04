@@ -71,7 +71,7 @@ namespace rr {
             sf::Keyboard::Key useslot_3;
             sf::Keyboard::Key useslot_4;
             sf::Keyboard::Key useslot_5;
-        }                   keys;
+        } keys;
 
     /// Structure for the sound settings
         struct {
@@ -108,10 +108,10 @@ namespace rr {
 /// Class for the program
     class Program {
     private:
-        sf::Event        _event;
-        sf::RenderWindow _window;
+        sf::Event        event_;
+        sf::RenderWindow window_;
 
-        Game*            _game;
+        Game*            game_;
 
     /// Loads all the resources, settings and dictionary
         bool loadResources ();

@@ -13,41 +13,41 @@ extern rr::Resources resources;
 namespace rr {
 
     Window::Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
-        _body.setSize(size);
-        _body.setPosition(position);
-        _body.setFillColor(sf::Color(c.r, c.g, c.b, 128));
-        _body.setOutlineColor(c);
-        _body.setOutlineThickness(5);
+        body_.setSize(size);
+        body_.setPosition(position);
+        body_.setFillColor(sf::Color(c.r, c.g, c.b, 128));
+        body_.setOutlineColor(c);
+        body_.setOutlineThickness(5);
 
-        _header = new Text(sf::Vector2f(0, 0), head, resources.font.Unifont, 20, sf::Color::Yellow);
-        _header->setPosition(sf::Vector2f(position.x+5, position.y));
+        header_ = new Text(sf::Vector2f(0, 0), head, resources.font.Unifont, 20, sf::Color::Yellow);
+        header_->setPosition(sf::Vector2f(position.x+5, position.y));
 
-        _header->setParentComponent(this);
+        header_->setParentComponent(this);
 
-        _visible = false;
+        visible_ = false;
     }
 
     Window::~Window() {
-        delete _header;
-        _components.clear();
+        delete header_;
+        components_.clear();
     }
 
     void Window::addComponent(Component* c, bool attached) {
         if (attached)
-            c->setPosition(sf::Vector2f(_body.getPosition().x+c->getPosition().x, _body.getPosition().y+c->getPosition().y));
+            c->setPosition(sf::Vector2f(body_.getPosition().x+c->getPosition().x, body_.getPosition().y+c->getPosition().y));
         c->setParentComponent(this);
-        _components.push_back(c);
+        components_.push_back(c);
     }
 
     void Window::setVisible(bool b) {
-        _visible = b;
+        visible_ = b;
     }
 
     void Window::draw(sf::RenderWindow& rw) {
-        if (_visible) {
-            rw.draw(_body);
-            _header->draw(rw);
-            for (auto x : _components)
+        if (visible_) {
+            rw.draw(body_);
+            header_->draw(rw);
+            for (auto x : components_)
                 x->draw(rw);
         }
     }

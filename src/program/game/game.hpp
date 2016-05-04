@@ -28,22 +28,22 @@ namespace rr {
 /// Class for the game
     class Game {
     private:
-        sf::View            _gameView;
-        sf::View            _mapView;
+        sf::View            gameView_;
+        sf::View            mapView_;
 
-        MainMenu*           _mainMenu;
-        PauseMenu*          _pauseMenu;
-        Attributes*         _attributes;
-        Inventory*          _inventory;
-        Quests*             _quests;
-        GameMap*            _gameMap;
-        HUD*                _hud;
-        std::vector<Level*> _level;
-        Player*             _player;
+        MainMenu*           mainMenu_;
+        PauseMenu*          pauseMenu_;
+        Attributes*         attributes_;
+        Inventory*          inventory_;
+        Quests*             quests_;
+        GameMap*            gameMap_;
+        HUD*                hud_;
+        std::vector<Level*> level_;
+        Player*             player_;
 
-        bool                _started;
-        bool                _paused;
-        unsigned            _levelNumber;
+        bool                started_;
+        bool                paused_;
+        unsigned            levelNumber_;
 
     /// Method for the keyboard controls
         void controls      ();
@@ -88,11 +88,11 @@ namespace rr {
 /// Class for the HUD
     class HUD {
     private:
-        Bar*  _bHP;
-        Bar*  _bMP;
-        Bar*  _bXP;
-        Slot* _sCarryOn[5];
-        Text* _tXPlevel;
+        Bar*  bHP_;
+        Bar*  bMP_;
+        Bar*  bXP_;
+        Slot* sCarryOn_[5];
+        Text* tXPlevel_;
     public:
          HUD();
         ~HUD();

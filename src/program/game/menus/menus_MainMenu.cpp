@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/menus/MainMenu.cpp
+ * @file src/program/game/menus/menus_MainMenu.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
@@ -19,23 +19,23 @@ namespace rr {
 
 #define component(w, c, i) w->getComponent<c>(i)
 
-        _title = new Text(sf::Vector2f(0, 0), "PAhAom", resources.font.Pixel, 100, sf::Color::Yellow);
-        _title->setPosition(sf::Vector2f(settings.graphics.resolution.x/2-_title->getSize().x/2, 10));
+        title_ = new Text(sf::Vector2f(0, 0), "PAhAom", resources.font.Pixel, 100, sf::Color::Yellow);
+        title_->setPosition(sf::Vector2f(settings.graphics.resolution.x/2-title_->getSize().x/2, 10));
 
-        _wMenu = new Window("", sf::Vector2f(244, 454), sf::Vector2f(25, settings.graphics.resolution.y/2-225));
-            *_wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.newgame"], 52);
-            *_wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.load"   ], 52);
-            *_wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.options"], 52);
-            *_wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.help"   ], 52);
-            *_wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.credits"], 52);
-            *_wMenu += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"   ], 52);
+        wMenu_ = new Window("", sf::Vector2f(244, 454), sf::Vector2f(25, settings.graphics.resolution.y/2-225));
+            *wMenu_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.newgame"], 52);
+            *wMenu_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.load"   ], 52);
+            *wMenu_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.options"], 52);
+            *wMenu_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.help"   ], 52);
+            *wMenu_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.credits"], 52);
+            *wMenu_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"   ], 52);
             for (int i=0; i<6; i++)
-                component(_wMenu, Button, i)->setPosition(_wMenu->getPosition()+sf::Vector2f(_wMenu->getSize().x/2-component(_wMenu, Button, i)->getSize().x/2, 5+i*75));
+                component(wMenu_, Button, i)->setPosition(wMenu_->getPosition()+sf::Vector2f(wMenu_->getSize().x/2-component(wMenu_, Button, i)->getSize().x/2, 5+i*75));
 
-            _wMenu->addComponent(new Window(resources.dictionary["gui.button.options"], sf::Vector2f(330, 405),
+            wMenu_->addComponent(new Window(resources.dictionary["gui.button.options"], sf::Vector2f(330, 405),
                                            sf::Vector2f(settings.graphics.resolution.x/2-165, settings.graphics.resolution.y/2-202.5)), false);
 
-#define wOpts component(_wMenu, Window, 0)
+#define wOpts component(wMenu_, Window, 0)
 
                 *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.game"     ], 52);
                 *wOpts += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.graphical"], 52);
@@ -182,10 +182,10 @@ namespace rr {
 #undef wCont
 #undef wOpts
 
-            _wMenu->addComponent(new Window(resources.dictionary["gui.button.help"], sf::Vector2f(325, 454),
+            wMenu_->addComponent(new Window(resources.dictionary["gui.button.help"], sf::Vector2f(325, 454),
                                            sf::Vector2f(settings.graphics.resolution.x-350, settings.graphics.resolution.y/2-225)), false);
 
-#define wHelp component(_wMenu, Window, 1)
+#define wHelp component(wMenu_, Window, 1)
 
                 *wHelp += new Text(sf::Vector2f(20, 25), "Pro tip:",                                 resources.font.Unifont, 30, sf::Color::Yellow);
                 *wHelp += new Text(sf::Vector2f(20, 55), resources.dictionary["gui.text.killurslf"], resources.font.Unifont, 30, sf::Color::Red);
@@ -196,10 +196,10 @@ namespace rr {
 
 #undef wHelp
 
-            _wMenu->addComponent(new Window(resources.dictionary["gui.button.credits"], sf::Vector2f(375, 300),
+            wMenu_->addComponent(new Window(resources.dictionary["gui.button.credits"], sf::Vector2f(375, 300),
                                            sf::Vector2f(settings.graphics.resolution.x-400, settings.graphics.resolution.y/2-150)), false);
 
-#define wCred component(_wMenu, Window, 2)
+#define wCred component(wMenu_, Window, 2)
 
                 *wCred += new Text(sf::Vector2f(20,  20), resources.dictionary["gui.text.programming"], resources.font.Unifont, 30);
                 *wCred += new Text(sf::Vector2f( 0,  50),  L"\tAdam 'Adanos' Gąsior", resources.font.Unifont, 25, sf::Color::Yellow);
@@ -214,7 +214,7 @@ namespace rr {
                     component(wCred, Button, 0)->setPosition(sf::Vector2f(wCred->getPosition().x+wCred->getSize().x/2-component(wCred, Button, 0)->getSize().x/2,
                                                                           wCred->getPosition().y+wCred->getSize().y-component(wCred, Button, 0)->getSize().y-10));
 
-            _wMenu->setVisible(true);
+            wMenu_->setVisible(true);
 
 #undef wCred
 #undef component
@@ -222,35 +222,35 @@ namespace rr {
     }
 
     MainMenu::~MainMenu() {
-        delete _title;
-        delete _wMenu;
+        delete title_;
+        delete wMenu_;
     }
 
     void MainMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
 
 #define component(w, c, i) w->getComponent<c>(i)
-#define wOpts component(_wMenu, Window, 0)
+#define wOpts component(wMenu_, Window, 0)
 #define wGame component(wOpts, Window, 0)
 #define wGrap component(wOpts, Window, 1)
 #define wSoun component(wOpts, Window, 2)
 #define wCont component(wOpts, Window, 3)
 #define wWait component(wCont, Window, 0)
-#define wHelp component(_wMenu, Window, 1)
-#define wCred component(_wMenu, Window, 2)
+#define wHelp component(wMenu_, Window, 1)
+#define wCred component(wMenu_, Window, 2)
 
-        if (_wMenu->isVisible()) {
+        if (wMenu_->isVisible()) {
             if (!wOpts->isVisible() && !wHelp->isVisible() && !wCred->isVisible()) {
-                if (component(_wMenu, Button, 0)->isPressed(rw, e))
+                if (component(wMenu_, Button, 0)->isPressed(rw, e))
                     g->loadNewGame();
-                if (component(_wMenu, Button, 1)->isPressed(rw, e))
+                if (component(wMenu_, Button, 1)->isPressed(rw, e))
                     if (g->load()) g->start(true);
-                if (component(_wMenu, Button, 2)->isPressed(rw, e))
+                if (component(wMenu_, Button, 2)->isPressed(rw, e))
                     wOpts->setVisible(true);
-                if (component(_wMenu, Button, 3)->isPressed(rw, e))
+                if (component(wMenu_, Button, 3)->isPressed(rw, e))
                     wHelp->setVisible(true);
-                if (component(_wMenu, Button, 4)->isPressed(rw, e))
+                if (component(wMenu_, Button, 4)->isPressed(rw, e))
                     wCred->setVisible(true);
-                if (component(_wMenu, Button, 5)->isPressed(rw, e))
+                if (component(wMenu_, Button, 5)->isPressed(rw, e))
                     rw.close();
             }
 
@@ -434,8 +434,8 @@ namespace rr {
     }
 
     void MainMenu::draw(sf::RenderWindow& rw) {
-        _title->draw(rw);
-        _wMenu->draw(rw);
+        title_->draw(rw);
+        wMenu_->draw(rw);
     }
 
 }

@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/item/coldweapon.hpp
+ * @file src/program/game/item/item_ColdWeapon.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC

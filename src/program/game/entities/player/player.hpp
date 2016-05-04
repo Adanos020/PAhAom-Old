@@ -39,15 +39,15 @@ namespace rr {
             bool  cold_weapon_mastery;
             bool  ranged_weapon_mastery;
             bool  better_sight;
-        } _attrs;
+        } attrs_;
 
-        sf::Vector2i       _position;
-        sf::AnimatedSprite _body;
-        sf::Animation      _walkingLeft;
-        sf::Animation      _walkingRight;
-        sf::Animation*     _currentAnimation;
-        float              _velocity;
-        bool               _moving;
+        sf::Vector2i       position_;
+        sf::AnimatedSprite body_;
+        sf::Animation      walkingLeft_;
+        sf::Animation      walkingRight_;
+        sf::Animation*     currentAnimation_;
+        float              velocity_;
+        bool               moving_;
     public:
          Player();
         ~Player();
@@ -69,14 +69,14 @@ namespace rr {
         void          update          (float timeStep);
 
     /// Returns the player statistics
-        Attrs         getAttributes   ()          const          { return _attrs; }
+        Attrs         getAttributes   ()          const          { return attrs_; }
 
     /// Returns the position of the player character
-        sf::Vector2i  getPosition     ()          const          { return _position; }
+        sf::Vector2i  getPosition     ()          const          { return position_; }
 
         void          setPosition     (sf::Vector2i)    override;
         bool          intersects      (Entity* e) const override { return e->getBounds().intersects(this->getBounds()); }
-        sf::FloatRect getBounds       ()          const override { return _body.getGlobalBounds(); }
+        sf::FloatRect getBounds       ()          const override { return body_.getGlobalBounds(); }
 
 
         virtual void setOpen(bool)   {}

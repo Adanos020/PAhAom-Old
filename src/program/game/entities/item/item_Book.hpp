@@ -18,7 +18,7 @@ namespace rr {
             MANA_REGEN,
             FASTER_LEARNING,
             SPELLS_LEARNING
-        } _type;
+        } type_;
          Book(Type, int am, sf::Vector2i pos);
         ~Book();
 
