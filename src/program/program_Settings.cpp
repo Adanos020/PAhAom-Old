@@ -39,7 +39,6 @@ namespace rr {
         std::cout << "|move_right               |" << keys.move_right                      << std::setw(29-std::to_string(keys.move_right)                     .size()) << "|\n";
         std::cout << "|interact                 |" << keys.interact                        << std::setw(29-std::to_string(keys.interact)                       .size()) << "|\n";
         std::cout << "|attack                   |" << keys.attack                          << std::setw(29-std::to_string(keys.attack)                         .size()) << "|\n";
-        std::cout << "|pickup                   |" << keys.pickup                          << std::setw(29-std::to_string(keys.pickup)                         .size()) << "|\n";
         std::cout << "|open_inventory           |" << keys.open_inventory                  << std::setw(29-std::to_string(keys.open_inventory)                 .size()) << "|\n";
         std::cout << "|open_attributes          |" << keys.open_attributes                 << std::setw(29-std::to_string(keys.open_attributes)                .size()) << "|\n";
         std::cout << "|open_quests              |" << keys.open_quests                     << std::setw(29-std::to_string(keys.open_quests)                    .size()) << "|\n";
@@ -88,7 +87,6 @@ namespace rr {
         oconfig << ";----actions----;\n";
         oconfig << "interact:\t"       + std::to_string(keys.interact                       )+"\n";
         oconfig << "attack:\t\t"       + std::to_string(keys.attack                         )+"\n";
-        oconfig << "pickup:\t\t"       + std::to_string(keys.pickup                         )+"\n";
         oconfig << ";---open menus--;\n";
         oconfig << "open_inventory:\t" + std::to_string(keys.open_inventory                 )+"\n";
         oconfig << "open_attributes: " + std::to_string(keys.open_attributes                )+"\n";
@@ -139,7 +137,6 @@ namespace rr {
                     else if (param == "move_right:"     ) { readFile(iconfig, keyCode); keys.move_right      = (sf::Keyboard::Key)keyCode; }
                     else if (param == "interact:"       ) { readFile(iconfig, keyCode); keys.interact        = (sf::Keyboard::Key)keyCode; }
                     else if (param == "attack:"         ) { readFile(iconfig, keyCode); keys.attack          = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "pickup:"         ) { readFile(iconfig, keyCode); keys.pickup          = (sf::Keyboard::Key)keyCode; }
                     else if (param == "open_inventory:" ) { readFile(iconfig, keyCode); keys.open_inventory  = (sf::Keyboard::Key)keyCode; }
                     else if (param == "open_attributes:") { readFile(iconfig, keyCode); keys.open_attributes = (sf::Keyboard::Key)keyCode; }
                     else if (param == "open_quests:"    ) { readFile(iconfig, keyCode); keys.open_quests     = (sf::Keyboard::Key)keyCode; }
@@ -177,7 +174,6 @@ namespace rr {
             keys.move_right                      = sf::Keyboard::D;
             keys.interact                        = sf::Keyboard::E;
             keys.attack                          = sf::Keyboard::Space;
-            keys.pickup                          = sf::Keyboard::Q;
             keys.open_inventory                  = sf::Keyboard::Tab;
             keys.open_attributes                 = sf::Keyboard::B;
             keys.open_quests                     = sf::Keyboard::N;

@@ -17,14 +17,14 @@ namespace rr {
         enum Type {
             MANA_REGEN,
             FASTER_LEARNING,
-            SPELLS_LEARNING,
-
-        } type;
+            SPELLS_LEARNING
+        } _type;
          Book(Type, int am, sf::Vector2i pos);
         ~Book();
 
-        virtual void draw      (sf::RenderWindow&) override;
-        virtual void update    ()                  override;
+        virtual void draw   (sf::RenderWindow&) override;
+        virtual void update ()                  override;
+        virtual void reveal ()                  override;
     };
 
 }

@@ -22,7 +22,7 @@ namespace rr {
     }
 
     Program::~Program() {
-        delete game;
+        delete _game;
     }
 
     bool Program::loadResources() {
@@ -31,39 +31,39 @@ namespace rr {
     }
 
     void Program::runGame() {
-        window.create(sf::VideoMode(settings.graphics.resolution.x, settings.graphics.resolution.y, 32), "PAhAom", settings.graphics.fullscreen?(sf::Style::Fullscreen):(sf::Style::Close), settings.graphics.csettings);
-        window.setVerticalSyncEnabled(settings.graphics.vsync);
-        window.setKeyRepeatEnabled(false);
+        _window.create(sf::VideoMode(settings.graphics.resolution.x, settings.graphics.resolution.y, 32), "PAhAom", settings.graphics.fullscreen?(sf::Style::Fullscreen):(sf::Style::Close), settings.graphics.csettings);
+        _window.setVerticalSyncEnabled(settings.graphics.vsync);
+        _window.setKeyRepeatEnabled(false);
 
-        game = new Game();
+        _game = new Game();
         mainLoop();
     }
 
     void Program::handleEvents() {
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
+        while (_window.pollEvent(_event)) {
+            if (_event.type == sf::Event::Closed)
+                _window.close();
 
-            game->buttonEvents(window, event);
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape && game->isStarted())
-                game->pause(!game->isPaused());
+            _game->buttonEvents(_window, _event);
+            if (_event.type == sf::Event::KeyPressed && _event.key.code == sf::Keyboard::Escape && _game->isStarted())
+                _game->pause(!_game->isPaused());
         }
     }
 
     void Program::update(sf::Clock& timer) {
-        game->update(timer.getElapsedTime().asMilliseconds());
+        _game->update(timer.getElapsedTime().asMilliseconds());
         timer.restart();
     }
 
     void Program::draw() {
-        window.clear();
-        game->draw(window);
-        window.display();
+        _window.clear();
+        _game->draw(_window);
+        _window.display();
     }
 
     void Program::mainLoop() {
         sf::Clock timer;
-        while (window.isOpen()) {
+        while (_window.isOpen()) {
             handleEvents();
             update(timer);
             draw();

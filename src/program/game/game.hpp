@@ -28,22 +28,22 @@ namespace rr {
 /// Class for the game
     class Game {
     private:
-        sf::View             _gameView;
-        sf::View             _mapView;
+        sf::View            _gameView;
+        sf::View            _mapView;
 
-        MainMenu*            _mainMenu;
-        PauseMenu*           _pauseMenu;
-        Attributes*          _attributes;
-        Inventory*           _inventory;
-        Quests*              _quests;
-        GameMap*             _gameMap;
-        HUD*                 _hud;
-        std::vector<Level*>  _level;
-        Player*              _player;
+        MainMenu*           _mainMenu;
+        PauseMenu*          _pauseMenu;
+        Attributes*         _attributes;
+        Inventory*          _inventory;
+        Quests*             _quests;
+        GameMap*            _gameMap;
+        HUD*                _hud;
+        std::vector<Level*> _level;
+        Player*             _player;
 
-        bool                 _started;
-        bool                 _paused;
-        unsigned             _levelNumber;
+        bool                _started;
+        bool                _paused;
+        unsigned            _levelNumber;
 
     /// Method for the keyboard controls
         void controls      ();

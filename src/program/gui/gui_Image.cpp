@@ -13,47 +13,47 @@ extern rr::Resources resources;
 namespace rr {
 
     Image::Image(sf::Vector2f pos, int iconSize, unsigned index) {
-        icn         = iconSize;
-        unsigned tu = index%(resources.texture.gui.getSize().x/icn);
-        unsigned tv = index/(resources.texture.gui.getSize().y/icn);
+        _icn        = iconSize;
+        unsigned tu = index%(resources.texture.gui.getSize().x/_icn);
+        unsigned tv = index/(resources.texture.gui.getSize().y/_icn);
 
-        body.setPosition(pos);
-        body.setTexture(resources.texture.gui);
-        body.setTextureRect(sf::IntRect(tu*icn, tv*icn, icn, icn));
-        body.scale(sf::Vector2f(5, 5));
+        _body.setPosition(pos);
+        _body.setTexture(resources.texture.gui);
+        _body.setTextureRect(sf::IntRect(tu*_icn, tv*_icn, _icn, _icn));
+        _body.scale(sf::Vector2f(5, 5));
     }
 
     Image::~Image() {}
 
     void Image::change(unsigned index) {
-        unsigned tu = index%(body.getTexture()->getSize().x/icn);
-        unsigned tv = index/(body.getTexture()->getSize().y/icn);
+        unsigned tu = index%(_body.getTexture()->getSize().x/_icn);
+        unsigned tv = index/(_body.getTexture()->getSize().y/_icn);
 
-        body.setTextureRect(sf::IntRect(tu*icn, tv*icn, icn, icn));
+        _body.setTextureRect(sf::IntRect(tu*_icn, tv*_icn, _icn, _icn));
     }
 
-    void Image::change(sf::Sprite va, sf::Texture tx) {
-        body = va;
-        body.setTexture(tx);
+    void Image::change(sf::Sprite sprite, sf::Texture texture) {
+        _body = sprite;
+        _body.setTexture(texture);
     }
 
     void Image::scale(sf::Vector2f v) {
-        body.scale(v);
+        _body.scale(v);
     }
 
     void Image::paint(sf::Color c) {
-        body.setColor(c);
+        _body.setColor(c);
     }
 
     void Image::setPosition(sf::Vector2f pos) {
-        body.setPosition(pos);
+        _body.setPosition(pos);
     }
 
-    void Image::setSize(sf::Vector2f s) {
-        body.setScale(sf::Vector2f(s.x/body.getGlobalBounds().width, s.y/body.getGlobalBounds().height));
+    void Image::setSize(sf::Vector2f size) {
+        _body.setScale(sf::Vector2f(size.x/_body.getGlobalBounds().width, size.y/_body.getGlobalBounds().height));
     }
 
     void Image::draw(sf::RenderWindow& rw) {
-        rw.draw(body);
+        rw.draw(_body);
     }
 }

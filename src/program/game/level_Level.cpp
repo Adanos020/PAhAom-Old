@@ -207,7 +207,7 @@ namespace rr {
 
      // then we iterate on each room and give it a random numbers of entrances
         for (unsigned it=0; it<_rooms.size(); it++) {
-            for (int entrances = rand()%3+3; entrances>0; entrances--) {
+            for (int entrances = rand()%3+2; entrances>0; entrances--) {
                 sf::Vector2i position;
                 bool found = false;
 
@@ -215,12 +215,12 @@ namespace rr {
                 while (!found && tries > 0) {
                     switch (rand()%2) {
                     case 0: // LEFT OR RIGHT
-                        position = (rand()%2)?sf::Vector2i(_rooms[it].left                  , _rooms[it].top + rand()%_rooms[it].height)
-                                             :sf::Vector2i(_rooms[it].left + _rooms[it].width, _rooms[it].top + rand()%_rooms[it].height);
+                        position = (rand()%2)?sf::Vector2i(_rooms[it].left-1               , _rooms[it].top+rand()%_rooms[it].height)
+                                             :sf::Vector2i(_rooms[it].left+_rooms[it].width, _rooms[it].top+rand()%_rooms[it].height);
                         break;
                     case 1: // UP OR DOWN
-                        position = (rand()%2)?sf::Vector2i(_rooms[it].left + rand()%_rooms[it].width, _rooms[it].top - 1)
-                                             :sf::Vector2i(_rooms[it].left + rand()%_rooms[it].width, _rooms[it].top + _rooms[it].height);
+                        position = (rand()%2)?sf::Vector2i(_rooms[it].left+rand()%_rooms[it].width, _rooms[it].top-1)
+                                             :sf::Vector2i(_rooms[it].left+rand()%_rooms[it].width, _rooms[it].top+_rooms[it].height);
                         break;
                     }
 
@@ -237,30 +237,30 @@ namespace rr {
         }
 
      // after that we check if there appear any doors placed next to each other
-     // if so - then we delete one of them
+     // if so-then we delete one of them
         for (sf::Vector2i pos(1, 1); pos.x<_size.x-1 && pos.y<_size.y-1; pos += ((pos.x >= _size.x-2)?(sf::Vector2i(-(_size.x-3), 1)):(sf::Vector2i(1, 0)))) {
             if (_tiles[pos.x][pos.y] == ENTRANCE) {
                 if (_tiles[pos.x-1][pos.y] == ENTRANCE) {
                     if (rand()%2)
-                        _tiles[pos.x][pos.y] = WALL;
+                        _tiles[pos.x][pos.y]   = WALL;
                     else
                         _tiles[pos.x-1][pos.y] = WALL;
                 }
                 if (_tiles[pos.x+1][pos.y] == ENTRANCE) {
                     if (rand()%2)
-                        _tiles[pos.x][pos.y] = WALL;
+                        _tiles[pos.x][pos.y]   = WALL;
                     else
                         _tiles[pos.x+1][pos.y] = WALL;
                 }
                 if (_tiles[pos.x][pos.y-1] == ENTRANCE) {
                     if (rand()%2)
-                        _tiles[pos.x][pos.y] = WALL;
+                        _tiles[pos.x][pos.y]   = WALL;
                     else
                         _tiles[pos.x][pos.y-1] = WALL;
                 }
                 if (_tiles[pos.x][pos.y+1] == ENTRANCE) {
                     if (rand()%2)
-                        _tiles[pos.x][pos.y] = WALL;
+                        _tiles[pos.x][pos.y]   = WALL;
                     else
                         _tiles[pos.x][pos.y+1] = WALL;
                 }
@@ -414,14 +414,14 @@ namespace rr {
     }
 
     void Level::placeEntities() {
-    // here we place the doors
+     // here we place the doors
         for (int x=1; x<_size.x-1; x++) {
             for (int y=1; y<_size.y-1; y++) {
                 if (_tiles[x][y] == ENTRANCE)
                     addEntity(new Door(false), sf::Vector2i(x, y));
             }
         }
-    // here we place the starting point
+     // here we place the starting point
         for (int x=rand()%_size.x, y=_size.y; ; x=rand()%_size.x, y=rand()%_size.y) {
             if (_tiles[x][y] == ROOM) {
                 _startingPoint = sf::Vector2i(x, y);
@@ -429,26 +429,26 @@ namespace rr {
                 break;
             }
         }
-    // here we place the ending point
+     // here we place the ending point
         for (int x=rand()%_size.x, y=_size.y; ; x=rand()%_size.x, y=rand()%_size.y) {
-            if (_tiles[x][y] == ROOM && _tiles[x][y] != OCCUPIED) {
+            if (_tiles[x][y] == ROOM && _tiles[x][y] != OCCUPIED && (abs(x-_startingPoint.x) > 30 || abs(y-_startingPoint.y) > 30)) {
                 _endingPoint = sf::Vector2i(x, y);
                 _tiles[x][y] = OCCUPIED;
                 break;
             }
         }
-    // here we generate the items
+     // here we generate the items
         for (int i=0; i<rand()%10; i++) {
             while (true) {
                 int x=rand()%_size.x, y=rand()%_size.y;
                 if (_tiles[x][y] == ROOM && _tiles[x][y] != OCCUPIED) {
-                    addEntity(getItemFromID(100 + (rand()%3)*10 + rand()%9, 1), sf::Vector2i(x, y));
+                    addEntity(getItemFromID(100+(rand()%3)*10+rand()%9, 1), sf::Vector2i(x, y));
                     _tiles[x][y] = OCCUPIED;
                     break;
                 }
             }
         }
-    // here we generate the chests
+     // here we generate the chests
         for (int i=0; i<rand()%5; i++) {
             while (true) {
                 int x=rand()%_size.x, y=rand()%_size.y;
@@ -462,14 +462,26 @@ namespace rr {
                 }
             }
         }
-    // here we generate the cash
+     // here we generate the Coin
         for (int i=0; i<rand()%15; i++) {
             while (true) {
                 int x=rand()%_size.x, y=rand()%_size.y;
                 // same story here
                 if (_tiles[x][y] == ROOM && _tiles[x][y] != OCCUPIED) {
                     // here we choose randomly the type of a coin
-                    addEntity(getItemFromID(rand()%3+1, rand()%100), sf::Vector2i(x, y));
+                    addEntity(getItemFromID(rand()%6+1, rand()%100), sf::Vector2i(x, y));
+                    _tiles[x][y] = OCCUPIED;
+                    break;
+                }
+            }
+        }
+     // here we generate the books
+        for (int i=0; i<rand()%5; i++) {
+            while (true) {
+                int x=rand()%_size.x, y=rand()%_size.y;
+                if (_tiles[x][y] == ROOM && _tiles[x][y] != OCCUPIED) {
+                    // here we choose randomly the type of a coin
+                    addEntity(getItemFromID(rand()%3+10, 1), sf::Vector2i(x, y));
                     _tiles[x][y] = OCCUPIED;
                     break;
                 }

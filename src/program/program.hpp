@@ -58,9 +58,8 @@ namespace rr {
             sf::Keyboard::Key move_left;
             sf::Keyboard::Key move_right;
 
-            sf::Keyboard::Key interact;
             sf::Keyboard::Key attack;
-            sf::Keyboard::Key pickup;
+            sf::Keyboard::Key interact;
 
             sf::Keyboard::Key open_inventory;
             sf::Keyboard::Key open_attributes;
@@ -109,10 +108,10 @@ namespace rr {
 /// Class for the program
     class Program {
     private:
-        sf::Event        event;
-        sf::RenderWindow window;
+        sf::Event        _event;
+        sf::RenderWindow _window;
 
-        Game*            game;
+        Game*            _game;
 
     /// Loads all the resources, settings and dictionary
         bool loadResources ();

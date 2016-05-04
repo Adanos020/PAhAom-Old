@@ -12,28 +12,28 @@ extern rr::Resources resources;
 namespace rr {
 
     Door::Door(bool lock) {
-        locked = lock;
-        open   = false;
+        _locked = lock;
+        _open   = false;
 
-        body.setTexture(resources.texture.objects);
-        body.setScale(sf::Vector2f(5, 5));
-        body.setTextureRect(sf::IntRect(sf::Vector2i(rand()%10*16, 0), sf::Vector2i(16, 16)));
+        _body.setTexture(resources.texture.objects);
+        _body.setScale(sf::Vector2f(5, 5));
+        _body.setTextureRect(sf::IntRect(sf::Vector2i(rand()%10*16, 0), sf::Vector2i(16, 16)));
     }
 
     Door::~Door() {}
 
     void Door::setOpen(bool b) {
-        open = b;
-        if (open)
-            body.setTextureRect(sf::IntRect(sf::Vector2i(body.getTextureRect().left,
-                                                         body.getTextureRect().top+16), sf::Vector2i(16, 16)));
+        _open = b;
+        if (_open)
+            _body.setTextureRect(sf::IntRect(sf::Vector2i(_body.getTextureRect().left, _body.getTextureRect().top+16),
+                                             sf::Vector2i(16, 16)));
         else
-            body.setTextureRect(sf::IntRect(sf::Vector2i(body.getTextureRect().left,
-                                                         body.getTextureRect().top-16), sf::Vector2i(16, 16)));
+            _body.setTextureRect(sf::IntRect(sf::Vector2i(_body.getTextureRect().left, _body.getTextureRect().top-16),
+                                             sf::Vector2i(16, 16)));
     }
 
     void Door::draw(sf::RenderWindow& rw) {
-        rw.draw(body);
+        rw.draw(_body);
     }
 
 }

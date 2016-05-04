@@ -1,12 +1,12 @@
 /**
- * @file src/program/game/item/item_Cash.hpp
+ * @file src/program/game/item/item_Coin.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2 for MinGW GCC
  * Used compiler: GNU GCC
  */
 
-#ifndef item_Cash_hpp
-#define item_Cash_hpp
+#ifndef item_Coin_hpp
+#define item_Coin_hpp
 
 #include "item.hpp"
 
@@ -14,15 +14,20 @@ namespace rr {
 
 //class Item;
 
-	class Cash : public Item {
+	class Coin : public Item {
     public:
         enum Type {
             BRONZE,
             SILVER,
             GOLDEN
-        } type;
-         Cash(Type, int am, sf::Vector2i pos);
-        ~Cash();
+        } _type;
+        enum Size {
+            SMALL,
+            BIG
+        } _size;
+
+         Coin(Type, Size, int am, sf::Vector2i pos);
+        ~Coin();
 
         virtual void draw      (sf::RenderWindow&) override;
         virtual void update    ()                  override;
@@ -31,5 +36,5 @@ namespace rr {
 
 }
 
-#endif // item_Cash_hpp
+#endif // item_Coin_hpp
 

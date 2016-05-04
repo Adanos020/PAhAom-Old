@@ -76,6 +76,13 @@ namespace rr {
                 _paused = true;
             }
 
+            else if (keyPressed(settings.keys.attack)) {
+
+            }
+            else if (keyPressed(settings.keys.interact)) {
+
+            }
+
             if      (keyPressed(settings.keys.useslot_1)) {}
             else if (keyPressed(settings.keys.useslot_2)) {}
             else if (keyPressed(settings.keys.useslot_3)) {}
@@ -108,40 +115,22 @@ namespace rr {
                 }
                 pot[i] = x;
                 switch (x) {
-                case 0:
-                    potionColors[i] = sf::Color::Red;
-                    break;
-                case 1:
-                    potionColors[i] = sf::Color::Blue;
-                    break;
-                case 2:
-                    potionColors[i] = sf::Color(32, 32, 0);
-                    break;
-                case 3:
-                    potionColors[i] = sf::Color::Green;
-                    break;
-                case 4:
-                    potionColors[i] = sf::Color(128, 128, 128);
-                    break;
-                case 5:
-                    potionColors[i] = sf::Color(255, 172, 172);
-                    break;
-                case 6:
-                    potionColors[i] = sf::Color::Magenta;
-                    break;
-                case 7:
-                    potionColors[i] = sf::Color::Black;
-                    break;
-                case 8:
-                    potionColors[i] = sf::Color::White;
-                    break;
+                case 0: potionColors[i] = sf::Color::Red;           break;
+                case 1: potionColors[i] = sf::Color::Blue;          break;
+                case 2: potionColors[i] = sf::Color(32, 32, 0);     break;
+                case 3: potionColors[i] = sf::Color::Green;         break;
+                case 4: potionColors[i] = sf::Color(128, 128, 128); break;
+                case 5: potionColors[i] = sf::Color(255, 172, 172); break;
+                case 6: potionColors[i] = sf::Color::Magenta;       break;
+                case 7: potionColors[i] = sf::Color::Yellow;        break;
+                case 8: potionColors[i] = sf::Color::White;         break;
                 }
             }
         }
     }
 
     bool Game::load() {
-        for (int l=0; l<5; l++) {
+        for (int i=0; i<25; i++) {
             _level.push_back(new Level());
             if (!_level.back()->loadFromFile("data/savedgame/"))
                 return false;
@@ -151,7 +140,7 @@ namespace rr {
 
     bool Game::loadNewGame() {
         randomizeItems();
-        for (int l=0; l<5; l++) {
+        for (int i=0; i<25; i++) {
             _level.push_back(new Level());
             _level.back()->generateWorld();
         }

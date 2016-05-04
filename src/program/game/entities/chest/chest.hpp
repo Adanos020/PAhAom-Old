@@ -18,22 +18,22 @@ namespace rr {
 
     class Chest : public Entity {
     private:
-        sf::Sprite body;
-        Item*      item;
+        sf::Sprite _body;
+        Item*      _item;
     public:
         enum Type {
             REGULAR,
             SPECIAL
-        } type;
+        } _type;
          Chest(Type t, Item*);
         ~Chest();
 
-        void          setPosition(sf::Vector2i pos)  override { body.setPosition((sf::Vector2f)pos*80.f); }
+        void          setPosition(sf::Vector2i pos)  override { _body.setPosition((sf::Vector2f)pos*80.f); }
         void          draw       (sf::RenderWindow&) override;
-        bool          intersects (Entity* e) const   override { return e->getBounds().intersects(this->getBounds()); }
-        sf::FloatRect getBounds  ()          const   override { return body.getGlobalBounds(); }
+        bool          intersects (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
+        sf::FloatRect getBounds  ()          const   override { return _body.getGlobalBounds(); }
 
-        Item*         getItem    ()          const { return item; }
+        Item*         getItem    ()          const { return _item; }
     };
 
 }

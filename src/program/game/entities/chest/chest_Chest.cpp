@@ -13,29 +13,29 @@ extern rr::Resources resources;
 namespace rr {
 
     Chest::Chest(Type t, Item* i) {
-        item = i;
-        type = t;
+        _item = i;
+        _type = t;
 
         int tu, tv;
-        if (type == REGULAR) {
+        if (_type == REGULAR) {
             tu = (rand()%3+15)%(resources.texture.objects.getSize().x/16);
             tv = (rand()%3+15)/(resources.texture.objects.getSize().y/16);
         }
-        else if (type == SPECIAL) {
+        else if (_type == SPECIAL) {
             tu = (rand()%2+18)%(resources.texture.objects.getSize().x/16);
             tv = (rand()%2+18)/(resources.texture.objects.getSize().y/16);
         }
 
-        body.setTextureRect(sf::IntRect(tu*16, tv*16, 16, 16));
-        body.setTexture(resources.texture.objects);
-        body.setScale(sf::Vector2f(5.f, 5.f));
+        _body.setTextureRect(sf::IntRect(tu*16, tv*16, 16, 16));
+        _body.setTexture(resources.texture.objects);
+        _body.setScale(sf::Vector2f(5.f, 5.f));
     }
 
     Chest::~Chest() {
-        delete item;
+        delete _item;
     }
     void Chest::draw(sf::RenderWindow& rw) {
-        rw.draw(body);
+        rw.draw(_body);
     }
 
 }

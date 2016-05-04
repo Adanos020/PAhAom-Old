@@ -11,20 +11,20 @@ namespace rr {
 
     class Door : public Entity {
     private:
-        sf::Sprite body;
-        bool locked;
-        bool open;
+        sf::Sprite _body;
+        bool       _locked;
+        bool       _open;
     public:
          Door(bool lock);
         ~Door();
 
         void          setOpen    (bool);
-        bool          isOpen     ()                           { return open; }
+        bool          isOpen     ()                           { return _open; }
 
-        void          setPosition(sf::Vector2i pos)  override { body.setPosition((sf::Vector2f)pos*80.f); }
+        void          setPosition(sf::Vector2i pos)  override { _body.setPosition((sf::Vector2f)pos*80.f); }
         void          draw       (sf::RenderWindow&) override;
-        bool          intersects (Entity* e) const   override { return e->getBounds().intersects(this->getBounds()); }
-        sf::FloatRect getBounds  ()          const   override { return body.getGlobalBounds(); }
+        bool          intersects (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
+        sf::FloatRect getBounds  ()          const   override { return _body.getGlobalBounds(); }
     };
 
 }

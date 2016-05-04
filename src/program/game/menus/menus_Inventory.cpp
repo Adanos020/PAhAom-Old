@@ -14,47 +14,47 @@ extern rr::Resources resources;
 namespace rr {
 
     Inventory::Inventory() {
-        shadow.setSize((sf::Vector2f)settings.graphics.resolution);
-        shadow.setPosition(sf::Vector2f(0, 0));
-        shadow.setFillColor(sf::Color(0, 0, 0, 172));
+        _shadow.setSize((sf::Vector2f)settings.graphics.resolution);
+        _shadow.setPosition(sf::Vector2f(0, 0));
+        _shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
 #define component(w, c, i) w->getComponent<c>(i)
 
-        wInve = new Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f)(settings.graphics.resolution/2u-sf::Vector2u(382, 225)));
+        _wInve = new Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f)(settings.graphics.resolution/2u-sf::Vector2u(382, 225)));
             for (int i=0; i<8; i++) {
                 for (int j=0; j<4; j++) {
-                    *wInve += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10+i*95, 30+j*95));
+                    *_wInve += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10+i*95, 30+j*95));
                 }
             }
-            *wInve += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
-            component(wInve, Button, 0)->setPosition(sf::Vector2f(wInve->getPosition().x+wInve->getSize().x-component(wInve, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(wInve, Button, 0)->getSize().y-5));
-        wInve->setVisible(false);
+            *_wInve += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
+            component(_wInve, Button, 0)->setPosition(sf::Vector2f(_wInve->getPosition().x+_wInve->getSize().x-component(_wInve, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(_wInve, Button, 0)->getSize().y-5));
+        _wInve->setVisible(false);
 
 #undef component
 
     }
 
     Inventory::~Inventory() {
-        delete wInve;
+        delete _wInve;
     }
 
     void Inventory::open() {
-        wInve->setVisible(true);
+        _wInve->setVisible(true);
     }
 
     void Inventory::close() {
-        wInve->setVisible(false);
+        _wInve->setVisible(false);
     }
 
     void Inventory::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
 
 #define component(w, c, i) w->getComponent<c>(i)
 
-        if (wInve->isVisible()) {
-            if (component(wInve, Button, 0)->isPressed(rw, e))
+        if (_wInve->isVisible()) {
+            if (component(_wInve, Button, 0)->isPressed(rw, e))
                 g->pause(false);
             for (int i=0; i<32; i++) {
-                if (component(wInve, Slot, i)->isPressed(rw, e)) {
+                if (component(_wInve, Slot, i)->isPressed(rw, e)) {
 
                 }
             }
@@ -65,12 +65,12 @@ namespace rr {
     }
 
     void Inventory::draw(sf::RenderWindow& rw) {
-        rw.draw(shadow);
-        wInve->draw(rw);
+        rw.draw(_shadow);
+        _wInve->draw(rw);
     }
 
     bool Inventory::isOpen() {
-        return wInve->isVisible();
+        return _wInve->isVisible();
     }
 
 }

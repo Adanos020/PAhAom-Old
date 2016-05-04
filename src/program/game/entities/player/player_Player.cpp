@@ -26,7 +26,7 @@ namespace rr {
         _body.scale(sf::Vector2f(5, 5));
 
         _position          = sf::Vector2i(0, 0);
-        _velocity          = 0.75f;
+        _velocity          = 0.9f;
 
         _attrs.health      =  30.f;
         _attrs.mana        =   5.f;
@@ -58,31 +58,33 @@ namespace rr {
     }
 
     void Player::move(std::vector<std::vector<Level::Cell> > tiles, Direction di) {
-        if (di == UP && !_moving) {
-            if (tiles[_position.x][_position.y-1] != Level::WALL) {
-                _position = sf::Vector2i(_position.x, _position.y-1);
-                _moving = true;
+        if (!_moving) {
+            if (di == UP) {
+                if (tiles[_position.x][_position.y-1] != Level::WALL) {
+                    _position = sf::Vector2i(_position.x, _position.y-1);
+                    _moving = true;
+                }
             }
-        }
-        if (di == DOWN && !_moving) {
-            if (tiles[_position.x][_position.y+1] != Level::WALL) {
-                _position = sf::Vector2i(_position.x, _position.y+1);
-                _moving = true;
+            if (di == DOWN) {
+                if (tiles[_position.x][_position.y+1] != Level::WALL) {
+                    _position = sf::Vector2i(_position.x, _position.y+1);
+                    _moving = true;
+                }
             }
-        }
-        if (di == LEFT && !_moving) {
-            if (tiles[_position.x-1][_position.y] != Level::WALL) {
-                _position = sf::Vector2i(_position.x-1, _position.y);
-                _moving = true;
+            if (di == LEFT) {
+                if (tiles[_position.x-1][_position.y] != Level::WALL) {
+                    _position = sf::Vector2i(_position.x-1, _position.y);
+                    _moving = true;
+                }
+                _currentAnimation = &_walkingLeft;
             }
-            _currentAnimation = &_walkingLeft;
-        }
-        if (di == RIGHT && !_moving) {
-            if (tiles[_position.x+1][_position.y] != Level::WALL) {
-                _position = sf::Vector2i(_position.x+1, _position.y);
-                _moving = true;
+            if (di == RIGHT) {
+                if (tiles[_position.x+1][_position.y] != Level::WALL) {
+                    _position = sf::Vector2i(_position.x+1, _position.y);
+                    _moving = true;
+                }
+                _currentAnimation = &_walkingRight;
             }
-            _currentAnimation = &_walkingRight;
         }
     }
 
@@ -101,7 +103,7 @@ namespace rr {
             }
             else
                 _moving = false;
-            if ((abs(offset.x) < 15 && abs(offset.x) > 0) || (abs(offset.y) < 15 && abs(offset.y) > 0))
+            if ((abs(offset.x) < 20*_velocity && abs(offset.x) > 0) || (abs(offset.y) < 20*_velocity && abs(offset.y) > 0))
                 _body.setPosition((sf::Vector2f)_position*80.f);
         }
 

@@ -17,60 +17,59 @@ namespace rr {
 /// Class for an item
     class Item : public Entity {
     protected:
-        sf::FloatRect   boundBox;
-        sf::VertexArray body;
-        sf::String      name;
-        sf::String      description;
-        sf::String      effects;
-        sf::String      requirements;
-        bool            equipable;
-        bool            disposable;
-        int             ID;
-        int             amount;
+        sf::VertexArray _body;
+        sf::String      _name;
+        sf::String      _description;
+        sf::String      _effects;
+        sf::String      _requirements;
+        bool            _equipable;
+        bool            _disposable;
+        int             _ID;
+        int             _amount;
     public:
     /// A virtual destructor
         virtual ~Item() {}
 
     /// Updates the item's status
-        virtual void       update        ()                  = 0;
+        virtual void       update        () = 0;
 
     /// Method changing the amount
-        void               editAmount    (int x)                     { amount = x; }
+        void               setAmount     (int x)                     { _amount = x; }
 
     /// Returns the item's ID
-        int                getID         ()                          { return ID; }
+        int                getID         ()                          { return _ID; }
 
     /// Returns the amount of this item
-        int                getAmount     ()                          { return amount; }
+        int                getAmount     ()                          { return _amount; }
 
     /// Method telling if the item is disposable
-        bool               isDisposable  ()                          { return disposable; }
+        bool               isDisposable  ()                          { return _disposable; }
 
     /// Method telling if the item is equipable
-        bool               isEquipable   ()                          { return equipable; }
+        bool               isEquipable   ()                          { return _equipable; }
 
     /// Returns the sprite of this item
-        sf::VertexArray    getBody       ()                          { return body; }
+        sf::VertexArray    getBody       ()                          { return _body; }
 
     /// Returns the name of this item
-        sf::String         getName       ()                          { return name; }
+        sf::String         getName       ()                          { return _name; }
 
     /// Returns the description of this item
-        sf::String         getDescription()                          { return description; }
+        sf::String         getDescription()                          { return _description; }
 
-        void               setPosition   (sf::Vector2i pos) override { body[0].position = (sf::Vector2f)pos*80.f;
-                                                                       body[1].position = sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
-                                                                       body[2].position = sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
-                                                                       body[3].position = sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
+        void               setPosition   (sf::Vector2i pos) override { _body[0].position = (sf::Vector2f)pos*80.f;
+                                                                       _body[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
+                                                                       _body[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
+                                                                       _body[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
                                                                      }
 
-        bool               intersects    (Entity* e) const  override { return (e->getBounds().intersects(this->getBounds())); }
-        sf::FloatRect      getBounds     ()          const  override { return sf::FloatRect(body[0].position, body[2].position-body[0].position); }
+        bool               intersects    (Entity* e) const  override { return (e->getBounds().intersects(getBounds())); }
+        sf::FloatRect      getBounds     ()          const  override { return sf::FloatRect(_body[0].position, _body[2].position-_body[0].position); }
     };
 
     class Discoverable {
     protected:
-        bool discovered;
+        bool _discovered;
     public:
     /// A virtual destructor
         virtual ~Discoverable() {}
@@ -82,7 +81,7 @@ namespace rr {
 }
 
 #include "item_Book.hpp"
-#include "item_Cash.hpp"
+#include "item_Coin.hpp"
 #include "item_ColdWeapon.hpp"
 #include "item_Food.hpp"
 #include "item_Potion.hpp"

@@ -25,12 +25,12 @@ namespace rr {
             POISON,
             SLOWNESS,
             WEAKNESS
-        } effect;
+        } _effect;
         enum Size {
             SMALL,
             MEDIUM,
             BIG
-        } size;
+        } _size;
 
          Potion(Effect, Size, int am, sf::Vector2i pos = sf::Vector2i(0, 0));
         ~Potion();
