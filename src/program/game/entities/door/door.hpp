@@ -14,12 +14,13 @@ namespace rr {
         sf::Sprite _body;
         bool       _locked;
         bool       _open;
+        bool       _withoutWindow;
     public:
          Door(bool lock);
         ~Door();
 
         void          setOpen    (bool);
-        bool          isOpen     ()                           { return _open; }
+        bool          isOpen     () const                     { return _open; }
 
         void          setPosition(sf::Vector2i pos)  override { _body.setPosition((sf::Vector2f)pos*80.f); }
         void          draw       (sf::RenderWindow&) override;

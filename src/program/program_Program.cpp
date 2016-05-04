@@ -51,7 +51,9 @@ namespace rr {
     }
 
     void Program::update(sf::Clock& timer) {
-        _game->update(timer.getElapsedTime().asMilliseconds());
+        if (_game->isStarted()) {
+            _game->update(timer.getElapsedTime().asMilliseconds());
+        }
         timer.restart();
     }
 

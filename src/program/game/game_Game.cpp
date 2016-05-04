@@ -80,7 +80,16 @@ namespace rr {
 
             }
             else if (keyPressed(settings.keys.interact)) {
+                for (auto x : _level[_levelNumber]->getEntities()) {
+                    if (_player->intersects(x)) {
+                        if      (instanceof<Item, Entity>(x)) {
 
+                        }
+                        else if (instanceof<Chest, Entity>(x)) {
+
+                        }
+                    }
+                }
             }
 
             if      (keyPressed(settings.keys.useslot_1)) {}
@@ -192,6 +201,15 @@ namespace rr {
         _hud   ->update(_player);
 
         _gameView.setCenter(sf::Vector2f(_player->getBounds().left+16, _player->getBounds().top+16));
+
+        for (auto x : _level[_levelNumber]->getEntities()) {
+            if (instanceof<Door, Entity>(x)) {
+                if (_player->intersects(x))
+                    x->setOpen(true);
+                else
+                    x->setOpen(false);
+            }
+        }
     }
 
     void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {

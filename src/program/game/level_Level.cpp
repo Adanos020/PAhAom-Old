@@ -389,10 +389,10 @@ namespace rr {
                     }
                     break;
              // ROOM
-                case ROOM:     tileNumber = 17;  break;
+                case ROOM:     tileNumber = 17; break;
                 case CORRIDOR: tileNumber = 1;  break;
                 case OCCUPIED: tileNumber = 48; break;
-                case ENTRANCE: tileNumber = 1;  break;
+                case ENTRANCE: tileNumber = 17; break;
                 }
 
                 int tu = tileNumber%(resources.texture.tileset.getSize().x/16);

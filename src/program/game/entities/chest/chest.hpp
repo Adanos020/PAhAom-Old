@@ -32,8 +32,10 @@ namespace rr {
         void          draw       (sf::RenderWindow&) override;
         bool          intersects (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
         sf::FloatRect getBounds  ()          const   override { return _body.getGlobalBounds(); }
-
         Item*         getItem    ()          const { return _item; }
+
+        virtual void setOpen      (bool)   {}
+        virtual bool isOpen       () const { return false; }
     };
 
 }

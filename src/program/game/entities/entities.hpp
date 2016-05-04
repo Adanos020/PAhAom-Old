@@ -27,6 +27,9 @@ namespace rr {
 
     /// Returns the entity's bound box
         virtual sf::FloatRect getBounds  ()        const     = 0;
+
+        virtual void setOpen      (bool) = 0;
+        virtual bool isOpen () const     = 0;
     };
 
 }
