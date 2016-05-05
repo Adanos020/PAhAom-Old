@@ -1,8 +1,7 @@
 /**
  * @file src/program/game/item/item_Book.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #ifndef item_Book_hpp
@@ -25,6 +24,9 @@ namespace rr {
         virtual void draw   (sf::RenderWindow&) override;
         virtual void update ()                  override;
         virtual void reveal ()                  override;
+
+        void         setPosition(sf::Vector2i)         override;
+        void         setRealPosition(sf::Vector2f pos) override;
     };
 
 }

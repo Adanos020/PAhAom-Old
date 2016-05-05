@@ -42,6 +42,18 @@ gui.window.inventory EQBNTYHEQ
 gui.window.quests ČÅH'R
 gui.window.game_map MATA
 
+item.book.color.red yevboha qw'ehta
+item.book.color.blue h'eb'ecqa qw'ehta
+item.book.color.brown vpohčoba qw'ehta
+item.book.color.green č'eloha qw'ehta
+item.book.color.cyan ubi'rhoba qw'ehta
+item.book.color.pink pyx'oba qw'ehta
+item.book.color.magenta mayehtoba qw'ehta
+item.book.color.yellow x'ylta qw'ehta
+item.book.color.white b'rla qw'ehta
+item.coin.gold člotbi
+item.coin.silver cpevph'nq
+item.coin.bronze m'ey'rq
 item.potion mnqctypa
 item.potion.size.small mala
 item.potion.size.medium w'peah'r
@@ -59,10 +71,10 @@ item.potion.color.red yevboha
 item.potion.color.blue h'eb'ecqa
 item.potion.color.brown vpohčoba
 item.potion.color.green č'eloha
-item.potion.color.gray wapa
+item.potion.color.cyan ubi'rhoba
 item.potion.color.pink pyx'oba
-item.potion.color.purple d'eletoba
-item.potion.color.black yapha
+item.potion.color.magenta matehta
+item.potion.color.yellow x'ylta
 item.potion.color.white b'rla
 
 player.attributes.health ČAPOB'E

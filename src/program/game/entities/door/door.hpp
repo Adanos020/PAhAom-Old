@@ -1,8 +1,7 @@
 /**
  * @file src/program/game/entities/door/door.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #include "../entities.hpp"
@@ -27,6 +26,10 @@ namespace rr {
         void          draw           (sf::RenderWindow&) override;
         bool          intersects     (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
         sf::FloatRect getBounds      ()          const   override { return body_.getGlobalBounds(); }
+
+        virtual Item* getItem        ()          const   override { return nullptr; }
+        virtual sf::Vector2i  getPosition    ()  const   override { return (sf::Vector2i)body_.getPosition()/80; }
+        virtual sf::Vector2f  getRealPosition()  const   override { return body_.getPosition(); }
     };
 
 }

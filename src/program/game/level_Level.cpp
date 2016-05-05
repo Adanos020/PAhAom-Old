@@ -1,8 +1,7 @@
 /**
  * @file src/program/game/level_Level.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #include "game.hpp"
@@ -426,7 +425,8 @@ namespace rr {
                 break;
             }
         }
-     // here we generate the items
+    /* ITEMS */
+     // here we generate the potions
         for (int i=0; i<rand()%10; i++) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
@@ -458,7 +458,7 @@ namespace rr {
                 // same story here
                 if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
                     // here we choose randomly the type of a coin
-                    addEntity(getItemFromID(rand()%6+1, rand()%100), sf::Vector2i(x, y));
+                    addEntity(getItemFromID(rand()%6+1, rand()%100+1), sf::Vector2i(x, y));
                     tiles_[x][y] = OCCUPIED;
                     break;
                 }

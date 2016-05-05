@@ -1,8 +1,7 @@
 /**
  * @file src/program/program_Resources.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #include "program.hpp"

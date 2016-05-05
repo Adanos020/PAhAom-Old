@@ -1,8 +1,7 @@
 /**
  * @file src/program/game/entities/item/item.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #ifndef item_h
@@ -74,12 +73,15 @@ namespace rr {
                                                                         body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
                                                                       }
 
-        bool               intersects     (Entity* e) const  override { return (e->getBounds().intersects(getBounds())); }
-        sf::FloatRect      getBounds      ()          const  override { return sf::FloatRect(body_[0].position, body_[2].position-body_[0].position); }
+        bool                  intersects     (Entity* e) const override { return (e->getBounds().intersects(getBounds())); }
+        sf::FloatRect         getBounds      ()          const override { return sf::FloatRect(body_[0].position, body_[2].position-body_[0].position); }
+        virtual sf::Vector2i  getPosition    ()          const override { return (sf::Vector2i)body_[0].position/80; }
+        virtual sf::Vector2f  getRealPosition()          const override { return body_[0].position; }
 
 
-        virtual void setOpen              (bool)             override {}
-        virtual bool isOpen               ()         const            { return false; }
+        virtual void  setOpen             (bool)             override {}
+        virtual bool  isOpen              ()         const            { return false; }
+        virtual Item* getItem             ()         const   override { return (Item*)this; }
     };
 
     class Discoverable {

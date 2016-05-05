@@ -1,8 +1,7 @@
 /**
  * @file src/program/game/item/items.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #ifndef item_funcs_h
@@ -18,17 +17,17 @@ namespace rr {
     inline Item* getItemFromID(int ID, int amount) {
         switch (ID) {
         /* COIN */
-        case   1: return new Coin  (Coin::BRONZE, Coin::SMALL   , amount, sf::Vector2i(0, 0));
-        case   2: return new Coin  (Coin::SILVER, Coin::SMALL   , amount, sf::Vector2i(0, 0));
-        case   3: return new Coin  (Coin::GOLDEN, Coin::SMALL   , amount, sf::Vector2i(0, 0));
-        case   4: return new Coin  (Coin::BRONZE, Coin::BIG     , amount, sf::Vector2i(0, 0));
-        case   5: return new Coin  (Coin::SILVER, Coin::BIG     , amount, sf::Vector2i(0, 0));
-        case   6: return new Coin  (Coin::GOLDEN, Coin::BIG     , amount, sf::Vector2i(0, 0));
+        case   1: return new Coin  (Coin::GOLDEN                , Coin::SMALL         , amount, sf::Vector2i(0, 0));
+        case   2: return new Coin  (Coin::SILVER                , Coin::SMALL         , amount, sf::Vector2i(0, 0));
+        case   3: return new Coin  (Coin::BRONZE                , Coin::SMALL         , amount, sf::Vector2i(0, 0));
+        case   4: return new Coin  (Coin::GOLDEN                , Coin::BIG           , amount, sf::Vector2i(0, 0));
+        case   5: return new Coin  (Coin::SILVER                , Coin::BIG           , amount, sf::Vector2i(0, 0));
+        case   6: return new Coin  (Coin::BRONZE                , Coin::BIG           , amount, sf::Vector2i(0, 0));
 
         /* BOOKS */
-        case  10: return new Book  (Book::MANA_REGEN            , amount, sf::Vector2i(0, 0));
-        case  11: return new Book  (Book::FASTER_LEARNING       , amount, sf::Vector2i(0, 0));
-        case  12: return new Book  (Book::SPELLS_LEARNING       , amount, sf::Vector2i(0, 0));
+        case  10: return new Book  (Book::MANA_REGEN                                  , amount, sf::Vector2i(0, 0));
+        case  11: return new Book  (Book::FASTER_LEARNING                             , amount, sf::Vector2i(0, 0));
+        case  12: return new Book  (Book::SPELLS_LEARNING                             , amount, sf::Vector2i(0, 0));
 
         /* POTIONS */
         case 100: return new Potion(Potion::Effect::HEALING     , Potion::Size::SMALL , amount, sf::Vector2i(0, 0));

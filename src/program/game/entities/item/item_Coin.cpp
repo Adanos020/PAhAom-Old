@@ -1,8 +1,7 @@
 /**
  * @file src/program/game/item/item_Coin.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #include "item_Coin.hpp"
@@ -17,7 +16,11 @@ namespace rr {
         type_      = t;
         size_      = s;
         ID_        = 3*size_ + type_ + 1;
-        iconIndex_ = type_+(size_+2)*16;
+        iconIndex_ = type_ + (size_+2)*16 + 1;
+
+        if (type_ == BRONZE) name_ = resources.dictionary["item.coin.bronze"]; else
+        if (type_ == SILVER) name_ = resources.dictionary["item.coin.silver"]; else
+        if (type_ == GOLDEN) name_ = resources.dictionary["item.coin.gold"];
 
         body_.resize(4);
         body_.setPrimitiveType(sf::Quads);

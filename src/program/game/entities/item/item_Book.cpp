@@ -1,15 +1,14 @@
 /**
  * @file src/program/game/item/item_Book.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #include "item_Book.hpp"
 #include "../../../program.hpp"
 
 extern rr::Resources resources;
-extern sf::Color potionColors[9];
+extern sf::Color itemColors[9];
 
 namespace rr {
 
@@ -21,16 +20,27 @@ namespace rr {
         disposable_ = true;
         iconIndex_  = 16;
 
-        body_.resize(4);
+        if (itemColors[type_] == sf::Color::Red)           name_ = resources.dictionary["item.book.color.red"     ]; else
+        if (itemColors[type_] == sf::Color::Blue)          name_ = resources.dictionary["item.book.color.blue"    ]; else
+        if (itemColors[type_] == sf::Color(32, 32, 0))     name_ = resources.dictionary["item.book.color.brown"   ]; else
+        if (itemColors[type_] == sf::Color::Green)         name_ = resources.dictionary["item.book.color.green"   ]; else
+        if (itemColors[type_] == sf::Color::Cyan)          name_ = resources.dictionary["item.book.color.cyan"    ]; else
+        if (itemColors[type_] == sf::Color(255, 172, 172)) name_ = resources.dictionary["item.book.color.pink"    ]; else
+        if (itemColors[type_] == sf::Color::Magenta)       name_ = resources.dictionary["item.book.color.magenta" ]; else
+        if (itemColors[type_] == sf::Color::Yellow)        name_ = resources.dictionary["item.book.color.yellow"  ]; else
+        if (itemColors[type_] == sf::Color::White)         name_ = resources.dictionary["item.book.color.white"   ];
+
+        body_.resize(8);
         body_.setPrimitiveType(sf::Quads);
 
+        int tu = iconIndex_%16;
+        int tv = iconIndex_/16;
+
+     // the book's cover
         body_[0].position = (sf::Vector2f)pos*80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
         body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
-
-        int tu = iconIndex_%16;
-        int tv = iconIndex_/16;
 
         body_[0].texCoords = sf::Vector2f(  tu  *16+0.03125f,   tv  *16+0.03125f);
         body_[1].texCoords = sf::Vector2f((tu+1)*16-0.03125f,   tv  *16+0.03125f);
@@ -38,8 +48,21 @@ namespace rr {
         body_[3].texCoords = sf::Vector2f(  tu  *16+0.03125f, (tv+1)*16-0.03125f);
 
         for (int i=0; i<4; i++) {
-            body_[i].color = potionColors[type_];
+            body_[i].color = sf::Color(itemColors[type_].r + (255-itemColors[type_].r)/2,
+                                       itemColors[type_].g + (255-itemColors[type_].g)/2,
+                                       itemColors[type_].b + (255-itemColors[type_].b)/2);
         }
+
+     // the book's pages
+        body_[4].position  = body_[0].position;
+        body_[5].position  = body_[1].position;
+        body_[6].position  = body_[2].position;
+        body_[7].position  = body_[3].position;
+
+        body_[4].texCoords = body_[0].texCoords+sf::Vector2f(0, 16);
+        body_[5].texCoords = body_[1].texCoords+sf::Vector2f(0, 16);
+        body_[6].texCoords = body_[2].texCoords+sf::Vector2f(0, 16);
+        body_[7].texCoords = body_[3].texCoords+sf::Vector2f(0, 16);
     }
 
     Book::~Book() {}
@@ -49,6 +72,30 @@ namespace rr {
     }
 
     void Book::update() {}
+
+    void Book::setPosition(sf::Vector2i pos) {
+        body_[0].position = (sf::Vector2f)pos*80.f;
+        body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
+        body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
+        body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
+
+        body_[4].position = body_[0].position;
+        body_[5].position = body_[1].position;
+        body_[6].position = body_[2].position;
+        body_[7].position = body_[3].position;
+    }
+
+    void Book::setRealPosition(sf::Vector2f pos) {
+        body_[0].position = pos;
+        body_[1].position = sf::Vector2f(pos.x+80, pos.y   );
+        body_[2].position = sf::Vector2f(pos.x+80, pos.y+80);
+        body_[3].position = sf::Vector2f(pos.x   , pos.y+80);
+
+        body_[4].position = body_[0].position;
+        body_[5].position = body_[1].position;
+        body_[6].position = body_[2].position;
+        body_[7].position = body_[3].position;
+    }
 
     void Book::reveal() {
         discovered_ = true;

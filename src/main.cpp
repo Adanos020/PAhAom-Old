@@ -1,8 +1,7 @@
 /**
  * @file src/main.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #include "program/program.hpp"
@@ -12,7 +11,7 @@
 
 rr::Resources  resources;
 rr::Settings   settings;
-sf::Color      potionColors[9];
+sf::Color      itemColors[9];
 
 int main() {
     srand(time(0));

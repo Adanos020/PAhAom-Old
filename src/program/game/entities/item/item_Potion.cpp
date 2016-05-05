@@ -1,20 +1,18 @@
 /**
  * @file src/program/game/item/item_Potion.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #include "item_Potion.hpp"
 #include "../../../program.hpp"
 
 extern rr::Resources resources;
-extern sf::Color     potionColors[9];
+extern sf::Color     itemColors[9];
 
 namespace rr {
 
     Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos) {
-        name_       = "";
         amount_     = am;
         effect_     = e;
         size_       = s;
@@ -22,6 +20,23 @@ namespace rr {
         discovered_ = false;
         ID_         = 100 + size_*10 + effect_;
         iconIndex_  = size_+1;
+
+        name_ = "";
+        switch (size_) {
+            case SMALL : name_ += resources.dictionary["item.potion.size.small" ]+" "; break;
+            case MEDIUM: name_ += resources.dictionary["item.potion.size.medium"]+" "; break;
+            case BIG   : name_ += resources.dictionary["item.potion.size.big"   ]+" "; break;
+        }
+        if (itemColors[effect_] == sf::Color::Red)           name_ += resources.dictionary["item.potion.color.red"     ]+" ";
+        if (itemColors[effect_] == sf::Color::Blue)          name_ += resources.dictionary["item.potion.color.blue"    ]+" ";
+        if (itemColors[effect_] == sf::Color(32, 32, 0))     name_ += resources.dictionary["item.potion.color.brown"   ]+" ";
+        if (itemColors[effect_] == sf::Color::Green)         name_ += resources.dictionary["item.potion.color.green"   ]+" ";
+        if (itemColors[effect_] == sf::Color::Cyan)          name_ += resources.dictionary["item.potion.color.cyan"    ]+" ";
+        if (itemColors[effect_] == sf::Color(255, 172, 172)) name_ += resources.dictionary["item.potion.color.pink"    ]+" ";
+        if (itemColors[effect_] == sf::Color::Magenta)       name_ += resources.dictionary["item.potion.color.magenta" ]+" ";
+        if (itemColors[effect_] == sf::Color::Yellow)        name_ += resources.dictionary["item.potion.color.yellow"  ]+" ";
+        if (itemColors[effect_] == sf::Color::White)         name_ += resources.dictionary["item.potion.color.white"   ]+" ";
+        name_ += resources.dictionary["item.potion"];
 
         int tu = iconIndex_%16;
         int tv = iconIndex_/16;
@@ -40,7 +55,7 @@ namespace rr {
         body_[2].texCoords = sf::Vector2f((tu+1)*16-0.03125f, (tv+1)*16-0.03125f);
         body_[3].texCoords = sf::Vector2f(  tu  *16+0.03125f, (tv+1)*16-0.03125f);
 
-     // setting the vertices of the liquID_
+     // setting the vertices of the liquid
         body_[4].position  = body_[0].position;
         body_[5].position  = body_[1].position;
         body_[6].position  = body_[2].position;
@@ -51,10 +66,10 @@ namespace rr {
         body_[6].texCoords = body_[2].texCoords+sf::Vector2f(0, 16);
         body_[7].texCoords = body_[3].texCoords+sf::Vector2f(0, 16);
 
-        body_[4].color     = potionColors[effect_];
-        body_[5].color     = potionColors[effect_];
-        body_[6].color     = potionColors[effect_];
-        body_[7].color     = potionColors[effect_];
+        body_[4].color     = itemColors[effect_];
+        body_[5].color     = itemColors[effect_];
+        body_[6].color     = itemColors[effect_];
+        body_[7].color     = itemColors[effect_];
     }
 
     Potion::~Potion() {}

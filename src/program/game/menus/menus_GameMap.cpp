@@ -1,8 +1,7 @@
 /**
  * @file src/program/game/menus/menus_GameMap.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #include "menus.hpp"

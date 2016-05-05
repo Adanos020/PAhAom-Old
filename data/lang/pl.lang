@@ -42,6 +42,18 @@ gui.window.inventory EKWIPUNEK
 gui.window.quests ZADANIA
 gui.window.game_map MAPA
 
+item.book.color.red Czerwona księga
+item.book.color.blue Niebieska księga
+item.book.color.brown Brązowa księga
+item.book.color.green Zielona księga
+item.book.color.cyan Cyjanowa księga
+item.book.color.pink Różowa księga
+item.book.color.magenta Księga koloru magenta
+item.book.color.yellow Żółta księga
+item.book.color.white Biała księga
+item.coin.gold Złoty
+item.coin.silver Srebrnik
+item.coin.bronze Miedziak
 item.potion mikstura
 item.potion.size.small Mała
 item.potion.size.medium Średnia
@@ -59,10 +71,10 @@ item.potion.color.red czerwona
 item.potion.color.blue niebieska
 item.potion.color.brown brązowa
 item.potion.color.green zielona
-item.potion.color.gray szara
+item.potion.color.cyan cyjanowa
 item.potion.color.pink różowa
-item.potion.color.purple fioletowa
-item.potion.color.black czarna
+item.potion.color.magenta magenta
+item.potion.color.yellow żółta
 item.potion.color.white biała
 
 player.attributes.health ZDROWIE

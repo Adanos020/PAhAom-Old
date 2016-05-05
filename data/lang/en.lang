@@ -42,6 +42,18 @@ gui.window.inventory INVENTORY
 gui.window.quests QUESTS
 gui.window.game_map MAP
 
+item.book.color.red A red book
+item.book.color.blue A blue book
+item.book.color.brown A brown book
+item.book.color.green A green book
+item.book.color.cyan A cyan book
+item.book.color.pink A pink book
+item.book.color.magenta A magenta book
+item.book.color.yellow A yellow book
+item.book.color.white A white book
+item.coin.gold Gold
+item.coin.silver Silver
+item.coin.bronze Bronze
 item.potion potion
 item.potion.size.small A small
 item.potion.size.medium A medium
@@ -59,10 +71,10 @@ item.potion.color.red red
 item.potion.color.blue blue
 item.potion.color.brown brown
 item.potion.color.green green
-item.potion.color.gray gray
+item.potion.color.cyan cyan
 item.potion.color.pink pink
-item.potion.color.purple purple
-item.potion.color.black black
+item.potion.color.magenta magenta
+item.potion.color.yellow yellow
 item.potion.color.white white
 
 player.attributes.health HEALTH

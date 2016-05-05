@@ -1,8 +1,7 @@
 /**
  * @file src/program/game/entities/chest/chest.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #ifndef chest_hpp
@@ -33,10 +32,12 @@ namespace rr {
         void          draw           (sf::RenderWindow&) override;
         bool          intersects     (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
         sf::FloatRect getBounds      ()          const   override { return body_.getGlobalBounds(); }
-        Item*         getItem        ()          const { return item_; }
+        Item*         getItem        ()          const   override { return item_; }
 
-        virtual void setOpen         (bool)            {}
-        virtual bool isOpen          ()          const { return false; }
+        virtual void setOpen         (bool)              override {}
+        virtual bool isOpen          ()          const   override { return false; }
+        virtual sf::Vector2i  getPosition    ()  const   override { return (sf::Vector2i)body_.getPosition()/80; }
+        virtual sf::Vector2f  getRealPosition()  const   override { return body_.getPosition(); }
     };
 
 }

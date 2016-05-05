@@ -1,8 +1,7 @@
 /**
  * @file src/program/menus_Inventory.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #include "menus.hpp"
@@ -91,7 +90,7 @@ namespace rr {
             }
         }
 
-    // if there is no empty slot, we just exit the function
+     // if there is no empty slot, we just exit the function
         return false;
 
 #undef slot

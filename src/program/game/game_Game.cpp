@@ -1,8 +1,7 @@
 /**
  * @file src/program/game/game_Game.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #include "game.hpp"
@@ -12,7 +11,7 @@
 #include <iostream>
 
 extern rr::Settings settings;
-extern sf::Color    potionColors[9];
+extern sf::Color    itemColors[9];
 
 namespace rr {
 
@@ -85,12 +84,22 @@ namespace rr {
 
                 for (unsigned i=0; i<entities.size(); i++) {
                     if (player_->intersects(entities[i])) {
-                        if (instanceof<Item, Entity>(entities[i]) && inventory_->addItem((Item*)entities[i])) {
-                            level_[levelNumber_]->removeEntity(i);
-                            i = 0;
+                        if (instanceof<Item, Entity>(entities[i])) {
+                            if (inventory_->addItem((Item*)entities[i])) {
+                                std::cout << "You've picked up " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
+                                level_[levelNumber_]->removeEntity(i);
+                                i = 0;
+                            }
+                            else
+                                std::cout << "Your backpack is too full to take " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
                         }
                         else if (instanceof<Chest, Entity>(entities[i])) {
-
+                            // TODO - MAKE THIS SHIT NOT CRASH THE FUCKING GAME
+                            /*
+                            level_[levelNumber_]->addEntity(entities[i]->getItem(), entities[i]->getPosition());
+                            level_[levelNumber_]->removeEntity(i);
+                            i = 0;
+                            */
                         }
                     }
                 }
@@ -119,27 +128,25 @@ namespace rr {
     }
 
     void Game::randomizeItems() {
-    // potions
-        {
+        /* colors */ {
             int pot[9];
             for (int i=0; i<9; i++) {
-            hell:
-                int x = rand()%9;
+                hell: int x = rand()%9;
                 for (int j=0; j<i; j++) {
                     if (pot[j] == x)
-                        goto hell; // Literally, you fucking elitists
+                        goto hell; // pure evil.
                 }
                 pot[i] = x;
                 switch (x) {
-                case 0: potionColors[i] = sf::Color::Red          ; break;
-                case 1: potionColors[i] = sf::Color::Blue         ; break;
-                case 2: potionColors[i] = sf::Color(32, 32, 0)    ; break;
-                case 3: potionColors[i] = sf::Color::Green        ; break;
-                case 4: potionColors[i] = sf::Color::Cyan         ; break;
-                case 5: potionColors[i] = sf::Color(255, 172, 172); break;
-                case 6: potionColors[i] = sf::Color::Magenta      ; break;
-                case 7: potionColors[i] = sf::Color::Yellow       ; break;
-                case 8: potionColors[i] = sf::Color::White        ; break;
+                    case 0: itemColors[i] = sf::Color::Red          ; break;
+                    case 1: itemColors[i] = sf::Color::Blue         ; break;
+                    case 2: itemColors[i] = sf::Color(32, 32, 0)    ; break;
+                    case 3: itemColors[i] = sf::Color::Green        ; break;
+                    case 4: itemColors[i] = sf::Color::Cyan         ; break;
+                    case 5: itemColors[i] = sf::Color(255, 172, 172); break;
+                    case 6: itemColors[i] = sf::Color::Magenta      ; break;
+                    case 7: itemColors[i] = sf::Color::Yellow       ; break;
+                    case 8: itemColors[i] = sf::Color::White        ; break;
                 }
             }
         }

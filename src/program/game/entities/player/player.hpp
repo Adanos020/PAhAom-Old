@@ -1,8 +1,7 @@
 /**
  * @file src/program/game/entities/player/player.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2 for MinGW GCC
- * Used compiler: GNU GCC
+ * Used library: SFML 2.3.2
  */
 
 #ifndef player_h
@@ -71,17 +70,17 @@ namespace rr {
     /// Returns the player statistics
         Attrs         getAttributes   ()          const          { return attrs_; }
 
-    /// Returns the position of the player character
-        sf::Vector2i  getPosition     ()          const          { return position_; }
-
         void          setPosition     (sf::Vector2i)    override;
         void          setRealPosition (sf::Vector2f)    override;
-        bool          intersects      (Entity* e) const override { return e->getBounds().intersects(this->getBounds()); }
+        bool          intersects      (Entity* e) const override { return e->getBounds().intersects(getBounds()); }
         sf::FloatRect getBounds       ()          const override { return body_.getGlobalBounds(); }
 
 
-        virtual void setOpen(bool)   {}
-        virtual bool isOpen () const { return false; }
+        virtual void         setOpen        (bool)   override {}
+        virtual bool         isOpen         () const override { return false; }
+        virtual Item*        getItem        () const override { return nullptr; }
+        virtual sf::Vector2i getPosition    () const override { return (sf::Vector2i)body_.getPosition()/80; }
+        virtual sf::Vector2f getRealPosition() const override { return body_.getPosition(); }
     };
 
 }
