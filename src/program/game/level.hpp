@@ -30,6 +30,8 @@ namespace rr {
         void                           generateWorld   ();
         bool                           loadFromFile    (const char* pathToFolder);
         void                           drawObjects     (sf::RenderWindow&) const;
+        void                           addEntity       (Entity*, sf::Vector2i position);
+        void                           removeEntity    (unsigned index);
 
         std::vector<Entity*>           getEntities     () const { return entities_     ; }
         sf::Vector2i                   getStartingPoint() const { return startingPoint_; }
@@ -43,7 +45,6 @@ namespace rr {
         void         connectRooms   ();
         void         removeDeadEnds ();
         void         placeEntities  ();
-        void         addEntity      (Entity*, sf::Vector2i position);
         void         generateTileMap();
         bool         isOnBorder     (int, int);
 

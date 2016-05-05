@@ -19,13 +19,14 @@ namespace rr {
          Door(bool lock);
         ~Door();
 
-        void          setOpen    (bool);
-        bool          isOpen     () const                     { return open_; }
+        void          setOpen        (bool);
+        bool          isOpen         ()          const            { return open_; }
 
-        void          setPosition(sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }
-        void          draw       (sf::RenderWindow&) override;
-        bool          intersects (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
-        sf::FloatRect getBounds  ()          const   override { return body_.getGlobalBounds(); }
+        void          setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }
+        void          setRealPosition(sf::Vector2f pos)  override { body_.setPosition(pos); }
+        void          draw           (sf::RenderWindow&) override;
+        bool          intersects     (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
+        sf::FloatRect getBounds      ()          const   override { return body_.getGlobalBounds(); }
     };
 
 }

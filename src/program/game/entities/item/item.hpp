@@ -26,49 +26,60 @@ namespace rr {
         bool            disposable_;
         int             ID_;
         int             amount_;
+        unsigned        iconIndex_;
     public:
     /// A virtual destructor
         virtual ~Item() {}
 
     /// Updates the item's status
-        virtual void       update        () = 0;
+        virtual void       update         () = 0;
 
     /// Method changing the amount
-        void               setAmount     (int x)                     { amount_ = x; }
+        void               setAmount      (int x)                     { amount_ = x; }
 
     /// Returns the item's ID
-        int                getID         ()                          { return ID_; }
+        int                getID          ()                          { return ID_; }
 
     /// Returns the amount of this item
-        int                getAmount     ()                          { return amount_; }
+        int                getAmount      ()                          { return amount_; }
 
     /// Method telling if the item is disposable
-        bool               isDisposable  ()                          { return disposable_; }
+        bool               isDisposable   ()                          { return disposable_; }
 
     /// Method telling if the item is equipable
-        bool               isEquipable   ()                          { return equipable_; }
+        bool               isEquipable    ()                          { return equipable_; }
 
     /// Returns the sprite of this item
-        sf::VertexArray    getBody       ()                          { return body_; }
+        sf::VertexArray    getBody        ()                          { return body_; }
 
     /// Returns the name of this item
-        sf::String         getName       ()                          { return name_; }
+        sf::String         getName        ()                          { return name_; }
 
     /// Returns the description of this item
-        sf::String         getDescription()                          { return description_; }
+        sf::String         getDescription ()                          { return description_; }
 
-        void               setPosition   (sf::Vector2i pos) override { body_[0].position = (sf::Vector2f)pos*80.f;
-                                                                       body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
-                                                                       body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
-                                                                       body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
-                                                                     }
-
-        bool               intersects    (Entity* e) const  override { return (e->getBounds().intersects(getBounds())); }
-        sf::FloatRect      getBounds     ()          const  override { return sf::FloatRect(body_[0].position, body_[2].position-body_[0].position); }
+    /// Returns the texture's icon index
+        unsigned           getIconIndex   ()                          { return iconIndex_; }
 
 
-        virtual void setOpen(bool)   {}
-        virtual bool isOpen () const { return false; }
+        void               setRealPosition(sf::Vector2f pos) override { body_[0].position = (sf::Vector2f)pos;
+                                                                        body_[1].position =  sf::Vector2f(pos.x+80, pos.y);
+                                                                        body_[2].position =  sf::Vector2f(pos.x+80, pos.y+80);
+                                                                        body_[3].position =  sf::Vector2f(pos.x   , pos.y+80);
+                                                                      }
+
+        void               setPosition    (sf::Vector2i pos) override { body_[0].position = (sf::Vector2f)pos*80.f;
+                                                                        body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
+                                                                        body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
+                                                                        body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
+                                                                      }
+
+        bool               intersects     (Entity* e) const  override { return (e->getBounds().intersects(getBounds())); }
+        sf::FloatRect      getBounds      ()          const  override { return sf::FloatRect(body_[0].position, body_[2].position-body_[0].position); }
+
+
+        virtual void setOpen              (bool)             override {}
+        virtual bool isOpen               ()         const            { return false; }
     };
 
     class Discoverable {

@@ -21,9 +21,9 @@ namespace rr {
 #define component(w, c, i) w->getComponent<c>(i)
 
         wInve_ = new Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f)(settings.graphics.resolution/2u-sf::Vector2u(382, 225)));
-            for (int i=0; i<8; i++) {
-                for (int j=0; j<4; j++) {
-                    *wInve_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10+i*95, 30+j*95));
+            for (int i=0; i<4; i++) {
+                for (int j=0; j<8; j++) {
+                    *wInve_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10+j*95, 30+i*95));
                 }
             }
             *wInve_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
@@ -46,6 +46,15 @@ namespace rr {
         wInve_->setVisible(false);
     }
 
+    void Inventory::draw(sf::RenderWindow& rw) {
+        rw.draw(shadow_);
+        wInve_->draw(rw);
+    }
+
+    bool Inventory::isOpen() {
+        return wInve_->isVisible();
+    }
+
     void Inventory::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
 
 #define component(w, c, i) w->getComponent<c>(i)
@@ -64,13 +73,29 @@ namespace rr {
 
     }
 
-    void Inventory::draw(sf::RenderWindow& rw) {
-        rw.draw(shadow_);
-        wInve_->draw(rw);
-    }
+    bool Inventory::addItem(Item* item) {
 
-    bool Inventory::isOpen() {
-        return wInve_->isVisible();
+#define slot(i) wInve_->getComponent<Slot>(i)
+
+     // first we check if any of the slots already contains the item we want to add
+        for (int it=0; it<32; it++) {
+            if (!slot(it)->isEmpty() && slot(it)->getItem()->getID() == item->getID()) {
+                return slot(it)->addItem(item->getID(), item->getAmount());
+            }
+        }
+
+     // if not then we look for the first empty slot and add the item to it
+        for (int it=0; it<32; it++) {
+            if (slot(it)->isEmpty()) {
+                return slot(it)->addItem(item->getID(), item->getAmount());
+            }
+        }
+
+    // if there is no empty slot, we just exit the function
+        return false;
+
+#undef slot
+
     }
 
 }

@@ -17,19 +17,23 @@ namespace rr {
         virtual ~Entity() {}
 
     /// Draws the entity's sprite
-        virtual void          draw       (sf::RenderWindow&) = 0;
+        virtual void          draw       (sf::RenderWindow&)    = 0;
 
-    /// Sets the entity's position
-        virtual void          setPosition(sf::Vector2i pos ) = 0;
+    /// Sets the entity's position in relation to the actual coordinate system
+        virtual void          setRealPosition(sf::Vector2f pos) = 0;
+
+    /// Sets the entity's position in relation to the grid
+        virtual void          setPosition(sf::Vector2i pos)     = 0;
 
     /// Tells if this entity collides with another one
-        virtual bool          intersects (Entity*) const     = 0;
+        virtual bool          intersects (Entity*) const        = 0;
 
     /// Returns the entity's bound box
-        virtual sf::FloatRect getBounds  ()        const     = 0;
+        virtual sf::FloatRect getBounds  ()        const        = 0;
 
-        virtual void setOpen      (bool) = 0;
-        virtual bool isOpen () const     = 0;
+
+        virtual void setOpen             (bool)                 = 0;
+        virtual bool isOpen              ()        const        = 0;
     };
 
 }

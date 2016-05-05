@@ -75,6 +75,7 @@ namespace rr {
         sf::Vector2i  getPosition     ()          const          { return position_; }
 
         void          setPosition     (sf::Vector2i)    override;
+        void          setRealPosition (sf::Vector2f)    override;
         bool          intersects      (Entity* e) const override { return e->getBounds().intersects(this->getBounds()); }
         sf::FloatRect getBounds       ()          const override { return body_.getGlobalBounds(); }
 

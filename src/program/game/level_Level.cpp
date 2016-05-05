@@ -41,13 +41,25 @@ namespace rr {
         target.draw(tilemap_, states);
     }
 
+    bool Level::loadFromFile(const char*) {
+        return true;
+    }
+
     void Level::drawObjects(sf::RenderWindow& rw) const {
         for (auto x : entities_)
             x->draw(rw);
     }
 
-    bool Level::loadFromFile(const char*) {
-        return true;
+    void Level::addEntity(Entity* e, sf::Vector2i position) {
+        if (e != nullptr) {
+            entities_.push_back(e);
+            entities_.back()->setPosition(position);
+        }
+    }
+
+    void Level::removeEntity(unsigned index) {
+        delete entities_[index];
+        entities_.erase(entities_.begin()+index);
     }
 
     void Level::generateWorld() {
@@ -463,13 +475,6 @@ namespace rr {
                     break;
                 }
             }
-        }
-    }
-
-    void Level::addEntity(Entity* e, sf::Vector2i position) {
-        if (e != nullptr) {
-            entities_.push_back(e);
-            entities_.back()->setPosition(position);
         }
     }
 

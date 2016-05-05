@@ -20,7 +20,7 @@ namespace rr {
         body_.setOutlineThickness(5);
 
         text_  = new Text (sf::Vector2f(0, 0), txt, resources.font.Unifont, chsize);
-        image_ = new Image(pos, 14, 1);
+        image_ = new Image(pos, resources.texture.gui, 14, 1);
         text_->setPosition(sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_->getSize().y));
 
         image_->setParentComponent(this);

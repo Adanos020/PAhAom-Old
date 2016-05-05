@@ -25,10 +25,10 @@ namespace rr {
          MainMenu();
         ~MainMenu();
 
-    /// Method for handling the button events
+    /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
-    /// Method drawing the main menu's components
+    /// Draws the main menu's components
         void draw        (sf::RenderWindow&);
     };
 
@@ -42,19 +42,19 @@ namespace rr {
          PauseMenu();
         ~PauseMenu();
 
-    /// Method opening the pause menu
+    /// Opens the pause menu
         void open        ();
 
-    /// Method closing the pause menu window
+    /// Closes the pause menu window
         void close       ();
 
-    /// Method for handling the button events
+    /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
-    /// Method drawing the pause menu's components
+    /// Draws the pause menu's components
         void draw        (sf::RenderWindow&);
 
-    /// Method telling if the pause menu is open
+    /// Tells if the pause menu is open
         bool isOpen      ();
     };
 
@@ -67,22 +67,22 @@ namespace rr {
          Attributes();
         ~Attributes();
 
-    /// Method opening the player attributes window
+    /// Opens the player attributes window
         void open        ();
 
-    /// Method closing the player attributes window
+    /// Closes the player attributes window
         void close       ();
 
     /// Updates the info about the player attributes
         void update      (Player*);
 
-    /// Method for handling the button events
+    /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
-    /// Method drawing the player attributes components
+    /// Draws the player attributes components
         void draw        (sf::RenderWindow&);
 
-    /// Method telling if the player attributes is open
+    /// Tells if the player attributes is open
         bool isOpen      ();
     };
 
@@ -95,19 +95,22 @@ namespace rr {
          Inventory();
         ~Inventory();
 
-    /// Method opening the inventory window
+    /// Adds an item to the inventory
+        bool addItem     (Item*);
+
+    /// Opens the inventory window
         void open        ();
 
-    /// Method closing the inventory window
+    /// Closes the inventory window
         void close       ();
 
-    /// Method for handling the button events
+    /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
-    /// Method drawing the inventory components
+    /// Draws the inventory components
         void draw        (sf::RenderWindow&);
 
-    /// Method telling if the inventory is open
+    /// Tells if the inventory is open
         bool isOpen      ();
     };
 
@@ -120,19 +123,19 @@ namespace rr {
          Quests();
         ~Quests();
 
-    /// Method opening the task list window
+    /// Opens the task list window
         void open        ();
 
-    /// Method closing the task list window
+    /// Closes the task list window
         void close       ();
 
-    /// Method for handling the button events
+    /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
-    /// Method drawing the task list components
+    /// Draws the task list components
         void draw        (sf::RenderWindow&);
 
-    /// Method telling if the task list is open
+    /// Tells if the task list is open
         bool isOpen      ();
     };
 
@@ -145,19 +148,19 @@ namespace rr {
          GameMap();
         ~GameMap();
 
-    /// Method opening the game map window
+    /// Opens the game map window
         void open        ();
 
-    /// Method closing the game map window
+    /// Closes the game map window
         void close       ();
 
-    /// Method for handling the button events
+    /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
-    /// Method drawing the game map components
+    /// Draws the game map components
         void draw        (sf::RenderWindow&);
 
-    /// Method telling if the game map is open
+    /// Tells if the game map is open
         bool isOpen      ();
     };
 

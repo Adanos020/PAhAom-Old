@@ -35,11 +35,12 @@ namespace rr {
          Potion(Effect, Size, int am, sf::Vector2i pos = sf::Vector2i(0, 0));
         ~Potion();
 
-        virtual void draw       (sf::RenderWindow&) override;
-        virtual void update     ()                  override;
-        virtual void reveal     ()                  override;
+        virtual void draw       (sf::RenderWindow&)    override;
+        virtual void update     ()                     override;
+        virtual void reveal     ()                     override;
 
-        void         setPosition(sf::Vector2i)      override;
+        void         setPosition(sf::Vector2i)         override;
+        void         setRealPosition(sf::Vector2f pos) override;
     };
 
 }

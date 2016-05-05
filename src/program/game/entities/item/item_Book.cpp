@@ -19,6 +19,7 @@ namespace rr {
         ID_         = type_+10;
         discovered_ = false;
         disposable_ = true;
+        iconIndex_  = 16;
 
         body_.resize(4);
         body_.setPrimitiveType(sf::Quads);
@@ -28,8 +29,8 @@ namespace rr {
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
         body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
 
-        int tu = 0;
-        int tv = 1;
+        int tu = iconIndex_%16;
+        int tv = iconIndex_/16;
 
         body_[0].texCoords = sf::Vector2f(  tu  *16+0.03125f,   tv  *16+0.03125f);
         body_[1].texCoords = sf::Vector2f((tu+1)*16-0.03125f,   tv  *16+0.03125f);

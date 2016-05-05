@@ -21,9 +21,10 @@ namespace rr {
         disposable_ = true;
         discovered_ = false;
         ID_         = 100 + size_*10 + effect_;
+        iconIndex_  = size_+1;
 
-        int tu = (size_+1)%16;
-        int tv = (size_+1)/16;
+        int tu = iconIndex_%16;
+        int tv = iconIndex_/16;
 
         body_.resize(8);
         body_.setPrimitiveType(sf::Quads);
@@ -73,6 +74,18 @@ namespace rr {
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
         body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
+
+        body_[4].position = body_[0].position;
+        body_[5].position = body_[1].position;
+        body_[6].position = body_[2].position;
+        body_[7].position = body_[3].position;
+    }
+
+    void Potion::setRealPosition(sf::Vector2f pos) {
+        body_[0].position = pos;
+        body_[1].position = sf::Vector2f(pos.x+80, pos.y   );
+        body_[2].position = sf::Vector2f(pos.x+80, pos.y+80);
+        body_[3].position = sf::Vector2f(pos.x   , pos.y+80);
 
         body_[4].position = body_[0].position;
         body_[5].position = body_[1].position;

@@ -13,10 +13,11 @@ extern rr::Resources resources;
 namespace rr {
 
     Coin::Coin(Type t, Size s, int am, sf::Vector2i pos) {
-        amount_ = am;
-        type_   = t;
-        size_   = s;
-        ID_     = 3*size_ + type_ + 1;
+        amount_    = am;
+        type_      = t;
+        size_      = s;
+        ID_        = 3*size_ + type_ + 1;
+        iconIndex_ = type_+(size_+2)*16;
 
         body_.resize(4);
         body_.setPrimitiveType(sf::Quads);
@@ -26,8 +27,8 @@ namespace rr {
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
         body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
 
-        int tu = (type_+(size_+2)*16)%16;
-        int tv = (type_+(size_+2)*16)/16;
+        int tu = iconIndex_%16;
+        int tv = iconIndex_/16;
 
         body_[0].texCoords = sf::Vector2f(  tu  *16+0.03125f,   tv  *16+0.03125f);
         body_[1].texCoords = sf::Vector2f((tu+1)*16-0.03125f,   tv  *16+0.03125f);

@@ -28,14 +28,15 @@ namespace rr {
          Chest(Type t, Item*);
         ~Chest();
 
-        void          setPosition(sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }
-        void          draw       (sf::RenderWindow&) override;
-        bool          intersects (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
-        sf::FloatRect getBounds  ()          const   override { return body_.getGlobalBounds(); }
-        Item*         getItem    ()          const { return item_; }
+        void          setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }
+        void          setRealPosition(sf::Vector2f pos)  override { body_.setPosition(pos); }
+        void          draw           (sf::RenderWindow&) override;
+        bool          intersects     (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
+        sf::FloatRect getBounds      ()          const   override { return body_.getGlobalBounds(); }
+        Item*         getItem        ()          const { return item_; }
 
-        virtual void setOpen      (bool)   {}
-        virtual bool isOpen       () const { return false; }
+        virtual void setOpen         (bool)            {}
+        virtual bool isOpen          ()          const { return false; }
     };
 
 }

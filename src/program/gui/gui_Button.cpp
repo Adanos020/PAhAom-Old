@@ -17,7 +17,7 @@ namespace rr {
         text_  = new Text(sf::Vector2f(0, 0), str, resources.font.Unifont, chsize, c);
         text_->setPosition(sf::Vector2f(position.x+15, position.y-0.5));
 
-        image_ = new Image(position, 14, 0);
+        image_ = new Image(position, resources.texture.gui, 14, 0);
 
         text_ ->setParentComponent(this);
         image_->setParentComponent(this);

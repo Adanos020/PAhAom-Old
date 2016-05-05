@@ -143,17 +143,17 @@ namespace rr {
         sf::Sprite body_;
         int        icon_;
     public:
-         Image(sf::Vector2f position, int iconSize, unsigned index);
+         Image(sf::Vector2f position, sf::Texture&, int iconSize, unsigned index);
         ~Image();
 
         void          setPosition         (sf::Vector2f)      override;
         void          setSize             (sf::Vector2f)      override;
 
-    /// Method changing the image's index
-        void          change              (unsigned index);
+    /// Method changing the icon index
+        void          setIconIndex        (unsigned index);
 
-    /// Method changing the image's body and texture
-        void          change              (sf::Sprite, sf::Texture);
+    /// Method changing the texture
+        void          setTexture          (sf::Texture&);
 
     /// Method scaling the body's size
         void          scale               (sf::Vector2f);
@@ -214,7 +214,6 @@ namespace rr {
     class Slot : public Component {
     private:
         sf::RectangleShape body_;
-        Image*             itemSkin_;
         Image*             image_;
         Item*              item_;
         Text*              text_;
@@ -236,7 +235,7 @@ namespace rr {
         bool         containsMouseCursor(sf::RenderWindow&) override;
         bool         isPressed          (sf::RenderWindow&, sf::Event&);
         bool         isHeld             ()                  const          { return held_; }
-        Text*        getText            ()                  const override { return nullptr; }
+        Text*        getText            ()                  const override { return text_; }
         sf::Vector2f getPosition        ()                  const override { return body_.getPosition(); }
         sf::Vector2f getSize            ()                  const override { return body_.getSize(); }
 

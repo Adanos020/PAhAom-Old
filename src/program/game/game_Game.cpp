@@ -80,16 +80,23 @@ namespace rr {
 
             }
             else if (keyPressed(settings.keys.interact)) {
-                for (auto x : level_[levelNumber_]->getEntities()) {
-                    if (player_->intersects(x)) {
-                        if      (instanceof<Item, Entity>(x)) {
 
+#define entities level_[levelNumber_]->getEntities()
+
+                for (unsigned i=0; i<entities.size(); i++) {
+                    if (player_->intersects(entities[i])) {
+                        if (instanceof<Item, Entity>(entities[i]) && inventory_->addItem((Item*)entities[i])) {
+                            level_[levelNumber_]->removeEntity(i);
+                            i = 0;
                         }
-                        else if (instanceof<Chest, Entity>(x)) {
+                        else if (instanceof<Chest, Entity>(entities[i])) {
 
                         }
                     }
                 }
+
+#undef entities
+
             }
 
             if      (keyPressed(settings.keys.useslot_1)) {}
@@ -124,15 +131,15 @@ namespace rr {
                 }
                 pot[i] = x;
                 switch (x) {
-                case 0: potionColors[i] = sf::Color::Red;           break;
-                case 1: potionColors[i] = sf::Color::Blue;          break;
-                case 2: potionColors[i] = sf::Color(32, 32, 0);     break;
-                case 3: potionColors[i] = sf::Color::Green;         break;
-                case 4: potionColors[i] = sf::Color(128, 128, 128); break;
+                case 0: potionColors[i] = sf::Color::Red          ; break;
+                case 1: potionColors[i] = sf::Color::Blue         ; break;
+                case 2: potionColors[i] = sf::Color(32, 32, 0)    ; break;
+                case 3: potionColors[i] = sf::Color::Green        ; break;
+                case 4: potionColors[i] = sf::Color::Cyan         ; break;
                 case 5: potionColors[i] = sf::Color(255, 172, 172); break;
-                case 6: potionColors[i] = sf::Color::Magenta;       break;
-                case 7: potionColors[i] = sf::Color::Yellow;        break;
-                case 8: potionColors[i] = sf::Color::White;         break;
+                case 6: potionColors[i] = sf::Color::Magenta      ; break;
+                case 7: potionColors[i] = sf::Color::Yellow       ; break;
+                case 8: potionColors[i] = sf::Color::White        ; break;
                 }
             }
         }

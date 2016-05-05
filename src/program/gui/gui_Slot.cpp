@@ -23,11 +23,9 @@ namespace rr {
         body_.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
         body_.setOutlineThickness(5);
 
-        image_    = new Image(pos, 14, icon);
-        itemSkin_ = new Image(pos, 14, 0);
-        text_     = new Text (sf::Vector2f(pos.x+5, pos.y+45), "", resources.font.Pixel, 202);
+        image_    = new Image(pos, resources.texture.gui, 14, icon);
+        text_     = new Text (sf::Vector2f(pos.x+5, pos.y+55), "", resources.font.Pixel, 202);
 
-        itemSkin_->setParentComponent(this);
         image_   ->setParentComponent(this);
         text_    ->setParentComponent(this);
     }
@@ -40,18 +38,17 @@ namespace rr {
     void Slot::setPosition(sf::Vector2f pos) {
         body_     .setPosition(pos);
         image_   ->setPosition(pos);
-        itemSkin_->setPosition(pos);
-        text_    ->setPosition(sf::Vector2f(pos.x+5, pos.y+35));
+        text_    ->setPosition(sf::Vector2f(pos.x+5, pos.y+55));
     }
 
     void Slot::draw(sf::RenderWindow& rw) {
         rw.draw(body_);
 
-        itemSkin_->setPosition(body_.getPosition());
         if (hollow_)
             image_->draw(rw);
         else {
-            itemSkin_->draw(rw);
+            item_    ->setRealPosition(body_.getPosition());
+            item_->draw(rw);
             if (item_->getAmount()>1)
                 text_->draw(rw);
         }
@@ -68,8 +65,7 @@ namespace rr {
             return false;
         }
         item_ = getItemFromID(id, amount);
-        item_->setPosition((sf::Vector2i)body_.getPosition());
-        //itemSkin_->change(item_->getbody_(), resources.text_ure.item_s);
+        item_->setRealPosition(body_.getPosition());
         text_->setString(std::to_string(item_->getAmount()));
         text_->setCharacterSize(20);
 
