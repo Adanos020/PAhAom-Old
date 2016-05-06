@@ -42,7 +42,10 @@ namespace rr {
         attrs_.alchemy               = false;
         attrs_.cold_weapon_mastery   = false;
         attrs_.ranged_weapon_mastery = false;
-        attrs_.better_sight          = false;
+        attrs_.eagle_eye             = false;
+        attrs_.mana_regeneration     = false;
+        attrs_.health_regeneration   = false;
+        attrs_.faster_learning       = false;
 
         moving_ = false;
     }
@@ -114,18 +117,19 @@ namespace rr {
         if (attrs_.health <= 0)                attrs_.health = 0;
         if (attrs_.mana   <= 0)                attrs_.mana   = 0;
         if (attrs_.mana   >= attrs_.maxMana)   attrs_.mana   = attrs_.maxMana;
-        if (attrs_.experience >= attrs_.nextLevel) {
-            attrs_.experience  = 0;
-            attrs_.nextLevel  *= 1.25f;
-            attrs_.level      ++;
+        if (attrs_.experience  >= attrs_.nextLevel) {
+            attrs_.experience   = 0;
+            attrs_.nextLevel   *= 1.25f;
+            attrs_.level       ++;
+            attrs_.skillPoints += (attrs_.faster_learning) ? 15 : 10;
 
-            float temp         = attrs_.health/attrs_.maxHealth;
-            attrs_.maxHealth  += 10;
-            attrs_.health      = temp*attrs_.maxHealth;
+            float temp          = attrs_.health/attrs_.maxHealth;
+            attrs_.maxHealth   += 10;
+            attrs_.health       = temp*attrs_.maxHealth;
 
-            temp               = attrs_.mana/attrs_.maxMana;
-            attrs_.maxMana    += 1;
-            attrs_.mana        = temp*attrs_.maxMana;
+            temp                = attrs_.mana/attrs_.maxMana;
+            attrs_.maxMana     += 1;
+            attrs_.mana         = temp*attrs_.maxMana;
         }
         body_.play(*currentAnimation_);
     }

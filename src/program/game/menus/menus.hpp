@@ -90,6 +90,9 @@ namespace rr {
     private:
         sf::RectangleShape shadow_;
         Window*            wInve_;
+        short              bronze_;
+        short              silver_;
+        short              gold_;
     public:
          Inventory();
         ~Inventory();

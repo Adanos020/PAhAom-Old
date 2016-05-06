@@ -37,7 +37,10 @@ namespace rr {
             bool  alchemy;
             bool  cold_weapon_mastery;
             bool  ranged_weapon_mastery;
-            bool  better_sight;
+            bool  eagle_eye;
+            bool  mana_regeneration;
+            bool  health_regeneration;
+            bool  faster_learning;
         } attrs_;
 
         sf::Vector2i       position_;

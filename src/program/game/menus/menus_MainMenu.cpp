@@ -171,7 +171,7 @@ namespace rr {
                     component(wCont, Button, 15)->setPosition(sf::Vector2f(wCont->getPosition().x+wCont->getSize().x/2-component(wCont, Button, 15)->getSize().x/2,
                                                                            wCont->getPosition().y+wCont->getSize().y  -component(wCont, Button, 15)->getSize().y-10));
 
-                    wCont->addComponent(new Window("", sf::Vector2f(310, 50), (sf::Vector2f)(settings.graphics.resolution/2u-sf::Vector2u(155, 430)), sf::Color::Red), false);
+                    wCont->addComponent(new Window("", sf::Vector2f(310, 50), (sf::Vector2f)(settings.graphics.resolution/2u+sf::Vector2u(-155, 290)), sf::Color::Red), false);
 
 #define wWait component(wCont, Window, 0)
 

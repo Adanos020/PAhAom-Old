@@ -42,22 +42,22 @@ gui.window.inventory INVENTORY
 gui.window.quests QUESTS
 gui.window.game_map MAP
 
-item.book.color.red A red book
-item.book.color.blue A blue book
-item.book.color.brown A brown book
-item.book.color.green A green book
-item.book.color.cyan A cyan book
-item.book.color.pink A pink book
-item.book.color.magenta A magenta book
-item.book.color.yellow A yellow book
-item.book.color.white A white book
+item.book.color.red Red book
+item.book.color.blue Blue book
+item.book.color.brown Brown book
+item.book.color.green Green book
+item.book.color.cyan Cyan book
+item.book.color.pink Pink book
+item.book.color.magenta Magenta book
+item.book.color.yellow Yellow book
+item.book.color.white White book
 item.coin.gold Gold
 item.coin.silver Silver
 item.coin.bronze Bronze
 item.potion potion
-item.potion.size.small A small
-item.potion.size.medium A medium
-item.potion.size.big A big
+item.potion.size.small Small
+item.potion.size.medium Medium
+item.potion.size.big Big
 item.potion.effect.healing of healing
 item.potion.effect.magic of magic
 item.potion.effect.strength of strength
@@ -88,3 +88,6 @@ player.skills.alchemy ALCHEMY
 player.skills.cold_weapon_mastery COLD WEAPON
 player.skills.ranged_weapon_mastery RANGED WEAPON
 player.skills.better_sight EAGLE EYE
+player.skills.mana_regen MANA REGENERATION
+player.skills.health_regen HEALTH REGENERATION
+player.skills.faster_learn FASTER LEARNING

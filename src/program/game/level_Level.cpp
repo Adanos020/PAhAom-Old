@@ -469,8 +469,8 @@ namespace rr {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                    // here we choose randomly the type of a coin
-                    addEntity(getItemFromID(rand()%3+10, 1), sf::Vector2i(x, y));
+                    // here we choose randomly the type of a book
+                    addEntity(getItemFromID(rand()%9+10, 1), sf::Vector2i(x, y));
                     tiles_[x][y] = OCCUPIED;
                     break;
                 }

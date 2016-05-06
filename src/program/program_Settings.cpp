@@ -6,6 +6,7 @@
 
 #include "program.hpp"
 #include "funcs/files.hpp"
+#include "funcs/keys.hpp"
 
 #include <iostream>
 #include <iomanip>
@@ -17,36 +18,36 @@ namespace rr {
     void Settings::print() {
         std::cout << "+========PARAMETER========|===========VALUE===========+\n";
         std::cout << "+-------------------Game settings---------------------+\n";
-        std::cout << "|lang                     |" << game.language                        << std::setw(29-game.language.size())                                    << "|\n";
+        std::cout << "|lang                     |" << game.language                                   << std::setw(29-game.language                                       .size()) << "|\n";
         std::cout << "+-----------------Graphical settings------------------+\n";
-        std::cout << "|width                    |" << graphics.resolution.x                << std::setw(29-std::to_string(graphics.resolution.x)               .size()) << "|\n";
-        std::cout << "|height                   |" << graphics.resolution.y                << std::setw(29-std::to_string(graphics.resolution.y)               .size()) << "|\n";
-        std::cout << "|fullscreen               |" << graphics.fullscreen                  << std::setw(29-std::to_string(graphics.fullscreen)                 .size()) << "|\n";
-        std::cout << "|vsync                    |" << graphics.vsync                       << std::setw(29-std::to_string(graphics.vsync)                      .size()) << "|\n";
-        std::cout << "|antialiasing             |" << graphics.csettings.antialiasingLevel << std::setw(29-std::to_string(graphics.csettings.antialiasingLevel).size()) << "|\n";
-        std::cout << "|depth_bits               |" << graphics.csettings.depthBits         << std::setw(29-std::to_string(graphics.csettings.depthBits)        .size()) << "|\n";
-        std::cout << "|stencil_bits             |" << graphics.csettings.stencilBits       << std::setw(29-std::to_string(graphics.csettings.stencilBits)      .size()) << "|\n";
+        std::cout << "|width                    |" << graphics.resolution.x                           << std::setw(29-std::to_string(graphics.resolution.x)               .size()) << "|\n";
+        std::cout << "|height                   |" << graphics.resolution.y                           << std::setw(29-std::to_string(graphics.resolution.y)               .size()) << "|\n";
+        std::cout << "|fullscreen               |" << graphics.fullscreen                             << std::setw(29-std::to_string(graphics.fullscreen)                 .size()) << "|\n";
+        std::cout << "|vsync                    |" << graphics.vsync                                  << std::setw(29-std::to_string(graphics.vsync)                      .size()) << "|\n";
+        std::cout << "|antialiasing             |" << graphics.csettings.antialiasingLevel            << std::setw(29-std::to_string(graphics.csettings.antialiasingLevel).size()) << "|\n";
+        std::cout << "|depth_bits               |" << graphics.csettings.depthBits                    << std::setw(29-std::to_string(graphics.csettings.depthBits)        .size()) << "|\n";
+        std::cout << "|stencil_bits             |" << graphics.csettings.stencilBits                  << std::setw(29-std::to_string(graphics.csettings.stencilBits)      .size()) << "|\n";
         std::cout << "+-----------------------Audio-------------------------+\n";
-        std::cout << "|music_volume             |" << sound.music_volume                   << std::setw(29-std::to_string((int)sound.music_volume)             .size()) << "|\n";
-        std::cout << "|effects_volume           |" << sound.effects_volume                 << std::setw(29-std::to_string((int)sound.effects_volume)           .size()) << "|\n";
-        std::cout << "|music_muted              |" << sound.music_muted                    << std::setw(29-std::to_string(sound.music_muted)                   .size()) << "|\n";
-        std::cout << "|effects_muted            |" << sound.effects_muted                  << std::setw(29-std::to_string(sound.effects_muted)                 .size()) << "|\n";
+        std::cout << "|music_volume             |" << sound.music_volume                              << std::setw(29-std::to_string((int)sound.music_volume)             .size()) << "|\n";
+        std::cout << "|effects_volume           |" << sound.effects_volume                            << std::setw(29-std::to_string((int)sound.effects_volume)           .size()) << "|\n";
+        std::cout << "|music_muted              |" << sound.music_muted                               << std::setw(29-std::to_string(sound.music_muted)                   .size()) << "|\n";
+        std::cout << "|effects_muted            |" << sound.effects_muted                             << std::setw(29-std::to_string(sound.effects_muted)                 .size()) << "|\n";
         std::cout << "+----------------------Controls-----------------------+\n";
-        std::cout << "|move_up                  |" << keys.move_up                         << std::setw(29-std::to_string(keys.move_up)                        .size()) << "|\n";
-        std::cout << "|move_down                |" << keys.move_down                       << std::setw(29-std::to_string(keys.move_down)                      .size()) << "|\n";
-        std::cout << "|move_left                |" << keys.move_left                       << std::setw(29-std::to_string(keys.move_left)                      .size()) << "|\n";
-        std::cout << "|move_right               |" << keys.move_right                      << std::setw(29-std::to_string(keys.move_right)                     .size()) << "|\n";
-        std::cout << "|interact                 |" << keys.interact                        << std::setw(29-std::to_string(keys.interact)                       .size()) << "|\n";
-        std::cout << "|attack                   |" << keys.attack                          << std::setw(29-std::to_string(keys.attack)                         .size()) << "|\n";
-        std::cout << "|open_inventory           |" << keys.open_inventory                  << std::setw(29-std::to_string(keys.open_inventory)                 .size()) << "|\n";
-        std::cout << "|open_attributes          |" << keys.open_attributes                 << std::setw(29-std::to_string(keys.open_attributes)                .size()) << "|\n";
-        std::cout << "|open_quests              |" << keys.open_quests                     << std::setw(29-std::to_string(keys.open_quests)                    .size()) << "|\n";
-        std::cout << "|open_map                 |" << keys.open_map                        << std::setw(29-std::to_string(keys.open_map)                       .size()) << "|\n";
-        std::cout << "|useslot_1                |" << keys.useslot_1                       << std::setw(29-std::to_string(keys.useslot_1)                      .size()) << "|\n";
-        std::cout << "|useslot_2                |" << keys.useslot_2                       << std::setw(29-std::to_string(keys.useslot_2)                      .size()) << "|\n";
-        std::cout << "|useslot_3                |" << keys.useslot_3                       << std::setw(29-std::to_string(keys.useslot_3)                      .size()) << "|\n";
-        std::cout << "|useslot_4                |" << keys.useslot_4                       << std::setw(29-std::to_string(keys.useslot_4)                      .size()) << "|\n";
-        std::cout << "|useslot_5                |" << keys.useslot_5                       << std::setw(29-std::to_string(keys.useslot_5)                      .size()) << "|\n";
+        std::cout << "|move_up                  |" << getKeyName(keys.move_up)        .toAnsiString() << std::setw(29-getKeyName(keys.move_up)        .toAnsiString()     .size()) << "|\n";
+        std::cout << "|move_down                |" << getKeyName(keys.move_down)      .toAnsiString() << std::setw(29-getKeyName(keys.move_down)      .toAnsiString()     .size()) << "|\n";
+        std::cout << "|move_left                |" << getKeyName(keys.move_left)      .toAnsiString() << std::setw(29-getKeyName(keys.move_left)      .toAnsiString()     .size()) << "|\n";
+        std::cout << "|move_right               |" << getKeyName(keys.move_right)     .toAnsiString() << std::setw(29-getKeyName(keys.move_right)     .toAnsiString()     .size()) << "|\n";
+        std::cout << "|interact                 |" << getKeyName(keys.interact)       .toAnsiString() << std::setw(29-getKeyName(keys.interact)       .toAnsiString()     .size()) << "|\n";
+        std::cout << "|attack                   |" << getKeyName(keys.attack)         .toAnsiString() << std::setw(29-getKeyName(keys.attack)         .toAnsiString()     .size()) << "|\n";
+        std::cout << "|open_inventory           |" << getKeyName(keys.open_inventory) .toAnsiString() << std::setw(29-getKeyName(keys.open_inventory) .toAnsiString()     .size()) << "|\n";
+        std::cout << "|open_attributes          |" << getKeyName(keys.open_attributes).toAnsiString() << std::setw(29-getKeyName(keys.open_attributes).toAnsiString()     .size()) << "|\n";
+        std::cout << "|open_quests              |" << getKeyName(keys.open_quests)    .toAnsiString() << std::setw(29-getKeyName(keys.open_quests)    .toAnsiString()     .size()) << "|\n";
+        std::cout << "|open_map                 |" << getKeyName(keys.open_map)       .toAnsiString() << std::setw(29-getKeyName(keys.open_map)       .toAnsiString()     .size()) << "|\n";
+        std::cout << "|useslot_1                |" << getKeyName(keys.useslot_1)      .toAnsiString() << std::setw(29-getKeyName(keys.useslot_1)      .toAnsiString()     .size()) << "|\n";
+        std::cout << "|useslot_2                |" << getKeyName(keys.useslot_2)      .toAnsiString() << std::setw(29-getKeyName(keys.useslot_2)      .toAnsiString()     .size()) << "|\n";
+        std::cout << "|useslot_3                |" << getKeyName(keys.useslot_3)      .toAnsiString() << std::setw(29-getKeyName(keys.useslot_3)      .toAnsiString()     .size()) << "|\n";
+        std::cout << "|useslot_4                |" << getKeyName(keys.useslot_4)      .toAnsiString() << std::setw(29-getKeyName(keys.useslot_4)      .toAnsiString()     .size()) << "|\n";
+        std::cout << "|useslot_5                |" << getKeyName(keys.useslot_5)      .toAnsiString() << std::setw(29-getKeyName(keys.useslot_5)      .toAnsiString()     .size()) << "|\n";
         std::cout << "+-----------------------------------------------------+\n";
     }
 

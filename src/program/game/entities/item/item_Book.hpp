@@ -14,9 +14,15 @@ namespace rr {
     class Book : public Discoverable, public Item {
     public:
         enum Type {
+            CRAFTING,
+            ALCHEMY,
+            COLD_WEAPON_MASTERY,
+            RANGED_WEAPON_MASTER,
+            EAGLE_EYE,
             MANA_REGEN,
+            HEALTH_REGEN,
             FASTER_LEARNING,
-            SPELLS_LEARNING
+            SPELLS_BOOK
         } type_;
          Book(Type, int am, sf::Vector2i pos);
         ~Book();

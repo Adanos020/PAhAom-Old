@@ -25,9 +25,15 @@ namespace rr {
         case   6: return new Coin  (Coin::BRONZE                , Coin::BIG           , amount, sf::Vector2i(0, 0));
 
         /* BOOKS */
-        case  10: return new Book  (Book::MANA_REGEN                                  , amount, sf::Vector2i(0, 0));
-        case  11: return new Book  (Book::FASTER_LEARNING                             , amount, sf::Vector2i(0, 0));
-        case  12: return new Book  (Book::SPELLS_LEARNING                             , amount, sf::Vector2i(0, 0));
+        case  10: return new Book  (Book::CRAFTING                                    , amount, sf::Vector2i(0, 0));
+        case  11: return new Book  (Book::ALCHEMY                                     , amount, sf::Vector2i(0, 0));
+        case  12: return new Book  (Book::COLD_WEAPON_MASTERY                         , amount, sf::Vector2i(0, 0));
+        case  13: return new Book  (Book::RANGED_WEAPON_MASTER                        , amount, sf::Vector2i(0, 0));
+        case  14: return new Book  (Book::EAGLE_EYE                                   , amount, sf::Vector2i(0, 0));
+        case  15: return new Book  (Book::MANA_REGEN                                  , amount, sf::Vector2i(0, 0));
+        case  16: return new Book  (Book::HEALTH_REGEN                                , amount, sf::Vector2i(0, 0));
+        case  17: return new Book  (Book::FASTER_LEARNING                             , amount, sf::Vector2i(0, 0));
+        case  18: return new Book  (Book::SPELLS_BOOK                                 , amount, sf::Vector2i(0, 0));
 
         /* POTIONS */
         case 100: return new Potion(Potion::Effect::HEALING     , Potion::Size::SMALL , amount, sf::Vector2i(0, 0));

@@ -88,3 +88,6 @@ player.skills.alchemy ALCHEMIA
 player.skills.cold_weapon_mastery BROŃ BIAŁA
 player.skills.ranged_weapon_mastery BROŃ DYSTANSOWA
 player.skills.better_sight SOKOLI WZROK
+player.skills.mana_regen REGENERACJA MANY
+player.skills.health_regen REGENERACJA ZDROWIA
+player.skills.faster_learn SZYBSZA NAUKA

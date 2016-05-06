@@ -61,11 +61,14 @@ namespace rr {
                                              +std::to_string((int)p->getAttributes().level      )                                                      +"\n"
                                              +std::to_string((int)p->getAttributes().skillPoints));
 
-        component(wAttr_, Text, 2)->setString((p->getAttributes().crafting              ? resources.dictionary["player.skills.crafting"]               : sf::String("-"))
-                                       +"\n"+(p->getAttributes().alchemy                ? resources.dictionary["player.skills.alchemy"]                : sf::String("-"))
-                                       +"\n"+(p->getAttributes().cold_weapon_mastery    ? resources.dictionary["player.skills.cold_weapon_mastery"]    : sf::String("-"))
-                                       +"\n"+(p->getAttributes().ranged_weapon_mastery  ? resources.dictionary["player.skills.ranged_weapon_mastery"]  : sf::String("-"))
-                                       +"\n"+(p->getAttributes().better_sight           ? resources.dictionary["player.skills.better_sight"]           : sf::String("-")));
+        component(wAttr_, Text, 2)->setString((p->getAttributes().crafting               ? resources.dictionary["player.skills.crafting"             ] : sf::String("-"))
+                                        +"\n"+(p->getAttributes().alchemy                ? resources.dictionary["player.skills.alchemy"              ] : sf::String("-"))
+                                        +"\n"+(p->getAttributes().cold_weapon_mastery    ? resources.dictionary["player.skills.cold_weapon_mastery"  ] : sf::String("-"))
+                                        +"\n"+(p->getAttributes().ranged_weapon_mastery  ? resources.dictionary["player.skills.ranged_weapon_mastery"] : sf::String("-"))
+                                        +"\n"+(p->getAttributes().eagle_eye              ? resources.dictionary["player.skills.better_sight"         ] : sf::String("-"))
+                                        +"\n"+(p->getAttributes().mana_regeneration      ? resources.dictionary["player.skills.mana_regen"           ] : sf::String("-"))
+                                        +"\n"+(p->getAttributes().health_regeneration    ? resources.dictionary["player.skills.health_regen"         ] : sf::String("-"))
+                                        +"\n"+(p->getAttributes().faster_learning        ? resources.dictionary["player.skills.faster_learn"         ] : sf::String("-")));
 
 #undef component
 

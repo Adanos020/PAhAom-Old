@@ -13,6 +13,10 @@ extern rr::Resources resources;
 namespace rr {
 
     Inventory::Inventory() {
+        bronze_ = 0;
+        silver_ = 0;
+        gold_   = 0;
+
         shadow_.setSize((sf::Vector2f)settings.graphics.resolution);
         shadow_.setPosition(sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
@@ -25,6 +29,12 @@ namespace rr {
                     *wInve_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10+j*95, 30+i*95));
                 }
             }
+            *wInve_ += new Image (sf::Vector2f(0  , 390), resources.texture.items, 16, 33);
+            *wInve_ += new Image (sf::Vector2f(150, 390), resources.texture.items, 16, 34);
+            *wInve_ += new Image (sf::Vector2f(300, 390), resources.texture.items, 16, 35);
+            *wInve_ += new Text  (sf::Vector2f(70 , 415), "GOLD", resources.font.Pixel, 30);
+            *wInve_ += new Text  (sf::Vector2f(220, 415), "SILV", resources.font.Pixel, 30);
+            *wInve_ += new Text  (sf::Vector2f(370, 415), "BRON", resources.font.Pixel, 30);
             *wInve_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
             component(wInve_, Button, 0)->setPosition(sf::Vector2f(wInve_->getPosition().x+wInve_->getSize().x-component(wInve_, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(wInve_, Button, 0)->getSize().y-5));
         wInve_->setVisible(false);
@@ -38,6 +48,10 @@ namespace rr {
     }
 
     void Inventory::open() {
+        wInve_->getComponent<Text>(0)->setString(std::to_string((int)gold_));
+        wInve_->getComponent<Text>(1)->setString(std::to_string((int)silver_));
+        wInve_->getComponent<Text>(2)->setString(std::to_string((int)bronze_));
+
         wInve_->setVisible(true);
     }
 
@@ -76,7 +90,41 @@ namespace rr {
 
 #define slot(i) wInve_->getComponent<Slot>(i)
 
-     // first we check if any of the slots already contains the item we want to add
+     // in the beginning we check if the picked item is a coin
+        if (instanceof<Coin, Item>(item)) {
+         // first we recognize the coin type and size
+            if (((Coin*)item)->type_ == Coin::BRONZE) {
+                if (((Coin*)item)->size_ == Coin::BIG)
+                    bronze_ += item->getAmount()*10;
+                else
+                    bronze_ += item->getAmount();
+            }
+            else if (((Coin*)item)->type_ == Coin::SILVER) {
+                if (((Coin*)item)->size_ == Coin::BIG)
+                    silver_ += item->getAmount()*10;
+                else
+                    silver_ += item->getAmount();
+            }
+            else if (((Coin*)item)->type_ == Coin::GOLDEN) {
+                if (((Coin*)item)->size_ == Coin::BIG)
+                    gold_ += item->getAmount()*10;
+                else
+                    gold_ += item->getAmount();
+            }
+         // then we do the simple calculations: 1 gold = 100 silver, 1 silver = 100 bronze
+            while (bronze_ >= 100) {
+                bronze_ -= 100;
+                silver_++;
+            }
+            while (silver_ >= 100) {
+                silver_ -= 100;
+                gold_++;
+            }
+         // and in the end we can just
+            return true;
+        }
+
+     // then we check if any of the slots already contains the item we want to add
         for (int it=0; it<32; it++) {
             if (!slot(it)->isEmpty() && slot(it)->getItem()->getID() == item->getID()) {
                 return slot(it)->addItem(item->getID(), item->getAmount());

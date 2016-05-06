@@ -23,7 +23,7 @@ namespace rr {
         body_.setOutlineThickness(5);
 
         image_    = new Image(pos, resources.texture.gui, 14, icon);
-        text_     = new Text (sf::Vector2f(pos.x+5, pos.y+55), "", resources.font.Pixel, 202);
+        text_     = new Text (sf::Vector2f(pos.x+5, pos.y+55), "", resources.font.Pixel, 20);
 
         image_   ->setParentComponent(this);
         text_    ->setParentComponent(this);
@@ -58,7 +58,6 @@ namespace rr {
             if (id == item_->getID()) {
                 item_->setAmount(item_->getAmount()+amount);
                 text_->setString(std::to_wstring(item_->getAmount()));
-                text_->setCharacterSize(20);
                 return true;
             }
             return false;
@@ -66,7 +65,6 @@ namespace rr {
         item_ = getItemFromID(id, amount);
         item_->setRealPosition(body_.getPosition());
         text_->setString(std::to_string(item_->getAmount()));
-        text_->setCharacterSize(20);
 
         hollow_ = false;
         return true;
