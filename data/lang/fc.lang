@@ -1,93 +1,320 @@
-gui.button.newgame HOBA TPA
-gui.button.resume BČHYB
-gui.button.save ČATNW
-gui.button.load BYBITAÑ
-gui.button.options OTU'E
-gui.button.help TOMOU
-gui.button.credits AYTOXIBI
-gui.button.quit VBIÑY'
-gui.button.game TPA
-gui.button.graphical TPADNQA
-gui.button.sound Y'B'EHQ
-gui.button.controls CTEPOBAH'E
-gui.checkbox.fullscreen TELHBI EQPAH
-gui.checkbox.vsync CBIHXPOH'NČAU'R T'EHOBA
-gui.text.resolution POČYELYOW'Y'
-gui.text.language 'EHČBIQ
-gui.text.killurslf .w'eh čabnñ
-gui.text.programming TPOTPAMOBAH'E
-gui.text.usedlib YX'BITA BNBL'ETEQA
-gui.text.music MYČBIQA
-gui.text.effects EDEQTBI
-gui.text.mute VBIY'NW
-gui.text.move_up b typeh ny'
-gui.text.move_down b ayl ny'
-gui.text.move_left b lebo ny'
-gui.text.move_right b tpabo ny'
-gui.text.interact y'rlañ
-gui.text.attack ataqyñ
-gui.text.pickup toah'ew'
-gui.text.open_inventory eqbntyheq otbyxi
-gui.text.open_attributes atvbibytbi otbyxi
-gui.text.open_quests lncteh čåh' otbyxi
-gui.text.open_map mateh otbyxi
-gui.text.useslot_1 cxobqa 1 yx'biñ
-gui.text.useslot_2 cxobqa 2 yx'biñ
-gui.text.useslot_3 cxobqa 3 yx'biñ
-gui.text.useslot_4 cxobqa 4 yx'biñ
-gui.text.useslot_5 cxobqa 5 yx'biñ
-gui.text.press_a_key .qlabnw hay'nw'h'nñ
-gui.window.attributes ATVBIBYTBI
-gui.window.inventory EQBNTYHEQ
-gui.window.quests ČÅH'R
-gui.window.game_map MATA
+;------------GUI------------;
+gui.button.newgame
+HOBA TPA
 
-item.book.color.red yevboha qw'ehta
-item.book.color.blue h'eb'ecqa qw'ehta
-item.book.color.brown vpohčoba qw'ehta
-item.book.color.green č'eloha qw'ehta
-item.book.color.cyan ubi'rhoba qw'ehta
-item.book.color.pink pyx'oba qw'ehta
-item.book.color.magenta mayehtoba qw'ehta
-item.book.color.yellow x'ylta qw'ehta
-item.book.color.white b'rla qw'ehta
-item.coin.gold člotbi
-item.coin.silver cpevph'nq
-item.coin.bronze m'ey'rq
-item.potion mnqctypa
-item.potion.size.small mala
-item.potion.size.medium w'peah'r
-item.potion.size.big ayx'a
-item.potion.effect.healing leyh'nya
-item.potion.effect.magic matnyha
-item.potion.effect.strength w'nlbi
-item.potion.effect.dexterity čpehyhow'y'n
-item.potion.effect.speed wbibqow'y'n
-item.potion.effect.poison čatpÿ'r
-item.potion.effect.regeneration petehepauñn
-item.potion.effect.slowness ctobolh'eh'r
-item.potion.effect.weakness oclab'eh'r
-item.potion.color.red yevboha
-item.potion.color.blue h'eb'ecqa
-item.potion.color.brown vpohčoba
-item.potion.color.green č'eloha
-item.potion.color.cyan ubi'rhoba
-item.potion.color.pink pyx'oba
-item.potion.color.magenta matehta
-item.potion.color.yellow x'ylta
-item.potion.color.white b'rla
+gui.button.resume
+BČHYB
 
-player.attributes.health ČAPOB'E
-player.attributes.strength W'NLA
-player.attributes.dexterity ČPEHAHOW'Y'
-player.attributes.experience AOW'B'RAYEH'E
-player.attributes.level TOČ'EM
-player.attributes.skill_points TYHQTBI YM'E'EHTHOW'Y'N
-player.skills.crafting XIEM'EW'LNCTBO
-player.skills.alchemy ALXEM'R
-player.skills.cold_weapon_mastery VPOH' B'RLA
-player.skills.ranged_weapon_mastery VPOH' ABICTAHCOBA
-player.skills.better_sight COQOLN BČPOQ
-player.skills.mana_regen PETEHEPAU'R MAHBI
-player.skills.health_regen PETEHEPAU'R ČAPOB'R
-player.skills.faster_learn VBIBWA HAYQA
+gui.button.save
+ČATNW
+
+gui.button.load
+BYBITAÑ
+
+gui.button.options
+OTU'E
+
+gui.button.help
+TOMOU
+
+gui.button.credits
+AYTOXIBI
+
+gui.button.quit
+VBIÑY'
+
+gui.button.game
+TPA
+
+gui.button.graphical
+TPADNQA
+
+gui.button.sound
+Y'B'EHQ
+
+gui.button.controls
+CTEPOBAH'E
+
+gui.checkbox.fullscreen
+TELHBI EQPAH
+
+gui.checkbox.vsync
+CBIHXPOH'NČAU'R T'EHOBA
+
+gui.text.resolution
+POČYELYOW'Y'
+
+gui.text.language
+'EHČBIQ
+
+gui.text.killurslf
+.w'eh čabnñ
+
+gui.text.programming
+TPOTPAMOBAH'E
+
+gui.text.usedlib
+YX'BITA BNBL'ETEQA
+
+gui.text.music
+MYČBIQA
+
+gui.text.effects
+EDEQTBI
+
+gui.text.mute
+VBIY'NW
+
+gui.text.move_up
+b typeh ny'
+
+gui.text.move_down
+b ayl ny'
+
+gui.text.move_left
+b lebo ny'
+
+gui.text.move_right
+b tpabo ny'
+
+gui.text.interact
+y'rlañ
+
+gui.text.attack
+ataqyñ
+
+gui.text.pickup
+toah'ew'
+
+gui.text.open_inventory
+eqbntyheq otbyxi
+
+gui.text.open_attributes
+atvbibytbi otbyxi
+
+gui.text.open_quests
+lncteh čåh' otbyxi
+
+gui.text.open_map
+mateh otbyxi
+
+gui.text.useslot_1
+cxobqa 1 yx'biñ
+
+gui.text.useslot_2
+cxobqa 2 yx'biñ
+
+gui.text.useslot_3
+cxobqa 3 yx'biñ
+
+gui.text.useslot_4
+cxobqa 4 yx'biñ
+
+gui.text.useslot_5
+cxobqa 5 yx'biñ
+
+gui.text.press_a_key
+.qlabnw hay'nw'h'nñ
+
+gui.window.attributes
+ATVBIBYTBI
+
+gui.window.inventory
+EQBNTYHEQ
+
+gui.window.quests
+ČÅH'R
+
+gui.window.game_map
+MATA
+
+;------------ITEMS-------------;
+item.book.type.crafting
+«toactavbi vbitbaxiah'r»
+
+item.book.type.alchemy
+«toactavbi alxem'n»
+
+item.book.type.cold_weapon_mastery
+«qw'ehta dexmnctxiyb»
+
+item.book.type.ranged_weapon_mastery
+«qw'ehta ctxieluyb»
+
+item.book.type.eagle_eye
+«b'ehueñ bny'ey'» Widzieć więcej
+
+item.book.type.mana_regen
+«wtyqa meabitau'ñn y.1 - mat'r»
+
+item.book.type.health_regen
+«wtyqa meabitau'ñn y.2 - čapob'e»
+
+item.book.type.faster_learning
+«topäh'nq wbibq'eñ hayqn»
+
+item.book.type.spells_book
+«qw'ehta čaqleh'y»
+
+item.book.description.crafting
+.qomtleqcovbi topäh'nq ala toyohtqy'ehubix mañctepqobnÿa n člotbix pohyeq, qtyvbi toactab vbitbaxiah'r pyx'hbix txieam'etyb y'eh haÿbiw
+
+item.book.description.alchemy
+.y'ehqn teñ qw'ehue txibiäthow'y' bwelaqnx č'yleq ybi ckläh'nqyb točbicqnbahbix č totbopyb aoctxiex'ew n blache mnqctyvbi tboxibiy' mytl behy'ew
+
+item.book.description.cold_weapon_mastery
+?maxah'r m'eyem 'rq uetem aow'y' maw ?b balue y'ehtle oavbibaw .hobe, bapy'eñ čäbahcobahe texh'nqn balqn, y'ehqn qtyvbim b wtyue dextyhqy w'eh toawqolnw - b tbim topäh'nqy točhaw
+
+item.book.description.ranged_weapon_mastery
+.ctxielah'e č lyqy ybi č qywbi bahalhe buale h'e 'ect .'ew'ln ha aovpauobah'y texh'nqn n uelhow'y'n y'n čalex'bi - ta qw'ehx'qa bapuo tomouha w'eh oqax'e
+
+item.book.description.eagle_eye
+?qto tam .'ew'ln ha qpytqobčpoyhow'y' haxieqaw to y'ehqn teñ qw'ehue cbo'e tole bnueh'r towexibiw .aoclobh'e
+
+item.book.description.mana_regen
+.cbyñ ymbicl oybiw'y' n oxloh' - texh'nqn meabitaubiñhe b teñ qw'ehue čabapte tbo'eh petehepau'eh mahbi txibictiewoh
+
+item.book.description.health_regen
+.ta hatncaha txieč mh'nxyb č äleqnx qpanh - texh'nqn ymox'lb'r'ehue y'n  petepau'eh oah'ew'ehbix pah čab'epa
+
+item.book.description.faster_learning
+.y'ehqn texh'nqom wbibq'eto ybitah'r čabaptbix b teñ qw'ehue - wbiby'eñ b'eueh txibicba'rw
+
+item.book.description.spells_book
+!oa aotbiqy teñ qw'ehtn y'eh talue mpob'eh - to qw'ehta čaqlehy' vbiy' myw'n ?tbitah'e - uo ča mat'r b w'poaqy w'eh qvbi'e
+
+item.coin.gold
+člotbi
+
+item.coin.silver
+cpevph'nq
+
+item.coin.bronze
+m'ey'rq
+
+item.potion.effect.healing
+mnqctypa leyh'nya
+
+item.potion.effect.magic
+mnqctypa matnyha
+
+item.potion.effect.strength
+mnqctypa w'nlbi
+
+item.potion.effect.dexterity
+mnqctypa čpehyhow'y'n
+
+item.potion.effect.speed
+mnqctypa wbibqow'y'n
+
+item.potion.effect.poison
+mnqctypa čatpÿ'r
+
+item.potion.effect.regeneration
+mnqctypa petehepauñn
+
+item.potion.effect.slowness
+mnqctypa ctobolh'eh'r
+
+item.potion.effect.weakness
+mnqctypa oclab'eh'r
+
+item.potion.color.red
+yevboha mnqctypa
+
+item.potion.color.blue
+h'eb'ecqa mnqctypa
+
+item.potion.color.brown
+vpohčoba mnqctypa
+
+item.potion.color.green
+č'eloha mnqctypa
+
+item.potion.color.cyan
+ubi'rhoba mnqctypa
+
+item.potion.color.pink
+pyx'oba mnqctypa
+
+item.potion.color.magenta
+mayehtoba mnqctypa
+
+item.potion.color.yellow
+x'ylta mnqctypa
+
+item.potion.color.white
+b'rla mnqctypa
+
+item.potion.description.unknown
+.qolopoba byteleyqa - ?a mox'e to hatyñ b w'poaqy ?qto to b'ey'ey' mox'e, 'rqn edeqt vbitny'e teñ mnqctyvbi txibih'ew'e
+
+item.potion.description.healing
+.ta mnqctypa tbo'e pahbi čacqletn n tehepalh'e cqytqn ctapy' č hañpyx'h'eñwbimn txiey'nbh'nqamn čalatoy'ny' w'eh toctapa
+
+item.potion.description.magic
+.qax'aeto yacem cywbi - !matyb tex' .x'evbi ytaw'ny' tpath'eh'e y'ncqah'r be vpotyb blbicqabnuamn - teh mnqctypeh ctox'biñ n cbo'e čacovbi moubi matnyheñ čpetehepyñ
+
+item.potion.description.strength
+.'ew'ln ÿ'ew x'e octath'nmn yacbi čvbit xiäqo w'nlobh'eh oab'euaw a blbicqabnyh'e txibitaqobay' totxieby'ew - teh hatyñ ala y'eb'e 'ect
+
+item.potion.description.dexterity
+.h'eqtype cbityau'e b x'biy'y towyqnbaya txibitya tpoxeh h'ečpehahe coh .avbi nx yh'nqhohy' teh hatyñ ctox'biñ: +x tyhqtyb čpehahow'y'n (b čalex'how'y'n oa b'elqow'y'n bytelqn)
+
+item.potion.description.speed
+.y'ehx'qo ča tpehämn, čloy'e'rmn  ybi totbopamn 'ect - .ta mnqctypa tbo'eh vbibqow'y' čb'ehqwbi n tow'y'nt lyb ÿ'eyqeh ylatbn
+
+item.potion.description.poison
+!dyñ .taq tbilqo uow' uo äbho temy čaexlo n qohtay' w'eh ča x'biy'r h'e lybnlo
+
+item.potion.description.regeneration
+?ao telh'n čapob'r y'n w'eh h'e ct'evbi .'ew'ln tpoxeh y'eptlnbow'y'n maw - !ta mnqctypa ala y'eb'e 'ect
+
+item.potion.description.slowness
+.qoleñhbi hatyñ qtypeto let'eñ h'e tny' xbiba x'e dovbi toh'ehubim y'eh totbopom äy' xuew
+
+item.potion.description.weakness
+.ctäeq dopmbi dpyctpy'ehubi 'ect .avbi to yh'nqhohy' hañlet'eñ teh mnqctypeh vbixiy' .ctox'biy'e w'nleh tbonx čaqlehy' n y'ecyb čmh'eñwa
+
+;-------------PLAYER--------------;
+player.attributes.health
+ČAPOB'E
+
+player.attributes.strength
+W'NLA
+
+player.attributes.dexterity
+ČPEHAHOW'Y'
+
+player.attributes.experience
+AOW'B'RAYEH'E
+
+player.attributes.level
+TOČ'EM
+
+player.attributes.skill_points
+TYHQTBI HAYQN
+
+player.skills.crafting
+XIEM'EW'LNCTBO
+
+player.skills.alchemy
+ALXEM'R
+
+player.skills.cold_weapon_mastery
+VPOH' B'RLA
+
+player.skills.ranged_weapon_mastery
+VPOH' ABICTAHCOBA
+
+player.skills.better_sight
+COQOLN BČPOQ
+
+player.skills.mana_regen
+PETEHEPAU'R MAHBI
+
+player.skills.health_regen
+PETEHEPAU'R ČAPOB'R
+
+player.skills.faster_learn
+VBIBWA HAYQA

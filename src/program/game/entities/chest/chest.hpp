@@ -27,17 +27,16 @@ namespace rr {
          Chest(Type t, Item*);
         ~Chest();
 
-        void          setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }
-        void          setRealPosition(sf::Vector2f pos)  override { body_.setPosition(pos); }
-        void          draw           (sf::RenderWindow&) override;
-        bool          intersects     (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
-        sf::FloatRect getBounds      ()          const   override { return body_.getGlobalBounds(); }
-        Item*         getItem        ()          const   override { return item_; }
+        virtual void          draw           (sf::RenderWindow&) override;
+        virtual void          setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }
+        virtual void          setRealPosition(sf::Vector2f pos)  override { body_.setPosition(pos); }
+        virtual bool          intersects     (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
+        virtual sf::FloatRect getBounds      ()          const   override { return body_.getGlobalBounds(); }
+        virtual sf::Vector2i  getPosition    ()          const   override { return (sf::Vector2i)body_.getPosition()/80; }
+        virtual sf::Vector2f  getRealPosition()          const   override { return body_.getPosition(); }
 
-        virtual void setOpen         (bool)              override {}
-        virtual bool isOpen          ()          const   override { return false; }
-        virtual sf::Vector2i  getPosition    ()  const   override { return (sf::Vector2i)body_.getPosition()/80; }
-        virtual sf::Vector2f  getRealPosition()  const   override { return body_.getPosition(); }
+    /// Returns the item which the chest contains
+        Item*                 getItem        ()          const            { return item_; }
     };
 
 }

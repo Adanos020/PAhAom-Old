@@ -30,10 +30,7 @@ namespace rr {
     /// A virtual destructor
         virtual ~Item() {}
 
-    /// Updates the item's status
-        virtual void       update         () = 0;
-
-    /// Method changing the amount
+    /// Changes the amount
         void               setAmount      (int x)                     { amount_ = x; }
 
     /// Returns the item's ID
@@ -61,32 +58,26 @@ namespace rr {
         unsigned           getIconIndex   ()                          { return iconIndex_; }
 
 
-        void               setRealPosition(sf::Vector2f pos) override { body_[0].position = (sf::Vector2f)pos;
+        virtual void       setRealPosition(sf::Vector2f pos) override { body_[0].position = (sf::Vector2f)pos;
                                                                         body_[1].position =  sf::Vector2f(pos.x+80, pos.y);
                                                                         body_[2].position =  sf::Vector2f(pos.x+80, pos.y+80);
                                                                         body_[3].position =  sf::Vector2f(pos.x   , pos.y+80);
                                                                       }
-
-        void               setPosition    (sf::Vector2i pos) override { body_[0].position = (sf::Vector2f)pos*80.f;
+        virtual void       setPosition    (sf::Vector2i pos) override { body_[0].position = (sf::Vector2f)pos*80.f;
                                                                         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
                                                                         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
                                                                         body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
                                                                       }
-
-        bool                  intersects     (Entity* e) const override { return (e->getBounds().intersects(getBounds())); }
-        sf::FloatRect         getBounds      ()          const override { return sf::FloatRect(body_[0].position, body_[2].position-body_[0].position); }
+        virtual bool          intersects     (Entity* e) const override { return (e->getBounds().intersects(getBounds())); }
+        virtual sf::FloatRect getBounds      ()          const override { return sf::FloatRect(body_[0].position, body_[2].position-body_[0].position); }
         virtual sf::Vector2i  getPosition    ()          const override { return (sf::Vector2i)body_[0].position/80; }
         virtual sf::Vector2f  getRealPosition()          const override { return body_[0].position; }
-
-
-        virtual void  setOpen             (bool)             override {}
-        virtual bool  isOpen              ()         const            { return false; }
-        virtual Item* getItem             ()         const   override { return (Item*)this; }
     };
 
     class Discoverable {
     protected:
-        bool discovered_;
+        sf::String discoveredName_;
+        sf::String discoveredDescription_;
     public:
     /// A virtual destructor
         virtual ~Discoverable() {}

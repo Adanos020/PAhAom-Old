@@ -219,9 +219,9 @@ namespace rr {
         for (auto x : level_[levelNumber_]->getEntities()) {
             if (instanceof<Door, Entity>(x)) {
                 if (player_->intersects(x))
-                    x->setOpen(true);
+                    ((Door*)x)->setOpen(true);
                 else
-                    x->setOpen(false);
+                    ((Door*)x)->setOpen(false);
             }
         }
     }

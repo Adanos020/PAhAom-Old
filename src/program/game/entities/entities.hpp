@@ -20,11 +20,11 @@ namespace rr {
     /// Draws the entity's sprite
         virtual void          draw           (sf::RenderWindow&) = 0;
 
-    /// Sets the entity's position in relation to the actual coordinate system
-        virtual void          setRealPosition(sf::Vector2f pos)  = 0;
-
     /// Sets the entity's position in relation to the grid
         virtual void          setPosition    (sf::Vector2i pos)  = 0;
+
+    /// Sets the entity's position in relation to the actual coordinate system
+        virtual void          setRealPosition(sf::Vector2f pos)  = 0;
 
     /// Tells if this entity collides with another one
         virtual bool          intersects     (Entity*) const     = 0;
@@ -37,10 +37,6 @@ namespace rr {
 
     /// Returns the entity's position in relation to the actual coordinate system
         virtual sf::Vector2f  getRealPosition()        const     = 0;
-
-        virtual void  setOpen                (bool)              = 0;
-        virtual bool  isOpen                 ()        const     = 0;
-        virtual Item* getItem                ()        const     = 0;
     };
 
 }

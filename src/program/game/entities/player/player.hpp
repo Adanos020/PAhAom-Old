@@ -61,29 +61,22 @@ namespace rr {
             RIGHT
         };
 
-    /// Moves the player's character's to a cell in a given direction
-        void          move            (std::vector<std::vector<Level::Cell> >, Direction);
+        virtual void          draw            (sf::RenderWindow&);
+        virtual void          setPosition     (sf::Vector2i)    override;
+        virtual void          setRealPosition (sf::Vector2f)    override;
+        virtual bool          intersects      (Entity* e) const override { return e->getBounds().intersects(getBounds()); }
+        virtual sf::FloatRect getBounds       ()          const override { return body_.getGlobalBounds(); }
+        virtual sf::Vector2i  getPosition     ()          const override { return (sf::Vector2i)body_.getPosition()/80; }
+        virtual sf::Vector2f  getRealPosition ()          const override { return body_.getPosition(); }
 
-    /// Draws the player's character
-        void          draw            (sf::RenderWindow&);
+    /// Moves the player's character's to a cell in a given direction
+        void          move                    (std::vector<std::vector<Level::Cell>>, Direction);
 
     /// Updates the state of the player character
-        void          update          (float timeStep);
+        void          update                  (float timeStep);
 
     /// Returns the player statistics
-        Attrs         getAttributes   ()          const          { return attrs_; }
-
-        void          setPosition     (sf::Vector2i)    override;
-        void          setRealPosition (sf::Vector2f)    override;
-        bool          intersects      (Entity* e) const override { return e->getBounds().intersects(getBounds()); }
-        sf::FloatRect getBounds       ()          const override { return body_.getGlobalBounds(); }
-
-
-        virtual void         setOpen        (bool)   override {}
-        virtual bool         isOpen         () const override { return false; }
-        virtual Item*        getItem        () const override { return nullptr; }
-        virtual sf::Vector2i getPosition    () const override { return (sf::Vector2i)body_.getPosition()/80; }
-        virtual sf::Vector2f getRealPosition() const override { return body_.getPosition(); }
+        Attrs         getAttributes           ()          const          { return attrs_; }
     };
 
 }

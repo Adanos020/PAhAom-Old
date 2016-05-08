@@ -11,7 +11,7 @@
 
 namespace rr {
 
-    class Book : public Discoverable, public Item {
+    class Book : public Item {
     public:
         enum Type {
             CRAFTING,
@@ -28,8 +28,6 @@ namespace rr {
         ~Book();
 
         virtual void draw   (sf::RenderWindow&) override;
-        virtual void update ()                  override;
-        virtual void reveal ()                  override;
 
         void         setPosition(sf::Vector2i)         override;
         void         setRealPosition(sf::Vector2f pos) override;

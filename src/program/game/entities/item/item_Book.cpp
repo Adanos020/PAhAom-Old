@@ -16,19 +16,47 @@ namespace rr {
         type_       = type;
         amount_     = am;
         ID_         = type_+10;
-        discovered_ = false;
         disposable_ = true;
         iconIndex_  = 16;
 
-        if (itemColors[type_] == sf::Color::Red)           name_ = resources.dictionary["item.book.color.red"     ]; else
-        if (itemColors[type_] == sf::Color::Blue)          name_ = resources.dictionary["item.book.color.blue"    ]; else
-        if (itemColors[type_] == sf::Color(32, 32, 0))     name_ = resources.dictionary["item.book.color.brown"   ]; else
-        if (itemColors[type_] == sf::Color::Green)         name_ = resources.dictionary["item.book.color.green"   ]; else
-        if (itemColors[type_] == sf::Color::Cyan)          name_ = resources.dictionary["item.book.color.cyan"    ]; else
-        if (itemColors[type_] == sf::Color(255, 172, 172)) name_ = resources.dictionary["item.book.color.pink"    ]; else
-        if (itemColors[type_] == sf::Color::Magenta)       name_ = resources.dictionary["item.book.color.magenta" ]; else
-        if (itemColors[type_] == sf::Color::Yellow)        name_ = resources.dictionary["item.book.color.yellow"  ]; else
-        if (itemColors[type_] == sf::Color::White)         name_ = resources.dictionary["item.book.color.white"   ];
+        switch (type_) {
+        case CRAFTING:
+            name_        = resources.dictionary["item.book.type.crafting"];
+            description_ = resources.dictionary["item.book.description.crafting"];
+            break;
+        case ALCHEMY:
+            name_        = resources.dictionary["item.book.type.alchemy"];
+            description_ = resources.dictionary["item.book.description.alchemy"];
+            break;
+        case COLD_WEAPON_MASTERY:
+            name_        = resources.dictionary["item.book.type.cold_weapon_mastery"];
+            description_ = resources.dictionary["item.book.description.cold_weapon_mastery"];
+            break;
+        case RANGED_WEAPON_MASTER:
+            name_        = resources.dictionary["item.book.type.ranged_weapon_mastery"];
+            description_ = resources.dictionary["item.book.description.ranged_weapon_mastery"];
+            break;
+        case EAGLE_EYE:
+            name_        = resources.dictionary["item.book.type.eagle_eye"];
+            description_ = resources.dictionary["item.book.description.eagle_eye"];
+            break;
+        case MANA_REGEN:
+            name_        = resources.dictionary["item.book.type.mana_regen"];
+            description_ = resources.dictionary["item.book.description.mana_regen"];
+            break;
+        case HEALTH_REGEN:
+            name_        = resources.dictionary["item.book.type.health_regen"];
+            description_ = resources.dictionary["item.book.description.health_regen"];
+            break;
+        case FASTER_LEARNING:
+            name_        = resources.dictionary["item.book.type.faster_learning"];
+            description_ = resources.dictionary["item.book.description.faster_learning"];
+            break;
+        case SPELLS_BOOK:
+            name_        = resources.dictionary["item.book.type.spells_book"];
+            description_ = resources.dictionary["item.book.description.spells_book"];
+            break;
+        }
 
         body_.resize(8);
         body_.setPrimitiveType(sf::Quads);
@@ -71,8 +99,6 @@ namespace rr {
         rw.draw(body_, &resources.texture.items);
     }
 
-    void Book::update() {}
-
     void Book::setPosition(sf::Vector2i pos) {
         body_[0].position = (sf::Vector2f)pos*80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
@@ -95,10 +121,6 @@ namespace rr {
         body_[5].position = body_[1].position;
         body_[6].position = body_[2].position;
         body_[7].position = body_[3].position;
-    }
-
-    void Book::reveal() {
-        discovered_ = true;
     }
 
 }

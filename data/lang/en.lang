@@ -1,93 +1,320 @@
-gui.button.newgame NEW GAME
-gui.button.resume RESUME
-gui.button.save SAVE
-gui.button.load LOAD
-gui.button.options OPTIONS
-gui.button.help HELP
-gui.button.credits CREDITS
-gui.button.quit QUIT
-gui.button.game GAME
-gui.button.graphical GRAPHICS
-gui.button.sound SOUND
-gui.button.controls CONTROLS
-gui.checkbox.fullscreen FULLSCREEN
-gui.checkbox.vsync VERTICAL SYNCHRONIZATION
-gui.text.resolution RESOLUTION
-gui.text.language LANGUAGE
-gui.text.killurslf Kill yourself.
-gui.text.programming PROGRAMMING
-gui.text.usedlib USED LIBRARY
-gui.text.music MUSIC
-gui.text.effects EFFECTS
-gui.text.mute MUTE
-gui.text.move_up Move up
-gui.text.move_down Move down
-gui.text.move_left Move left
-gui.text.move_right Move right
-gui.text.interact Interact
-gui.text.attack Attack
-gui.text.pickup Pick up
-gui.text.open_inventory Open inventory
-gui.text.open_attributes Open attributes
-gui.text.open_quests Open quest list
-gui.text.open_map Open map
-gui.text.useslot_1 Use slot 1
-gui.text.useslot_2 Use slot 2
-gui.text.useslot_3 Use slot 3
-gui.text.useslot_4 Use slot 4
-gui.text.useslot_5 Use slot 5
-gui.text.press_a_key Press a key...
-gui.window.attributes ATTRIBUTES
-gui.window.inventory INVENTORY
-gui.window.quests QUESTS
-gui.window.game_map MAP
+;-------------GUI-------------;
+gui.button.newgame
+NEW GAME
 
-item.book.color.red Red book
-item.book.color.blue Blue book
-item.book.color.brown Brown book
-item.book.color.green Green book
-item.book.color.cyan Cyan book
-item.book.color.pink Pink book
-item.book.color.magenta Magenta book
-item.book.color.yellow Yellow book
-item.book.color.white White book
-item.coin.gold Gold
-item.coin.silver Silver
-item.coin.bronze Bronze
-item.potion potion
-item.potion.size.small Small
-item.potion.size.medium Medium
-item.potion.size.big Big
-item.potion.effect.healing of healing
-item.potion.effect.magic of magic
-item.potion.effect.strength of strength
-item.potion.effect.dexterity of dexterity
-item.potion.effect.speed of speed
-item.potion.effect.poison of poison
-item.potion.effect.regeneration of regeneration
-item.potion.effect.slowness of slowness
-item.potion.effect.weakness of weakness
-item.potion.color.red red
-item.potion.color.blue blue
-item.potion.color.brown brown
-item.potion.color.green green
-item.potion.color.cyan cyan
-item.potion.color.pink pink
-item.potion.color.magenta magenta
-item.potion.color.yellow yellow
-item.potion.color.white white
+gui.button.resume
+RESUME
 
-player.attributes.health HEALTH
-player.attributes.strength STRENGTH
-player.attributes.dexterity DEXTERITY
-player.attributes.experience EXPERIENCE
-player.attributes.level LEVEL
-player.attributes.skill_points SKILL POINTS
-player.skills.crafting CRAFTING
-player.skills.alchemy ALCHEMY
-player.skills.cold_weapon_mastery COLD WEAPON
-player.skills.ranged_weapon_mastery RANGED WEAPON
-player.skills.better_sight EAGLE EYE
-player.skills.mana_regen MANA REGENERATION
-player.skills.health_regen HEALTH REGENERATION
-player.skills.faster_learn FASTER LEARNING
+gui.button.save
+SAVE
+
+gui.button.load
+LOAD
+
+gui.button.options
+OPTIONS
+
+gui.button.help
+HELP
+
+gui.button.credits
+CREDITS
+
+gui.button.quit
+QUIT
+
+gui.button.game
+GAME
+
+gui.button.graphical
+GRAPHICS
+
+gui.button.sound
+SOUND
+
+gui.button.controls
+CONTROLS
+
+gui.checkbox.fullscreen
+FULLSCREEN
+
+gui.checkbox.vsync
+VERTICAL SYNCHRONIZATION
+
+gui.text.resolution
+RESOLUTION
+
+gui.text.language
+LANGUAGE
+
+gui.text.killurslf
+Kill yourself.
+
+gui.text.programming
+PROGRAMMING
+
+gui.text.usedlib
+USED LIBRARY
+
+gui.text.music
+MUSIC
+
+gui.text.effects
+EFFECTS
+
+gui.text.mute
+MUTE
+
+gui.text.move_up
+Move up
+
+gui.text.move_down
+Move down
+
+gui.text.move_left
+Move left
+
+gui.text.move_right
+Move right
+
+gui.text.interact
+Interact
+
+gui.text.attack
+Attack
+
+gui.text.pickup
+Pick up
+
+gui.text.open_inventory
+Open inventory
+
+gui.text.open_attributes
+Open attributes
+
+gui.text.open_quests
+Open quest list
+
+gui.text.open_map
+Open map
+
+gui.text.useslot_1
+Use slot 1
+
+gui.text.useslot_2
+Use slot 2
+
+gui.text.useslot_3
+Use slot 3
+
+gui.text.useslot_4
+Use slot 4
+
+gui.text.useslot_5
+Use slot 5
+
+gui.text.press_a_key
+Press a key...
+
+gui.window.attributes
+ATTRIBUTES
+
+gui.window.inventory
+INVENTORY
+
+gui.window.quests
+QUESTS
+
+gui.window.game_map
+MAP
+
+;------------ITEMS------------;
+item.book.type.crafting
+"Crafting basics"
+
+item.book.type.alchemy
+"Alchemy basics"
+
+item.book.type.cold_weapon_mastery
+"Swordsmen's book"
+
+item.book.type.ranged_weapon_mastery
+"Sharpshooter's book"
+
+item.book.type.eagle_eye
+"Enhanced sight"
+
+item.book.type.mana_regen
+"The art of meditation p.1 - magic"
+
+item.book.type.health_regen
+"The art of meditation p.2 - health"
+
+item.book.type.faster_learning
+"Quick learning tutorial"
+
+item.book.type.spells_book
+Book of spells
+
+item.book.description.crafting
+Complex tutorial for beginner handymen, which will teach you the basics of producing various items.
+
+item.book.description.alchemy
+Thanks to this book you wil notice the usefulness of all kinds of herbs or ingredients acquired from monsters and you will be able to brew your own potions.
+
+item.book.description.cold_weapon_mastery
+Are you tired of waving your sword like a flail? Are you still getting bitten in fights? In this tutorial you'll meet new, more fancy fighting techniques thanks to which you'll train up in the art of swordplay.
+
+item.book.description.ranged_weapon_mastery
+Shooting with a bow or a crossbow is not easy at all. If you care about refining your technique and accuracy, this book will appear very helpful.
+
+item.book.description.eagle_eye
+Who's there? If you complain about myopia, thanks to this book you will expand your sight area. Literally.
+
+item.book.description.mana_regen
+Clear your mind, take some rest - the meditation techniques included in this book will accelerate your mana regeneration.
+
+item.book.description.health_regen
+This book written by monks from farlands contains techniques allowing you regeneration of wounds.
+
+item.book.description.faster_learning
+Thanks to the techniques of fast reading included in this book you acquire knowledge faster.
+
+item.book.description.spells_book
+Due to the touch of this book you have a crawly feeling in your fingers - it must be a book of spells! But what kind of magic is it kept inside?
+
+item.coin.gold
+Gold
+
+item.coin.silver
+Silver
+
+item.coin.bronze
+Bronze
+
+item.potion.effect.healing
+Potion of healing
+
+item.potion.effect.magic
+Potion of magic
+
+item.potion.effect.strength
+Potion of strength
+
+item.potion.effect.dexterity
+Potion of dexterity
+
+item.potion.effect.speed
+Potion of speed
+
+item.potion.effect.poison
+Poison
+
+item.potion.effect.regeneration
+Potion of regeneration
+
+item.potion.effect.slowness
+Potion of slowness
+
+item.potion.effect.weakness
+Potion of weakness
+
+item.potion.color.red
+Red potion
+
+item.potion.color.blue
+Blue potion
+
+item.potion.color.brown
+Brown potion
+
+item.potion.color.green
+Green potion
+
+item.potion.color.cyan
+Cyan potion
+
+item.potion.color.pink
+Pink potion
+
+item.potion.color.magenta
+Magenta potion
+
+item.potion.color.yellow
+Yellow
+
+item.potion.color.white
+White potion
+
+item.potion.description.unknown
+A colorful bottle - or maybe the drink inside is colorful? Who knows what kind of effect gives drinking this potion?
+
+item.potion.description.healing
+This potion will heal your wounds and generally will do its best to mitigate the effects of encounters with many different opponents.
+
+item.potion.description.magic
+Everyone sometimes feels dry in their throaths - even mages! To quench the desire of throwing lightnings at your enemies just try this potion and regenerate your resources of magical power.
+
+item.potion.description.strength
+If you feel that recently you visit the gym not to frequently and you need to enlarge your muscles a bit - this drink is for you.
+
+item.potion.description.dexterity
+In an adventurer's life there appear some awkward situations. To avoid them, just drink this potion: +x points of dexterity (depending on the size of a bottle).
+
+item.potion.description.speed
+Chasing the trends, thieves or monsters may be difficult. This potion will increase your speed and facilitate the pursuit (or escape).
+
+item.potion.description.poison
+Bleh! Only something that died a long time ago and didn't like to wash up when it was alive would smell like this. If you still have an ability to think, you'd better not drink it and just get rid of it.
+
+item.potion.description.regeneration
+You don't need to hurry up to get fully cured, do you? If you have some patience - this potion is for you!
+
+item.potion.description.slowness
+Another drink which would better not be drunk - except for you want to make the monsters' job easier.
+
+item.potion.description.weakness
+The slump is frustrating - to avoid it it'd be better to throw out this mixture. Consuming it decreases the power of your spells and strokes.
+
+;-------------PLAYER--------------;
+player.attributes.health
+HEALTH
+
+player.attributes.strength
+STRENGTH
+
+player.attributes.dexterity
+DEXTERITY
+
+player.attributes.experience
+EXPERIENCE
+
+player.attributes.level
+LEVEL
+
+player.attributes.skill_points
+SKILL POINTS
+
+player.skills.crafting
+CRAFTING
+
+player.skills.alchemy
+ALCHEMY
+
+player.skills.cold_weapon_mastery
+COLD WEAPON
+
+player.skills.ranged_weapon_mastery
+RANGED WEAPON
+
+player.skills.better_sight
+EAGLE EYE
+
+player.skills.mana_regen
+MANA REGENERATION
+
+player.skills.health_regen
+HEALTH REGENERATION
+
+player.skills.faster_learn
+FASTER LEARNING

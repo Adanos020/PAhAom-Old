@@ -1,93 +1,320 @@
-gui.button.newgame NOWA GRA
-gui.button.resume WZNÓW
-gui.button.save ZAPISZ
-gui.button.load WCZYTAJ
-gui.button.options OPCJE
-gui.button.help POMOC
-gui.button.credits AUTORZY
-gui.button.quit WYJDŹ
-gui.button.game GRA
-gui.button.graphical GRAFIKA
-gui.button.sound DŹWIĘK
-gui.button.controls STEROWANIE
-gui.checkbox.fullscreen PEŁNY EKRAN
-gui.checkbox.vsync SYNCHRONIZACJA PIONOWA
-gui.text.resolution ROZDZIELCZOŚĆ
-gui.text.language JĘZYK
-gui.text.killurslf Zabij się.
-gui.text.programming PROGRAMOWANIE
-gui.text.usedlib UŻYTA BIBLIOTEKA
-gui.text.music MUZYKA
-gui.text.effects EFEKTY
-gui.text.mute WYCISZ
-gui.text.move_up Idź w górę
-gui.text.move_down Idź w dół
-gui.text.move_left Idź w lewo
-gui.text.move_right Idź w prawo
-gui.text.interact Działaj
-gui.text.attack Atakuj
-gui.text.pickup Podnieś
-gui.text.open_inventory Otwórz ekwipunek
-gui.text.open_attributes Otwórz atrybuty
-gui.text.open_quests Otwórz listę zadań
-gui.text.open_map Otwórz mapę
-gui.text.useslot_1 Użyj schowka nr 1
-gui.text.useslot_2 Użyj schowka nr 2
-gui.text.useslot_3 Użyj schowka nr 3
-gui.text.useslot_4 Użyj schowka nr 4
-gui.text.useslot_5 Użyj schowka nr 5
-gui.text.press_a_key Naciśnij klawisz...
-gui.window.attributes ATRYBUTY
-gui.window.inventory EKWIPUNEK
-gui.window.quests ZADANIA
-gui.window.game_map MAPA
+;-------------GUI-------------;
+gui.button.newgame
+NOWA GRA
 
-item.book.color.red Czerwona księga
-item.book.color.blue Niebieska księga
-item.book.color.brown Brązowa księga
-item.book.color.green Zielona księga
-item.book.color.cyan Cyjanowa księga
-item.book.color.pink Różowa księga
-item.book.color.magenta Księga koloru magenta
-item.book.color.yellow Żółta księga
-item.book.color.white Biała księga
-item.coin.gold Złoty
-item.coin.silver Srebrnik
-item.coin.bronze Miedziak
-item.potion mikstura
-item.potion.size.small Mała
-item.potion.size.medium Średnia
-item.potion.size.big Duża
-item.potion.effect.healing lecznicza
-item.potion.effect.magic magiczna
-item.potion.effect.strength siły
-item.potion.effect.dexterity zręczności
-item.potion.effect.speed szybkości
-item.potion.effect.poison zatrucia
-item.potion.effect.regeneration regeneracji
-item.potion.effect.slowness spowolnienia
-item.potion.effect.weakness osłabienia
-item.potion.color.red czerwona
-item.potion.color.blue niebieska
-item.potion.color.brown brązowa
-item.potion.color.green zielona
-item.potion.color.cyan cyjanowa
-item.potion.color.pink różowa
-item.potion.color.magenta magenta
-item.potion.color.yellow żółta
-item.potion.color.white biała
+gui.button.resume
+WZNÓW
 
-player.attributes.health ZDROWIE
-player.attributes.strength SIŁA
-player.attributes.dexterity ZRĘCZNOŚĆ
-player.attributes.experience DOŚWIADCZENIE
-player.attributes.level POZIOM
-player.attributes.skill_points PUNKTY UMIEJĘTNOŚCI
-player.skills.crafting RZEMIEŚLNICTWO
-player.skills.alchemy ALCHEMIA
-player.skills.cold_weapon_mastery BROŃ BIAŁA
-player.skills.ranged_weapon_mastery BROŃ DYSTANSOWA
-player.skills.better_sight SOKOLI WZROK
-player.skills.mana_regen REGENERACJA MANY
-player.skills.health_regen REGENERACJA ZDROWIA
-player.skills.faster_learn SZYBSZA NAUKA
+gui.button.save
+ZAPISZ
+
+gui.button.load
+WCZYTAJ
+
+gui.button.options
+OPCJE
+
+gui.button.help
+POMOC
+
+gui.button.credits
+AUTORZY
+
+gui.button.quit
+WYJDŹ
+
+gui.button.game
+GRA
+
+gui.button.graphical
+GRAFIKA
+
+gui.button.sound
+DŹWIĘK
+
+gui.button.controls
+STEROWANIE
+
+gui.checkbox.fullscreen
+PEŁNY EKRAN
+
+gui.checkbox.vsync
+SYNCHRONIZACJA PIONOWA
+
+gui.text.resolution
+ROZDZIELCZOŚĆ
+
+gui.text.language
+JĘZYK
+
+gui.text.killurslf
+Zabij się.
+
+gui.text.programming
+PROGRAMOWANIE
+
+gui.text.usedlib
+UŻYTA BIBLIOTEKA
+
+gui.text.music
+MUZYKA
+
+gui.text.effects
+EFEKTY
+
+gui.text.mute
+WYCISZ
+
+gui.text.move_up
+Idź w górę
+
+gui.text.move_down
+Idź w dół
+
+gui.text.move_left
+Idź w lewo
+
+gui.text.move_right
+Idź w prawo
+
+gui.text.interact
+Działaj
+
+gui.text.attack
+Atakuj
+
+gui.text.pickup
+Podnieś
+
+gui.text.open_inventory
+Otwórz ekwipunek
+
+gui.text.open_attributes
+Otwórz atrybuty
+
+gui.text.open_quests
+Otwórz listę zadań
+
+gui.text.open_map
+Otwórz mapę
+
+gui.text.useslot_1
+Użyj schowka nr 1
+
+gui.text.useslot_2
+Użyj schowka nr 2
+
+gui.text.useslot_3
+Użyj schowka nr 3
+
+gui.text.useslot_4
+Użyj schowka nr 4
+
+gui.text.useslot_5
+Użyj schowka nr 5
+
+gui.text.press_a_key
+Naciśnij klawisz...
+
+gui.window.attributes
+ATRYBUTY
+
+gui.window.inventory
+EKWIPUNEK
+
+gui.window.quests
+ZADANIA
+
+gui.window.game_map
+MAPA
+
+;---------ITEMS---------;
+item.book.type.crafting
+„Podstawy wytwarzania”
+
+item.book.type.alchemy
+„Podstawy alchemii”
+
+item.book.type.cold_weapon_mastery
+„Księga fechmistrzów”
+
+item.book.type.ranged_weapon_mastery
+„Księga strzeleców”
+
+item.book.type.eagle_eye
+„Widzieć więcej”
+
+item.book.type.mana_regen
+„Sztuka medytacji cz.1 - magia”
+
+item.book.type.health_regen
+„Sztuka medytacji cz.2 - zdrowie”
+
+item.book.type.faster_learning
+„Poradnik szybkiej nauki”
+
+item.book.type.spells_book
+Księga zaklęć
+
+item.book.description.crafting
+Kompleksowy poradnik dla początkujących majsterkowiczów i złotych rączek, który nauczy cię podstaw wytwarzania różnych przedmiotów.
+
+item.book.description.alchemy
+Dzięki tej księdze dostrzeżesz przydatność wszelakich ziółek czy składników pozyskiwanych z potworów i będziesz mógł tworzyć własne mikstury.
+
+item.book.description.cold_weapon_mastery
+Masz dość machania mieczem jak cepem? Ciągle obrywasz w walce? W tym poradniku poznasz nowe, bardziej zaawansowane techniki walki, dzięki którym podszkolisz się w sztuce fechtunku.
+
+item.book.description.ranged_weapon_mastery
+Strzelanie z łuku czy kuszy nie jest wcale banalne. Jeśli zależy ci na dopracowaniu techniki i celności ta książka okaże się bardzo pomocna.
+
+item.book.description.eagle_eye
+Kto tam? Jeśli narzekasz na krótkowzroczność dzięki tej księdze poszerzysz swoje pole widzenia. Dosłownie.
+
+item.book.description.mana_regen
+Oczyść swój umysł i ochłoń - techniki medytacyjne zawarte w tej księdze przyspieszą twoją regenerację many.
+
+item.book.description.health_regen
+Ta napisana przez mnichów z dalekich krain księga zawiera techniki umożliwiające ci regenerację odniesionych ran.
+
+item.book.description.faster_learning
+Dzięki technikom szybkiego czytania zawartych w tej księdze szybciej przyswajasz wiedzę.
+
+item.book.description.spells_book
+Od dotyku tej księgi mrowią cię palce - to musi być księga zaklęć! Pytanie, co za magia kryje się w środku?
+
+item.coin.gold
+Złoty
+
+item.coin.silver
+Srebrnik
+
+item.coin.bronze
+Miedziak
+
+item.potion.effect.healing
+Mikstura lecznicza
+
+item.potion.effect.magic
+Magiczna mikstura
+
+item.potion.effect.strength
+Mikstura siły
+
+item.potion.effect.dexterity
+Mikstura zręczności
+
+item.potion.effect.speed
+Mikstura szybkości
+
+item.potion.effect.poison
+Trucizna
+
+item.potion.effect.regeneration
+Mikstura regeneracji
+
+item.potion.effect.slowness
+Mikstura spowolnienia
+
+item.potion.effect.weakness
+Mikstura osłabienia
+
+item.potion.color.red
+Czerwona mikstura
+
+item.potion.color.blue
+Niebieska mikstura
+
+item.potion.color.brown
+Brązowa mikstura
+
+item.potion.color.green
+Zielona mikstura
+
+item.potion.color.cyan
+Cyjanowa mikstura
+
+item.potion.color.pink
+Różowa mikstura
+
+item.potion.color.magenta
+Mikstura koloru magenta
+
+item.potion.color.yellow
+Żółta mikstura
+
+item.potion.color.white
+Biała mikstura
+
+item.potion.description.unknown
+Kolorowa buteleczka - a może to napój w środku jest kolorowy? Kto może wiedzieć, jaki efekt przyniesie wypicie tej mikstury?
+
+item.potion.description.healing
+Ta mikstura zasklepi twoje rany i generalnie postara się złagodzić skutki starć z najróżniejszymi przeciwnikami.
+
+item.potion.description.magic
+Każdego czasem suszy - magów też! Żeby ugasić pragnienie ciskania we wrogów błyskawicami spożyj tę miksturę i zregeneruj swoje zasoby mocy magicznej.
+
+item.potion.description.strength
+Jeśli czujesz, że ostatnimi czasy zbyt rzadko odwiedzasz siłownię a błyskawicznie potrzebujesz przypakować - ten napój jest dla ciebie.
+
+item.potion.description.dexterity
+Niektóre sytuacje w życiu poszukiwacza przygód są trochę niezręczne. Aby ich uniknąć spożyj ten napój. +x punktów zręczności (w zależności od wielkości butelki).
+
+item.potion.description.speed
+Ciężko jest gonić za trendami, złodziejami czy potworami - ta mikstura zwiększy twoją szybkość i ułatwi pościg lub ucieczkę.
+
+item.potion.description.poison
+Fuj! Tak pachnie tylko coś, co zdechło dawno temu i nie lubiło kąpać się za życia. Nie pij tego, o ile masz trochę oleju w głowie - lepiej się tego pozbądź!
+
+item.potion.description.regeneration
+Nie spieszy ci się do pełni zdrowia? Jeśli masz trochę cierpliwości ta mikstura jest dla ciebie!
+
+item.potion.description.slowness
+Kolejny napój, którego lepiej nie pić - chyba, że chcesz dać fory goniącym cię potworom.
+
+item.potion.description.weakness
+Spadek formy jest frustrujący - aby go uniknąć najlepiej wyrzuć tę miksturę. Spożycie zmniejsza siłę twoich zaklęć i ciosów.
+
+;-----------PLAYER-----------;
+player.attributes.health
+ZDROWIE
+
+player.attributes.strength
+SIŁA
+
+player.attributes.dexterity
+ZRĘCZNOŚĆ
+
+player.attributes.experience
+DOŚWIADCZENIE
+
+player.attributes.level
+POZIOM
+
+player.attributes.skill_points
+PUNKTY NAUKI
+
+player.skills.crafting
+RZEMIEŚLNICTWO
+
+player.skills.alchemy
+ALCHEMIA
+
+player.skills.cold_weapon_mastery
+BROŃ BIAŁA
+
+player.skills.ranged_weapon_mastery
+BROŃ DYSTANSOWA
+
+player.skills.better_sight
+SOKOLI WZROK
+
+player.skills.mana_regen
+REGENERACJA MANY
+
+player.skills.health_regen
+REGENERACJA ZDROWIA
+
+player.skills.faster_learn
+SZYBKA NAUKA

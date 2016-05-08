@@ -17,8 +17,7 @@ namespace rr {
          RangedWeapon();
         ~RangedWeapon();
 
-        virtual void draw      (sf::RenderWindow&) override;
-        virtual void update    ()                  override;
+        virtual void draw (sf::RenderWindow&) override;
     };
 
 }

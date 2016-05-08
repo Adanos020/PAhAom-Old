@@ -148,10 +148,10 @@ namespace rr {
         void          setPosition         (sf::Vector2f)      override;
         void          setSize             (sf::Vector2f)      override;
 
-    /// Method changing the icon index
+    /// Changes the icon index
         void          setIconIndex        (unsigned index);
 
-    /// Method changing the texture
+    /// Changes the texture
         void          setTexture          (sf::Texture&);
 
     /// Method scaling the body's size

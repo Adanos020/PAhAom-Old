@@ -441,9 +441,9 @@ namespace rr {
         for (int i=0; i<rand()%5; i++) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
-                // just doing the same checking as in the item generating section
+             // just doing the same checking as in the item generating section
                 if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                    // here we choose randomly whether the chest has to be the special (probability = 5%) or the regular one (p = 95%)
+                 // here we choose randomly whether the chest has to be the special (probability = 5%) or the regular one (p = 95%)
                     addEntity(new Chest((rand()%20) ? Chest::REGULAR : Chest::SPECIAL,
                                         getItemFromID(100+(rand()%3)*10+rand()%9, 1)), sf::Vector2i(x, y));
                     tiles_[x][y] = OCCUPIED;
@@ -451,13 +451,13 @@ namespace rr {
                 }
             }
         }
-     // here we generate the Coin
+     // here we generate the coins
         for (int i=0; i<rand()%15; i++) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
-                // same story here
+             // same story here
                 if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                    // here we choose randomly the type of a coin
+                 // here we choose randomly the type of a coin
                     addEntity(getItemFromID(rand()%6+1, rand()%100+1), sf::Vector2i(x, y));
                     tiles_[x][y] = OCCUPIED;
                     break;
@@ -469,7 +469,7 @@ namespace rr {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                    // here we choose randomly the type of a book
+                 // here we choose randomly the type of a book
                     addEntity(getItemFromID(rand()%9+10, 1), sf::Vector2i(x, y));
                     tiles_[x][y] = OCCUPIED;
                     break;

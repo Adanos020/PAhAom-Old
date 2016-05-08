@@ -17,26 +17,58 @@ namespace rr {
         effect_     = e;
         size_       = s;
         disposable_ = true;
-        discovered_ = false;
         ID_         = 100 + size_*10 + effect_;
         iconIndex_  = size_+1;
 
-        name_ = "";
-        switch (size_) {
-            case SMALL : name_ += resources.dictionary["item.potion.size.small" ]+" "; break;
-            case MEDIUM: name_ += resources.dictionary["item.potion.size.medium"]+" "; break;
-            case BIG   : name_ += resources.dictionary["item.potion.size.big"   ]+" "; break;
+             if (itemColors[effect_] == sf::Color::Red)           name_ = resources.dictionary["item.potion.color.red"     ]+" ";
+        else if (itemColors[effect_] == sf::Color::Blue)          name_ = resources.dictionary["item.potion.color.blue"    ]+" ";
+        else if (itemColors[effect_] == sf::Color(32, 32, 0))     name_ = resources.dictionary["item.potion.color.brown"   ]+" ";
+        else if (itemColors[effect_] == sf::Color::Green)         name_ = resources.dictionary["item.potion.color.green"   ]+" ";
+        else if (itemColors[effect_] == sf::Color::Cyan)          name_ = resources.dictionary["item.potion.color.cyan"    ]+" ";
+        else if (itemColors[effect_] == sf::Color(255, 172, 172)) name_ = resources.dictionary["item.potion.color.pink"    ]+" ";
+        else if (itemColors[effect_] == sf::Color::Magenta)       name_ = resources.dictionary["item.potion.color.magenta" ]+" ";
+        else if (itemColors[effect_] == sf::Color::Yellow)        name_ = resources.dictionary["item.potion.color.yellow"  ]+" ";
+        else if (itemColors[effect_] == sf::Color::White)         name_ = resources.dictionary["item.potion.color.white"   ]+" ";
+        description_ = resources.dictionary["item.potion.descrtiption.unknown"];
+
+        switch (effect_) {
+        case HEALING:
+            discoveredName_        = resources.dictionary["item.potion.effect.healing"     ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.healing"];
+            break;
+        case MAGIC:
+            discoveredName_        = resources.dictionary["item.potion.effect.magic"     ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.magic"];
+            break;
+        case STRENGTH:
+            discoveredName_        = resources.dictionary["item.potion.effect.strength"     ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.strength"];
+            break;
+        case DEXTERITY:
+            discoveredName_        = resources.dictionary["item.potion.effect.dexterity"     ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.dexterity"];
+            break;
+        case SPEED:
+            discoveredName_        = resources.dictionary["item.potion.effect.speed"     ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.speed"];
+            break;
+        case REGENERATION:
+            discoveredName_        = resources.dictionary["item.potion.effect.regeneration"     ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.regeneration"];
+            break;
+        case POISON:
+            discoveredName_        = resources.dictionary["item.potion.effect.poison"     ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.poison"];
+            break;
+        case SLOWNESS:
+            discoveredName_        = resources.dictionary["item.potion.effect.slowness"     ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.slowness"];
+            break;
+        case WEAKNESS:
+            discoveredName_        = resources.dictionary["item.potion.effect.weakness"     ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.weakness"];
+            break;
         }
-        if (itemColors[effect_] == sf::Color::Red)           name_ += resources.dictionary["item.potion.color.red"     ]+" ";
-        if (itemColors[effect_] == sf::Color::Blue)          name_ += resources.dictionary["item.potion.color.blue"    ]+" ";
-        if (itemColors[effect_] == sf::Color(32, 32, 0))     name_ += resources.dictionary["item.potion.color.brown"   ]+" ";
-        if (itemColors[effect_] == sf::Color::Green)         name_ += resources.dictionary["item.potion.color.green"   ]+" ";
-        if (itemColors[effect_] == sf::Color::Cyan)          name_ += resources.dictionary["item.potion.color.cyan"    ]+" ";
-        if (itemColors[effect_] == sf::Color(255, 172, 172)) name_ += resources.dictionary["item.potion.color.pink"    ]+" ";
-        if (itemColors[effect_] == sf::Color::Magenta)       name_ += resources.dictionary["item.potion.color.magenta" ]+" ";
-        if (itemColors[effect_] == sf::Color::Yellow)        name_ += resources.dictionary["item.potion.color.yellow"  ]+" ";
-        if (itemColors[effect_] == sf::Color::White)         name_ += resources.dictionary["item.potion.color.white"   ]+" ";
-        name_ += resources.dictionary["item.potion"];
 
         int tu = iconIndex_%16;
         int tv = iconIndex_/16;
@@ -75,14 +107,13 @@ namespace rr {
     Potion::~Potion() {}
 
     void Potion::reveal() {
-        discovered_ = true;
+        name_        = discoveredName_;
+        description_ = discoveredDescription_;
     }
 
     void Potion::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
     }
-
-    void Potion::update() {}
 
     void Potion::setPosition(sf::Vector2i pos) {
         body_[0].position = (sf::Vector2f)pos*80.f;

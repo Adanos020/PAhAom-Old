@@ -45,6 +45,4 @@ namespace rr {
         rw.draw(body_, &resources.texture.items);
     }
 
-    void Coin::update() {}
-
 }

@@ -18,18 +18,16 @@ namespace rr {
          Door(bool lock);
         ~Door();
 
-        void          setOpen        (bool);
-        bool          isOpen         ()          const            { return open_; }
+        void          setOpen                (bool);
+        bool          isOpen                 ()          const            { return open_; }
 
-        void          setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }
-        void          setRealPosition(sf::Vector2f pos)  override { body_.setPosition(pos); }
-        void          draw           (sf::RenderWindow&) override;
-        bool          intersects     (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
-        sf::FloatRect getBounds      ()          const   override { return body_.getGlobalBounds(); }
-
-        virtual Item* getItem        ()          const   override { return nullptr; }
-        virtual sf::Vector2i  getPosition    ()  const   override { return (sf::Vector2i)body_.getPosition()/80; }
-        virtual sf::Vector2f  getRealPosition()  const   override { return body_.getPosition(); }
+        virtual void          draw           (sf::RenderWindow&) override;
+        virtual void          setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }
+        virtual void          setRealPosition(sf::Vector2f pos)  override { body_.setPosition(pos); }
+        virtual bool          intersects     (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
+        virtual sf::FloatRect getBounds      ()          const   override { return body_.getGlobalBounds(); }
+        virtual sf::Vector2i  getPosition    ()          const   override { return (sf::Vector2i)body_.getPosition()/80; }
+        virtual sf::Vector2f  getRealPosition()          const   override { return body_.getPosition(); }
     };
 
 }

@@ -36,11 +36,8 @@ namespace rr {
                 std::string word;
                 std::string translation;
 
-                idict >> word;
-                if (word[0] == ';' || word == "")
-                    std::getline(idict, word);
-                else {
-                    idict.seekg(idict.tellg()+1l);
+                std::getline(idict, word);
+                if (word[0] != ';' && word != "") {
                     std::getline(idict, translation);
                     dictionary[word] = utf8ToUtf32(translation);
                 }
