@@ -290,8 +290,8 @@ namespace rr {
     private:
         sf::Text text_;
     public:
-         Text(sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White);
-         Text(sf::Vector2f position, sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White);
+         Text(sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Bold);
+         Text(sf::Vector2f position, sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Bold);
         ~Text();
 
         void          setPosition        (sf::Vector2f)            override;
@@ -300,16 +300,19 @@ namespace rr {
         void          wrap               (float width);
 
     /// Sets the text's character size
-        void          setCharacterSize   (unsigned);
+        void          setCharacterSize   (unsigned c)                       { text_.setCharacterSize(c); }
 
     /// Sets the text's color
-        void          setColor           (sf::Color);
+        void          setColor           (sf::Color c)                      { text_.setColor(c); }
 
     /// Sets the text's string
-        void          setString          (sf::String);
+        void          setString          (sf::String s)                     { text_.setString(s); }
 
     /// Sets the text's font
-        void          setFont            (sf::Font);
+        void          setFont            (sf::Font f)                       { text_.setFont(f); }
+
+    /// Sets the text's style
+        void          setStyle           (sf::Text::Style s)                { text_.setStyle(s); }
 
         sf::Vector2f  getSize            ()                  const override { return sf::Vector2f(text_.getGlobalBounds().width, text_.getGlobalBounds().height); }
         sf::Vector2f  getPosition        ()                  const override { return text_.getPosition(); }

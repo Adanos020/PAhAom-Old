@@ -44,6 +44,7 @@ namespace rr {
 
             *wInve_ += new Window("", sf::Vector2f(390, 40), sf::Vector2f(0, 0));
                 *wInfo += new Text(sf::Vector2f(5, 20), "", resources.font.Unifont, 20);
+                component(wInfo, Text, 0)->setStyle(sf::Text::Regular);
 
 #undef component
 #undef wInfo
