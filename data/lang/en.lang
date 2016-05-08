@@ -160,7 +160,7 @@ item.book.description.crafting
 Complex tutorial for beginner handymen, which will teach you the basics of producing various items.
 
 item.book.description.alchemy
-Thanks to this book you wil notice the usefulness of all kinds of herbs or ingredients acquired from monsters and you will be able to brew your own potions.
+Thanks to this book you will notice the usefulness of all kinds of herbs or ingredients acquired from monsters and you will be able to brew your own potions.
 
 item.book.description.cold_weapon_mastery
 Are you tired of waving your sword like a flail? Are you still getting bitten in fights? In this tutorial you'll meet new, more fancy fighting techniques thanks to which you'll train up in the art of swordplay.
@@ -241,7 +241,7 @@ item.potion.color.magenta
 Magenta potion
 
 item.potion.color.yellow
-Yellow
+Yellow potion
 
 item.potion.color.white
 White potion

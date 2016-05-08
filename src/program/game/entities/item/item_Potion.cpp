@@ -29,7 +29,7 @@ namespace rr {
         else if (itemColors[effect_] == sf::Color::Magenta)       name_ = resources.dictionary["item.potion.color.magenta" ]+" ";
         else if (itemColors[effect_] == sf::Color::Yellow)        name_ = resources.dictionary["item.potion.color.yellow"  ]+" ";
         else if (itemColors[effect_] == sf::Color::White)         name_ = resources.dictionary["item.potion.color.white"   ]+" ";
-        description_ = resources.dictionary["item.potion.descrtiption.unknown"];
+        description_ = resources.dictionary["item.potion.description.unknown"];
 
         switch (effect_) {
         case HEALING:

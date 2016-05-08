@@ -22,6 +22,7 @@ namespace rr {
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
 #define component(w, c, i) w->getComponent<c>(i)
+#define wInfo component(wInve_, Window, 0)
 
         wInve_ = new Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f)(settings.graphics.resolution/2u-sf::Vector2u(382, 225)));
             for (int i=0; i<4; i++) {
@@ -29,17 +30,23 @@ namespace rr {
                     *wInve_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10+j*95, 30+i*95));
                 }
             }
+
             *wInve_ += new Image (sf::Vector2f(0  , 390), resources.texture.items, 16, 33);
             *wInve_ += new Image (sf::Vector2f(150, 390), resources.texture.items, 16, 34);
             *wInve_ += new Image (sf::Vector2f(300, 390), resources.texture.items, 16, 35);
+
             *wInve_ += new Text  (sf::Vector2f(70 , 415), "GOLD", resources.font.Pixel, 30);
             *wInve_ += new Text  (sf::Vector2f(220, 415), "SILV", resources.font.Pixel, 30);
             *wInve_ += new Text  (sf::Vector2f(370, 415), "BRON", resources.font.Pixel, 30);
+
             *wInve_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
-            component(wInve_, Button, 0)->setPosition(sf::Vector2f(wInve_->getPosition().x+wInve_->getSize().x-component(wInve_, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(wInve_, Button, 0)->getSize().y-5));
-        wInve_->setVisible(false);
+                component(wInve_, Button, 0)->setPosition(sf::Vector2f(wInve_->getPosition().x+wInve_->getSize().x-component(wInve_, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(wInve_, Button, 0)->getSize().y-5));
+
+            *wInve_ += new Window("", sf::Vector2f(390, 40), sf::Vector2f(0, 0));
+                *wInfo += new Text(sf::Vector2f(5, 20), "", resources.font.Unifont, 20);
 
 #undef component
+#undef wInfo
 
     }
 
@@ -71,18 +78,42 @@ namespace rr {
     void Inventory::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
 
 #define component(w, c, i) w->getComponent<c>(i)
+#define wInfo component(wInve_, Window, 0)
 
         if (wInve_->isVisible()) {
             if (component(wInve_, Button, 0)->isPressed(rw, e))
                 g->pause(false);
+
+            bool slotPointed = false;
             for (int i=0; i<32; i++) {
+                if (component(wInve_, Slot, i)->containsMouseCursor(rw) && !component(wInve_, Slot, i)->isEmpty()) {
+                    wInfo->setParentComponent(component(wInve_, Slot, i));
+                    slotPointed = true;
+                }
                 if (component(wInve_, Slot, i)->isPressed(rw, e)) {
 
                 }
             }
+            if (slotPointed) {
+                component(wInfo, Text, 0)->setString(((Slot*)wInfo->getParentComponent())->getItem()->getDescription());
+                component(wInfo, Text, 0)->wrap(380.f);
+                wInfo->setTitle(((Slot*)wInfo->getParentComponent())->getItem()->getName());
+                wInfo->setSize(component(wInfo, Text, 0)->getSize()+sf::Vector2f(10, 30));
+                wInfo->setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)+sf::Vector2f(5, 5));
+
+                if (wInfo->getPosition().x+wInfo->getSize().x+5 > (float)rw.getSize().x)
+                    wInfo->setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)-sf::Vector2f(wInfo->getPosition().x+wInfo->getSize().x-(float)rw.getSize().x, -5));
+                if (wInfo->getPosition().y+wInfo->getSize().y+5 > (float)rw.getSize().y)
+                    wInfo->setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)-sf::Vector2f(-5, wInfo->getPosition().y+wInfo->getSize().y-(float)rw.getSize().y));
+
+                wInfo->setVisible(true);
+            }
+            else
+                wInfo->setVisible(false);
         }
 
 #undef component
+#undef wInfo
 
     }
 

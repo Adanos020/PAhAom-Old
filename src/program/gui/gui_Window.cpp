@@ -28,6 +28,8 @@ namespace rr {
 
     Window::~Window() {
         delete header_;
+        for (auto x : components_)
+            delete x;
         components_.clear();
     }
 
@@ -36,6 +38,14 @@ namespace rr {
             c->setPosition(sf::Vector2f(body_.getPosition().x+c->getPosition().x, body_.getPosition().y+c->getPosition().y));
         c->setParentComponent(this);
         components_.push_back(c);
+    }
+
+    void Window::setPosition(sf::Vector2f pos) {
+        for (auto x : components_)
+            x->setPosition(pos+x->getPosition()-body_.getPosition());
+
+        body_.setPosition(pos);
+        header_->setPosition(sf::Vector2f(pos.x+5, pos.y));
     }
 
     void Window::setVisible(bool b) {

@@ -31,6 +31,35 @@ namespace rr {
         text_.setPosition(pos);
     }
 
+    void Text::wrap(float width) {
+        sf::String text       = text_.getString();
+        unsigned offset       = 0;
+        bool first            = true;
+        unsigned wordBegining = 0;
+
+        for (unsigned pos=0; pos < text.getSize(); pos++) {
+            if (text[pos] == '\n'){
+                offset = 0;
+                first  = true;
+                continue;
+            } else if (text[pos] == ' ') {
+                wordBegining = pos;
+                first        = false;
+            }
+
+            offset += text_.getFont()->getGlyph(text[pos], text_.getCharacterSize(), text_.getStyle() == sf::Text::Bold).advance;
+
+            if (!first && offset > width) {
+                pos       = wordBegining;
+                text[pos] = '\n';
+                first     = true;
+                offset    = 0;
+            }
+        }
+
+        text_.setString(text);
+    }
+
     void Text::setCharacterSize(unsigned chsize) {
         text_.setCharacterSize(chsize);
     }

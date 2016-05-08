@@ -296,6 +296,9 @@ namespace rr {
 
         void          setPosition        (sf::Vector2f)            override;
 
+    /// Wraps the text
+        void          wrap               (float width);
+
     /// Sets the text's character size
         void          setCharacterSize   (unsigned);
 
@@ -331,8 +334,8 @@ namespace rr {
     class Window : public Component {
     private:
         sf::RectangleShape      body_;
-        std::vector<Component*> components_;
         Text*                   header_;
+        std::vector<Component*> components_;
         bool                    visible_;
     public:
          Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
@@ -344,7 +347,10 @@ namespace rr {
     /// Sets the internal window visible or not, depending on the value of the given argument
         void         setVisible        (bool);
 
-        void         setPosition       (sf::Vector2f pos)         override { body_.setPosition(pos); }
+    /// Sets the internal window's title
+        void         setTitle          (sf::String title)                  { header_->setString(title); }
+
+        void         setPosition       (sf::Vector2f)             override;
         void         setSize           (sf::Vector2f siz)         override { body_.setSize(siz); }
         void         draw              (sf::RenderWindow&)        override;
 
