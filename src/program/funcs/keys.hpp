@@ -216,7 +216,8 @@ inline sf::Keyboard::Key getKeyCode(sf::String keyName) { // I would use a switc
         if (keyName == sf::String("F11"))       return sf::Keyboard::F11;
         if (keyName == sf::String("F12"))       return sf::Keyboard::F12;
         if (keyName == sf::String("Pause"))     return sf::Keyboard::Pause;
-                                                return sf::Keyboard::Unknown;
+
+        return sf::Keyboard::Unknown;
     }
 
 }

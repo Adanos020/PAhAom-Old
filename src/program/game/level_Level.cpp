@@ -454,40 +454,37 @@ namespace rr {
      // here we generate the coins
         for (int i=0; i<rand()%15; i++) {
             while (true) {
-                int type = rand()%3+1;
-                int size = rand()%2; // 0 = small, 1 = big
+                int type = rand()%50;
+                int csize; // 0 - big, ≥1 - small
                 int x=rand()%size_.x, y=rand()%size_.y;
-                bool done = false;
-                switch (type) {
-                case 0: // GOLD
-                 // same story here
+
+                if (type < 5) { // GOLD
+                    csize = rand()%10;
                     if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
                      // here we choose randomly the type of a coin
-                        addEntity(getItemFromID((size)?6:1, (size)?1:rand()%3+1), sf::Vector2i(x, y));
+                        addEntity(getItemFromID((csize)?1:4, (csize)?rand()%3+1:1), sf::Vector2i(x, y));
                         tiles_[x][y] = OCCUPIED;
-                        done = true;
+                        break;
                     }
-                    break;
-                case 1: // SILVER
-                 // same story here
-                    if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                     // here we choose randomly the type of a coin
-                        addEntity(getItemFromID((size)?5:2, (size)?rand()%2+1:rand()%20+1), sf::Vector2i(x, y));
-                        tiles_[x][y] = OCCUPIED;
-                        done = true;
-                    }
-                    break;
-                case 2: // BRONZE
-                 // same story here
-                    if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                     // here we choose randomly the type of a coin
-                        addEntity(getItemFromID((size)?4:3, (size)?rand()%5+1:rand()%45+5), sf::Vector2i(x, y));
-                        tiles_[x][y] = OCCUPIED;
-                        done = true;
-                    }
-                    break;
                 }
-                if (done) break;
+                else if (type < 15) { // SILVER
+                    csize = rand()%3;
+                    if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
+                     // here we choose randomly the type of a coin
+                        addEntity(getItemFromID((csize)?2:5, (csize)?rand()%20+1:rand()%3+1), sf::Vector2i(x, y));
+                        tiles_[x][y] = OCCUPIED;
+                        break;
+                    }
+                }
+                else { // BRONZE
+                    csize = rand()%2;
+                    if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
+                     // here we choose randomly the type of a coin
+                        addEntity(getItemFromID((csize)?3:6, (csize)?rand()%45+5:rand()%5+1), sf::Vector2i(x, y));
+                        tiles_[x][y] = OCCUPIED;
+                        break;
+                    }
+                }
             }
         }
      // here we generate the books

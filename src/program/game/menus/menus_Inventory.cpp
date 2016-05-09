@@ -148,11 +148,11 @@ namespace rr {
                 bronze_ -= 50;
                 silver_++;
             }
-            while (silver_ >= 20) {
-                silver_ -= 20;
+            while (silver_ >= 50) {
+                silver_ -= 50;
                 gold_++;
             }
-         // and in the end we can just
+         // and in the end we can just:
             return true;
         }
 
