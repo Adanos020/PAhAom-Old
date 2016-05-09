@@ -11,8 +11,6 @@
 
 namespace rr {
 
-//class Item;
-
 	class Coin : public Item {
     public:
         enum Type {

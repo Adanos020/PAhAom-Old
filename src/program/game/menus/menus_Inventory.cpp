@@ -144,12 +144,12 @@ namespace rr {
                     gold_ += item->getAmount();
             }
          // then we do the simple calculations: 1 gold = 100 silver, 1 silver = 100 bronze
-            while (bronze_ >= 100) {
-                bronze_ -= 100;
+            while (bronze_ >= 50) {
+                bronze_ -= 50;
                 silver_++;
             }
-            while (silver_ >= 100) {
-                silver_ -= 100;
+            while (silver_ >= 20) {
+                silver_ -= 20;
                 gold_++;
             }
          // and in the end we can just
