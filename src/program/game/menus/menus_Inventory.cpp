@@ -42,7 +42,7 @@ namespace rr {
             *wInve_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
                 component(wInve_, Button, 0)->setPosition(sf::Vector2f(wInve_->getPosition().x+wInve_->getSize().x-component(wInve_, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(wInve_, Button, 0)->getSize().y-5));
 
-            *wInve_ += new Window("", sf::Vector2f(390, 40), sf::Vector2f(0, 0));
+            *wInve_ += new Window("", sf::Vector2f(410, 40), sf::Vector2f(0, 0));
                 *wInfo += new Text(sf::Vector2f(5, 20), "", resources.font.Unifont, 20);
                 component(wInfo, Text, 0)->setStyle(sf::Text::Regular);
 
@@ -97,7 +97,7 @@ namespace rr {
             }
             if (slotPointed) {
                 component(wInfo, Text, 0)->setString(((Slot*)wInfo->getParentComponent())->getItem()->getDescription());
-                component(wInfo, Text, 0)->wrap(380.f);
+                component(wInfo, Text, 0)->wrap(400.f);
                 wInfo->setTitle(((Slot*)wInfo->getParentComponent())->getItem()->getName());
                 wInfo->setSize(component(wInfo, Text, 0)->getSize()+sf::Vector2f(10, 30));
                 wInfo->setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)+sf::Vector2f(5, 5));

@@ -8,21 +8,21 @@
 
 namespace rr {
 
-    Text::Text(sf::String str, sf::Font& font, unsigned chsize, sf::Color c, sf::Text::Style s) :Component() {
+    Text::Text(sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style) :Component() {
         text_.setFont         (font);
         text_.setCharacterSize(chsize);
         text_.setString       (str);
-        text_.setColor        (c);
-        text_.setStyle        (s);
+        text_.setColor        (color);
+        text_.setStyle        (style);
     }
 
-    Text::Text(sf::Vector2f pos, sf::String str, sf::Font& font, unsigned chsize, sf::Color c, sf::Text::Style s) :Component() {
+    Text::Text(sf::Vector2f pos, sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style) :Component() {
         text_.setFont         (font);
         text_.setPosition     (pos);
         text_.setCharacterSize(chsize);
         text_.setString       (str);
-        text_.setColor        (c);
-        text_.setStyle        (s);
+        text_.setColor        (color);
+        text_.setStyle        (style);
     }
 
     Text::~Text() {}
@@ -32,17 +32,18 @@ namespace rr {
     }
 
     void Text::wrap(float width) {
-        sf::String text       = text_.getString();
-        unsigned offset       = 0;
-        bool first            = true;
-        unsigned wordBegining = 0;
+        sf::String text         = text_.getString();
+        unsigned   offset       = 0;
+        bool       first        = true;
+        unsigned   wordBegining = 0;
 
-        for (unsigned pos=0; pos < text.getSize(); pos++) {
+        for (unsigned pos=0; pos<text.getSize(); pos++) {
             if (text[pos] == '\n'){
                 offset = 0;
                 first  = true;
                 continue;
-            } else if (text[pos] == ' ') {
+            }
+            else if (text[pos] == ' ') {
                 wordBegining = pos;
                 first        = false;
             }
