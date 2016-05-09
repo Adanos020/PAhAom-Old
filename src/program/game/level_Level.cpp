@@ -454,14 +454,40 @@ namespace rr {
      // here we generate the coins
         for (int i=0; i<rand()%15; i++) {
             while (true) {
+                int type = rand()%3+1;
+                int size = rand()%2; // 0 = small, 1 = big
                 int x=rand()%size_.x, y=rand()%size_.y;
-             // same story here
-                if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                 // here we choose randomly the type of a coin
-                    addEntity(getItemFromID(rand()%6+1, rand()%100+1), sf::Vector2i(x, y));
-                    tiles_[x][y] = OCCUPIED;
+                bool done = false;
+                switch (type) {
+                case 0: // GOLD
+                 // same story here
+                    if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
+                     // here we choose randomly the type of a coin
+                        addEntity(getItemFromID((size)?6:1, (size)?1:rand()%3+1), sf::Vector2i(x, y));
+                        tiles_[x][y] = OCCUPIED;
+                        done = true;
+                    }
+                    break;
+                case 1: // SILVER
+                 // same story here
+                    if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
+                     // here we choose randomly the type of a coin
+                        addEntity(getItemFromID((size)?5:2, (size)?rand()%2+1:rand()%20+1), sf::Vector2i(x, y));
+                        tiles_[x][y] = OCCUPIED;
+                        done = true;
+                    }
+                    break;
+                case 2: // BRONZE
+                 // same story here
+                    if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
+                     // here we choose randomly the type of a coin
+                        addEntity(getItemFromID((size)?4:3, (size)?rand()%5+1:rand()%45+5), sf::Vector2i(x, y));
+                        tiles_[x][y] = OCCUPIED;
+                        done = true;
+                    }
                     break;
                 }
+                if (done) break;
             }
         }
      // here we generate the books

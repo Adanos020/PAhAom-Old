@@ -38,13 +38,13 @@ namespace rr {
         attrs_.nextLevel   = 100.f;
         attrs_.level       =   0.f;
 
-        attrs_.crafting              = false;
+        attrs_.crafting              = true;
         attrs_.alchemy               = false;
         attrs_.cold_weapon_mastery   = false;
         attrs_.ranged_weapon_mastery = false;
-        attrs_.eagle_eye             = false;
+        attrs_.eagle_eye             = true;
         attrs_.mana_regeneration     = false;
-        attrs_.health_regeneration   = false;
+        attrs_.health_regeneration   = true;
         attrs_.faster_learning       = false;
 
         moving_ = false;
