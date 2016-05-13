@@ -80,9 +80,11 @@ namespace rr {
 
                     *wGrap += new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60));
                         component(wGrap, Switch, 0)->addOption("1280x720");
+                        component(wGrap, Switch, 0)->addOption("1366x768");
                         component(wGrap, Switch, 0)->addOption("1440x900");
                         component(wGrap, Switch, 0)->addOption("1600x900");
                         component(wGrap, Switch, 0)->addOption("1920x1080");
+                        component(wGrap, Switch, 0)->addOption("4096x2160");
                         component(wGrap, Switch, 0)->setCurrentOption(std::to_wstring(settings.graphics.resolution.x)+L"x"+std::to_wstring(settings.graphics.resolution.y));
 
                     *wGrap += new Checkbox(sf::Vector2f(15, 170), resources.dictionary["gui.checkbox.fullscreen"], 15);

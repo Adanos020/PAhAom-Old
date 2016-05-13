@@ -27,9 +27,9 @@ namespace rr {
          Book(Type, int am, sf::Vector2i pos);
         ~Book();
 
-        virtual void draw   (sf::RenderWindow&) override;
+        virtual void draw           (sf::RenderWindow&) override;
 
-        void         setPosition(sf::Vector2i)         override;
+        void         setPosition    (sf::Vector2i)         override;
         void         setRealPosition(sf::Vector2f pos) override;
     };
 

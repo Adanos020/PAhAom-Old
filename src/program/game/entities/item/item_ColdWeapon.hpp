@@ -13,11 +13,35 @@ namespace rr {
 
     class ColdWeapon : public Item {
     private:
+        float strengthRequired_;
+        float damageDealt_;
+        int   level_;
     public:
-         ColdWeapon();
+        enum Type {
+            KNIFE,
+            DAGGER,
+            SWORD,
+            MACE,
+            AXE,
+            SPEAR,
+            HALBERD,
+            LANCE,
+            HAMMER,
+            RUNIC_SWORD,
+            SERRATED_SWORD
+        } type_;
+
+         ColdWeapon(Type, int amount);
         ~ColdWeapon();
 
-        virtual void draw (sf::RenderWindow&) override;
+        virtual void draw  (sf::RenderWindow&) override;
+
+        void  enhance      ();
+        void  enchant      ();
+
+        float getStrength  () const;
+        float getDamageDelt() const;
+        int   getLevel     () const;
     };
 
 }
