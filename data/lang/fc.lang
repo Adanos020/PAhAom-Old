@@ -276,6 +276,42 @@ item.potion.description.slowness
 item.potion.description.weakness
 .ctäeq dopmbi dpyctpy'ehubi 'ect .avbi to yh'nqhohy' hañlet'eñ teh mnqctypeh vbixiy' .ctox'biy'e w'nleh tbonx čaqlehy' n y'ecyb čmh'eñwa
 
+item.coldweapon.name.knife
+hyx'
+
+item.coldweapon.name.dagger
+wtbilet
+
+item.coldweapon.name.sword
+m'ey
+
+item.coldweapon.name.serrated_sword
+čohbqobahbi m'ey
+
+item.coldweapon.name.mace
+bylaba
+
+item.coldweapon.name.axe
+totyp
+
+item.coldweapon.name.double_axe
+tozbyñhbi totyp
+
+item.coldweapon.name.spear
+blÿh'r
+
+item.coldweapon.name.halberd
+xalabapä
+
+item.coldweapon.name.lance
+lahua
+
+item.coldweapon.name.pique
+tnqa
+
+item.coldweapon.name.hammer
+mlot
+
 ;-------------PLAYER--------------;
 player.attributes.health
 ČAPOB'E

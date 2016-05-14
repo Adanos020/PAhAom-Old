@@ -19,8 +19,6 @@ namespace rr {
         sf::VertexArray body_;
         sf::String      name_;
         sf::String      description_;
-        sf::String      effects_;
-        sf::String      requirements_;
         bool            equipable_;
         bool            disposable_;
         int             ID_;

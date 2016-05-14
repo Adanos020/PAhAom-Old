@@ -461,7 +461,6 @@ namespace rr {
                 if (type < 5) { // GOLD
                     csize = rand()%10;
                     if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                     // here we choose randomly the type of a coin
                         addEntity(getItemFromID((csize)?1:4, (csize)?rand()%3+1:1), sf::Vector2i(x, y));
                         tiles_[x][y] = OCCUPIED;
                         break;
@@ -470,7 +469,6 @@ namespace rr {
                 else if (type < 15) { // SILVER
                     csize = rand()%3;
                     if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                     // here we choose randomly the type of a coin
                         addEntity(getItemFromID((csize)?2:5, (csize)?rand()%20+1:rand()%3+1), sf::Vector2i(x, y));
                         tiles_[x][y] = OCCUPIED;
                         break;
@@ -479,7 +477,6 @@ namespace rr {
                 else { // BRONZE
                     csize = rand()%2;
                     if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                     // here we choose randomly the type of a coin
                         addEntity(getItemFromID((csize)?3:6, (csize)?rand()%45+5:rand()%5+1), sf::Vector2i(x, y));
                         tiles_[x][y] = OCCUPIED;
                         break;
@@ -492,8 +489,20 @@ namespace rr {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                 // here we choose randomly the type of a book
+                 // here we choose randomly the type of book
                     addEntity(getItemFromID(rand()%9+10, 1), sf::Vector2i(x, y));
+                    tiles_[x][y] = OCCUPIED;
+                    break;
+                }
+            }
+        }
+     // here we generate the cold weapon
+        for (int i=0; i<rand()%5; i++) {
+            while (true) {
+                int x=rand()%size_.x, y=rand()%size_.y;
+                if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
+                 // here we choose randomly the type of cold weapon
+                    addEntity(getItemFromID(rand()%11+20, 1), sf::Vector2i(x, y));
                     tiles_[x][y] = OCCUPIED;
                     break;
                 }

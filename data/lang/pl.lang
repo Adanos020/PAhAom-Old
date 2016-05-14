@@ -276,6 +276,42 @@ Kolejny napój, którego lepiej nie pić - chyba, że chcesz dać fory goniącym
 item.potion.description.weakness
 Spadek formy jest frustrujący - aby go uniknąć najlepiej wyrzuć tę miksturę. Spożycie zmniejsza siłę twoich zaklęć i ciosów.
 
+item.coldweapon.name.knife
+Nóż
+
+item.coldweapon.name.dagger
+Sztylet
+
+item.coldweapon.name.sword
+Miecz
+
+item.coldweapon.name.serrated_sword
+Ząbkowany miecz
+
+item.coldweapon.name.mace
+Buława
+
+item.coldweapon.name.axe
+Topór
+
+item.coldweapon.name.double_axe
+Podwójny topór
+
+item.coldweapon.name.spear
+Włócznia
+
+item.coldweapon.name.halberd
+Halabarda
+
+item.coldweapon.name.lance
+Lanca
+
+item.coldweapon.name.pique
+Pika
+
+item.coldweapon.name.hammer
+Młot
+
 ;-----------PLAYER-----------;
 player.attributes.health
 ZDROWIE

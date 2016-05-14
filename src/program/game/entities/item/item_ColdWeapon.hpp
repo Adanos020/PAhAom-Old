@@ -15,33 +15,38 @@ namespace rr {
     private:
         float strengthRequired_;
         float damageDealt_;
+        float speed_;
+        float accuracy_;
         int   level_;
     public:
         enum Type {
             KNIFE,
             DAGGER,
             SWORD,
+            SERRATED_SWORD,
             MACE,
             AXE,
+            DOUBLE_AXE,
             SPEAR,
             HALBERD,
             LANCE,
-            HAMMER,
-            RUNIC_SWORD,
-            SERRATED_SWORD
+            PIQUE,
+            HAMMER
         } type_;
 
-         ColdWeapon(Type, int amount);
-        ~ColdWeapon();
+         ColdWeapon(Type, int amount, sf::Vector2i pos);
+        ~ColdWeapon() {}
 
         virtual void draw  (sf::RenderWindow&) override;
 
         void  enhance      ();
         void  enchant      ();
 
-        float getStrength  () const;
-        float getDamageDelt() const;
-        int   getLevel     () const;
+        float getStrength  () const { return strengthRequired_; }
+        float getDamageDelt() const { return damageDealt_; }
+        float getSpeed     () const { return speed_; }
+        float getAccuracy  () const { return accuracy_; }
+        int   getLevel     () const { return level_; }
     };
 
 }

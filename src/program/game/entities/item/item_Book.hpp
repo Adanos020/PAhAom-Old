@@ -29,8 +29,8 @@ namespace rr {
 
         virtual void draw           (sf::RenderWindow&) override;
 
-        void         setPosition    (sf::Vector2i)         override;
-        void         setRealPosition(sf::Vector2f pos) override;
+        void         setPosition    (sf::Vector2i)      override;
+        void         setRealPosition(sf::Vector2f pos)  override;
     };
 
 }

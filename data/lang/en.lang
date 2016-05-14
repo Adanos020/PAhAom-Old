@@ -247,7 +247,7 @@ item.potion.color.white
 White potion
 
 item.potion.description.unknown
-A colorful bottle - or maybe the drink inside is colorful? Who knows what kind of effect gives drinking this potion?
+A colorful bottle - or maybe it's the drink inside? Who knows what kind of effect gives drinking this potion?
 
 item.potion.description.healing
 This potion will heal your wounds and generally will do its best to mitigate the effects of encounters with many different opponents.
@@ -275,6 +275,42 @@ Another drink which would better not be drunk - except for you want to make the 
 
 item.potion.description.weakness
 The slump is frustrating - to avoid it it'd be better to throw out this mixture. Consuming it decreases the power of your spells and strokes.
+
+item.coldweapon.name.knife
+Knife
+
+item.coldweapon.name.dagger
+Dagger
+
+item.coldweapon.name.sword
+Sword
+
+item.coldweapon.name.serrated_sword
+Serrated sword
+
+item.coldweapon.name.mace
+Mace
+
+item.coldweapon.name.axe
+Axe
+
+item.coldweapon.name.double_axe
+Double axe
+
+item.coldweapon.name.spear
+Spear
+
+item.coldweapon.name.halberd
+Halberd
+
+item.coldweapon.name.lance
+Lance
+
+item.coldweapon.name.pique
+Pique
+
+item.coldweapon.name.hammer
+Hammer
 
 ;-------------PLAYER--------------;
 player.attributes.health
