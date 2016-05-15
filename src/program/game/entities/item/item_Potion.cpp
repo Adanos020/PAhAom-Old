@@ -16,7 +16,9 @@ namespace rr {
         amount_     = am;
         effect_     = e;
         size_       = s;
+        equipable_  = false;
         disposable_ = true;
+        stackable_  = true;
         ID_         = 100 + size_*10 + effect_;
         iconIndex_  = size_+1;
 

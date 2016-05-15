@@ -40,14 +40,15 @@ namespace rr {
         case  21: return new ColdWeapon(ColdWeapon::DAGGER                                , amount, sf::Vector2i(0, 0));
         case  22: return new ColdWeapon(ColdWeapon::SWORD                                 , amount, sf::Vector2i(0, 0));
         case  23: return new ColdWeapon(ColdWeapon::SERRATED_SWORD                        , amount, sf::Vector2i(0, 0));
-        case  24: return new ColdWeapon(ColdWeapon::MACE                                  , amount, sf::Vector2i(0, 0));
-        case  25: return new ColdWeapon(ColdWeapon::AXE                                   , amount, sf::Vector2i(0, 0));
-        case  26: return new ColdWeapon(ColdWeapon::DOUBLE_AXE                            , amount, sf::Vector2i(0, 0));
+        case  24: return new ColdWeapon(ColdWeapon::AXE                                   , amount, sf::Vector2i(0, 0));
+        case  25: return new ColdWeapon(ColdWeapon::DOUBLE_AXE                            , amount, sf::Vector2i(0, 0));
+        case  26: return new ColdWeapon(ColdWeapon::HALBERD                               , amount, sf::Vector2i(0, 0));
         case  27: return new ColdWeapon(ColdWeapon::SPEAR                                 , amount, sf::Vector2i(0, 0));
-        case  28: return new ColdWeapon(ColdWeapon::HALBERD                               , amount, sf::Vector2i(0, 0));
-        case  29: return new ColdWeapon(ColdWeapon::LANCE                                 , amount, sf::Vector2i(0, 0));
-        case  30: return new ColdWeapon(ColdWeapon::PIQUE                                 , amount, sf::Vector2i(0, 0));
-        case  31: return new ColdWeapon(ColdWeapon::HAMMER                                , amount, sf::Vector2i(0, 0));
+        case  28: return new ColdWeapon(ColdWeapon::LANCE                                 , amount, sf::Vector2i(0, 0));
+        case  29: return new ColdWeapon(ColdWeapon::PIQUE                                 , amount, sf::Vector2i(0, 0));
+        case  30: return new ColdWeapon(ColdWeapon::LONG_STICK                            , amount, sf::Vector2i(0, 0));
+        case  31: return new ColdWeapon(ColdWeapon::CLUB                                  , amount, sf::Vector2i(0, 0));
+        case  32: return new ColdWeapon(ColdWeapon::HAMMER                                , amount, sf::Vector2i(0, 0));
 
         /* POTIONS */
         case 100: return new Potion    (Potion::Effect::HEALING     , Potion::Size::SMALL , amount, sf::Vector2i(0, 0));

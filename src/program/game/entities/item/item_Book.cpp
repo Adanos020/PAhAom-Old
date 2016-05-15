@@ -16,7 +16,9 @@ namespace rr {
         type_       = type;
         amount_     = am;
         ID_         = type_+10;
+        equipable_  = false;
         disposable_ = true;
+        stackable_  = false;
         iconIndex_  = 16;
 
         switch (type_) {

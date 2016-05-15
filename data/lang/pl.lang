@@ -53,6 +53,9 @@ Zabij się.
 gui.text.programming
 PROGRAMOWANIE
 
+gui.text.literary_support
+OPISY, DIALOGI, ITP.
+
 gui.text.usedlib
 UŻYTA BIBLIOTEKA
 
@@ -277,7 +280,7 @@ item.potion.description.weakness
 Spadek formy jest frustrujący - aby go uniknąć najlepiej wyrzuć tę miksturę. Spożycie zmniejsza siłę twoich zaklęć i ciosów.
 
 item.coldweapon.name.knife
-Nóż
+Nóż kuchenny
 
 item.coldweapon.name.dagger
 Sztylet
@@ -286,19 +289,19 @@ item.coldweapon.name.sword
 Miecz
 
 item.coldweapon.name.serrated_sword
-Ząbkowany miecz
+Piłomiecz
 
-item.coldweapon.name.mace
-Buława
+item.coldweapon.name.club
+Maczuga Herkulesa
 
 item.coldweapon.name.axe
-Topór
+Topór Ankajosa
 
 item.coldweapon.name.double_axe
-Podwójny topór
+Pięść trolla
 
 item.coldweapon.name.spear
-Włócznia
+Włócznia Aresa
 
 item.coldweapon.name.halberd
 Halabarda
@@ -307,10 +310,67 @@ item.coldweapon.name.lance
 Lanca
 
 item.coldweapon.name.pique
-Pika
+Pika bojowa
+
+item.coldweapon.name.long_stick
+Długi kostur
 
 item.coldweapon.name.hammer
-Młot
+Kamienny młot
+
+item.coldweapon.name.runic_sword
+Miecz runiczny
+
+item.coldweapon.description.knife
+Częściej stanowi bardzo użyteczne, wszechstronne narzędzie, niż prawdziwą broń, ale można go wykorzystać i w tym celu.
+
+item.coldweapon.description.dagger
+Dłuższy od noża, broń skrytobójców i rzezimieszków, idealna do wykonywania tzw. "cichej roboty" czy walki w wąskich uliczkach.
+
+item.coldweapon.description.sword
+Do tej kategorii można zaliczyć broń różnej długości, ale charakteryzuje je najczęściej proste ostrze i rękojeść z jelcem ułatwiającym parowanie. Miecz był często symbolem statusu wojownika i oznaczał wysoką pozycję.
+
+item.coldweapon.description.serrated_sword
+Oryginalny wynalazek, którego skuteczność będziesz miał okazję sprawdzić. Równie fantastyczny co niektóre bestie, z którymi przyjdzie ci się mierzyć.
+
+item.coldweapon.description.club
+Jaka maczuga jest, każdy widzi. Jej przeznaczeniem jest uderzać, a przecież uderzenie obuchem w głowę może ogłuszyć - legendarny twórca tej maczugi zaś dał słowo, że ta w ogłuszaniu nie ma sobie równych.
+
+item.coldweapon.description.axe
+Topór ten pierwszy raz znaleziono w okolicach truchła ogromnego dzika, ale fakt że na ostrzu nie znać było śladów krwi pozwala sądzić, że poprzedni właściciel nieco przecenił swoje zdolności rzucania we wrogów taką bronią.
+
+item.coldweapon.description.double_axe
+Ten obureczny topór o dwóch ostrzach jest przerażającą, potężną bronią, którą w pełni wykorzysta tylko najsilniejszy wojownik. Zdecydowanie zasłużył na swoją nazwę.
+
+item.coldweapon.description.spear
+Jedna z najstarszych broni świata, jednak niech o jej skuteczności poświadczy fakt, że wciąż jest popularna nie tylko jako broń masowo używana przez ubogie oddziały. Tę włócznię pobłogosławił sam Bóg Wojny, by na jego chwałę uderzała celnie i mocno.
+
+item.coldweapon.description.halberd
+Ta broń przypomina krzyżówkę włóczni i topora, łącząc zalety ich obu. Popularna jako broń miejskich milicji, dzięki swej budowie może stanowić groźne narzędzie w rękach zdolnego wojownika.
+
+item.coldweapon.description.lance
+Broń drzewcowa kojarzona z dosiadającym koni rycerstwem, wykorzystywana do łamania szyków przeciwnika podczas szarży kawalerii.
+
+item.coldweapon.description.pique
+Dłuższa od włóczni, najlepiej sprawdza się w zwartym szyku piechoty jako broń defensywna. Styl walki pikinierów nawiązuje do starożytnej taktyki hoplitów i falangitów.
+
+item.coldweapon.description.long_stick
+Długie laski tego typu kojarzone są najczęściej z wędrownymi magami czy pielgrzymami, a dzięki swej długości i wszechstronności pozwalają na trzymanie przeciwnika na dystans.
+
+item.coldweapon.description.hammer
+Kamień jest ciężki, młot też. Kamienny młot musi być wobec tego diabelnie ciężką i powolną bronią, którą posługuje się chyba tylko ktoś o nieludzkiej sile.
+
+item.coldweapon.description.runic_sword
+Ten doskonale wykuty i wyważony miecz posiada miejsce na magiczną runę, która zapewni mu dodatkowe, specjalne właściwości. Nawet bez niej jest szybką i cenioną bronią.
+
+item.coldweapon.strength_required
+Wymagana siła: 
+
+item.coldweapon.damage_dealt
+Maksymalne obrażenia: 
+
+item.coldweapon.level
+Poziom ulepszenia: 
 
 ;-----------PLAYER-----------;
 player.attributes.health

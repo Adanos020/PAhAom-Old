@@ -12,31 +12,138 @@ extern rr::Resources resources;
 namespace rr {
 
     ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos) {
-        type_      = type;
-        amount_    = amount;
-        equipable_ = true;
-        ID_        = 20 + type_;
+        type_       = type;
+        amount_     = amount;
+        equipable_  = true;
+        disposable_ = false;
+        stackable_  = false;
+        ID_         = 20 + type_;
+        level_      = 0;
 
         switch (type_) {
-            case KNIFE         : damageDealt_ =  5; speed_ = 10; accuracy_ =  4; name_ = resources.dictionary["item.coldweapon.name.knife"         ]; iconIndex_ =  4; break;
-            case DAGGER        : damageDealt_ =  7; speed_ =  8; accuracy_ =  5; name_ = resources.dictionary["item.coldweapon.name.dagger"        ]; iconIndex_ =  5; break;
-            case SWORD         : damageDealt_ = 10; speed_ =  7; accuracy_ =  5; name_ = resources.dictionary["item.coldweapon.name.sword"         ]; iconIndex_ =  6; break;
-            case SERRATED_SWORD: damageDealt_ = 19; speed_ =  7; accuracy_ =  8; name_ = resources.dictionary["item.coldweapon.name.serrated_sword"]; iconIndex_ =  7; break;
-            case MACE          : damageDealt_ = 12; speed_ =  6; accuracy_ =  7; name_ = resources.dictionary["item.coldweapon.name.mace"          ]; iconIndex_ = 54; break;
-            case AXE           : damageDealt_ = 15; speed_ =  7; accuracy_ =  5; name_ = resources.dictionary["item.coldweapon.name.axe"           ]; iconIndex_ = 20; break;
-            case DOUBLE_AXE    : damageDealt_ = 15; speed_ =  6; accuracy_ =  5; name_ = resources.dictionary["item.coldweapon.name.double_axe"    ]; iconIndex_ = 21; break;
-            case SPEAR         : damageDealt_ = 12; speed_ =  6; accuracy_ =  4; name_ = resources.dictionary["item.coldweapon.name.spear"         ]; iconIndex_ = 36; break;
-            case HALBERD       : damageDealt_ = 16; speed_ =  4; accuracy_ =  5; name_ = resources.dictionary["item.coldweapon.name.halberd"       ]; iconIndex_ = 22; break;
-            case LANCE         : damageDealt_ = 14; speed_ =  4; accuracy_ =  6; name_ = resources.dictionary["item.coldweapon.name.lance"         ]; iconIndex_ = 38; break;
-            case PIQUE         : damageDealt_ =  9; speed_ =  7; accuracy_ =  7; name_ = resources.dictionary["item.coldweapon.name.pique"         ]; iconIndex_ = 52; break;
-            case HAMMER        : damageDealt_ = 17; speed_ =  7; accuracy_ = 10; name_ = resources.dictionary["item.coldweapon.name.hammer"        ]; iconIndex_ = 55; break;
+        case KNIFE:
+            damageDealt_      = 10;
+            strengthRequired_ =  5;
+            speed_            = 10;
+            accuracy_         =  4;
+            name_             = resources.dictionary["item.coldweapon.name.knife"       ];
+            description_      = resources.dictionary["item.coldweapon.description.knife"];
+            iconIndex_        =  4;
+            break;
+        case DAGGER:
+            damageDealt_      = 15;
+            strengthRequired_ =  5;
+            speed_            =  8;
+            accuracy_         =  5;
+            name_             = resources.dictionary["item.coldweapon.name.dagger"       ];
+            description_      = resources.dictionary["item.coldweapon.description.dagger"];
+            iconIndex_        =  5;
+            break;
+        case SWORD:
+            damageDealt_      = 30;
+            strengthRequired_ = 30;
+            speed_            =  7;
+            accuracy_         =  5;
+            name_             = resources.dictionary["item.coldweapon.name.sword"       ];
+            description_      = resources.dictionary["item.coldweapon.description.sword"];
+            iconIndex_        =  6;
+            break;
+        case SERRATED_SWORD:
+            damageDealt_      = 50;
+            strengthRequired_ = 60;
+            speed_            =  7;
+            accuracy_         =  8;
+            name_             = resources.dictionary["item.coldweapon.name.serrated_sword"       ];
+            description_      = resources.dictionary["item.coldweapon.description.serrated_sword"];
+            iconIndex_        =  7;
+            break;
+        case AXE:
+            damageDealt_      = 60;
+            strengthRequired_ = 70;
+            speed_            =  7;
+            accuracy_         =  5;
+            name_             = resources.dictionary["item.coldweapon.name.axe"       ];
+            description_      = resources.dictionary["item.coldweapon.description.axe"];
+            iconIndex_        = 20;
+            break;
+        case DOUBLE_AXE:
+            damageDealt_      =  90;
+            strengthRequired_ = 100;
+            speed_            =   6;
+            accuracy_         =   5;
+            name_             = resources.dictionary["item.coldweapon.name.double_axe"       ];
+            description_      = resources.dictionary["item.coldweapon.description.double_axe"];
+            iconIndex_        = 21;
+            break;
+        case HALBERD:
+            damageDealt_      = 60;
+            strengthRequired_ = 70;
+            speed_            =  4;
+            accuracy_         =  5;
+            name_             = resources.dictionary["item.coldweapon.name.halberd"       ];
+            description_      = resources.dictionary["item.coldweapon.description.halberd"];
+            iconIndex_        = 22;
+            break;
+        case SPEAR:
+            damageDealt_      = 30;
+            strengthRequired_ = 50;
+            speed_            =  6;
+            accuracy_         =  4;
+            name_             = resources.dictionary["item.coldweapon.name.spear"       ];
+            description_      = resources.dictionary["item.coldweapon.description.spear"];
+            iconIndex_        = 23;
+            break;
+        case LANCE:
+            damageDealt_      = 50;
+            strengthRequired_ = 60;
+            speed_            =  4;
+            accuracy_         =  6;
+            name_             = resources.dictionary["item.coldweapon.name.lance"       ];
+            description_      = resources.dictionary["item.coldweapon.description.lance"];
+            iconIndex_        = 24;
+            break;
+        case PIQUE:
+            damageDealt_      = 20;
+            strengthRequired_ = 25;
+            speed_            =  7;
+            accuracy_         =  7;
+            name_             = resources.dictionary["item.coldweapon.name.pique"       ];
+            description_      = resources.dictionary["item.coldweapon.description.pique"];
+            iconIndex_        = 36;
+            break;
+        case LONG_STICK:
+            damageDealt_      = 15;
+            strengthRequired_ = 20;
+            speed_            =  8;
+            accuracy_         =  7;
+            name_             = resources.dictionary["item.coldweapon.name.long_stick"       ];
+            description_      = resources.dictionary["item.coldweapon.description.long_stick"];
+            iconIndex_        = 37;
+            break;
+        case CLUB:
+            damageDealt_      = 40;
+            strengthRequired_ = 50;
+            speed_            =  6;
+            accuracy_         =  7;
+            name_             = resources.dictionary["item.coldweapon.name.club"       ];
+            description_      = resources.dictionary["item.coldweapon.description.club"];
+            iconIndex_        = 38;
+            break;
+        case HAMMER:
+            damageDealt_      = 70;
+            strengthRequired_ = 80;
+            speed_            =  7;
+            accuracy_         = 10;
+            name_             = resources.dictionary["item.coldweapon.name.hammer"       ];
+            description_      = resources.dictionary["item.coldweapon.description.hammer"];
+            iconIndex_        = 39;
+            break;
         }
-        description_ = "";
 
         body_.resize(4);
         body_.setPrimitiveType(sf::Quads);
 
-        body_[0].position = (sf::Vector2f)pos*80.f;
+        body_[0].position = (sf::Vector2f)pos  *80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
         body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
@@ -55,11 +162,21 @@ namespace rr {
     }
 
     void ColdWeapon::enhance() {
-
+        level_            ++;
+        speed_            ++;
+        accuracy_         ++;
+        damageDealt_      += 5;
+        strengthRequired_ -= 5;
     }
 
     void ColdWeapon::enchant() {
 
+    }
+
+    sf::String ColdWeapon::getDescription() const {
+        return description_ +              "\n"+resources.dictionary["item.coldweapon.strength_required"]+std::to_string((int)strengthRequired_)
+                            +              "\n"+resources.dictionary["item.coldweapon.damage_dealt"     ]+std::to_string((int)damageDealt_)
+                            + ((level_!=0)?"\n"+resources.dictionary["item.coldweapon.level"            ]+std::to_string((int)level_):"");
     }
 
 }

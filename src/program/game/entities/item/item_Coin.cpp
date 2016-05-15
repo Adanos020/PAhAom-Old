@@ -15,6 +15,9 @@ namespace rr {
         amount_    = am;
         type_      = t;
         size_      = s;
+        equipable_  = false;
+        disposable_ = false;
+        stackable_  = true;
         ID_        = 3*size_ + type_ + 1;
         iconIndex_ = type_ + (size_+2)*16 + 1;
 

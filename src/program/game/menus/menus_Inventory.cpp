@@ -156,10 +156,12 @@ namespace rr {
             return true;
         }
 
-     // then we check if any of the slots already contains the item we want to add
-        for (int it=0; it<32; it++) {
-            if (!slot(it)->isEmpty() && slot(it)->getItem()->getID() == item->getID()) {
-                return slot(it)->addItem(item->getID(), item->getAmount());
+     // if the item we want to add is stackable then we check if any of the slots already contains it
+        if (item->isStackable()) {
+            for (int it=0; it<32; it++) {
+                if (!slot(it)->isEmpty() && slot(it)->getItem()->getID() == item->getID()) {
+                    return slot(it)->addItem(item->getID(), item->getAmount());
+                }
             }
         }
 

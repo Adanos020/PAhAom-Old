@@ -21,6 +21,7 @@ namespace rr {
         sf::String      description_;
         bool            equipable_;
         bool            disposable_;
+        bool            stackable_;
         int             ID_;
         int             amount_;
         unsigned        iconIndex_;
@@ -29,31 +30,34 @@ namespace rr {
         virtual ~Item() {}
 
     /// Changes the amount
-        void               setAmount      (int x)                     { amount_ = x; }
+        virtual void               setAmount      (int x)                     { amount_ = x; }
 
     /// Returns the item's ID
-        int                getID          ()                          { return ID_; }
+        virtual int                getID          () const                    { return ID_; }
 
     /// Returns the amount of this item
-        int                getAmount      ()                          { return amount_; }
+        virtual int                getAmount      () const                    { return amount_; }
 
-    /// Method telling if the item is disposable
-        bool               isDisposable   ()                          { return disposable_; }
+    /// Tells if the item is disposable
+        virtual bool               isDisposable   () const                    { return disposable_; }
 
-    /// Method telling if the item is equipable
-        bool               isEquipable    ()                          { return equipable_; }
+    /// Tells if the item is stackable
+        virtual bool               isStackable    () const                    { return stackable_; }
+
+    /// Tells if the item is equipable
+        virtual bool               isEquipable    () const                    { return equipable_; }
 
     /// Returns the sprite of this item
-        sf::VertexArray    getBody        ()                          { return body_; }
+        virtual sf::VertexArray    getBody        () const                    { return body_; }
 
     /// Returns the name of this item
-        sf::String         getName        ()                          { return name_; }
+        virtual sf::String         getName        () const                    { return name_; }
 
     /// Returns the description of this item
-        sf::String         getDescription ()                          { return description_; }
+        virtual sf::String         getDescription () const                    { return description_; }
 
     /// Returns the texture's icon index
-        unsigned           getIconIndex   ()                          { return iconIndex_; }
+        virtual unsigned           getIconIndex   () const                    { return iconIndex_; }
 
 
         virtual void       setRealPosition(sf::Vector2f pos) override { body_[0].position = (sf::Vector2f)pos;

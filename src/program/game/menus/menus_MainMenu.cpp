@@ -197,8 +197,8 @@ namespace rr {
 
 #undef wHelp
 
-            wMenu_->addComponent(new Window(resources.dictionary["gui.button.credits"], sf::Vector2f(375, 300),
-                                           sf::Vector2f(settings.graphics.resolution.x-400, settings.graphics.resolution.y/2-150)), false);
+            wMenu_->addComponent(new Window(resources.dictionary["gui.button.credits"], sf::Vector2f(440, 330),
+                                           sf::Vector2f(settings.graphics.resolution.x-465, settings.graphics.resolution.y/2-165)), false);
 
 #define wCred component(wMenu_, Window, 2)
 
@@ -208,8 +208,11 @@ namespace rr {
                 *wCred += new Text(sf::Vector2f(20,  80), resources.dictionary["gui.button.graphical"], resources.font.Unifont, 30);
                 *wCred += new Text(sf::Vector2f( 0, 110), "\tJan Lewandowski", resources.font.Unifont, 25, sf::Color::Yellow);
 
-                *wCred += new Text(sf::Vector2f(20, 140), resources.dictionary["gui.text.usedlib"], resources.font.Unifont, 30);
-                *wCred += new Text(sf::Vector2f( 0, 170), "\tSFML 2.3.2", resources.font.Unifont, 25, sf::Color::Yellow);
+                *wCred += new Text(sf::Vector2f(20, 140), resources.dictionary["gui.text.literary_support"], resources.font.Unifont, 30);
+                *wCred += new Text(sf::Vector2f( 0, 170), "\tDominik 'Marco' Otmianowski", resources.font.Unifont, 25, sf::Color::Yellow);
+
+                *wCred += new Text(sf::Vector2f(20, 200), resources.dictionary["gui.text.usedlib"], resources.font.Unifont, 30);
+                *wCred += new Text(sf::Vector2f( 0, 230), "\tSFML 2.3.2", resources.font.Unifont, 25, sf::Color::Yellow);
 
                 *wCred += new Button(sf::Vector2f(5, 225), resources.dictionary["gui.button.quit"], 30);
                     component(wCred, Button, 0)->setPosition(sf::Vector2f(wCred->getPosition().x+wCred->getSize().x/2-component(wCred, Button, 0)->getSize().x/2,

@@ -53,6 +53,9 @@ gui.text.killurslf
 gui.text.programming
 TPOTPAMOBAH'E
 
+gui.text.literary_support
+OTNCBI, A'RLOTN, NTT.
+
 gui.text.usedlib
 YX'BITA BNBL'ETEQA
 
@@ -277,7 +280,7 @@ item.potion.description.weakness
 .ctäeq dopmbi dpyctpy'ehubi 'ect .avbi to yh'nqhohy' hañlet'eñ teh mnqctypeh vbixiy' .ctox'biy'e w'nleh tbonx čaqlehy' n y'ecyb čmh'eñwa
 
 item.coldweapon.name.knife
-hyx'
+hyx' qyxehhbi
 
 item.coldweapon.name.dagger
 wtbilet
@@ -286,19 +289,19 @@ item.coldweapon.name.sword
 m'ey
 
 item.coldweapon.name.serrated_sword
-čohbqobahbi m'ey
+tnlom'ey
 
-item.coldweapon.name.mace
-bylaba
+item.coldweapon.name.club
+maÿta Herqulesa
 
 item.coldweapon.name.axe
-totyp
+totyp Anqa'osa
 
 item.coldweapon.name.double_axe
-tozbyñhbi totyp
+t'ehw'y' tpola
 
 item.coldweapon.name.spear
-blÿh'r
+blÿh'r Aresa
 
 item.coldweapon.name.halberd
 xalabapä
@@ -307,10 +310,64 @@ item.coldweapon.name.lance
 lahua
 
 item.coldweapon.name.pique
-tnqa
+tnqa bo'eba
 
 item.coldweapon.name.hammer
-mlot
+qam'ehhbi mlot
+
+item.coldweapon.name.runic_sword
+pyh'nyhbi m'ey
+
+item.coldweapon.description.knife
+.yehw'y'eñ bapuo yx'biteyhe n bwextpohhe haxiehy'e h'nx' tpaby'nboh vpoh' ctahobn, ale n b tbim uely to vbiqoxibictay' mox'ha
+
+item.coldweapon.description.dagger
+.alyx'wbi oa hox'a, vpoh' cqvbitobyñuyb n xieč'nm'ewqyb, naealha ao vbiqohbibah'r tčb. «y'nxeñ pobotbi» ybi balqn b bohcqnx ylnyqax
+
+item.coldweapon.description.sword
+.ao teñ qatetop'n čalnybiy' vpoh' pyx'heñ alytow'y'n mox'ha, ale tpocte octxie n pehqo'ew'y' č 'eluem ylatb'r'ehubim tapobah'e 'e xapaqtevbičy'e .m'ey cbimbolem ctatycy bo'ebh'nqa yehcto vbil n vbicoqoh točbiu'eh očhayal
+
+item.coldweapon.description.serrated_sword
+.ovbitnhalhbi vbihalačeq qtypeto cqyteyhow'y' oqač'eh ctpaby'ny' m'rl behy'ew .pybh'e dahtactbiyhbi uo h'eqtype bect'e č qtyvbimn y'n w'eh m'exibiy' w'eh txibiñy'e
+
+item.coldweapon.description.club
+.'rqa maÿta 'ect, qax'abi bny'n .'eñ txiečhayeh'em yaexiay' 'ect, a txiey'ex' yaexieh'e obyxem b tlobeh otlywbiy' mox'e .letehtaphbi tbypua teñ maÿtn čaw' clobo äl x'e ta b otlywah'y cob'e pybhbix h'e ma
+
+item.coldweapon.description.axe
+.totyp teh b oqolnuax tpyxla otpomheto y'nqa ibwbi pač čhaleč'eho, ale daqt x'e ha octxiy w'läyb qvbn čhay' h'e vbilo cohy'ny' točbala, x'e totxieah'n blaw'y'ny'el cbo'e čaolhow'y'n xiyuah'r be vpotyb taqoh vpoh'eh h'euo txieueh'nl
+
+item.coldweapon.description.double_axe
+.teh zbypehyhbi totyp o zbyx octxiax txiepax'a'ehuoh n totehx'hoh vpoh'eh 'ect, qtypoh tbilqo hañw'nlh'eñvbi bo'ebh'nq b telh'n vbiqoxibicta
+
+item.coldweapon.description.spear
+.iha č hañctapwbix vpoh'n w'b'rta, 'eahaq h'ex o 'eñ cqyteyhow'y'n daqt tow'b'räybi x'e by'ehx' totylapha 'ect - h'e tbilqo 'rqo vpoh' macobo yx'bibaha txieč ybot'e oay'rlbi .teh blÿh'eh cam Byt Boñhbi toblotoclabnl, vbi ha 'eto xbaleh uelh'e n mouho yaexiala
+
+item.coldweapon.description.halberd
+.ta vpoh' qxibixybqeh blÿh'n n totopa txibitomnha - lohyohu čaletbi nx oby .totylapha 'rqo vpoh' m'eñcqnx mnlnuñn, y'ehqn cbeñ byaob'e tpoč'he haxiehy'e b pehqax čaolheto bo'ebh'nqa ctahobny' mox'e
+
+item.coldweapon.description.lance
+.vpoh' axiebuoba qo'rxioha č aow'rä'ehubim qoh'n vbicepctbem, vbiqoxibictbibaha ao lamah'r vbiqyb txiey'nbh'nqa toayac wapx'bi qabalep'n
+
+item.coldweapon.description.pique
+.alyx'wa oa blÿh'n, hañlet'eñ b čbaptbim vbiqy t'exotbi 'rqo vboh' aedehcbibha w'eh čtpabua .ctbil balqn tnqnh'epyb ao ctapox'bitheñ taqtbiqn xotlntyb n dalahtntyb hab'ehčy'e
+
+item.coldweapon.description.long_stick
+.alyt'e lacqn teto tbity č behapobhbimn matamn ybi t'eltxibimamn hañyehw'y'eñ qo'rxiohe coh, a y'ehqn cbeñ alytow'y'n n bwexctpohhow'y'n ha txibimah'e txiey'nbh'nqa ha abictahc točbala'eh
+
+item.coldweapon.description.hammer
+.qam'eh' y'ehx'qn 'ect - mlot tex' .bobeu teto qam'ehhbi mlot a'rbelh'e y'ehx'qoh n tobolhoh vpoh'eh vbiy' - qtypoh xbiba tbilqo qtow' o h'elyuq'eñ w'nle w'eh toclyty'e - myw'n
+
+item.coldweapon.description.runic_sword
+.teh aocqohale vbiqytbi n vbibax'ehbi m'ey m'eñcue ha matnyhoh pyheh - qtypa my aoätqobe, cteu'rlhe blaw'y'nbow'yn čatebh'n - tow'rå
+
+item.coldweapon.strength_required
+vbimataha w'nla: 
+
+item.coldweapon.damage_dealt
+maqcbimalhe ovpax'eh'r: 
+
+item.coldweapon.level
+toč'em yletweh'r: 
 
 ;-------------PLAYER--------------;
 player.attributes.health

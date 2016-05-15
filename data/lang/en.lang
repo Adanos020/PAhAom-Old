@@ -53,6 +53,9 @@ Kill yourself.
 gui.text.programming
 PROGRAMMING
 
+gui.text.literary_support
+DESCRIPTIONS, DIALOGUES, ETC.
+
 gui.text.usedlib
 USED LIBRARY
 
@@ -277,7 +280,7 @@ item.potion.description.weakness
 The slump is frustrating - to avoid it it'd be better to throw out this mixture. Consuming it decreases the power of your spells and strokes.
 
 item.coldweapon.name.knife
-Knife
+Kitchen knife
 
 item.coldweapon.name.dagger
 Dagger
@@ -288,17 +291,17 @@ Sword
 item.coldweapon.name.serrated_sword
 Serrated sword
 
-item.coldweapon.name.mace
-Mace
+item.coldweapon.name.club
+Hercules's mace
 
 item.coldweapon.name.axe
-Axe
+Ancaeus's axe
 
 item.coldweapon.name.double_axe
-Double axe
+Trollfist
 
 item.coldweapon.name.spear
-Spear
+Ares's spear
 
 item.coldweapon.name.halberd
 Halberd
@@ -307,10 +310,67 @@ item.coldweapon.name.lance
 Lance
 
 item.coldweapon.name.pique
-Pique
+War pique
+
+item.coldweapon.name.long_stick
+Long stick
 
 item.coldweapon.name.hammer
-Hammer
+Stone hammer
+
+item.magicweapon.name.runic_sword
+Runic sword
+
+item.coldweapon.description.knife
+More often it is used as a very useful, comprehensive tool, than an actual weapon, even though it may be also used in this purpose.
+
+item.coldweapon.description.dagger
+Longer than a knife, a weapon of assassins and rogues, perfect for doing so called ‘quied job' or for fighting in narrow passages.
+
+item.coldweapon.description.sword
+In this category weapon with various lengths can be included but it is usually characterized by a straight blade and grip with a crossguard facilitating parrying the attacks. A sword was often a symbol of state of the warrior and it signified a high position in hierarchy.
+
+item.coldweapon.description.serrated_sword
+An original contraption whose efficacy you'll have an opportunity to check. As fantastic as some of the beasts you will have to confront.
+
+item.coldweapon.description.club
+How a club looks like - anyone can see. Its purpose is to hit - and, nevertheless, hitting someone's head with a club might stun. The legendary maker of this club has promised that this one is incomparable when it comes to stunning.
+
+item.coldweapon.description.axe
+This ax was first found close to a carcass of a giant boar but the fact that there was no spot of blood on the blade might suggest that the previous owner overestimated his ability to throw a weapon of that kind at the enemies a bit.
+
+item.coldweapon.description.double_axe
+This two handed axe with two blades is a terrifying, formidable weapon of which the full advantage will be taken only by the strongest warrior. It decisively deserved its name.
+
+item.coldweapon.description.spear
+One of the oldest weapons in the world, however her efficiency can be confirmed by the fact that still it is used not only as a weapon massively used by meager squads. This spear was blessed by the War God to, in his honor, hit the enemies accurately and powerfully.
+
+item.coldweapon.description.halberd
+This weapon looks kind of like a hybrid of a spear and an axe, interfusing the advantages of both. Is known from being a weapon of city police, thanks to its construction it may make a dangerous tool in hands of an experienced warrior.
+
+item.coldweapon.description.lance
+A wooden weapon associated with horse-riding knighthood, used to breaking the arrays of the opponent during the charges of the cavalry.
+
+item.coldweapon.description.pique
+Longer than a spear, works optimally in a compact infantry array as a defensive weapon. The combat style of the pikemen relates to the ancient tactics of hoplits and falangists.
+
+item.coldweapon.description.long_stick
+Long sticks of this kind are most often associated with the wandering mages or pilgrims and thanks to their length and versatility they allow keeping the opponent in a distance.
+
+item.coldweapon.description.hammer
+Stone is heavy, as well as the hammer. That means a stone hammer must be a cursedly heavy and slow weapon which could be used only by someone with supernatural strngth.
+
+item.magicweapon.description.runic_sword
+This perfectly forged and balanced sword has a slot for a magical rune that will provide it some additional, special properties. Even without it it's a fast and valued weapon.
+
+item.coldweapon.strength_required
+Strength required: 
+
+item.coldweapon.damage_dealt
+Maximum damage dealt: 
+
+item.coldweapon.level
+Upgrade level: 
 
 ;-------------PLAYER--------------;
 player.attributes.health
