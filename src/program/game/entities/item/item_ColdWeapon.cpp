@@ -69,8 +69,8 @@ namespace rr {
         case DOUBLE_AXE:
             damageDealt_      =  90;
             strengthRequired_ = 100;
-            speed_            =   6;
-            accuracy_         =   5;
+            speed_            =   5;
+            accuracy_         =   7;
             name_             = resources.dictionary["item.coldweapon.name.double_axe"       ];
             description_      = resources.dictionary["item.coldweapon.description.double_axe"];
             iconIndex_        = 21;
@@ -132,7 +132,7 @@ namespace rr {
         case HAMMER:
             damageDealt_      = 70;
             strengthRequired_ = 80;
-            speed_            =  7;
+            speed_            =  4;
             accuracy_         = 10;
             name_             = resources.dictionary["item.coldweapon.name.hammer"       ];
             description_      = resources.dictionary["item.coldweapon.description.hammer"];

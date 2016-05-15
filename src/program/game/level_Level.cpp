@@ -402,6 +402,7 @@ namespace rr {
     }
 
     void Level::placeEntities() {
+    /* OBJECTS */
      // here we place the doors
         for (int x=1; x<size_.x-1; x++) {
             for (int y=1; y<size_.y-1; y++) {
@@ -425,18 +426,6 @@ namespace rr {
                 break;
             }
         }
-    /* ITEMS */
-     // here we generate the potions
-        for (int i=0; i<rand()%10; i++) {
-            while (true) {
-                int x=rand()%size_.x, y=rand()%size_.y;
-                if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                    addEntity(getItemFromID(100+(rand()%3)*10+rand()%9, 1), sf::Vector2i(x, y));
-                    tiles_[x][y] = OCCUPIED;
-                    break;
-                }
-            }
-        }
      // here we generate the chests
         for (int i=0; i<rand()%5; i++) {
             while (true) {
@@ -446,6 +435,18 @@ namespace rr {
                  // here we choose randomly whether the chest has to be the special (probability = 5%) or the regular one (p = 95%)
                     addEntity(new Chest((rand()%20) ? Chest::REGULAR : Chest::SPECIAL,
                                         getItemFromID(100+(rand()%3)*10+rand()%9, 1)), sf::Vector2i(x, y));
+                    tiles_[x][y] = OCCUPIED;
+                    break;
+                }
+            }
+        }
+    /* ITEMS */
+     // here we generate the potions
+        for (int i=0; i<rand()%10; i++) {
+            while (true) {
+                int x=rand()%size_.x, y=rand()%size_.y;
+                if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
+                    addEntity(getItemFromID(100+(rand()%3)*10+rand()%9, 1), sf::Vector2i(x, y));
                     tiles_[x][y] = OCCUPIED;
                     break;
                 }

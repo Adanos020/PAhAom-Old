@@ -97,7 +97,8 @@ namespace rr {
             }
             if (slotPointed) {
                 component(wInfo, Text, 0)->setString(((Slot*)wInfo->getParentComponent())->getItem()->getDescription());
-                component(wInfo, Text, 0)->wrap(400.f);
+                component(wInfo, Text, 0)->wrap     ((wInfo->getText()->getSize().x>=300.f) ? wInfo->getText()->getSize().x+10 : 300.f);
+
                 wInfo->setTitle(((Slot*)wInfo->getParentComponent())->getItem()->getName());
                 wInfo->setSize(component(wInfo, Text, 0)->getSize()+sf::Vector2f(10, 30));
                 wInfo->setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)+sf::Vector2f(5, 5));
