@@ -72,6 +72,9 @@ namespace rr {
     /// Moves the player's character's to a cell in a given direction
         void          move                    (std::vector<std::vector<Level::Cell>>, Direction);
 
+    /// Makes the player use a given item
+        void          useItem                 (Item*);
+
     /// Updates the state of the player character
         void          update                  (float timeStep);
 

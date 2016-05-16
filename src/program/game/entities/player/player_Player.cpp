@@ -38,13 +38,13 @@ namespace rr {
         attrs_.nextLevel   = 100.f;
         attrs_.level       =   0.f;
 
-        attrs_.crafting              = true;
+        attrs_.crafting              = false;
         attrs_.alchemy               = false;
         attrs_.cold_weapon_mastery   = false;
         attrs_.ranged_weapon_mastery = false;
-        attrs_.eagle_eye             = true;
+        attrs_.eagle_eye             = false;
         attrs_.mana_regeneration     = false;
-        attrs_.health_regeneration   = true;
+        attrs_.health_regeneration   = false;
         attrs_.faster_learning       = false;
 
         moving_ = false;
@@ -90,6 +90,132 @@ namespace rr {
                 }
                 currentAnimation_ = &walkingRight_;
             }
+        }
+    }
+
+    void Player::useItem(Item* item) {
+        if (instanceof<Potion, Item>(item)) {
+            switch ((Potion*)item->effect_) {
+            case Potion::HEALING:
+                switch ((Potion*)item->size_) {
+                case Potion::SMALL:
+                    attrs_.health += attrs_.maxHealth*0.25;
+                    break;
+                case Potion::MEDIUM:
+                    attrs_.health += attrs_.maxHealth*0.50;
+                    break;
+                case Potion::BIG:
+                    attrs_.health += attrs_.maxHealth*0.75;
+                    break;
+                }
+                break;
+            case Potion::MAGIC:
+                switch ((Potion*)item->size_) {
+                case Potion::SMALL:
+                    attrs_.mana += attrs_.maxMana*0.25;
+                    break;
+                case Potion::MEDIUM:
+                    attrs_.mana += attrs_.maxMana*0.50;
+                    break;
+                case Potion::BIG:
+                    attrs_.mana += attrs_.maxMana*0.75;
+                    break;
+                }
+                break;
+            case Potion::STRENGTH:
+                switch ((Potion*)item->size_) {
+                case Potion::SMALL:
+                    attrs_.strength += 1;
+                    break;
+                case Potion::MEDIUM:
+                    attrs_.strength += 2;
+                    break;
+                case Potion::BIG:
+                    attrs_.strength += 3;
+                    break;
+                }
+                break;
+            case Potion::DEXTERITY:
+                switch ((Potion*)item->size_) {
+                case Potion::SMALL:
+                    attrs_.dexterity += 1;
+                    break;
+                case Potion::MEDIUM:
+                    attrs_.dexterity += 2;
+                    break;
+                case Potion::BIG:
+                    attrs_.dexterity += 3;
+                    break;
+                }
+                break;
+            case Potion::SPEED:
+                switch ((Potion*)item->size_) {
+                case Potion::SMALL:
+
+                    break;
+                case Potion::MEDIUM:
+
+                    break;
+                case Potion::BIG:
+
+                    break;
+                }
+                break;
+            case Potion::REGENERATION:
+                switch ((Potion*)item->size_) {
+                case Potion::SMALL:
+
+                    break;
+                case Potion::MEDIUM:
+
+                    break;
+                case Potion::BIG:
+
+                    break;
+                }
+                break;
+            case Potion::POISON:
+                switch ((Potion*)item->size_) {
+                case Potion::SMALL:
+
+                    break;
+                case Potion::MEDIUM:
+
+                    break;
+                case Potion::BIG:
+
+                    break;
+                }
+                break;
+            case Potion::SLOWNESS:
+                switch ((Potion*)item->size_) {
+                case Potion::SMALL:
+
+                    break;
+                case Potion::MEDIUM:
+
+                    break;
+                case Potion::BIG:
+
+                    break;
+                }
+                break;
+            case Potion::WEAKNESS:
+                switch ((Potion*)item->size_) {
+                case Potion::SMALL:
+
+                    break;
+                case Potion::MEDIUM:
+
+                    break;
+                case Potion::BIG:
+
+                    break;
+                }
+                break;
+            }
+            if (!(Potion*)item->isDiscovered())
+                (Potion*)item->reveal();
         }
     }
 

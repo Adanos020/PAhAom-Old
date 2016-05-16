@@ -91,8 +91,10 @@ namespace rr {
                     wInfo->setParentComponent(component(wInve_, Slot, i));
                     slotPointed = true;
                 }
-                if (component(wInve_, Slot, i)->isPressed(rw, e)) {
-
+                if (component(wInve_, Slot, i)->isPressed(rw, e) && !component(wInve_, Slot, i)->isEmpty()) {
+                    g->getPlayer()->useItem(component(wInve_, Slot, i)->getItem());
+                    if (component(wInve_, Slot, i)->getItem()->isDisposable())
+                        component(wInve_, Slot, i)->removeItem(1);
                 }
             }
             if (slotPointed) {

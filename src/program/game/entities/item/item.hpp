@@ -78,6 +78,7 @@ namespace rr {
 
     class Discoverable {
     protected:
+        bool discovered_ = false;
         sf::String discoveredName_;
         sf::String discoveredDescription_;
     public:
@@ -85,7 +86,8 @@ namespace rr {
         virtual ~Discoverable() {}
 
     /// Method reveling the discoverable item's properties
-        virtual void reveal () = 0;
+        virtual void reveal      () = 0;
+        bool         isDiscovered() { return discovered_; }
     };
 
 }

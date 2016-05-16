@@ -80,6 +80,7 @@ namespace rr {
 
                     *wGrap += new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60));
                         component(wGrap, Switch, 0)->addOption("1280x720");
+                        component(wGrap, Switch, 0)->addOption("1280x1024");
                         component(wGrap, Switch, 0)->addOption("1366x768");
                         component(wGrap, Switch, 0)->addOption("1440x900");
                         component(wGrap, Switch, 0)->addOption("1600x900");

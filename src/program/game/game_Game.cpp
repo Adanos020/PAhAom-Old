@@ -277,12 +277,4 @@ namespace rr {
         }
     }
 
-    bool Game::isStarted() {
-        return started_;
-    }
-
-    bool Game::isPaused() {
-        return paused_;
-    }
-
 }

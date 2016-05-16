@@ -78,10 +78,13 @@ namespace rr {
         bool loadNewGame ();
 
     /// Method telling if the game is started
-        bool isStarted   ();
+        bool isStarted   () { return started_; }
 
     /// Method telling if the game is paused
-        bool isPaused    ();
+        bool isPaused    () { return paused_; }
+
+    /// Returns the pointer to the player
+        Player* getPlayer() { return player_; }
     };
 
 /// Class for the HUD
