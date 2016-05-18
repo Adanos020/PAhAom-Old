@@ -109,7 +109,7 @@ namespace rr {
     Potion::~Potion() {}
 
     void Potion::reveal() {
-        discovered   = true;
+        discovered_  = true;
         name_        = discoveredName_;
         description_ = discoveredDescription_;
     }

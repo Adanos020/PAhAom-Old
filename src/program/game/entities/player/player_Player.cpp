@@ -6,6 +6,7 @@
 
 #include "player.hpp"
 #include "../../../program.hpp"
+#include <iostream>
 
 extern rr::Resources resources;
 
@@ -95,9 +96,13 @@ namespace rr {
 
     void Player::useItem(Item* item) {
         if (instanceof<Potion, Item>(item)) {
-            switch ((Potion*)item->effect_) {
+            if (!((Potion*)item)->isDiscovered()) {
+                ((Potion*)item)->reveal();
+                std::cout << "It was a " << item->getName().toAnsiString() << '\n';
+            }
+            switch (((Potion*)item)->effect_) {
             case Potion::HEALING:
-                switch ((Potion*)item->size_) {
+                switch (((Potion*)item)->size_) {
                 case Potion::SMALL:
                     attrs_.health += attrs_.maxHealth*0.25;
                     break;
@@ -110,7 +115,7 @@ namespace rr {
                 }
                 break;
             case Potion::MAGIC:
-                switch ((Potion*)item->size_) {
+                switch (((Potion*)item)->size_) {
                 case Potion::SMALL:
                     attrs_.mana += attrs_.maxMana*0.25;
                     break;
@@ -123,7 +128,7 @@ namespace rr {
                 }
                 break;
             case Potion::STRENGTH:
-                switch ((Potion*)item->size_) {
+                switch (((Potion*)item)->size_) {
                 case Potion::SMALL:
                     attrs_.strength += 1;
                     break;
@@ -136,7 +141,7 @@ namespace rr {
                 }
                 break;
             case Potion::DEXTERITY:
-                switch ((Potion*)item->size_) {
+                switch (((Potion*)item)->size_) {
                 case Potion::SMALL:
                     attrs_.dexterity += 1;
                     break;
@@ -149,7 +154,7 @@ namespace rr {
                 }
                 break;
             case Potion::SPEED:
-                switch ((Potion*)item->size_) {
+                switch (((Potion*)item)->size_) {
                 case Potion::SMALL:
 
                     break;
@@ -162,7 +167,7 @@ namespace rr {
                 }
                 break;
             case Potion::REGENERATION:
-                switch ((Potion*)item->size_) {
+                switch (((Potion*)item)->size_) {
                 case Potion::SMALL:
 
                     break;
@@ -175,7 +180,7 @@ namespace rr {
                 }
                 break;
             case Potion::POISON:
-                switch ((Potion*)item->size_) {
+                switch (((Potion*)item)->size_) {
                 case Potion::SMALL:
 
                     break;
@@ -188,7 +193,7 @@ namespace rr {
                 }
                 break;
             case Potion::SLOWNESS:
-                switch ((Potion*)item->size_) {
+                switch (((Potion*)item)->size_) {
                 case Potion::SMALL:
 
                     break;
@@ -201,7 +206,7 @@ namespace rr {
                 }
                 break;
             case Potion::WEAKNESS:
-                switch ((Potion*)item->size_) {
+                switch (((Potion*)item)->size_) {
                 case Potion::SMALL:
 
                     break;
@@ -214,8 +219,6 @@ namespace rr {
                 }
                 break;
             }
-            if (!(Potion*)item->isDiscovered())
-                (Potion*)item->reveal();
         }
     }
 
