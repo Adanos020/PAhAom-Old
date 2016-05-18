@@ -5,12 +5,14 @@
  */
 
 #include "program/program.hpp"
+#include "program/observer/observer.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <SFML/Graphics.hpp>
 
 rr::Resources  resources;
 rr::Settings   settings;
+rr::Observer   observer;
 sf::Color      itemColors[9];
 
 int main() {
