@@ -26,7 +26,6 @@ namespace rr {
         body_.scale(sf::Vector2f(5, 5));
 
         position_          = sf::Vector2i(0, 0);
-        velocity_          = 0.9f;
 
         attrs_.health      =  30.f;
         attrs_.mana        =   5.f;
@@ -220,26 +219,62 @@ namespace rr {
                 break;
             }
         }
+        else if (instanceof<Book, Item>(item)) {
+            switch (((Book*)item)->type_) {
+            case Book::CRAFTING:
+                std::cout << "Now you know how to craft!\n";
+                attrs_.crafting              = true;
+                break;
+            case Book::ALCHEMY:
+                std::cout << "Now you know how to brew potions!\n";
+                attrs_.alchemy               = true;
+                break;
+            case Book::COLD_WEAPON_MASTERY:
+                std::cout << "Now you know how to use the cold weapon!\n";
+                attrs_.cold_weapon_mastery   = true;
+                break;
+            case Book::RANGED_WEAPON_MASTERY:
+                std::cout << "Now you know how to use the ranged weapon!\n";
+                attrs_.ranged_weapon_mastery = true;
+                break;
+            case Book::EAGLE_EYE:
+                std::cout << "Now you can see better!\n";
+                attrs_.eagle_eye             = true;
+                break;
+            case Book::MANA_REGEN:
+                std::cout << "Now you can regenerate your mana!\n";
+                attrs_.mana_regeneration     = true;
+                break;
+            case Book::HEALTH_REGEN:
+                std::cout << "Now you can regenerate your health!\n";
+                attrs_.health_regeneration   = true;
+                break;
+            case Book::FASTER_LEARNING:
+                std::cout << "Now you know how to learn faster!\n";
+                attrs_.faster_learning       = true;
+                break;
+            case Book::SPELLS_BOOK:
+
+                break;
+            }
+        }
     }
 
     void Player::draw(sf::RenderWindow& rw) {
         rw.draw(body_);
     }
 
-    void Player::update(float timeStep) {
+    void Player::update() {
         if (moving_) {
             sf::Vector2f offset = body_.getPosition()-(sf::Vector2f)position_*80.f;
             if (offset != sf::Vector2f(0, 0)) {
-                if (offset.x < 0) body_.move(sf::Vector2f( timeStep*velocity_,  0));
-                if (offset.x > 0) body_.move(sf::Vector2f(-timeStep*velocity_,  0));
-                if (offset.y < 0) body_.move(sf::Vector2f( 0,  timeStep*velocity_));
-                if (offset.y > 0) body_.move(sf::Vector2f( 0, -timeStep*velocity_));
+                if (offset.x < 0) body_.move(sf::Vector2f( 16,  0));
+                if (offset.x > 0) body_.move(sf::Vector2f(-16,  0));
+                if (offset.y < 0) body_.move(sf::Vector2f( 0,  16));
+                if (offset.y > 0) body_.move(sf::Vector2f( 0, -16));
             }
             else
                 moving_ = false;
-         // preventing the player from wobbling in one place while trying to reach the next cell
-            if ((abs(offset.x) < 20*velocity_ && abs(offset.x) > 0) || (abs(offset.y) < 20*velocity_ && abs(offset.y) > 0))
-                body_.setPosition((sf::Vector2f)position_*80.f);
         }
 
         if (attrs_.health >= attrs_.maxHealth) attrs_.health = attrs_.maxHealth;

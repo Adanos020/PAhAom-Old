@@ -7,23 +7,29 @@
 #ifndef observer_hpp
 #define observer_hpp
 
-#include "../program/game/entities/entities.hpp"
+#include "../game/entities/entities.hpp"
 
 namespace rr {
 
-    class Observer {
-    public:
-        enum Event {
-            ITEM_DISCOVERED
-            ITEM_PICKED
-            ITEM_DROPPED
-        };
-        void notify(Event, Entity*);
-    };
-
     class Listener {
     public:
-        void listen(Observer::Event, Entity*) = 0;
+        enum Event {
+            ITEM_DISCOVERED,
+            ITEM_PICKED,
+            ITEM_DROPPED
+        };
+
+        virtual ~Listener() {}
+        virtual void listen(Event, Entity*) = 0;
+    };
+
+    class Observer {
+    private:
+        std::vector<Listener*> listeners_;
+    public:
+        ~Observer();
+        void initialize();
+        void notify    (Listener::Event, Entity*);
     };
 
 }

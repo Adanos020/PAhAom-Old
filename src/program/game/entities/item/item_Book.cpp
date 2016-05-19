@@ -34,7 +34,7 @@ namespace rr {
             name_        = resources.dictionary["item.book.type.cold_weapon_mastery"];
             description_ = resources.dictionary["item.book.description.cold_weapon_mastery"];
             break;
-        case RANGED_WEAPON_MASTER:
+        case RANGED_WEAPON_MASTERY:
             name_        = resources.dictionary["item.book.type.ranged_weapon_mastery"];
             description_ = resources.dictionary["item.book.description.ranged_weapon_mastery"];
             break;

@@ -17,7 +17,7 @@ namespace rr {
             CRAFTING,
             ALCHEMY,
             COLD_WEAPON_MASTERY,
-            RANGED_WEAPON_MASTER,
+            RANGED_WEAPON_MASTERY,
             EAGLE_EYE,
             MANA_REGEN,
             HEALTH_REGEN,

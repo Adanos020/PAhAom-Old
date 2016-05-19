@@ -211,7 +211,7 @@ namespace rr {
     void Game::update(float timer) {
         controls();
 
-        player_->update(timer);
+        player_->update();
         hud_   ->update(player_);
 
         gameView_.setCenter(sf::Vector2f(player_->getBounds().left+16, player_->getBounds().top+16));
