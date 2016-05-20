@@ -52,10 +52,10 @@ namespace rr {
 #define keyPressed(key) sf::Keyboard::isKeyPressed(key)
 #define key sf::Keyboard
 
-            if (keyPressed(settings.keys.move_up))    player_->move(level_[levelNumber_]->getTiles(), Player::UP);
-            if (keyPressed(settings.keys.move_down))  player_->move(level_[levelNumber_]->getTiles(), Player::DOWN);
-            if (keyPressed(settings.keys.move_left))  player_->move(level_[levelNumber_]->getTiles(), Player::LEFT);
-            if (keyPressed(settings.keys.move_right)) player_->move(level_[levelNumber_]->getTiles(), Player::RIGHT);
+            if (keyPressed(settings.keys.move_up))    player_->move(levels_[levelNumber_]->getTiles(), Player::UP);
+            if (keyPressed(settings.keys.move_down))  player_->move(levels_[levelNumber_]->getTiles(), Player::DOWN);
+            if (keyPressed(settings.keys.move_left))  player_->move(levels_[levelNumber_]->getTiles(), Player::LEFT);
+            if (keyPressed(settings.keys.move_right)) player_->move(levels_[levelNumber_]->getTiles(), Player::RIGHT);
 
             if      (keyPressed(settings.keys.open_attributes)) {
                 attributes_->update(player_);
@@ -80,14 +80,14 @@ namespace rr {
             }
             else if (keyPressed(settings.keys.interact)) {
 
-#define entities level_[levelNumber_]->getEntities()
+#define entities levels_[levelNumber_]->getEntities()
 
                 for (unsigned i=0; i<entities.size(); i++) {
                     if (player_->intersects(entities[i])) {
                         if (instanceof<Item, Entity>(entities[i])) {
                             if (inventory_->addItem((Item*)entities[i])) {
                                 std::cout << "You've picked up " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
-                                level_[levelNumber_]->removeEntity(i);
+                                levels_[levelNumber_]->removeEntity(i);
                                 i = 0;
                             }
                             else
@@ -96,8 +96,8 @@ namespace rr {
                         else if (instanceof<Chest, Entity>(entities[i])) {
                             // TODO - MAKE THIS SHIT NOT CRASH THE FUCKING GAME
                             /*
-                            level_[levelNumber_]->addEntity(entities[i]->getItem(), entities[i]->getPosition());
-                            level_[levelNumber_]->removeEntity(i);
+                            levels_[levelNumber_]->addEntity(entities[i]->getItem(), entities[i]->getPosition());
+                            levels_[levelNumber_]->removeEntity(i);
                             i = 0;
                             */
                         }
@@ -154,8 +154,8 @@ namespace rr {
 
     bool Game::load() {
         for (int i=0; i<25; i++) {
-            level_.push_back(new Level());
-            if (!level_.back()->loadFromFile("data/savedgame/"))
+            levels_.push_back(new Level());
+            if (!levels_.back()->loadFromFile("data/savedgame/"))
                 return false;
         }
         return true;
@@ -164,10 +164,10 @@ namespace rr {
     bool Game::loadNewGame() {
         reset();
         for (int i=0; i<25; i++) {
-            level_.push_back(new Level());
-            level_.back()->generateWorld();
+            levels_.push_back(new Level());
+            levels_.back()->generateWorld();
         }
-        player_->setPosition(level_[0]->getStartingPoint());
+        player_->setPosition(levels_[0]->getStartingPoint());
         start(true);
         pause(false);
         return true;
@@ -184,8 +184,8 @@ namespace rr {
             rw.setView(gameView_);
         } else {
             rw.setView(gameView_);
-            rw.draw(*level_[levelNumber_]);
-            level_[levelNumber_]->drawObjects(rw);
+            rw.draw(*levels_[levelNumber_]);
+            levels_[levelNumber_]->drawObjects(rw);
             player_->draw(rw);
 
             rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
@@ -201,8 +201,8 @@ namespace rr {
             if (gameMap_   ->isOpen()) {
                 gameMap_   ->draw(rw);
                 rw.setView(mapView_);
-                rw.draw(*level_[levelNumber_]);
-                level_[levelNumber_]->drawObjects(rw);
+                rw.draw(*levels_[levelNumber_]);
+                levels_[levelNumber_]->drawObjects(rw);
                 player_->draw(rw);
             }
         }
@@ -211,12 +211,12 @@ namespace rr {
     void Game::update(float timer) {
         controls();
 
-        player_->update();
+        player_->update(timer);
         hud_   ->update(player_, levelNumber_+1);
 
         gameView_.setCenter(sf::Vector2f(player_->getBounds().left+16, player_->getBounds().top+16));
 
-        for (auto x : level_[levelNumber_]->getEntities()) {
+        for (auto x : levels_[levelNumber_]->getEntities()) {
             if (instanceof<Door, Entity>(x)) {
                 if (player_->intersects(x))
                     ((Door*)x)->setOpen(true);
@@ -244,18 +244,18 @@ namespace rr {
 
         if (started_) {
             if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Add) {
-                if (levelNumber_<level_.size()-1)
+                if (levelNumber_<levels_.size()-1)
                     levelNumber_++;
                 else
                     levelNumber_ = 0;
-                player_->setPosition(level_[levelNumber_]->getStartingPoint());
+                player_->setPosition(levels_[levelNumber_]->getStartingPoint());
             }
             else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Subtract) {
                 if (levelNumber_>0)
                     levelNumber_--;
                 else
-                    levelNumber_ = level_.size()-1;
-                player_->setPosition(level_[levelNumber_]->getEndingPoint());
+                    levelNumber_ = levels_.size()-1;
+                player_->setPosition(levels_[levelNumber_]->getEndingPoint());
             }
         }
     }
@@ -279,7 +279,10 @@ namespace rr {
 
     void Game::reset() {
         randomizeItems();
-        level_.clear();
+        for (auto level : levels_) {
+            delete level;
+        }
+        levels_.clear();
         inventory_->clear();
         player_->reset();
     }

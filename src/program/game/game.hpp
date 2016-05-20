@@ -24,6 +24,12 @@ namespace rr {
     class HUD;
     class Level;
 
+    class Player;
+
+    class Bar;
+    class Slot;
+    class Text;
+
 /// Class for the game
     class Game {
     private:
@@ -37,7 +43,7 @@ namespace rr {
         Quests*             quests_;
         GameMap*            gameMap_;
         HUD*                hud_;
-        std::vector<Level*> level_;
+        std::vector<Level*> levels_;
         Player*             player_;
 
         bool                started_;
@@ -54,40 +60,43 @@ namespace rr {
         ~Game();
 
     /// Method drawing the game components
-        void    draw        (sf::RenderWindow&);
+        void                draw        (sf::RenderWindow&);
 
     /// Method for handling the button events
-        void    buttonEvents(sf::RenderWindow&, sf::Event&);
+        void                buttonEvents(sf::RenderWindow&, sf::Event&);
 
     /// Method drawing the game components
-        void    update      (float);
+        void                update      (float);
 
     /// Method starting the game or not, depending on the argument's value
-        void    start       (bool);
+        void                start       (bool);
 
     /// Method pause the game or not, depending on the argument's value
-        void    pause       (bool);
+        void                pause       (bool);
 
     /// Method saving the game progress
-        void    save        ();
+        void                save        ();
 
     /// Method loading the game progress
-        bool    load        ();
+        bool                load        ();
 
     /// Method the new game
-        bool    loadNewGame ();
+        bool                loadNewGame ();
 
     /// Method telling if the game is started
-        bool    isStarted   () { return started_; }
+        bool                isStarted   () { return started_; }
 
     /// Method telling if the game is paused
-        bool    isPaused    () { return paused_; }
+        bool                isPaused    () { return paused_; }
 
     /// Returns the pointer to the player
-        Player* getPlayer   () { return player_; }
+        Player*             getPlayer   () { return player_; }
+
+    /// Returns the vector of game levels
+        std::vector<Level*> getLevels   () { return levels_; }
 
     /// Resets the game state
-        void    reset       ();
+        void                reset       ();
     };
 
 /// Class for the HUD

@@ -515,4 +515,8 @@ namespace rr {
         return x <= 0 || y <= 0 || x >= size_.x-1 || y >= size_.y-1;
     }
 
+    void Level::listen(Listener::Event event, Entity* entity) {
+
+    }
+
 }

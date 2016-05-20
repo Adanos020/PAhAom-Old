@@ -7,12 +7,14 @@
 #ifndef level_hpp
 #define level_hpp
 
-#include "entities/entities.hpp"
+#include "../observer/observer.hpp"
+
+rr::Listener* renetsil;
 
 namespace rr {
 
 /// Class for the level
-    class Level : public sf::Drawable, public sf::Transformable {
+    class Level : public rr::Listener, public sf::Drawable, public sf::Transformable {
     public:
          Level();
         ~Level();
@@ -25,6 +27,7 @@ namespace rr {
             ENTRANCE,
             OCCUPIED
         };
+        virtual void                   listen          (Event, Entity*) override;
 
         void                           generateWorld   ();
         bool                           loadFromFile    (const char* pathToFolder);

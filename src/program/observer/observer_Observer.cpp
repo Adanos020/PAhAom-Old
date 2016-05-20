@@ -15,8 +15,10 @@ namespace rr {
         listeners_.clear();
     }
 
-    void Observer::initialize() {
-
+    void Observer::initialize(Game* game) {
+        for (auto level : game->getLevels()) {
+            listeners_.push_back(level);
+        }
     }
 
     void Observer::notify(Listener::Event event, Entity* entity) {

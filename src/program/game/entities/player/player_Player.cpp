@@ -6,9 +6,11 @@
 
 #include "player.hpp"
 #include "../../../program.hpp"
+#include "../../../observer/observer.hpp"
 #include <iostream>
 
 extern rr::Resources resources;
+extern rr::Observer  observer;
 
 namespace rr {
 
@@ -47,7 +49,8 @@ namespace rr {
         attrs_.health_regeneration   = false;
         attrs_.faster_learning       = false;
 
-        moving_ = false;
+        moving_   = false;
+        velocity_ = 1.25f;
     }
 
     Player::~Player() {}
@@ -96,7 +99,7 @@ namespace rr {
     void Player::useItem(Item* item) {
         if (instanceof<Potion, Item>(item)) {
             if (!((Potion*)item)->isDiscovered()) {
-                ((Potion*)item)->reveal();
+                observer.notify(Listener::ITEM_DISCOVERED, item);
                 std::cout << "It was a " << item->getName().toAnsiString() << '\n';
             }
             switch (((Potion*)item)->effect_) {
@@ -267,17 +270,19 @@ namespace rr {
         rw.draw(body_);
     }
 
-    void Player::update() {
+    void Player::update(float timeStep) {
         if (moving_) {
             sf::Vector2f offset = body_.getPosition()-(sf::Vector2f)position_*80.f;
             if (offset != sf::Vector2f(0, 0)) {
-                if (offset.x < 0) body_.move(sf::Vector2f( 5,  0));
-                if (offset.x > 0) body_.move(sf::Vector2f(-5,  0));
-                if (offset.y < 0) body_.move(sf::Vector2f( 0,  5));
-                if (offset.y > 0) body_.move(sf::Vector2f( 0, -5));
+                if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep,  0));
+                if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep,  0));
+                if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep));
+                if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep));
             }
             else
                 moving_ = false;
+            if ((abs(offset.x) < 12*velocity_ && abs(offset.x) > 0) || (abs(offset.y) < 12*velocity_ && abs(offset.y) > 0))
+                body_.setPosition((sf::Vector2f)position_*80.f);
         }
 
         if (attrs_.health >= attrs_.maxHealth) attrs_.health = attrs_.maxHealth;

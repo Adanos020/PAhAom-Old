@@ -13,7 +13,11 @@
 namespace rr {
 
     class Game;
+
     class Player;
+
+    class Text;
+    class Window;
 
 /// Class for the main menu
     class MainMenu {

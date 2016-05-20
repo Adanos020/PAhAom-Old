@@ -49,6 +49,7 @@ namespace rr {
         sf::Animation      walkingRight_;
         sf::Animation*     currentAnimation_;
         bool               moving_;
+        float              velocity_;
     public:
          Player();
         ~Player();
@@ -75,7 +76,7 @@ namespace rr {
         void          useItem                 (Item*);
 
     /// Updates the state of the player character
-        void          update                  ();
+        void          update                  (float);
 
     /// Returns the player statistics
         Attrs         getAttributes           ()          const          { return attrs_; }

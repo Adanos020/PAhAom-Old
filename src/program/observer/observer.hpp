@@ -8,8 +8,11 @@
 #define observer_hpp
 
 #include "../game/entities/entities.hpp"
+#include "../game/game.hpp"
 
 namespace rr {
+
+    class Game;
 
     class Listener {
     public:
@@ -28,7 +31,7 @@ namespace rr {
         std::vector<Listener*> listeners_;
     public:
         ~Observer();
-        void initialize();
+        void initialize(Game*);
         void notify    (Listener::Event, Entity*);
     };
 
