@@ -14,7 +14,6 @@ namespace rr {
     ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos) {
         type_       = type;
         amount_     = amount;
-        equipable_  = true;
         disposable_ = false;
         stackable_  = false;
         ID_         = 20 + type_;
@@ -174,9 +173,9 @@ namespace rr {
     }
 
     sf::String ColdWeapon::getDescription() const {
-        return description_ +              "\n"+resources.dictionary["item.coldweapon.strength_required"]+std::to_string((int)strengthRequired_)
-                            +              "\n"+resources.dictionary["item.coldweapon.damage_dealt"     ]+std::to_string((int)damageDealt_)
-                            + ((level_!=0)?"\n"+resources.dictionary["item.coldweapon.level"            ]+std::to_string((int)level_):"");
+        return description_ +              "\n"+resources.dictionary["item.coldweapon.strength_required"]+" "+std::to_string((int)strengthRequired_)
+                            +              "\n"+resources.dictionary["item.coldweapon.damage_dealt"     ]+" "+std::to_string((int)damageDealt_)
+                            + ((level_!=0)?"\n"+resources.dictionary["item.coldweapon.level"            ]+" "+std::to_string((int)level_):"");
     }
 
 }

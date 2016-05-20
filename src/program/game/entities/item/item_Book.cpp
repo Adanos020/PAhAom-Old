@@ -16,7 +16,6 @@ namespace rr {
         type_       = type;
         amount_     = am;
         ID_         = type_+10;
-        equipable_  = false;
         disposable_ = true;
         stackable_  = false;
         iconIndex_  = 16;
@@ -57,6 +56,7 @@ namespace rr {
         case SPELLS_BOOK:
             name_        = resources.dictionary["item.book.type.spells_book"];
             description_ = resources.dictionary["item.book.description.spells_book"];
+            disposable_  = false;
             break;
         }
 

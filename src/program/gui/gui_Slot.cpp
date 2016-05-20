@@ -82,6 +82,13 @@ namespace rr {
         }
     }
 
+    void Slot::clear() {
+        if (!hollow_) {
+            hollow_ = true;
+            delete item_;
+        }
+    }
+
     bool Slot::containsMouseCursor(sf::RenderWindow& rw) {
         if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
             body_.setFillColor(sf::Color(128, 128, 128, 255));

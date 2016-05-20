@@ -11,7 +11,7 @@
 
 namespace rr {
 
-    class ColdWeapon : public Item {
+    class ColdWeapon : public Item, public Equipable {
     private:
         float strengthRequired_;
         float damageDealt_;
@@ -40,6 +40,7 @@ namespace rr {
 
         virtual void       draw          (sf::RenderWindow&) override;
         virtual sf::String getDescription()            const override;
+        virtual void       equip         (bool b)            override { equipped_ = b; }
 
         void  enhance      ();
         void  enchant      ();

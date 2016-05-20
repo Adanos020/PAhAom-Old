@@ -325,7 +325,7 @@ item.coldweapon.description.knife
 More often it is used as a very useful, comprehensive tool, than an actual weapon, even though it may be also used in this purpose.
 
 item.coldweapon.description.dagger
-Longer than a knife, a weapon of assassins and rogues, perfect for doing so called ‘quied job' or for fighting in narrow passages.
+Longer than a knife, a weapon of assassins and rogues, perfect for doing so called ‘quiet job' or for fighting in narrow passages.
 
 item.coldweapon.description.sword
 In this category weapon with various lengths can be included but it is usually characterized by a straight blade and grip with a crossguard facilitating parrying the attacks. A sword was often a symbol of state of the warrior and it signified a high position in hierarchy.
@@ -364,13 +364,13 @@ item.magicweapon.description.runic_sword
 This perfectly forged and balanced sword has a slot for a magical rune that will provide it some additional, special properties. Even without it it's a fast and valued weapon.
 
 item.coldweapon.strength_required
-Strength required: 
+Strength required:
 
 item.coldweapon.damage_dealt
-Maximum damage dealt: 
+Maximum damage dealt:
 
 item.coldweapon.level
-Upgrade level: 
+Upgrade level:
 
 ;-------------PLAYER--------------;
 player.attributes.health

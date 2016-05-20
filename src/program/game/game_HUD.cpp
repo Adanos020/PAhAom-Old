@@ -19,8 +19,11 @@ namespace rr {
         for (int i=0; i<5; i++) {
             sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(settings.graphics.resolution.x-90, settings.graphics.resolution.y/2-250+i*95));
         }
-        tXPlevel_ = new Text(sf::Vector2f(0, 0), L"", resources.font.Pixel, 40, sf::Color::Yellow);
+        tXPlevel_ = new Text(sf::Vector2f(0, 0), "", resources.font.Pixel, 40, sf::Color::Yellow);
         tXPlevel_->setPosition(sf::Vector2f(bXP_->getPosition().x+bXP_->getSize().x/2-tXPlevel_->getSize().x/2, bXP_->getPosition().y-tXPlevel_->getSize().y));
+
+        tLevelNumber = new Text(sf::Vector2f(0, 0), "L0", resources.font.Pixel, 30, sf::Color::Green);
+        tLevelNumber->setPosition(sf::Vector2f(settings.graphics.resolution.x-tLevelNumber->getSize().x-10, 10));
     }
 
     HUD::~HUD() {
@@ -38,13 +41,16 @@ namespace rr {
         }
     }
 
-    void HUD::update(Player* p) {
+    void HUD::update(Player* p, int lvl) {
         bHP_->setSize(sf::Vector2f(p->getAttributes().health/p->getAttributes().maxHealth, 1));
         bMP_->setSize(sf::Vector2f(p->getAttributes().mana/p->getAttributes().maxMana, 1));
         bXP_->setSize(sf::Vector2f(p->getAttributes().experience/p->getAttributes().nextLevel, 1));
 
         tXPlevel_->setString(std::to_wstring((int)p->getAttributes().level));
         tXPlevel_->setPosition(sf::Vector2f(bXP_->getPosition().x+bXP_->getSize().x/2-tXPlevel_->getSize().x/2, bXP_->getPosition().y-tXPlevel_->getSize().y));
+
+        tLevelNumber->setString("L"+std::to_string(lvl));
+        tLevelNumber->setPosition(sf::Vector2f(settings.graphics.resolution.x-tLevelNumber->getSize().x-10, 10));
     }
 
     void HUD::draw(sf::RenderWindow& rw) {
@@ -53,7 +59,8 @@ namespace rr {
         bXP_->draw(rw);
         for (auto x : sCarryOn_)
             x->draw(rw);
-        tXPlevel_->draw(rw);
+        tXPlevel_   ->draw(rw);
+        tLevelNumber->draw(rw);
     }
 
 }

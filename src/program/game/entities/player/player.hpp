@@ -79,6 +79,9 @@ namespace rr {
 
     /// Returns the player statistics
         Attrs         getAttributes           ()          const          { return attrs_; }
+
+    /// Resets the player's atributes
+        void          reset                   ();
     };
 
 }

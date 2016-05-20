@@ -228,6 +228,9 @@ namespace rr {
     /// Removes the item from the slot
         void         removeItem         (int);
 
+    /// Clears the slot
+        void         clear              ();
+
         void         setPosition        (sf::Vector2f)      override;
         void         draw               (sf::RenderWindow&) override;
 

@@ -162,7 +162,7 @@ namespace rr {
     }
 
     bool Game::loadNewGame() {
-        randomizeItems();
+        reset();
         for (int i=0; i<25; i++) {
             level_.push_back(new Level());
             level_.back()->generateWorld();
@@ -212,7 +212,7 @@ namespace rr {
         controls();
 
         player_->update();
-        hud_   ->update(player_);
+        hud_   ->update(player_, levelNumber_+1);
 
         gameView_.setCenter(sf::Vector2f(player_->getBounds().left+16, player_->getBounds().top+16));
 
@@ -275,6 +275,13 @@ namespace rr {
             quests_    ->close();
             gameMap_   ->close();
         }
+    }
+
+    void Game::reset() {
+        randomizeItems();
+        level_.clear();
+        inventory_->clear();
+        player_->reset();
     }
 
 }

@@ -67,6 +67,15 @@ namespace rr {
         wInve_->setVisible(false);
     }
 
+    void Inventory::clear() {
+        for (int i=0; i<32; i++) {
+            wInve_->getComponent<Slot>(i)->clear();
+        }
+        gold_   = 0;
+        silver_ = 0;
+        bronze_ = 0;
+    }
+
     void Inventory::draw(sf::RenderWindow& rw) {
         rw.draw(shadow_);
         wInve_->draw(rw);

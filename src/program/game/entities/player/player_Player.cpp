@@ -258,6 +258,9 @@ namespace rr {
                 break;
             }
         }
+        else if (instanceof<ColdWeapon, Item>(item)) {
+
+        }
     }
 
     void Player::draw(sf::RenderWindow& rw) {
@@ -268,10 +271,10 @@ namespace rr {
         if (moving_) {
             sf::Vector2f offset = body_.getPosition()-(sf::Vector2f)position_*80.f;
             if (offset != sf::Vector2f(0, 0)) {
-                if (offset.x < 0) body_.move(sf::Vector2f( 16,  0));
-                if (offset.x > 0) body_.move(sf::Vector2f(-16,  0));
-                if (offset.y < 0) body_.move(sf::Vector2f( 0,  16));
-                if (offset.y > 0) body_.move(sf::Vector2f( 0, -16));
+                if (offset.x < 0) body_.move(sf::Vector2f( 5,  0));
+                if (offset.x > 0) body_.move(sf::Vector2f(-5,  0));
+                if (offset.y < 0) body_.move(sf::Vector2f( 0,  5));
+                if (offset.y > 0) body_.move(sf::Vector2f( 0, -5));
             }
             else
                 moving_ = false;
@@ -296,6 +299,28 @@ namespace rr {
             attrs_.mana         = temp*attrs_.maxMana;
         }
         body_.play(*currentAnimation_);
+    }
+
+    void Player::reset() {
+        attrs_.health      =  30.f;
+        attrs_.mana        =   5.f;
+        attrs_.maxHealth   =  30.f;
+        attrs_.maxMana     =   5.f;
+        attrs_.strength    =  10.f;
+        attrs_.dexterity   =  10.f;
+        attrs_.skillPoints =   0.f;
+        attrs_.experience  =   0.f;
+        attrs_.nextLevel   = 100.f;
+        attrs_.level       =   0.f;
+
+        attrs_.crafting              = false;
+        attrs_.alchemy               = false;
+        attrs_.cold_weapon_mastery   = false;
+        attrs_.ranged_weapon_mastery = false;
+        attrs_.eagle_eye             = false;
+        attrs_.mana_regeneration     = false;
+        attrs_.health_regeneration   = false;
+        attrs_.faster_learning       = false;
     }
 
 }

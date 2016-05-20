@@ -19,7 +19,6 @@ namespace rr {
         sf::VertexArray body_;
         sf::String      name_;
         sf::String      description_;
-        bool            equipable_;
         bool            disposable_;
         bool            stackable_;
         int             ID_;
@@ -43,9 +42,6 @@ namespace rr {
 
     /// Tells if the item is stackable
         virtual bool               isStackable    () const                    { return stackable_; }
-
-    /// Tells if the item is equipable
-        virtual bool               isEquipable    () const                    { return equipable_; }
 
     /// Returns the sprite of this item
         virtual sf::VertexArray    getBody        () const                    { return body_; }
@@ -85,9 +81,25 @@ namespace rr {
     /// A virtual destructor
         virtual ~Discoverable() {}
 
-    /// Method reveling the discoverable item's properties
+    /// Reveals the item's properties
         virtual void reveal      () = 0;
+
+    /// Tells if the item is discovered
         bool         isDiscovered() { return discovered_; }
+    };
+
+    class Equipable {
+    protected:
+        bool equipped_ = false;
+    public:
+    /// A virtual destructor
+        virtual ~Equipable() {}
+
+    /// Equips or unequips the item
+        virtual void equip(bool) = 0;
+
+    /// Tells if the item is equipped
+        bool         isEquipped() { return equipped_; }
     };
 
 }

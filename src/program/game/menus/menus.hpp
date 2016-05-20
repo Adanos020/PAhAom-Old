@@ -106,6 +106,9 @@ namespace rr {
     /// Closes the inventory window
         void close       ();
 
+    /// Clears the inventory
+        void clear       ();
+
     /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
