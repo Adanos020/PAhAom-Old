@@ -223,7 +223,7 @@ namespace rr {
         ~Slot();
 
     /// Adds an item to the slot
-        bool         addItem            (double ID, int amount);
+        bool         addItem            (Item*);
 
     /// Removes the item from the slot
         void         removeItem         (int);

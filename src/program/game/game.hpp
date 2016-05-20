@@ -12,6 +12,7 @@
 
 #include "menus/menus.hpp"
 #include "entities/entities.hpp"
+#include "level.hpp"
 
 namespace rr {
 

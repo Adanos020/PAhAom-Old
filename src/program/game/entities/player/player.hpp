@@ -8,8 +8,8 @@
 #define player_h
 
 #include <SFML/Graphics.hpp>
-#include "../../level.hpp"
 #include "../../../../../lib/AnimatedSprite.hpp"
+#include "../entities.hpp"
 
 namespace rr {
 
@@ -70,7 +70,7 @@ namespace rr {
         virtual sf::Vector2f  getRealPosition ()          const override { return body_.getPosition(); }
 
     /// Moves the player's character's to a cell in a given direction
-        void          move                    (std::vector<std::vector<Level::Cell>>, Direction);
+        void          move                    (std::vector<std::vector<int>>, Direction);
 
     /// Makes the player use a given item
         void          useItem                 (Item*);

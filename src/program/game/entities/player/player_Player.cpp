@@ -6,7 +6,6 @@
 
 #include "player.hpp"
 #include "../../../program.hpp"
-#include "../../../observer/observer.hpp"
 #include <iostream>
 
 extern rr::Resources resources;
@@ -65,29 +64,29 @@ namespace rr {
         body_.setPosition(pos);
     }
 
-    void Player::move(std::vector<std::vector<Level::Cell> > tiles, Direction di) {
+    void Player::move(std::vector<std::vector<int> > tiles, Direction di) {
         if (!moving_) {
             if (di == UP) {
-                if (tiles[position_.x][position_.y-1] != Level::WALL) {
+                if (tiles[position_.x][position_.y-1] != 1) {
                     position_ = sf::Vector2i(position_.x, position_.y-1);
                     moving_ = true;
                 }
             }
             if (di == DOWN) {
-                if (tiles[position_.x][position_.y+1] != Level::WALL) {
+                if (tiles[position_.x][position_.y+1] != 1) {
                     position_ = sf::Vector2i(position_.x, position_.y+1);
                     moving_ = true;
                 }
             }
             if (di == LEFT) {
-                if (tiles[position_.x-1][position_.y] != Level::WALL) {
+                if (tiles[position_.x-1][position_.y] != 1) {
                     position_ = sf::Vector2i(position_.x-1, position_.y);
                     moving_ = true;
                 }
                 currentAnimation_ = &walkingLeft_;
             }
             if (di == RIGHT) {
-                if (tiles[position_.x+1][position_.y] != Level::WALL) {
+                if (tiles[position_.x+1][position_.y] != 1) {
                     position_ = sf::Vector2i(position_.x+1, position_.y);
                     moving_ = true;
                 }
@@ -100,6 +99,7 @@ namespace rr {
         if (instanceof<Potion, Item>(item)) {
             if (!((Potion*)item)->isDiscovered()) {
                 observer.notify(Listener::ITEM_DISCOVERED, item);
+                ((Potion*)item)->reveal();
                 std::cout << "It was a " << item->getName().toAnsiString() << '\n';
             }
             switch (((Potion*)item)->effect_) {

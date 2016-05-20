@@ -12,6 +12,7 @@
 
 extern rr::Settings settings;
 extern sf::Color    itemColors[9];
+extern rr::Observer observer;
 
 namespace rr {
 
@@ -170,6 +171,8 @@ namespace rr {
         player_->setPosition(levels_[0]->getStartingPoint());
         start(true);
         pause(false);
+
+        observer.initialize(this);
         return true;
     }
 

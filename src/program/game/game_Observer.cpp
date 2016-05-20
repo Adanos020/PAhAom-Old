@@ -1,10 +1,10 @@
 /**
- * @file src/observer/observer_Observer.cpp
+ * @file src/game/game_Observer.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
-#include "observer.hpp"
+#include "game.hpp"
 
 namespace rr {
 

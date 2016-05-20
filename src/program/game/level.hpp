@@ -7,14 +7,37 @@
 #ifndef level_hpp
 #define level_hpp
 
-#include "../observer/observer.hpp"
-
-rr::Listener* renetsil;
+#include "../game/game.hpp"
 
 namespace rr {
 
+    class Game;
+
+/// Class for the listener
+    class Listener {
+    public:
+        enum Event {
+            ITEM_DISCOVERED,
+            ITEM_PICKED,
+            ITEM_DROPPED
+        };
+
+        virtual ~Listener() {}
+        virtual void listen(Event, Entity*) = 0;
+    };
+
+/// Class for the observer
+    class Observer {
+    private:
+        std::vector<Listener*> listeners_;
+    public:
+        ~Observer();
+        void initialize(Game*);
+        void notify    (Listener::Event, Entity*);
+    };
+
 /// Class for the level
-    class Level : public rr::Listener, public sf::Drawable, public sf::Transformable {
+    class Level : public Listener, public sf::Drawable, public sf::Transformable {
     public:
          Level();
         ~Level();
@@ -38,7 +61,7 @@ namespace rr {
         std::vector<Entity*>           getEntities     () const { return entities_     ; }
         sf::Vector2i                   getStartingPoint() const { return startingPoint_; }
         sf::Vector2i                   getEndingPoint  () const { return endingPoint_  ; }
-        std::vector<std::vector<Cell>> getTiles        () const { return tiles_        ; }
+        std::vector<std::vector<int>>  getTiles        () const;
     private:
         virtual void draw           (sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -57,6 +80,7 @@ namespace rr {
 
         std::vector<Entity*>           entities_;
         std::vector<std::vector<Cell>> tiles_;
+        std::vector<std::vector<int>>  tilesAsInts_;
         std::vector<sf::IntRect>       rooms_;
         std::vector<std::vector<int>>  regions_;
         int                            region_count_;

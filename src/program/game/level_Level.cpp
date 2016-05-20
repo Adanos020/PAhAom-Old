@@ -6,6 +6,7 @@
 
 #include "game.hpp"
 #include "../program.hpp"
+#include "entities/entities.hpp"
 #include "../funcs/files.hpp"
 #include "../funcs/items.hpp"
 
@@ -91,6 +92,14 @@ namespace rr {
 
      // in the end we generate the tile map from the created array
         generateTileMap();
+
+     // and just transform the table of Cells to a table of ints
+        for (int i=0; i<size_.x; i++) {
+            tilesAsInts_.push_back(std::vector<int>());
+            for (int j=0; j<size_.y; j++) {
+                tilesAsInts_[i].push_back(tiles_[i][j]);
+            }
+        }
     }
 
     void Level::digRooms() {
@@ -516,7 +525,26 @@ namespace rr {
     }
 
     void Level::listen(Listener::Event event, Entity* entity) {
+        switch (event) {
+        case Listener::ITEM_DISCOVERED:
+            if (instanceof<Potion, Item>((Item*)entity)) {
+                for (auto item : entities_) {
+                    if (instanceof<Potion, Item>((Item*)item) && ((Potion*)item)->effect_ == ((Potion*)entity)->effect_) {
+                        ((Potion*)item)->reveal();
+                    }
+                }
+            }
+            break;
+        case Listener::ITEM_DROPPED:
 
+            break;
+        case Listener::ITEM_PICKED:
+
+            break;
+        }
     }
 
+    std::vector<std::vector<int>> Level::getTiles() const {
+        return tilesAsInts_;
+    }
 }

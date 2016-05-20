@@ -174,7 +174,7 @@ namespace rr {
         if (item->isStackable()) {
             for (int it=0; it<32; it++) {
                 if (!slot(it)->isEmpty() && slot(it)->getItem()->getID() == item->getID()) {
-                    return slot(it)->addItem(item->getID(), item->getAmount());
+                    return slot(it)->addItem(item);
                 }
             }
         }
@@ -182,7 +182,7 @@ namespace rr {
      // if not then we look for the first empty slot and add the item to it
         for (int it=0; it<32; it++) {
             if (slot(it)->isEmpty()) {
-                return slot(it)->addItem(item->getID(), item->getAmount());
+                return slot(it)->addItem(item);
             }
         }
 

@@ -53,16 +53,21 @@ namespace rr {
         }
     }
 
-    bool Slot::addItem(double id, int amount) {
+    bool Slot::addItem(Item* item) {
         if (!hollow_) {
-            if (id == item_->getID()) {
-                item_->setAmount(item_->getAmount()+amount);
+            if (item->getID() == item_->getID()) {
+                item_->setAmount(item_->getAmount()+item->getAmount());
                 text_->setString(std::to_wstring(item_->getAmount()));
                 return true;
             }
             return false;
         }
-        item_ = getItemFromID(id, amount);
+        item_ = getItemFromID(item->getID(), item->getAmount());
+
+        if (instanceof<Potion, Item>(item) && ((Potion*)item)->isDiscovered()) {
+            ((Potion*)item_)->reveal();
+        }
+
         item_->setRealPosition(body_.getPosition());
         text_->setString(std::to_string(item_->getAmount()));
 
