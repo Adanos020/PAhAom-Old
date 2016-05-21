@@ -21,15 +21,15 @@ namespace rr {
         ID_         = 100 + size_*10 + effect_;
         iconIndex_  = size_+1;
 
-             if (itemColors[effect_] == sf::Color::Red)           name_ = resources.dictionary["item.potion.color.red"     ]+" ";
-        else if (itemColors[effect_] == sf::Color::Blue)          name_ = resources.dictionary["item.potion.color.blue"    ]+" ";
-        else if (itemColors[effect_] == sf::Color(32, 32, 0))     name_ = resources.dictionary["item.potion.color.brown"   ]+" ";
-        else if (itemColors[effect_] == sf::Color::Green)         name_ = resources.dictionary["item.potion.color.green"   ]+" ";
-        else if (itemColors[effect_] == sf::Color::Cyan)          name_ = resources.dictionary["item.potion.color.cyan"    ]+" ";
-        else if (itemColors[effect_] == sf::Color(255, 172, 172)) name_ = resources.dictionary["item.potion.color.pink"    ]+" ";
-        else if (itemColors[effect_] == sf::Color::Magenta)       name_ = resources.dictionary["item.potion.color.magenta" ]+" ";
-        else if (itemColors[effect_] == sf::Color::Yellow)        name_ = resources.dictionary["item.potion.color.yellow"  ]+" ";
-        else if (itemColors[effect_] == sf::Color::White)         name_ = resources.dictionary["item.potion.color.white"   ]+" ";
+             if (itemColors[effect_] == sf::Color::Red)           name_ = resources.dictionary["item.potion.color.red"     ];
+        else if (itemColors[effect_] == sf::Color::Blue)          name_ = resources.dictionary["item.potion.color.blue"    ];
+        else if (itemColors[effect_] == sf::Color(32, 32, 0))     name_ = resources.dictionary["item.potion.color.brown"   ];
+        else if (itemColors[effect_] == sf::Color::Green)         name_ = resources.dictionary["item.potion.color.green"   ];
+        else if (itemColors[effect_] == sf::Color::Cyan)          name_ = resources.dictionary["item.potion.color.cyan"    ];
+        else if (itemColors[effect_] == sf::Color(255, 172, 172)) name_ = resources.dictionary["item.potion.color.pink"    ];
+        else if (itemColors[effect_] == sf::Color::Magenta)       name_ = resources.dictionary["item.potion.color.magenta" ];
+        else if (itemColors[effect_] == sf::Color::Yellow)        name_ = resources.dictionary["item.potion.color.yellow"  ];
+        else if (itemColors[effect_] == sf::Color::White)         name_ = resources.dictionary["item.potion.color.white"   ];
         description_ = resources.dictionary["item.potion.description.unknown"];
 
         switch (effect_) {

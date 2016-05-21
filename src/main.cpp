@@ -11,7 +11,7 @@
 
 rr::Resources  resources;
 rr::Settings   settings;
-rr::Observer   observer;
+rr::Subject    subject;
 sf::Color      itemColors[9];
 
 int main() {
@@ -19,5 +19,5 @@ int main() {
     auto p = new rr::Program();
 
     delete p;
-    return 0;
+    return EXIT_SUCCESS;
 }

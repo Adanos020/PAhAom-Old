@@ -388,8 +388,9 @@ namespace rr {
              // ROOM
                 case ROOM:     tileNumber = 17; break;
                 case CORRIDOR: tileNumber = 1;  break;
-                case OCCUPIED: tileNumber = 48; break;
+                case OCCUPIED: tileNumber = 17; break;
                 case ENTRANCE: tileNumber = 17; break;
+                case EXIT:     tileNumber = 48; break;
                 }
 
                 int tu = tileNumber%(resources.texture.tileset.getSize().x/16);
@@ -423,15 +424,15 @@ namespace rr {
         for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
             if (tiles_[x][y] == ROOM) {
                 startingPoint_ = sf::Vector2i(x, y);
-                tiles_[x][y] = OCCUPIED;
+                tiles_[x][y] = EXIT;
                 break;
             }
         }
      // here we place the ending point
         for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
-            if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED && (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 30)) {
+            if (tiles_[x][y] == ROOM && (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 30)) {
                 endingPoint_ = sf::Vector2i(x, y);
-                tiles_[x][y] = OCCUPIED;
+                tiles_[x][y] = EXIT;
                 break;
             }
         }
@@ -520,13 +521,9 @@ namespace rr {
         }
     }
 
-    bool Level::isOnBorder(int x, int y) {
-        return x <= 0 || y <= 0 || x >= size_.x-1 || y >= size_.y-1;
-    }
-
-    void Level::listen(Listener::Event event, Entity* entity) {
+    void Level::onNotify(Observer::Event event, Entity* entity) {
         switch (event) {
-        case Listener::ITEM_DISCOVERED:
+        case Observer::ITEM_DISCOVERED:
             if (instanceof<Potion, Item>((Item*)entity)) {
                 for (auto item : entities_) {
                     if (instanceof<Potion, Item>((Item*)item) && ((Potion*)item)->effect_ == ((Potion*)entity)->effect_) {
@@ -535,13 +532,17 @@ namespace rr {
                 }
             }
             break;
-        case Listener::ITEM_DROPPED:
+        case Observer::ITEM_DROPPED:
 
             break;
-        case Listener::ITEM_PICKED:
+        case Observer::ITEM_PICKED:
 
             break;
         }
+    }
+
+    bool Level::isOnBorder(int x, int y) {
+        return x <= 0 || y <= 0 || x >= size_.x-1 || y >= size_.y-1;
     }
 
     std::vector<std::vector<int>> Level::getTiles() const {

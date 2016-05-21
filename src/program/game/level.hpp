@@ -7,37 +7,12 @@
 #ifndef level_hpp
 #define level_hpp
 
-#include "../game/game.hpp"
+#include "../observer/observer.hpp"
 
 namespace rr {
 
-    class Game;
-
-/// Class for the listener
-    class Listener {
-    public:
-        enum Event {
-            ITEM_DISCOVERED,
-            ITEM_PICKED,
-            ITEM_DROPPED
-        };
-
-        virtual ~Listener() {}
-        virtual void listen(Event, Entity*) = 0;
-    };
-
-/// Class for the observer
-    class Observer {
-    private:
-        std::vector<Listener*> listeners_;
-    public:
-        ~Observer();
-        void initialize(Game*);
-        void notify    (Listener::Event, Entity*);
-    };
-
 /// Class for the level
-    class Level : public Listener, public sf::Drawable, public sf::Transformable {
+    class Level : public Observer, public sf::Drawable, public sf::Transformable {
     public:
          Level();
         ~Level();
@@ -48,9 +23,10 @@ namespace rr {
             ROOM,
             CORRIDOR,
             ENTRANCE,
-            OCCUPIED
+            OCCUPIED,
+            EXIT
         };
-        virtual void                   listen          (Event, Entity*) override;
+        virtual void                   onNotify          (Event, Entity*) override;
 
         void                           generateWorld   ();
         bool                           loadFromFile    (const char* pathToFolder);

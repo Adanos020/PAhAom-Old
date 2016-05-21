@@ -9,7 +9,7 @@
 #include <iostream>
 
 extern rr::Resources resources;
-extern rr::Observer  observer;
+extern rr::Subject   subject;
 
 namespace rr {
 
@@ -98,7 +98,7 @@ namespace rr {
     void Player::useItem(Item* item) {
         if (instanceof<Potion, Item>(item)) {
             if (!((Potion*)item)->isDiscovered()) {
-                observer.notify(Listener::ITEM_DISCOVERED, item);
+                subject.notify(Observer::ITEM_DISCOVERED, item);
                 ((Potion*)item)->reveal();
                 std::cout << "It was a " << item->getName().toAnsiString() << '\n';
             }

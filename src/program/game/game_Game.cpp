@@ -11,8 +11,8 @@
 #include <iostream>
 
 extern rr::Settings settings;
+extern rr::Subject  subject;
 extern sf::Color    itemColors[9];
-extern rr::Observer observer;
 
 namespace rr {
 
@@ -45,6 +45,7 @@ namespace rr {
         delete gameMap_;
         delete hud_;
         delete player_;
+        levels_.clear();
     }
 
     void Game::controls() {
@@ -84,7 +85,7 @@ namespace rr {
 #define entities levels_[levelNumber_]->getEntities()
 
                 for (unsigned i=0; i<entities.size(); i++) {
-                    if (player_->intersects(entities[i])) {
+                    if (player_->getPosition() == entities[i]->getPosition()) {
                         if (instanceof<Item, Entity>(entities[i])) {
                             if (inventory_->addItem((Item*)entities[i])) {
                                 std::cout << "You've picked up " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
@@ -167,12 +168,11 @@ namespace rr {
         for (int i=0; i<25; i++) {
             levels_.push_back(new Level());
             levels_.back()->generateWorld();
+            subject.addObserver(levels_.back());
         }
         player_->setPosition(levels_[0]->getStartingPoint());
         start(true);
         pause(false);
-
-        observer.initialize(this);
         return true;
     }
 
@@ -288,6 +288,7 @@ namespace rr {
         levels_.clear();
         inventory_->clear();
         player_->reset();
+        subject.clear();
     }
 
 }

@@ -46,7 +46,6 @@ namespace rr {
         if (hollow_)
             image_->draw(rw);
         else {
-            item_    ->setRealPosition(body_.getPosition());
             item_->draw(rw);
             if (item_->getAmount()>1)
                 text_->draw(rw);
