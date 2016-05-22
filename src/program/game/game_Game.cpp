@@ -76,7 +76,7 @@ namespace rr {
         for (auto x : masks)
             for (auto mask : x)
                 mask->see(false);
-        for (double f = 0; f < 3.14*2; f += 0.1) {
+        for (double f = 0; f < M_PI*2; f += 0.1) {
             x = int(range*cos(f)) + pl.x;
             y = int(range*sin(f)) + pl.y;
             fov_drawLine(masks, map, pl, x, y);
