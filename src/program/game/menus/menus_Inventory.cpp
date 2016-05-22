@@ -200,8 +200,12 @@ namespace rr {
         switch (event) {
         case ITEM_DISCOVERED:
             for (int i=0; i<32; i++) {
-                if (!slot(i)->isEmpty() && ((Discoverable*)slot(i)->getItem())->effect_ == ((Discoverable*)entity)->effect_)
-                    ((Discoverable*)slot(i)->getItem())->reveal();
+                if (!slot(i)->isEmpty()) {
+                    if (instanceof<Potion, Item>((Item*)entity)) {
+                        if (((Potion*)slot(i)->getItem())->effect_ == ((Potion*)entity)->effect_)
+                            ((Potion*)slot(i)->getItem())->reveal();
+                    }
+                }
             }
             break;
         default:
