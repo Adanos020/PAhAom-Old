@@ -50,6 +50,7 @@ namespace rr {
         sf::Animation*     currentAnimation_;
         bool               moving_;
         float              velocity_;
+        int                sightRange_;
     public:
          Player();
         ~Player();
@@ -78,8 +79,11 @@ namespace rr {
     /// Updates the state of the player character
         void          update                  (float);
 
-    /// Returns the player statistics
+    /// Returns the player's attributes
         Attrs         getAttributes           ()          const          { return attrs_; }
+
+    /// Returns the player's sight range
+        int           getSightRange           ()          const          { return sightRange_; }
 
     /// Resets the player's atributes
         void          reset                   ();

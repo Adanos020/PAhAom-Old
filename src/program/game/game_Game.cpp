@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <string>
 #include <iostream>
+#include <cmath>
 
 extern rr::Settings settings;
 extern rr::Subject  subject;
@@ -48,6 +49,38 @@ namespace rr {
         delete hud_;
         delete player_;
         levels_.clear();
+    }
+
+    void Game::fov_drawLine(std::vector<std::vector<Mask*>> masks,std::vector<std::vector<int>> map, sf::Vector2i pl, int x, int y) {
+        int   dx = abs(pl.x - x);
+        int   dy = abs(pl.y - y);
+        double s = double(.999/(dx>dy?dx:dy));
+        double t = 0.0;
+        while (t < 1.0) {
+            dx = int((1.0 - t)*pl.x + t*x);
+            dy = int((1.0 - t)*pl.y + t*y);
+            if (dx >= 0 && dx < (int)map.size() && dy >= 0 && dy < (int)map[0].size()) {
+                if (map[dx][dy] != 1 && map[dx][dy] != 4) {
+                    masks[dx][dy]->see(true);
+                } else {
+                    masks[dx][dy]->see(true);
+                    return;
+                }
+            }
+            t += s;
+        }
+    }
+
+    void Game::fov(std::vector<std::vector<Mask*>> masks, std::vector<std::vector<int>> map, int range, sf::Vector2i pl) {
+        int x, y;
+        for (auto x : masks)
+            for (auto mask : x)
+                mask->see(false);
+        for (double f = 0; f < 3.14*2; f += 0.1) {
+            x = int(range*cos(f)) + pl.x;
+            y = int(range*sin(f)) + pl.y;
+            fov_drawLine(masks, map, pl, x, y);
+        }
     }
 
     void Game::randomizeItems() {
@@ -140,14 +173,16 @@ namespace rr {
 
         gameView_.setCenter(sf::Vector2f(player_->getBounds().left+16, player_->getBounds().top+16));
 
-        for (auto x : levels_[levelNumber_]->getEntities()) {
-            if (instanceof<Door, Entity>(x)) {
-                if (player_->intersects(x))
-                    ((Door*)x)->setOpen(true);
+        for (auto entity : levels_[levelNumber_]->getEntities()) {
+            if (instanceof<Door, Entity>(entity)) {
+                if (player_->intersects(entity))
+                    ((Door*)entity)->setOpen(true);
                 else
-                    ((Door*)x)->setOpen(false);
+                    ((Door*)entity)->setOpen(false);
             }
         }
+
+        fov(levels_[levelNumber_]->getMasks(), levels_[levelNumber_]->getTiles(), player_->getSightRange(), player_->getPosition());
     }
 
     void Game::controls(sf::Event& event) {

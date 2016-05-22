@@ -23,11 +23,12 @@ namespace rr {
 
         for (int i=0; i<size_.x; i++)
             tiles_.push_back(std::vector<Cell>());
-
         for (int i=0; i<size_.x; i++) {
             regions_.push_back(std::vector<int>());
+            masks_.push_back(std::vector<Mask*>());
             for (int j=0; j<size_.y; j++) {
                 regions_[i].push_back(-1);
+                masks_[i].push_back(new Mask());
             }
         }
     }
@@ -37,6 +38,10 @@ namespace rr {
             delete entity;
         }
         entities_.clear();
+        for (auto x : masks_)
+            for (auto mask : x)
+                delete mask;
+        masks_.clear();
     }
 
     void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -50,8 +55,14 @@ namespace rr {
     }
 
     void Level::drawObjects(sf::RenderWindow& rw) const {
-        for (auto x : entities_)
+        for (auto x : entities_) {
             x->draw(rw);
+        }
+        for (auto x : masks_) {
+            for (auto mask : x) {
+                mask->draw(rw);
+            }
+        }
     }
 
     void Level::addEntity(Entity* e, sf::Vector2i position) {
@@ -523,7 +534,7 @@ namespace rr {
      // and in the end we place the masks upon the whole level to make the player have to discover it all
         for (int x=0; x<size_.x; x++) {
             for (int y=0; y<size_.y; y++) {
-                addEntity(new Mask(), sf::Vector2i(x, y));
+                masks_[x][y]->setPosition(sf::Vector2i(x, y));
             }
         }
     }
@@ -552,5 +563,9 @@ namespace rr {
 
     std::vector<std::vector<int>> Level::getTiles() const {
         return tilesAsInts_;
+    }
+
+    std::vector<std::vector<Level::Cell>> Level::getTilesAsCells () const {
+        return tiles_;
     }
 }

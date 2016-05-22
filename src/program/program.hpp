@@ -132,6 +132,8 @@ namespace rr {
     public:
          Program();
         ~Program();
+
+        Game* getGame() const { return game_; }
     };
 
 }

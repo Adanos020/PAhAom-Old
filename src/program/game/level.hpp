@@ -26,18 +26,20 @@ namespace rr {
             OCCUPIED,
             EXIT
         };
-        virtual void                   onNotify          (Event, Entity*) override;
+        virtual void                    onNotify        (Event, Entity*) override;
 
-        void                           generateWorld   ();
-        bool                           loadFromFile    (const char* pathToFolder);
-        void                           drawObjects     (sf::RenderWindow&) const;
-        void                           addEntity       (Entity*, sf::Vector2i position);
-        void                           removeEntity    (unsigned index);
+        void                            generateWorld   ();
+        bool                            loadFromFile    (const char* pathToFolder);
+        void                            drawObjects     (sf::RenderWindow&) const;
+        void                            addEntity       (Entity*, sf::Vector2i position);
+        void                            removeEntity    (unsigned index);
 
-        std::vector<Entity*>           getEntities     () const { return entities_     ; }
-        sf::Vector2i                   getStartingPoint() const { return startingPoint_; }
-        sf::Vector2i                   getEndingPoint  () const { return endingPoint_  ; }
-        std::vector<std::vector<int>>  getTiles        () const;
+        std::vector<Entity*>            getEntities     () const { return entities_     ; }
+        std::vector<std::vector<Mask*>> getMasks        () const { return masks_        ; }
+        sf::Vector2i                    getStartingPoint() const { return startingPoint_; }
+        sf::Vector2i                    getEndingPoint  () const { return endingPoint_  ; }
+        std::vector<std::vector<int>>   getTiles        () const;
+        std::vector<std::vector<Cell>>  getTilesAsCells () const;
     private:
         virtual void draw           (sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -54,12 +56,13 @@ namespace rr {
         sf::Vector2i    startingPoint_;
         sf::Vector2i    endingPoint_;
 
-        std::vector<Entity*>           entities_;
-        std::vector<std::vector<Cell>> tiles_;
-        std::vector<std::vector<int>>  tilesAsInts_;
-        std::vector<sf::IntRect>       rooms_;
-        std::vector<std::vector<int>>  regions_;
-        int                            region_count_;
+        std::vector<Entity*>            entities_;
+        std::vector<std::vector<Mask*>> masks_;
+        std::vector<std::vector<Cell>>  tiles_;
+        std::vector<std::vector<int>>   tilesAsInts_;
+        std::vector<sf::IntRect>        rooms_;
+        std::vector<std::vector<int>>   regions_;
+        int                             region_count_;
     };
 
 }

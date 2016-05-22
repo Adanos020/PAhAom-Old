@@ -56,6 +56,10 @@ namespace rr {
 
     /// Method randomizing the disposable items' colors/symbols
         void randomizeItems();
+
+        void fov_drawLine(std::vector<std::vector<Mask*>> masks,std::vector<std::vector<int>> map, sf::Vector2i pl, int x, int y);
+        void fov(std::vector<std::vector<Mask*>> masks, std::vector<std::vector<int>> map, int range, sf::Vector2i pl);
+
     public:
          Game();
         ~Game();

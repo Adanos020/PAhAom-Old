@@ -5,6 +5,7 @@
  */
 
 #include "program/program.hpp"
+
 #include <cstdlib>
 #include <ctime>
 #include <SFML/Graphics.hpp>
@@ -16,6 +17,7 @@ sf::Color      itemColors[9];
 
 int main() {
     srand(time(0));
+
     auto p = new rr::Program();
 
     delete p;

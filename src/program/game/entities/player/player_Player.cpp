@@ -18,27 +18,28 @@ namespace rr {
           position_                    (sf::Vector2i(0, 0)),
           currentAnimation_            (&walkingRight_),
           moving_                      (false),
-          velocity_                    (1.25f) {
+          velocity_                    (1.25f),
+          sightRange_                  (9) {
 
-          attrs_.health                = 0.f;
-          attrs_.mana                  = 5.f;
-          attrs_.maxHealth             = 30.f;
-          attrs_.maxMana               = 5.f;
-          attrs_.strength              = 10.f;
-          attrs_.dexterity             = 10.f;
-          attrs_.skillPoints           = 0.f;
-          attrs_.experience            = 0.f;
-          attrs_.nextLevel             = 100.f;
-          attrs_.level                 = 0.f;
+        attrs_.health                = 0.f;
+        attrs_.mana                  = 5.f;
+        attrs_.maxHealth             = 30.f;
+        attrs_.maxMana               = 5.f;
+        attrs_.strength              = 10.f;
+        attrs_.dexterity             = 10.f;
+        attrs_.skillPoints           = 0.f;
+        attrs_.experience            = 0.f;
+        attrs_.nextLevel             = 100.f;
+        attrs_.level                 = 0.f;
 
-          attrs_.crafting              = false;
-          attrs_.alchemy               = false;
-          attrs_.cold_weapon_mastery   = false;
-          attrs_.ranged_weapon_mastery = false;
-          attrs_.eagle_eye             = false;
-          attrs_.mana_regeneration     = false;
-          attrs_.health_regeneration   = false;
-          attrs_.faster_learning       = false;
+        attrs_.crafting              = false;
+        attrs_.alchemy               = false;
+        attrs_.cold_weapon_mastery   = false;
+        attrs_.ranged_weapon_mastery = false;
+        attrs_.eagle_eye             = false;
+        attrs_.mana_regeneration     = false;
+        attrs_.health_regeneration   = false;
+        attrs_.faster_learning       = false;
 
         walkingLeft_ .setSpriteSheet(resources.texture.player);
         walkingRight_.setSpriteSheet(resources.texture.player);
