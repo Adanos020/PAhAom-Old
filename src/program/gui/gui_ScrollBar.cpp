@@ -11,26 +11,13 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    ScrollBar::ScrollBar(Plain p, sf::Vector2f position, float length, sf::Vector2f min_max) {
-        valueLimit_ = min_max;
-        value_      = valueLimit_.x;
-        plain_      = p;
+    ScrollBar::ScrollBar(Plain p, sf::Vector2f position, float length, sf::Vector2f min_max)
+        : Component  (),
+          plain_     (p),
+          valueLimit_(min_max),
+          value_     (valueLimit_.x) {
 
-        if (p == HORIZONTAL) {
-            bLeft_      = new Button(position, "<", 30);
-            bRight_     = new Button(position+sf::Vector2f(length+20, 0), ">", 30);
-            indicator_  = new Button(position+sf::Vector2f(10, 5), "|", 30);
-            label_      = new Text  (sf::Vector2f(0, 0), "", resources.font.Unifont);
-
-            border_.setPosition(bLeft_->getPosition()+sf::Vector2f(bLeft_->getSize().x+10, 5));
-            border_.setOutlineThickness(5);
-            border_.setOutlineColor(sf::Color(128, 128, 128, 128));
-            border_.setFillColor(sf::Color(128, 128, 128, 128));
-            border_.setSize(sf::Vector2f(length, 30));
-
-            label_->setPosition(border_.getPosition()+sf::Vector2f(border_.getSize().x/2-label_->getSize().x/2, -5));
-        }
-        else if (p == VERTICAL) {
+        if (p == VERTICAL) {
             bLeft_      = new Button(position, L"∧", 30);
             bRight_     = new Button(position+sf::Vector2f(0, length+20), L"∨", 30);
             indicator_  = new Button(position+sf::Vector2f(0, 10), "_", 30);
@@ -43,6 +30,20 @@ namespace rr {
             border_.setSize(sf::Vector2f(28, length));
 
             label_->setPosition(border_.getPosition()+sf::Vector2f(-5, border_.getSize().y/2-label_->getSize().y/2));
+        }
+        else {
+            bLeft_      = new Button(position, "<", 30);
+            bRight_     = new Button(position+sf::Vector2f(length+20, 0), ">", 30);
+            indicator_  = new Button(position+sf::Vector2f(10, 5), "|", 30);
+            label_      = new Text  (sf::Vector2f(0, 0), "", resources.font.Unifont);
+
+            border_.setPosition(bLeft_->getPosition()+sf::Vector2f(bLeft_->getSize().x+10, 5));
+            border_.setOutlineThickness(5);
+            border_.setOutlineColor(sf::Color(128, 128, 128, 128));
+            border_.setFillColor(sf::Color(128, 128, 128, 128));
+            border_.setSize(sf::Vector2f(length, 30));
+
+            label_->setPosition(border_.getPosition()+sf::Vector2f(border_.getSize().x/2-label_->getSize().x/2, -5));
         }
     }
 

@@ -30,9 +30,6 @@ namespace rr {
     }
 
     void Subject::clear() {
-        for (auto observer : observers_) {
-            delete observer;
-        }
         observers_.clear();
     }
 

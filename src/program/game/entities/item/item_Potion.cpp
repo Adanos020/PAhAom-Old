@@ -12,7 +12,9 @@ extern sf::Color     itemColors[9];
 
 namespace rr {
 
-    Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos) {
+    Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos)
+        : Item() {
+
         amount_     = am;
         effect_     = e;
         size_       = s;

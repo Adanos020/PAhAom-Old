@@ -11,15 +11,17 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Checkbox::Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color c) {
+    Checkbox::Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color c)
+        : Component(),
+          image_   (new Image(pos, resources.texture.gui, 14, 1)),
+          text_    (new Text (sf::Vector2f(0, 0), txt, resources.font.Unifont, chsize)) {
+
         body_.setSize(sf::Vector2f(35, 35));
         body_.setPosition(pos);
         body_.setFillColor(c);
         body_.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
         body_.setOutlineThickness(5);
 
-        text_  = new Text (sf::Vector2f(0, 0), txt, resources.font.Unifont, chsize);
-        image_ = new Image(pos, resources.texture.gui, 14, 1);
         text_->setPosition(sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_->getSize().y));
 
         image_->setParentComponent(this);

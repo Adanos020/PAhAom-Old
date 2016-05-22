@@ -11,18 +11,19 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Chest::Chest(Type t, Item* i) {
-        item_ = i;
-        type_ = t;
+    Chest::Chest(Type t, Item* i)
+        : Entity(),
+          item_ (i),
+          type_ (t) {
 
         int tu, tv;
-        if (type_ == REGULAR) {
-            tu = (rand()%3+15)%(resources.texture.objects.getSize().x/16);
-            tv = (rand()%3+15)/(resources.texture.objects.getSize().y/16);
-        }
-        else if (type_ == SPECIAL) {
+        if (type_ == SPECIAL) {
             tu = (rand()%2+18)%(resources.texture.objects.getSize().x/16);
             tv = (rand()%2+18)/(resources.texture.objects.getSize().y/16);
+        }
+        else {
+            tu = (rand()%3+15)%(resources.texture.objects.getSize().x/16);
+            tv = (rand()%3+15)/(resources.texture.objects.getSize().y/16);
         }
 
         body_.setTextureRect(sf::IntRect(tu*16, tv*16, 16, 16));

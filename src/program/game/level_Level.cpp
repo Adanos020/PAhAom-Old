@@ -14,8 +14,10 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Level::Level() {
-        size_ = sf::Vector2i(77, 43);
+    Level::Level()
+        : size_         (sf::Vector2i(77, 43)),
+          region_count_ (0) {
+
         tilemap_.setPrimitiveType(sf::Quads);
         tilemap_.resize(size_.x*size_.y*4);
 
@@ -28,10 +30,12 @@ namespace rr {
                 regions_[i].push_back(-1);
             }
         }
-        region_count_ = 0;
     }
 
     Level::~Level() {
+        for (auto entity : entities_) {
+            delete entity;
+        }
         entities_.clear();
     }
 
@@ -121,18 +125,17 @@ namespace rr {
                 }
             }
 
-            if (intersects)
-                continue;
-
-            for (int i=rpos.x; i<rpos.x+rsize.x; i++) {
-                for (int j=rpos.y; j<rpos.y+rsize.y; j++) {
-                    tiles_[i][j] = ROOM;
-                    regions_[i][j] = region_count_;
+            if (!intersects) {
+                for (int i=rpos.x; i<rpos.x+rsize.x; i++) {
+                    for (int j=rpos.y; j<rpos.y+rsize.y; j++) {
+                        tiles_[i][j] = ROOM;
+                        regions_[i][j] = region_count_;
+                    }
                 }
-            }
 
-            rooms_.push_back(sf::IntRect(rpos, rsize));
-            region_count_++;
+                rooms_.push_back(sf::IntRect(rpos, rsize));
+                region_count_++;
+            }
         }
     }
 
@@ -386,11 +389,9 @@ namespace rr {
                     }
                     break;
              // ROOM
-                case ROOM:     tileNumber = 17; break;
                 case CORRIDOR: tileNumber = 1;  break;
-                case OCCUPIED: tileNumber = 17; break;
-                case ENTRANCE: tileNumber = 17; break;
                 case EXIT:     tileNumber = 48; break;
+                default:       tileNumber = 17; break;
                 }
 
                 int tu = tileNumber%(resources.texture.tileset.getSize().x/16);
@@ -519,6 +520,12 @@ namespace rr {
                 }
             }
         }
+     // and in the end we place the masks upon the whole level to make the player have to discover it all
+        for (int x=0; x<size_.x; x++) {
+            for (int y=0; y<size_.y; y++) {
+                addEntity(new Mask(), sf::Vector2i(x, y));
+            }
+        }
     }
 
     void Level::onNotify(Observer::Event event, Entity* entity) {
@@ -533,10 +540,8 @@ namespace rr {
             }
             break;
         case Observer::ITEM_DROPPED:
-
             break;
-        case Observer::ITEM_PICKED:
-
+        default:
             break;
         }
     }

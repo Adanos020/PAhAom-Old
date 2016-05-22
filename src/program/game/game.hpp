@@ -52,7 +52,7 @@ namespace rr {
         unsigned            levelNumber_;
 
     /// Method for the keyboard controls
-        void controls      ();
+        void controls      (sf::Event&);
 
     /// Method randomizing the disposable items' colors/symbols
         void randomizeItems();
@@ -67,7 +67,7 @@ namespace rr {
         void                buttonEvents(sf::RenderWindow&, sf::Event&);
 
     /// Method drawing the game components
-        void                update      (float);
+        void                update      (sf::Event&, float);
 
     /// Method starting the game or not, depending on the argument's value
         void                start       (bool);

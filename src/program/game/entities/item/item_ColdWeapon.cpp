@@ -11,7 +11,9 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos) {
+    ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos)
+        : Item() {
+
         type_       = type;
         amount_     = amount;
         disposable_ = false;

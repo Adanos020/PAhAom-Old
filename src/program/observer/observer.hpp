@@ -4,6 +4,9 @@
  * Used library: SFML 2.3.2
  */
 
+#ifndef observer_hpp
+#define observer_hpp
+
 #include "../game/entities/entities.hpp"
 
 namespace rr {
@@ -13,7 +16,6 @@ namespace rr {
     public:
         enum Event {
             ITEM_DISCOVERED,
-            ITEM_PICKED,
             ITEM_DROPPED
         };
 
@@ -27,6 +29,7 @@ namespace rr {
         std::vector<Observer*> observers_;
     public:
         ~Subject();
+
         void addObserver   (Observer*);
         void removeObserver(Observer*);
         void clear         ();
@@ -34,3 +37,5 @@ namespace rr {
     };
 
 }
+
+#endif // observer_hpp

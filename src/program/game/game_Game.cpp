@@ -6,6 +6,7 @@
 
 #include "game.hpp"
 #include "../program.hpp"
+#include "../funcs/keys.hpp"
 #include <cstdlib>
 #include <string>
 #include <iostream>
@@ -16,24 +17,25 @@ extern sf::Color    itemColors[9];
 
 namespace rr {
 
-    Game::Game() {
-        mainMenu_   = new MainMenu();
-        pauseMenu_  = new PauseMenu();
-        attributes_ = new Attributes();
-        inventory_  = new Inventory();
-        quests_     = new Quests();
-        gameMap_    = new GameMap();
-        hud_        = new HUD();
-        player_     = new Player();
+    Game::Game()
+        : mainMenu_   (new MainMenu  ()),
+          pauseMenu_  (new PauseMenu ()),
+          attributes_ (new Attributes()),
+          inventory_  (new Inventory ()),
+          quests_     (new Quests    ()),
+          gameMap_    (new GameMap   ()),
+          hud_        (new HUD       ()),
+          player_     (new Player    ()),
+          started_    (false),
+          paused_     (false),
+          levelNumber_(0) {
 
         gameView_.setSize((sf::Vector2f)settings.graphics.resolution);
         mapView_ .setSize(6160.f, 3440.f);
         mapView_ .setCenter(mapView_.getSize()/2.f);
         mapView_ .setViewport(sf::FloatRect(0.115f, 0.1275f, 0.77f, 0.745f));
 
-        paused_      = false;
-        started_     = false;
-        levelNumber_ = 0;
+        subject.addObserver(inventory_);
     }
 
     Game::~Game() {
@@ -46,87 +48,6 @@ namespace rr {
         delete hud_;
         delete player_;
         levels_.clear();
-    }
-
-    void Game::controls() {
-        if (started_ && !paused_) {
-
-#define keyPressed(key) sf::Keyboard::isKeyPressed(key)
-#define key sf::Keyboard
-
-            if (keyPressed(settings.keys.move_up))    player_->move(levels_[levelNumber_]->getTiles(), Player::UP);
-            if (keyPressed(settings.keys.move_down))  player_->move(levels_[levelNumber_]->getTiles(), Player::DOWN);
-            if (keyPressed(settings.keys.move_left))  player_->move(levels_[levelNumber_]->getTiles(), Player::LEFT);
-            if (keyPressed(settings.keys.move_right)) player_->move(levels_[levelNumber_]->getTiles(), Player::RIGHT);
-
-            if      (keyPressed(settings.keys.open_attributes)) {
-                attributes_->update(player_);
-                attributes_->open();
-                paused_ = true;
-            }
-            else if (keyPressed(settings.keys.open_inventory)) {
-                inventory_->open();
-                paused_ = true;
-            }
-            else if (keyPressed(settings.keys.open_map)) {
-                gameMap_->open();
-                paused_ = true;
-            }
-            else if (keyPressed(settings.keys.open_quests)) {
-                quests_->open();
-                paused_ = true;
-            }
-
-            else if (keyPressed(settings.keys.attack)) {
-
-            }
-            else if (keyPressed(settings.keys.interact)) {
-
-#define entities levels_[levelNumber_]->getEntities()
-
-                for (unsigned i=0; i<entities.size(); i++) {
-                    if (player_->getPosition() == entities[i]->getPosition()) {
-                        if (instanceof<Item, Entity>(entities[i])) {
-                            if (inventory_->addItem((Item*)entities[i])) {
-                                std::cout << "You've picked up " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
-                                levels_[levelNumber_]->removeEntity(i);
-                                i = 0;
-                            }
-                            else
-                                std::cout << "Your backpack is too full to take " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
-                        }
-                        else if (instanceof<Chest, Entity>(entities[i])) {
-                            // TODO - MAKE THIS SHIT NOT CRASH THE FUCKING GAME
-                            /*
-                            levels_[levelNumber_]->addEntity(entities[i]->getItem(), entities[i]->getPosition());
-                            levels_[levelNumber_]->removeEntity(i);
-                            i = 0;
-                            */
-                        }
-                    }
-                }
-
-#undef entities
-
-            }
-
-            if      (keyPressed(settings.keys.useslot_1)) {}
-            else if (keyPressed(settings.keys.useslot_2)) {}
-            else if (keyPressed(settings.keys.useslot_3)) {}
-            else if (keyPressed(settings.keys.useslot_4)) {}
-            else if (keyPressed(settings.keys.useslot_5)) {}
-
-            else if (keyPressed(key::Numpad1)) player_->attrs_.health    --;
-            else if (keyPressed(key::Numpad2)) player_->attrs_.health    ++;
-            else if (keyPressed(key::Numpad3)) player_->attrs_.mana      --;
-            else if (keyPressed(key::Numpad4)) player_->attrs_.mana      ++;
-            else if (keyPressed(key::Numpad5)) player_->attrs_.experience++;
-            else if (keyPressed(key::Numpad6)) player_->attrs_.level     ++;
-
-#undef keyPressed
-#undef key
-
-        }
     }
 
     void Game::randomizeItems() {
@@ -211,8 +132,8 @@ namespace rr {
         }
     }
 
-    void Game::update(float timer) {
-        controls();
+    void Game::update(sf::Event& event, float timer) {
+        controls(event);
 
         player_->update(timer);
         hud_   ->update(player_, levelNumber_+1);
@@ -229,36 +150,111 @@ namespace rr {
         }
     }
 
-    void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
+    void Game::controls(sf::Event& event) {
+        if (started_ && !paused_) {
+            if (isKeyPressed(settings.keys.move_up))    player_->move(levels_[levelNumber_]->getTiles(), Player::UP);
+            if (isKeyPressed(settings.keys.move_down))  player_->move(levels_[levelNumber_]->getTiles(), Player::DOWN);
+            if (isKeyPressed(settings.keys.move_left))  player_->move(levels_[levelNumber_]->getTiles(), Player::LEFT);
+            if (isKeyPressed(settings.keys.move_right)) player_->move(levels_[levelNumber_]->getTiles(), Player::RIGHT);
+
+                 if (isKeyPressed(sf::Keyboard::Numpad1)) player_->attrs_.health    --;
+            else if (isKeyPressed(sf::Keyboard::Numpad2)) player_->attrs_.health    ++;
+            else if (isKeyPressed(sf::Keyboard::Numpad3)) player_->attrs_.mana      --;
+            else if (isKeyPressed(sf::Keyboard::Numpad4)) player_->attrs_.mana      ++;
+            else if (isKeyPressed(sf::Keyboard::Numpad5)) player_->attrs_.experience++;
+            else if (isKeyPressed(sf::Keyboard::Numpad6)) player_->attrs_.level     ++;
+        }
+    }
+
+    void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& event) {
         if (!started_)
-            mainMenu_ ->buttonEvents(rw, e, this);
+            mainMenu_ ->buttonEvents(rw, event, this);
         if (pauseMenu_->isOpen())
-            pauseMenu_->buttonEvents(rw, e, this);
+            pauseMenu_->buttonEvents(rw, event, this);
         if (inventory_->isOpen()) {
-            inventory_->buttonEvents(rw, e, this);
-            hud_      ->buttonEvents(rw, e);
+            inventory_->buttonEvents(rw, event, this);
+            hud_      ->buttonEvents(rw, event);
         }
         if (attributes_->isOpen())
-            attributes_->buttonEvents(rw, e, this);
+            attributes_->buttonEvents(rw, event, this);
         if (quests_    ->isOpen())
-            quests_    ->buttonEvents(rw, e, this);
+            quests_    ->buttonEvents(rw, event, this);
         if (gameMap_   ->isOpen())
-            gameMap_   ->buttonEvents(rw, e, this);
+            gameMap_   ->buttonEvents(rw, event, this);
 
         if (started_) {
-            if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Add) {
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add) {
                 if (levelNumber_<levels_.size()-1)
                     levelNumber_++;
                 else
                     levelNumber_ = 0;
                 player_->setPosition(levels_[levelNumber_]->getStartingPoint());
             }
-            else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Subtract) {
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract) {
                 if (levelNumber_>0)
                     levelNumber_--;
                 else
                     levelNumber_ = levels_.size()-1;
                 player_->setPosition(levels_[levelNumber_]->getEndingPoint());
+            }
+
+            if (!paused_) {
+                if (wasKeyPressed(event, settings.keys.open_attributes)) {
+                    attributes_->update(player_);
+                    attributes_->open();
+                    paused_ = true;
+                }
+                else if (wasKeyPressed(event, settings.keys.open_inventory)) {
+                    inventory_->open();
+                    paused_ = true;
+                }
+                else if (wasKeyPressed(event, settings.keys.open_map)) {
+                    gameMap_->open();
+                    paused_ = true;
+                }
+                else if (wasKeyPressed(event, settings.keys.open_quests)) {
+                    quests_->open();
+                    paused_ = true;
+                }
+
+                else if (wasKeyPressed(event, settings.keys.attack)) {
+
+                }
+                else if (wasKeyPressed(event, settings.keys.interact)) {
+
+#define entities levels_[levelNumber_]->getEntities()
+
+                    for (unsigned i=0; i<entities.size(); i++) {
+                        if (player_->getPosition() == entities[i]->getPosition()) {
+                            if (instanceof<Item, Entity>(entities[i])) {
+                                if (inventory_->addItem((Item*)entities[i])) {
+                                    std::cout << "You've picked up " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
+                                    levels_[levelNumber_]->removeEntity(i);
+                                    i = 0;
+                                }
+                                else
+                                    std::cout << "Your backpack is too full to take " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
+                            }
+                            else if (instanceof<Chest, Entity>(entities[i])) {
+                                // TODO - MAKE THIS SHIT NOT CRASH THE FUCKING GAME
+                                /*
+                                levels_[levelNumber_]->addEntity(entities[i]->getItem(), entities[i]->getPosition());
+                                levels_[levelNumber_]->removeEntity(i);
+                                i = 0;
+                                */
+                            }
+                        }
+                    }
+
+#undef entities
+
+                }
+
+                if      (wasKeyPressed(event, settings.keys.useslot_1)) {}
+                else if (wasKeyPressed(event, settings.keys.useslot_2)) {}
+                else if (wasKeyPressed(event, settings.keys.useslot_3)) {}
+                else if (wasKeyPressed(event, settings.keys.useslot_4)) {}
+                else if (wasKeyPressed(event, settings.keys.useslot_5)) {}
             }
         }
     }
@@ -282,13 +278,9 @@ namespace rr {
 
     void Game::reset() {
         randomizeItems();
-        for (auto level : levels_) {
-            delete level;
-        }
         levels_.clear();
         inventory_->clear();
         player_->reset();
-        subject.clear();
     }
 
 }

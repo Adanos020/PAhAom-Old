@@ -12,7 +12,9 @@ extern sf::Color itemColors[9];
 
 namespace rr {
 
-    Book::Book(Type type, int am, sf::Vector2i pos) {
+    Book::Book(Type type, int am, sf::Vector2i pos)
+        : Item() {
+
         type_       = type;
         amount_     = am;
         ID_         = type_+10;

@@ -27,8 +27,8 @@ namespace rr {
                                                                +resources.dictionary["player.attributes.experience"]    +":\n"
                                                                +resources.dictionary["player.attributes.level"]         +":\n"
                                                                +resources.dictionary["player.attributes.skill_points"]  +":"  , resources.font.Unifont, 30); // attrs
-            *wAttr_ += new Text(sf::Vector2f(400, 25), "", resources.font.Unifont, 30, sf::Color::Yellow);             // values
-            *wAttr_ += new Text(sf::Vector2f(600, 25), "", resources.font.Unifont, 30, sf::Color::Green);              // skills
+            *wAttr_ += new Text(sf::Vector2f(300, 25), "", resources.font.Unifont, 30, sf::Color::Yellow);             // values
+            *wAttr_ += new Text(sf::Vector2f(550, 25), "", resources.font.Unifont, 30, sf::Color::Green);              // skills
             *wAttr_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
                 component(wAttr_, Button, 0)->setPosition(sf::Vector2f(wAttr_->getPosition().x+wAttr_->getSize().x/2-component(wAttr_, Button, 0)->getSize().x/2,
                                                                       wAttr_->getPosition().y+wAttr_->getSize().y-component(wAttr_, Button, 0)->getSize().y-10));

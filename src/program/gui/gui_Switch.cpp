@@ -11,16 +11,17 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Switch::Switch(sf::Vector2f size, sf::Vector2f pos) {
+    Switch::Switch(sf::Vector2f size, sf::Vector2f pos)
+        : Component(),
+          left_    (new Button(pos, "<", 30)),
+          right_   (new Button(sf::Vector2f(body_.getPosition().x+body_.getSize().x+24, pos.y), ">", 30)),
+          text_    (new Text(sf::Vector2f(0, 0), L">TE'EM 'ECTEM", resources.font.Unifont, size.y)) {
+
         body_.setSize(size);
         body_.setPosition(sf::Vector2f(pos.x+44, pos.y+5));
         body_.setFillColor(sf::Color(128, 128, 128, 128));
         body_.setOutlineColor(sf::Color(108, 108, 108));
         body_.setOutlineThickness(5);
-
-        left_  = new Button(pos, "<", 30);
-        right_ = new Button(sf::Vector2f(body_.getPosition().x+body_.getSize().x+24, pos.y), ">", 30);
-        text_  = new Text(sf::Vector2f(0, 0), L">TE'EM 'ECTEM", resources.font.Unifont, size.y);
 
         left_ ->setParentComponent(this);
         right_->setParentComponent(this);

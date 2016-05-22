@@ -13,17 +13,17 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Slot::Slot(sf::Vector2f size, sf::Vector2f pos, int icon, sf::Color c) {
-        hollow_ = true;
+    Slot::Slot(sf::Vector2f size, sf::Vector2f pos, int icon, sf::Color c)
+        : Component(),
+          image_     (new Image(pos, resources.texture.gui, 14, icon)),
+          text_      (new Text (sf::Vector2f(pos.x+5, pos.y+55), "", resources.font.Pixel, 20)),
+          hollow_    (true) {
 
         body_.setSize(size);
         body_.setPosition(pos);
         body_.setFillColor(c);
         body_.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
         body_.setOutlineThickness(5);
-
-        image_    = new Image(pos, resources.texture.gui, 14, icon);
-        text_     = new Text (sf::Vector2f(pos.x+5, pos.y+55), "", resources.font.Pixel, 20);
 
         image_   ->setParentComponent(this);
         text_    ->setParentComponent(this);

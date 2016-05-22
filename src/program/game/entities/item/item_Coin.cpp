@@ -11,7 +11,9 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Coin::Coin(Type t, Size s, int am, sf::Vector2i pos) {
+    Coin::Coin(Type t, Size s, int am, sf::Vector2i pos)
+        : Item() {
+
         amount_    = am;
         type_      = t;
         size_      = s;

@@ -10,10 +10,11 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Door::Door(bool lock) {
-        locked_        = lock;
-        open_          = false;
-        withoutWindow_ = rand()%2;
+    Door::Door(bool lock)
+        : Entity         (),
+          locked_        (lock),
+          open_          (false),
+          withoutWindow_ (rand()%2) {
 
         body_.setTexture(resources.texture.objects);
         body_.setScale(sf::Vector2f(5, 5));

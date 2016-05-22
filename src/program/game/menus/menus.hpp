@@ -7,6 +7,7 @@
 #ifndef menus_h
 #define menus_h
 
+#include "../../observer/observer.hpp"
 #include "../../gui/gui.hpp"
 #include "../game.hpp"
 
@@ -90,7 +91,7 @@ namespace rr {
     };
 
 /// Class for the player inventory
-    class Inventory {
+    class Inventory : public Observer {
     private:
         sf::RectangleShape shadow_;
         Window*            wInve_;
@@ -121,6 +122,8 @@ namespace rr {
 
     /// Tells if the inventory is open
         bool isOpen      ();
+
+        virtual void onNotify(Event, Entity*) override;
     };
 
 /// Class for the task list

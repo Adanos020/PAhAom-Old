@@ -364,13 +364,13 @@ item.coldweapon.description.runic_sword
 Ten doskonale wykuty i wyważony miecz posiada miejsce na magiczną runę, która zapewni mu dodatkowe, specjalne właściwości. Nawet bez niej jest szybką i cenioną bronią.
 
 item.coldweapon.strength_required
-Wymagana siła: 
+Wymagana siła:
 
 item.coldweapon.damage_dealt
-Maksymalne obrażenia: 
+Maksymalne obrażenia:
 
 item.coldweapon.level
-Poziom ulepszenia: 
+Poziom ulepszenia:
 
 ;-----------PLAYER-----------;
 player.attributes.health

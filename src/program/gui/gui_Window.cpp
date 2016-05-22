@@ -11,19 +11,19 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Window::Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c) {
+    Window::Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c)
+        : Component(),
+          header_  (new Text(sf::Vector2f(0, 0), head, resources.font.Unifont, 20, sf::Color::Yellow)),
+          visible_ (false) {
+
         body_.setSize(size);
         body_.setPosition(position);
         body_.setFillColor(sf::Color(c.r, c.g, c.b, 128));
         body_.setOutlineColor(c);
         body_.setOutlineThickness(5);
 
-        header_ = new Text(sf::Vector2f(0, 0), head, resources.font.Unifont, 20, sf::Color::Yellow);
         header_->setPosition(sf::Vector2f(position.x+5, position.y));
-
         header_->setParentComponent(this);
-
-        visible_ = false;
     }
 
     Window::~Window() {

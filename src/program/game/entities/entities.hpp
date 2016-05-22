@@ -45,6 +45,7 @@ namespace rr {
 #include "door/door.hpp"
 #include "item/item.hpp"
 #include "player/player.hpp"
+#include "mask/mask.hpp"
 
 #endif // entities_hpp
 

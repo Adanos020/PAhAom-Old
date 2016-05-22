@@ -11,6 +11,16 @@
 
 namespace rr {
 
+/// Tells if a key is pressed or not
+    inline bool isKeyPressed(sf::Keyboard::Key key) {
+        return sf::Keyboard::isKeyPressed(key);
+    }
+
+/// Tells if a key was pressed once
+    inline bool wasKeyPressed(sf::Event& event, sf::Keyboard::Key key) {
+        return event.type == sf::Event::KeyPressed && event.key.code == key;
+    }
+
 /// Returns a key name from a key code
     inline sf::String getKeyName(sf::Keyboard::Key keyCode) {
         switch (keyCode) {

@@ -13,43 +13,42 @@ extern rr::Subject   subject;
 
 namespace rr {
 
-    Player::Player() {
+    Player::Player()
+        : Entity                       (),
+          position_                    (sf::Vector2i(0, 0)),
+          currentAnimation_            (&walkingRight_),
+          moving_                      (false),
+          velocity_                    (1.25f) {
+
+          attrs_.health                = 0.f;
+          attrs_.mana                  = 5.f;
+          attrs_.maxHealth             = 30.f;
+          attrs_.maxMana               = 5.f;
+          attrs_.strength              = 10.f;
+          attrs_.dexterity             = 10.f;
+          attrs_.skillPoints           = 0.f;
+          attrs_.experience            = 0.f;
+          attrs_.nextLevel             = 100.f;
+          attrs_.level                 = 0.f;
+
+          attrs_.crafting              = false;
+          attrs_.alchemy               = false;
+          attrs_.cold_weapon_mastery   = false;
+          attrs_.ranged_weapon_mastery = false;
+          attrs_.eagle_eye             = false;
+          attrs_.mana_regeneration     = false;
+          attrs_.health_regeneration   = false;
+          attrs_.faster_learning       = false;
+
         walkingLeft_ .setSpriteSheet(resources.texture.player);
         walkingRight_.setSpriteSheet(resources.texture.player);
         walkingLeft_ .addFrame(sf::IntRect(0, 16, 16, 16));
         walkingRight_.addFrame(sf::IntRect(0, 0,  16, 16));
 
-        currentAnimation_ = &walkingRight_;
-
         body_.setLooped(false);
         body_.pause();
         body_.setPosition(sf::Vector2f(0, 0));
         body_.scale(sf::Vector2f(5, 5));
-
-        position_          = sf::Vector2i(0, 0);
-
-        attrs_.health      =  30.f;
-        attrs_.mana        =   5.f;
-        attrs_.maxHealth   =  30.f;
-        attrs_.maxMana     =   5.f;
-        attrs_.strength    =  10.f;
-        attrs_.dexterity   =  10.f;
-        attrs_.skillPoints =   0.f;
-        attrs_.experience  =   0.f;
-        attrs_.nextLevel   = 100.f;
-        attrs_.level       =   0.f;
-
-        attrs_.crafting              = false;
-        attrs_.alchemy               = false;
-        attrs_.cold_weapon_mastery   = false;
-        attrs_.ranged_weapon_mastery = false;
-        attrs_.eagle_eye             = false;
-        attrs_.mana_regeneration     = false;
-        attrs_.health_regeneration   = false;
-        attrs_.faster_learning       = false;
-
-        moving_   = false;
-        velocity_ = 1.25f;
     }
 
     Player::~Player() {}
@@ -115,6 +114,7 @@ namespace rr {
                     attrs_.health += attrs_.maxHealth*0.75;
                     break;
                 }
+                std::cout << "You feel a lot healthier now.\n";
                 break;
             case Potion::MAGIC:
                 switch (((Potion*)item)->size_) {
@@ -128,6 +128,7 @@ namespace rr {
                     attrs_.mana += attrs_.maxMana*0.75;
                     break;
                 }
+                std::cout << "You feel a gain in magical power now.\n";
                 break;
             case Potion::STRENGTH:
                 switch (((Potion*)item)->size_) {
@@ -141,6 +142,7 @@ namespace rr {
                     attrs_.strength += 3;
                     break;
                 }
+                std::cout << "You feel a lot stronger now.\n";
                 break;
             case Potion::DEXTERITY:
                 switch (((Potion*)item)->size_) {
@@ -154,6 +156,7 @@ namespace rr {
                     attrs_.dexterity += 3;
                     break;
                 }
+                std::cout << "You feel like you could nakurwiac salto.\n";
                 break;
             case Potion::SPEED:
                 switch (((Potion*)item)->size_) {
@@ -167,6 +170,7 @@ namespace rr {
 
                     break;
                 }
+                std::cout << "You feel like you would overtake fucking Speedy Gonzales.\n";
                 break;
             case Potion::REGENERATION:
                 switch (((Potion*)item)->size_) {
@@ -180,6 +184,7 @@ namespace rr {
 
                     break;
                 }
+                std::cout << "You feel like you get cured in a moment.\n";
                 break;
             case Potion::POISON:
                 switch (((Potion*)item)->size_) {
@@ -193,6 +198,7 @@ namespace rr {
 
                     break;
                 }
+                std::cout << "You feel as if you were going to vomit now.\n";
                 break;
             case Potion::SLOWNESS:
                 switch (((Potion*)item)->size_) {
@@ -206,6 +212,7 @@ namespace rr {
 
                     break;
                 }
+                std::cout << "You feel like you were carrying something really heavy.\n";
                 break;
             case Potion::WEAKNESS:
                 switch (((Potion*)item)->size_) {
@@ -219,6 +226,7 @@ namespace rr {
 
                     break;
                 }
+                std::cout << "You feel like you lost your will to live.\n";
                 break;
             }
         }

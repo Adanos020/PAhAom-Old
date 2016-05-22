@@ -193,4 +193,23 @@ namespace rr {
 
     }
 
+    void Inventory::onNotify(Event event, Entity* entity) {
+
+#define slot(i) wInve_->getComponent<Slot>(i)
+
+        switch (event) {
+        case ITEM_DISCOVERED:
+            for (int i=0; i<32; i++) {
+                if (!slot(i)->isEmpty() && ((Discoverable*)slot(i)->getItem())->effect_ == ((Discoverable*)entity)->effect_)
+                    ((Discoverable*)slot(i)->getItem())->reveal();
+            }
+            break;
+        default:
+            break;
+        }
+
+#undef slot
+
+    }
+
 }

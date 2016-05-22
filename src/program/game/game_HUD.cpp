@@ -12,17 +12,18 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    HUD::HUD() {
-        bHP_ = new Bar(Bar::HORIZONTAL, 150, sf::Color::Red, sf::Vector2f(15, settings.graphics.resolution.y-20));
-        bMP_ = new Bar(Bar::HORIZONTAL, 150, sf::Color::Blue, sf::Vector2f(settings.graphics.resolution.x-165, settings.graphics.resolution.y-20));
-        bXP_ = new Bar(Bar::HORIZONTAL, settings.graphics.resolution.x-400, sf::Color(128, 128, 255), sf::Vector2f(settings.graphics.resolution.x/2-(settings.graphics.resolution.x-400)/2, settings.graphics.resolution.y-20));
+    HUD::HUD()
+        : bHP_         (new Bar(Bar::HORIZONTAL, 150, sf::Color::Red, sf::Vector2f(15, settings.graphics.resolution.y-20))),
+          bMP_         (new Bar(Bar::HORIZONTAL, 150, sf::Color::Blue, sf::Vector2f(settings.graphics.resolution.x-165, settings.graphics.resolution.y-20))),
+          bXP_         (new Bar(Bar::HORIZONTAL, settings.graphics.resolution.x-400, sf::Color(128, 128, 255), sf::Vector2f(settings.graphics.resolution.x/2-(settings.graphics.resolution.x-400)/2, settings.graphics.resolution.y-20))),
+          tXPlevel_    (new Text(sf::Vector2f(0, 0), "", resources.font.Pixel, 40, sf::Color::Yellow)),
+          tLevelNumber (new Text(sf::Vector2f(0, 0), "L0", resources.font.Pixel, 30, sf::Color::Green)) {
+
         for (int i=0; i<5; i++) {
             sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(settings.graphics.resolution.x-90, settings.graphics.resolution.y/2-250+i*95));
         }
-        tXPlevel_ = new Text(sf::Vector2f(0, 0), "", resources.font.Pixel, 40, sf::Color::Yellow);
-        tXPlevel_->setPosition(sf::Vector2f(bXP_->getPosition().x+bXP_->getSize().x/2-tXPlevel_->getSize().x/2, bXP_->getPosition().y-tXPlevel_->getSize().y));
 
-        tLevelNumber = new Text(sf::Vector2f(0, 0), "L0", resources.font.Pixel, 30, sf::Color::Green);
+        tXPlevel_->setPosition(sf::Vector2f(bXP_->getPosition().x+bXP_->getSize().x/2-tXPlevel_->getSize().x/2, bXP_->getPosition().y-tXPlevel_->getSize().y));
         tLevelNumber->setPosition(sf::Vector2f(settings.graphics.resolution.x-tLevelNumber->getSize().x-10, 10));
     }
 
