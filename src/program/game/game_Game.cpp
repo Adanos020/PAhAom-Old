@@ -51,10 +51,10 @@ namespace rr {
         levels_.clear();
     }
 
-    void Game::fov_drawLine(std::vector<std::vector<Mask*>> masks,std::vector<std::vector<int>> map, sf::Vector2i pl, int x, int y) {
+    void Game::fov_drawLine(std::vector<std::vector<Mask*>> masks, std::vector<std::vector<int>> map, sf::Vector2i pl, int x, int y) {
         int   dx = abs(pl.x - x);
         int   dy = abs(pl.y - y);
-        double s = double(.999/(dx>dy?dx:dy));
+        double s = double(.99999/(dx>dy?dx:dy));
         double t = 0.0;
         while (t < 1.0) {
             dx = int((1.0 - t)*pl.x + t*x);
@@ -72,14 +72,11 @@ namespace rr {
     }
 
     void Game::fov(std::vector<std::vector<Mask*>> masks, std::vector<std::vector<int>> map, int range, sf::Vector2i pl) {
-        int x, y;
         for (auto x : masks)
             for (auto mask : x)
                 mask->see(false);
-        for (double f = 0; f < M_PI*2; f += 0.1) {
-            x = int(range*cos(f)) + pl.x;
-            y = int(range*sin(f)) + pl.y;
-            fov_drawLine(masks, map, pl, x, y);
+        for (double f = 0; f < M_PI*2; f += 0.09625) {
+            fov_drawLine(masks, map, pl, int(range*cos(f))+pl.x, int(range*sin(f))+pl.y);
         }
     }
 
