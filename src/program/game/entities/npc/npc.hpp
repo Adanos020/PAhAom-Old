@@ -51,6 +51,36 @@ namespace rr {
         virtual void update(float timeStep) override;
     };
 
+    class Merchant : public NPC {
+    public:
+        enum Type {
+            POTION_SELLER,
+            BOOK_SELLER,
+            WEAPON_SELLER,
+            ARMOR_SELLER,
+            ARTIFACT_SELLER
+        } type_;
+
+         Merchant(Type);
+        ~Merchant() {}
+
+        virtual void talk  ()               override;
+        virtual void update(float timeStep) override;
+    };
+
+    class QuestGiver : public NPC {
+    public:
+        enum Type {
+            NONE_YET
+        } type_;
+
+         QuestGiver(Type);
+        ~QuestGiver() {}
+
+        virtual void talk  ()               override;
+        virtual void update(float timeStep) override;
+    };
+
 }
 
 #endif // npc_hpp

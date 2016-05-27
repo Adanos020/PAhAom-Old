@@ -310,6 +310,7 @@ namespace rr {
             attrs_.maxMana     += 1;
             attrs_.mana         = temp*attrs_.maxMana;
         }
+
         body_.update(sf::seconds(timeStep));
         body_.play(*currentAnimation_);
     }

@@ -537,8 +537,9 @@ namespace rr {
      {
         sf::Vector2i pos;
         while (true) {
-            pos = sf::Vector2i(rand()%5, rand()%5);
-            if (pos.x < (int)tiles_.size()-1 && pos.x >= 0 && pos.y < (int)tiles_[0].size()-1 && pos.y >= 0
+            pos = sf::Vector2i(rand()%10-5, rand()%10-5);
+            if (startingPoint_.x+pos.x < (int)tiles_.size()-1    && startingPoint_.x+pos.x >= 0
+             && startingPoint_.y+pos.y < (int)tiles_[0].size()-1 && startingPoint_.y+pos.y >= 0
              && tiles_[startingPoint_.x+pos.x][startingPoint_.y+pos.y] == ROOM
              && startingPoint_+pos != startingPoint_) break;
         }
