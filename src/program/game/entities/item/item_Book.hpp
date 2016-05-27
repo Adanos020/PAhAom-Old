@@ -25,7 +25,7 @@ namespace rr {
             SPELLS_BOOK
         } type_;
          Book(Type, int am, sf::Vector2i pos);
-        ~Book();
+        ~Book() {}
 
         virtual void draw           (sf::RenderWindow&) override;
 

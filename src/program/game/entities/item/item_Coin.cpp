@@ -43,8 +43,6 @@ namespace rr {
         body_[3].texCoords = sf::Vector2f(  tu  *16+0.03125f, (tv+1)*16-0.03125f);
     }
 
-    Coin::~Coin() {}
-
     void Coin::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
     }

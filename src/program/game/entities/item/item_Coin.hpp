@@ -24,7 +24,7 @@ namespace rr {
         } size_;
 
          Coin(Type, Size, int am, sf::Vector2i pos);
-        ~Coin();
+        ~Coin() {}
 
         virtual void draw(sf::RenderWindow&) override;
 	};

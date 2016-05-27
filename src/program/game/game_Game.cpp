@@ -76,6 +76,23 @@ namespace rr {
         }
     }
 
+    void Game::switchLevel(int index) {
+        if (index > (int)levelNumber_) {
+            if (levelNumber_ < levels_.size()-1)
+                levelNumber_++;
+            else
+                levelNumber_ = 0;
+            player_->setPosition(levels_[levelNumber_]->getStartingPoint());
+        }
+        else if (index < (int)levelNumber_) {
+            if (levelNumber_ > 0)
+                levelNumber_--;
+            else
+                levelNumber_ = levels_.size()-1;
+            player_->setPosition(levels_[levelNumber_]->getEndingPoint());
+        }
+    }
+
     bool Game::load() {
         for (int i=0; i<25; i++) {
             levels_.push_back(new Level());
@@ -193,20 +210,10 @@ namespace rr {
             gameMap_   ->buttonEvents(rw, event, this);
 
         if (started_) {
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add) {
-                if (levelNumber_<levels_.size()-1)
-                    levelNumber_++;
-                else
-                    levelNumber_ = 0;
-                player_->setPosition(levels_[levelNumber_]->getStartingPoint());
-            }
-            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract) {
-                if (levelNumber_>0)
-                    levelNumber_--;
-                else
-                    levelNumber_ = levels_.size()-1;
-                player_->setPosition(levels_[levelNumber_]->getEndingPoint());
-            }
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add)
+                switchLevel(levelNumber_+1);
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract)
+                switchLevel(levelNumber_-1);
 
             if (!paused_) {
                 if (wasKeyPressed(event, settings.keys.open_attributes)) {
@@ -253,6 +260,16 @@ namespace rr {
                                 i = 0;
                                 */
                             }
+                            else if (instanceof<Stairs, Entity>(entities[i])) {
+                                if (((Stairs*)entities[i])->isUpwards()) {
+                                    switchLevel(levelNumber_+1);
+                                    std::cout << "Next level! " << ((Stairs*)entities[i])->isUpwards() << '\n';
+                                }
+                                else {
+                                    switchLevel(levelNumber_-1);
+                                    std::cout << "Prev level! " << ((Stairs*)entities[i])->isUpwards() << '\n';
+                                }
+                            }
                         }
                     }
 
@@ -289,8 +306,10 @@ namespace rr {
     void Game::reset() {
         randomizeItems();
         levels_.clear();
+        levelFOV_.clear();
         inventory_->clear();
         player_->reset();
+        levelNumber_ = 0;
     }
 
 }

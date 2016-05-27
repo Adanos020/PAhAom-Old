@@ -401,7 +401,6 @@ namespace rr {
                     break;
              // ROOM
                 case CORRIDOR: tileNumber = 1;  break;
-                case EXIT:     tileNumber = 48; break;
                 default:       tileNumber = 17; break;
                 }
 
@@ -437,6 +436,7 @@ namespace rr {
             if (tiles_[x][y] == ROOM) {
                 startingPoint_ = sf::Vector2i(x, y);
                 tiles_[x][y] = EXIT;
+                addEntity(new Stairs(false), startingPoint_);
                 break;
             }
         }
@@ -445,6 +445,7 @@ namespace rr {
             if (tiles_[x][y] == ROOM && (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 30)) {
                 endingPoint_ = sf::Vector2i(x, y);
                 tiles_[x][y] = EXIT;
+                addEntity(new Stairs(true), endingPoint_);
                 break;
             }
         }

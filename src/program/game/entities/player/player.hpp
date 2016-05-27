@@ -53,7 +53,7 @@ namespace rr {
         int                sightRange_;
     public:
          Player();
-        ~Player();
+        ~Player() {}
 
         enum Direction {
             UP,

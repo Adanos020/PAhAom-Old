@@ -19,7 +19,8 @@ namespace rr {
         bool               seen_;
         bool               discovered_;
     public:
-        Mask();
+         Mask();
+        ~Mask() {}
 
         void see   (bool seen);
         bool isSeen()          { return seen_; }

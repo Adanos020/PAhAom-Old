@@ -19,7 +19,7 @@ namespace rr {
         struct Slope {
         public:
             unsigned x_, y_;
-            Slope(unsigned y, unsigned x) { x_ = x; y_ = y; }
+            Slope(unsigned y, unsigned x) { y_ = y; x_ = x; }
 
             bool operator> (Slope slope) { return y_*slope.x_ >  x_*slope.y_; }
             bool operator< (Slope slope) { return y_*slope.x_ <  x_*slope.y_; }

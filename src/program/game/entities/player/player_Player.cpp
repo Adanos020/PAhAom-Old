@@ -19,7 +19,7 @@ namespace rr {
           currentAnimation_            (&walkingRight_),
           moving_                      (false),
           velocity_                    (1.25f),
-          sightRange_                  (9) {
+          sightRange_                  (5) {
 
         attrs_.health                = 0.f;
         attrs_.mana                  = 5.f;
@@ -51,8 +51,6 @@ namespace rr {
         body_.setPosition(sf::Vector2f(0, 0));
         body_.scale(sf::Vector2f(5, 5));
     }
-
-    Player::~Player() {}
 
     void Player::setPosition(sf::Vector2i pos) {
         position_  = pos;

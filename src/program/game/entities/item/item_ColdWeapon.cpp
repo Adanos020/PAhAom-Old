@@ -12,14 +12,14 @@ extern rr::Resources resources;
 namespace rr {
 
     ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos)
-        : Item() {
+        : Item   (),
+          level_ (0),
+          type_  (type) {
 
-        type_       = type;
-        amount_     = amount;
         disposable_ = false;
         stackable_  = false;
         ID_         = 20 + type_;
-        level_      = 0;
+        amount_     = amount;
 
         switch (type_) {
         case KNIFE:

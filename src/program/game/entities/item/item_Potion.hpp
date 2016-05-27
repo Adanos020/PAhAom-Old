@@ -31,7 +31,7 @@ namespace rr {
         } size_;
 
          Potion(Effect, Size, int am, sf::Vector2i pos = sf::Vector2i(0, 0));
-        ~Potion();
+        ~Potion() {}
 
         virtual void draw           (sf::RenderWindow&) override;
         virtual void reveal         ()                  override;

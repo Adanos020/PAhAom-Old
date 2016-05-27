@@ -54,11 +54,14 @@ namespace rr {
         bool                paused_;
         unsigned            levelNumber_;
 
-    /// Method for the keyboard controls
+    /// Keyboard controls
         void controls      (sf::Event&);
 
-    /// Method randomizing the disposable items' colors/symbols
+    /// Randomizes the disposable items' colors/symbols
         void randomizeItems();
+
+    /// Switches to the level of a given index
+        void switchLevel(int index);
     public:
          Game();
         ~Game();

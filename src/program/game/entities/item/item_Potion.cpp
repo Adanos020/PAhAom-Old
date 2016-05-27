@@ -13,11 +13,11 @@ extern sf::Color     itemColors[9];
 namespace rr {
 
     Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos)
-        : Item() {
+        : Item   (),
+          effect_(e),
+          size_  (s) {
 
         amount_     = am;
-        effect_     = e;
-        size_       = s;
         disposable_ = true;
         stackable_  = true;
         ID_         = 100 + size_*10 + effect_;
@@ -106,8 +106,6 @@ namespace rr {
         body_[6].color     = itemColors[effect_];
         body_[7].color     = itemColors[effect_];
     }
-
-    Potion::~Potion() {}
 
     void Potion::reveal() {
         discovered_  = true;

@@ -97,8 +97,6 @@ namespace rr {
         body_[7].texCoords = body_[3].texCoords+sf::Vector2f(0, 16);
     }
 
-    Book::~Book() {}
-
     void Book::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
     }

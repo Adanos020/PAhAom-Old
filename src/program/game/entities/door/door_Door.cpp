@@ -21,8 +21,6 @@ namespace rr {
         body_.setTextureRect(sf::IntRect(sf::Vector2i(rand()%5*16*(withoutWindow_+1), 0), sf::Vector2i(16, 16)));
     }
 
-    Door::~Door() {}
-
     void Door::setOpen(bool b) {
         open_ = b;
         if (open_)
