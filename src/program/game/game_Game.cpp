@@ -261,14 +261,15 @@ namespace rr {
                                 */
                             }
                             else if (instanceof<Stairs, Entity>(entities[i])) {
-                                if (((Stairs*)entities[i])->isUpwards()) {
+                                if (((Stairs*)entities[i])->isUpwards() != 0) {
                                     switchLevel(levelNumber_+1);
-                                    std::cout << "Next level! " << ((Stairs*)entities[i])->isUpwards() << '\n';
+                                    break;
                                 }
                                 else {
                                     switchLevel(levelNumber_-1);
-                                    std::cout << "Prev level! " << ((Stairs*)entities[i])->isUpwards() << '\n';
+                                    break;
                                 }
+                                std::cout << "Welcome to level " << levelNumber_+1 << "! " << ((Stairs*)entities[i])->isUpwards() << '\n';
                             }
                         }
                     }
