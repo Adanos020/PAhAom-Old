@@ -91,11 +91,12 @@ namespace rr {
                 levelNumber_ = levels_.size()-1;
             player_->setPosition(levels_[levelNumber_]->getEndingPoint());
         }
+        std::cout << "Welcome to level " << levelNumber_+1 << "!\n";
     }
 
     bool Game::load() {
-        for (int i=0; i<25; i++) {
-            levels_.push_back(new Level());
+        for (int i=0; i<30; i++) {
+            levels_.push_back(new Level(i));
             if (!levels_.back()->loadFromFile("data/savedgame/"))
                 return false;
         }
@@ -104,8 +105,8 @@ namespace rr {
 
     bool Game::loadNewGame() {
         reset();
-        for (int i=0; i<25; i++) {
-            levels_.push_back(new Level());
+        for (int i=0; i<30; i++) {
+            levels_.push_back(new Level(i));
             levels_.back()->generateWorld();
             subject.addObserver(levels_.back());
 
@@ -160,12 +161,16 @@ namespace rr {
 
         gameView_.setCenter(sf::Vector2f(player_->getBounds().left+16, player_->getBounds().top+16));
 
-        for (auto entity : levels_[levelNumber_]->getEntities()) {
-            if (instanceof<Door, Entity>(entity)) {
-                if (player_->intersects(entity))
-                    ((Door*)entity)->setOpen(true);
-                else
-                    ((Door*)entity)->setOpen(false);
+        if (!paused_) {
+            for (auto entity : levels_[levelNumber_]->getEntities()) {
+                if (instanceof<Door, Entity>(entity)) {
+                    if (player_->intersects(entity))
+                        ((Door*)entity)->setOpen(true);
+                    else
+                        ((Door*)entity)->setOpen(false);
+                }
+                else if (instanceof<NPC, Entity>(entity))
+                    ((NPC*)entity)->update(timer);
             }
         }
 
@@ -269,7 +274,6 @@ namespace rr {
                                     switchLevel(levelNumber_-1);
                                     break;
                                 }
-                                std::cout << "Welcome to level " << levelNumber_+1 << "! " << ((Stairs*)entities[i])->isUpwards() << '\n';
                             }
                         }
                     }

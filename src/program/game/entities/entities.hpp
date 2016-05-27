@@ -47,6 +47,7 @@ namespace rr {
 #include "player/player.hpp"
 #include "mask/mask.hpp"
 #include "stairs/stairs.hpp"
+#include "npc/npc.hpp"
 
 #endif // entities_hpp
 

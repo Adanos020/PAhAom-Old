@@ -65,6 +65,7 @@ namespace rr {
         virtual void          draw            (sf::RenderWindow&);
         virtual void          setPosition     (sf::Vector2i)    override;
         virtual void          setRealPosition (sf::Vector2f)    override;
+
         virtual bool          intersects      (Entity* e) const override { return e->getBounds().intersects(getBounds()); }
         virtual sf::FloatRect getBounds       ()          const override { return body_.getGlobalBounds(); }
         virtual sf::Vector2i  getPosition     ()          const override { return (sf::Vector2i)body_.getPosition()/80; }

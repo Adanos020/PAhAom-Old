@@ -14,7 +14,7 @@ namespace rr {
 /// Class for the level
     class Level : public Observer, public sf::Drawable, public sf::Transformable {
     public:
-         Level();
+         Level(int number);
         ~Level();
 
         enum Cell {
@@ -65,6 +65,7 @@ namespace rr {
         std::vector<sf::IntRect>        rooms_;
         std::vector<std::vector<int>>   regions_;
         int                             region_count_;
+        int                             levelNumber_;
     };
 
 }

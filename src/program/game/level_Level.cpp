@@ -14,9 +14,10 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Level::Level()
+    Level::Level(int number)
         : size_         (sf::Vector2i(77, 43)),
-          region_count_ (0) {
+          region_count_ (0),
+          levelNumber_  (number) {
 
         tilemap_.setPrimitiveType(sf::Quads);
         tilemap_.resize(size_.x*size_.y*4);
@@ -532,6 +533,34 @@ namespace rr {
                 }
             }
         }
+     // here we place the teachers every 5th level
+     {
+        sf::Vector2i pos;
+        while (true) {
+            pos = sf::Vector2i(rand()%5, rand()%5);
+            if (pos.x < (int)tiles_.size()-1 && pos.x >= 0 && pos.y < (int)tiles_[0].size()-1 && pos.y >= 0
+             && tiles_[startingPoint_.x+pos.x][startingPoint_.y+pos.y] == ROOM
+             && startingPoint_+pos != startingPoint_) break;
+        }
+        pos += startingPoint_;
+        switch (levelNumber_) {
+        case 5:
+            addEntity(new Teacher(Teacher::SWORDSMAN), pos);
+            break;
+        case 10:
+            addEntity(new Teacher(Teacher::SHARPSHOOTER), pos);
+            break;
+        case 15:
+            addEntity(new Teacher(Teacher::CARPENTER), pos);
+            break;
+        case 20:
+            addEntity(new Teacher(Teacher::MAGE), pos);
+            break;
+        case 25:
+            addEntity(new Teacher(Teacher::KUNG_FU_CHAMPION), pos);
+            break;
+        }
+     }
      // and in the end we place the masks upon the whole level to make the player have to discover it all
         for (int x=0; x<size_.x; x++) {
             for (int y=0; y<size_.y; y++) {
