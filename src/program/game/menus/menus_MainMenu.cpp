@@ -198,8 +198,8 @@ namespace rr {
 
 #undef wHelp
 
-            wMenu_->addComponent(new Window(resources.dictionary["gui.button.credits"], sf::Vector2f(440, 330),
-                                           sf::Vector2f(settings.graphics.resolution.x-465, settings.graphics.resolution.y/2-165)), false);
+            wMenu_->addComponent(new Window(resources.dictionary["gui.button.credits"], sf::Vector2f(485, 330),
+                                           sf::Vector2f(settings.graphics.resolution.x-510, settings.graphics.resolution.y/2-165)), false);
 
 #define wCred component(wMenu_, Window, 2)
 

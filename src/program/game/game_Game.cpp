@@ -51,35 +51,6 @@ namespace rr {
         levels_.clear();
     }
 
-    void Game::fov_drawLine(std::vector<std::vector<Mask*>> masks, std::vector<std::vector<int>> map, sf::Vector2i pl, int x, int y) {
-        int   dx = abs(pl.x - x);
-        int   dy = abs(pl.y - y);
-        double s = double(.99999/(dx>dy?dx:dy));
-        double t = 0.0;
-        while (t < 1.0) {
-            dx = int((1.0 - t)*pl.x + t*x);
-            dy = int((1.0 - t)*pl.y + t*y);
-            if (dx >= 0 && dx < (int)map.size() && dy >= 0 && dy < (int)map[0].size()) {
-                if (map[dx][dy] != 1 && map[dx][dy] != 4) {
-                    masks[dx][dy]->see(true);
-                } else {
-                    masks[dx][dy]->see(true);
-                    return;
-                }
-            }
-            t += s;
-        }
-    }
-
-    void Game::fov(std::vector<std::vector<Mask*>> masks, std::vector<std::vector<int>> map, int range, sf::Vector2i pl) {
-        for (auto x : masks)
-            for (auto mask : x)
-                mask->see(false);
-        for (double f = 0; f < M_PI*2; f += 0.09625) {
-            fov_drawLine(masks, map, pl, int(range*cos(f))+pl.x, int(range*sin(f))+pl.y);
-        }
-    }
-
     void Game::randomizeItems() {
         /* colors */ {
             int pot[9];
@@ -120,6 +91,8 @@ namespace rr {
             levels_.push_back(new Level());
             levels_.back()->generateWorld();
             subject.addObserver(levels_.back());
+
+            levelFOV_.push_back(new FOV(&levels_[i]->masks_, &levels_[i]->tilesAsInts_));
         }
         player_->setPosition(levels_[0]->getStartingPoint());
         start(true);
@@ -179,7 +152,12 @@ namespace rr {
             }
         }
 
-        fov(levels_[levelNumber_]->getMasks(), levels_[levelNumber_]->getTiles(), player_->getSightRange(), player_->getPosition());
+        for (auto x : levels_[levelNumber_]->getMasks()) {
+            for (auto mask : x) {
+                mask->see(false);
+            }
+        }
+        levelFOV_[levelNumber_]->compute((sf::Vector2u)player_->getPosition(), player_->getSightRange());
     }
 
     void Game::controls(sf::Event& event) {

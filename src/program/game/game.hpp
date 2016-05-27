@@ -13,6 +13,7 @@
 #include "menus/menus.hpp"
 #include "entities/entities.hpp"
 #include "level.hpp"
+#include "fov/fov.hpp"
 
 namespace rr {
 
@@ -44,8 +45,10 @@ namespace rr {
         Quests*             quests_;
         GameMap*            gameMap_;
         HUD*                hud_;
-        std::vector<Level*> levels_;
         Player*             player_;
+
+        std::vector<Level*> levels_;
+        std::vector<FOV*>   levelFOV_;
 
         bool                started_;
         bool                paused_;
@@ -56,10 +59,6 @@ namespace rr {
 
     /// Method randomizing the disposable items' colors/symbols
         void randomizeItems();
-
-        void fov_drawLine(std::vector<std::vector<Mask*>> masks,std::vector<std::vector<int>> map, sf::Vector2i pl, int x, int y);
-        void fov(std::vector<std::vector<Mask*>> masks, std::vector<std::vector<int>> map, int range, sf::Vector2i pl);
-
     public:
          Game();
         ~Game();

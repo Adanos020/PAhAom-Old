@@ -35,6 +35,7 @@ namespace rr {
             sf::Texture items;
             sf::Texture tileset;
             sf::Texture objects;
+            sf::Texture npc;
         } texture;
 
         std::map<sf::String, sf::String> dictionary;

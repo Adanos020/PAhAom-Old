@@ -26,6 +26,10 @@ namespace rr {
             OCCUPIED,
             EXIT
         };
+
+        std::vector<std::vector<Mask*>> masks_;
+        std::vector<std::vector<int>>   tilesAsInts_;
+
         virtual void                    onNotify        (Event, Entity*) override;
 
         void                            generateWorld   ();
@@ -57,9 +61,7 @@ namespace rr {
         sf::Vector2i    endingPoint_;
 
         std::vector<Entity*>            entities_;
-        std::vector<std::vector<Mask*>> masks_;
         std::vector<std::vector<Cell>>  tiles_;
-        std::vector<std::vector<int>>   tilesAsInts_;
         std::vector<sf::IntRect>        rooms_;
         std::vector<std::vector<int>>   regions_;
         int                             region_count_;
