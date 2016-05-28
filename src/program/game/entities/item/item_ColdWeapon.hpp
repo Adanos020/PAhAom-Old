@@ -35,7 +35,7 @@ namespace rr {
             HAMMER
         } type_;
 
-         ColdWeapon(Type, int amount, sf::Vector2i pos);
+         ColdWeapon(Type, int amount, sf::Vector2i pos = sf::Vector2i(0, 0));
         ~ColdWeapon() {}
 
         virtual void       draw          (sf::RenderWindow&) override;

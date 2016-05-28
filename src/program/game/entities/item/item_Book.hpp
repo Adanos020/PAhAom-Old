@@ -24,7 +24,7 @@ namespace rr {
             FASTER_LEARNING,
             SPELLS_BOOK
         } type_;
-         Book(Type, int am, sf::Vector2i pos);
+         Book(Type, int am, sf::Vector2i pos = sf::Vector2i(0, 0));
         ~Book() {}
 
         virtual void draw           (sf::RenderWindow&) override;

@@ -18,7 +18,7 @@ namespace rr {
 
         disposable_ = false;
         stackable_  = false;
-        ID_         = 20 + type_;
+        ID_         = 10+type_;
         amount_     = amount;
 
         switch (type_) {

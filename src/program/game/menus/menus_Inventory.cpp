@@ -188,21 +188,15 @@ namespace rr {
 
      // if there is no empty slot, we just exit the function
         return false;
-
-#undef slot
-
     }
 
     void Inventory::onNotify(Event event, Entity* entity) {
-
-#define slot(i) wInve_->getComponent<Slot>(i)
-
         switch (event) {
         case ITEM_DISCOVERED:
             for (int i=0; i<32; i++) {
                 if (!slot(i)->isEmpty()) {
                     if (instanceof<Potion, Item>((Item*)entity)) {
-                        if (((Potion*)slot(i)->getItem())->effect_ == ((Potion*)entity)->effect_)
+                        if (!((Potion*)slot(i)->getItem())->isDiscovered() && ((Potion*)slot(i)->getItem())->effect_ == ((Potion*)entity)->effect_)
                             ((Potion*)slot(i)->getItem())->reveal();
                     }
                 }

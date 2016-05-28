@@ -40,9 +40,9 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
 OUT_RELEASE = bin/Release/pahaom
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/src/program/game/menus/menus_Quests.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_PauseMenu.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_MainMenu.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_Inventory.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_GameMap.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_Attributes.o $(OBJDIR_DEBUG)/src/program/game/level_Level.o $(OBJDIR_DEBUG)/src/program/game/game_HUD.o $(OBJDIR_DEBUG)/src/program/game/game_Game.o $(OBJDIR_DEBUG)/src/program/game/fov/fov_FOV.o $(OBJDIR_DEBUG)/src/program/game/entities/stairs/stairs_Stairs.o $(OBJDIR_DEBUG)/src/program/game/entities/player/player_Player.o $(OBJDIR_DEBUG)/src/program/gui/gui_Bar.o $(OBJDIR_DEBUG)/src/program/gui/gui_Button.o $(OBJDIR_DEBUG)/src/program/gui/gui_Checkbox.o $(OBJDIR_DEBUG)/src/program/gui/gui_Image.o $(OBJDIR_DEBUG)/src/program/gui/gui_ScrollBar.o $(OBJDIR_DEBUG)/src/program/gui/gui_Slot.o $(OBJDIR_DEBUG)/src/program/gui/gui_Switch.o $(OBJDIR_DEBUG)/src/program/gui/gui_Text.o $(OBJDIR_DEBUG)/src/program/gui/gui_Window.o $(OBJDIR_DEBUG)/src/program/observer/observer_Observer.o $(OBJDIR_DEBUG)/src/program/program_Program.o $(OBJDIR_DEBUG)/src/program/program_Resources.o $(OBJDIR_DEBUG)/src/program/program_Settings.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Book.o $(OBJDIR_DEBUG)/lib/Animation.o $(OBJDIR_DEBUG)/src/main.o $(OBJDIR_DEBUG)/src/program/game/entities/chest/chest_Chest.o $(OBJDIR_DEBUG)/src/program/game/entities/door/door_Door.o $(OBJDIR_DEBUG)/lib/AnimatedSprite.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Coin.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_ColdWeapon.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Potion.o $(OBJDIR_DEBUG)/src/program/game/entities/mask/mask_Mask.o $(OBJDIR_DEBUG)/src/program/game/entities/npc/npc_Teacher.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/src/program/game/menus/menus_Quests.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_PauseMenu.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_MainMenu.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_Inventory.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_GameMap.o $(OBJDIR_DEBUG)/src/program/game/menus/menus_Attributes.o $(OBJDIR_DEBUG)/src/program/game/level_Level.o $(OBJDIR_DEBUG)/src/program/game/game_HUD.o $(OBJDIR_DEBUG)/src/program/game/game_Game.o $(OBJDIR_DEBUG)/src/program/game/fov/fov_FOV.o $(OBJDIR_DEBUG)/src/program/game/entities/stairs/stairs_Stairs.o $(OBJDIR_DEBUG)/src/program/game/entities/player/player_Player.o $(OBJDIR_DEBUG)/src/program/gui/gui_Bar.o $(OBJDIR_DEBUG)/src/program/gui/gui_Button.o $(OBJDIR_DEBUG)/src/program/gui/gui_Checkbox.o $(OBJDIR_DEBUG)/src/program/gui/gui_Image.o $(OBJDIR_DEBUG)/src/program/gui/gui_ScrollBar.o $(OBJDIR_DEBUG)/src/program/gui/gui_Slot.o $(OBJDIR_DEBUG)/src/program/gui/gui_Switch.o $(OBJDIR_DEBUG)/src/program/gui/gui_Text.o $(OBJDIR_DEBUG)/src/program/gui/gui_Window.o $(OBJDIR_DEBUG)/src/program/observer/observer_Observer.o $(OBJDIR_DEBUG)/src/program/program_Program.o $(OBJDIR_DEBUG)/src/program/program_Resources.o $(OBJDIR_DEBUG)/src/program/program_Settings.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Book.o $(OBJDIR_DEBUG)/src/program/game/entities/door/door_Door.o $(OBJDIR_DEBUG)/src/program/game/entities/chest/chest_Chest.o $(OBJDIR_DEBUG)/src/main.o $(OBJDIR_DEBUG)/lib/Animation.o $(OBJDIR_DEBUG)/lib/AnimatedSprite.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Coin.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_ColdWeapon.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Potion.o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Spell.o $(OBJDIR_DEBUG)/src/program/game/entities/mask/mask_Mask.o $(OBJDIR_DEBUG)/src/program/game/entities/npc/npc_Teacher.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/src/program/game/menus/menus_Quests.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_PauseMenu.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_MainMenu.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_Inventory.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_GameMap.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_Attributes.o $(OBJDIR_RELEASE)/src/program/game/level_Level.o $(OBJDIR_RELEASE)/src/program/game/game_HUD.o $(OBJDIR_RELEASE)/src/program/game/game_Game.o $(OBJDIR_RELEASE)/src/program/game/fov/fov_FOV.o $(OBJDIR_RELEASE)/src/program/game/entities/stairs/stairs_Stairs.o $(OBJDIR_RELEASE)/src/program/game/entities/player/player_Player.o $(OBJDIR_RELEASE)/src/program/gui/gui_Bar.o $(OBJDIR_RELEASE)/src/program/gui/gui_Button.o $(OBJDIR_RELEASE)/src/program/gui/gui_Checkbox.o $(OBJDIR_RELEASE)/src/program/gui/gui_Image.o $(OBJDIR_RELEASE)/src/program/gui/gui_ScrollBar.o $(OBJDIR_RELEASE)/src/program/gui/gui_Slot.o $(OBJDIR_RELEASE)/src/program/gui/gui_Switch.o $(OBJDIR_RELEASE)/src/program/gui/gui_Text.o $(OBJDIR_RELEASE)/src/program/gui/gui_Window.o $(OBJDIR_RELEASE)/src/program/observer/observer_Observer.o $(OBJDIR_RELEASE)/src/program/program_Program.o $(OBJDIR_RELEASE)/src/program/program_Resources.o $(OBJDIR_RELEASE)/src/program/program_Settings.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Book.o $(OBJDIR_RELEASE)/lib/Animation.o $(OBJDIR_RELEASE)/src/main.o $(OBJDIR_RELEASE)/src/program/game/entities/chest/chest_Chest.o $(OBJDIR_RELEASE)/src/program/game/entities/door/door_Door.o $(OBJDIR_RELEASE)/lib/AnimatedSprite.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Coin.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_ColdWeapon.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Potion.o $(OBJDIR_RELEASE)/src/program/game/entities/mask/mask_Mask.o $(OBJDIR_RELEASE)/src/program/game/entities/npc/npc_Teacher.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/src/program/game/menus/menus_Quests.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_PauseMenu.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_MainMenu.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_Inventory.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_GameMap.o $(OBJDIR_RELEASE)/src/program/game/menus/menus_Attributes.o $(OBJDIR_RELEASE)/src/program/game/level_Level.o $(OBJDIR_RELEASE)/src/program/game/game_HUD.o $(OBJDIR_RELEASE)/src/program/game/game_Game.o $(OBJDIR_RELEASE)/src/program/game/fov/fov_FOV.o $(OBJDIR_RELEASE)/src/program/game/entities/stairs/stairs_Stairs.o $(OBJDIR_RELEASE)/src/program/game/entities/player/player_Player.o $(OBJDIR_RELEASE)/src/program/gui/gui_Bar.o $(OBJDIR_RELEASE)/src/program/gui/gui_Button.o $(OBJDIR_RELEASE)/src/program/gui/gui_Checkbox.o $(OBJDIR_RELEASE)/src/program/gui/gui_Image.o $(OBJDIR_RELEASE)/src/program/gui/gui_ScrollBar.o $(OBJDIR_RELEASE)/src/program/gui/gui_Slot.o $(OBJDIR_RELEASE)/src/program/gui/gui_Switch.o $(OBJDIR_RELEASE)/src/program/gui/gui_Text.o $(OBJDIR_RELEASE)/src/program/gui/gui_Window.o $(OBJDIR_RELEASE)/src/program/observer/observer_Observer.o $(OBJDIR_RELEASE)/src/program/program_Program.o $(OBJDIR_RELEASE)/src/program/program_Resources.o $(OBJDIR_RELEASE)/src/program/program_Settings.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Book.o $(OBJDIR_RELEASE)/src/program/game/entities/door/door_Door.o $(OBJDIR_RELEASE)/src/program/game/entities/chest/chest_Chest.o $(OBJDIR_RELEASE)/src/main.o $(OBJDIR_RELEASE)/lib/Animation.o $(OBJDIR_RELEASE)/lib/AnimatedSprite.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Coin.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_ColdWeapon.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Potion.o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Spell.o $(OBJDIR_RELEASE)/src/program/game/entities/mask/mask_Mask.o $(OBJDIR_RELEASE)/src/program/game/entities/npc/npc_Teacher.o
 
 all: debug release
 
@@ -59,10 +59,10 @@ before_debug:
 	test -d $(OBJDIR_DEBUG)/src/program/observer || mkdir -p $(OBJDIR_DEBUG)/src/program/observer
 	test -d $(OBJDIR_DEBUG)/src/program || mkdir -p $(OBJDIR_DEBUG)/src/program
 	test -d $(OBJDIR_DEBUG)/src/program/game/entities/item || mkdir -p $(OBJDIR_DEBUG)/src/program/game/entities/item
-	test -d $(OBJDIR_DEBUG)/lib || mkdir -p $(OBJDIR_DEBUG)/lib
-	test -d $(OBJDIR_DEBUG)/src || mkdir -p $(OBJDIR_DEBUG)/src
-	test -d $(OBJDIR_DEBUG)/src/program/game/entities/chest || mkdir -p $(OBJDIR_DEBUG)/src/program/game/entities/chest
 	test -d $(OBJDIR_DEBUG)/src/program/game/entities/door || mkdir -p $(OBJDIR_DEBUG)/src/program/game/entities/door
+	test -d $(OBJDIR_DEBUG)/src/program/game/entities/chest || mkdir -p $(OBJDIR_DEBUG)/src/program/game/entities/chest
+	test -d $(OBJDIR_DEBUG)/src || mkdir -p $(OBJDIR_DEBUG)/src
+	test -d $(OBJDIR_DEBUG)/lib || mkdir -p $(OBJDIR_DEBUG)/lib
 	test -d $(OBJDIR_DEBUG)/src/program/game/entities/mask || mkdir -p $(OBJDIR_DEBUG)/src/program/game/entities/mask
 	test -d $(OBJDIR_DEBUG)/src/program/game/entities/npc || mkdir -p $(OBJDIR_DEBUG)/src/program/game/entities/npc
 
@@ -151,17 +151,17 @@ $(OBJDIR_DEBUG)/src/program/program_Settings.o: src/program/program_Settings.cpp
 $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Book.o: src/program/game/entities/item/item_Book.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entities/item/item_Book.cpp -o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Book.o
 
-$(OBJDIR_DEBUG)/lib/Animation.o: lib/Animation.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c lib/Animation.cpp -o $(OBJDIR_DEBUG)/lib/Animation.o
-
-$(OBJDIR_DEBUG)/src/main.o: src/main.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/main.cpp -o $(OBJDIR_DEBUG)/src/main.o
+$(OBJDIR_DEBUG)/src/program/game/entities/door/door_Door.o: src/program/game/entities/door/door_Door.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entities/door/door_Door.cpp -o $(OBJDIR_DEBUG)/src/program/game/entities/door/door_Door.o
 
 $(OBJDIR_DEBUG)/src/program/game/entities/chest/chest_Chest.o: src/program/game/entities/chest/chest_Chest.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entities/chest/chest_Chest.cpp -o $(OBJDIR_DEBUG)/src/program/game/entities/chest/chest_Chest.o
 
-$(OBJDIR_DEBUG)/src/program/game/entities/door/door_Door.o: src/program/game/entities/door/door_Door.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entities/door/door_Door.cpp -o $(OBJDIR_DEBUG)/src/program/game/entities/door/door_Door.o
+$(OBJDIR_DEBUG)/src/main.o: src/main.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/main.cpp -o $(OBJDIR_DEBUG)/src/main.o
+
+$(OBJDIR_DEBUG)/lib/Animation.o: lib/Animation.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c lib/Animation.cpp -o $(OBJDIR_DEBUG)/lib/Animation.o
 
 $(OBJDIR_DEBUG)/lib/AnimatedSprite.o: lib/AnimatedSprite.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c lib/AnimatedSprite.cpp -o $(OBJDIR_DEBUG)/lib/AnimatedSprite.o
@@ -174,6 +174,9 @@ $(OBJDIR_DEBUG)/src/program/game/entities/item/item_ColdWeapon.o: src/program/ga
 
 $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Potion.o: src/program/game/entities/item/item_Potion.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entities/item/item_Potion.cpp -o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Potion.o
+
+$(OBJDIR_DEBUG)/src/program/game/entities/item/item_Spell.o: src/program/game/entities/item/item_Spell.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entities/item/item_Spell.cpp -o $(OBJDIR_DEBUG)/src/program/game/entities/item/item_Spell.o
 
 $(OBJDIR_DEBUG)/src/program/game/entities/mask/mask_Mask.o: src/program/game/entities/mask/mask_Mask.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entities/mask/mask_Mask.cpp -o $(OBJDIR_DEBUG)/src/program/game/entities/mask/mask_Mask.o
@@ -193,10 +196,10 @@ clean_debug:
 	rm -rf $(OBJDIR_DEBUG)/src/program/observer
 	rm -rf $(OBJDIR_DEBUG)/src/program
 	rm -rf $(OBJDIR_DEBUG)/src/program/game/entities/item
-	rm -rf $(OBJDIR_DEBUG)/lib
-	rm -rf $(OBJDIR_DEBUG)/src
-	rm -rf $(OBJDIR_DEBUG)/src/program/game/entities/chest
 	rm -rf $(OBJDIR_DEBUG)/src/program/game/entities/door
+	rm -rf $(OBJDIR_DEBUG)/src/program/game/entities/chest
+	rm -rf $(OBJDIR_DEBUG)/src
+	rm -rf $(OBJDIR_DEBUG)/lib
 	rm -rf $(OBJDIR_DEBUG)/src/program/game/entities/mask
 	rm -rf $(OBJDIR_DEBUG)/src/program/game/entities/npc
 
@@ -211,10 +214,10 @@ before_release:
 	test -d $(OBJDIR_RELEASE)/src/program/observer || mkdir -p $(OBJDIR_RELEASE)/src/program/observer
 	test -d $(OBJDIR_RELEASE)/src/program || mkdir -p $(OBJDIR_RELEASE)/src/program
 	test -d $(OBJDIR_RELEASE)/src/program/game/entities/item || mkdir -p $(OBJDIR_RELEASE)/src/program/game/entities/item
-	test -d $(OBJDIR_RELEASE)/lib || mkdir -p $(OBJDIR_RELEASE)/lib
-	test -d $(OBJDIR_RELEASE)/src || mkdir -p $(OBJDIR_RELEASE)/src
-	test -d $(OBJDIR_RELEASE)/src/program/game/entities/chest || mkdir -p $(OBJDIR_RELEASE)/src/program/game/entities/chest
 	test -d $(OBJDIR_RELEASE)/src/program/game/entities/door || mkdir -p $(OBJDIR_RELEASE)/src/program/game/entities/door
+	test -d $(OBJDIR_RELEASE)/src/program/game/entities/chest || mkdir -p $(OBJDIR_RELEASE)/src/program/game/entities/chest
+	test -d $(OBJDIR_RELEASE)/src || mkdir -p $(OBJDIR_RELEASE)/src
+	test -d $(OBJDIR_RELEASE)/lib || mkdir -p $(OBJDIR_RELEASE)/lib
 	test -d $(OBJDIR_RELEASE)/src/program/game/entities/mask || mkdir -p $(OBJDIR_RELEASE)/src/program/game/entities/mask
 	test -d $(OBJDIR_RELEASE)/src/program/game/entities/npc || mkdir -p $(OBJDIR_RELEASE)/src/program/game/entities/npc
 
@@ -303,17 +306,17 @@ $(OBJDIR_RELEASE)/src/program/program_Settings.o: src/program/program_Settings.c
 $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Book.o: src/program/game/entities/item/item_Book.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entities/item/item_Book.cpp -o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Book.o
 
-$(OBJDIR_RELEASE)/lib/Animation.o: lib/Animation.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c lib/Animation.cpp -o $(OBJDIR_RELEASE)/lib/Animation.o
-
-$(OBJDIR_RELEASE)/src/main.o: src/main.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/main.cpp -o $(OBJDIR_RELEASE)/src/main.o
+$(OBJDIR_RELEASE)/src/program/game/entities/door/door_Door.o: src/program/game/entities/door/door_Door.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entities/door/door_Door.cpp -o $(OBJDIR_RELEASE)/src/program/game/entities/door/door_Door.o
 
 $(OBJDIR_RELEASE)/src/program/game/entities/chest/chest_Chest.o: src/program/game/entities/chest/chest_Chest.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entities/chest/chest_Chest.cpp -o $(OBJDIR_RELEASE)/src/program/game/entities/chest/chest_Chest.o
 
-$(OBJDIR_RELEASE)/src/program/game/entities/door/door_Door.o: src/program/game/entities/door/door_Door.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entities/door/door_Door.cpp -o $(OBJDIR_RELEASE)/src/program/game/entities/door/door_Door.o
+$(OBJDIR_RELEASE)/src/main.o: src/main.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/main.cpp -o $(OBJDIR_RELEASE)/src/main.o
+
+$(OBJDIR_RELEASE)/lib/Animation.o: lib/Animation.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c lib/Animation.cpp -o $(OBJDIR_RELEASE)/lib/Animation.o
 
 $(OBJDIR_RELEASE)/lib/AnimatedSprite.o: lib/AnimatedSprite.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c lib/AnimatedSprite.cpp -o $(OBJDIR_RELEASE)/lib/AnimatedSprite.o
@@ -326,6 +329,9 @@ $(OBJDIR_RELEASE)/src/program/game/entities/item/item_ColdWeapon.o: src/program/
 
 $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Potion.o: src/program/game/entities/item/item_Potion.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entities/item/item_Potion.cpp -o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Potion.o
+
+$(OBJDIR_RELEASE)/src/program/game/entities/item/item_Spell.o: src/program/game/entities/item/item_Spell.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entities/item/item_Spell.cpp -o $(OBJDIR_RELEASE)/src/program/game/entities/item/item_Spell.o
 
 $(OBJDIR_RELEASE)/src/program/game/entities/mask/mask_Mask.o: src/program/game/entities/mask/mask_Mask.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entities/mask/mask_Mask.cpp -o $(OBJDIR_RELEASE)/src/program/game/entities/mask/mask_Mask.o
@@ -345,10 +351,10 @@ clean_release:
 	rm -rf $(OBJDIR_RELEASE)/src/program/observer
 	rm -rf $(OBJDIR_RELEASE)/src/program
 	rm -rf $(OBJDIR_RELEASE)/src/program/game/entities/item
-	rm -rf $(OBJDIR_RELEASE)/lib
-	rm -rf $(OBJDIR_RELEASE)/src
-	rm -rf $(OBJDIR_RELEASE)/src/program/game/entities/chest
 	rm -rf $(OBJDIR_RELEASE)/src/program/game/entities/door
+	rm -rf $(OBJDIR_RELEASE)/src/program/game/entities/chest
+	rm -rf $(OBJDIR_RELEASE)/src
+	rm -rf $(OBJDIR_RELEASE)/lib
 	rm -rf $(OBJDIR_RELEASE)/src/program/game/entities/mask
 	rm -rf $(OBJDIR_RELEASE)/src/program/game/entities/npc
 

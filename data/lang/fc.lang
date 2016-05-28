@@ -369,6 +369,42 @@ maqcbimalhe ovpax'eh'r:
 item.coldweapon.level
 toč'em yletweh'r:
 
+item.spell.symbol.shcha
+pyha «š'č'a»
+
+item.spell.symbol.jus
+pyha «'us»
+
+item.spell.symbol.jes
+pyha «'es»
+
+item.spell.symbol.ef
+pyha «ef»
+
+item.spell.symbol.ju
+pyha «'u»
+
+item.spell.symbol.psi
+pyha «psi»
+
+item.spell.symbol.de
+pyha «de»
+
+item.spell.symbol.omega
+pyha «omega»
+
+item.spell.symbol.je
+pyha «'e»
+
+item.spell.symbol.zhe
+pyha «že»
+
+item.spell.symbol.be
+pyha «be»
+
+item.spell.description.unknown
+none
+
 ;-------------PLAYER--------------;
 player.attributes.health
 ČAPOB'E

@@ -15,6 +15,7 @@
 extern rr::Settings settings;
 extern rr::Subject  subject;
 extern sf::Color    itemColors[9];
+extern int          spellSymbols[11];
 
 namespace rr {
 
@@ -58,7 +59,7 @@ namespace rr {
                 hell: int x = rand()%9;
                 for (int j=0; j<i; j++) {
                     if (pot[j] == x)
-                        goto hell; // pure evil.
+                        goto hell;
                 }
                 pot[i] = x;
                 switch (x) {
@@ -72,6 +73,16 @@ namespace rr {
                     case 7: itemColors[i] = sf::Color::Yellow       ; break;
                     case 8: itemColors[i] = sf::Color::White        ; break;
                 }
+            }
+        }
+        /* spell symbols */ {
+            for (int i=0; i<11; i++) {
+                topkek: int x = rand()%11;
+                for (int j=0; j<i; j++) {
+                    if (spellSymbols[j] == x)
+                        goto topkek;
+                }
+                spellSymbols[i] = x;
             }
         }
     }
@@ -251,6 +262,8 @@ namespace rr {
                             if (instanceof<Item, Entity>(entities[i])) {
                                 if (inventory_->addItem((Item*)entities[i])) {
                                     std::cout << "You've picked up " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
+                                    if (instanceof<Spell, Item>((Item*)entities[i]))
+                                        std::cout << spellSymbols[((Spell*)(Item*)entities[i])->type_] << '\n';
                                     levels_[levelNumber_]->removeEntity(i);
                                     i = 0;
                                 }

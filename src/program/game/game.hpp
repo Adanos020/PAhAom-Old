@@ -25,6 +25,7 @@ namespace rr {
     class GameMap;
     class HUD;
     class Level;
+    class FOV;
 
     class Player;
 

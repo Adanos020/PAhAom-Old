@@ -17,7 +17,7 @@ namespace rr {
 
         type_       = type;
         amount_     = am;
-        ID_         = type_+10;
+        ID_         = type_+30;
         disposable_ = true;
         stackable_  = false;
         iconIndex_  = 16;

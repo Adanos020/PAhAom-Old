@@ -515,7 +515,7 @@ namespace rr {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
                  // here we choose randomly the type of book
-                    addEntity(getItemFromID(rand()%9+10, 1), sf::Vector2i(x, y));
+                    addEntity(getItemFromID(rand()%9+30, 1), sf::Vector2i(x, y));
                     tiles_[x][y] = OCCUPIED;
                     break;
                 }
@@ -527,7 +527,18 @@ namespace rr {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
                  // here we choose randomly the type of cold weapon
-                    addEntity(getItemFromID(rand()%11+20, 1), sf::Vector2i(x, y));
+                    addEntity(getItemFromID(rand()%13+10, 1), sf::Vector2i(x, y));
+                    tiles_[x][y] = OCCUPIED;
+                    break;
+                }
+            }
+        }
+     // here we place the runic stones
+        for (int i=0; i<rand()%5; i++) {
+            while (true) {
+                int x=rand()%size_.x, y=rand()%size_.y;
+                if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
+                    addEntity(getItemFromID(rand()%11+39, 1), sf::Vector2i(x, y));
                     tiles_[x][y] = OCCUPIED;
                     break;
                 }
@@ -537,13 +548,10 @@ namespace rr {
      {
         sf::Vector2i pos;
         while (true) {
-            pos = sf::Vector2i(rand()%10-5, rand()%10-5);
-            if (startingPoint_.x+pos.x < (int)tiles_.size()-1    && startingPoint_.x+pos.x >= 0
-             && startingPoint_.y+pos.y < (int)tiles_[0].size()-1 && startingPoint_.y+pos.y >= 0
-             && tiles_[startingPoint_.x+pos.x][startingPoint_.y+pos.y] == ROOM
+            pos = sf::Vector2i(rand()%10-5, rand()%10-5)+startingPoint_;
+            if (!isOnBorder(pos.x, pos.y) && tiles_[pos.x][pos.y] == ROOM
              && startingPoint_+pos != startingPoint_) break;
         }
-        pos += startingPoint_;
         switch (levelNumber_) {
         case 5:
             addEntity(new Teacher(Teacher::SWORDSMAN), pos);

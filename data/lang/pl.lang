@@ -372,6 +372,42 @@ Maksymalne obrażenia:
 item.coldweapon.level
 Poziom ulepszenia:
 
+item.spell.symbol.shcha
+Runa „ścia”
+
+item.spell.symbol.jus
+Runa „jus”
+
+item.spell.symbol.jes
+Runa „jes”
+
+item.spell.symbol.ef
+Runa „ef”
+
+item.spell.symbol.ju
+Runa „ju”
+
+item.spell.symbol.psi
+Runa „psi”
+
+item.spell.symbol.de
+Runa „de”
+
+item.spell.symbol.omega
+Runa „omega”
+
+item.spell.symbol.je
+Runa „je”
+
+item.spell.symbol.zhe
+Runa „że”
+
+item.spell.symbol.be
+Runa „be”
+
+item.spell.description.unknown
+none
+
 ;-----------PLAYER-----------;
 player.attributes.health
 ZDROWIE

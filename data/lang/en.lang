@@ -372,6 +372,42 @@ Maximum damage dealt:
 item.coldweapon.level
 Upgrade level:
 
+item.spell.symbol.shcha
+"Shcha" rune
+
+item.spell.symbol.jus
+"Yus" rune
+
+item.spell.symbol.jes
+"Yes" rune
+
+item.spell.symbol.ef
+"Ef" rune
+
+item.spell.symbol.ju
+"Yu" rune
+
+item.spell.symbol.psi
+"Psi" rune
+
+item.spell.symbol.de
+"De" rune
+
+item.spell.symbol.omega
+"Omega" rune
+
+item.spell.symbol.je
+"Ye" rune
+
+item.spell.symbol.zhe
+"Zhe" rune
+
+item.spell.symbol.be
+"Be" rune
+
+item.spell.description.unknown
+none
+
 ;-------------PLAYER--------------;
 player.attributes.health
 HEALTH

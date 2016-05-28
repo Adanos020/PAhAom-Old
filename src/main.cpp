@@ -14,6 +14,7 @@ rr::Resources  resources;
 rr::Settings   settings;
 rr::Subject    subject;
 sf::Color      itemColors[9];
+int            spellSymbols[11];
 
 int main() {
     srand(time(0));
