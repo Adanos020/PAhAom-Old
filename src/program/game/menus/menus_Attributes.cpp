@@ -88,8 +88,10 @@ namespace rr {
     }
 
     void Attributes::draw(sf::RenderWindow& rw) {
-        rw.draw(shadow_);
-        wAttr_->draw(rw);
+        if (isOpen()) {
+            rw.draw(shadow_);
+            wAttr_->draw(rw);
+        }
     }
 
     bool Attributes::isOpen() {

@@ -12,10 +12,10 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Inventory::Inventory() {
-        bronze_ = 0;
-        silver_ = 0;
-        gold_   = 0;
+    Inventory::Inventory()
+    : bronze_ (0),
+      silver_ (0),
+      gold_   (0) {
 
         shadow_.setSize((sf::Vector2f)settings.graphics.resolution);
         shadow_.setPosition(sf::Vector2f(0, 0));
@@ -46,6 +46,10 @@ namespace rr {
                 *wInfo += new Text(sf::Vector2f(5, 20), "", resources.font.Unifont, 20);
                 component(wInfo, Text, 0)->setStyle(sf::Text::Regular);
 
+        for (int i=0; i<5; i++) {
+            sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(settings.graphics.resolution.x-90, settings.graphics.resolution.y/2-250+i*95));
+        }
+
 #undef component
 #undef wInfo
 
@@ -53,6 +57,9 @@ namespace rr {
 
     Inventory::~Inventory() {
         delete wInve_;
+        for (auto slot : sCarryOn_) {
+            delete slot;
+        }
     }
 
     void Inventory::open() {
@@ -71,14 +78,22 @@ namespace rr {
         for (int i=0; i<32; i++) {
             wInve_->getComponent<Slot>(i)->clear();
         }
+        for (auto slot : sCarryOn_) {
+            slot->clear();
+        }
         gold_   = 0;
         silver_ = 0;
         bronze_ = 0;
     }
 
     void Inventory::draw(sf::RenderWindow& rw) {
-        rw.draw(shadow_);
-        wInve_->draw(rw);
+        if (isOpen()) {
+            rw.draw(shadow_);
+            wInve_->draw(rw);
+        }
+        for (auto slot : sCarryOn_) {
+            slot->draw(rw);
+        }
     }
 
     bool Inventory::isOpen() {
@@ -104,6 +119,19 @@ namespace rr {
                     }
                     else {
                         wInfo->setParentComponent(component(wInve_, Slot, i));
+                        slotPointed = true;
+                    }
+                }
+            }
+            for (int i=0; i<5; i++) {
+                if (sCarryOn_[i]->containsMouseCursor(rw) && !sCarryOn_[i]->isEmpty()) {
+                    if (sCarryOn_[i]->isPressed(rw, e) && !sCarryOn_[i]->isEmpty()) {
+                        g->getPlayer()->useItem(sCarryOn_[i]->getItem());
+                        if (sCarryOn_[i]->getItem()->isDisposable())
+                            sCarryOn_[i]->removeItem(1);
+                    }
+                    else {
+                        wInfo->setParentComponent(sCarryOn_[i]);
                         slotPointed = true;
                     }
                 }

@@ -54,8 +54,10 @@ namespace rr {
     }
 
     void Quests::draw(sf::RenderWindow& rw) {
-        rw.draw(shadow_);
-        wQues_->draw(rw);
+        if (isOpen()) {
+            rw.draw(shadow_);
+            wQues_->draw(rw);
+        }
     }
 
     bool Quests::isOpen() {

@@ -98,9 +98,11 @@ namespace rr {
         }
 
     void PauseMenu::draw(sf::RenderWindow& rw) {
-        rw.draw(shadow_);
-        title_->draw(rw);
-        wMenu_->draw(rw);
+        if (isOpen()) {
+            rw.draw(shadow_);
+            title_->draw(rw);
+            wMenu_->draw(rw);
+        }
     }
 
     bool PauseMenu::isOpen() {

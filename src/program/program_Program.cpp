@@ -44,8 +44,6 @@ namespace rr {
                 window_.close();
 
             game_->buttonEvents(window_, event_);
-            if (event_.type == sf::Event::KeyPressed && event_.key.code == sf::Keyboard::Escape && game_->isStarted())
-                game_->pause(!game_->isPaused());
         }
     }
 

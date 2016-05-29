@@ -65,6 +65,7 @@ namespace rr {
             sf::Keyboard::Key open_attributes;
             sf::Keyboard::Key open_quests;
             sf::Keyboard::Key open_map;
+            sf::Keyboard::Key open_bookOfSpells;
 
             sf::Keyboard::Key useslot_1;
             sf::Keyboard::Key useslot_2;

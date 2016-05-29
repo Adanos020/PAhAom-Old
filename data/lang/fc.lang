@@ -90,16 +90,19 @@ gui.text.pickup
 toah'ew'
 
 gui.text.open_inventory
-eqbntyheq otbyxi
+eqbntyheq
 
 gui.text.open_attributes
-atvbibytbi otbyxi
+atvbibytbi
 
 gui.text.open_quests
-lncteh čåh' otbyxi
+lncta čåh'
 
 gui.text.open_map
-mateh otbyxi
+mata
+
+gui.text.open_bookOfSpells
+qw'ehta čaqlehy'
 
 gui.text.useslot_1
 cxobqa 1 yx'biñ
@@ -130,6 +133,9 @@ gui.window.quests
 
 gui.window.game_map
 MATA
+
+gui.window.bookOfSpells
+QW'EHTA ČAQLEHY'
 
 ;------------ITEMS-------------;
 item.book.type.crafting

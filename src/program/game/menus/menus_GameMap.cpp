@@ -56,8 +56,10 @@ namespace rr {
     }
 
     void GameMap::draw(sf::RenderWindow& rw) {
-        rw.draw(shadow_);
-        wGmap_->draw(rw);
+        if (isOpen()) {
+            rw.draw(shadow_);
+            wGmap_->draw(rw);
+        }
     }
 
     bool GameMap::isOpen() {

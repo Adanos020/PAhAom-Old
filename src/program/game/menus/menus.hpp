@@ -94,7 +94,7 @@ namespace rr {
     class BookOfSpells {
     private:
         sf::RectangleShape shadow_;
-        Window*            wBofs;
+        Window*            wBofs_;
     public:
          BookOfSpells();
         ~BookOfSpells();
@@ -119,7 +119,10 @@ namespace rr {
     class Inventory : public Observer {
     private:
         sf::RectangleShape shadow_;
+
         Window*            wInve_;
+        Slot*              sCarryOn_[5];
+
         short              bronze_;
         short              silver_;
         short              gold_;

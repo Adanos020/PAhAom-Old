@@ -19,10 +19,6 @@ namespace rr {
           tXPlevel_    (new Text(sf::Vector2f(0, 0), "", resources.font.Pixel, 40, sf::Color::Yellow)),
           tLevelNumber (new Text(sf::Vector2f(0, 0), "L0", resources.font.Pixel, 30, sf::Color::Green)) {
 
-        for (int i=0; i<5; i++) {
-            sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(settings.graphics.resolution.x-90, settings.graphics.resolution.y/2-250+i*95));
-        }
-
         tXPlevel_->setPosition(sf::Vector2f(bXP_->getPosition().x+bXP_->getSize().x/2-tXPlevel_->getSize().x/2, bXP_->getPosition().y-tXPlevel_->getSize().y));
         tLevelNumber->setPosition(sf::Vector2f(settings.graphics.resolution.x-tLevelNumber->getSize().x-10, 10));
     }
@@ -31,15 +27,7 @@ namespace rr {
         delete bHP_;
         delete bMP_;
         delete bXP_;
-        for (auto x : sCarryOn_)
-            delete x;
         delete tXPlevel_;
-    }
-
-    void HUD::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
-        for (auto x : sCarryOn_) {
-            if (x->isPressed(rw, e)) {}
-        }
     }
 
     void HUD::update(Player* p, int lvl) {
@@ -55,11 +43,9 @@ namespace rr {
     }
 
     void HUD::draw(sf::RenderWindow& rw) {
-        bHP_->draw(rw);
-        bMP_->draw(rw);
-        bXP_->draw(rw);
-        for (auto x : sCarryOn_)
-            x->draw(rw);
+        bHP_        ->draw(rw);
+        bMP_        ->draw(rw);
+        bXP_        ->draw(rw);
         tXPlevel_   ->draw(rw);
         tLevelNumber->draw(rw);
     }

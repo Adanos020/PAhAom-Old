@@ -90,16 +90,19 @@ gui.text.pickup
 Pick up
 
 gui.text.open_inventory
-Open inventory
+Inventory
 
 gui.text.open_attributes
-Open attributes
+Attributes
 
 gui.text.open_quests
-Open quest list
+Quest list
 
 gui.text.open_map
-Open map
+Map
+
+gui.text.open_bookOfSpells
+Book of spells
 
 gui.text.useslot_1
 Use slot 1
@@ -130,6 +133,9 @@ QUESTS
 
 gui.window.game_map
 MAP
+
+gui.window.bookOfSpells
+BOOK OF SPELLS
 
 ;------------ITEMS------------;
 item.book.type.crafting

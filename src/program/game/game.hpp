@@ -23,6 +23,8 @@ namespace rr {
     class Attributes;
     class Quests;
     class GameMap;
+    class BookOfSpells;
+
     class HUD;
     class Level;
     class FOV;
@@ -45,6 +47,7 @@ namespace rr {
         Inventory*          inventory_;
         Quests*             quests_;
         GameMap*            gameMap_;
+        BookOfSpells*       bookOfSpells_;
         HUD*                hud_;
         Player*             player_;
 
@@ -113,15 +116,11 @@ namespace rr {
         Bar*  bHP_;
         Bar*  bMP_;
         Bar*  bXP_;
-        Slot* sCarryOn_[5];
         Text* tXPlevel_;
         Text* tLevelNumber;
     public:
          HUD();
         ~HUD();
-
-    /// Method for handling the button events
-        void buttonEvents(sf::RenderWindow&, sf::Event&);
 
     /// Updates the HUD state
         void update      (Player*, int lvl);

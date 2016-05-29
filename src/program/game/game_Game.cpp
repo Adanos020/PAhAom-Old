@@ -20,17 +20,18 @@ extern int          spellSymbols[11];
 namespace rr {
 
     Game::Game()
-        : mainMenu_   (new MainMenu  ()),
-          pauseMenu_  (new PauseMenu ()),
-          attributes_ (new Attributes()),
-          inventory_  (new Inventory ()),
-          quests_     (new Quests    ()),
-          gameMap_    (new GameMap   ()),
-          hud_        (new HUD       ()),
-          player_     (new Player    ()),
-          started_    (false),
-          paused_     (false),
-          levelNumber_(0) {
+        : mainMenu_    (new MainMenu    ()),
+          pauseMenu_   (new PauseMenu   ()),
+          attributes_  (new Attributes  ()),
+          inventory_   (new Inventory   ()),
+          quests_      (new Quests      ()),
+          gameMap_     (new GameMap     ()),
+          bookOfSpells_(new BookOfSpells()),
+          hud_         (new HUD         ()),
+          player_      (new Player      ()),
+          started_     (false),
+          paused_      (false),
+          levelNumber_ (0) {
 
         gameView_.setSize((sf::Vector2f)settings.graphics.resolution);
         mapView_ .setSize(6160.f, 3440.f);
@@ -146,16 +147,14 @@ namespace rr {
 
             rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
             hud_->draw(rw);
-            if (pauseMenu_ ->isOpen())
-                pauseMenu_ ->draw(rw);
-            if (attributes_->isOpen())
-                attributes_->draw(rw);
-            if (inventory_ ->isOpen())
-                inventory_ ->draw(rw);
-            if (quests_    ->isOpen())
-                quests_    ->draw(rw);
+            inventory_   ->draw(rw);
+            pauseMenu_   ->draw(rw);
+            attributes_  ->draw(rw);
+            quests_      ->draw(rw);
+            gameMap_     ->draw(rw);
+            bookOfSpells_->draw(rw);
+
             if (gameMap_   ->isOpen()) {
-                gameMap_   ->draw(rw);
                 rw.setView(mapView_);
                 rw.draw(*levels_[levelNumber_]);
                 levels_[levelNumber_]->drawObjects(rw);
@@ -210,20 +209,13 @@ namespace rr {
     }
 
     void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& event) {
-        if (!started_)
-            mainMenu_ ->buttonEvents(rw, event, this);
-        if (pauseMenu_->isOpen())
-            pauseMenu_->buttonEvents(rw, event, this);
-        if (inventory_->isOpen()) {
-            inventory_->buttonEvents(rw, event, this);
-            hud_      ->buttonEvents(rw, event);
-        }
-        if (attributes_->isOpen())
-            attributes_->buttonEvents(rw, event, this);
-        if (quests_    ->isOpen())
-            quests_    ->buttonEvents(rw, event, this);
-        if (gameMap_   ->isOpen())
-            gameMap_   ->buttonEvents(rw, event, this);
+        if (       !started_       ) mainMenu_    ->buttonEvents(rw, event, this);
+        if (pauseMenu_   ->isOpen()) pauseMenu_   ->buttonEvents(rw, event, this);
+        if (inventory_   ->isOpen()) inventory_   ->buttonEvents(rw, event, this);
+        if (attributes_  ->isOpen()) attributes_  ->buttonEvents(rw, event, this);
+        if (quests_      ->isOpen()) quests_      ->buttonEvents(rw, event, this);
+        if (gameMap_     ->isOpen()) gameMap_     ->buttonEvents(rw, event, this);
+        if (bookOfSpells_->isOpen()) bookOfSpells_->buttonEvents(rw, event, this);
 
         if (started_) {
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add)
@@ -231,6 +223,8 @@ namespace rr {
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract)
                 switchLevel(levelNumber_-1);
 
+            if (wasKeyPressed(event, sf::Keyboard::Escape))
+                pause(!isPaused());
             if (!paused_) {
                 if (wasKeyPressed(event, settings.keys.open_attributes)) {
                     attributes_->update(player_);
@@ -247,6 +241,10 @@ namespace rr {
                 }
                 else if (wasKeyPressed(event, settings.keys.open_quests)) {
                     quests_->open();
+                    paused_ = true;
+                }
+                else if (wasKeyPressed(event, settings.keys.open_bookOfSpells)) {
+                    bookOfSpells_->open();
                     paused_ = true;
                 }
 
@@ -313,11 +311,12 @@ namespace rr {
         if (paused_)
             pauseMenu_->open();
         else {
-            pauseMenu_ ->close();
-            inventory_ ->close();
-            attributes_->close();
-            quests_    ->close();
-            gameMap_   ->close();
+            pauseMenu_   ->close();
+            inventory_   ->close();
+            attributes_  ->close();
+            quests_      ->close();
+            gameMap_     ->close();
+            bookOfSpells_->close();
         }
     }
 

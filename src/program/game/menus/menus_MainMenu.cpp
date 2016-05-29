@@ -135,44 +135,46 @@ namespace rr {
 
 #undef wSoun
 
-                wOpts->addComponent(new Window(resources.dictionary["gui.button.controls"], sf::Vector2f(400, 550),
-                                               sf::Vector2f(settings.graphics.resolution.x-425, settings.graphics.resolution.y/2-275)), false);
+                wOpts->addComponent(new Window(resources.dictionary["gui.button.controls"], sf::Vector2f(400, 570),
+                                               sf::Vector2f(settings.graphics.resolution.x-425, settings.graphics.resolution.y/2-285)), false);
 
 #define wCont component(wOpts, Window, 3)
 
-                    *wCont += new Text(sf::Vector2f(20, 25), resources.dictionary["gui.text.move_up"        ]+"\n"
-                                                            +resources.dictionary["gui.text.move_down"      ]+"\n"
-                                                            +resources.dictionary["gui.text.move_left"      ]+"\n"
-                                                            +resources.dictionary["gui.text.move_right"     ]+"\n"
-                                                            +resources.dictionary["gui.text.interact"       ]+"\n"
-                                                            +resources.dictionary["gui.text.attack"         ]+"\n"
-                                                            +resources.dictionary["gui.text.open_inventory" ]+"\n"
-                                                            +resources.dictionary["gui.text.open_attributes"]+"\n"
-                                                            +resources.dictionary["gui.text.open_quests"    ]+"\n"
-                                                            +resources.dictionary["gui.text.open_map"       ]+"\n"
-                                                            +resources.dictionary["gui.text.useslot_1"      ]+"\n"
-                                                            +resources.dictionary["gui.text.useslot_2"      ]+"\n"
-                                                            +resources.dictionary["gui.text.useslot_3"      ]+"\n"
-                                                            +resources.dictionary["gui.text.useslot_4"      ]+"\n"
-                                                            +resources.dictionary["gui.text.useslot_5"      ]+"\n", resources.font.Unifont, 28);
-                    *wCont += new Button(sf::Vector2f(320,  27.5f), getKeyName(settings.keys.move_up        ), 20);
-                    *wCont += new Button(sf::Vector2f(320,  57.5f), getKeyName(settings.keys.move_down      ), 20);
-                    *wCont += new Button(sf::Vector2f(320,  88.0f), getKeyName(settings.keys.move_left      ), 20);
-                    *wCont += new Button(sf::Vector2f(320, 118.0f), getKeyName(settings.keys.move_right     ), 20);
-                    *wCont += new Button(sf::Vector2f(320, 148.5f), getKeyName(settings.keys.interact       ), 20);
-                    *wCont += new Button(sf::Vector2f(320, 178.5f), getKeyName(settings.keys.attack         ), 20);
-                    *wCont += new Button(sf::Vector2f(320, 209.0f), getKeyName(settings.keys.open_inventory ), 20);
-                    *wCont += new Button(sf::Vector2f(320, 239.0f), getKeyName(settings.keys.open_attributes), 20);
-                    *wCont += new Button(sf::Vector2f(320, 269.5f), getKeyName(settings.keys.open_quests    ), 20);
-                    *wCont += new Button(sf::Vector2f(320, 299.5f), getKeyName(settings.keys.open_map       ), 20);
-                    *wCont += new Button(sf::Vector2f(320, 330.0f), getKeyName(settings.keys.useslot_1      ), 20);
-                    *wCont += new Button(sf::Vector2f(320, 360.0f), getKeyName(settings.keys.useslot_2      ), 20);
-                    *wCont += new Button(sf::Vector2f(320, 390.5f), getKeyName(settings.keys.useslot_3      ), 20);
-                    *wCont += new Button(sf::Vector2f(320, 420.5f), getKeyName(settings.keys.useslot_4      ), 20);
-                    *wCont += new Button(sf::Vector2f(320, 450.5f), getKeyName(settings.keys.useslot_5      ), 20);
+                    *wCont += new Text(sf::Vector2f(20, 25), resources.dictionary["gui.text.move_up"          ]+"\n"
+                                                            +resources.dictionary["gui.text.move_down"        ]+"\n"
+                                                            +resources.dictionary["gui.text.move_left"        ]+"\n"
+                                                            +resources.dictionary["gui.text.move_right"       ]+"\n"
+                                                            +resources.dictionary["gui.text.interact"         ]+"\n"
+                                                            +resources.dictionary["gui.text.attack"           ]+"\n"
+                                                            +resources.dictionary["gui.text.open_inventory"   ]+"\n"
+                                                            +resources.dictionary["gui.text.open_attributes"  ]+"\n"
+                                                            +resources.dictionary["gui.text.open_quests"      ]+"\n"
+                                                            +resources.dictionary["gui.text.open_map"         ]+"\n"
+                                                            +resources.dictionary["gui.text.open_bookOfSpells"]+"\n"
+                                                            +resources.dictionary["gui.text.useslot_1"        ]+"\n"
+                                                            +resources.dictionary["gui.text.useslot_2"        ]+"\n"
+                                                            +resources.dictionary["gui.text.useslot_3"        ]+"\n"
+                                                            +resources.dictionary["gui.text.useslot_4"        ]+"\n"
+                                                            +resources.dictionary["gui.text.useslot_5"        ]+"\n", resources.font.Unifont, 28);
+                    *wCont += new Button(sf::Vector2f(320,  27.5f), getKeyName(settings.keys.move_up          ), 20);
+                    *wCont += new Button(sf::Vector2f(320,  57.5f), getKeyName(settings.keys.move_down        ), 20);
+                    *wCont += new Button(sf::Vector2f(320,  88.0f), getKeyName(settings.keys.move_left        ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 118.0f), getKeyName(settings.keys.move_right       ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 148.5f), getKeyName(settings.keys.interact         ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 178.5f), getKeyName(settings.keys.attack           ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 209.0f), getKeyName(settings.keys.open_inventory   ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 239.0f), getKeyName(settings.keys.open_attributes  ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 269.5f), getKeyName(settings.keys.open_quests      ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 299.5f), getKeyName(settings.keys.open_map         ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 330.5f), getKeyName(settings.keys.open_bookOfSpells), 20);
+                    *wCont += new Button(sf::Vector2f(320, 360.0f), getKeyName(settings.keys.useslot_1        ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 390.0f), getKeyName(settings.keys.useslot_2        ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 420.5f), getKeyName(settings.keys.useslot_3        ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 450.5f), getKeyName(settings.keys.useslot_4        ), 20);
+                    *wCont += new Button(sf::Vector2f(320, 480.5f), getKeyName(settings.keys.useslot_5        ), 20);
                     *wCont += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
-                    component(wCont, Button, 15)->setPosition(sf::Vector2f(wCont->getPosition().x+wCont->getSize().x/2-component(wCont, Button, 15)->getSize().x/2,
-                                                                           wCont->getPosition().y+wCont->getSize().y  -component(wCont, Button, 15)->getSize().y-10));
+                    component(wCont, Button, 16)->setPosition(sf::Vector2f(wCont->getPosition().x+wCont->getSize().x/2-component(wCont, Button, 16)->getSize().x/2,
+                                                                           wCont->getPosition().y+wCont->getSize().y  -component(wCont, Button, 16)->getSize().y-10));
 
                     wCont->addComponent(new Window("", sf::Vector2f(310, 50), (sf::Vector2f)(settings.graphics.resolution/2u+sf::Vector2u(-155, 290)), sf::Color::Red), false);
 
@@ -298,21 +300,22 @@ namespace rr {
                         settings.sound.effects_muted  = component(wSoun, Checkbox,  1)->isChecked();
                         settings.sound.effects_volume = component(wSoun, ScrollBar, 1)->getValue();
 
-                        settings.keys.move_up         = getKeyCode(component(wCont, Button,  0)->getText()->getString());
-                        settings.keys.move_down       = getKeyCode(component(wCont, Button,  1)->getText()->getString());
-                        settings.keys.move_left       = getKeyCode(component(wCont, Button,  2)->getText()->getString());
-                        settings.keys.move_right      = getKeyCode(component(wCont, Button,  3)->getText()->getString());
-                        settings.keys.interact        = getKeyCode(component(wCont, Button,  4)->getText()->getString());
-                        settings.keys.attack          = getKeyCode(component(wCont, Button,  5)->getText()->getString());
-                        settings.keys.open_inventory  = getKeyCode(component(wCont, Button,  6)->getText()->getString());
-                        settings.keys.open_attributes = getKeyCode(component(wCont, Button,  7)->getText()->getString());
-                        settings.keys.open_quests     = getKeyCode(component(wCont, Button,  8)->getText()->getString());
-                        settings.keys.open_map        = getKeyCode(component(wCont, Button,  9)->getText()->getString());
-                        settings.keys.useslot_1       = getKeyCode(component(wCont, Button, 10)->getText()->getString());
-                        settings.keys.useslot_2       = getKeyCode(component(wCont, Button, 11)->getText()->getString());
-                        settings.keys.useslot_3       = getKeyCode(component(wCont, Button, 12)->getText()->getString());
-                        settings.keys.useslot_4       = getKeyCode(component(wCont, Button, 13)->getText()->getString());
-                        settings.keys.useslot_5       = getKeyCode(component(wCont, Button, 14)->getText()->getString());
+                        settings.keys.move_up           = getKeyCode(component(wCont, Button,  0)->getText()->getString());
+                        settings.keys.move_down         = getKeyCode(component(wCont, Button,  1)->getText()->getString());
+                        settings.keys.move_left         = getKeyCode(component(wCont, Button,  2)->getText()->getString());
+                        settings.keys.move_right        = getKeyCode(component(wCont, Button,  3)->getText()->getString());
+                        settings.keys.interact          = getKeyCode(component(wCont, Button,  4)->getText()->getString());
+                        settings.keys.attack            = getKeyCode(component(wCont, Button,  5)->getText()->getString());
+                        settings.keys.open_inventory    = getKeyCode(component(wCont, Button,  6)->getText()->getString());
+                        settings.keys.open_attributes   = getKeyCode(component(wCont, Button,  7)->getText()->getString());
+                        settings.keys.open_quests       = getKeyCode(component(wCont, Button,  8)->getText()->getString());
+                        settings.keys.open_map          = getKeyCode(component(wCont, Button,  9)->getText()->getString());
+                        settings.keys.open_bookOfSpells = getKeyCode(component(wCont, Button, 10)->getText()->getString());
+                        settings.keys.useslot_1         = getKeyCode(component(wCont, Button, 11)->getText()->getString());
+                        settings.keys.useslot_2         = getKeyCode(component(wCont, Button, 12)->getText()->getString());
+                        settings.keys.useslot_3         = getKeyCode(component(wCont, Button, 13)->getText()->getString());
+                        settings.keys.useslot_4         = getKeyCode(component(wCont, Button, 14)->getText()->getString());
+                        settings.keys.useslot_5         = getKeyCode(component(wCont, Button, 15)->getText()->getString());
 
                         settings.print();
                         settings.save ();
@@ -350,11 +353,12 @@ namespace rr {
                         component(wCont, Button,  7)->getText()->setString(getKeyName(settings.keys.open_attributes));
                         component(wCont, Button,  8)->getText()->setString(getKeyName(settings.keys.open_quests));
                         component(wCont, Button,  9)->getText()->setString(getKeyName(settings.keys.open_map));
-                        component(wCont, Button, 10)->getText()->setString(getKeyName(settings.keys.useslot_1));
-                        component(wCont, Button, 11)->getText()->setString(getKeyName(settings.keys.useslot_2));
-                        component(wCont, Button, 12)->getText()->setString(getKeyName(settings.keys.useslot_3));
-                        component(wCont, Button, 13)->getText()->setString(getKeyName(settings.keys.useslot_4));
-                        component(wCont, Button, 14)->getText()->setString(getKeyName(settings.keys.useslot_5));
+                        component(wCont, Button, 10)->getText()->setString(getKeyName(settings.keys.open_bookOfSpells));
+                        component(wCont, Button, 11)->getText()->setString(getKeyName(settings.keys.useslot_1));
+                        component(wCont, Button, 12)->getText()->setString(getKeyName(settings.keys.useslot_2));
+                        component(wCont, Button, 13)->getText()->setString(getKeyName(settings.keys.useslot_3));
+                        component(wCont, Button, 14)->getText()->setString(getKeyName(settings.keys.useslot_4));
+                        component(wCont, Button, 15)->getText()->setString(getKeyName(settings.keys.useslot_5));
 
                         wOpts->setVisible(false);
                     }
@@ -397,7 +401,7 @@ namespace rr {
                 }
 
                 else if (wCont->isVisible()) {
-                    for (int i=0; i<15; i++) {
+                    for (int i=0; i<16; i++) {
                         if (!wWait->isVisible() && component(wCont, Button, i)->isPressed(rw, e)) {
                             wWait->setVisible(true);
                             wWait->setParentComponent(component(wCont, Button, i));
@@ -409,7 +413,7 @@ namespace rr {
                             wWait->setVisible(false);
                         }
                     }
-                    if (!wWait->isVisible() && component(wCont, Button, 15)->isPressed(rw, e))
+                    if (!wWait->isVisible() && component(wCont, Button, 16)->isPressed(rw, e))
                         wCont->setVisible(false);
                 }
 

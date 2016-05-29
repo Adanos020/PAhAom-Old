@@ -90,16 +90,19 @@ gui.text.pickup
 Podnieś
 
 gui.text.open_inventory
-Otwórz ekwipunek
+Ekwipunek
 
 gui.text.open_attributes
-Otwórz atrybuty
+Atrybuty
 
 gui.text.open_quests
-Otwórz listę zadań
+Lista zadań
 
 gui.text.open_map
-Otwórz mapę
+Mapa
+
+gui.text.open_bookOfSpells
+Księga zaklęć
 
 gui.text.useslot_1
 Użyj schowka nr 1
@@ -130,6 +133,9 @@ ZADANIA
 
 gui.window.game_map
 MAPA
+
+gui.window.bookOfSpells
+KSIĘGA ZAKLĘĆ
 
 ;---------ITEMS---------;
 item.book.type.crafting

@@ -20,6 +20,8 @@ namespace rr {
 
         void          setOpen                (bool);
         bool          isOpen                 ()          const            { return open_; }
+        bool          isLocked               ()          const            { return locked_; }
+        bool          isWithoutWindow        ()          const            { return withoutWindow_; }
 
         virtual void          draw           (sf::RenderWindow&) override;
         virtual void          setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }
