@@ -110,6 +110,6 @@ namespace rr {
 #include "item_Food.hpp"
 #include "item_Potion.hpp"
 #include "item_RangedWeapon.hpp"
-#include "item_Spell.hpp"
+#include "item_Rune.hpp"
 
 #endif

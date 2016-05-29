@@ -50,18 +50,19 @@ namespace rr {
         case  37: return new Book      (Book::FASTER_LEARNING                             , amount);
         case  38: return new Book      (Book::SPELLS_BOOK                                 , amount);
 
-        /* SPELLS */
-        case  39: return new Spell     (Spell::HEAL                                       , amount);
-        case  40: return new Spell     (Spell::FIREBOLT                                   , amount);
-        case  41: return new Spell     (Spell::LIGHTNING                                  , amount);
-        case  42: return new Spell     (Spell::ICE_BULLET                                 , amount);
-        case  43: return new Spell     (Spell::TELEPORT                                   , amount);
-        case  44: return new Spell     (Spell::FIRE_RAIN                                  , amount);
-        case  45: return new Spell     (Spell::STORM                                      , amount);
-        case  46: return new Spell     (Spell::ICE_WAVE                                   , amount);
-        case  47: return new Spell     (Spell::TIME_FREEZING                              , amount);
-        case  48: return new Spell     (Spell::IDENTIFY                                   , amount);
-        case  49: return new Spell     (Spell::UNCURSE                                    , amount);
+        /* RuneS */
+        case  39: return new Rune      (Rune::HEAL                                        , amount);
+        case  40: return new Rune      (Rune::FIREBOLT                                    , amount);
+        case  41: return new Rune      (Rune::LIGHTNING                                   , amount);
+        case  42: return new Rune      (Rune::ICE_BULLET                                  , amount);
+        case  43: return new Rune      (Rune::TELEPORT                                    , amount);
+        case  44: return new Rune      (Rune::FIRE_RAIN                                   , amount);
+        case  45: return new Rune      (Rune::STORM                                       , amount);
+        case  46: return new Rune      (Rune::ICE_WAVE                                    , amount);
+        case  47: return new Rune      (Rune::TIME_FREEZING                               , amount);
+        case  48: return new Rune      (Rune::IDENTIFY                                    , amount);
+        case  49: return new Rune      (Rune::UNCURSE                                     , amount);
+        case  50: return new Rune      (Rune::TELEKINESIS                                 , amount);
 
         /* POTIONS */
         case 100: return new Potion    (Potion::Effect::HEALING     , Potion::Size::SMALL , amount);

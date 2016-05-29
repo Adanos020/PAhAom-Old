@@ -90,7 +90,7 @@ namespace rr {
         bool isOpen      ();
     };
 
-/// Class for the book of spells
+/// Class for the book of Runes
     class BookOfSpells {
     private:
         sf::RectangleShape shadow_;
@@ -99,19 +99,19 @@ namespace rr {
          BookOfSpells();
         ~BookOfSpells();
 
-    /// Opens the window of the book of spells
+    /// Opens the window of the book of Runes
         void open        ();
 
-    /// Closes the window of the book of spells
+    /// Closes the window of the book of Runes
         void close       ();
 
     /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
-    /// Draws the components of the window of the book of spells
+    /// Draws the components of the window of the book of Runes
         void draw        (sf::RenderWindow&);
 
-    /// Tells if the window of the book of spells is open
+    /// Tells if the window of the book of Runes is open
         bool isOpen      ();
     };
 

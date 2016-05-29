@@ -76,7 +76,7 @@ namespace rr {
                 }
             }
         }
-        /* spell symbols */ {
+        /* Rune symbols */ {
             for (int i=0; i<11; i++) {
                 topkek: int x = rand()%11;
                 for (int j=0; j<i; j++) {
@@ -260,8 +260,8 @@ namespace rr {
                             if (instanceof<Item, Entity>(entities[i])) {
                                 if (inventory_->addItem((Item*)entities[i])) {
                                     std::cout << "You've picked up " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
-                                    if (instanceof<Spell, Item>((Item*)entities[i]))
-                                        std::cout << spellSymbols[((Spell*)(Item*)entities[i])->type_] << '\n';
+                                    if (instanceof<Rune, Item>((Item*)entities[i]))
+                                        std::cout << spellSymbols[((Rune*)(Item*)entities[i])->type_] << '\n';
                                     levels_[levelNumber_]->removeEntity(i);
                                     i = 0;
                                 }

@@ -22,6 +22,9 @@ namespace rr {
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
         wBofs_= new Window(resources.dictionary["gui.window.bookOfSpells"], sf::Vector2f(765, 470), (sf::Vector2f)settings.graphics.resolution/2.f-sf::Vector2f(382.5f, 235));
+            for (int i=0; i<3; i++) {
+
+            }
             *wBofs_+= new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
                 component(wBofs_, Button, 0)->setPosition(sf::Vector2f(wBofs_->getPosition().x+wBofs_->getSize().x-component(wBofs_, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(wBofs_, Button, 0)->getSize().y-5));
 

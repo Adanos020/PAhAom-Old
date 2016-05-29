@@ -1,17 +1,17 @@
 /**
- * @file src/program/game/item/item_Spell.hpp
+ * @file src/program/game/item/item_Rune.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
-#ifndef item_Spell_hpp
-#define item_Spell_hpp
+#ifndef item_Rune_hpp
+#define item_Rune_hpp
 
 #include "item.hpp"
 
 namespace rr {
 
-    class Spell : public Item, public Discoverable {
+    class Rune : public Item, public Discoverable {
     public:
         enum Type {
             HEAL,
@@ -24,11 +24,12 @@ namespace rr {
             ICE_WAVE,
             TIME_FREEZING,
             IDENTIFY,
-            UNCURSE
+            UNCURSE,
+            TELEKINESIS
         } type_;
 
-         Spell(Type, int am, sf::Vector2i pos = sf::Vector2i(0, 0));
-        ~Spell() {}
+         Rune(Type, int am, sf::Vector2i pos = sf::Vector2i(0, 0));
+        ~Rune() {}
 
         virtual void draw           (sf::RenderWindow&) override;
         virtual void reveal         ()                  override;
@@ -39,4 +40,4 @@ namespace rr {
 
 }
 
-#endif // item_Spell_hpp
+#endif // item_Rune_hpp

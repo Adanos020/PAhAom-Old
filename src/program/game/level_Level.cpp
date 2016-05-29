@@ -252,7 +252,7 @@ namespace rr {
                 sf::Vector2i position;
                 bool found = false;
 
-                int tries = 50;
+                int tries = 100;
                 while (!found && tries > 0) {
                     switch (rand()%2) {
                     case 0: // LEFT OR RIGHT
@@ -544,7 +544,7 @@ namespace rr {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
-                    addEntity(getItemFromID(rand()%11+39, 1), sf::Vector2i(x, y));
+                    addEntity(getItemFromID(rand()%12+39, 1), sf::Vector2i(x, y));
                     tiles_[x][y] = OCCUPIED;
                     break;
                 }

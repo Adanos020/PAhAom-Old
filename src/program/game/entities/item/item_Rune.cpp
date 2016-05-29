@@ -1,10 +1,10 @@
 /**
- * @file src/program/game/item/item_Spell.cpp
+ * @file src/program/game/item/item_Rune.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
-#include "item_Spell.hpp"
+#include "item_Rune.hpp"
 #include "../../../program.hpp"
 
 #include <iostream>
@@ -14,7 +14,7 @@ extern int           spellSymbols[11];
 
 namespace rr {
 
-    Spell::Spell(Type type, int am, sf::Vector2i pos)
+    Rune::Rune(Type type, int am, sf::Vector2i pos)
     : Item(),
       type_  (type) {
 
@@ -22,20 +22,21 @@ namespace rr {
         disposable_ = true;
         stackable_  = true;
         ID_         = 39+type_;
-        iconIndex_  = 64;
+        iconIndex_  = 48;
 
         switch (spellSymbols[type_]) {
-            case  0: name_ = resources.dictionary["item.spell.symbol.shcha"]; break;
-            case  1: name_ = resources.dictionary["item.spell.symbol.jus"  ]; break;
-            case  2: name_ = resources.dictionary["item.spell.symbol.jes"  ]; break;
-            case  3: name_ = resources.dictionary["item.spell.symbol.ef"   ]; break;
-            case  4: name_ = resources.dictionary["item.spell.symbol.ju"   ]; break;
-            case  5: name_ = resources.dictionary["item.spell.symbol.psi"  ]; break;
-            case  6: name_ = resources.dictionary["item.spell.symbol.de"   ]; break;
-            case  7: name_ = resources.dictionary["item.spell.symbol.omega"]; break;
-            case  8: name_ = resources.dictionary["item.spell.symbol.je"   ]; break;
-            case  9: name_ = resources.dictionary["item.spell.symbol.zhe"  ]; break;
-            case 10: name_ = resources.dictionary["item.spell.symbol.be"   ]; break;
+            case  0: name_ = resources.dictionary["item.spell.symbol.shcha"  ]; break;
+            case  1: name_ = resources.dictionary["item.spell.symbol.jus"    ]; break;
+            case  2: name_ = resources.dictionary["item.spell.symbol.jes"    ]; break;
+            case  3: name_ = resources.dictionary["item.spell.symbol.ef"     ]; break;
+            case  4: name_ = resources.dictionary["item.spell.symbol.ju"     ]; break;
+            case  5: name_ = resources.dictionary["item.spell.symbol.psi"    ]; break;
+            case  6: name_ = resources.dictionary["item.spell.symbol.de"     ]; break;
+            case  7: name_ = resources.dictionary["item.spell.symbol.omega"  ]; break;
+            case  8: name_ = resources.dictionary["item.spell.symbol.je"     ]; break;
+            case  9: name_ = resources.dictionary["item.spell.symbol.zhe"    ]; break;
+            case 10: name_ = resources.dictionary["item.spell.symbol.be"     ]; break;
+            case 11: name_ = resources.dictionary["item.spell.symbol.izhitsa"]; break;
         }
         description_ = resources.dictionary["item.spell.description.unknown"];
 
@@ -62,23 +63,23 @@ namespace rr {
         body_[6].position  = body_[2].position;
         body_[7].position  = body_[3].position;
 
-        body_[4].texCoords = body_[0].texCoords+sf::Vector2f((spellSymbols[type_]+1)*16, 0);
-        body_[5].texCoords = body_[1].texCoords+sf::Vector2f((spellSymbols[type_]+1)*16, 0);
-        body_[6].texCoords = body_[2].texCoords+sf::Vector2f((spellSymbols[type_]+1)*16, 0);
-        body_[7].texCoords = body_[3].texCoords+sf::Vector2f((spellSymbols[type_]+1)*16, 0);
+        body_[4].texCoords = body_[0].texCoords+sf::Vector2f(spellSymbols[type_]*16, 16);
+        body_[5].texCoords = body_[1].texCoords+sf::Vector2f(spellSymbols[type_]*16, 16);
+        body_[6].texCoords = body_[2].texCoords+sf::Vector2f(spellSymbols[type_]*16, 16);
+        body_[7].texCoords = body_[3].texCoords+sf::Vector2f(spellSymbols[type_]*16, 16);
     }
 
-    void Spell::reveal() {
+    void Rune::reveal() {
         discovered_  = true;
         name_        = discoveredName_;
         description_ = discoveredDescription_;
     }
 
-    void Spell::draw(sf::RenderWindow& rw) {
+    void Rune::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
     }
 
-    void Spell::setPosition(sf::Vector2i pos) {
+    void Rune::setPosition(sf::Vector2i pos) {
         body_[0].position = (sf::Vector2f)pos*80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
@@ -90,7 +91,7 @@ namespace rr {
         body_[7].position = body_[3].position;
     }
 
-    void Spell::setRealPosition(sf::Vector2f pos) {
+    void Rune::setRealPosition(sf::Vector2f pos) {
         body_[0].position = pos;
         body_[1].position = sf::Vector2f(pos.x+80, pos.y   );
         body_[2].position = sf::Vector2f(pos.x+80, pos.y+80);
