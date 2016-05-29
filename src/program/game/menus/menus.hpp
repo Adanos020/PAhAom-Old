@@ -90,6 +90,31 @@ namespace rr {
         bool isOpen      ();
     };
 
+/// Class for the book of spells
+    class BookOfSpells {
+    private:
+        sf::RectangleShape shadow_;
+        Window*            wBofs;
+    public:
+         BookOfSpells();
+        ~BookOfSpells();
+
+    /// Opens the window of the book of spells
+        void open        ();
+
+    /// Closes the window of the book of spells
+        void close       ();
+
+    /// Handles the button events
+        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
+
+    /// Draws the components of the window of the book of spells
+        void draw        (sf::RenderWindow&);
+
+    /// Tells if the window of the book of spells is open
+        bool isOpen      ();
+    };
+
 /// Class for the player inventory
     class Inventory : public Observer {
     private:

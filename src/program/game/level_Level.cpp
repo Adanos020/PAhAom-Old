@@ -92,7 +92,6 @@ namespace rr {
             for (int j=1; j<size_.y; j+=2) {
                 if (tiles_[i][j] == WALL) {
                     fillWithMaze(i, j);
-                    region_count_++;
                 }
             }
         }
@@ -152,59 +151,61 @@ namespace rr {
     }
 
     void Level::fillWithMaze(int r, int c) {
- // at this point we generate an array of random directions
-        int number = rand()%100+100;
-        int* directions = new int[number];
-        for (int i=0; i<number; i++) {
-            directions[i] = rand()%4;
-        }
-     // and now let's start digging
-        for (int i = 0; i<number; i++) {
-            switch(directions[i]) {
-            case 0: // UP
-                if (r-2 <= 0)
-                    continue;
-                if (tiles_[r-2][c] == WALL) {
-                    tiles_[r-2][c] = CORRIDOR;
-                    tiles_[r-1][c] = CORRIDOR;
-                    regions_[r-2][c] = region_count_;
-                    regions_[r-1][c] = region_count_;
-                    fillWithMaze(r-2, c);
+        region_count_++;
+
+        tiles_  [r][c] = CORRIDOR;
+        regions_[r][c] = region_count_;
+
+        std::vector<sf::Vector2i> cells;
+        cells.push_back(sf::Vector2i(r, c));
+
+        sf::Vector2i lastDir = sf::Vector2i(0, 0);
+
+        std::vector<sf::Vector2i> directions;
+        directions.push_back(sf::Vector2i(-1,  0));
+        directions.push_back(sf::Vector2i( 0, -1));
+        directions.push_back(sf::Vector2i( 1,  0));
+        directions.push_back(sf::Vector2i( 0,  1));
+
+        while (!cells.empty()) {
+            sf::Vector2i cell = cells.back();
+
+            std::vector<sf::Vector2i> unmadeCells;
+
+            for (auto dir : directions) {
+                if (!isOnBorder(cell.x+dir.x*3, cell.y+dir.y*3) && tiles_[cell.x+dir.x*2][cell.y+dir.y*2] == WALL)
+                    unmadeCells.push_back(dir);
+            }
+
+            if (!unmadeCells.empty()) {
+                sf::Vector2i dir;
+
+                bool found = false;
+                for (auto x : unmadeCells) {
+                    if (x == lastDir) {
+                        found = true;
+                        break;
+                    }
                 }
-                break;
-            case 1: // RIGHT
-                if (c+2 >= size_.y-1)
-                    continue;
-                if (tiles_[r][c+2] == WALL) {
-                    tiles_[r][c+2] = CORRIDOR;
-                    tiles_[r][c+1] = CORRIDOR;
-                    regions_[r][c+2] = region_count_;
-                    regions_[r][c+1] = region_count_;
-                    fillWithMaze(r, c+2);
+                if (found && rand()%100 > 0) {
+                    dir = lastDir;
                 }
-                break;
-            case 2: // DOWN
-                if (r+2 >= size_.x-1)
-                    continue;
-                if (tiles_[r+2][c] == WALL) {
-                    tiles_[r+2][c] = CORRIDOR;
-                    tiles_[r+1][c] = CORRIDOR;
-                    regions_[r+2][c] = region_count_;
-                    regions_[r+1][c] = region_count_;
-                    fillWithMaze(r+2, c);
+                else {
+                    dir = unmadeCells[rand()%unmadeCells.size()];
                 }
-                break;
-            case 3: // LEFT
-                if (c-2 <= 0)
-                    continue;
-                if (tiles_[r][c-2] == WALL) {
-                    tiles_[r][c-2] = CORRIDOR;
-                    tiles_[r][c-1] = CORRIDOR;
-                    regions_[r][c-2] = region_count_;
-                    regions_[r][c-1] = region_count_;
-                    fillWithMaze(r, c-2);
-                }
-                break;
+
+                tiles_[ cell.x+dir.x ][ cell.y+dir.y ] = CORRIDOR;
+                tiles_[cell.x+dir.x*2][cell.y+dir.y*2] = CORRIDOR;
+
+                regions_[ cell.x+dir.x ][ cell.y+dir.y ] = region_count_;
+                regions_[cell.x+dir.x*2][cell.y+dir.y*2] = region_count_;
+
+                cells.push_back(cell+dir*2);
+                lastDir = dir;
+            }
+            else {
+                cells.pop_back();
+                lastDir = sf::Vector2i(0, 0);
             }
         }
     }
@@ -215,11 +216,14 @@ namespace rr {
 
      // we have to place the conectors on every tile on whose two opposite sides is no wall
         for (sf::Vector2i pos(1, 1); pos.x<size_.x-1 && pos.y<size_.y-1; pos += ((pos.x >= size_.x-2)?(sf::Vector2i(-(size_.x-3), 1)):(sf::Vector2i(1, 0)))) {
+
          // we cannot place a connector on a tile which is not a wall
             if (tiles_[pos.x][pos.y] == WALL) {
                 if (regions_[pos.x-1][pos.y] != -1 && regions_[pos.x+1][pos.y] != -1) {
+
                  // are there walls neither on the right nor on the left?
                     if (tiles_[pos.x-1][pos.y] == CORRIDOR || tiles_[pos.x+1][pos.y] == CORRIDOR) {
+
                      // the regions_ on both sides cannot be the same if one of them is a corridor
                         if (regions_[pos.x-1][pos.y] != regions_[pos.x+1][pos.y])
                             connectors.push_back(pos);
@@ -227,9 +231,11 @@ namespace rr {
                     else
                         connectors.push_back(pos);
                 }
+
              // are there walls neither above nor below?
                 else if (regions_[pos.x][pos.y-1] != -1 && regions_[pos.x][pos.y+1] != -1) {
                     if (tiles_[pos.x][pos.y-1] == CORRIDOR || tiles_[pos.x][pos.y+1] == CORRIDOR) {
+
                      // the regions_ on both sides cannot be the same if one of them is a corridor
                         if (regions_[pos.x][pos.y-1] != regions_[pos.x][pos.y+1])
                             connectors.push_back(pos);
@@ -242,7 +248,7 @@ namespace rr {
 
      // then we iterate on each room and give it a random numbers of entrances
         for (unsigned it=0; it<rooms_.size(); it++) {
-            for (int entrances = rand()%3+2; entrances>0; entrances--) {
+            for (int entrances = rand()%2+2; entrances>0; entrances--) {
                 sf::Vector2i position;
                 bool found = false;
 
