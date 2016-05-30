@@ -353,60 +353,59 @@ namespace rr {
                     enum Neighbour {
                         NONE,
                         TOP, BOTTOM, LEFT, RIGHT,
-                        TOP_BOTTOM, TOPleft_, TOPright_, LEFTright_, BOTTOMleft_, BOTTOMright_,
-                        NO_TOP, NOright_, NOleft_, NO_BOTTOM,
+                        TOP_BOTTOM, TOP_LEFT, TOP_RIGHT, LEFT_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT,
+                        NO_TOP, NO_RIGHT, NO_LEFT, NO_BOTTOM,
                         ALL
                     };
                     if (!isOnBorder(i, j)) {
-                        if      ((tiles_[i-1][j] != WALL) && (tiles_[i+1][j] != WALL) && (tiles_[i][j-1] != WALL) && (tiles_[i][j+1] != WALL)) tileNumber += Neighbour::ALL*16;
+                        if      ((tiles_[i-1][j] != WALL) && (tiles_[i+1][j] != WALL) && (tiles_[i][j-1] != WALL) && (tiles_[i][j+1] != WALL)) tileNumber += Neighbour::ALL         *16;
 
-                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::NO_TOP*16;
-                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::NO_BOTTOM*16;
-                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::NOleft_*16;
-                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::NOright_*16;
+                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::NO_TOP      *16;
+                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::NO_BOTTOM   *16;
+                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::NO_LEFT     *16;
+                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::NO_RIGHT    *16;
 
-                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::LEFTright_*16;
-                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::BOTTOMright_*16;
-                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::BOTTOMleft_*16;
-                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::TOP_BOTTOM*16;
-                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::TOPright_*16;
-                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::TOPleft_*16;
+                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::LEFT_RIGHT  *16;
+                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::BOTTOM_RIGHT*16;
+                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::BOTTOM_LEFT *16;
+                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::TOP_BOTTOM  *16;
+                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::TOP_RIGHT   *16;
+                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::TOP_LEFT    *16;
 
-                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::TOP*16;
-                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::BOTTOM*16;
-                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::LEFT*16;
-                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::RIGHT*16;
+                        else if ((tiles_[i][j-1] != WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::TOP         *16;
+                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] != WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::BOTTOM      *16;
+                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] != WALL) && (tiles_[i+1][j] == WALL)) tileNumber += Neighbour::LEFT        *16;
+                        else if ((tiles_[i][j-1] == WALL) && (tiles_[i][j+1] == WALL) && (tiles_[i-1][j] == WALL) && (tiles_[i+1][j] != WALL)) tileNumber += Neighbour::RIGHT       *16;
                     } else if (i == 0) {
                         if (j > 0 && j < size_.y-1) {
-                            if      ((tiles_[i+1][j] != WALL)) tileNumber += Neighbour::LEFTright_*16;
-                            else if ((tiles_[i+1][j] == WALL)) tileNumber += Neighbour::LEFT*16;
+                            if      ((tiles_[i+1][j] != WALL)) tileNumber += Neighbour::LEFT_RIGHT*16;
+                            else if ((tiles_[i+1][j] == WALL)) tileNumber += Neighbour::LEFT      *16;
                         }
                         else if (j == 0) {
-                            tileNumber += Neighbour::TOPleft_*16;
+                            tileNumber += Neighbour::TOP_LEFT   *16;
                         }
                         else if (j == size_.y-1) {
-                            tileNumber += Neighbour::BOTTOMleft_*16;
+                            tileNumber += Neighbour::BOTTOM_LEFT*16;
                         }
                     } else if (i == size_.x-1) {
                         if (j > 0 && j < size_.y-1) {
-                            if      ((tiles_[i-1][j] != WALL)) tileNumber += Neighbour::LEFTright_*16;
-                            else if ((tiles_[i-1][j] == WALL)) tileNumber += Neighbour::RIGHT*16;
+                            if      ((tiles_[i-1][j] != WALL)) tileNumber += Neighbour::LEFT_RIGHT*16;
+                            else if ((tiles_[i-1][j] == WALL)) tileNumber += Neighbour::RIGHT     *16;
                         }
                         else if (j == 0) {
-                            tileNumber += Neighbour::TOPright_*16;
+                            tileNumber += Neighbour::TOP_RIGHT   *16;
                         }
                         else if (j == size_.y-1) {
-                            tileNumber += Neighbour::BOTTOMright_*16;
+                            tileNumber += Neighbour::BOTTOM_RIGHT*16;
                         }
                     } else if (j == 0 && i > 0 && i < size_.x-1) {
                         if      ((tiles_[i][j+1] != WALL)) tileNumber += Neighbour::TOP_BOTTOM*16;
-                        else if ((tiles_[i][j+1] == WALL)) tileNumber += Neighbour::TOP*16;
+                        else if ((tiles_[i][j+1] == WALL)) tileNumber += Neighbour::TOP       *16;
                     } else if (j == size_.y-1 && i > 0 && i < size_.x-1) {
                         if      ((tiles_[i][j-1] != WALL)) tileNumber += Neighbour::TOP_BOTTOM*16;
-                        else if ((tiles_[i][j-1] == WALL)) tileNumber += Neighbour::BOTTOM*16;
+                        else if ((tiles_[i][j-1] == WALL)) tileNumber += Neighbour::BOTTOM    *16;
                     }
                     break;
-             // ROOM
                 case CORRIDOR: tileNumber = 1;  break;
                 default:       tileNumber = 17; break;
                 }
@@ -438,6 +437,7 @@ namespace rr {
                     addEntity(new Door(false), sf::Vector2i(x, y));
             }
         }
+
      // here we place the starting point
         for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
             if (tiles_[x][y] == ROOM) {
@@ -447,6 +447,7 @@ namespace rr {
                 break;
             }
         }
+
      // here we place the ending point
         for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
             if (tiles_[x][y] == ROOM && (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 30)) {
@@ -456,6 +457,7 @@ namespace rr {
                 break;
             }
         }
+
      // here we generate the chests
         for (int i=0; i<rand()%5; i++) {
             while (true) {
@@ -482,6 +484,7 @@ namespace rr {
                 }
             }
         }
+
      // here we generate the coins
         for (int i=0; i<rand()%15; i++) {
             while (true) {
@@ -515,6 +518,7 @@ namespace rr {
                 }
             }
         }
+
      // here we generate the books
         for (int i=0; i<rand()%5; i++) {
             while (true) {
@@ -527,11 +531,13 @@ namespace rr {
                 }
             }
         }
+
      // here we generate the cold weapon
         for (int i=0; i<rand()%5; i++) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
+
                  // here we choose randomly the type of cold weapon
                     addEntity(getItemFromID(rand()%13+10, 1), sf::Vector2i(x, y));
                     tiles_[x][y] = OCCUPIED;
@@ -539,6 +545,7 @@ namespace rr {
                 }
             }
         }
+
      // here we place the runic stones
         for (int i=0; i<rand()%15; i++) {
             while (true) {
@@ -550,6 +557,7 @@ namespace rr {
                 }
             }
         }
+
      // here we place the teachers every 5th level
      {
         sf::Vector2i pos;
@@ -576,6 +584,7 @@ namespace rr {
             break;
         }
      }
+
      // and in the end we place the masks upon the whole level to make the player have to discover it all
         for (int x=0; x<size_.x; x++) {
             for (int y=0; y<size_.y; y++) {

@@ -6,6 +6,7 @@
 
 #include "item_Potion.hpp"
 #include "../../../program.hpp"
+#include "../../../funcs/images.hpp"
 
 extern rr::Resources resources;
 extern sf::Color     itemColors[9];
@@ -73,38 +74,11 @@ namespace rr {
             break;
         }
 
-        int tu = iconIndex_%16;
-        int tv = iconIndex_/16;
+        int icons[] = { (int)iconIndex_, (int)iconIndex_+16 };
 
-        body_.resize(8);
-        body_.setPrimitiveType(sf::Quads);
-
-     // setting the vertices of the flask
-        body_[0].position = (sf::Vector2f)pos*80.f;
-        body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
-        body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
-        body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
-
-        body_[0].texCoords = sf::Vector2f(  tu  *16+0.03125f,   tv  *16+0.03125f);
-        body_[1].texCoords = sf::Vector2f((tu+1)*16-0.03125f,   tv  *16+0.03125f);
-        body_[2].texCoords = sf::Vector2f((tu+1)*16-0.03125f, (tv+1)*16-0.03125f);
-        body_[3].texCoords = sf::Vector2f(  tu  *16+0.03125f, (tv+1)*16-0.03125f);
-
-     // setting the vertices of the liquid
-        body_[4].position  = body_[0].position;
-        body_[5].position  = body_[1].position;
-        body_[6].position  = body_[2].position;
-        body_[7].position  = body_[3].position;
-
-        body_[4].texCoords = body_[0].texCoords+sf::Vector2f(0, 16);
-        body_[5].texCoords = body_[1].texCoords+sf::Vector2f(0, 16);
-        body_[6].texCoords = body_[2].texCoords+sf::Vector2f(0, 16);
-        body_[7].texCoords = body_[3].texCoords+sf::Vector2f(0, 16);
-
-        body_[4].color     = itemColors[effect_];
-        body_[5].color     = itemColors[effect_];
-        body_[6].color     = itemColors[effect_];
-        body_[7].color     = itemColors[effect_];
+        setIcon(body_, 2, icons);
+        setColor(body_, 1, itemColors[effect_]);
+        setPosition(pos);
     }
 
     void Potion::reveal() {
