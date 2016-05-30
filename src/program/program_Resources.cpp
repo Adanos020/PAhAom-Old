@@ -16,15 +16,15 @@ extern rr::Settings settings;
 namespace rr {
 
     bool Resources::load() {
-        return (font   .Unifont.loadFromFile("data/font/unifont-8.0.01.ttf")
+        return (loadDict()
+             && font   .Unifont.loadFromFile("data/font/unifont-8.0.01.ttf")
              && font   .Pixel  .loadFromFile("data/font/I-pixel-u-mod.ttf")
              && texture.gui    .loadFromFile("data/graphics/gui.png")
              && texture.player .loadFromFile("data/graphics/player.png")
              && texture.items  .loadFromFile("data/graphics/items.png")
              && texture.tileset.loadFromFile("data/graphics/tileset.png")
              && texture.objects.loadFromFile("data/graphics/objects.png")
-             && texture.npc    .loadFromFile("data/graphics/npc.png")
-             && loadDict());
+             && texture.npc    .loadFromFile("data/graphics/npc.png"));
     }
 
     bool Resources::loadDict() {

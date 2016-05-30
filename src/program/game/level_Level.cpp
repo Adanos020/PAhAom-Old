@@ -540,7 +540,7 @@ namespace rr {
             }
         }
      // here we place the runic stones
-        for (int i=0; i<rand()%5; i++) {
+        for (int i=0; i<rand()%15; i++) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x][y] == ROOM && tiles_[x][y] != OCCUPIED) {
@@ -591,6 +591,13 @@ namespace rr {
                 for (auto item : entities_) {
                     if (instanceof<Potion, Item>((Item*)item) && ((Potion*)item)->effect_ == ((Potion*)entity)->effect_) {
                         ((Potion*)item)->reveal();
+                    }
+                }
+            }
+            else if (instanceof<Rune, Item>((Item*)entity)) {
+                for (auto item : entities_) {
+                    if (instanceof<Rune, Item>((Item*)item) && ((Rune*)item)->type_ == ((Rune*)entity)->type_) {
+                        ((Rune*)item)->reveal();
                     }
                 }
             }

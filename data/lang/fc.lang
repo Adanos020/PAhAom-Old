@@ -411,8 +411,44 @@ pyha «be»
 item.spell.symbol.izhitsa
 pyha «ižyca»
 
+item.spell.type.heal
+leyeh'e
+
+item.spell.type.firebolt
+oth'nctbi belt
+
+item.spell.type.lightning
+t'epyh
+
+item.spell.type.iceBullet
+loaovbi toy'ncq
+
+item.spell.type.teleport
+teletoptau'r
+
+item.spell.type.fireRain
+aewÿ oth'r
+
+item.spell.type.storm
+byxia
+
+item.spell.type.iceWave
+loaoba dala
+
+item.spell.type.timeFreezing
+čatxibimah'e yacy
+
+item.spell.type.identify
+naehtbidnqu'r
+
+item.spell.type.uncurse
+oybiwyeh'e č qlohtvbi
+
+item.spell.type.telekinesis
+teleqnheča
+
 item.spell.description.unknown
-none
+.'ewye teñ pyhbi h'e čhaw, b'ehu xbiba yac häweal, x'evbi to xolepctbo čnaehtbidnqobay'
 
 ;-------------PLAYER--------------;
 player.attributes.health

@@ -7,16 +7,14 @@
 #include "item_Rune.hpp"
 #include "../../../program.hpp"
 
-#include <iostream>
-
 extern rr::Resources resources;
 extern int           spellSymbols[11];
 
 namespace rr {
 
     Rune::Rune(Type type, int am, sf::Vector2i pos)
-    : Item(),
-      type_  (type) {
+    : Discoverable(),
+      type_       (type) {
 
         amount_     = am;
         disposable_ = true;
@@ -39,6 +37,33 @@ namespace rr {
             case 11: name_ = resources.dictionary["item.spell.symbol.izhitsa"]; break;
         }
         description_ = resources.dictionary["item.spell.description.unknown"];
+
+        switch (type_) {
+            case HEAL         : discoveredName_        = resources.dictionary["item.spell.type.heal"               ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.heal"        ]; break;
+            case FIREBOLT     : discoveredName_        = resources.dictionary["item.spell.type.firebolt"           ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.firebolt"    ]; break;
+            case LIGHTNING    : discoveredName_        = resources.dictionary["item.spell.type.lightning"          ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.lightning"   ]; break;
+            case ICE_BULLET   : discoveredName_        = resources.dictionary["item.spell.type.iceBullet"          ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.iceBullet"   ]; break;
+            case TELEPORT     : discoveredName_        = resources.dictionary["item.spell.type.teleport"           ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.teleport"    ]; break;
+            case FIRE_RAIN    : discoveredName_        = resources.dictionary["item.spell.type.fireRain"           ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.fireRain"    ]; break;
+            case STORM        : discoveredName_        = resources.dictionary["item.spell.type.storm"              ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.storm"       ]; break;
+            case ICE_WAVE     : discoveredName_        = resources.dictionary["item.spell.type.iceWave"            ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.iceWave"     ]; break;
+            case TIME_FREEZING: discoveredName_        = resources.dictionary["item.spell.type.timeFreezing"       ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.timeFreezing"]; break;
+            case IDENTIFY     : discoveredName_        = resources.dictionary["item.spell.type.identify"           ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.identify"    ]; break;
+            case UNCURSE      : discoveredName_        = resources.dictionary["item.spell.type.uncurse"            ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.uncurse"     ]; break;
+            case TELEKINESIS  : discoveredName_        = resources.dictionary["item.spell.type.telekinesis"        ];
+                                discoveredDescription_ = resources.dictionary["item.spell.description.telekinesis" ]; break;
+        }
 
         int tu = iconIndex_%16;
         int tv = iconIndex_/16;

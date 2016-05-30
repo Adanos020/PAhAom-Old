@@ -414,8 +414,44 @@ Runa „be”
 item.spell.symbol.izhitsa
 Runa „iżyca”
 
+item.spell.type.heal
+Leczenie
+
+item.spell.type.firebolt
+Ognisty bełt
+
+item.spell.type.lightning
+Piorun
+
+item.spell.type.iceBullet
+Lodowy pocisk
+
+item.spell.type.teleport
+Teleportacja
+
+item.spell.type.fireRain
+Deszcz ognia
+
+item.spell.type.storm
+Burza
+
+item.spell.type.iceWave
+Lodowa fala
+
+item.spell.type.timeFreezing
+Zatrzymanie czasu
+
+item.spell.type.identify
+Identyfikacja
+
+item.spell.type.uncurse
+Oczyszczenie z klątwy
+
+item.spell.type.telekinesis
+Telekineza
+
 item.spell.description.unknown
-none
+Jeszcze nie znasz tej runy, więc chyba nadszedł czas, żeby zidentyfikować to cholerstwo.
 
 ;-----------PLAYER-----------;
 player.attributes.health

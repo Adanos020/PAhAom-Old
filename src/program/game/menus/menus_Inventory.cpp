@@ -228,6 +228,12 @@ namespace rr {
                             ((Potion*)slot(i)->getItem())->reveal();
                     }
                 }
+                else if (!slot(i)->isEmpty()) {
+                    if (instanceof<Rune, Item>((Item*)entity)) {
+                        if (!((Rune*)slot(i)->getItem())->isDiscovered() && ((Rune*)slot(i)->getItem())->type_ == ((Rune*)entity)->type_)
+                            ((Rune*)slot(i)->getItem())->reveal();
+                    }
+                }
             }
             break;
         default:

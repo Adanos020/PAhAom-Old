@@ -13,9 +13,9 @@ extern sf::Color     itemColors[9];
 namespace rr {
 
     Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos)
-        : Item   (),
-          effect_(e),
-          size_  (s) {
+        : Discoverable(),
+          effect_     (e),
+          size_       (s) {
 
         amount_     = am;
         disposable_ = true;

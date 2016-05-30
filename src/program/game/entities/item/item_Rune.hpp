@@ -11,7 +11,7 @@
 
 namespace rr {
 
-    class Rune : public Item, public Discoverable {
+    class Rune : public Discoverable {
     public:
         enum Type {
             HEAL,

@@ -414,8 +414,44 @@ item.spell.symbol.be
 item.spell.symbol.izhitsa
 "Izhitsa" rune
 
+item.spell.type.heal
+Heal
+
+item.spell.type.firebolt
+Firebolt
+
+item.spell.type.lightning
+Lightning
+
+item.spell.type.iceBullet
+Ice bullet
+
+item.spell.type.teleport
+Teleport
+
+item.spell.type.fireRain
+Fire rain
+
+item.spell.type.storm
+Storm
+
+item.spell.type.iceWave
+Ice wave
+
+item.spell.type.timeFreezing
+Freeze time
+
+item.spell.type.identify
+Identify
+
+item.spell.type.uncurse
+Clear curse
+
+item.spell.type.telekinesis
+Telekinesis
+
 item.spell.description.unknown
-none
+You don't know this rune yet, time to identify this shit.
 
 ;-------------PLAYER--------------;
 player.attributes.health

@@ -53,12 +53,12 @@ namespace rr {
     }
 
     void Player::setPosition(sf::Vector2i pos) {
-        position_  = pos;
+        position_ = pos;
         body_.setPosition((sf::Vector2f)pos*80.f);
     }
 
     void Player::setRealPosition(sf::Vector2f pos) {
-        position_  = (sf::Vector2i)pos/80;
+        position_ = (sf::Vector2i)pos/80;
         body_.setPosition(pos);
     }
 
@@ -94,12 +94,12 @@ namespace rr {
     }
 
     void Player::useItem(Item* item) {
+        if (instanceof<Discoverable, Item>(item) && !((Discoverable*)item)->isDiscovered()) {
+            subject.notify(Observer::ITEM_DISCOVERED, item);
+            ((Discoverable*)item)->reveal();
+            std::cout << "It was a " << item->getName().toAnsiString() << '\n';
+        }
         if (instanceof<Potion, Item>(item)) {
-            if (!((Potion*)item)->isDiscovered()) {
-                subject.notify(Observer::ITEM_DISCOVERED, item);
-                ((Potion*)item)->reveal();
-                std::cout << "It was a " << item->getName().toAnsiString() << '\n';
-            }
             switch (((Potion*)item)->effect_) {
             case Potion::HEALING:
                 switch (((Potion*)item)->size_) {
@@ -267,6 +267,9 @@ namespace rr {
 
                 break;
             }
+        }
+        else if (instanceof<Rune, Item>(item)) {
+
         }
         else if (instanceof<ColdWeapon, Item>(item)) {
 

@@ -11,7 +11,7 @@
 
 namespace rr {
 
-    class ColdWeapon : public Item, public Equipable {
+    class ColdWeapon : public Equipable {
     private:
         float strengthRequired_;
         float damageDealt_;

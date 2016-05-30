@@ -12,9 +12,9 @@ extern rr::Resources resources;
 namespace rr {
 
     ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos)
-        : Item   (),
-          level_ (0),
-          type_  (type) {
+        : Equipable(),
+          level_   (0),
+          type_    (type) {
 
         disposable_ = false;
         stackable_  = false;

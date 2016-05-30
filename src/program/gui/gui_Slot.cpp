@@ -63,9 +63,8 @@ namespace rr {
         }
         item_ = getItemFromID(item->getID(), item->getAmount());
 
-        if (instanceof<Potion, Item>(item) && ((Potion*)item)->isDiscovered()) {
-            ((Potion*)item_)->reveal();
-        }
+        if (instanceof<Discoverable, Item>(item) && ((Discoverable*)item)->isDiscovered())
+            ((Discoverable*)item_)->reveal();
 
         item_->setRealPosition(body_.getPosition());
         text_->setString(std::to_string(item_->getAmount()));

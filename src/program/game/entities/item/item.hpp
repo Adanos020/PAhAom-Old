@@ -72,7 +72,7 @@ namespace rr {
         virtual sf::Vector2f  getRealPosition()          const override { return body_[0].position; }
     };
 
-    class Discoverable {
+    class Discoverable : public Item {
     protected:
         bool discovered_ = false;
         sf::String discoveredName_;
@@ -88,7 +88,7 @@ namespace rr {
         bool         isDiscovered() { return discovered_; }
     };
 
-    class Equipable {
+    class Equipable : public Item {
     protected:
         bool equipped_ = false;
     public:
