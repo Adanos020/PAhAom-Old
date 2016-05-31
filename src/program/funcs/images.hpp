@@ -30,18 +30,24 @@ namespace rr {
         body.resize(4);
         body.setPrimitiveType(sf::Quads);
 
-        int tu = icon%16;
-        int tv = icon/16;
+        int hor = icon%16;
+        int ver = icon/16;
 
-        body[0].texCoords =  sf::Vector2f(  tu  *16+0.03125f,   tv  *16+0.03125f);
-        body[1].texCoords =  sf::Vector2f((tu+1)*16-0.03125f,   tv  *16+0.03125f);
-        body[2].texCoords =  sf::Vector2f((tu+1)*16-0.03125f, (tv+1)*16-0.03125f);
-        body[3].texCoords =  sf::Vector2f(  tu  *16+0.03125f, (tv+1)*16-0.03125f);
+        body[0].texCoords =  sf::Vector2f(  hor  *16+0.03125f,   ver  *16+0.03125f);
+        body[1].texCoords =  sf::Vector2f((hor+1)*16-0.03125f,   ver  *16+0.03125f);
+        body[2].texCoords =  sf::Vector2f((hor+1)*16-0.03125f, (ver+1)*16-0.03125f);
+        body[3].texCoords =  sf::Vector2f(  hor  *16+0.03125f, (ver+1)*16-0.03125f);
     }
 
     inline void setColor(sf::VertexArray& body, int layer, sf::Color color) {
         for (int i=0; i<4; i++) {
             body[4*layer+i].color = color;
+        }
+    }
+
+    inline void setColor(sf::VertexArray& body, sf::Color color) {
+        for (unsigned i=0; i<body.getVertexCount(); i++) {
+            body[i].color = color;
         }
     }
 

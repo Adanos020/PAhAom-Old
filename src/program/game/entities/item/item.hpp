@@ -88,7 +88,7 @@ namespace rr {
         bool         isDiscovered() { return discovered_; }
     };
 
-    class Equipable : public Item {
+    class Equipable : public Discoverable {
     protected:
         bool equipped_ = false;
     public:

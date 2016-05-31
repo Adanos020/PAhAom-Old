@@ -93,6 +93,72 @@ namespace rr {
         }
     }
 
+    void Player::update(float timeStep) {
+        if (moving_) {
+            sf::Vector2f offset = body_.getPosition()-(sf::Vector2f)position_*80.f;
+            if (offset != sf::Vector2f(0, 0)) {
+                if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep,  0));
+                if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep,  0));
+                if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep));
+                if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep));
+            }
+            else
+                moving_ = false;
+
+            if (  (abs(offset.x) < 15*velocity_ && abs(offset.x) > 0) // preventing the player from wobbling
+               || (abs(offset.y) < 15*velocity_ && abs(offset.y) > 0) // in between of two cells
+                )  body_.setPosition((sf::Vector2f)position_*80.f);
+        }
+
+        if (attrs_.health >= attrs_.maxHealth) attrs_.health = attrs_.maxHealth;
+        if (attrs_.health <= 0)                attrs_.health = 0;
+        if (attrs_.mana   <= 0)                attrs_.mana   = 0;
+        if (attrs_.mana   >= attrs_.maxMana)   attrs_.mana   = attrs_.maxMana;
+        if (attrs_.experience  >= attrs_.nextLevel) {
+            attrs_.experience   = 0;
+            attrs_.nextLevel   *= 1.25f;
+            attrs_.level       ++;
+            attrs_.skillPoints += (attrs_.faster_learning) ? 15 : 10;
+
+            float temp          = attrs_.health/attrs_.maxHealth;
+            attrs_.maxHealth   += 10;
+            attrs_.health       = temp*attrs_.maxHealth;
+
+            temp                = attrs_.mana/attrs_.maxMana;
+            attrs_.maxMana     += 1;
+            attrs_.mana         = temp*attrs_.maxMana;
+        }
+
+        body_.update(sf::seconds(timeStep));
+        body_.play(*currentAnimation_);
+    }
+
+    void Player::reset() {
+        attrs_.health      =  30.f;
+        attrs_.mana        =   5.f;
+        attrs_.maxHealth   =  30.f;
+        attrs_.maxMana     =   5.f;
+        attrs_.strength    =  10.f;
+        attrs_.dexterity   =  10.f;
+        attrs_.skillPoints =   0.f;
+        attrs_.experience  =   0.f;
+        attrs_.nextLevel   = 100.f;
+        attrs_.level       =   0.f;
+
+        attrs_.crafting              = false;
+        attrs_.alchemy               = false;
+        attrs_.cold_weapon_mastery   = false;
+        attrs_.ranged_weapon_mastery = false;
+        attrs_.eagle_eye             = false;
+        attrs_.mana_regeneration     = false;
+        attrs_.health_regeneration   = false;
+        attrs_.faster_learning       = false;
+    }
+
+    void Player::draw(sf::RenderWindow& rw) {
+        rw.draw(body_);
+    }
+
     void Player::useItem(Item* item) {
         if (instanceof<Discoverable, Item>(item) && !((Discoverable*)item)->isDiscovered()) {
             subject.notify(Observer::ITEM_DISCOVERED, item);
@@ -274,70 +340,6 @@ namespace rr {
         else if (instanceof<ColdWeapon, Item>(item)) {
 
         }
-    }
-
-    void Player::draw(sf::RenderWindow& rw) {
-        rw.draw(body_);
-    }
-
-    void Player::update(float timeStep) {
-        if (moving_) {
-            sf::Vector2f offset = body_.getPosition()-(sf::Vector2f)position_*80.f;
-            if (offset != sf::Vector2f(0, 0)) {
-                if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep,  0));
-                if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep,  0));
-                if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep));
-                if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep));
-            }
-            else
-                moving_ = false;
-            if ((abs(offset.x) < 12*velocity_ && abs(offset.x) > 0) || (abs(offset.y) < 12*velocity_ && abs(offset.y) > 0))
-                body_.setPosition((sf::Vector2f)position_*80.f);
-        }
-
-        if (attrs_.health >= attrs_.maxHealth) attrs_.health = attrs_.maxHealth;
-        if (attrs_.health <= 0)                attrs_.health = 0;
-        if (attrs_.mana   <= 0)                attrs_.mana   = 0;
-        if (attrs_.mana   >= attrs_.maxMana)   attrs_.mana   = attrs_.maxMana;
-        if (attrs_.experience  >= attrs_.nextLevel) {
-            attrs_.experience   = 0;
-            attrs_.nextLevel   *= 1.25f;
-            attrs_.level       ++;
-            attrs_.skillPoints += (attrs_.faster_learning) ? 15 : 10;
-
-            float temp          = attrs_.health/attrs_.maxHealth;
-            attrs_.maxHealth   += 10;
-            attrs_.health       = temp*attrs_.maxHealth;
-
-            temp                = attrs_.mana/attrs_.maxMana;
-            attrs_.maxMana     += 1;
-            attrs_.mana         = temp*attrs_.maxMana;
-        }
-
-        body_.update(sf::seconds(timeStep));
-        body_.play(*currentAnimation_);
-    }
-
-    void Player::reset() {
-        attrs_.health      =  30.f;
-        attrs_.mana        =   5.f;
-        attrs_.maxHealth   =  30.f;
-        attrs_.maxMana     =   5.f;
-        attrs_.strength    =  10.f;
-        attrs_.dexterity   =  10.f;
-        attrs_.skillPoints =   0.f;
-        attrs_.experience  =   0.f;
-        attrs_.nextLevel   = 100.f;
-        attrs_.level       =   0.f;
-
-        attrs_.crafting              = false;
-        attrs_.alchemy               = false;
-        attrs_.cold_weapon_mastery   = false;
-        attrs_.ranged_weapon_mastery = false;
-        attrs_.eagle_eye             = false;
-        attrs_.mana_regeneration     = false;
-        attrs_.health_regeneration   = false;
-        attrs_.faster_learning       = false;
     }
 
 }
