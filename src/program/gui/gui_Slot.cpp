@@ -25,8 +25,8 @@ namespace rr {
         body_.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
         body_.setOutlineThickness(5);
 
-        image_   ->setParentComponent(this);
-        text_    ->setParentComponent(this);
+        image_->setParentComponent(this);
+        text_ ->setParentComponent(this);
     }
 
     Slot::~Slot() {
@@ -35,9 +35,9 @@ namespace rr {
     }
 
     void Slot::setPosition(sf::Vector2f pos) {
-        body_     .setPosition(pos);
-        image_   ->setPosition(pos);
-        text_    ->setPosition(sf::Vector2f(pos.x+5, pos.y+55));
+        body_  .setPosition(pos);
+        image_->setPosition(pos);
+        text_ ->setPosition(sf::Vector2f(pos.x+5, pos.y+55));
     }
 
     void Slot::draw(sf::RenderWindow& rw) {
@@ -47,7 +47,7 @@ namespace rr {
             image_->draw(rw);
         else {
             item_->draw(rw);
-            if (item_->getAmount()>1)
+            if (item_->getAmount() > 1)
                 text_->draw(rw);
         }
     }
@@ -63,8 +63,8 @@ namespace rr {
         }
         item_ = getItemFromID(item->getID(), item->getAmount());
 
-        if (instanceof<Discoverable, Item>(item) && ((Discoverable*)item)->isDiscovered())
-            ((Discoverable*)item_)->reveal();
+        if (instanceof<Discoverable, Item>(item) && ((Discoverable*)item)->isDiscovered()
+            ) ((Discoverable*)item_)->reveal();
 
         item_->setRealPosition(body_.getPosition());
         text_->setString(std::to_string(item_->getAmount()));

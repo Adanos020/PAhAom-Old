@@ -450,8 +450,7 @@ namespace rr {
                         else if ((tiles_[i+(j-1)*size_.x] == WALL))      tileNumber += BOTTOM      *16;
                     }
                     break;
-                case CORRIDOR: tileNumber = 1;  break;
-                default:       tileNumber = 17; break;
+                default: tileNumber = 17; break;
                 }
 
                 int tu = tileNumber%(resources.texture.tileset.getSize().x/16);

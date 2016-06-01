@@ -38,7 +38,7 @@ namespace rr {
     }
 
     void Checkbox::setPosition(sf::Vector2f pos) {
-        body_  .setPosition(pos);
+        body_ .setPosition(pos);
         text_ ->setPosition(sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_->getSize().y));
         image_->setPosition(pos);
     }

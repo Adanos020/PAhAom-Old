@@ -33,9 +33,6 @@ namespace rr {
     /// Method telling if this component is touched by the mouse cursor
         virtual bool         containsMouseCursor(sf::RenderWindow&)  = 0;
 
-    /// Returns the current component being an instance of class Text
-        virtual Text*        getText            ()             const = 0;
-
     /// Method drawing the component on the screen
         virtual void         draw               (sf::RenderWindow&)  = 0;
 
@@ -79,7 +76,6 @@ namespace rr {
         sf::Vector2f getSize            ()                  const override { return border_.getSize(); }
 
         bool         containsMouseCursor(sf::RenderWindow&)       override { return false; }
-        virtual      Text* getText      ()                  const override { return nullptr; }
     };
 
 /// Class for a button component which by being clicked can cause any action you assign to it
@@ -96,7 +92,7 @@ namespace rr {
         bool         containsMouseCursor(sf::RenderWindow&)       override;
         bool         isPressed          (sf::RenderWindow&, sf::Event&);
         bool         isHeld             ()                  const          { return held_; }
-        Text*        getText            ()                  const override { return text_; }
+        Text*        getText            ()                  const          { return text_; }
         sf::Vector2f getPosition        ()                  const override { return body_.getPosition(); }
         sf::Vector2f getSize            ()                  const override { return body_.getSize(); }
         void         setPosition        (sf::Vector2f)            override;
@@ -131,12 +127,12 @@ namespace rr {
     /// Method telling if the checkbox is checked
         bool         isChecked          ()                     const          { return checked_; }
 
-        Text*        getText            ()                     const override { return text_; }
+        Text*        getText            ()                     const          { return text_; }
 
         void         setSize            (sf::Vector2f)               override {}
     };
 
-/// Class for an image component which can be loaded from a file
+/// Class for an Image*component which can be loaded from a file
     class Image : public Component {
     private:
         sf::Sprite body_;
@@ -169,7 +165,6 @@ namespace rr {
         sf::Vector2f  getSize             ()                  const override { return sf::Vector2f(body_.getGlobalBounds().width, body_.getGlobalBounds().height); }
 
         virtual bool  containsMouseCursor (sf::RenderWindow&) override       { return false; }
-        virtual Text* getText             ()                  const override { return nullptr; }
     };
 
 /// Class for a ScrollBar component
@@ -182,9 +177,9 @@ namespace rr {
     private:
         sf::RectangleShape border_;
         sf::Vector2f       valueLimit_;
-        Button*            indicator_;
-        Button*            bLeft_;
-        Button*            bRight_;
+        Button             indicator_;
+        Button             bLeft_;
+        Button             bRight_;
         Text*              label_;
         float              value_;
     public:
@@ -199,9 +194,9 @@ namespace rr {
         void         draw               (sf::RenderWindow&) override;
         void         buttonEvents       (sf::RenderWindow&, sf::Event&);
 
-        sf::Vector2f getPosition        ()                  const override { return bLeft_->getPosition(); }
+        sf::Vector2f getPosition        ()                  const override { return bLeft_.getPosition(); }
         sf::Vector2f getSize            ()                  const override { return border_.getSize(); }
-        Text*        getText            ()                  const override { return label_; }
+        Text*        getText            ()                  const          { return label_; }
 
     /// Returns the actual value of the scroll bar
         int          getValue           ()                  const          { return value_; }
@@ -237,7 +232,7 @@ namespace rr {
         bool         containsMouseCursor(sf::RenderWindow&) override;
         bool         isPressed          (sf::RenderWindow&, sf::Event&);
         bool         isHeld             ()                  const          { return held_; }
-        Text*        getText            ()                  const override { return text_; }
+        Text*        getText            ()                  const          { return text_; }
         sf::Vector2f getPosition        ()                  const override { return body_.getPosition(); }
         sf::Vector2f getSize            ()                  const override { return body_.getSize(); }
 
@@ -257,8 +252,8 @@ namespace rr {
     private:
         sf::RectangleShape      body_;
         std::vector<sf::String> options_;
-        Button*                 left_;
-        Button*                 right_;
+        Button                  left_;
+        Button                  right_;
         Text*                   text_;
         mutable unsigned        counter_;
     public:
@@ -281,14 +276,14 @@ namespace rr {
 
     /// Returns the current option
         sf::String           getCurrentOption   ()                  const          { return options_[counter_]; }
-        virtual sf::Vector2f getPosition        ()                  const override { return left_->getPosition(); }
+        virtual sf::Vector2f getPosition        ()                  const override { return left_.getPosition(); }
         virtual sf::Vector2f getSize            ()                  const override { return body_.getSize(); }
 
         virtual bool         containsMouseCursor(sf::RenderWindow&)       override { return false; }
-        virtual Text*        getText            ()                  const override { return text_; }
+        virtual Text*        getText            ()                  const          { return text_; }
     };
 
-/// A class for a text component
+/// A class for a Text*component
     class Text : public Component {
     private:
         sf::Text text_;
@@ -332,7 +327,6 @@ namespace rr {
         void          draw               (sf::RenderWindow&)       override;
 
         virtual bool  containsMouseCursor(sf::RenderWindow&)       override { return false; }
-        virtual Text* getText            ()                  const override { return (Text*)this; }
         void          setSize            (sf::Vector2f)            override {}
     };
 
@@ -368,7 +362,7 @@ namespace rr {
 
     /// Returns the internal window's component of a given type and index
         template<typename T>
-        T*           getComponent      (unsigned index)     const          {   if (std::is_base_of<Component, T>::value) {
+        T*            getComponent      (unsigned index)     const          {   if (std::is_base_of<Component, T>::value) {
                                                                                    for (unsigned i=0; i<components_.size(); i++) {
                                                                                        if (instanceof<T, Component>(components_[i])) {
                                                                                            if (index-- == 0)
@@ -384,7 +378,7 @@ namespace rr {
                                                                            }
 
         bool         containsMouseCursor(sf::RenderWindow&)       override { return false; }
-        Text*        getText()                              const override { return header_; }
+        Text*        getText()                              const          { return header_; }
 
     /// Opeartor overload allowing to add the attached components without calling the addComponent method manually
         Window& operator+=(Component* c) {

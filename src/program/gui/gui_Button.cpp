@@ -30,10 +30,7 @@ namespace rr {
         text_->setPosition(sf::Vector2f(position.x+body_.getSize().x/2-text_->getSize().x/2-chsize/20, position.y-0.5));
     }
 
-    Button::~Button() {
-        delete image_;
-        delete text_;
-    }
+    Button::~Button() {}
 
     bool Button::containsMouseCursor(sf::RenderWindow& rw) {
         if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {

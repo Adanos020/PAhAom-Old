@@ -24,7 +24,7 @@ namespace rr {
     class MainMenu {
     private:
         Text*   title_;
-        Window* wMenu_;
+        Window  wMenu_;
     public:
          MainMenu();
         ~MainMenu();
@@ -41,7 +41,7 @@ namespace rr {
     private:
         sf::RectangleShape shadow_;
         Text*              title_;
-        Window*            wMenu_;
+        Window             wMenu_;
     public:
          PauseMenu();
         ~PauseMenu();
@@ -66,7 +66,7 @@ namespace rr {
     class Attributes {
     private:
         sf::RectangleShape shadow_;
-        Window*            wAttr_;
+        Window             wAttr_;
     public:
          Attributes();
         ~Attributes();
@@ -94,7 +94,7 @@ namespace rr {
     class BookOfSpells {
     private:
         sf::RectangleShape shadow_;
-        Window*            wBofs_;
+        Window             wBofs_;
     public:
          BookOfSpells();
         ~BookOfSpells();
@@ -120,7 +120,7 @@ namespace rr {
     private:
         sf::RectangleShape shadow_;
 
-        Window*            wInve_;
+        Window             wInve_;
         Slot*              sCarryOn_[5];
 
         short              bronze_;
@@ -158,7 +158,7 @@ namespace rr {
     class Quests {
     private:
         sf::RectangleShape shadow_;
-        Window*            wQues_;
+        Window             wQues_;
     public:
          Quests();
         ~Quests();
@@ -183,7 +183,7 @@ namespace rr {
     class GameMap {
     private:
         sf::RectangleShape shadow_;
-        Window*            wGmap_;
+        Window             wGmap_;
     public:
          GameMap();
         ~GameMap();

@@ -7,9 +7,11 @@
 #include "game.hpp"
 #include "../program.hpp"
 #include "../funcs/keys.hpp"
+
 #include <cstdlib>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <cmath>
 
 extern rr::Settings settings;
@@ -106,15 +108,6 @@ namespace rr {
         std::cout << "Welcome to level " << levelNumber_+1 << "!\n";
     }
 
-    bool Game::load() {
-        for (int i=0; i<30; i++) {
-            levels_.push_back(new Level(i));
-            if (!levels_.back()->loadFromFile("data/savedgame/"))
-                return false;
-        }
-        return true;
-    }
-
     bool Game::loadNewGame() {
         reset();
         for (int i=0; i<30; i++) {
@@ -131,7 +124,13 @@ namespace rr {
     }
 
     void Game::save() {
-        // there's nothing to save yet
+        std::ofstream file("data/savedgame/save.pah", std::ios::binary);
+        file.write((char*)this, sizeof(*this));
+    }
+
+    bool Game::load() {
+        std::ifstream file("data/savedgame/save.pah", std::ios::binary);
+        return file.read((char*)this, sizeof(*this)).good();
     }
 
     void Game::draw(sf::RenderWindow& rw) {

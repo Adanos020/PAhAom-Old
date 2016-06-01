@@ -51,6 +51,13 @@ namespace rr {
         }
     }
 
+    inline void setGradient(sf::VertexArray& body, sf::Color colors[], int vertices[]) {
+        body[vertices[0]].color = colors[0];
+        body[vertices[1]].color = colors[1];
+        body[vertices[2]].color = colors[2];
+        body[vertices[3]].color = colors[3];
+    }
+
 }
 
 #endif // images_hpp
