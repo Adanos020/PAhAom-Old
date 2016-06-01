@@ -27,8 +27,8 @@ namespace rr {
             EXIT
         };
 
-        std::vector<std::vector<Mask*>> masks_;
-        std::vector<std::vector<int>>   tilesAsInts_;
+        Mask masks_      [77*43];
+        int  tilesAsInts_[77*43];
 
         virtual void                    onNotify        (Event, Entity*) override;
 
@@ -39,11 +39,11 @@ namespace rr {
         void                            removeEntity    (unsigned index);
 
         std::vector<Entity*>            getEntities     () const { return entities_     ; }
-        std::vector<std::vector<Mask*>> getMasks        () const { return masks_        ; }
+        Mask*                           getMasks        ()       { return masks_        ; }
         sf::Vector2i                    getStartingPoint() const { return startingPoint_; }
         sf::Vector2i                    getEndingPoint  () const { return endingPoint_  ; }
-        std::vector<std::vector<int>>   getTiles        () const;
-        std::vector<std::vector<Cell>>  getTilesAsCells () const;
+        int*                            getTiles        ();
+        Cell*                           getTilesAsCells ();
     private:
         virtual void draw           (sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -60,10 +60,10 @@ namespace rr {
         sf::Vector2i    startingPoint_;
         sf::Vector2i    endingPoint_;
 
+        int                             regions_[77*43];
+        Cell                            tiles_  [77*43];
         std::vector<Entity*>            entities_;
-        std::vector<std::vector<Cell>>  tiles_;
         std::vector<sf::IntRect>        rooms_;
-        std::vector<std::vector<int>>   regions_;
         int                             region_count_;
         int                             levelNumber_;
     };

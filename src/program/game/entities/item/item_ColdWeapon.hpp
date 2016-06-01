@@ -41,15 +41,16 @@ namespace rr {
         virtual void       draw          (sf::RenderWindow&) override;
         virtual sf::String getDescription()            const override;
         virtual void       equip         (bool b)            override { equipped_ = b; }
+        virtual void       reveal        ()                  override {}
 
         void  enhance      ();
         void  enchant      ();
 
-        float      getStrength   () const { return strengthRequired_; }
-        float      getDamageDelt () const { return damageDealt_; }
-        float      getSpeed      () const { return speed_; }
-        float      getAccuracy   () const { return accuracy_; }
-        int        getLevel      () const { return level_; }
+        float getStrength   () const { return strengthRequired_; }
+        float getDamageDelt () const { return damageDealt_; }
+        float getSpeed      () const { return speed_; }
+        float getAccuracy   () const { return accuracy_; }
+        int   getLevel      () const { return level_; }
     };
 
 }

@@ -62,29 +62,29 @@ namespace rr {
         body_.setPosition(pos);
     }
 
-    void Player::move(std::vector<std::vector<int> > tiles, Direction di) {
+    void Player::move(int tiles[], Direction di) {
         if (!moving_) {
             if (di == UP) {
-                if (tiles[position_.x][position_.y-1] != 1) {
+                if (tiles[position_.x+(position_.y-1)*77] != 1) {
                     position_ = sf::Vector2i(position_.x, position_.y-1);
                     moving_ = true;
                 }
             }
             if (di == DOWN) {
-                if (tiles[position_.x][position_.y+1] != 1) {
+                if (tiles[position_.x+(position_.y+1)*77] != 1) {
                     position_ = sf::Vector2i(position_.x, position_.y+1);
                     moving_ = true;
                 }
             }
             if (di == LEFT) {
-                if (tiles[position_.x-1][position_.y] != 1) {
+                if (tiles[position_.x-1+position_.y*77] != 1) {
                     position_ = sf::Vector2i(position_.x-1, position_.y);
                     moving_ = true;
                 }
                 currentAnimation_ = &walkingLeft_;
             }
             if (di == RIGHT) {
-                if (tiles[position_.x+1][position_.y] != 1) {
+                if (tiles[position_.x+1+position_.y*77] != 1) {
                     position_ = sf::Vector2i(position_.x+1, position_.y);
                     moving_ = true;
                 }

@@ -122,7 +122,7 @@ namespace rr {
             levels_.back()->generateWorld();
             subject.addObserver(levels_.back());
 
-            levelFOV_.push_back(new FOV(&levels_[i]->masks_, &levels_[i]->tilesAsInts_));
+            levelFOV_.push_back(new FOV(levels_[i]->masks_, levels_[i]->tilesAsInts_));
         }
         player_->setPosition(levels_[0]->getStartingPoint());
         start(true);
@@ -184,10 +184,8 @@ namespace rr {
             }
         }
 
-        for (auto x : levels_[levelNumber_]->getMasks()) {
-            for (auto mask : x) {
-                mask->see(false);
-            }
+        for (int i=0; i<77*43; i++) {
+            levels_[levelNumber_]->getMasks()[i].see(false);
         }
         levelFOV_[levelNumber_]->compute((sf::Vector2u)player_->getPosition(), player_->getSightRange());
     }

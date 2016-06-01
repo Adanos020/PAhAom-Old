@@ -72,7 +72,7 @@ namespace rr {
         virtual sf::Vector2f  getRealPosition ()          const override { return body_.getPosition(); }
 
     /// Moves the player's character's to a cell in a given direction
-        void          move                    (std::vector<std::vector<int>>, Direction);
+        void          move                    (int[], Direction);
 
     /// Makes the player use a given item
         void          useItem                 (Item*);

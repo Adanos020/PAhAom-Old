@@ -10,12 +10,12 @@
 
 namespace rr {
 
-    FOV::FOV(std::vector<std::vector<Mask*>>* masks, std::vector<std::vector<int>>* tiles)
+    FOV::FOV(Mask masks[], int tiles[])
     : masks_ (masks),
       tiles_ (tiles) {}
 
     void FOV::compute(sf::Vector2u origin, int range) {
-        masks_->at(origin.x)[origin.y]->see(true);
+        masks_[origin.x+origin.y*77].see(true);
         for (unsigned octant = 0; octant < 8; octant++) {
             compute(octant, origin, 2*range, 1, Slope(1, 1), Slope(0, 1));
         }
@@ -107,7 +107,7 @@ namespace rr {
             case 6: nx += y; ny += x; break;
             case 7: nx += x; ny += y; break;
         }
-        return (nx < tiles_->size() && ny < tiles_[0].size()) && (tiles_->at(nx)[ny] == 1 || tiles_->at(nx)[ny] == 4);
+        return (nx < 77 && ny < 43) && (tiles_[nx+ny*77] == 1 || tiles_[nx+ny*77] == 4);
     }
 
     void FOV::setVisible(unsigned x, unsigned y, unsigned octant, sf::Vector2u origin) {
@@ -122,7 +122,7 @@ namespace rr {
             case 6: nx += y; ny += x; break;
             case 7: nx += x; ny += y; break;
         }
-        masks_->at(nx)[ny]->see(true);
+        masks_[nx+ny*77].see(true);
     }
 
     int FOV::getDistance(int x, int y) {

@@ -13,8 +13,8 @@ namespace rr {
 
     class FOV final {
     private:
-        std::vector<std::vector<Mask*>>* masks_;
-        std::vector<std::vector<int>>*   tiles_;
+        Mask* masks_;
+        int * tiles_;
 
         struct Slope {
         public:
@@ -32,7 +32,7 @@ namespace rr {
         void setVisible (unsigned x, unsigned y, unsigned octant, sf::Vector2u origin);
         int  getDistance(int x, int y);
     public:
-        FOV(std::vector<std::vector<Mask*>>* masks, std::vector<std::vector<int>>* tiles);
+        FOV(Mask masks[], int tiles[]);
 
         void compute(sf::Vector2u origin, int range);
     };
