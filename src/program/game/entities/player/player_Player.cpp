@@ -161,10 +161,10 @@ namespace rr {
 
     void Player::useItem(Item* item) {
         if (instanceof<Discoverable, Item>(item) && !((Discoverable*)item)->isDiscovered()) {
-            subject.notify(Observer::ITEM_DISCOVERED, item);
             ((Discoverable*)item)->reveal();
-            std::cout << "It was a " << item->getName().toAnsiString() << '\n';
+            subject.notify(Observer::ITEM_DISCOVERED, item);
         }
+        subject.notify(Observer::ITEM_USED, item);
         if (instanceof<Potion, Item>(item)) {
             switch (((Potion*)item)->effect_) {
             case Potion::HEALING:
@@ -179,7 +179,6 @@ namespace rr {
                     attrs_.health += attrs_.maxHealth*0.75;
                     break;
                 }
-                std::cout << "You feel a lot healthier now.\n";
                 break;
             case Potion::MAGIC:
                 switch (((Potion*)item)->size_) {
@@ -193,7 +192,6 @@ namespace rr {
                     attrs_.mana += attrs_.maxMana*0.75;
                     break;
                 }
-                std::cout << "You feel a gain in magical power now.\n";
                 break;
             case Potion::STRENGTH:
                 switch (((Potion*)item)->size_) {
@@ -207,7 +205,6 @@ namespace rr {
                     attrs_.strength += 3;
                     break;
                 }
-                std::cout << "You feel a lot stronger now.\n";
                 break;
             case Potion::DEXTERITY:
                 switch (((Potion*)item)->size_) {
@@ -221,7 +218,6 @@ namespace rr {
                     attrs_.dexterity += 3;
                     break;
                 }
-                std::cout << "You feel like you could nakurwiac salto.\n";
                 break;
             case Potion::SPEED:
                 switch (((Potion*)item)->size_) {
@@ -235,7 +231,6 @@ namespace rr {
 
                     break;
                 }
-                std::cout << "You feel like you would overtake fucking Speedy Gonzales.\n";
                 break;
             case Potion::REGENERATION:
                 switch (((Potion*)item)->size_) {
@@ -249,7 +244,6 @@ namespace rr {
 
                     break;
                 }
-                std::cout << "You feel like you get cured in a moment.\n";
                 break;
             case Potion::POISON:
                 switch (((Potion*)item)->size_) {
@@ -263,7 +257,6 @@ namespace rr {
 
                     break;
                 }
-                std::cout << "You feel as if you were going to vomit now.\n";
                 break;
             case Potion::SLOWNESS:
                 switch (((Potion*)item)->size_) {
@@ -277,7 +270,6 @@ namespace rr {
 
                     break;
                 }
-                std::cout << "You feel like you were carrying something really heavy.\n";
                 break;
             case Potion::WEAKNESS:
                 switch (((Potion*)item)->size_) {
@@ -291,42 +283,33 @@ namespace rr {
 
                     break;
                 }
-                std::cout << "You feel like you lost your will to live.\n";
                 break;
             }
         }
         else if (instanceof<Book, Item>(item)) {
             switch (((Book*)item)->type_) {
             case Book::CRAFTING:
-                std::cout << "Now you know how to craft!\n";
                 attrs_.crafting              = true;
                 break;
             case Book::ALCHEMY:
-                std::cout << "Now you know how to brew potions!\n";
                 attrs_.alchemy               = true;
                 break;
             case Book::COLD_WEAPON_MASTERY:
-                std::cout << "Now you know how to use the cold weapon!\n";
                 attrs_.cold_weapon_mastery   = true;
                 break;
             case Book::RANGED_WEAPON_MASTERY:
-                std::cout << "Now you know how to use the ranged weapon!\n";
                 attrs_.ranged_weapon_mastery = true;
                 break;
             case Book::EAGLE_EYE:
-                std::cout << "Now you can see better!\n";
                 attrs_.eagle_eye             = true;
                 break;
             case Book::MANA_REGEN:
-                std::cout << "Now you can regenerate your mana!\n";
                 attrs_.mana_regeneration     = true;
                 break;
             case Book::HEALTH_REGEN:
-                std::cout << "Now you can regenerate your health!\n";
                 attrs_.health_regeneration   = true;
                 break;
             case Book::FASTER_LEARNING:
-                std::cout << "Now you know how to learn faster!\n";
                 attrs_.faster_learning       = true;
                 break;
             case Book::SPELLS_BOOK:

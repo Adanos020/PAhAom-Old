@@ -22,18 +22,19 @@ extern int          spellSymbols[11];
 namespace rr {
 
     Game::Game()
-        : mainMenu_    (new MainMenu    ()),
-          pauseMenu_   (new PauseMenu   ()),
-          attributes_  (new Attributes  ()),
-          inventory_   (new Inventory   ()),
-          quests_      (new Quests      ()),
-          gameMap_     (new GameMap     ()),
-          bookOfSpells_(new BookOfSpells()),
-          hud_         (new HUD         ()),
-          player_      (new Player      ()),
-          started_     (false),
-          paused_      (false),
-          levelNumber_ (0) {
+        : mainMenu_      (new MainMenu      ()),
+          pauseMenu_     (new PauseMenu     ()),
+          attributes_    (new Attributes    ()),
+          inventory_     (new Inventory     ()),
+          quests_        (new Quests        ()),
+          gameMap_       (new GameMap       ()),
+          bookOfSpells_  (new BookOfSpells  ()),
+          hud_           (new HUD           ()),
+          messageManager_(new MessageManager()),
+          player_        (new Player        ()),
+          started_       (false),
+          paused_        (false),
+          levelNumber_   (0) {
 
         gameView_.setSize((sf::Vector2f)settings.graphics.resolution);
         mapView_ .setSize(6160.f, 3440.f);
@@ -41,6 +42,7 @@ namespace rr {
         mapView_ .setViewport(sf::FloatRect(0.115f, 0.1275f, 0.77f, 0.745f));
 
         subject.addObserver(inventory_);
+        subject.addObserver(messageManager_);
     }
 
     Game::~Game() {
@@ -145,13 +147,14 @@ namespace rr {
             player_->draw(rw);
 
             rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
-            hud_->draw(rw);
-            inventory_   ->draw(rw);
-            pauseMenu_   ->draw(rw);
-            attributes_  ->draw(rw);
-            quests_      ->draw(rw);
-            gameMap_     ->draw(rw);
-            bookOfSpells_->draw(rw);
+            hud_           ->draw(rw);
+            messageManager_->draw(rw);
+            inventory_     ->draw(rw);
+            pauseMenu_     ->draw(rw);
+            attributes_    ->draw(rw);
+            quests_        ->draw(rw);
+            gameMap_       ->draw(rw);
+            bookOfSpells_  ->draw(rw);
 
             if (gameMap_   ->isOpen()) {
                 rw.setView(mapView_);
@@ -165,8 +168,9 @@ namespace rr {
     void Game::update(sf::Event& event, float timer) {
         controls(event);
 
-        player_->update(timer);
-        hud_   ->update(player_, levelNumber_+1);
+        player_        ->update(timer);
+        hud_           ->update(player_, levelNumber_+1);
+        messageManager_->update(timer);
 
         gameView_.setCenter(sf::Vector2f(player_->getBounds().left+16, player_->getBounds().top+16));
 
@@ -256,7 +260,7 @@ namespace rr {
                         if (player_->getPosition() == entities[i]->getPosition()) {
                             if (instanceof<Item, Entity>(entities[i])) {
                                 if (inventory_->addItem((Item*)entities[i])) {
-                                    std::cout << "You've picked up " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
+                                    subject.notify(Observer::ITEM_PICKED, entities[i]);
                                     levels_[levelNumber_]->removeEntity(i);
                                     i = 0;
                                 }

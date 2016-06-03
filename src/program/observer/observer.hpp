@@ -16,7 +16,9 @@ namespace rr {
     public:
         enum Event {
             ITEM_DISCOVERED,
-            ITEM_DROPPED
+            ITEM_DROPPED,
+            ITEM_PICKED,
+            ITEM_USED
         };
 
         virtual ~Observer() {}

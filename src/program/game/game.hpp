@@ -14,6 +14,7 @@
 #include "entities/entities.hpp"
 #include "level.hpp"
 #include "fov/fov.hpp"
+#include "../messages/messages.hpp"
 
 namespace rr {
 
@@ -28,6 +29,7 @@ namespace rr {
     class HUD;
     class Level;
     class FOV;
+    class MessageManager;
 
     class Player;
 
@@ -48,11 +50,13 @@ namespace rr {
         Quests*             quests_;
         GameMap*            gameMap_;
         BookOfSpells*       bookOfSpells_;
-        HUD*                hud_;
-        Player*             player_;
 
+        HUD*                hud_;
         std::vector<Level*> levels_;
         std::vector<FOV*>   levelFOV_;
+        MessageManager*     messageManager_;
+
+        Player*             player_;
 
         bool                started_;
         bool                paused_;
