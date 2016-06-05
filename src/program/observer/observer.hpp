@@ -18,7 +18,8 @@ namespace rr {
             ITEM_DISCOVERED,
             ITEM_DROPPED,
             ITEM_PICKED,
-            ITEM_USED
+            ITEM_USED,
+            INVENTORY_FULL
         };
 
         virtual ~Observer() {}

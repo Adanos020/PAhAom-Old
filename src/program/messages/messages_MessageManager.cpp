@@ -47,8 +47,7 @@ namespace rr {
     void MessageManager::onNotify(Event event, Entity* entity) {
         switch (event) {
         case ITEM_DISCOVERED:
-            addMessage(Message("It was a "+((Item*)entity)->getName().toAnsiString()+".",
-                               sf::Color::Yellow, sf::Text::Style::Bold));
+            addMessage(Message("It was a "+((Item*)entity)->getName().toAnsiString()+".", sf::Color::Yellow, sf::Text::Style::Bold));
             break;
         case ITEM_PICKED:
             addMessage(Message("You've picked up "+std::to_string(((Item*)entity)->getAmount())+"x "+((Item*)entity)->getName().toAnsiString()+"!"));

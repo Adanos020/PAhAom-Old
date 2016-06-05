@@ -51,11 +51,30 @@ namespace rr {
         }
     }
 
-    inline void setGradient(sf::VertexArray& body, sf::Color colors[], int vertices[]) {
-        body[vertices[0]].color = colors[0];
-        body[vertices[1]].color = colors[1];
-        body[vertices[2]].color = colors[2];
-        body[vertices[3]].color = colors[3];
+    inline void setGradient(sf::VertexArray& body, sf::Color colors[]) {
+        body[0].color = colors[0];
+        body[1].color = colors[1];
+        body[2].color = colors[2];
+        body[3].color = colors[3];
+    }
+
+    inline void setPosition(sf::VertexArray& body, sf::Vector2f pos) {
+        body[0].position = pos+sf::Vector2f( 0,  0);
+        body[1].position = pos+sf::Vector2f(80,  0);
+        body[2].position = pos+sf::Vector2f(80, 80);
+        body[3].position = pos+sf::Vector2f( 0, 80);
+
+        if (body.getVertexCount() > 4) {
+            for (unsigned i=4; i<body.getVertexCount(); i++) {
+                body[i].position = body[i%4].position;
+            }
+        }
+    }
+
+    inline void setSize(sf::VertexArray& body, sf::Vector2f siz) {
+        body[1].position = body[0].position+sf::Vector2f(siz.x,     0);
+        body[2].position = body[0].position+sf::Vector2f(siz.x, siz.y);
+        body[3].position = body[0].position+sf::Vector2f(0    , siz.y);
     }
 
 }

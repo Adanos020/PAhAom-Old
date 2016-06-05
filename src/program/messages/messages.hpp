@@ -35,21 +35,16 @@ namespace rr {
         sf::Vector2f getSize    () const { return message_.getSize    (); }
         sf::Color    getColor   () const { return message_.getColor   (); }
         sf::String   getString  () const { return message_.getString  (); }
-
-        /*Message operator=(Message mes) {
-            mes = *new Message(message_.getString(), message_.getColor(), message_.getStyle());
-            return mes;
-        }*/
     };
 
 /// Class for the message manager implementing the Observer interface
     class MessageManager : public Observer {
     private:
         std::vector<Message> messages_;
-        void addMessage(Message);
     public:
         MessageManager();
 
+        void addMessage(Message);
         void update    (float timeStep);
         void draw      (sf::RenderWindow&);
 

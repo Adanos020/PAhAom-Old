@@ -9,28 +9,41 @@
 namespace rr {
 
     Mask::Mask()
-        : Entity     (),
-          position_  (sf::Vector2i(0, 0)),
-          seen_      (false),
-          discovered_(false) {
+    : Entity     (),
+      position_  (sf::Vector2i(0, 0)),
+      seen_      (false),
+      discovered_(false) {
 
-        body_.setPosition(sf::Vector2f(0, 0));
-        body_.setSize(sf::Vector2f(80, 80));
-        body_.setFillColor(sf::Color::Black);
+        body_.resize(4);
+        body_.setPrimitiveType(sf::Quads);
+
+        rr::setPosition(body_, sf::Vector2f(0, 0));
+        setColor(body_, sf::Color::Black);
     }
 
     void Mask::see(bool seen) {
         if (seen) {
-            body_.setFillColor(sf::Color::Transparent);
+            setColor(body_, sf::Color::Transparent);
             discovered_ = true;
         }
         else {
             if (discovered_)
-                body_.setFillColor(sf::Color(0, 0, 0, 128));
+                setColor(body_, sf::Color(0, 0, 0, 160));
             else
-                body_.setFillColor(sf::Color::Black);
+                setColor(body_, sf::Color::Black);
         }
         seen_ = seen;
+    }
+
+    void Mask::setFadeOut(bool light[], sf::Color shade) {
+        sf::Color shades[4];
+        if (discovered_) {
+            for (int i=0; i<4; i++) {
+                shades[i] = light[i] ? sf::Color::Transparent : shade;
+            }
+        }
+
+        setGradient(body_, shades);
     }
 
     void Mask::draw(sf::RenderWindow& rw) {

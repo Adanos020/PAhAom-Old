@@ -107,7 +107,7 @@ namespace rr {
                 levelNumber_ = levels_.size()-1;
             player_->setPosition(levels_[levelNumber_]->getEndingPoint());
         }
-        std::cout << "Welcome to level " << levelNumber_+1 << "!\n";
+        messageManager_->addMessage(Message("Welcome to level "+std::to_string(levelNumber_+1)+"!", sf::Color::Green));
     }
 
     bool Game::loadNewGame() {
@@ -177,13 +177,13 @@ namespace rr {
         if (!paused_) {
             for (auto entity : levels_[levelNumber_]->getEntities()) {
                 if (instanceof<Door, Entity>(entity)) {
-                    if (player_->intersects(entity))
-                        ((Door*)entity)->setOpen(true);
+                    if (player_->intersects(entity)
+                        ) ((Door*)entity)->setOpen(true);
                     else
                         ((Door*)entity)->setOpen(false);
                 }
-                else if (instanceof<NPC, Entity>(entity))
-                    ((NPC*)entity)->update(timer);
+                else if (instanceof<NPC, Entity>(entity)
+                         ) ((NPC*)entity)->update(timer);
             }
         }
 
@@ -191,6 +191,52 @@ namespace rr {
             levels_[levelNumber_]->getMasks()[i].see(false);
         }
         levelFOV_[levelNumber_]->compute((sf::Vector2u)player_->getPosition(), player_->getSightRange());
+
+        for (int i=0; i<77; i++) {
+            for (int j=0; j<43; j++) {
+                if (levels_[levelNumber_]->getMasks()[i + j*77].isSeen()) {
+                    bool light[] = { false, false, false, false };
+
+                    if (levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isSeen()
+                        ) light[0] = true;
+                    if (levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isSeen()
+                        ) light[1] = true;
+                    if (levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isSeen()
+                        ) light[2] = true;
+                    if (levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isSeen()
+                        ) light[3] = true;
+
+                    if (levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isSeen()
+                        ) { light[0] = true; light[3] = true; }
+                    if (levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isSeen()
+                        ) { light[1] = true; light[2] = true; }
+                    if (levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isSeen()
+                        ) { light[0] = true; light[1] = true; }
+                    if (levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isSeen()
+                        ) { light[3] = true; light[2] = true; }
+
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isSeen()
+                        ) { light[0] = false; light[3] = false; }
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isSeen()
+                        ) { light[1] = false; light[2] = false; }
+                    if (!levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isSeen()
+                        ) { light[0] = false; light[1] = false; }
+                    if (!levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isSeen()
+                        ) { light[3] = false; light[2] = false; }
+
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isSeen()
+                        ) light[0] = false;
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isSeen()
+                        ) light[1] = false;
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isSeen()
+                        ) light[2] = false;
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isSeen()
+                        ) light[3] = false;
+
+                    levels_[levelNumber_]->getMasks()[i + j*77].setFadeOut(light, sf::Color(0, 0, 0, 160));
+                }
+            }
+        }
     }
 
     void Game::controls(sf::Event& event) {
@@ -200,12 +246,12 @@ namespace rr {
             if (isKeyPressed(settings.keys.move_left))  player_->move(levels_[levelNumber_]->getTiles(), Player::LEFT);
             if (isKeyPressed(settings.keys.move_right)) player_->move(levels_[levelNumber_]->getTiles(), Player::RIGHT);
 
-                 if (isKeyPressed(sf::Keyboard::Numpad1)) player_->attrs_.health    --;
+            /*     if (isKeyPressed(sf::Keyboard::Numpad1)) player_->attrs_.health    --;
             else if (isKeyPressed(sf::Keyboard::Numpad2)) player_->attrs_.health    ++;
             else if (isKeyPressed(sf::Keyboard::Numpad3)) player_->attrs_.mana      --;
             else if (isKeyPressed(sf::Keyboard::Numpad4)) player_->attrs_.mana      ++;
             else if (isKeyPressed(sf::Keyboard::Numpad5)) player_->attrs_.experience++;
-            else if (isKeyPressed(sf::Keyboard::Numpad6)) player_->attrs_.level     ++;
+            else if (isKeyPressed(sf::Keyboard::Numpad6)) player_->attrs_.level     ++;*/
         }
     }
 

@@ -16,7 +16,7 @@ namespace rr {
 
         standingStill_.setSpriteSheet(resources.texture.npc);
 
-        for (int i=0; i<7; i++) {
+        for (int i=0; i<((type_ == KUNG_FU_CHAMPION)?20:10); i++) {
             standingStill_.addFrame(sf::IntRect(i*16, type_*16, 16, 16));
         }
 

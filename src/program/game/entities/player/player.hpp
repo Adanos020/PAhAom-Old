@@ -17,7 +17,6 @@ namespace rr {
 
 /// Class for the player
     class Player : public Entity {
-        friend class Game;
     private:
     /// Structure for the player attributes
         struct Attrs {

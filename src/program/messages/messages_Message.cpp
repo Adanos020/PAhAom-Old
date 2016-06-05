@@ -14,7 +14,7 @@ namespace rr {
     Message::Message(sf::String text, sf::Color color, sf::Text::Style textStyle)
     : message_    (Text(text, resources.font.Unifont, 16, color, textStyle)),
       timeElapsed_(0),
-      lifeTime_   (1500) {
+      lifeTime_   (3000) {
 
         message_.wrap(400);
     }
