@@ -25,9 +25,9 @@ namespace rr {
         body_.setAnimation(*currentAnimation_);
         body_.setLooped(true);
         if (type_ == MAGE)
-            body_.setFrameTime(sf::seconds(360.f));
+            body_.setFrameTime(sf::seconds(.4f));
         else
-            body_.setFrameTime(sf::seconds(120.f));
+            body_.setFrameTime(sf::seconds(.2f));
         body_.scale(sf::Vector2f(5, 5));
     }
 
@@ -35,8 +35,8 @@ namespace rr {
 
     }
 
-    void Teacher::update(float timeStep) {
-        body_.update(sf::seconds(timeStep));
+    void Teacher::update(sf::Time timeStep) {
+        body_.update(timeStep);
         body_.play(*currentAnimation_);
     }
 

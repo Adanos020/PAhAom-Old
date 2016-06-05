@@ -13,8 +13,8 @@ namespace rr {
 
     Message::Message(sf::String text, sf::Color color, sf::Text::Style textStyle)
     : message_    (Text(text, resources.font.Unifont, 16, color, textStyle)),
-      timeElapsed_(0),
-      lifeTime_   (3000) {
+      timeElapsed_(sf::Time::Zero),
+      lifeTime_   (sf::seconds(5)) {
 
         message_.wrap(400);
     }
@@ -23,7 +23,7 @@ namespace rr {
         message_.setPosition(position);
     }
 
-    void Message::update(float timeStep) {
+    void Message::update(sf::Time timeStep) {
         timeElapsed_ += timeStep;
 
         if (timeElapsed_ >= lifeTime_) {

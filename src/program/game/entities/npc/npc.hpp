@@ -22,7 +22,7 @@ namespace rr {
         virtual ~NPC() {}
 
         virtual void          talk            ()               = 0;
-        virtual void          update          (float timeStep) = 0;
+        virtual void          update          (sf::Time timeStep) = 0;
 
         virtual void          draw            (sf::RenderWindow& rw) override { rw.draw(body_); }
         virtual void          setPosition     (sf::Vector2i pos)     override { body_.setPosition((sf::Vector2f)pos*80.f); }
@@ -48,7 +48,7 @@ namespace rr {
         ~Teacher() {}
 
         virtual void talk  ()               override;
-        virtual void update(float timeStep) override;
+        virtual void update(sf::Time timeStep) override;
     };
 
     class Merchant : public NPC {
@@ -65,7 +65,7 @@ namespace rr {
         ~Merchant() {}
 
         virtual void talk  ()               override;
-        virtual void update(float timeStep) override;
+        virtual void update(sf::Time timeStep) override;
     };
 
     class QuestGiver : public NPC {
@@ -78,7 +78,7 @@ namespace rr {
         ~QuestGiver() {}
 
         virtual void talk  ()               override;
-        virtual void update(float timeStep) override;
+        virtual void update(sf::Time timeStep) override;
     };
 
 }

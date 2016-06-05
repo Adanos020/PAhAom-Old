@@ -59,10 +59,10 @@ namespace rr {
     }
 
     inline void setPosition(sf::VertexArray& body, sf::Vector2f pos) {
-        body[0].position = pos+sf::Vector2f( 0,  0);
-        body[1].position = pos+sf::Vector2f(80,  0);
-        body[2].position = pos+sf::Vector2f(80, 80);
-        body[3].position = pos+sf::Vector2f( 0, 80);
+        body[1].position = pos+(body[1].position-body[0].position);
+        body[2].position = pos+(body[2].position-body[0].position);
+        body[3].position = pos+(body[3].position-body[0].position);
+        body[0].position = pos;
 
         if (body.getVertexCount() > 4) {
             for (unsigned i=4; i<body.getVertexCount(); i++) {

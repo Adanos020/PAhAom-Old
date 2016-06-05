@@ -153,7 +153,7 @@ namespace rr {
                 }
             }
             iconfig.close();
-            print();
+            //print();
             std::cout << ">Done.\n";
         } catch (...) {
             std::cout << "!Error loading config.cfg!\n";
@@ -188,7 +188,7 @@ namespace rr {
             keys.useslot_4                       = sf::Keyboard::Num4;
             keys.useslot_5                       = sf::Keyboard::Num5;
 
-            print();
+            //print();
             save ();
         }
         return true;

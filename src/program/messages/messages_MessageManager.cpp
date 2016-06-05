@@ -28,7 +28,7 @@ namespace rr {
         }
     }
 
-    void MessageManager::update(float timeStep) {
+    void MessageManager::update(sf::Time timeStep) {
         for (std::vector<Message>::iterator i=messages_.begin(); i!=messages_.end(); i++) {
             (*i).update(timeStep);
             if ((*i).getColor().a < 10) {

@@ -165,12 +165,12 @@ namespace rr {
         }
     }
 
-    void Game::update(sf::Event& event, float timer) {
+    void Game::update(sf::Event& event, sf::Time time) {
         controls(event);
 
-        player_        ->update(timer);
+        player_        ->update(time);
         hud_           ->update(player_, levelNumber_+1);
-        messageManager_->update(timer);
+        messageManager_->update(time);
 
         gameView_.setCenter(sf::Vector2f(player_->getBounds().left+16, player_->getBounds().top+16));
 
@@ -183,7 +183,7 @@ namespace rr {
                         ((Door*)entity)->setOpen(false);
                 }
                 else if (instanceof<NPC, Entity>(entity)
-                         ) ((NPC*)entity)->update(timer);
+                         ) ((NPC*)entity)->update(time);
             }
         }
 
@@ -196,6 +196,7 @@ namespace rr {
             for (int j=0; j<43; j++) {
                 if (levels_[levelNumber_]->getMasks()[i + j*77].isSeen()) {
                     bool light[] = { false, false, false, false };
+                    sf::Color shade = sf::Color(0, 0, 0, 160);
 
                     if (levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isSeen()
                         ) light[0] = true;
@@ -215,26 +216,97 @@ namespace rr {
                     if (levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isSeen()
                         ) { light[3] = true; light[2] = true; }
 
-                    if (!levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isSeen()
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isSeen()) {
+                        light[0] = false;
+                        light[3] = false;
+                        /*if (!levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isDiscovered()
+                            ) shade = sf::Color::Black;*/
+                    }
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isSeen()) {
+                        light[1] = false;
+                        light[2] = false;
+                        /*if (!levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isDiscovered()
+                            ) shade = sf::Color::Black;*/
+                    }
+                    if (!levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isSeen()) {
+                        light[0] = false;
+                        light[1] = false;
+                        /*if (!levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isDiscovered()
+                            ) shade = sf::Color::Black;*/
+                    }
+                    if (!levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isSeen()) {
+                        light[3] = false;
+                        light[2] = false;
+                        /*if (!levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isDiscovered()
+                            ) shade = sf::Color::Black;*/
+                    }
+
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isSeen()) {
+                        light[0] = false;
+                        /*if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isDiscovered()
+                            ) shade = sf::Color::Black;*/
+                    }
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isSeen()) {
+                        light[1] = false;
+                        /*if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isDiscovered()
+                            ) shade = sf::Color::Black;*/
+                    }
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isSeen()) {
+                        light[2] = false;
+                        /*if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isDiscovered()
+                            ) shade = sf::Color::Black;*/
+                    }
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isSeen()) {
+                        light[3] = false;
+                        /*if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isDiscovered()
+                            ) shade = sf::Color::Black;*/
+                    }
+
+                    levels_[levelNumber_]->getMasks()[i + j*77].setFadeOut(light, shade, sf::Color::Transparent);
+                }
+#if 0
+                else {
+                    bool light[] = { false, false, false, false };
+
+                    if (levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isDiscovered()
+                        ) light[0] = true;
+                    if (levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isDiscovered()
+                        ) light[1] = true;
+                    if (levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isDiscovered()
+                        ) light[2] = true;
+                    if (levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isDiscovered()
+                        ) light[3] = true;
+
+                    if (levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isDiscovered()
+                        ) { light[0] = true; light[3] = true; }
+                    if (levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isDiscovered()
+                        ) { light[1] = true; light[2] = true; }
+                    if (levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isDiscovered()
+                        ) { light[0] = true; light[1] = true; }
+                    if (levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isDiscovered()
+                        ) { light[3] = true; light[2] = true; }
+
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isDiscovered()
                         ) { light[0] = false; light[3] = false; }
-                    if (!levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isSeen()
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isDiscovered()
                         ) { light[1] = false; light[2] = false; }
-                    if (!levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isSeen()
+                    if (!levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isDiscovered()
                         ) { light[0] = false; light[1] = false; }
-                    if (!levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isSeen()
+                    if (!levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isDiscovered()
                         ) { light[3] = false; light[2] = false; }
 
-                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isSeen()
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isDiscovered()
                         ) light[0] = false;
-                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isSeen()
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isDiscovered()
                         ) light[1] = false;
-                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isSeen()
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isDiscovered()
                         ) light[2] = false;
-                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isSeen()
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isDiscovered()
                         ) light[3] = false;
 
-                    levels_[levelNumber_]->getMasks()[i + j*77].setFadeOut(light, sf::Color(0, 0, 0, 160));
+                    levels_[levelNumber_]->getMasks()[i + j*77].setFadeOut(light, sf::Color::Black, sf::Color(0, 0, 0, 160));
                 }
+#endif
             }
         }
     }

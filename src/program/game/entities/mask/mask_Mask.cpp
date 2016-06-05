@@ -18,6 +18,7 @@ namespace rr {
         body_.setPrimitiveType(sf::Quads);
 
         rr::setPosition(body_, sf::Vector2f(0, 0));
+        setSize(body_, sf::Vector2f(80, 80));
         setColor(body_, sf::Color::Black);
     }
 
@@ -35,15 +36,25 @@ namespace rr {
         seen_ = seen;
     }
 
-    void Mask::setFadeOut(bool light[], sf::Color shade) {
+    void Mask::setFadeOut(bool light[], sf::Color shadow, sf::Color bright) {
         sf::Color shades[4];
         if (discovered_) {
             for (int i=0; i<4; i++) {
-                shades[i] = light[i] ? sf::Color::Transparent : shade;
+                shades[i] = light[i] ? bright : shadow;
             }
         }
 
         setGradient(body_, shades);
+        /*if (  (!light[0] &&  light[1] && !light[2] &&  light[3])
+           || ( light[0] && !light[1] && !light[2] && !light[3])
+           || (!light[0] && !light[1] && !light[2] &&  light[3])
+            ) {
+            auto temp = body_[3];
+            body_[3]  = body_[2];
+            body_[2]  = body_[1];
+            body_[1]  = body_[0];
+            body_[0]  = temp    ;
+        }*/
     }
 
     void Mask::draw(sf::RenderWindow& rw) {

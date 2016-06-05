@@ -18,7 +18,7 @@ namespace rr {
           position_                    (sf::Vector2i(0, 0)),
           currentAnimation_            (&walkingRight_),
           moving_                      (false),
-          velocity_                    (1.25f),
+          velocity_                    (1120.f),
           sightRange_                  (5) {
 
         attrs_.health                = 0.f;
@@ -93,20 +93,20 @@ namespace rr {
         }
     }
 
-    void Player::update(float timeStep) {
+    void Player::update(sf::Time timeStep) {
         if (moving_) {
             sf::Vector2f offset = body_.getPosition()-(sf::Vector2f)position_*80.f;
             if (offset != sf::Vector2f(0, 0)) {
-                if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep,  0));
-                if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep,  0));
-                if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep));
-                if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep));
+                if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep.asSeconds(),  0));
+                if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep.asSeconds(),  0));
+                if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep.asSeconds()));
+                if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep.asSeconds()));
             }
             else
                 moving_ = false;
 
-            if (  (abs(offset.x) < 15*velocity_ && abs(offset.x) > 0) // preventing the player from wobbling
-               || (abs(offset.y) < 15*velocity_ && abs(offset.y) > 0) // in between of two cells
+            if (  (abs(offset.x) < velocity_/32 && abs(offset.x) > 0) // preventing the player from wobbling
+               || (abs(offset.y) < velocity_/32 && abs(offset.y) > 0) // in between of two cells
                 )  body_.setPosition((sf::Vector2f)position_*80.f);
         }
 
@@ -129,7 +129,7 @@ namespace rr {
             attrs_.mana         = temp*attrs_.maxMana;
         }
 
-        body_.update(sf::seconds(timeStep));
+        body_.update(timeStep);
         body_.play(*currentAnimation_);
     }
 

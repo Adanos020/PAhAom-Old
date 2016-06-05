@@ -26,7 +26,7 @@ namespace rr {
         void see         (bool seen);
         bool isSeen      ()                 { return seen_; }
         bool isDiscovered()                 { return discovered_; }
-        void setFadeOut  (bool[], sf::Color);
+        void setFadeOut  (bool[], sf::Color, sf::Color);
 
         virtual void          draw           (sf::RenderWindow&)     override;
         virtual void          setPosition    (sf::Vector2i position) override { setRealPosition((sf::Vector2f)position*80.f); }

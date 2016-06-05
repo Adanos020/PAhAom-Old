@@ -16,9 +16,9 @@ namespace rr {
 /// Class for a message
     class Message {
     private:
-        Text  message_;
-        float timeElapsed_;
-        float lifeTime_;
+        Text     message_;
+        sf::Time timeElapsed_;
+        sf::Time lifeTime_;
     public:
         Message(sf::String, sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Style::Regular);
 
@@ -26,7 +26,7 @@ namespace rr {
         void setPosition(sf::Vector2f);
 
     /// Updates the lifetime counter of the message
-        void update     (float timeStep);
+        void update     (sf::Time);
 
     /// Draws the message on the screen
         void draw       (sf::RenderWindow&);
@@ -45,7 +45,7 @@ namespace rr {
         MessageManager();
 
         void addMessage(Message);
-        void update    (float timeStep);
+        void update    (sf::Time timeStep);
         void draw      (sf::RenderWindow&);
 
         virtual void onNotify (Event, Entity*) override;

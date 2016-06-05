@@ -77,7 +77,7 @@ namespace rr {
         void          useItem                 (Item*);
 
     /// Updates the state of the player character
-        void          update                  (float);
+        void          update                  (sf::Time);
 
     /// Returns the player's attributes
         Attrs         getAttributes           ()          const          { return attrs_; }

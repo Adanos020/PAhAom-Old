@@ -81,7 +81,7 @@ namespace rr {
         void                buttonEvents(sf::RenderWindow&, sf::Event&);
 
     /// Method drawing the game components
-        void                update      (sf::Event&, float);
+        void                update      (sf::Event&, sf::Time);
 
     /// Method starting the game or not, depending on the argument's value
         void                start       (bool);
