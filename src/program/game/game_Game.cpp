@@ -195,118 +195,74 @@ namespace rr {
         for (int i=0; i<77; i++) {
             for (int j=0; j<43; j++) {
                 if (levels_[levelNumber_]->getMasks()[i + j*77].isSeen()) {
-                    bool light[] = { false, false, false, false };
-                    sf::Color shade = sf::Color(0, 0, 0, 160);
+                    sf::Color shades[4] = sf::Color(0, 0, 0, 160);
 
                     if (levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isSeen()
-                        ) light[0] = true;
+                        ) shades[0] = sf::Color::Transparent;
                     if (levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isSeen()
-                        ) light[1] = true;
+                        ) shades[1] = sf::Color::Transparent;
                     if (levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isSeen()
-                        ) light[2] = true;
+                        ) shades[2] = sf::Color::Transparent;
                     if (levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isSeen()
-                        ) light[3] = true;
+                        ) shades[3] = sf::Color::Transparent;
 
                     if (levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isSeen()
-                        ) { light[0] = true; light[3] = true; }
+                        ) { shades[0] = sf::Color::Transparent; shades[3] = sf::Color::Transparent; }
                     if (levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isSeen()
-                        ) { light[1] = true; light[2] = true; }
+                        ) { shades[1] = sf::Color::Transparent; shades[2] = sf::Color::Transparent; }
                     if (levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isSeen()
-                        ) { light[0] = true; light[1] = true; }
+                        ) { shades[0] = sf::Color::Transparent; shades[1] = sf::Color::Transparent; }
                     if (levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isSeen()
-                        ) { light[3] = true; light[2] = true; }
+                        ) { shades[3] = sf::Color::Transparent; shades[2] = sf::Color::Transparent; }
 
                     if (!levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isSeen()) {
-                        light[0] = false;
-                        light[3] = false;
+                        shades[0] = sf::Color(0, 0, 0, 160);
+                        shades[3] = sf::Color(0, 0, 0, 160);
                         /*if (!levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isDiscovered()
                             ) shade = sf::Color::Black;*/
                     }
                     if (!levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isSeen()) {
-                        light[1] = false;
-                        light[2] = false;
+                        shades[1] = sf::Color(0, 0, 0, 160);
+                        shades[2] = sf::Color(0, 0, 0, 160);
                         /*if (!levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isDiscovered()
                             ) shade = sf::Color::Black;*/
                     }
                     if (!levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isSeen()) {
-                        light[0] = false;
-                        light[1] = false;
+                        shades[0] = sf::Color(0, 0, 0, 160);
+                        shades[1] = sf::Color(0, 0, 0, 160);
                         /*if (!levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isDiscovered()
                             ) shade = sf::Color::Black;*/
                     }
                     if (!levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isSeen()) {
-                        light[3] = false;
-                        light[2] = false;
+                        shades[3] = sf::Color(0, 0, 0, 160);
+                        shades[2] = sf::Color(0, 0, 0, 160);
                         /*if (!levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isDiscovered()
                             ) shade = sf::Color::Black;*/
                     }
 
                     if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isSeen()) {
-                        light[0] = false;
+                        shades[0] = sf::Color(0, 0, 0, 160);
                         /*if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isDiscovered()
                             ) shade = sf::Color::Black;*/
                     }
                     if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isSeen()) {
-                        light[1] = false;
+                        shades[1] = sf::Color(0, 0, 0, 160);
                         /*if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isDiscovered()
                             ) shade = sf::Color::Black;*/
                     }
                     if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isSeen()) {
-                        light[2] = false;
+                        shades[2] = sf::Color(0, 0, 0, 160);
                         /*if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isDiscovered()
                             ) shade = sf::Color::Black;*/
                     }
                     if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isSeen()) {
-                        light[3] = false;
+                        shades[3] = sf::Color(0, 0, 0, 160);
                         /*if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isDiscovered()
                             ) shade = sf::Color::Black;*/
                     }
 
-                    levels_[levelNumber_]->getMasks()[i + j*77].setFadeOut(light, shade, sf::Color::Transparent);
+                    levels_[levelNumber_]->getMasks()[i + j*77].setFadeOut(shades);
                 }
-#if 0
-                else {
-                    bool light[] = { false, false, false, false };
-
-                    if (levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isDiscovered()
-                        ) light[0] = true;
-                    if (levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isDiscovered()
-                        ) light[1] = true;
-                    if (levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isDiscovered()
-                        ) light[2] = true;
-                    if (levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isDiscovered()
-                        ) light[3] = true;
-
-                    if (levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isDiscovered()
-                        ) { light[0] = true; light[3] = true; }
-                    if (levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isDiscovered()
-                        ) { light[1] = true; light[2] = true; }
-                    if (levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isDiscovered()
-                        ) { light[0] = true; light[1] = true; }
-                    if (levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isDiscovered()
-                        ) { light[3] = true; light[2] = true; }
-
-                    if (!levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isDiscovered()
-                        ) { light[0] = false; light[3] = false; }
-                    if (!levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isDiscovered()
-                        ) { light[1] = false; light[2] = false; }
-                    if (!levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isDiscovered()
-                        ) { light[0] = false; light[1] = false; }
-                    if (!levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isDiscovered()
-                        ) { light[3] = false; light[2] = false; }
-
-                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isDiscovered()
-                        ) light[0] = false;
-                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isDiscovered()
-                        ) light[1] = false;
-                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isDiscovered()
-                        ) light[2] = false;
-                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isDiscovered()
-                        ) light[3] = false;
-
-                    levels_[levelNumber_]->getMasks()[i + j*77].setFadeOut(light, sf::Color::Black, sf::Color(0, 0, 0, 160));
-                }
-#endif
             }
         }
     }
