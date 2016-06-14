@@ -206,60 +206,133 @@ namespace rr {
                     if (levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isSeen()
                         ) shades[3] = sf::Color::Transparent;
 
-                    if (levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isSeen()
-                        ) { shades[0] = sf::Color::Transparent; shades[3] = sf::Color::Transparent; }
-                    if (levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isSeen()
-                        ) { shades[1] = sf::Color::Transparent; shades[2] = sf::Color::Transparent; }
-                    if (levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isSeen()
-                        ) { shades[0] = sf::Color::Transparent; shades[1] = sf::Color::Transparent; }
-                    if (levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isSeen()
-                        ) { shades[3] = sf::Color::Transparent; shades[2] = sf::Color::Transparent; }
+                    if (levels_[levelNumber_]->getMasks()[i-1 + j*77].isSeen()) {
+                        shades[0] = sf::Color::Transparent;
+                        shades[3] = sf::Color::Transparent;
+                    }
+                    if (levels_[levelNumber_]->getMasks()[i+1 + j*77].isSeen()) {
+                        shades[1] = sf::Color::Transparent;
+                        shades[2] = sf::Color::Transparent;
+                    }
+                    if (levels_[levelNumber_]->getMasks()[i + (j-1)*77].isSeen()) {
+                        shades[0] = sf::Color::Transparent;
+                        shades[1] = sf::Color::Transparent;
+                    }
+                    if (levels_[levelNumber_]->getMasks()[i + (j+1)*77].isSeen()) {
+                        shades[3] = sf::Color::Transparent;
+                        shades[2] = sf::Color::Transparent;
+                    }
 
-                    if (!levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isSeen()) {
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + j*77].isSeen()) {
                         shades[0] = sf::Color(0, 0, 0, 160);
                         shades[3] = sf::Color(0, 0, 0, 160);
-                        /*if (!levels_[levelNumber_]->getMasks()[i-1 + ( j )*77].isDiscovered()
-                            ) shade = sf::Color::Black;*/
+                        if (!levels_[levelNumber_]->getMasks()[i-1 + j*77].isDiscovered()) {
+                            shades[0] = sf::Color::Black;
+                            shades[3] = sf::Color::Black;
+                        }
                     }
-                    if (!levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isSeen()) {
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + j*77].isSeen()) {
                         shades[1] = sf::Color(0, 0, 0, 160);
                         shades[2] = sf::Color(0, 0, 0, 160);
-                        /*if (!levels_[levelNumber_]->getMasks()[i+1 + ( j )*77].isDiscovered()
-                            ) shade = sf::Color::Black;*/
+                        if (!levels_[levelNumber_]->getMasks()[i+1 + j*77].isDiscovered()) {
+                            shades[1] = sf::Color::Black;
+                            shades[2] = sf::Color::Black;
+                        }
                     }
-                    if (!levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isSeen()) {
+                    if (!levels_[levelNumber_]->getMasks()[i + (j-1)*77].isSeen()) {
                         shades[0] = sf::Color(0, 0, 0, 160);
                         shades[1] = sf::Color(0, 0, 0, 160);
-                        /*if (!levels_[levelNumber_]->getMasks()[ i  + (j-1)*77].isDiscovered()
-                            ) shade = sf::Color::Black;*/
+                        if (!levels_[levelNumber_]->getMasks()[i + (j-1)*77].isDiscovered()) {
+                            shades[0] = sf::Color::Black;
+                            shades[1] = sf::Color::Black;
+                        }
                     }
-                    if (!levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isSeen()) {
-                        shades[3] = sf::Color(0, 0, 0, 160);
+                    if (!levels_[levelNumber_]->getMasks()[i + (j+1)*77].isSeen()) {
                         shades[2] = sf::Color(0, 0, 0, 160);
-                        /*if (!levels_[levelNumber_]->getMasks()[ i  + (j+1)*77].isDiscovered()
-                            ) shade = sf::Color::Black;*/
+                        shades[3] = sf::Color(0, 0, 0, 160);
+                        if (!levels_[levelNumber_]->getMasks()[i + (j+1)*77].isDiscovered()) {
+                            shades[2] = sf::Color::Black;
+                            shades[3] = sf::Color::Black;
+                        }
                     }
 
                     if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isSeen()) {
                         shades[0] = sf::Color(0, 0, 0, 160);
-                        /*if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isDiscovered()
-                            ) shade = sf::Color::Black;*/
+                        if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isDiscovered()
+                            ) shades[0] = sf::Color::Black;
                     }
                     if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isSeen()) {
                         shades[1] = sf::Color(0, 0, 0, 160);
-                        /*if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isDiscovered()
-                            ) shade = sf::Color::Black;*/
+                        if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isDiscovered()
+                            ) shades[1] = sf::Color::Black;
                     }
                     if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isSeen()) {
                         shades[2] = sf::Color(0, 0, 0, 160);
-                        /*if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isDiscovered()
-                            ) shade = sf::Color::Black;*/
+                        if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isDiscovered()
+                            ) shades[2] = sf::Color::Black;
                     }
                     if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isSeen()) {
                         shades[3] = sf::Color(0, 0, 0, 160);
-                        /*if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isDiscovered()
-                            ) shade = sf::Color::Black;*/
+                        if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isDiscovered()
+                            ) shades[3] = sf::Color::Black;
                     }
+
+                    levels_[levelNumber_]->getMasks()[i + j*77].setFadeOut(shades);
+                }
+                else if (levels_[levelNumber_]->getMasks()[i + j*77].isDiscovered()) {
+                    sf::Color shades[4] = sf::Color(0, 0, 0, 160);
+
+                    if (levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isDiscovered()
+                        ) shades[0] = sf::Color(0, 0, 0, 160);
+                    if (levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isDiscovered()
+                        ) shades[1] = sf::Color(0, 0, 0, 160);
+                    if (levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isDiscovered()
+                        ) shades[2] = sf::Color(0, 0, 0, 160);
+                    if (levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isDiscovered()
+                        ) shades[3] = sf::Color(0, 0, 0, 160);
+
+                    if (levels_[levelNumber_]->getMasks()[i-1 + j*77].isDiscovered()) {
+                        shades[0] = sf::Color(0, 0, 0, 160);
+                        shades[3] = sf::Color(0, 0, 0, 160);
+                    }
+                    if (levels_[levelNumber_]->getMasks()[i+1 + j*77].isDiscovered()) {
+                        shades[1] = sf::Color(0, 0, 0, 160);
+                        shades[2] = sf::Color(0, 0, 0, 160);
+                    }
+                    if (levels_[levelNumber_]->getMasks()[i + (j-1)*77].isDiscovered()) {
+                        shades[0] = sf::Color(0, 0, 0, 160);
+                        shades[1] = sf::Color(0, 0, 0, 160);
+                    }
+                    if (levels_[levelNumber_]->getMasks()[i + (j+1)*77].isDiscovered()) {
+                        shades[2] = sf::Color(0, 0, 0, 160);
+                        shades[3] = sf::Color(0, 0, 0, 160);
+                    }
+
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + j*77].isDiscovered()) {
+                        shades[0] = sf::Color::Black;
+                        shades[3] = sf::Color::Black;
+                    }
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + j*77].isDiscovered()) {
+                        shades[1] = sf::Color::Black;
+                        shades[2] = sf::Color::Black;
+                    }
+                    if (!levels_[levelNumber_]->getMasks()[i + (j-1)*77].isDiscovered()) {
+                        shades[0] = sf::Color::Black;
+                        shades[1] = sf::Color::Black;
+                    }
+                    if (!levels_[levelNumber_]->getMasks()[i + (j+1)*77].isDiscovered()) {
+                        shades[2] = sf::Color::Black;
+                        shades[3] = sf::Color::Black;
+                    }
+
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j-1)*77].isDiscovered()
+                        ) shades[0] = sf::Color::Black;
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j-1)*77].isDiscovered()
+                        ) shades[1] = sf::Color::Black;
+                    if (!levels_[levelNumber_]->getMasks()[i+1 + (j+1)*77].isDiscovered()
+                        ) shades[2] = sf::Color::Black;
+                    if (!levels_[levelNumber_]->getMasks()[i-1 + (j+1)*77].isDiscovered()
+                        ) shades[3] = sf::Color::Black;
 
                     levels_[levelNumber_]->getMasks()[i + j*77].setFadeOut(shades);
                 }
@@ -336,7 +409,7 @@ namespace rr {
                                 if (inventory_->addItem((Item*)entities[i])) {
                                     subject.notify(Observer::ITEM_PICKED, entities[i]);
                                     levels_[levelNumber_]->removeEntity(i);
-                                    i = 0;
+                                   i= 0;
                                 }
                                 else
                                     std::cout << "Your backpack is too full to take " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
@@ -346,7 +419,7 @@ namespace rr {
                                 /*
                                 levels_[levelNumber_]->addEntity(entities[i]->getItem(), entities[i]->getPosition());
                                 levels_[levelNumber_]->removeEntity(i);
-                                i = 0;
+                               i= 0;
                                 */
                             }
                             else if (instanceof<Stairs, Entity>(entities[i])) {
