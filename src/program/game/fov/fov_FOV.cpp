@@ -1,12 +1,13 @@
 /**
  * @file src/program/game/fov/fov_FOV.cpp
- * @author Adam 'Adanos' GÄ…sior
+ * @author Adam 'Adanos' G¹sior
  * Used library: SFML 2.3.2
  */
 
 #include "fov.hpp"
 
 #include <cmath>
+#include <iostream>
 
 namespace rr {
 
@@ -19,6 +20,7 @@ namespace rr {
         for (unsigned octant = 0; octant < 8; octant++) {
             compute(octant, origin, 2*range, 1, Slope(1, 1), Slope(0, 1));
         }
+        smoothShade();
     }
 
     void FOV::compute(unsigned octant, sf::Vector2u origin, int range, unsigned x, Slope top, Slope bottom) {
@@ -129,6 +131,155 @@ namespace rr {
         if (x == 0) return y;
         if (y == 0) return x;
         return (int)sqrt(x*x + y*y);
+    }
+
+    void FOV::smoothShade() {
+        for (int i=0; i<77; i++) {
+            for (int j=0; j<43; j++) {
+                if (masks_[i + j*77].isSeen()) {
+                    sf::Color shades[4] = sf::Color(0, 0, 0, 160);
+
+                    if (  masks_[i-1 + (j-1)*77].isSeen()
+                        ) shades[0] = sf::Color::Transparent;
+                    if (  masks_[i+1 + (j-1)*77].isSeen()
+                        ) shades[1] = sf::Color::Transparent;
+                    if (  masks_[i+1 + (j+1)*77].isSeen()
+                        ) shades[2] = sf::Color::Transparent;
+                    if (  masks_[i-1 + (j+1)*77].isSeen()
+                        ) shades[3] = sf::Color::Transparent;
+
+                    if (masks_[i-1 + j*77].isSeen()) {
+                        shades[0] = sf::Color::Transparent;
+                        shades[3] = sf::Color::Transparent;
+                    }
+                    if (masks_[i+1 + j*77].isSeen()) {
+                        shades[1] = sf::Color::Transparent;
+                        shades[2] = sf::Color::Transparent;
+                    }
+                    if (masks_[i + (j-1)*77].isSeen()) {
+                        shades[0] = sf::Color::Transparent;
+                        shades[1] = sf::Color::Transparent;
+                    }
+                    if (masks_[i + (j+1)*77].isSeen()) {
+                        shades[3] = sf::Color::Transparent;
+                        shades[2] = sf::Color::Transparent;
+                    }
+
+                    if (!masks_[i-1 + j*77].isSeen()) {
+                        shades[0] = sf::Color(0, 0, 0, 160);
+                        shades[3] = sf::Color(0, 0, 0, 160);
+                        if (!masks_[i-1 + j*77].isDiscovered()) {
+                            shades[0] = sf::Color::Black;
+                            shades[3] = sf::Color::Black;
+                        }
+                    }
+                    if (!masks_[i+1 + j*77].isSeen()) {
+                        shades[1] = sf::Color(0, 0, 0, 160);
+                        shades[2] = sf::Color(0, 0, 0, 160);
+                        if (!masks_[i+1 + j*77].isDiscovered()) {
+                            shades[1] = sf::Color::Black;
+                            shades[2] = sf::Color::Black;
+                        }
+                    }
+                    if (!masks_[i + (j-1)*77].isSeen()) {
+                        shades[0] = sf::Color(0, 0, 0, 160);
+                        shades[1] = sf::Color(0, 0, 0, 160);
+                        if (!masks_[i + (j-1)*77].isDiscovered()) {
+                            shades[0] = sf::Color::Black;
+                            shades[1] = sf::Color::Black;
+                        }
+                    }
+                    if (!masks_[i + (j+1)*77].isSeen()) {
+                        shades[2] = sf::Color(0, 0, 0, 160);
+                        shades[3] = sf::Color(0, 0, 0, 160);
+                        if (!masks_[i + (j+1)*77].isDiscovered()) {
+                            shades[2] = sf::Color::Black;
+                            shades[3] = sf::Color::Black;
+                        }
+                    }
+
+                    if (!masks_[i-1 + (j-1)*77].isSeen()) {
+                        shades[0] = sf::Color(0, 0, 0, 160);
+                        if ( !masks_[i-1 + (j-1)*77].isDiscovered()
+                            ) shades[0] = sf::Color::Black;
+                    }
+                    if (!masks_[i+1 + (j-1)*77].isSeen()) {
+                        shades[1] = sf::Color(0, 0, 0, 160);
+                        if ( !masks_[i+1 + (j-1)*77].isDiscovered()
+                            ) shades[1] = sf::Color::Black;
+                    }
+                    if (!masks_[i+1 + (j+1)*77].isSeen()) {
+                        shades[2] = sf::Color(0, 0, 0, 160);
+                        if ( !masks_[i+1 + (j+1)*77].isDiscovered()
+                            ) shades[2] = sf::Color::Black;
+                    }
+                    if (!masks_[i-1 + (j+1)*77].isSeen()) {
+                        shades[3] = sf::Color(0, 0, 0, 160);
+                        if ( !masks_[i-1 + (j+1)*77].isDiscovered()
+                            ) shades[3] = sf::Color::Black;
+                    }
+
+                    masks_[i + j*77].setFadeOut(shades);
+                }
+                else if (masks_[i + j*77].isDiscovered()) {
+                    sf::Color shades[4] = sf::Color(0, 0, 0, 160);
+
+                    if (  masks_[i-1 + (j-1)*77].isDiscovered()
+                        ) shades[0] = sf::Color(0, 0, 0, 160);
+                    if (  masks_[i+1 + (j-1)*77].isDiscovered()
+                        ) shades[1] = sf::Color(0, 0, 0, 160);
+                    if (  masks_[i+1 + (j+1)*77].isDiscovered()
+                        ) shades[2] = sf::Color(0, 0, 0, 160);
+                    if (  masks_[i-1 + (j+1)*77].isDiscovered()
+                        ) shades[3] = sf::Color(0, 0, 0, 160);
+
+                    if (masks_[i-1 + j*77].isDiscovered()) {
+                        shades[0] = sf::Color(0, 0, 0, 160);
+                        shades[3] = sf::Color(0, 0, 0, 160);
+                    }
+                    if (masks_[i+1 + j*77].isDiscovered()) {
+                        shades[1] = sf::Color(0, 0, 0, 160);
+                        shades[2] = sf::Color(0, 0, 0, 160);
+                    }
+                    if (masks_[i + (j-1)*77].isDiscovered()) {
+                        shades[0] = sf::Color(0, 0, 0, 160);
+                        shades[1] = sf::Color(0, 0, 0, 160);
+                    }
+                    if (masks_[i + (j+1)*77].isDiscovered()) {
+                        shades[2] = sf::Color(0, 0, 0, 160);
+                        shades[3] = sf::Color(0, 0, 0, 160);
+                    }
+
+                    if (!masks_[i-1 + j*77].isDiscovered()) {
+                        shades[0] = sf::Color::Black;
+                        shades[3] = sf::Color::Black;
+                    }
+                    if (!masks_[i+1 + j*77].isDiscovered()) {
+                        shades[1] = sf::Color::Black;
+                        shades[2] = sf::Color::Black;
+                    }
+                    if (!masks_[i + (j-1)*77].isDiscovered()) {
+                        shades[0] = sf::Color::Black;
+                        shades[1] = sf::Color::Black;
+                    }
+                    if (!masks_[i + (j+1)*77].isDiscovered()) {
+                        shades[2] = sf::Color::Black;
+                        shades[3] = sf::Color::Black;
+                    }
+
+                    if ( !masks_[i-1 + (j-1)*77].isDiscovered()
+                        ) shades[0] = sf::Color::Black;
+                    if ( !masks_[i+1 + (j-1)*77].isDiscovered()
+                        ) shades[1] = sf::Color::Black;
+                    if ( !masks_[i+1 + (j+1)*77].isDiscovered()
+                        ) shades[2] = sf::Color::Black;
+                    if ( !masks_[i-1 + (j+1)*77].isDiscovered()
+                        ) shades[3] = sf::Color::Black;
+
+                    masks_[i + j*77].setFadeOut(shades);
+                }
+            }
+        }
     }
 
 }

@@ -1,6 +1,6 @@
 /**
  * @file src/program/game/fov/fov.hpp
- * @author Adam 'Adanos' GÄ…sior
+ * @author Adam 'Adanos' G¹sior
  * Used library: SFML 2.3.2
  */
 
@@ -15,6 +15,8 @@ namespace rr {
     private:
         Mask* masks_;
         int * tiles_;
+
+        int randomnumber;
 
         struct Slope {
         public:
@@ -31,6 +33,7 @@ namespace rr {
         bool blocksLight(unsigned x, unsigned y, unsigned octant, sf::Vector2u origin);
         void setVisible (unsigned x, unsigned y, unsigned octant, sf::Vector2u origin);
         int  getDistance(int x, int y);
+        void smoothShade();
     public:
         FOV(Mask masks[], int tiles[]);
 
