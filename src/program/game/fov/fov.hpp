@@ -16,8 +16,6 @@ namespace rr {
         Mask* masks_;
         int * tiles_;
 
-        int randomnumber;
-
         struct Slope {
         public:
             unsigned x_, y_;
