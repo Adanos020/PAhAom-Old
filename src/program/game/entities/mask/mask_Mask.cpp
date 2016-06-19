@@ -20,6 +20,8 @@ namespace rr {
         rr::setPosition(body_, sf::Vector2f(0, 0));
         setSize(body_, sf::Vector2f(80, 80));
         setColor(body_, sf::Color::Black);
+        //flipHorizontally(body_);
+        //flipVertically  (body_);
     }
 
     void Mask::see(bool seen) {
@@ -37,30 +39,6 @@ namespace rr {
     }
 
     void Mask::setFadeOut(sf::Color shades[]) {
-        /*if (  (  shades[0] == sf::Color::Transparent
-              && shades[1] == sf::Color(0, 0, 0, 160)
-              && shades[2] == sf::Color::Transparent
-              && shades[3] == sf::Color(0, 0, 0, 160)
-               )
-           || (  shades[0] == sf::Color(0, 0, 0, 160)
-              && shades[1] == sf::Color::Black
-              && shades[2] == sf::Color(0, 0, 0, 160)
-              && shades[3] == sf::Color::Black
-               )
-           || (  shades[0] == sf::Color::Transparent
-              && shades[1] == sf::Color::Black
-              && shades[2] == sf::Color::Transparent
-              && shades[3] == sf::Color::Black
-               )
-            )
-        {
-            sf::Color temp = shades[0];
-
-            shades[0] = shades[1];
-            shades[1] = shades[2];
-            shades[2] = shades[3];
-            shades[3] = temp;
-        }*/
         setGradient(body_, shades);
     }
 
