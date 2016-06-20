@@ -140,7 +140,8 @@ namespace rr {
             rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
             mainMenu_->draw(rw);
             rw.setView(gameView_);
-        } else {
+        }
+        else {
             rw.setView(gameView_);
             rw.draw(*levels_[levelNumber_]);
             levels_[levelNumber_]->drawObjects(rw);
@@ -199,13 +200,14 @@ namespace rr {
             if (isKeyPressed(settings.keys.move_down))  player_->move(levels_[levelNumber_]->getTiles(), Player::DOWN);
             if (isKeyPressed(settings.keys.move_left))  player_->move(levels_[levelNumber_]->getTiles(), Player::LEFT);
             if (isKeyPressed(settings.keys.move_right)) player_->move(levels_[levelNumber_]->getTiles(), Player::RIGHT);
-
-            /*     if (isKeyPressed(sf::Keyboard::Numpad1)) player_->attrs_.health    --;
+#if 0
+                 if (isKeyPressed(sf::Keyboard::Numpad1)) player_->attrs_.health    --;
             else if (isKeyPressed(sf::Keyboard::Numpad2)) player_->attrs_.health    ++;
             else if (isKeyPressed(sf::Keyboard::Numpad3)) player_->attrs_.mana      --;
             else if (isKeyPressed(sf::Keyboard::Numpad4)) player_->attrs_.mana      ++;
             else if (isKeyPressed(sf::Keyboard::Numpad5)) player_->attrs_.experience++;
-            else if (isKeyPressed(sf::Keyboard::Numpad6)) player_->attrs_.level     ++;*/
+            else if (isKeyPressed(sf::Keyboard::Numpad6)) player_->attrs_.level     ++;
+#endif
         }
     }
 
@@ -262,18 +264,14 @@ namespace rr {
                                 if (inventory_->addItem((Item*)entities[i])) {
                                     subject.notify(Observer::ITEM_PICKED, entities[i]);
                                     levels_[levelNumber_]->removeEntity(i);
-                                   i= 0;
+                                    i = 0;
                                 }
                                 else
                                     std::cout << "Your backpack is too full to take " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
                             }
                             else if (instanceof<Chest, Entity>(entities[i])) {
-                                // TODO - MAKE THIS SHIT NOT CRASH THE FUCKING GAME
-                                /*
-                                levels_[levelNumber_]->addEntity(entities[i]->getItem(), entities[i]->getPosition());
-                                levels_[levelNumber_]->removeEntity(i);
-                               i= 0;
-                                */
+                                levels_[levelNumber_]->replaceEntity(i, ((Chest*)entities[i])->getItem());
+                                i = 0;
                             }
                             else if (instanceof<Stairs, Entity>(entities[i])) {
                                 if (((Stairs*)entities[i])->isUpwards() != 0) {

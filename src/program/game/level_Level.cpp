@@ -67,6 +67,12 @@ namespace rr {
         entities_.erase(entities_.begin()+index);
     }
 
+    void Level::replaceEntity(unsigned index, Entity* entity) {
+        entity->setPosition(entities_[index]->getPosition());
+        delete entities_[index];
+        entities_[index] = entity;
+    }
+
     void Level::generateWorld() {
      // first we create an 2-dimensional array filled with 1's representing a wall
         for (int i=0; i<size_.x; i++)
@@ -502,7 +508,7 @@ namespace rr {
         }
 
      // here we generate the chests
-        for (int i=0; i<rand()%5; i++) {
+        for (int i=0; i<rand()%5+15; i++) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
              // just doing the same checking as in the item generating section

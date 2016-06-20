@@ -18,7 +18,7 @@ namespace rr {
           position_                    (sf::Vector2i(0, 0)),
           currentAnimation_            (&walkingRight_),
           moving_                      (false),
-          velocity_                    (1120.f),
+          velocity_                    (920.f),
           sightRange_                  (5) {
 
         attrs_.health                = 0.f;

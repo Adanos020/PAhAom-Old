@@ -37,6 +37,7 @@ namespace rr {
         void                            drawObjects     (sf::RenderWindow&) const;
         void                            addEntity       (Entity*, sf::Vector2i position);
         void                            removeEntity    (unsigned index);
+        void                            replaceEntity   (unsigned index, Entity*);
 
         std::vector<Entity*>            getEntities     () const { return entities_     ; }
         Mask*                           getMasks        ()       { return masks_        ; }
