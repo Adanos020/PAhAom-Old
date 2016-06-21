@@ -19,6 +19,7 @@ namespace rr {
 
         bool            seen_;
         bool            discovered_;
+        bool            flipped_;
     public:
          Mask();
         ~Mask() {}

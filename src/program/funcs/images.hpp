@@ -79,34 +79,26 @@ namespace rr {
 
     inline void flipVertically(sf::VertexArray& body) {
         sf::Vector2f position_0 = body[0].position,
-                     position_1 = body[1].position;
+                     position_1 = body[1].position,
+                     position_2 = body[2].position,
+                     position_3 = body[3].position;
 
-        body[0].position = body[3].position;
-        body[1].position = body[2].position;
+        body[0].position = position_3;
+        body[1].position = position_2;
         body[2].position = position_1;
         body[3].position = position_0;
-
-        float distance = body[0].position.y-body[3].position.y;
-        body[0].position += sf::Vector2f(0, distance);
-        body[1].position += sf::Vector2f(0, distance);
-        body[2].position += sf::Vector2f(0, distance);
-        body[3].position += sf::Vector2f(0, distance);
     }
 
     inline void flipHorizontally(sf::VertexArray& body) {
         sf::Vector2f position_0 = body[0].position,
+                     position_1 = body[1].position,
+                     position_2 = body[2].position,
                      position_3 = body[3].position;
 
-        body[0].position = body[1].position;
-        body[3].position = body[2].position;
+        body[0].position = position_1;
+        body[3].position = position_2;
         body[1].position = position_0;
         body[2].position = position_3;
-
-        float distance = body[0].position.x-body[1].position.x;
-        body[0].position += sf::Vector2f(distance, 0);
-        body[1].position += sf::Vector2f(distance, 0);
-        body[2].position += sf::Vector2f(distance, 0);
-        body[3].position += sf::Vector2f(distance, 0);
     }
 
 }

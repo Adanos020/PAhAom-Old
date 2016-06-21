@@ -12,7 +12,8 @@ namespace rr {
     : Entity     (),
       position_  (sf::Vector2i(0, 0)),
       seen_      (false),
-      discovered_(false) {
+      discovered_(false),
+      flipped_   (false) {
 
         body_.resize(4);
         body_.setPrimitiveType(sf::Quads);
@@ -20,8 +21,6 @@ namespace rr {
         rr::setPosition(body_, sf::Vector2f(0, 0));
         setSize(body_, sf::Vector2f(80, 80));
         setColor(body_, sf::Color::Black);
-        //flipHorizontally(body_);
-        //flipVertically  (body_);
     }
 
     void Mask::see(bool seen) {
@@ -39,6 +38,46 @@ namespace rr {
     }
 
     void Mask::setFadeOut(sf::Color shades[]) {
+        bool lightFound = false;
+        for (int i=0; i<4; i++) {
+            if (shades[i] == sf::Color::Transparent) {
+                lightFound = true;
+                break;
+            }
+        }
+
+        if (lightFound) {
+            if (  !flipped_
+               && (shades[0] == sf::Color::Black || shades[0] == sf::Color(0, 0, 0, 160))
+               && (shades[2] == sf::Color::Black || shades[2] == sf::Color(0, 0, 0, 160))) {
+                flipVertically(body_);
+                flipped_ = true;
+            }
+            else if (flipped_
+                 && (shades[1] == sf::Color::Black || shades[1] == sf::Color(0, 0, 0, 160))
+                 && (shades[3] == sf::Color::Black || shades[3] == sf::Color(0, 0, 0, 160))) {
+                flipVertically(body_);
+                flipped_ = false;
+            }
+            else if (flipped_
+                 && (shades[0] != sf::Color::Black && shades[0] != sf::Color(0, 0, 0, 160))
+                 && (shades[2] != sf::Color::Black && shades[2] != sf::Color(0, 0, 0, 160))) {
+                flipVertically(body_);
+                flipped_ = false;
+            }
+        }
+
+        if (flipped_) {
+            sf::Color color_0 = shades[3],
+                      color_1 = shades[2],
+                      color_2 = shades[1],
+                      color_3 = shades[0];
+            shades[0] = color_0;
+            shades[1] = color_1;
+            shades[2] = color_2;
+            shades[3] = color_3;
+        }
+
         setGradient(body_, shades);
     }
 

@@ -267,14 +267,14 @@ namespace rr {
                                     i = 0;
                                 }
                                 else
-                                    std::cout << "Your backpack is too full to take " << ((Item*)entities[i])->getAmount() << "x " << ((Item*)entities[i])->getName().toAnsiString() << "!\n";
+                                    messageManager_->addMessage(Message("Your backpack is too full to take "+std::to_string(((Item*)entities[i])->getAmount())+"x "+((Item*)entities[i])->getName(), sf::Color::Red));
                             }
                             else if (instanceof<Chest, Entity>(entities[i])) {
                                 levels_[levelNumber_]->replaceEntity(i, ((Chest*)entities[i])->getItem());
                                 i = 0;
                             }
                             else if (instanceof<Stairs, Entity>(entities[i])) {
-                                if (((Stairs*)entities[i])->isUpwards() != 0) {
+                                if (((Stairs*)entities[i])->isUpwards()) {
                                     switchLevel(levelNumber_+1);
                                     break;
                                 }
