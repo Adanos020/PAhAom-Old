@@ -19,7 +19,6 @@ namespace rr {
 /// Structure for the resources
     struct Resources {
     public:
-
     /// Structure for the fonts
         struct {
         public:
@@ -40,7 +39,7 @@ namespace rr {
 
         std::map<sf::String, sf::String> dictionary;
 
-    /// Separate method loading the dict
+    /// Separate method loading the dictionary
         bool loadDict();
 
     /// Method loading the resources

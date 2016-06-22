@@ -38,47 +38,76 @@ namespace rr {
     }
 
     void Mask::setFadeOut(sf::Color shades[]) {
-        bool lightFound = false;
-        for (int i=0; i<4; i++) {
-            if (shades[i] == sf::Color::Transparent) {
-                lightFound = true;
-                break;
+        if (discovered_) {
+            bool lightFound = false;
+            for (int i=0; i<4; i++) {
+                if (shades[i] == sf::Color::Transparent) {
+                    lightFound = true;
+                    break;
+                }
             }
-        }
 
-        if (lightFound) {
-            if (  !flipped_
-               && (shades[0] == sf::Color::Black || shades[0] == sf::Color(0, 0, 0, 160))
-               && (shades[2] == sf::Color::Black || shades[2] == sf::Color(0, 0, 0, 160))) {
-                flipVertically(body_);
-                flipped_ = true;
-            }
-            else if (flipped_
-                 && (shades[1] == sf::Color::Black || shades[1] == sf::Color(0, 0, 0, 160))
-                 && (shades[3] == sf::Color::Black || shades[3] == sf::Color(0, 0, 0, 160))) {
-                flipVertically(body_);
-                flipped_ = false;
-            }
-            else if (flipped_
-                 && (shades[0] != sf::Color::Black && shades[0] != sf::Color(0, 0, 0, 160))
-                 && (shades[2] != sf::Color::Black && shades[2] != sf::Color(0, 0, 0, 160))) {
-                flipVertically(body_);
-                flipped_ = false;
-            }
-        }
+            if (lightFound) {
 
-        if (flipped_) {
-            sf::Color color_0 = shades[3],
-                      color_1 = shades[2],
-                      color_2 = shades[1],
-                      color_3 = shades[0];
-            shades[0] = color_0;
-            shades[1] = color_1;
-            shades[2] = color_2;
-            shades[3] = color_3;
-        }
+#ifndef __gnu_linux__
 
-        setGradient(body_, shades);
+                if (  !flipped_
+                   && (shades[1] == sf::Color::Black || shades[1] == sf::Color(0, 0, 0, 160))
+                   && (shades[3] == sf::Color::Black || shades[3] == sf::Color(0, 0, 0, 160))) {
+                    flipVertically(body_);
+                    flipped_ = true;
+                }
+                else if (flipped_
+                     && (shades[0] == sf::Color::Black || shades[0] == sf::Color(0, 0, 0, 160))
+                     && (shades[2] == sf::Color::Black || shades[2] == sf::Color(0, 0, 0, 160))) {
+                    flipVertically(body_);
+                    flipped_ = false;
+                }
+                else if (flipped_
+                     && (shades[1] != sf::Color::Black && shades[1] != sf::Color(0, 0, 0, 160))
+                     && (shades[3] != sf::Color::Black && shades[3] != sf::Color(0, 0, 0, 160))) {
+                    flipVertically(body_);
+                    flipped_ = false;
+                }
+
+#else
+
+                if (  !flipped_
+                   && (shades[0] == sf::Color::Black || shades[0] == sf::Color(0, 0, 0, 160))
+                   && (shades[2] == sf::Color::Black || shades[2] == sf::Color(0, 0, 0, 160))) {
+                    flipVertically(body_);
+                    flipped_ = true;
+                }
+                else if (flipped_
+                     && (shades[1] == sf::Color::Black || shades[1] == sf::Color(0, 0, 0, 160))
+                     && (shades[3] == sf::Color::Black || shades[3] == sf::Color(0, 0, 0, 160))) {
+                    flipVertically(body_);
+                    flipped_ = false;
+                }
+                else if (flipped_
+                     && (shades[0] != sf::Color::Black && shades[0] != sf::Color(0, 0, 0, 160))
+                     && (shades[2] != sf::Color::Black && shades[2] != sf::Color(0, 0, 0, 160))) {
+                    flipVertically(body_);
+                    flipped_ = false;
+                }
+
+#endif
+
+            }
+
+            if (flipped_) {
+                sf::Color color_0 = shades[3],
+                          color_1 = shades[2],
+                          color_2 = shades[1],
+                          color_3 = shades[0];
+                shades[0] = color_0;
+                shades[1] = color_1;
+                shades[2] = color_2;
+                shades[3] = color_3;
+            }
+
+            setGradient(body_, shades);
+        }
     }
 
     void Mask::draw(sf::RenderWindow& rw) {
