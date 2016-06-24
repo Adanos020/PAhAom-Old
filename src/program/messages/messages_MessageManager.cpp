@@ -29,7 +29,7 @@ namespace rr {
     }
 
     void MessageManager::update(sf::Time timeStep) {
-        for (std::vector<Message>::iterator i=messages_.begin(); i!=messages_.end(); i++) {
+        for (auto i=messages_.begin(); i!=messages_.end(); i++) {
             (*i).update(timeStep);
             if ((*i).getColor().a < 10) {
                 messages_.erase(i);

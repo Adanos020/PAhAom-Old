@@ -75,9 +75,11 @@ namespace rr {
 
     void Level::generateWorld() {
      // first we create an 2-dimensional array filled with 1's representing a wall
-        for (int i=0; i<size_.x; i++)
-            for (int j=0; j<size_.y; j++)
+        for (int i=0; i<size_.x; i++) {
+            for (int j=0; j<size_.y; j++) {
                 tiles_[i+j*size_.x] = WALL;
+            }
+        }
 
      // at this point we generate some rooms_ to our level
         digRooms();
@@ -612,8 +614,9 @@ namespace rr {
         sf::Vector2i pos;
         while (true) {
             pos = sf::Vector2i(rand()%10-5, rand()%10-5)+startingPoint_;
-            if (!isOnBorder(pos.x, pos.y) && tiles_[pos.x+pos.y*size_.x] == ROOM
-             && startingPoint_+pos != startingPoint_) break;
+            if ( !isOnBorder(pos.x, pos.y) && tiles_[pos.x+pos.y*size_.x] == ROOM
+               && startingPoint_+pos != startingPoint_
+                ) break;
         }
         switch (levelNumber_) {
         case 5:
