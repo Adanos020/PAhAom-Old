@@ -17,6 +17,12 @@ namespace rr {
     public:
         virtual ~Entity() {}
 
+    /// Virtual constructor: creating
+        virtual Entity*       create         ()        const     = 0;
+
+    /// Clone constructor
+        virtual Entity*       clone          ()        const     = 0;
+
     /// Draws the entity's sprite
         virtual void          draw           (sf::RenderWindow&) = 0;
 
@@ -50,4 +56,3 @@ namespace rr {
 #include "npc/npc.hpp"
 
 #endif // entities_hpp
-

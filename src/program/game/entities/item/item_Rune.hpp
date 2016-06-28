@@ -28,8 +28,12 @@ namespace rr {
             TELEKINESIS
         } type_;
 
-         Rune(Type, int am, sf::Vector2i pos = sf::Vector2i(0, 0));
+         Rune(Type, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+         Rune(Rune const&);
         ~Rune() {}
+
+        virtual Entity* clone () const override { return new Rune(*this); }
+        virtual Entity* create() const override { return new Rune(HEAL); }
 
         virtual void draw           (sf::RenderWindow&) override;
         virtual void reveal         ()                  override;

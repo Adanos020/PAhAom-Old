@@ -50,7 +50,7 @@ namespace rr {
         case  37: return new Book      (Book::FASTER_LEARNING                             , amount);
         case  38: return new Book      (Book::SPELLS_BOOK                                 , amount);
 
-        /* RuneS */
+        /* RUNES */
         case  39: return new Rune      (Rune::HEAL                                        , amount);
         case  40: return new Rune      (Rune::FIREBOLT                                    , amount);
         case  41: return new Rune      (Rune::LIGHTNING                                   , amount);
@@ -105,6 +105,16 @@ namespace rr {
         default : std::cout << "UNKNOWN ITEM ID" << '\n'; return nullptr;
         }
 
+    }
+
+    inline Item* getRandomItem() {
+        int IDs[] {
+              1,   2,   3,   4,   5,   6,                                    // COINS
+             10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22, // COLD WEAPON
+             30,  31,  32,  33,  34,  35,  36,  37,  38,                     // BOOKS
+             39,  40,  41,  42,  43,  44,  45,  46,  47,  48,  49,  50,      // RUNES
+            100, 110, 120, 101, 111, 121, 102, 112, 122, 103, 113, 123, 104, 114, 124
+        }
     }
 
 }

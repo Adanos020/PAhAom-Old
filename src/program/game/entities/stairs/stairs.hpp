@@ -18,9 +18,13 @@ namespace rr {
         bool         upwards_;
     public:
          Stairs(bool upwards);
+         Stairs(Stairs const&);
         ~Stairs() {}
 
         bool                  isUpwards      ()          const                { return upwards_; }
+
+        virtual Entity*       clone          ()          const       override { return new Stairs(*this); }
+        virtual Entity*       create         ()          const       override { return new Stairs(false); }
 
         virtual void          draw           (sf::RenderWindow&)     override;
         virtual void          setPosition    (sf::Vector2i position) override { setRealPosition((sf::Vector2f)position*80.f); }
@@ -30,7 +34,6 @@ namespace rr {
         virtual sf::FloatRect getBounds      ()          const       override { return body_.getGlobalBounds(); }
         virtual sf::Vector2i  getPosition    ()          const       override { return position_; }
         virtual sf::Vector2f  getRealPosition()          const       override { return body_.getPosition(); }
-
     };
 
 }

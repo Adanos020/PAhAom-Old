@@ -35,8 +35,12 @@ namespace rr {
             HAMMER
         } type_;
 
-         ColdWeapon(Type, int amount, sf::Vector2i pos = sf::Vector2i(0, 0));
+         ColdWeapon(Type, int amount = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+         ColdWeapon(ColdWeapon const&);
         ~ColdWeapon() {}
+
+        virtual Entity*    clone         ()            const override { return new ColdWeapon(*this); }
+        virtual Entity*    create        ()            const override { return new ColdWeapon(KNIFE); }
 
         virtual void       draw          (sf::RenderWindow&) override;
         virtual sf::String getDescription()            const override;

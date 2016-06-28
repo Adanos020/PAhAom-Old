@@ -126,12 +126,17 @@ namespace rr {
         short              bronze_;
         short              silver_;
         short              gold_;
+
+        void sort();
     public:
          Inventory();
         ~Inventory();
 
     /// Adds an item to the inventory
         bool addItem     (Item*);
+
+    /// Tells if there is such an item in the inventory
+        bool contains    (Item*);
 
     /// Opens the inventory window
         void open        ();

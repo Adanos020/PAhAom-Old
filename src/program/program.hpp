@@ -8,6 +8,7 @@
 #define program_hpp
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <map>
 
 #include "game/game.hpp"
@@ -36,6 +37,13 @@ namespace rr {
             sf::Texture objects;
             sf::Texture npc;
         } texture;
+
+        struct {
+        public:
+            sf::Music menu;
+            sf::Music level;
+            sf::Music boss;
+        } music;
 
         std::map<sf::String, sf::String> dictionary;
 
@@ -114,22 +122,22 @@ namespace rr {
         Game*            game_;
 
     /// Loads all the resources, settings and dictionary
-        bool loadResources ();
+        bool loadResources();
 
     /// Runs the game
-        void runGame       ();
+        void runGame      ();
 
     /// Runs the game's main loop
-        void mainLoop      ();
+        void mainLoop     ();
 
     /// Handles the window events
-        void handleEvents  ();
+        void handleEvents ();
 
     /// Updates the game's state
-        void update        (sf::Clock&);
+        void update       (sf::Clock&);
 
     /// Draws the game's components
-        void draw          ();
+        void draw         ();
     public:
          Program();
         ~Program();

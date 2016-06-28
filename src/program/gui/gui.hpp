@@ -9,6 +9,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+
 #include "../funcs/funcs.hpp"
 #include "../game/entities/item/item.hpp"
 
@@ -70,6 +71,7 @@ namespace rr {
 
         void         setPosition        (sf::Vector2f)            override;
         void         setSize            (sf::Vector2f)            override;
+        void         setValue           (sf::Vector2f);
         void         draw               (sf::RenderWindow&)       override;
 
         sf::Vector2f getPosition        ()                  const override { return border_.getPosition(); }

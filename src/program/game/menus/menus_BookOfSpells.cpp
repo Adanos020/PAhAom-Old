@@ -14,7 +14,7 @@ extern rr::Settings  settings;
 namespace rr {
 
     BookOfSpells::BookOfSpells()
-    : wBofs_(Window(resources.dictionary["gui.window.bookOfSpells"], sf::Vector2f(765, 470), (sf::Vector2f)settings.graphics.resolution/2.f-sf::Vector2f(382.5f, 235))) {
+    : wBofs_(Window(resources.dictionary["gui.window.bookOfSpells"], sf::Vector2f(765, 470), (sf::Vector2f)settings.graphics.resolution/2.f - sf::Vector2f(382.5f, 235))) {
 
 #define component(w, c, i) w.getComponent<c>(i)
 
@@ -23,13 +23,14 @@ namespace rr {
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
             for (int i=0; i<3; i++) {
-                wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f( 50, 100+100*i));
-                wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(150, 100+100*i));
-                wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(350, 100+100*i));
+                wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(145, 100+100*i));
+                wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(245, 100+100*i));
                 wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(450, 100+100*i));
+                wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(550, 100+100*i));
             }
             wBofs_+= new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
-                component(wBofs_, Button, 0)->setPosition(sf::Vector2f(wBofs_.getPosition().x+wBofs_.getSize().x-component(wBofs_, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(wBofs_, Button, 0)->getSize().y-5));
+                component(wBofs_, Button, 0)->setPosition(sf::Vector2f(wBofs_.getPosition().x+wBofs_.getSize().x - component(wBofs_, Button, 0)->getSize().x-15,
+                                                          	           settings.graphics.resolution.y/2+235      - component(wBofs_, Button, 0)->getSize().y-5));
 
 #undef component
 
@@ -52,6 +53,12 @@ namespace rr {
         if (isOpen()) {
             if (component(wBofs_, Button, 0)->isPressed(rw, ev))
                 g->pause(false);
+
+            for (int i=0; i<12; i++) {
+                if (component(wBofs_, Slot, i)->isPressed(rw, ev)) {
+
+                }
+            }
         }
 
 #undef component

@@ -45,9 +45,13 @@ namespace rr {
         } type_;
 
          Teacher(Type);
+         Teacher(Teacher const&);
         ~Teacher() {}
 
-        virtual void talk  ()               override;
+        virtual Entity* clone () const override { return new Teacher(*this); }
+        virtual Entity* create() const override { return new Teacher(SWORDSMAN); }
+
+        virtual void talk  ()                  override;
         virtual void update(sf::Time timeStep) override;
     };
 
@@ -60,11 +64,15 @@ namespace rr {
             ARMOR_SELLER,
             ARTIFACT_SELLER
         } type_;
-
+        
          Merchant(Type);
+         Merchant(Merchant const&);
         ~Merchant() {}
 
-        virtual void talk  ()               override;
+        virtual Entity* clone () const override { return new Merchant(*this); }
+        virtual Entity* create() const override { return new Merchant(POTION_SELLER); }
+
+        virtual void talk  ()                  override;
         virtual void update(sf::Time timeStep) override;
     };
 
@@ -75,9 +83,13 @@ namespace rr {
         } type_;
 
          QuestGiver(Type);
+         QuestGiver(QuestGiver const&);
         ~QuestGiver() {}
 
-        virtual void talk  ()               override;
+        virtual Entity* clone () const override { return new QuestGiver(*this); }
+        virtual Entity* create() const override { return new QuestGiver(NONE_YET); }
+
+        virtual void talk  ()                  override;
         virtual void update(sf::Time timeStep) override;
     };
 

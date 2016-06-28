@@ -15,9 +15,13 @@ namespace rr {
     private:
     public:
          RangedWeapon();
+         RangedWeapon(RangedWeapon const&);
         ~RangedWeapon();
-
-        virtual void draw (sf::RenderWindow&) override;
+/*
+        virtual Entity* clone () { return new RangedWeapon(*this); }
+        virtual Entity* create() { return new RangedWeapon(); }
+*/
+        virtual void draw(sf::RenderWindow&) override;
     };
 
 }

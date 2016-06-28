@@ -22,12 +22,16 @@ namespace rr {
         bool            flipped_;
     public:
          Mask();
+         Mask(Mask const&);
         ~Mask() {}
 
         void see         (bool seen);
         bool isSeen      ()                 { return seen_; }
         bool isDiscovered()                 { return discovered_; }
         void setFadeOut  (sf::Color[]);
+
+        virtual Entity*       clone () const override { return new Mask(*this); }
+        virtual Entity*       create() const override { return new Mask(); }
 
         virtual void          draw           (sf::RenderWindow&)     override;
         virtual void          setPosition    (sf::Vector2i position) override { setRealPosition((sf::Vector2f)position*80.f); }

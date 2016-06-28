@@ -146,6 +146,22 @@ namespace rr {
         setPosition(pos);
     }
 
+    ColdWeapon::ColdWeapon(ColdWeapon const& coldWeapon)
+    : Equipable(),
+      type_    (coldWeapon.type_) {
+
+        amount_                = coldWeapon.amount_;
+        disposable_            = coldWeapon.disposable_;
+        stackable_             = coldWeapon.stackable_;
+        ID_                    = coldWeapon.ID_;
+        iconIndex_             = coldWeapon.iconIndex_;
+        name_                  = coldWeapon.name_;
+        description_           = coldWeapon.description_;
+        discoveredName_        = coldWeapon.discoveredName_;
+        discoveredDescription_ = coldWeapon.discoveredDescription_;
+        body_                  = coldWeapon.body_;
+    }
+
     void ColdWeapon::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
     }

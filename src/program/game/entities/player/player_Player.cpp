@@ -52,6 +52,18 @@ namespace rr {
         body_.scale(sf::Vector2f(5, 5));
     }
 
+    Player::Player(Player const& player)
+        : Entity                       (),
+          attrs_                       (player.attrs_),
+          position_                    (player.position_),
+          body_                        (player.body_),
+          walkingLeft_                 (player.walkingLeft_),
+          walkingRight_                (player.walkingRight_),
+          currentAnimation_            (player.currentAnimation_),
+          moving_                      (player.moving_),
+          velocity_                    (player.velocity_),
+          sightRange_                  (player.sightRange_) {}
+
     void Player::setPosition(sf::Vector2i pos) {
         position_ = pos;
         body_.setPosition((sf::Vector2f)pos*80.f);

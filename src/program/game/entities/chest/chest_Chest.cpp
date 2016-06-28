@@ -6,6 +6,7 @@
 
 #include "chest.hpp"
 #include "../../../program.hpp"
+#include "../../../funcs/items.hpp"
 
 extern rr::Resources resources;
 
@@ -31,8 +32,18 @@ namespace rr {
         body_.setScale(sf::Vector2f(5.f, 5.f));
     }
 
+    Chest::Chest(Chest const& chest)
+        : Entity(),
+          body_ (chest.body_),
+          item_ (chest.item_),
+          type_ (chest.type_) {}
+
     Chest::~Chest() {
         delete item_;
+    }
+
+    Entity* Chest::create() const {
+         return new Chest(REGULAR, getItemFromID(1, 1));
     }
 
     void Chest::draw(sf::RenderWindow& rw) {

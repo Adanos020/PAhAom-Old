@@ -21,6 +21,13 @@ namespace rr {
         body_.setTextureRect(sf::IntRect(sf::Vector2i(rand()%5*16*(withoutWindow_+1), 0), sf::Vector2i(16, 16)));
     }
 
+    Door::Door(Door const& door)
+        : Entity         (),
+          body_          (door.body_),
+          locked_        (door.locked_),
+          open_          (door.open_),
+          withoutWindow_ (door.withoutWindow_) {}
+
     void Door::setOpen(bool b) {
         open_ = b;
         if (open_)

@@ -5,6 +5,7 @@
  */
 
 #include "observer.hpp"
+#include "../game/menus/menus.hpp"
 
 namespace rr {
 

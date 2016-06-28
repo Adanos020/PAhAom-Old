@@ -23,16 +23,17 @@ namespace rr {
         setColor(body_, sf::Color::Black);
     }
 
+    Mask::Mask(Mask const& mask)
+    : Entity     (),
+      body_      (mask.body_),
+      position_  (mask.position_),
+      seen_      (mask.seen_),
+      discovered_(mask.discovered_),
+      flipped_   (mask.flipped_) {}
+
     void Mask::see(bool seen) {
         if (seen) {
-            setColor(body_, sf::Color::Transparent);
             discovered_ = true;
-        }
-        else {
-            if (discovered_)
-                setColor(body_, sf::Color(0, 0, 0, 160));
-            else
-                setColor(body_, sf::Color::Black);
         }
         seen_ = seen;
     }

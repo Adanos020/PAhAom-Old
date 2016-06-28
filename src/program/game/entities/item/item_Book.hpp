@@ -24,9 +24,14 @@ namespace rr {
             FASTER_LEARNING,
             SPELLS_BOOK
         } type_;
-         Book(Type, int am, sf::Vector2i pos = sf::Vector2i(0, 0));
+
+         Book(Type, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+         Book(Book const&);
         ~Book() {}
 
+        virtual Entity* clone () const override { return new Book(*this); }
+        virtual Entity* create() const override { return new Book(CRAFTING); }
+        
         virtual void draw           (sf::RenderWindow&) override;
 
         void         setPosition    (sf::Vector2i)      override;

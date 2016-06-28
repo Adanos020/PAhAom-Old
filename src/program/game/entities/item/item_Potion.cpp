@@ -81,6 +81,22 @@ namespace rr {
         setPosition(pos);
     }
 
+    Potion::Potion(Potion const& potion)
+    : Discoverable(),
+      effect_     (potion.effect_) {
+
+        amount_                = potion.amount_;
+        disposable_            = potion.disposable_;
+        stackable_             = potion.stackable_;
+        ID_                    = potion.ID_;
+        iconIndex_             = potion.iconIndex_;
+        name_                  = potion.name_;
+        description_           = potion.description_;
+        discoveredName_        = potion.discoveredName_;
+        discoveredDescription_ = potion.discoveredDescription_;
+        body_                  = potion.body_;
+    }
+
     void Potion::reveal() {
         discovered_  = true;
         name_        = discoveredName_;

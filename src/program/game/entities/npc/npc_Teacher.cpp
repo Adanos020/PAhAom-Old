@@ -31,6 +31,12 @@ namespace rr {
         body_.scale(sf::Vector2f(5, 5));
     }
 
+    Teacher::Teacher(Teacher const& teacher)
+    : type_             (teacher.type_) {
+        body_             = teacher.body_;
+        currentAnimation_ = teacher.currentAnimation_;
+    }
+
     void Teacher::talk() {
 
     }

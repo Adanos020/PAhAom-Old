@@ -219,6 +219,14 @@ namespace rr {
         return false;
     }
 
+    bool Inventory::contains(Item* sought) {
+        for (int i=0; i<32; i++) {
+	            if (  !slot(i)->isEmpty() && slot(i)->getItem()->getID() == sought->getID()
+                ) return true;
+        }
+        return false;
+    }
+
     void Inventory::onNotify(Event event, Entity* entity) {
         switch (event) {
         case ITEM_DISCOVERED:

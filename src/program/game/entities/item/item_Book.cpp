@@ -72,6 +72,19 @@ namespace rr {
         setPosition(pos);
     }
 
+    Book::Book(Book const& book)
+    : type_        (book.type_) {
+
+        amount_                = book.amount_;
+        disposable_            = book.disposable_;
+        stackable_             = book.stackable_;
+        ID_                    = book.ID_;
+        iconIndex_             = book.iconIndex_;
+        name_                  = book.name_;
+        description_           = book.description_;
+        body_                  = book.body_;
+    }
+
     void Book::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
     }

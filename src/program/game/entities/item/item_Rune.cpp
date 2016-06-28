@@ -72,6 +72,22 @@ namespace rr {
         setPosition(pos);
     }
 
+    Rune::Rune(Rune const& rune)
+    : Discoverable(),
+      type_        (rune.type_) {
+
+        amount_                = rune.amount_;
+        disposable_            = rune.disposable_;
+        stackable_             = rune.stackable_;
+        ID_                    = rune.ID_;
+        iconIndex_             = rune.iconIndex_;
+        name_                  = rune.name_;
+        description_           = rune.description_;
+        discoveredName_        = rune.discoveredName_;
+        discoveredDescription_ = rune.discoveredDescription_;
+        body_                  = rune.body_;
+    }
+
     void Rune::reveal() {
         discovered_  = true;
         name_        = discoveredName_;

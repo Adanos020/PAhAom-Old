@@ -23,8 +23,12 @@ namespace rr {
             BIG
         } size_;
 
-         Coin(Type, Size, int am, sf::Vector2i pos = sf::Vector2i(0, 0));
+         Coin(Type, Size, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+         Coin(Coin const&);
         ~Coin() {}
+
+        virtual Entity* clone () const override { return new Coin(*this); }
+        virtual Entity* create() const override { return new Coin(GOLDEN, SMALL); }
 
         virtual void draw(sf::RenderWindow&) override;
 	};

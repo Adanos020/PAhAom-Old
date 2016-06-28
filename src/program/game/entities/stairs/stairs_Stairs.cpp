@@ -19,6 +19,10 @@ namespace rr {
         body_.setTextureRect(sf::IntRect(upwards?16:0, 64, 16, 16));
     }
 
+    Stairs::Stairs(Stairs const& stairs)
+    : body_    (stairs.body_),
+      upwards_ (stairs.upwards_) {}
+
     void Stairs::draw(sf::RenderWindow& rw) {
         rw.draw(body_);
     }

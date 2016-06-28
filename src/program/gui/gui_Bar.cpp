@@ -35,11 +35,16 @@ namespace rr {
         bar_.setPosition(pos);
     }
 
-    void Bar::setSize(sf::Vector2f scale) {
-        if (bar_.getSize().x == 5)
-            bar_.setScale(1, scale.y);
-        else if (bar_.getSize().y == 5)
-            bar_.setScale(scale.x, 1);
+    void Bar::setSize(sf::Vector2f size) {
+        //bar_.setSize(sf::Vector2f(border_.getSize().x/size.x * bar_.getSize().x));
+        border_.setSize(size);
+    }
+
+    void Bar::setValue(sf::Vector2f scale) {
+        if      (  bar_.getSize().x == 5
+                 ) bar_.setScale(1, scale.y);
+        else if (  bar_.getSize().y == 5
+                 ) bar_.setScale(scale.x, 1);
     }
 
     void Bar::draw(sf::RenderWindow& rw) {

@@ -68,9 +68,13 @@ namespace rr {
     }
 
     void Level::replaceEntity(unsigned index, Entity* entity) {
-        entity->setPosition(entities_[index]->getPosition());
+        Entity* temp  = entity->clone();
+        auto position = entities_[index]->getPosition();
+        
         delete entities_[index];
-        entities_[index] = entity;
+        entities_[index] = temp;
+
+        entities_[index]->setPosition(position);
     }
 
     void Level::generateWorld() {
@@ -494,14 +498,17 @@ namespace rr {
             if (tiles_[x+y*size_.x] == ROOM) {
                 startingPoint_ = sf::Vector2i(x, y);
                 tiles_[x+y*size_.x] = EXIT;
-                addEntity(new Stairs(false), startingPoint_);
+                
+                if (  levelNumber_ > 1
+                    ) addEntity(new Stairs(false), startingPoint_);
                 break;
             }
         }
 
      // here we place the ending point
+        if (levelNumber_ < 30)
         for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
-            if (tiles_[x+y*size_.x] == ROOM && (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 30)) {
+            if (tiles_[x+y*size_.x] == ROOM && (levelNumber_ == 1 || (abs(x-startingPoint_.x) > 20 || abs(y-startingPoint_.y) > 20))) {
                 endingPoint_ = sf::Vector2i(x, y);
                 tiles_[x+y*size_.x] = EXIT;
                 addEntity(new Stairs(true), endingPoint_);
@@ -510,14 +517,13 @@ namespace rr {
         }
 
      // here we generate the chests
-        for (int i=0; i<rand()%5+15; i++) {
+        for (int i=0; i<rand()%5; i++) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
              // just doing the same checking as in the item generating section
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
                  // here we choose randomly whether the chest has to be the special (probability = 5%) or the regular one (p = 95%)
-                    addEntity(new Chest((rand()%20) ? Chest::REGULAR : Chest::SPECIAL,
-                                        getItemFromID(100+(rand()%3)*10+rand()%9, 1)), sf::Vector2i(x, y));
+                    addEntity(new Chest((rand()%20) ? Chest::REGULAR : Chest::SPECIAL, getRandomItem()), sf::Vector2i(x, y));
                     tiles_[x+y*size_.x] = OCCUPIED;
                     break;
                 }
@@ -609,8 +615,9 @@ namespace rr {
             }
         }
 
+     /* NPCs */
      // here we place the teachers every 5th level
-     {
+     if (levelNumber_%5 == 0) {
         sf::Vector2i pos;
         while (true) {
             pos = sf::Vector2i(rand()%10-5, rand()%10-5)+startingPoint_;
@@ -637,6 +644,7 @@ namespace rr {
         }
      }
 
+     /* SHADOWS */
      // and in the end we place the masks upon the whole level to make the player have to discover it all
         for (int x=0; x<size_.x; x++) {
             for (int y=0; y<size_.y; y++) {

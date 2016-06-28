@@ -113,7 +113,7 @@ namespace rr {
     bool Game::loadNewGame() {
         reset();
         for (int i=0; i<30; i++) {
-            levels_.push_back(new Level(i));
+            levels_.push_back(new Level(i+1));
             levels_.back()->generateWorld();
             subject.addObserver(levels_.back());
 
@@ -246,7 +246,7 @@ namespace rr {
                     quests_->open();
                     paused_ = true;
                 }
-                else if (wasKeyPressed(event, settings.keys.open_bookOfSpells)) {
+                else if (wasKeyPressed(event, settings.keys.open_bookOfSpells) && inventory_->contains(new Book(Book::SPELLS_BOOK, 0))) {
                     bookOfSpells_->open();
                     paused_ = true;
                 }
@@ -318,11 +318,11 @@ namespace rr {
     }
 
     void Game::reset() {
-        randomizeItems();
-        levels_.clear();
-        levelFOV_.clear();
+        randomizeItems   ();
+        levels_    .clear();
+        levelFOV_  .clear();
         inventory_->clear();
-        player_->reset();
+        player_   ->reset();
         levelNumber_ = 0;
     }
 

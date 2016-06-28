@@ -52,6 +52,7 @@ namespace rr {
         int                sightRange_;
     public:
          Player();
+         Player(Player const&);
         ~Player() {}
 
         enum Direction {
@@ -60,6 +61,9 @@ namespace rr {
             LEFT,
             RIGHT
         };
+
+        virtual Entity*       clone           ()          const override { return new Player(*this); }
+        virtual Entity*       create          ()          const override { return new Player(); }
 
         virtual void          draw            (sf::RenderWindow&);
         virtual void          setPosition     (sf::Vector2i)    override;
