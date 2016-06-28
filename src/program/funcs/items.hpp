@@ -102,19 +102,23 @@ namespace rr {
         case 128: return new Potion    (Potion::Effect::WEAKNESS    , Potion::Size::BIG   , amount);
 
         /*unknown ID?*/
-        default : std::cout << "UNKNOWN ITEM ID" << '\n'; return nullptr;
+        default : std::cout << "UNKNOWN ITEM ID: " << ID << '\n'; return nullptr;
         }
 
     }
 
-    inline Item* getRandomItem() {
+    inline Item* getRandomItem(int amount = 1) {
         int IDs[] {
               1,   2,   3,   4,   5,   6,                                    // COINS
              10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22, // COLD WEAPON
              30,  31,  32,  33,  34,  35,  36,  37,  38,                     // BOOKS
              39,  40,  41,  42,  43,  44,  45,  46,  47,  48,  49,  50,      // RUNES
-            100, 110, 120, 101, 111, 121, 102, 112, 122, 103, 113, 123, 104, 114, 124
-        }
+            100, 110, 120, 101, 111, 121, 102, 112, 122, 103, 113, 123,      // POTIONS
+            104, 114, 124, 105, 115, 125, 106, 116, 126, 107, 117, 127,
+            108, 118, 128 
+        };
+        std::cout << (sizeof(IDs)/sizeof(*IDs)) << '\n';
+        return getItemFromID(IDs[rand()%(sizeof(IDs)/sizeof(*IDs))], amount);
     }
 
 }
