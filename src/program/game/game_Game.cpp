@@ -271,7 +271,6 @@ namespace rr {
                             }
                             else if (instanceof<Chest, Entity>(entities[i])) {
                                 levels_[levelNumber_]->replaceEntity(i, ((Chest*)entities[i])->getItem());
-                                i = 0;
                             }
                             else if (instanceof<Stairs, Entity>(entities[i])) {
                                 if (((Stairs*)entities[i])->isUpwards()) {
