@@ -17,7 +17,7 @@ namespace rr {
 
     void MessageManager::addMessage(Message message) {
         messages_.push_back(message);
-        std::cout << message.getString().toAnsiString() << '\n';
+        std::wcout << message.getString().toWideString() << '\n';
 
         float mHeight = messages_.back().getSize().y;
         messages_.back().setPosition(sf::Vector2f(0, settings.graphics.resolution.y-40-mHeight));
@@ -50,7 +50,11 @@ namespace rr {
             addMessage(Message("It was a "+((Item*)entity)->getName().toAnsiString()+".", sf::Color::Yellow, sf::Text::Style::Bold));
             break;
         case ITEM_PICKED:
-            addMessage(Message("You've picked up "+std::to_string(((Item*)entity)->getAmount())+"x "+((Item*)entity)->getName().toAnsiString()+"!"));
+            addMessage(Message(sf::String("You've picked up ")
+                              +std::to_string(((Item*)entity)->getAmount())
+                              +sf::String("x ")
+                              +((Item*)entity)->getName()
+                              +sf::String("!")));
             break;
         case ITEM_USED:
             if (instanceof<Potion, Entity>((Item*)entity)) {

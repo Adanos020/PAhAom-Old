@@ -117,7 +117,6 @@ namespace rr {
             104, 114, 124, 105, 115, 125, 106, 116, 126, 107, 117, 127,
             108, 118, 128 
         };
-        std::cout << (sizeof(IDs)/sizeof(*IDs)) << '\n';
         return getItemFromID(IDs[rand()%(sizeof(IDs)/sizeof(*IDs))], amount);
     }
 

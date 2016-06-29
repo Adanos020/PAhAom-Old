@@ -81,8 +81,8 @@ namespace rr {
             }
         }
         /* Rune symbols */ {
-            for (int i=0; i<11; i++) {
-                topkek: int x = rand()%11;
+            for (int i=0; i<12; i++) {
+                topkek: int x = rand()%12;
                 for (int j=0; j<i; j++) {
                     if (spellSymbols[j] == x)
                         goto topkek;
@@ -257,14 +257,14 @@ namespace rr {
                 else if (wasKeyPressed(event, settings.keys.interact)) {
 
 #define entities levels_[levelNumber_]->getEntities()
-
+;
                     for (unsigned i=0; i<entities.size(); i++) {
                         if (player_->getPosition() == entities[i]->getPosition()) {
                             if (instanceof<Item, Entity>(entities[i])) {
                                 if (inventory_->addItem((Item*)entities[i])) {
                                     subject.notify(Observer::ITEM_PICKED, entities[i]);
                                     levels_[levelNumber_]->removeEntity(i);
-                                    i = 0;
+                                    break;
                                 }
                                 else
                                     messageManager_->addMessage(Message("Your backpack is too full to take "+std::to_string(((Item*)entities[i])->getAmount())+"x "+((Item*)entities[i])->getName(), sf::Color::Red));

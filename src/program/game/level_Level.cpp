@@ -543,7 +543,7 @@ namespace rr {
         }
 
      // here we generate the coins
-        for (int i=0; i<rand()%15; i++) {
+        for (int i=0; i<rand()%10; i++) {
             while (true) {
                 int type = rand()%50;
                 int csize; // 0 - big, ≥1 - small
@@ -604,7 +604,7 @@ namespace rr {
         }
 
      // here we place the runic stones
-        for (int i=0; i<rand()%15; i++) {
+        for (int i=0; i<rand()%5; i++) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {

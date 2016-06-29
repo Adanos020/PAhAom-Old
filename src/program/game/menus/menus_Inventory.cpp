@@ -13,7 +13,7 @@ extern rr::Resources resources;
 namespace rr {
 
     Inventory::Inventory()
-    : wInve_  (Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f)(settings.graphics.resolution/2u-sf::Vector2u(382, 225)))),
+    : wInve_  (Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f)(settings.graphics.resolution/2u - sf::Vector2u(382, 225)))),
       bronze_ (0),
       silver_ (0),
       gold_   (0) {
@@ -23,11 +23,10 @@ namespace rr {
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
 #define component(w, c, i) w.getComponent<c>(i)
-#define wInfo (*component(wInve_, Window, 0))
 
             for (int i=0; i<4; i++) {
                 for (int j=0; j<8; j++) {
-                    wInve_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10+j*95, 30+i*95));
+                    wInve_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10 + j*95, 30 + i*95));
                 }
             }
 
@@ -40,9 +39,13 @@ namespace rr {
             wInve_ += new Text  (sf::Vector2f(370, 415), "BRON", resources.font.Pixel, 30);
 
             wInve_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
-                component(wInve_, Button, 0)->setPosition(sf::Vector2f(wInve_.getPosition().x+wInve_.getSize().x-component(wInve_, Button, 0)->getSize().x-15, settings.graphics.resolution.y/2+235-component(wInve_, Button, 0)->getSize().y-5));
+                component(wInve_, Button, 0)->setPosition(sf::Vector2f(wInve_.getPosition().x+wInve_.getSize().x - component(wInve_, Button, 0)->getSize().x-15, 
+                                                                       settings.graphics.resolution.y/2+235      - component(wInve_, Button, 0)->getSize().y-5));
 
             wInve_ += new Window("", sf::Vector2f(410, 40), sf::Vector2f(0, 0));
+
+#define wInfo (*component(wInve_, Window, 0))
+;
                 wInfo += new Text(sf::Vector2f(5, 20), "", resources.font.Unifont, 20);
                 component(wInfo, Text, 0)->setStyle(sf::Text::Regular);
 
@@ -103,7 +106,7 @@ namespace rr {
 
 #define component(w, c, i) w.getComponent<c>(i)
 #define wInfo (*component(wInve_, Window, 0))
-
+;
         if (wInve_.isVisible()) {
             if (component(wInve_, Button, 0)->isPressed(rw, e))
                 g->pause(false);
