@@ -14,10 +14,11 @@
 #include <fstream>
 #include <cmath>
 
-extern rr::Settings settings;
-extern rr::Subject  subject;
-extern sf::Color    itemColors[9];
-extern int          spellSymbols[11];
+extern rr::Settings  settings;
+extern rr::Resources resources;
+extern rr::Subject   subject;
+extern sf::Color     itemColors[9];
+extern int           spellSymbols[11];
 
 namespace rr {
 
@@ -63,8 +64,8 @@ namespace rr {
             for (int i=0; i<9; i++) {
                 hell: int x = rand()%9;
                 for (int j=0; j<i; j++) {
-                    if (pot[j] == x)
-                        goto hell;
+                    if (  pot[j] == x
+                        ) goto hell;
                 }
                 pot[i] = x;
                 switch (x) {
@@ -84,8 +85,8 @@ namespace rr {
             for (int i=0; i<12; i++) {
                 topkek: int x = rand()%12;
                 for (int j=0; j<i; j++) {
-                    if (spellSymbols[j] == x)
-                        goto topkek;
+                    if (  spellSymbols[j] == x
+                        ) goto topkek;
                 }
                 spellSymbols[i] = x;
             }
@@ -94,20 +95,20 @@ namespace rr {
 
     void Game::switchLevel(int index) {
         if (index > (int)levelNumber_) {
-            if (levelNumber_ < levels_.size()-1)
-                levelNumber_++;
+            if (  levelNumber_ < levels_.size()-1
+                ) levelNumber_++;
             else
                 levelNumber_ = 0;
             player_->setPosition(levels_[levelNumber_]->getStartingPoint());
         }
         else if (index < (int)levelNumber_) {
-            if (levelNumber_ > 0)
-                levelNumber_--;
+            if (  levelNumber_ > 0
+                ) levelNumber_--;
             else
                 levelNumber_ = levels_.size()-1;
             player_->setPosition(levels_[levelNumber_]->getEndingPoint());
         }
-        messageManager_->addMessage(Message("Welcome to level "+std::to_string(levelNumber_+1)+"!", sf::Color::Green));
+        messageManager_->addMessage(Message(resources.dictionary["message.welcome_to_level"]+" "+std::to_string(levelNumber_+1)+"!", sf::Color::Green));
     }
 
     bool Game::loadNewGame() {
@@ -128,11 +129,14 @@ namespace rr {
     void Game::save() {
         std::ofstream file("data/savedgame/save.pah", std::ios::binary);
         file.write((char*)this, sizeof(*this));
+        file.close();
     }
 
     bool Game::load() {
         std::ifstream file("data/savedgame/save.pah", std::ios::binary);
-        return file.read((char*)this, sizeof(*this)).good();
+        bool result = file.read((char*)this, sizeof(*this)).good();
+        file.close();
+        return result;
     }
 
     void Game::draw(sf::RenderWindow& rw) {
@@ -178,12 +182,12 @@ namespace rr {
         if (!paused_) {
             for (auto entity : levels_[levelNumber_]->getEntities()) {
                 if (instanceof<Door, Entity>(entity)) {
-                    if (player_->intersects(entity)
+                    if (  player_->intersects(entity)
                         ) ((Door*)entity)->setOpen(true);
                     else
                         ((Door*)entity)->setOpen(false);
                 }
-                else if (instanceof<NPC, Entity>(entity)
+                else if (  instanceof<NPC, Entity>(entity)
                          ) ((NPC*)entity)->update(time);
             }
         }
@@ -221,13 +225,13 @@ namespace rr {
         if (bookOfSpells_->isOpen()) bookOfSpells_->buttonEvents(rw, event, this);
 
         if (started_) {
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add)
-                switchLevel(levelNumber_+1);
-            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract)
-                switchLevel(levelNumber_-1);
+            if      (  event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add
+                     ) switchLevel(levelNumber_+1);
+            else if (  event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract
+                     ) switchLevel(levelNumber_-1);
 
-            if (wasKeyPressed(event, sf::Keyboard::Escape))
-                pause(!isPaused());
+            if (  wasKeyPressed(event, sf::Keyboard::Escape)
+                ) pause(!isPaused());
             if (!paused_) {
                 if (wasKeyPressed(event, settings.keys.open_attributes)) {
                     attributes_->update(player_);
@@ -259,7 +263,9 @@ namespace rr {
 #define entities levels_[levelNumber_]->getEntities()
 ;
                     for (unsigned i=0; i<entities.size(); i++) {
+
                         if (player_->getPosition() == entities[i]->getPosition()) {
+
                             if (instanceof<Item, Entity>(entities[i])) {
                                 if (inventory_->addItem((Item*)entities[i])) {
                                     subject.notify(Observer::ITEM_PICKED, entities[i]);
@@ -267,7 +273,7 @@ namespace rr {
                                     break;
                                 }
                                 else
-                                    messageManager_->addMessage(Message("Your backpack is too full to take "+std::to_string(((Item*)entities[i])->getAmount())+"x "+((Item*)entities[i])->getName(), sf::Color::Red));
+                                    messageManager_->addMessage(Message(resources.dictionary["message.full_inventory"], sf::Color::Red));
                             }
                             else if (instanceof<Chest, Entity>(entities[i])) {
                                 levels_[levelNumber_]->replaceEntity(i, ((Chest*)entities[i])->getItem());

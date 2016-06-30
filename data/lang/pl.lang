@@ -495,3 +495,68 @@ REGENERACJA ZDROWIA
 
 player.skills.faster_learn
 SZYBKA NAUKA
+
+;------------MESSAGES-------------;
+message.welcome_to_level
+Witaj na poziomie
+
+message.full_inventory
+Twój plecak jest pełny.
+
+message.item_discovered
+Odkryłeś
+
+message.item_picked
+Podniosłeś
+
+message.item_used.potion.healing
+Czujesz się o wiele zdrowszy.
+
+message.item_used.potion.magic
+Czujesz wzrost magicznej energii.
+
+message.item_used.potion.strength
+Czujesz się o wiele silniejszy.
+
+message.item_used.potion.dexterity
+Czujesz się jakbyś mógł nakurwiać salto.
+
+message.item_used.potion.speed
+Czujesz się jakbyś mógł prześcignąć pieprzonego Speedy Gonzalesa.
+
+message.item_used.potion.regeneration
+Czujesz, że zaraz się wyleczysz.
+
+message.item_used.potion.poison
+Czujesz, że zaraz się porzygasz.
+
+message.item_used.potion.slowness
+Czujesz się jakbyś niósł coś ciężkiego.
+
+message.item_used.potion.weakness
+Czujesz się jakbyś stracił chęć do życia.
+
+message.item_used.book.crafting
+Teraz możesz wytwarzać przedmioty!
+
+message.item_used.book.alchemy
+Teraz umiesz warzyć mikstury!
+
+message.item_used.book.cold_weapon_mastery
+Teraz umiesz posługiwać się bronią białą!
+
+message.item_used.book.ranged_weapon_mastery
+Teraz umiesz posługiwać się bronią dystansową!
+
+message.item_used.book.eagle_eye
+Teraz widzisz lepiej!
+
+message.item_used.book.mana_regen
+Teraz umiesz regenerować manę!
+
+message.item_used.book.health_regen
+Teraz umiesz regenerować zdrowie!
+
+message.item_used.book.faster_learning
+Teraz uczysz się szybciej!
+

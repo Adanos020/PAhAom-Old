@@ -9,7 +9,8 @@
 
 #include <iostream>
 
-extern rr::Settings settings;
+extern rr::Settings  settings;
+extern rr::Resources resources;
 
 namespace rr {
 
@@ -47,76 +48,41 @@ namespace rr {
     void MessageManager::onNotify(Event event, Entity* entity) {
         switch (event) {
         case ITEM_DISCOVERED:
-            addMessage(Message("It was a "+((Item*)entity)->getName().toAnsiString()+".", sf::Color::Yellow, sf::Text::Style::Bold));
+            addMessage(Message(resources.dictionary["message.item_discovered"]+" "+((Item*)entity)->getName().toAnsiString()+".", sf::Color::Yellow, sf::Text::Style::Bold));
             break;
         case ITEM_PICKED:
-            addMessage(Message(sf::String("You've picked up ")
+            addMessage(Message(resources.dictionary["message.item_picked"]
+                              +sf::String(" ")
                               +std::to_string(((Item*)entity)->getAmount())
                               +sf::String("x ")
                               +((Item*)entity)->getName()
-                              +sf::String("!")));
+                              +((settings.game.language != "fc") ? sf::String("!") : sf::String(""))));
             break;
         case ITEM_USED:
             if (instanceof<Potion, Entity>((Item*)entity)) {
                 switch (((Potion*)entity)->effect_) {
-                case Potion::HEALING:
-                    addMessage(Message("You feel a lot healthier now."));
-                    break;
-                case Potion::MAGIC:
-                    addMessage(Message("You feel a gain in magical power now."));
-                    break;
-                case Potion::STRENGTH:
-                    addMessage(Message("You feel a lot stronger now."));
-                    break;
-                case Potion::DEXTERITY:
-                    addMessage(Message("You feel like you could nakurwiac salto."));
-                    break;
-                case Potion::SPEED:
-                    addMessage(Message("You feel like you would overtake fucking Speedy Gonzales."));
-                    break;
-                case Potion::REGENERATION:
-                    addMessage(Message("You feel like you get cured in a moment."));
-                    break;
-                case Potion::POISON:
-                    addMessage(Message("You feel as if you were going to vomit now."));
-                    break;
-                case Potion::SLOWNESS:
-                    addMessage(Message("You feel like you were carrying something really heavy."));
-                    break;
-                case Potion::WEAKNESS:
-                    addMessage(Message("You feel like you lost your will to live."));
-                    break;
+                case Potion::HEALING:      addMessage(Message(resources.dictionary["message.item_used.potion.healing"]));      break;
+                case Potion::MAGIC:        addMessage(Message(resources.dictionary["message.item_used.potion.magic"]));        break;
+                case Potion::STRENGTH:     addMessage(Message(resources.dictionary["message.item_used.potion.strength"]));     break;
+                case Potion::DEXTERITY:    addMessage(Message(resources.dictionary["message.item_used.potion.dexterity"]));    break;
+                case Potion::SPEED:        addMessage(Message(resources.dictionary["message.item_used.potion.speed"]));        break;
+                case Potion::REGENERATION: addMessage(Message(resources.dictionary["message.item_used.potion.regeneration"])); break;
+                case Potion::POISON:       addMessage(Message(resources.dictionary["message.item_used.potion.poison"]));       break;
+                case Potion::SLOWNESS:     addMessage(Message(resources.dictionary["message.item_used.potion.slowness"]));     break;
+                case Potion::WEAKNESS:     addMessage(Message(resources.dictionary["message.item_used.potion.weakness"]));     break;
                 }
             }
             else if (instanceof<Book, Item>((Item*)entity)) {
                 switch (((Book*)entity)->type_) {
-                case Book::CRAFTING:
-                    addMessage(Message("Now you know how to craft!"));
-                    break;
-                case Book::ALCHEMY:
-                    addMessage(Message("Now you know how to brew potions!"));
-                    break;
-                case Book::COLD_WEAPON_MASTERY:
-                    addMessage(Message("Now you know how to use the cold weapon!"));
-                    break;
-                case Book::RANGED_WEAPON_MASTERY:
-                    addMessage(Message("Now you know how to use the ranged weapon!"));
-                    break;
-                case Book::EAGLE_EYE:
-                    addMessage(Message("Now you can see better!"));
-                    break;
-                case Book::MANA_REGEN:
-                    addMessage(Message("Now you can regenerate your mana!"));
-                    break;
-                case Book::HEALTH_REGEN:
-                    addMessage(Message("Now you can regenerate your health!"));
-                    break;
-                case Book::FASTER_LEARNING:
-                    addMessage(Message("Now you know how to learn faster!"));
-                    break;
-                case Book::SPELLS_BOOK:
-
-                    break;
+                case Book::CRAFTING:              addMessage(Message(resources.dictionary["message.item_used.book.crafting"]));              break;
+                case Book::ALCHEMY:               addMessage(Message(resources.dictionary["message.item_used.book.alchemy"]));               break;
+                case Book::COLD_WEAPON_MASTERY:   addMessage(Message(resources.dictionary["message.item_used.book.cold_weapon_mastery"]));   break;
+                case Book::RANGED_WEAPON_MASTERY: addMessage(Message(resources.dictionary["message.item_used.book.ranged_weapon_mastery"])); break;
+                case Book::EAGLE_EYE:             addMessage(Message(resources.dictionary["message.item_used.book.eagle_eye"]));             break;
+                case Book::MANA_REGEN:            addMessage(Message(resources.dictionary["message.item_used.book.mana_regen"]));            break;
+                case Book::HEALTH_REGEN:          addMessage(Message(resources.dictionary["message.item_used.book.health_regen"]));          break;
+                case Book::FASTER_LEARNING:       addMessage(Message(resources.dictionary["message.item_used.book.faster_learning"]));       break;
+                default: break;
                 }
             }
             else if (instanceof<Rune, Item>((Item*)entity)) {

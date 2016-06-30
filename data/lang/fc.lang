@@ -492,3 +492,68 @@ PETEHEPAU'R ČAPOB'R
 
 player.skills.faster_learn
 VBIBWA HAYQA
+
+;------------MESSAGES-------------;
+message.welcome_to_level
+!ha toč'em'e bntañ:
+
+message.full_inventory
+.tbyñ tleuaq telhbi 'ect
+
+message.item_discovered
+.oaqvbilew'
+
+message.item_picked
+!toah'eclew'
+
+message.item_used.potion.healing
+.o b'ele čapobwbi w'eh ÿ'ew
+
+message.item_used.potion.magic
+.bčpoct matnyheñ ehept'n ÿ'ew
+
+message.item_used.potion.strength
+.o b'ele w'nlh'eñwbi w'eh ÿ'ew
+
+message.item_used.potion.dexterity
+.'rqvbiw' haqyvb'ry' calto mytl w'eh ÿ'ew
+
+message.item_used.potion.speed
+.'rqvbiw' t'etxieheto Spidi Gonzalesa txiew'y'nthohy' mytl w'eh ÿ'ew
+
+message.item_used.potion.regeneration
+.x'e čapač w'eh vbileybiw ÿ'ew
+
+message.item_used.potion.poison
+.x'e čapač w'eh toxibitaw ÿ'ew
+
+message.item_used.potion.slowness
+.'rqvbiw' uow' y'ehx'q'eto h'ycl w'eh ÿ'ew
+
+message.item_used.potion.weakness
+.'rqvbiw' xehy' ao x'biy'r ctpay'nl w'eh ÿ'ew
+
+message.item_used.book.crafting
+!tepač txieam'etbi vbitbaxiay' mox'ew
+
+message.item_used.book.alchemy
+!tepač mnqctyvbi baxibiy' ym'ew
+
+message.item_used.book.cold_weapon_mastery
+!tepač vpoh'eh b'rloh w'eh toclytnbay' ym'ew
+
+message.item_used.book.ranged_weapon_mastery
+!tepač vpoh'eh abictahcoboh w'eh toclytnbay ym'ew
+
+message.item_used.book.eagle_eye
+!tepač let'eñ bny'nw
+
+message.item_used.book.mana_regen
+!tepač maheh petehepobay' ym'ew
+
+message.item_used.book.health_regen
+!tepač čapob'e petehepobay ym'ew
+
+message.item_used.book.faster_learning
+!tepač vbiby'eñ w'eh ÿbiw
+

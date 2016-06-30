@@ -495,3 +495,68 @@ HEALTH REGENERATION
 
 player.skills.faster_learn
 FASTER LEARNING
+
+;------------MESSAGES-------------;
+message.welcome_to_level
+Welcome to level
+
+message.full_inventory
+Your backpack is full.
+
+message.item_discovered
+It was a
+
+message.item_picked
+You've picked up
+
+message.item_used.potion.healing
+You feel a lot healthier now.
+
+message.item_used.potion.magic
+You feel a gain in magical power now.
+
+message.item_used.potion.strength
+You feel a lot stronger now.
+
+message.item_used.potion.dexterity
+You feel like you could nakurwiac salto.
+
+message.item_used.potion.speed
+You feel like you would overtake fucking Speedy Gonzales.
+
+message.item_used.potion.regeneration
+You feel like you get cured in a moment.
+
+message.item_used.potion.poison
+You feel as if you were going to vomit now.
+
+message.item_used.potion.slowness
+You feel like you were carrying something really heavy.
+
+message.item_used.potion.weakness
+You feel like you lost your will to live.
+
+message.item_used.book.crafting
+Now you know how to craft!
+
+message.item_used.book.alchemy
+Now you know how to brew potions!
+
+message.item_used.book.cold_weapon_mastery
+Now you know how to use the cold weapon!
+
+message.item_used.book.ranged_weapon_mastery
+Now you know how to use the ranged weapon!
+
+message.item_used.book.eagle_eye
+Now you can see better!
+
+message.item_used.book.mana_regen
+Now you can regenerate your mana!
+
+message.item_used.book.health_regen
+Now you can regenerate your health!
+
+message.item_used.book.faster_learning
+Now you know how to learn faster!
+
