@@ -117,8 +117,6 @@ namespace rr {
             levels_.push_back(new Level(i+1));
             levels_.back()->generateWorld();
             subject.addObserver(levels_.back());
-
-            levelFOV_.push_back(new FOV(levels_[i]->masks_, levels_[i]->tilesAsInts_));
         }
         player_->setPosition(levels_[0]->getStartingPoint());
         start(true);
@@ -195,7 +193,7 @@ namespace rr {
         for (int i=0; i<77*43; i++) {
             levels_[levelNumber_]->getMasks()[i].see(false);
         }
-        levelFOV_[levelNumber_]->compute((sf::Vector2u)player_->getPosition(), player_->getSightRange());
+        levels_[levelNumber_]->calculateFOV((sf::Vector2u)player_->getPosition(), player_->getSightRange());
     }
 
     void Game::controls(sf::Event& event) {
@@ -325,7 +323,6 @@ namespace rr {
     void Game::reset() {
         randomizeItems   ();
         levels_    .clear();
-        levelFOV_  .clear();
         inventory_->clear();
         player_   ->reset();
         levelNumber_ = 0;

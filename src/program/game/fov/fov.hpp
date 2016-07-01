@@ -1,6 +1,6 @@
 /**
  * @file src/program/game/fov/fov.hpp
- * @author Adam 'Adanos' G¹sior
+ * @author Adam 'Adanos' Gï¿½sior
  * Used library: SFML 2.3.2
  */
 
@@ -13,9 +13,6 @@ namespace rr {
 
     class FOV final {
     private:
-        Mask* masks_;
-        int * tiles_;
-
         struct Slope {
         public:
             unsigned x_, y_;
@@ -27,15 +24,15 @@ namespace rr {
             bool operator<=(Slope slope) { return y_*slope.x_ <= x_*slope.y_; }
         };
 
-        void compute    (unsigned octant, sf::Vector2u origin, int range, unsigned x, Slope top, Slope bottom);
-        bool blocksLight(unsigned x, unsigned y, unsigned octant, sf::Vector2u origin);
-        void setVisible (unsigned x, unsigned y, unsigned octant, sf::Vector2u origin);
-        int  getDistance(int x, int y);
-        void smoothShade();
+        static void compute    (Mask[], int tiles[], unsigned octant, sf::Vector2u origin, int range, unsigned x, Slope top, Slope bottom);
+        static bool blocksLight(int tiles[], unsigned x, unsigned y, unsigned octant, sf::Vector2u origin);
+        static void setVisible (Mask[], unsigned x, unsigned y, unsigned octant, sf::Vector2u origin);
+        static int  getDistance(int x, int y);
+        static void smoothShade(Mask[]);
     public:
-        FOV(Mask masks[], int tiles[]);
+        FOV();
 
-        void compute(sf::Vector2u origin, int range);
+        static void compute(Mask[], int tiles[], sf::Vector2u origin, int range);
     };
 
 }

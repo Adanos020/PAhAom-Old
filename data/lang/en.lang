@@ -451,7 +451,43 @@ item.spell.type.telekinesis
 Telekinesis
 
 item.spell.description.unknown
-You don't know this rune yet, time to identify this shit.
+There's no doubt this is a magical rune so it lets you to cast some spell. Unfortunately you cannot tell which one.
+
+item.spell.description.heal
+To be a driving whell, a sailor... and a first aid kit! This rune releases a wave of magical energy doing up your wounds.
+
+item.spell.description.firebolt
+A cliché among the offesinve spells of enchantment adepts. Although it doesn't deal too much damage, it can be used very frequently.
+
+item.spell.description.lightning
+Although it can be used more rarely than a Firebolt, it deals far more damage. Moreover it disallows the enemies to use their special abilities.
+
+item.spell.description.iceBullet
+An ice bullet stuns an enemy after hitting it.
+
+item.spell.description.teleport
+A real windfall for all kinds of jesters. No other spell allows you evade the punishment, regardless it is an enemy's axe or an arrow!
+
+item.spell.description.fireRain
+A formidable attack sorcery dealing substantial area damage. Make your opponents have a hot shower!
+
+item.spell.description.storm
+An area version of a lightning with respectively strengthened effects. Sometimes is being noisy!
+
+item.spell.description.iceWave
+A frost wave inflicting injury from cold and freezes the antagonists in the area the spell acts on.
+
+item.spell.description.timeFreezing
+The world around you congeals in time. It is a powerful spell giving you many possibilities not only in combat but also in solving puzzles.
+
+item.spell.description.identify
+Does this ring have magical properties? If so, then what are they? Will I permanently move into a privy after drinking this potion? This spell will let you discover the properties of magical items, potions, etc.
+
+item.spell.description.uncurse
+This bewitchment effaces the negative consequences of curses casted at you and provides a temporary resistance against them.
+
+item.spell.description.telekinesis
+What telekinesis is - everybody knows. Who doesn't, let him try to lift and move some object with help of his mind.
 
 ;-------------PLAYER--------------;
 player.attributes.health

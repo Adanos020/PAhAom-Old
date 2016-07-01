@@ -9,6 +9,7 @@
 #include "entities/entities.hpp"
 #include "../funcs/files.hpp"
 #include "../funcs/items.hpp"
+#include "fov/fov.hpp"
 
 extern rr::Resources resources;
 
@@ -75,6 +76,10 @@ namespace rr {
         entities_[index] = temp;
 
         entities_[index]->setPosition(position);
+    }
+
+    void Level::calculateFOV(sf::Vector2u origin, int range) {
+        FOV::compute(masks_, tilesAsInts_, origin, range);
     }
 
     void Level::generateWorld() {
@@ -468,7 +473,7 @@ namespace rr {
                 int tu = tileNumber%(resources.texture.tileset.getSize().x/16);
                 int tv = tileNumber/(resources.texture.tileset.getSize().y/16);
 
-                sf::Vertex* quad = &tilemap_[(i+j*size_.x)*4];
+                sf::Vertex* quad = &tilemap_[(i + j*size_.x)*4];
 
                 quad[0].position = sf::Vector2f(  i  *80,   j  *80);
                 quad[1].position = sf::Vector2f((i+1)*80,   j  *80);
@@ -530,6 +535,9 @@ namespace rr {
             }
         }
     /* ITEMS */
+
+#if 0
+
      // here we generate the potions
         for (int i=0; i<rand()%10; i++) {
             while (true) {
@@ -614,6 +622,22 @@ namespace rr {
                 }
             }
         }
+
+#else
+
+     // at this moment all we need is just to place random items in random places, we'll deal with the balance later
+        for (int i=0; i<rand()%15+15; i++) {
+            while (true) {
+                int x=rand()%size_.x, y=rand()%size_.y;
+                if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
+                    addEntity(getRandomItem(1), sf::Vector2i(x, y));
+                    tiles_[x+y*size_.x] = OCCUPIED;
+                    break;
+                }
+            }
+        }
+
+#endif
 
      /* NPCs */
      // here we place the teachers every 5th level

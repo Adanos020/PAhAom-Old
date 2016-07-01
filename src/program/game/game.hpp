@@ -13,7 +13,6 @@
 #include "menus/menus.hpp"
 #include "entities/entities.hpp"
 #include "level.hpp"
-#include "fov/fov.hpp"
 #include "../messages/messages.hpp"
 
 namespace rr {
@@ -53,7 +52,6 @@ namespace rr {
 
         HUD*                hud_;
         std::vector<Level*> levels_;
-        std::vector<FOV*>   levelFOV_;
         MessageManager*     messageManager_;
 
         Player*             player_;

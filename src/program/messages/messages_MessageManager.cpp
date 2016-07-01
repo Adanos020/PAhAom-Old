@@ -25,14 +25,14 @@ namespace rr {
 
         for (int i=messages_.size()-2; i>=0; i--) {
             mHeight = messages_[i].getSize().y;
-            messages_[i].setPosition(messages_[i+1].getPosition()-sf::Vector2f(0, mHeight));
+            messages_[i].setPosition(messages_[i+1].getPosition() - sf::Vector2f(0, mHeight+5));
         }
     }
 
     void MessageManager::update(sf::Time timeStep) {
         for (auto i=messages_.begin(); i!=messages_.end(); i++) {
-            (*i).update(timeStep);
-            if ((*i).getColor().a < 10) {
+            i->update(timeStep);
+            if (i->getColor().a < 10) {
                 messages_.erase(i);
                 break;
             }
@@ -48,7 +48,7 @@ namespace rr {
     void MessageManager::onNotify(Event event, Entity* entity) {
         switch (event) {
         case ITEM_DISCOVERED:
-            addMessage(Message(resources.dictionary["message.item_discovered"]+" "+((Item*)entity)->getName().toAnsiString()+".", sf::Color::Yellow, sf::Text::Style::Bold));
+            addMessage(Message(resources.dictionary["message.item_discovered"]+" "+((Item*)entity)->getName()+".", sf::Color::Yellow, sf::Text::Style::Bold));
             break;
         case ITEM_PICKED:
             addMessage(Message(resources.dictionary["message.item_picked"]

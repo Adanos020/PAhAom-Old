@@ -451,7 +451,43 @@ item.spell.type.telekinesis
 Telekineza
 
 item.spell.description.unknown
-Jeszcze nie znasz tej runy, więc chyba nadszedł czas, żeby zidentyfikować to cholerstwo.
+Niewątpliwie jest to magiczna runa, a co za tym idzie pozwala rzucić pewne zaklęcie. Niestety, nie jesteś w stanie stwierdzić, jakie.
+
+item.spell.description.heal
+Sam sobie sterem, żeglarzem i... apteczką! Ta runa wyzwala falę leczniczej energii, która zasklepia twoje rany i przywraca siły.
+
+item.spell.description.firebolt
+Sztandarowe zaklęcie ofensywne adeptów sztuki magicznej. Chociaż nie zadaje zbyt wielu obrażeń, można używać go z dużą częstotliwością.
+
+item.spell.description.lightning
+Chociaż można używać jej rzadziej, niż ognistej strzały, zadaje też większe od niej obrażenia. Ponadto sprawia, że przez pewien czas wrogowie nie mogą używać swoich zdolności specjalnych.
+
+item.spell.description.iceBullet
+Bryła lodu, która po uderzeniu we wroga powoduje ogłuszenie.
+
+item.spell.description.teleport
+Prawdziwa gratka dla psotników wszelakich. Żadne inne zaklęcie nie pozwoli ci tak łatwo uciec przed karą, niezależnie od tego czy będzie to wrogi topór, czy strzała!
+
+item.spell.description.fireRain
+Potężny czar ofensywny, zadający poważne obrażenia obszarowe. Urządź swoim wrogom gorący prysznic!
+
+item.spell.description.storm
+Obszarowa wersja Błyskawicy z odpowiednio wzmocnionymi efektami działania. Bywa głośna!
+
+item.spell.description.iceWave
+Fala mrozu, która zadaje obrażenia od zimna i zamraża przeciwników na obszarze działania czaru.
+
+item.spell.description.timeFreezing
+Świat wokoło zastyga w czasie. Jest to potężne zaklęcie, które daje ci wiele możliwości nie tylko w walce, ale i przy rozwiązywaniu zagadek.
+
+item.spell.description.identify
+Czy ten pierścień ma magiczne właściwości? A jeśli tak, to jakie one są? Czy po wypiciu tej mikstury zamieszkam na stałe w wychodku? To zaklęcie pozwoli Ci odkryć właściwości magicznych przedmiotów czy mikstur.
+
+item.spell.description.uncurse
+Czar ten usuwa negatywne skutki rzuconych na ciebie klątw i zapewnia chwilową odporność na takowe.
+
+item.spell.description.telekinesis
+Czym jest telekineza, każdy wie. Kto nie wie, niech spróbuje podnieść i przenieść jakiś przedmiot za pomocą umysłu.
 
 ;-----------PLAYER-----------;
 player.attributes.health
