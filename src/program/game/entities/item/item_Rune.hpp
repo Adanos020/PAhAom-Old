@@ -32,14 +32,14 @@ namespace rr {
          Rune(Rune const&);
         ~Rune() {}
 
-        virtual Entity* clone () const override { return new Rune(*this); }
-        virtual Entity* create() const override { return new Rune(HEAL); }
+        virtual Entity* clone          ()            const override { return new Rune(*this); }
+        virtual Entity* create         ()            const override { return new Rune(HEAL); }
 
-        virtual void draw           (sf::RenderWindow&) override;
-        virtual void reveal         ()                  override;
+        virtual void    draw           (sf::RenderWindow&) override;
+        virtual void    reveal         ()                  override;
 
-        void         setPosition    (sf::Vector2i)      override;
-        void         setRealPosition(sf::Vector2f pos)  override;
+        void            setPosition    (sf::Vector2i)      override;
+        void            setRealPosition(sf::Vector2f pos)  override;
     };
 
 }

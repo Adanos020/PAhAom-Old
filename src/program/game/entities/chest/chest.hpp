@@ -29,8 +29,8 @@ namespace rr {
          Chest(Chest const&);
         ~Chest();
 
-        virtual Entity*       clone () const override { return new Chest(*this); }
-        virtual Entity*       create() const override;
+        virtual Entity*       clone          ()          const   override { return new Chest(*this); }
+        virtual Entity*       create         ()          const   override;
 
         virtual void          draw           (sf::RenderWindow&) override;
         virtual void          setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }

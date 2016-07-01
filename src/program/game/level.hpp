@@ -35,27 +35,27 @@ namespace rr {
         void                 generateWorld   ();
         bool                 loadFromFile    (const char* pathToFolder);
         void                 drawObjects     (sf::RenderWindow&) const;
-        void                 addEntity       (Entity*, sf::Vector2i position);
         void                 removeEntity    (unsigned index);
-        void                 replaceEntity   (unsigned index, Entity*);
+        void                 addEntity       (Entity*            , sf::Vector2i position);
+        void                 replaceEntity   (unsigned index     , Entity*);
         void                 calculateFOV    (sf::Vector2u origin, int range);    
 
-        std::vector<Entity*> getEntities     () const { return entities_     ; }
-        Mask*                getMasks        ()       { return masks_        ; }
-        sf::Vector2i         getStartingPoint() const { return startingPoint_; }
-        sf::Vector2i         getEndingPoint  () const { return endingPoint_  ; }
+        std::vector<Entity*> getEntities     ()                  const { return entities_     ; }
+        Mask*                getMasks        ()                        { return masks_        ; }
+        sf::Vector2i         getStartingPoint()                  const { return startingPoint_; }
+        sf::Vector2i         getEndingPoint  ()                  const { return endingPoint_  ; }
         int*                 getTiles        ();
         Cell*                getTilesAsCells ();
     private:
-        virtual void draw           (sf::RenderTarget& target, sf::RenderStates states) const;
+        virtual void         draw            (sf::RenderTarget& target, sf::RenderStates states) const;
 
-        void         digRooms       ();
-        void         fillWithMaze   (int, int);
-        void         connectRooms   ();
-        void         removeDeadEnds ();
-        void         placeEntities  ();
-        void         generateTileMap();
-        bool         isOnBorder     (int, int);
+        void                 digRooms        ();
+        void                 fillWithMaze    (int, int);
+        void                 connectRooms    ();
+        void                 removeDeadEnds  ();
+        void                 placeEntities   ();
+        void                 generateTileMap ();
+        bool                 isOnBorder      (int, int);
 
         sf::VertexArray          tilemap_;
         sf::Vector2i             size_;

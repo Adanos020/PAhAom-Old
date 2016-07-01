@@ -513,7 +513,7 @@ namespace rr {
      // here we place the ending point
         if (levelNumber_ < 30)
         for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
-            if (tiles_[x+y*size_.x] == ROOM && (levelNumber_ == 1 || (abs(x-startingPoint_.x) > 20 || abs(y-startingPoint_.y) > 20))) {
+            if (tiles_[x+y*size_.x] == ROOM && (levelNumber_ == 1 || (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 20))) {
                 endingPoint_ = sf::Vector2i(x, y);
                 tiles_[x+y*size_.x] = EXIT;
                 addEntity(new Stairs(true), endingPoint_);

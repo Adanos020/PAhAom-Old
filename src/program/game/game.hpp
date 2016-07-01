@@ -62,10 +62,8 @@ namespace rr {
 
     /// Keyboard controls
         void controls      (sf::Event&);
-
     /// Randomizes the disposable items' colors/symbols
         void randomizeItems();
-
     /// Switches to the level of a given index
         void switchLevel(int index);
     public:
@@ -74,40 +72,28 @@ namespace rr {
 
     /// Method drawing the game components
         void                draw        (sf::RenderWindow&);
-
     /// Method for handling the button events
         void                buttonEvents(sf::RenderWindow&, sf::Event&);
-
     /// Method drawing the game components
-        void                update      (sf::Event&, sf::Time);
-
+        void                update      (sf::Event&       , sf::Time);
     /// Method starting the game or not, depending on the argument's value
         void                start       (bool);
-
     /// Method pause the game or not, depending on the argument's value
         void                pause       (bool);
-
     /// Method saving the game progress
         void                save        ();
-
     /// Method loading the game progress
         bool                load        ();
-
     /// Method the new game
         bool                loadNewGame ();
-
     /// Method telling if the game is started
         bool                isStarted   () { return started_; }
-
     /// Method telling if the game is paused
         bool                isPaused    () { return paused_; }
-
     /// Returns the pointer to the player
         Player*             getPlayer   () { return player_; }
-
     /// Returns the vector of game levels
         std::vector<Level*> getLevels   () { return levels_; }
-
     /// Resets the game state
         void                reset       ();
     };
@@ -126,7 +112,6 @@ namespace rr {
 
     /// Updates the HUD state
         void update      (Player*, int lvl);
-
     /// Method drawing the HUD components
         void draw        (sf::RenderWindow&);
     };

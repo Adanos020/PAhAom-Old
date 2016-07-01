@@ -27,10 +27,10 @@ namespace rr {
          Coin(Coin const&);
         ~Coin() {}
 
-        virtual Entity* clone () const override { return new Coin(*this); }
-        virtual Entity* create() const override { return new Coin(GOLDEN, SMALL); }
+        virtual Entity* clone ()            const override { return new Coin(*this); }
+        virtual Entity* create()            const override { return new Coin(GOLDEN, SMALL); }
 
-        virtual void draw(sf::RenderWindow&) override;
+        virtual void    draw  (sf::RenderWindow&) override;
 	};
 
 }

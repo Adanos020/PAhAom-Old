@@ -10,9 +10,7 @@
 #include <iostream>
 
 namespace rr {
-
-    FOV::FOV() {}
-
+    
     void FOV::compute(Mask masks[], int tiles[], sf::Vector2u origin, int range) {
         masks[origin.x+origin.y*77].see(true);
         for (unsigned octant = 0; octant < 8; octant++) {

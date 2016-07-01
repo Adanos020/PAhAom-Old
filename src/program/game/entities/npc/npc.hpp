@@ -21,7 +21,7 @@ namespace rr {
     public:
         virtual ~NPC() {}
 
-        virtual void          talk            ()               = 0;
+        virtual void          talk            ()                  = 0;
         virtual void          update          (sf::Time timeStep) = 0;
 
         virtual void          draw            (sf::RenderWindow& rw) override { rw.draw(body_); }
@@ -48,11 +48,11 @@ namespace rr {
          Teacher(Teacher const&);
         ~Teacher() {}
 
-        virtual Entity* clone () const override { return new Teacher(*this); }
-        virtual Entity* create() const override { return new Teacher(SWORDSMAN); }
+        virtual Entity* clone () const            override { return new Teacher(*this); }
+        virtual Entity* create() const            override { return new Teacher(SWORDSMAN); }
 
-        virtual void talk  ()                  override;
-        virtual void update(sf::Time timeStep) override;
+        virtual void    talk  ()                  override;
+        virtual void    update(sf::Time timeStep) override;
     };
 
     class Merchant : public NPC {
@@ -69,11 +69,11 @@ namespace rr {
          Merchant(Merchant const&);
         ~Merchant() {}
 
-        virtual Entity* clone () const override { return new Merchant(*this); }
-        virtual Entity* create() const override { return new Merchant(POTION_SELLER); }
+        virtual Entity* clone () const            override { return new Merchant(*this); }
+        virtual Entity* create() const            override { return new Merchant(POTION_SELLER); }
 
-        virtual void talk  ()                  override;
-        virtual void update(sf::Time timeStep) override;
+        virtual void    talk  ()                  override;
+        virtual void    update(sf::Time timeStep) override;
     };
 
     class QuestGiver : public NPC {
@@ -86,11 +86,11 @@ namespace rr {
          QuestGiver(QuestGiver const&);
         ~QuestGiver() {}
 
-        virtual Entity* clone () const override { return new QuestGiver(*this); }
-        virtual Entity* create() const override { return new QuestGiver(NONE_YET); }
+        virtual Entity* clone () const            override { return new QuestGiver(*this); }
+        virtual Entity* create() const            override { return new QuestGiver(NONE_YET); }
 
-        virtual void talk  ()                  override;
-        virtual void update(sf::Time timeStep) override;
+        virtual void    talk  ()                  override;
+        virtual void    update(sf::Time timeStep) override;
     };
 
 }

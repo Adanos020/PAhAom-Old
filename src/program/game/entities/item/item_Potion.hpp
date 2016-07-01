@@ -34,14 +34,14 @@ namespace rr {
          Potion(Potion const&);
         ~Potion() {}
 
-        virtual Entity* clone () const override { return new Potion(*this); }
-        virtual Entity* create() const override { return new Potion(HEALING, SMALL); }
+        virtual Entity* clone          ()            const override { return new Potion(*this); }
+        virtual Entity* create         ()            const override { return new Potion(HEALING, SMALL); }
 
-        virtual void draw           (sf::RenderWindow&) override;
-        virtual void reveal         ()                  override;
+        virtual void    draw           (sf::RenderWindow&) override;
+        virtual void    reveal         ()                  override;
 
-        void         setPosition    (sf::Vector2i)      override;
-        void         setRealPosition(sf::Vector2f pos)  override;
+        void            setPosition    (sf::Vector2i)      override;
+        void            setRealPosition(sf::Vector2f pos)  override;
     };
 
 }

@@ -31,7 +31,6 @@ namespace rr {
 
     /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-
     /// Draws the main menu's components
         void draw        (sf::RenderWindow&);
     };
@@ -48,16 +47,12 @@ namespace rr {
 
     /// Opens the pause menu
         void open        ();
-
     /// Closes the pause menu window
         void close       ();
-
     /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-
     /// Draws the pause menu's components
         void draw        (sf::RenderWindow&);
-
     /// Tells if the pause menu is open
         bool isOpen      ();
     };
@@ -73,19 +68,14 @@ namespace rr {
 
     /// Opens the player attributes window
         void open        ();
-
     /// Closes the player attributes window
         void close       ();
-
     /// Updates the info about the player attributes
         void update      (Player*);
-
     /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-
     /// Draws the player attributes components
         void draw        (sf::RenderWindow&);
-
     /// Tells if the player attributes is open
         bool isOpen      ();
     };
@@ -101,16 +91,12 @@ namespace rr {
 
     /// Opens the window of the book of Runes
         void open        ();
-
     /// Closes the window of the book of Runes
         void close       ();
-
     /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-
     /// Draws the components of the window of the book of Runes
         void draw        (sf::RenderWindow&);
-
     /// Tells if the window of the book of Runes is open
         bool isOpen      ();
     };
@@ -134,25 +120,18 @@ namespace rr {
 
     /// Adds an item to the inventory
         bool addItem     (Item*);
-
     /// Tells if there is such an item in the inventory
         bool contains    (Item*);
-
     /// Opens the inventory window
         void open        ();
-
     /// Closes the inventory window
         void close       ();
-
     /// Clears the inventory
         void clear       ();
-
     /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-
     /// Draws the inventory components
         void draw        (sf::RenderWindow&);
-
     /// Tells if the inventory is open
         bool isOpen      ();
 
@@ -170,16 +149,12 @@ namespace rr {
 
     /// Opens the task list window
         void open        ();
-
     /// Closes the task list window
         void close       ();
-
     /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-
     /// Draws the task list components
         void draw        (sf::RenderWindow&);
-
     /// Tells if the task list is open
         bool isOpen      ();
     };
@@ -195,16 +170,12 @@ namespace rr {
 
     /// Opens the game map window
         void open        ();
-
     /// Closes the game map window
         void close       ();
-
     /// Handles the button events
         void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-
     /// Draws the game map components
         void draw        (sf::RenderWindow&);
-
     /// Tells if the game map is open
         bool isOpen      ();
     };

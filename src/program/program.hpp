@@ -49,9 +49,8 @@ namespace rr {
 
     /// Separate method loading the dictionary
         bool loadDict();
-
     /// Method loading the resources
-        bool load();
+        bool load    ();
     };
 
 /// Structure for the game settings
@@ -80,7 +79,6 @@ namespace rr {
             sf::Keyboard::Key useslot_4;
             sf::Keyboard::Key useslot_5;
         } keys;
-
     /// Structure for the sound settings
         struct {
             float music_volume;
@@ -88,7 +86,6 @@ namespace rr {
             bool  music_muted;
             bool  effects_muted;
         } sound;
-
     /// Structure for the video settings
         struct {
             sf::ContextSettings csettings;
@@ -96,19 +93,16 @@ namespace rr {
             bool                vsync;
             bool                fullscreen;
         } graphics;
-
     /// Structure for the game settings
         struct {
             std::string language;
         } game;
 
-    /// Method printing the actual settings
+    /// Method printing the current settings
         void print();
-
-    /// Method overwriting the actual settings
+    /// Method overwriting the current settings
         void save ();
-
-    /// Method loading the actual settings
+    /// Method loading the current settings
         bool load ();
     };
 
@@ -142,7 +136,7 @@ namespace rr {
          Program();
         ~Program();
 
-        Game* getGame() const { return game_; }
+        Game* getGame     () const { return game_; }
     };
 
 }

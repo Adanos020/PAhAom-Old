@@ -19,13 +19,13 @@ namespace rr {
          Door(Door const&);
         ~Door() {}
 
-        void          setOpen                (bool);
-        bool          isOpen                 ()          const            { return open_; }
-        bool          isLocked               ()          const            { return locked_; }
-        bool          isWithoutWindow        ()          const            { return withoutWindow_; }
+        void                  setOpen        (bool);
+        bool                  isOpen         ()          const            { return open_; }
+        bool                  isLocked       ()          const            { return locked_; }
+        bool                  isWithoutWindow()          const            { return withoutWindow_; }
 
-        virtual Entity*       clone () const override { return new Door(*this); }
-        virtual Entity*       create() const override { return new Door(false); }
+        virtual Entity*       clone          ()          const   override { return new Door(*this); }
+        virtual Entity*       create         ()          const   override { return new Door(false); }
 
         virtual void          draw           (sf::RenderWindow&) override;
         virtual void          setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }

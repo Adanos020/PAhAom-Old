@@ -23,13 +23,11 @@ namespace rr {
         Message(sf::String, sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Style::Regular);
 
     /// Sets the message's position on the screen
-        void setPosition(sf::Vector2f);
-
+        void         setPosition(sf::Vector2f);
     /// Updates the lifetime counter of the message
-        void update     (sf::Time);
-
+        void         update     (sf::Time);
     /// Draws the message on the screen
-        void draw       (sf::RenderWindow&);
+        void         draw       (sf::RenderWindow&);
 
         sf::Vector2f getPosition() const { return message_.getPosition(); }
         sf::Vector2f getSize    () const { return message_.getSize    (); }
@@ -44,11 +42,11 @@ namespace rr {
     public:
         MessageManager();
 
-        void addMessage(Message);
-        void update    (sf::Time timeStep);
-        void draw      (sf::RenderWindow&);
+        void         addMessage(Message);
+        void         update    (sf::Time);
+        void         draw      (sf::RenderWindow&);
 
-        virtual void onNotify (Event, Entity*) override;
+        virtual void onNotify  (Event, Entity*) override;
     };
 
 }

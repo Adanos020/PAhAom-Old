@@ -62,35 +62,30 @@ namespace rr {
             RIGHT
         };
 
-        virtual Entity*       clone           ()          const override { return new Player(*this); }
-        virtual Entity*       create          ()          const override { return new Player(); }
+        virtual Entity*       clone          ()          const override { return new Player(*this); }
+        virtual Entity*       create         ()          const override { return new Player(); }
 
-        virtual void          draw            (sf::RenderWindow&);
-        virtual void          setPosition     (sf::Vector2i)    override;
-        virtual void          setRealPosition (sf::Vector2f)    override;
+        virtual void          draw           (sf::RenderWindow&);
+        virtual void          setPosition    (sf::Vector2i)    override;
+        virtual void          setRealPosition(sf::Vector2f)    override;
 
-        virtual bool          intersects      (Entity* e) const override { return e->getBounds().intersects(getBounds()); }
-        virtual sf::FloatRect getBounds       ()          const override { return body_.getGlobalBounds(); }
-        virtual sf::Vector2i  getPosition     ()          const override { return (sf::Vector2i)body_.getPosition()/80; }
-        virtual sf::Vector2f  getRealPosition ()          const override { return body_.getPosition(); }
+        virtual bool          intersects     (Entity* e) const override { return e->getBounds().intersects(getBounds()); }
+        virtual sf::FloatRect getBounds      ()          const override { return body_.getGlobalBounds(); }
+        virtual sf::Vector2i  getPosition    ()          const override { return (sf::Vector2i)body_.getPosition()/80; }
+        virtual sf::Vector2f  getRealPosition()          const override { return body_.getPosition(); }
 
     /// Moves the player's character's to a cell in a given direction
-        void          move                    (int[], Direction);
-
+        void                  move           (int[], Direction);
     /// Makes the player use a given item
-        void          useItem                 (Item*);
-
+        void                  useItem        (Item*);
     /// Updates the state of the player character
-        void          update                  (sf::Time);
-
+        void                  update         (sf::Time);
     /// Returns the player's attributes
-        Attrs         getAttributes           ()          const          { return attrs_; }
-
+        Attrs                 getAttributes  ()          const          { return attrs_; }
     /// Returns the player's sight range
-        int           getSightRange           ()          const          { return sightRange_; }
-
+        int                   getSightRange  ()          const          { return sightRange_; }
     /// Resets the player's atributes
-        void          reset                   ();
+        void                  reset          ();
     };
 
 }

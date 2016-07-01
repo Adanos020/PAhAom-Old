@@ -18,10 +18,10 @@ namespace rr {
          Food(Food const&);
         ~Food();
 
-        virtual Entity* clone () const override { return new Food(*this); }
-        virtual Entity* create() const override { return new Food(); }
+        virtual Entity* clone () const            override { return new Food(*this); }
+        virtual Entity* create() const            override { return new Food(); }
 
-        virtual void draw (sf::RenderWindow&) override;
+        virtual void    draw  (sf::RenderWindow&) override;
     };
 
 }
