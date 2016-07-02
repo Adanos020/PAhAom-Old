@@ -13,7 +13,7 @@ extern rr::Resources resources;
 namespace rr {
 
     Chest::Chest(Type t, Item* i)
-        : Entity(),
+        : Entity( ),
           item_ (i),
           type_ (t) {
 
@@ -28,12 +28,12 @@ namespace rr {
         }
 
         body_.setTextureRect(sf::IntRect(tu*16, tv*16, 16, 16));
-        body_.setTexture(resources.texture.objects);
-        body_.setScale(sf::Vector2f(5.f, 5.f));
+        body_.setTexture    (resources.texture.objects);
+        body_.setScale      (sf::Vector2f(5.f, 5.f));
     }
 
     Chest::Chest(Chest const& chest)
-        : Entity(),
+        : Entity(           ),
           body_ (chest.body_),
           item_ (chest.item_),
           type_ (chest.type_) {}
@@ -43,7 +43,7 @@ namespace rr {
     }
 
     Entity* Chest::create() const {
-         return new Chest(REGULAR, getItemFromID(1, 1));
+        return new Chest(REGULAR, getItemFromID(1, 1));
     }
 
     void Chest::draw(sf::RenderWindow& rw) {

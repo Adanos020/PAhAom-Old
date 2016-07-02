@@ -8,7 +8,9 @@
 
 namespace rr {
 
-    Text::Text(sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style) :Component() {
+    Text::Text(sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style)
+    : Component() {
+
         text_.setFont         (font);
         text_.setCharacterSize(chsize);
         text_.setString       (str);
@@ -16,7 +18,9 @@ namespace rr {
         text_.setStyle        (style);
     }
 
-    Text::Text(sf::Vector2f pos, sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style) :Component() {
+    Text::Text(sf::Vector2f pos, sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style)
+    : Component() {
+
         text_.setFont         (font);
         text_.setPosition     (pos);
         text_.setCharacterSize(chsize);
@@ -38,7 +42,7 @@ namespace rr {
         unsigned   wordBegining = 0;
 
         for (unsigned pos=0; pos<text.getSize(); pos++) {
-            if (text[pos] == '\n'){
+            if      (text[pos] == '\n') {
                 offset = 0;
                 first  = true;
                 continue;

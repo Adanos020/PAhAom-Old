@@ -16,8 +16,8 @@ namespace rr {
     : wGmap_ (Window(resources.dictionary["gui.window.game_map"], sf::Vector2f(settings.graphics.resolution.x*0.77f , settings.graphics.resolution.y*0.745f+77),
                                                                   sf::Vector2f(settings.graphics.resolution.x*0.115f, settings.graphics.resolution.y*0.1275f-25))) {
 
-        shadow_.setSize((sf::Vector2f)settings.graphics.resolution);
-        shadow_.setPosition(sf::Vector2f(0, 0));
+        shadow_.setSize     ((sf::Vector2f)settings.graphics.resolution);
+        shadow_.setPosition (sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
 #define component(w, c, i) w.getComponent<c>(i)

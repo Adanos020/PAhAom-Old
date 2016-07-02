@@ -12,17 +12,17 @@ extern rr::Resources resources;
 namespace rr {
 
     Window::Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c)
-        : Component(),
-          header_  (new Text(sf::Vector2f(0, 0), head, resources.font.Unifont, 20, sf::Color::Yellow)),
-          visible_ (false) {
+    : Component(                                                                                 ),
+      header_  (new Text(sf::Vector2f(0, 0), head, resources.font.Unifont, 20, sf::Color::Yellow)),
+      visible_ (false                                                                            ) {
 
-        body_.setSize(size);
-        body_.setPosition(position);
-        body_.setFillColor(sf::Color(c.r, c.g, c.b, 128));
-        body_.setOutlineColor(c);
-        body_.setOutlineThickness(5);
+        body_.setSize              (size);
+        body_.setPosition          (position);
+        body_.setFillColor         (sf::Color(c.r, c.g, c.b, 128));
+        body_.setOutlineColor      (c);
+        body_.setOutlineThickness  (5);
 
-        header_->setPosition(sf::Vector2f(position.x+5, position.y));
+        header_->setPosition       (sf::Vector2f(position.x+5, position.y));
         header_->setParentComponent(this);
     }
 
@@ -31,17 +31,17 @@ namespace rr {
     }
 
     void Window::addComponent(Component* c, bool attached) {
-        if (attached)
-            c->setPosition(sf::Vector2f(body_.getPosition().x+c->getPosition().x, body_.getPosition().y+c->getPosition().y));
+        if (  attached
+            ) c->setPosition(sf::Vector2f(body_.getPosition().x + c->getPosition().x, body_.getPosition().y + c->getPosition().y));
         c->setParentComponent(this);
         components_.push_back(c);
     }
 
     void Window::setPosition(sf::Vector2f pos) {
-        for (auto component : components_)
+        for (auto component : components_) {
             component->setPosition(pos+component->getPosition()-body_.getPosition());
-
-        body_.setPosition(pos);
+        }
+        body_   .setPosition(pos);
         header_->setPosition(sf::Vector2f(pos.x+5, pos.y));
     }
 
@@ -53,8 +53,9 @@ namespace rr {
         if (visible_) {
             rw.draw(body_);
             header_->draw(rw);
-            for (auto component : components_)
+            for (auto component : components_) {
                 component->draw(rw);
+            }
         }
     }
 

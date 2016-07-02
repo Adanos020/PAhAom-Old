@@ -14,12 +14,12 @@ extern rr::Subject   subject;
 namespace rr {
 
     Player::Player()
-        : Entity                       (),
-          position_                    (sf::Vector2i(0, 0)),
-          currentAnimation_            (&walkingRight_),
-          moving_                      (false),
-          velocity_                    (920.f),
-          sightRange_                  (5) {
+    : Entity                       (                  ),
+      position_                    (sf::Vector2i(0, 0)),
+      currentAnimation_            (&walkingRight_    ),
+      moving_                      (false             ),
+      velocity_                    (920.f             ),
+      sightRange_                  (5                 ) {
 
         attrs_.health                = 0.f;
         attrs_.mana                  = 5.f;
@@ -43,26 +43,26 @@ namespace rr {
 
         walkingLeft_ .setSpriteSheet(resources.texture.player);
         walkingRight_.setSpriteSheet(resources.texture.player);
-        walkingLeft_ .addFrame(sf::IntRect(0, 16, 16, 16));
-        walkingRight_.addFrame(sf::IntRect(0, 0,  16, 16));
+        walkingLeft_ .addFrame      (sf::IntRect(0, 16, 16, 16));
+        walkingRight_.addFrame      (sf::IntRect(0, 0,  16, 16));
 
-        body_.setLooped(false);
-        body_.pause();
-        body_.setPosition(sf::Vector2f(0, 0));
-        body_.scale(sf::Vector2f(5, 5));
+        body_        .setLooped     (false);
+        body_        .pause         ();
+        body_        .setPosition   (sf::Vector2f(0, 0));
+        body_        .scale         (sf::Vector2f(5, 5));
     }
 
     Player::Player(Player const& player)
-        : Entity                       (),
-          attrs_                       (player.attrs_),
-          position_                    (player.position_),
-          body_                        (player.body_),
-          walkingLeft_                 (player.walkingLeft_),
-          walkingRight_                (player.walkingRight_),
-          currentAnimation_            (player.currentAnimation_),
-          moving_                      (player.moving_),
-          velocity_                    (player.velocity_),
-          sightRange_                  (player.sightRange_) {}
+    : Entity                       (),
+      attrs_                       (player.attrs_),
+      position_                    (player.position_),
+      body_                        (player.body_),
+      walkingLeft_                 (player.walkingLeft_),
+      walkingRight_                (player.walkingRight_),
+      currentAnimation_            (player.currentAnimation_),
+      moving_                      (player.moving_),
+      velocity_                    (player.velocity_),
+      sightRange_                  (player.sightRange_) {}
 
     void Player::setPosition(sf::Vector2i pos) {
         position_ = pos;
@@ -76,30 +76,22 @@ namespace rr {
 
     void Player::move(int tiles[], Direction di) {
         if (!moving_) {
-            if (di == UP) {
-                if (tiles[position_.x+(position_.y-1)*77] != 1) {
-                    position_ = sf::Vector2i(position_.x, position_.y-1);
-                    moving_ = true;
-                }
+            if (di == UP   && tiles[position_.x+(position_.y-1)*77] != 1) {
+                position_ = sf::Vector2i(position_.x, position_.y-1);
+                moving_ = true;
             }
-            if (di == DOWN) {
-                if (tiles[position_.x+(position_.y+1)*77] != 1) {
-                    position_ = sf::Vector2i(position_.x, position_.y+1);
-                    moving_ = true;
-                }
+            if (di == DOWN && tiles[position_.x+(position_.y+1)*77] != 1) {
+                position_ = sf::Vector2i(position_.x, position_.y+1);
+                moving_ = true;
             }
-            if (di == LEFT) {
-                if (tiles[position_.x-1+position_.y*77] != 1) {
-                    position_ = sf::Vector2i(position_.x-1, position_.y);
-                    moving_ = true;
-                }
+            if (di == LEFT && tiles[position_.x-1+position_.y*77] != 1) {
+                position_ = sf::Vector2i(position_.x-1, position_.y);
+                moving_ = true;
                 currentAnimation_ = &walkingLeft_;
             }
-            if (di == RIGHT) {
-                if (tiles[position_.x+1+position_.y*77] != 1) {
-                    position_ = sf::Vector2i(position_.x+1, position_.y);
-                    moving_ = true;
-                }
+            if (di == RIGHT && tiles[position_.x+1+position_.y*77] != 1) {
+                position_ = sf::Vector2i(position_.x+1, position_.y);
+                moving_ = true;
                 currentAnimation_ = &walkingRight_;
             }
         }
@@ -122,40 +114,40 @@ namespace rr {
                 )  body_.setPosition((sf::Vector2f)position_*80.f);
         }
 
-        if (attrs_.health >= attrs_.maxHealth) attrs_.health = attrs_.maxHealth;
-        if (attrs_.health <= 0)                attrs_.health = 0;
-        if (attrs_.mana   <= 0)                attrs_.mana   = 0;
-        if (attrs_.mana   >= attrs_.maxMana)   attrs_.mana   = attrs_.maxMana;
+        if (attrs_.health >= attrs_.maxHealth)      attrs_.health = attrs_.maxHealth;
+        if (attrs_.health <= 0)                     attrs_.health = 0;
+        if (attrs_.mana   <= 0)                     attrs_.mana   = 0;
+        if (attrs_.mana   >= attrs_.maxMana)        attrs_.mana   = attrs_.maxMana;
         if (attrs_.experience  >= attrs_.nextLevel) {
-            attrs_.experience   = 0;
-            attrs_.nextLevel   *= 1.25f;
-            attrs_.level       ++;
-            attrs_.skillPoints += (attrs_.faster_learning) ? 15 : 10;
+                                                    attrs_.experience   = 0;
+                                                    attrs_.nextLevel   *= 1.25f;
+                                                    attrs_.level       ++;
+                                                    attrs_.skillPoints += (attrs_.faster_learning) ? 15 : 10;
 
-            float temp          = attrs_.health/attrs_.maxHealth;
-            attrs_.maxHealth   += 10;
-            attrs_.health       = temp*attrs_.maxHealth;
+                                                    float temp          = attrs_.health/attrs_.maxHealth;
+                                                    attrs_.maxHealth   += 10;
+                                                    attrs_.health       = temp*attrs_.maxHealth;
 
-            temp                = attrs_.mana/attrs_.maxMana;
-            attrs_.maxMana     += 1;
-            attrs_.mana         = temp*attrs_.maxMana;
+                                                    temp                = attrs_.mana/attrs_.maxMana;
+                                                    attrs_.maxMana     += 1;
+                                                    attrs_.mana         = temp*attrs_.maxMana;
         }
 
         body_.update(timeStep);
-        body_.play(*currentAnimation_);
+        body_.play  (*currentAnimation_);
     }
 
     void Player::reset() {
-        attrs_.health      =  30.f;
-        attrs_.mana        =   5.f;
-        attrs_.maxHealth   =  30.f;
-        attrs_.maxMana     =   5.f;
-        attrs_.strength    =  10.f;
-        attrs_.dexterity   =  10.f;
-        attrs_.skillPoints =   0.f;
-        attrs_.experience  =   0.f;
-        attrs_.nextLevel   = 100.f;
-        attrs_.level       =   0.f;
+        attrs_.health                =  30.f;
+        attrs_.mana                  =   5.f;
+        attrs_.maxHealth             =  30.f;
+        attrs_.maxMana               =   5.f;
+        attrs_.strength              =  10.f;
+        attrs_.dexterity             =  10.f;
+        attrs_.skillPoints           =   0.f;
+        attrs_.experience            =   0.f;
+        attrs_.nextLevel             = 100.f;
+        attrs_.level                 =   0.f;
 
         attrs_.crafting              = false;
         attrs_.alchemy               = false;
@@ -176,157 +168,77 @@ namespace rr {
             ((Discoverable*)item)->reveal();
             subject.notify(Observer::ITEM_DISCOVERED, item);
         }
+
         subject.notify(Observer::ITEM_USED, item);
+
         if (instanceof<Potion, Item>(item)) {
             switch (((Potion*)item)->effect_) {
-            case Potion::HEALING:
-                switch (((Potion*)item)->size_) {
-                case Potion::SMALL:
-                    attrs_.health += attrs_.maxHealth*0.25;
-                    break;
-                case Potion::MEDIUM:
-                    attrs_.health += attrs_.maxHealth*0.50;
-                    break;
-                case Potion::BIG:
-                    attrs_.health += attrs_.maxHealth*0.75;
-                    break;
-                }
-                break;
-            case Potion::MAGIC:
-                switch (((Potion*)item)->size_) {
-                case Potion::SMALL:
-                    attrs_.mana += attrs_.maxMana*0.25;
-                    break;
-                case Potion::MEDIUM:
-                    attrs_.mana += attrs_.maxMana*0.50;
-                    break;
-                case Potion::BIG:
-                    attrs_.mana += attrs_.maxMana*0.75;
-                    break;
-                }
-                break;
-            case Potion::STRENGTH:
-                switch (((Potion*)item)->size_) {
-                case Potion::SMALL:
-                    attrs_.strength += 1;
-                    break;
-                case Potion::MEDIUM:
-                    attrs_.strength += 2;
-                    break;
-                case Potion::BIG:
-                    attrs_.strength += 3;
-                    break;
-                }
-                break;
-            case Potion::DEXTERITY:
-                switch (((Potion*)item)->size_) {
-                case Potion::SMALL:
-                    attrs_.dexterity += 1;
-                    break;
-                case Potion::MEDIUM:
-                    attrs_.dexterity += 2;
-                    break;
-                case Potion::BIG:
-                    attrs_.dexterity += 3;
-                    break;
-                }
-                break;
-            case Potion::SPEED:
-                switch (((Potion*)item)->size_) {
-                case Potion::SMALL:
+                case Potion::HEALING     : switch (((Potion*)item)->size_) {
+                                               case Potion::SMALL : attrs_.health    += attrs_.maxHealth*0.25; break;
+                                               case Potion::MEDIUM: attrs_.health    += attrs_.maxHealth*0.50; break;
+                                               case Potion::BIG   : attrs_.health    += attrs_.maxHealth*0.75; break;
+                                           } break;
 
-                    break;
-                case Potion::MEDIUM:
+                case Potion::MAGIC       : switch (((Potion*)item)->size_) {
+                                               case Potion::SMALL : attrs_.mana      += attrs_.maxMana * 0.25; break;
+                                               case Potion::MEDIUM: attrs_.mana      += attrs_.maxMana * 0.50; break;
+                                               case Potion::BIG   : attrs_.mana      += attrs_.maxMana * 0.75; break;
+                                           } break;
 
-                    break;
-                case Potion::BIG:
+                case Potion::STRENGTH    : switch (((Potion*)item)->size_) {
+                                               case Potion::SMALL : attrs_.strength  +=                     1; break;
+                                               case Potion::MEDIUM: attrs_.strength  +=                     2; break;
+                                               case Potion::BIG   : attrs_.strength  +=                     3; break;
+                                           } break;
 
-                    break;
-                }
-                break;
-            case Potion::REGENERATION:
-                switch (((Potion*)item)->size_) {
-                case Potion::SMALL:
+                case Potion::DEXTERITY   : switch (((Potion*)item)->size_) {
+                                               case Potion::SMALL : attrs_.dexterity +=                     1; break;
+                                               case Potion::MEDIUM: attrs_.dexterity +=                     2; break;
+                                               case Potion::BIG   : attrs_.dexterity +=                     3; break;
+                                           } break;
 
-                    break;
-                case Potion::MEDIUM:
+                case Potion::SPEED       : switch (((Potion*)item)->size_) {
+                                               case Potion::SMALL :                                            break;
+                                               case Potion::MEDIUM:                                            break;
+                                               case Potion::BIG   :                                            break;
+                                           } break;
 
-                    break;
-                case Potion::BIG:
+                case Potion::REGENERATION: switch (((Potion*)item)->size_) {
+                                               case Potion::SMALL :                                            break;
+                                               case Potion::MEDIUM:                                            break;
+                                               case Potion::BIG   :                                            break;
+                                           } break;
 
-                    break;
-                }
-                break;
-            case Potion::POISON:
-                switch (((Potion*)item)->size_) {
-                case Potion::SMALL:
+                case Potion::POISON      : switch (((Potion*)item)->size_) {
+                                               case Potion::SMALL :                                            break;
+                                               case Potion::MEDIUM:                                            break;
+                                               case Potion::BIG   :                                            break;
+                                           } break;
 
-                    break;
-                case Potion::MEDIUM:
-
-                    break;
-                case Potion::BIG:
-
-                    break;
-                }
-                break;
-            case Potion::SLOWNESS:
-                switch (((Potion*)item)->size_) {
-                case Potion::SMALL:
-
-                    break;
-                case Potion::MEDIUM:
-
-                    break;
-                case Potion::BIG:
-
-                    break;
-                }
-                break;
-            case Potion::WEAKNESS:
-                switch (((Potion*)item)->size_) {
-                case Potion::SMALL:
-
-                    break;
-                case Potion::MEDIUM:
-
-                    break;
-                case Potion::BIG:
-
-                    break;
-                }
-                break;
+                case Potion::SLOWNESS    : switch (((Potion*)item)->size_) {
+                                               case Potion::SMALL :                                            break;
+                                               case Potion::MEDIUM:                                            break;
+                                               case Potion::BIG   :                                            break;
+                                           } break;
+                                        
+                case Potion::WEAKNESS    : switch (((Potion*)item)->size_) {
+                                               case Potion::SMALL :                                            break;
+                                               case Potion::MEDIUM:                                            break;
+                                               case Potion::BIG   :                                            break;
+                                           } break;
             }
         }
         else if (instanceof<Book, Item>(item)) {
             switch (((Book*)item)->type_) {
-            case Book::CRAFTING:
-                attrs_.crafting              = true;
-                break;
-            case Book::ALCHEMY:
-                attrs_.alchemy               = true;
-                break;
-            case Book::COLD_WEAPON_MASTERY:
-                attrs_.cold_weapon_mastery   = true;
-                break;
-            case Book::RANGED_WEAPON_MASTERY:
-                attrs_.ranged_weapon_mastery = true;
-                break;
-            case Book::EAGLE_EYE:
-                attrs_.eagle_eye             = true;
-                break;
-            case Book::MANA_REGEN:
-                attrs_.mana_regeneration     = true;
-                break;
-            case Book::HEALTH_REGEN:
-                attrs_.health_regeneration   = true;
-                break;
-            case Book::FASTER_LEARNING:
-                attrs_.faster_learning       = true;
-                break;
-            case Book::SPELLS_BOOK:
-
-                break;
+                case Book::CRAFTING             : attrs_.crafting              = true; break;
+                case Book::ALCHEMY              : attrs_.alchemy               = true; break;
+                case Book::COLD_WEAPON_MASTERY  : attrs_.cold_weapon_mastery   = true; break;
+                case Book::RANGED_WEAPON_MASTERY: attrs_.ranged_weapon_mastery = true; break;
+                case Book::EAGLE_EYE            : attrs_.eagle_eye             = true; break;
+                case Book::MANA_REGEN           : attrs_.mana_regeneration     = true; break;
+                case Book::HEALTH_REGEN         : attrs_.health_regeneration   = true; break;
+                case Book::FASTER_LEARNING      : attrs_.faster_learning       = true; break;
+                default                         :                                      break;
             }
         }
         else if (instanceof<Rune, Item>(item)) {

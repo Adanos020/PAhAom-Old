@@ -12,20 +12,20 @@ extern rr::Resources resources;
 namespace rr {
 
     Checkbox::Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color c)
-        : Component(),
-          image_   (new Image(pos, resources.texture.gui, 14, 1)),
-          text_    (new Text (sf::Vector2f(0, 0), txt, resources.font.Unifont, chsize)) {
+    : Component(                                                                  ),
+      image_   (new Image(pos, resources.texture.gui, 14, 1)                      ),
+      text_    (new Text (sf::Vector2f(0, 0), txt, resources.font.Unifont, chsize)) {
 
-        body_.setSize(sf::Vector2f(35, 35));
-        body_.setPosition(pos);
-        body_.setFillColor(c);
-        body_.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
-        body_.setOutlineThickness(5);
+        body_  .setSize            (sf::Vector2f(35, 35));
+        body_  .setPosition        (pos);
+        body_  .setFillColor       (c);
+        body_  .setOutlineColor    (sf::Color(c.r+20, c.g+20, c.b+20));
+        body_  .setOutlineThickness(5);
 
-        text_->setPosition(sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_->getSize().y));
+        text_ ->setPosition        (sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_->getSize().y));
 
-        image_->setParentComponent(this);
-        text_ ->setParentComponent(this);
+        image_->setParentComponent (this);
+        text_ ->setParentComponent (this);
     }
 
     Checkbox::~Checkbox() {
@@ -38,15 +38,15 @@ namespace rr {
     }
 
     void Checkbox::setPosition(sf::Vector2f pos) {
-        body_ .setPosition(pos);
+        body_  .setPosition(pos);
         text_ ->setPosition(sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_->getSize().y));
         image_->setPosition(pos);
     }
 
     void Checkbox::draw(sf::RenderWindow& rw) {
         rw.draw(body_);
-        if (checked_)
-            image_->draw(rw);
+        if (  checked_
+            ) image_->draw(rw);
         text_->draw(rw);
     }
 
@@ -64,8 +64,8 @@ namespace rr {
             held_ = true;
             return true;
         }
-        if (e.type == sf::Event::MouseButtonReleased)
-            held_ = false;
+        if (  e.type == sf::Event::MouseButtonReleased
+            ) held_ = false;
         return false;
     }
 

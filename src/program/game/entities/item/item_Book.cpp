@@ -14,7 +14,7 @@ extern sf::Color itemColors[9];
 namespace rr {
 
     Book::Book(Type type, int am, sf::Vector2i pos)
-        : Item() {
+    : Item() {
 
         type_       = type;
         amount_     = am;
@@ -24,65 +24,47 @@ namespace rr {
         iconIndex_  = 16;
 
         switch (type_) {
-        case CRAFTING:
-            name_        = resources.dictionary["item.book.type.crafting"];
-            description_ = resources.dictionary["item.book.description.crafting"];
-            break;
-        case ALCHEMY:
-            name_        = resources.dictionary["item.book.type.alchemy"];
-            description_ = resources.dictionary["item.book.description.alchemy"];
-            break;
-        case COLD_WEAPON_MASTERY:
-            name_        = resources.dictionary["item.book.type.cold_weapon_mastery"];
-            description_ = resources.dictionary["item.book.description.cold_weapon_mastery"];
-            break;
-        case RANGED_WEAPON_MASTERY:
-            name_        = resources.dictionary["item.book.type.ranged_weapon_mastery"];
-            description_ = resources.dictionary["item.book.description.ranged_weapon_mastery"];
-            break;
-        case EAGLE_EYE:
-            name_        = resources.dictionary["item.book.type.eagle_eye"];
-            description_ = resources.dictionary["item.book.description.eagle_eye"];
-            break;
-        case MANA_REGEN:
-            name_        = resources.dictionary["item.book.type.mana_regen"];
-            description_ = resources.dictionary["item.book.description.mana_regen"];
-            break;
-        case HEALTH_REGEN:
-            name_        = resources.dictionary["item.book.type.health_regen"];
-            description_ = resources.dictionary["item.book.description.health_regen"];
-            break;
-        case FASTER_LEARNING:
-            name_        = resources.dictionary["item.book.type.faster_learning"];
-            description_ = resources.dictionary["item.book.description.faster_learning"];
-            break;
-        case SPELLS_BOOK:
-            name_        = resources.dictionary["item.book.type.spells_book"];
-            description_ = resources.dictionary["item.book.description.spells_book"];
-            disposable_  = false;
-            break;
+            case CRAFTING:              name_        = resources.dictionary["item.book.type.crafting"                    ];
+                                        description_ = resources.dictionary["item.book.description.crafting"             ]; break;
+            case ALCHEMY:               name_        = resources.dictionary["item.book.type.alchemy"                     ];
+                                        description_ = resources.dictionary["item.book.description.alchemy"              ]; break;
+            case COLD_WEAPON_MASTERY:   name_        = resources.dictionary["item.book.type.cold_weapon_mastery"         ];
+                                        description_ = resources.dictionary["item.book.description.cold_weapon_mastery"  ]; break;
+            case RANGED_WEAPON_MASTERY: name_        = resources.dictionary["item.book.type.ranged_weapon_mastery"       ];
+                                        description_ = resources.dictionary["item.book.description.ranged_weapon_mastery"]; break;
+            case EAGLE_EYE:             name_        = resources.dictionary["item.book.type.eagle_eye"                   ];
+                                        description_ = resources.dictionary["item.book.description.eagle_eye"            ]; break;
+            case MANA_REGEN:            name_        = resources.dictionary["item.book.type.mana_regen"                  ];
+                                        description_ = resources.dictionary["item.book.description.mana_regen"           ]; break;
+            case HEALTH_REGEN:          name_        = resources.dictionary["item.book.type.health_regen"                ];
+                                        description_ = resources.dictionary["item.book.description.health_regen"         ]; break;
+            case FASTER_LEARNING:       name_        = resources.dictionary["item.book.type.faster_learning"             ];
+                                        description_ = resources.dictionary["item.book.description.faster_learning"      ]; break;
+            case SPELLS_BOOK:           name_        = resources.dictionary["item.book.type.spells_book"                 ];
+                                        description_ = resources.dictionary["item.book.description.spells_book"          ];
+                                        disposable_  = false;                                                               break;
         }
 
         int icons[] = { (int)iconIndex_, icons[1] = (int)iconIndex_+16 };
 
-        setIcon(body_, 2, icons);
-        setColor(body_, 0, sf::Color(itemColors[type_].r + (255-itemColors[type_].r)/2,
-                                     itemColors[type_].g + (255-itemColors[type_].g)/2,
-                                     itemColors[type_].b + (255-itemColors[type_].b)/2));
+        setIcon    (body_, 2, icons);
+        setColor   (body_, 0, sf::Color(itemColors[type_].r + (255-itemColors[type_].r)/2,
+                                        itemColors[type_].g + (255-itemColors[type_].g)/2,
+                                        itemColors[type_].b + (255-itemColors[type_].b)/2));
         setPosition(pos);
     }
 
     Book::Book(Book const& book)
-    : type_        (book.type_) {
+    : type_(book.type_) {
 
-        amount_                = book.amount_;
-        disposable_            = book.disposable_;
-        stackable_             = book.stackable_;
-        ID_                    = book.ID_;
-        iconIndex_             = book.iconIndex_;
-        name_                  = book.name_;
-        description_           = book.description_;
-        body_                  = book.body_;
+        amount_      = book.amount_;
+        disposable_  = book.disposable_;
+        stackable_   = book.stackable_;
+        ID_          = book.ID_;
+        iconIndex_   = book.iconIndex_;
+        name_        = book.name_;
+        description_ = book.description_;
+        body_        = book.body_;
     }
 
     void Book::draw(sf::RenderWindow& rw) {

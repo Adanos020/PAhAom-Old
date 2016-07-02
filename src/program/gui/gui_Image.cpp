@@ -10,16 +10,16 @@
 namespace rr {
 
     Image::Image(sf::Vector2f pos, sf::Texture& texture, int iconSize, unsigned index)
-        : Component(),
-          icon_    (iconSize) {
+    : Component(        ),
+      icon_    (iconSize) {
 
         unsigned tu = index%(texture.getSize().x/icon_);
         unsigned tv = index/(texture.getSize().y/icon_);
 
-        body_.setPosition(pos);
-        body_.setTexture(texture);
+        body_.setPosition   (pos);
+        body_.setTexture    (texture);
         body_.setTextureRect(sf::IntRect(tu*icon_, tv*icon_, icon_, icon_));
-        body_.scale(sf::Vector2f(5, 5));
+        body_.scale         (sf::Vector2f(5, 5));
     }
 
     Image::~Image() {}

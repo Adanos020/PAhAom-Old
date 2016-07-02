@@ -18,8 +18,8 @@ namespace rr {
       silver_ (0),
       gold_   (0) {
 
-        shadow_.setSize((sf::Vector2f)settings.graphics.resolution);
-        shadow_.setPosition(sf::Vector2f(0, 0));
+        shadow_.setSize     ((sf::Vector2f)settings.graphics.resolution);
+        shadow_.setPosition (sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
 #define component(w, c, i) w.getComponent<c>(i)
@@ -50,7 +50,7 @@ namespace rr {
                 component(wInfo, Text, 0)->setStyle(sf::Text::Regular);
 
         for (int i=0; i<5; i++) {
-            sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(settings.graphics.resolution.x-90, settings.graphics.resolution.y/2-250+i*95));
+            sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(settings.graphics.resolution.x-90, settings.graphics.resolution.y/2-250 + i*95));
         }
 
 #undef component
@@ -108,15 +108,15 @@ namespace rr {
 #define wInfo (*component(wInve_, Window, 0))
 ;
         if (wInve_.isVisible()) {
-            if (component(wInve_, Button, 0)->isPressed(rw, e))
-                g->pause(false);
+            if (  component(wInve_, Button, 0)->isPressed(rw, e)
+                ) g->pause(false);
 
             bool slotPointed = false;
             for (int i=0; i<32; i++) {
                 if (component(wInve_, Slot, i)->containsMouseCursor(rw) && !component(wInve_, Slot, i)->isEmpty()) {
                     if (component(wInve_, Slot, i)->isPressed(rw, e) && !component(wInve_, Slot, i)->isEmpty()) {
                         g->getPlayer()->useItem(component(wInve_, Slot, i)->getItem());
-                        if (component(wInve_, Slot, i)->getItem()->isDisposable()
+                        if (  component(wInve_, Slot, i)->getItem()->isDisposable()
                             ) component(wInve_, Slot, i)->removeItem(1);
                     }
                     else {
@@ -129,7 +129,7 @@ namespace rr {
                 if (sCarryOn_[i]->containsMouseCursor(rw) && !sCarryOn_[i]->isEmpty()) {
                     if (sCarryOn_[i]->isPressed(rw, e) && !sCarryOn_[i]->isEmpty()) {
                         g->getPlayer()->useItem(sCarryOn_[i]->getItem());
-                        if (sCarryOn_[i]->getItem()->isDisposable()
+                        if (  sCarryOn_[i]->getItem()->isDisposable()
                             ) sCarryOn_[i]->removeItem(1);
                     }
                     else {
@@ -142,13 +142,13 @@ namespace rr {
                 component(wInfo, Text, 0)->setString(((Slot*)wInfo.getParentComponent())->getItem()->getDescription());
                 component(wInfo, Text, 0)->wrap     ((wInfo.getText()->getSize().x>=300.f) ? wInfo.getText()->getSize().x+10 : 300.f);
 
-                wInfo.setTitle(((Slot*)wInfo.getParentComponent())->getItem()->getName());
-                wInfo.setSize(component(wInfo, Text, 0)->getSize()+sf::Vector2f(10, 30));
-                wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)+sf::Vector2f(5, 5));
+                wInfo.setTitle   (((Slot*)wInfo.getParentComponent())->getItem()->getName());
+                wInfo.setSize    (component(wInfo, Text, 0)->getSize() + sf::Vector2f(10, 30));
+                wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw) + sf::Vector2f(5, 5));
 
-                if (wInfo.getPosition().x+wInfo.getSize().x+5 > (float)rw.getSize().x
+                if (  wInfo.getPosition().x+wInfo.getSize().x+5 > (float)rw.getSize().x
                     ) wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)-sf::Vector2f(wInfo.getPosition().x+wInfo.getSize().x-(float)rw.getSize().x, -5));
-                if (wInfo.getPosition().y+wInfo.getSize().y+5 > (float)rw.getSize().y
+                if (  wInfo.getPosition().y+wInfo.getSize().y+5 > (float)rw.getSize().y
                     ) wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)-sf::Vector2f(-5, wInfo.getPosition().y+wInfo.getSize().y-(float)rw.getSize().y));
 
                 wInfo.setVisible(true);
@@ -170,22 +170,19 @@ namespace rr {
         if (instanceof<Coin, Item>(item)) {
          // first we recognize the coin type and size
             if (((Coin*)item)->type_ == Coin::BRONZE) {
-                if (((Coin*)item)->size_ == Coin::BIG)
-                    bronze_ += item->getAmount()*10;
-                else
-                    bronze_ += item->getAmount();
+                if (  ((Coin*)item)->size_ == Coin::BIG
+                    ) bronze_ += item->getAmount()*10;
+                else  bronze_ += item->getAmount();
             }
             else if (((Coin*)item)->type_ == Coin::SILVER) {
-                if (((Coin*)item)->size_ == Coin::BIG)
-                    silver_ += item->getAmount()*10;
-                else
-                    silver_ += item->getAmount();
+                if (  ((Coin*)item)->size_ == Coin::BIG
+                    ) silver_ += item->getAmount()*10;
+                else  silver_ += item->getAmount();
             }
             else if (((Coin*)item)->type_ == Coin::GOLDEN) {
-                if (((Coin*)item)->size_ == Coin::BIG)
-                    gold_ += item->getAmount()*10;
-                else
-                    gold_ += item->getAmount();
+                if (  ((Coin*)item)->size_ == Coin::BIG
+                    ) gold_ += item->getAmount()*10;
+                else  gold_ += item->getAmount();
             }
 
          // then we do the simple calculations: 1 gold = 100 silver, 1 silver = 100 bronze

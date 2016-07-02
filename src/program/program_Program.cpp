@@ -16,8 +16,8 @@ extern rr::Settings  settings;
 namespace rr {
 
     Program::Program() {
-        if (loadResources())
-            runGame();
+        if (  loadResources()
+            ) runGame();
     }
 
     Program::~Program() {
@@ -30,9 +30,10 @@ namespace rr {
     }
 
     void Program::runGame() {
-        window_.create(sf::VideoMode(settings.graphics.resolution.x, settings.graphics.resolution.y, 32), "PAhAom", settings.graphics.fullscreen?(sf::Style::Fullscreen):(sf::Style::Close), settings.graphics.csettings);
+        window_.create                (sf::VideoMode(settings.graphics.resolution.x, settings.graphics.resolution.y, 32), "PAhAom",
+                                                     settings.graphics.fullscreen ? (sf::Style::Fullscreen) : (sf::Style::Close), settings.graphics.csettings);
         window_.setVerticalSyncEnabled(settings.graphics.vsync);
-        window_.setKeyRepeatEnabled(false);
+        window_.setKeyRepeatEnabled   (false);
 
         game_ = new Game();
         mainLoop();
@@ -40,8 +41,8 @@ namespace rr {
 
     void Program::handleEvents() {
         while (window_.pollEvent(event_)) {
-            if (event_.type == sf::Event::Closed)
-                window_.close();
+            if (  event_.type == sf::Event::Closed
+                ) window_.close();
 
             game_->buttonEvents(window_, event_);
         }
@@ -55,8 +56,8 @@ namespace rr {
     }
 
     void Program::draw() {
-        window_.clear();
-        game_->draw(window_);
+        window_.clear  ();
+        game_ ->draw   (window_);
         window_.display();
     }
 
@@ -64,8 +65,8 @@ namespace rr {
         sf::Clock timer;
         while (window_.isOpen()) {
             handleEvents();
-            update(timer);
-            draw();
+            update      (timer);
+            draw        ();
         }
     }
 

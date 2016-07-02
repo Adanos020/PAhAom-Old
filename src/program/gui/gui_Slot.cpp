@@ -14,24 +14,24 @@ extern rr::Resources resources;
 namespace rr {
 
     Slot::Slot(sf::Vector2f size, sf::Vector2f pos, int icon, sf::Color c)
-        : Component(),
-          image_     (new Image(pos, resources.texture.gui, 14, icon)),
-          text_      (new Text (sf::Vector2f(pos.x+5, pos.y+55), "", resources.font.Pixel, 20)),
-          hollow_    (true) {
+    : Component(                                                                        ),
+      image_   (new Image(pos, resources.texture.gui, 14, icon)                         ),
+      text_    (new Text (sf::Vector2f(pos.x+5, pos.y+55), "", resources.font.Pixel, 20)),
+      hollow_  (true                                                                    ) {
 
-        body_.setSize(size);
-        body_.setPosition(pos);
-        body_.setFillColor(c);
-        body_.setOutlineColor(sf::Color(c.r+20, c.g+20, c.b+20));
-        body_.setOutlineThickness(5);
+        body_  .setSize            (size);
+        body_  .setPosition        (pos);
+        body_  .setFillColor       (c);
+        body_  .setOutlineColor    (sf::Color(c.r+20, c.g+20, c.b+20));
+        body_  .setOutlineThickness(5);
 
-        image_->setParentComponent(this);
-        text_ ->setParentComponent(this);
+        image_->setParentComponent (this);
+        text_ ->setParentComponent (this);
     }
 
     Slot::~Slot() {
-        if (!hollow_)
-            delete item_;
+        if ( !hollow_
+            ) delete item_;
     }
 
     void Slot::setPosition(sf::Vector2f pos) {
@@ -43,12 +43,12 @@ namespace rr {
     void Slot::draw(sf::RenderWindow& rw) {
         rw.draw(body_);
 
-        if (hollow_)
-            image_->draw(rw);
+        if (  hollow_
+            ) image_->draw(rw);
         else {
             item_->draw(rw);
-            if (item_->getAmount() > 1)
-                text_->draw(rw);
+            if (  item_->getAmount() > 1
+                ) text_->draw(rw);
         }
     }
 
@@ -63,7 +63,7 @@ namespace rr {
         }
         item_ = getItemFromID(item->getID(), item->getAmount());
 
-        if (instanceof<Discoverable, Item>(item) && ((Discoverable*)item)->isDiscovered()
+        if (  instanceof<Discoverable, Item>(item) && ((Discoverable*)item)->isDiscovered()
             ) ((Discoverable*)item_)->reveal();
 
         item_->setRealPosition(body_.getPosition());
@@ -106,8 +106,8 @@ namespace rr {
             held_ = true;
             return true;
         }
-        if (e.type == sf::Event::MouseButtonReleased)
-            held_ = false;
+        if (  e.type == sf::Event::MouseButtonReleased
+            ) held_ = false;
         return false;
     }
 

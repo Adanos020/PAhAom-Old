@@ -9,32 +9,31 @@
 namespace rr {
 
     Mask::Mask()
-    : Entity     (),
+    : Entity     (                  ),
       position_  (sf::Vector2i(0, 0)),
-      seen_      (false),
-      discovered_(false),
-      flipped_   (false) {
+      seen_      (false             ),
+      discovered_(false             ),
+      flipped_   (false             ) {
 
         body_.resize(4);
         body_.setPrimitiveType(sf::Quads);
 
         rr::setPosition(body_, sf::Vector2f(0, 0));
-        setSize(body_, sf::Vector2f(80, 80));
-        setColor(body_, sf::Color::Black);
+        setSize        (body_, sf::Vector2f(80, 80));
+        setColor       (body_, sf::Color::Black);
     }
 
     Mask::Mask(Mask const& mask)
-    : Entity     (),
-      body_      (mask.body_),
-      position_  (mask.position_),
-      seen_      (mask.seen_),
+    : Entity     (                ),
+      body_      (mask.body_      ),
+      position_  (mask.position_  ),
+      seen_      (mask.seen_      ),
       discovered_(mask.discovered_),
-      flipped_   (mask.flipped_) {}
+      flipped_   (mask.flipped_   ) {}
 
     void Mask::see(bool seen) {
-        if (seen) {
-            discovered_ = true;
-        }
+        if (  seen
+            ) discovered_ = true;
         seen_ = seen;
     }
 
@@ -52,42 +51,36 @@ namespace rr {
 
 #ifdef __gnu_linux__
 
-                if (  !flipped_
-                   && (shades[0] == sf::Color::Black || shades[0] == sf::Color(0, 0, 0, 200))
-                   && (shades[2] == sf::Color::Black || shades[2] == sf::Color(0, 0, 0, 200))) {
+                if     (!flipped_ && (shades[0] == sf::Color::Black || shades[0] == sf::Color(0, 0, 0, 200))
+                                  && (shades[2] == sf::Color::Black || shades[2] == sf::Color(0, 0, 0, 200))) {
                     flipVertically(body_);
                     flipped_ = true;
                 }
-                else if (flipped_
-                     && (shades[1] == sf::Color::Black || shades[1] == sf::Color(0, 0, 0, 200))
-                     && (shades[3] == sf::Color::Black || shades[3] == sf::Color(0, 0, 0, 200))) {
+                else if (flipped_ && (shades[1] == sf::Color::Black || shades[1] == sf::Color(0, 0, 0, 200))
+                                  && (shades[3] == sf::Color::Black || shades[3] == sf::Color(0, 0, 0, 200))) {
                     flipVertically(body_);
                     flipped_ = false;
                 }
-                else if (flipped_
-                     && (shades[0] != sf::Color::Black && shades[0] != sf::Color(0, 0, 0, 200))
-                     && (shades[2] != sf::Color::Black && shades[2] != sf::Color(0, 0, 0, 200))) {
+                else if (flipped_ && (shades[0] != sf::Color::Black && shades[0] != sf::Color(0, 0, 0, 200))
+                                  && (shades[2] != sf::Color::Black && shades[2] != sf::Color(0, 0, 0, 200))) {
                     flipVertically(body_);
                     flipped_ = false;
                 }
 
 #else
 
-                if (  !flipped_
-                   && (shades[1] == sf::Color::Black || shades[1] == sf::Color(0, 0, 0, 200))
-                   && (shades[3] == sf::Color::Black || shades[3] == sf::Color(0, 0, 0, 200))) {
+                if     (!flipped_ && (shades[1] == sf::Color::Black || shades[1] == sf::Color(0, 0, 0, 200))
+                                  && (shades[3] == sf::Color::Black || shades[3] == sf::Color(0, 0, 0, 200))) {
                     flipVertically(body_);
                     flipped_ = true;
                 }
-                else if (flipped_
-                     && (shades[0] == sf::Color::Black || shades[0] == sf::Color(0, 0, 0, 200))
-                     && (shades[2] == sf::Color::Black || shades[2] == sf::Color(0, 0, 0, 200))) {
+                else if (flipped_ && (shades[0] == sf::Color::Black || shades[0] == sf::Color(0, 0, 0, 200))
+                                  && (shades[2] == sf::Color::Black || shades[2] == sf::Color(0, 0, 0, 200))) {
                     flipVertically(body_);
                     flipped_ = false;
                 }
-                else if (flipped_
-                     && (shades[1] != sf::Color::Black && shades[1] != sf::Color(0, 0, 0, 200))
-                     && (shades[3] != sf::Color::Black && shades[3] != sf::Color(0, 0, 0, 200))) {
+                else if (flipped_ && (shades[1] != sf::Color::Black && shades[1] != sf::Color(0, 0, 0, 200))
+                                  && (shades[3] != sf::Color::Black && shades[3] != sf::Color(0, 0, 0, 200))) {
                     flipVertically(body_);
                     flipped_ = false;
                 }

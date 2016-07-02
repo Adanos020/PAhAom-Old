@@ -7,8 +7,6 @@
 #include "program.hpp"
 
 #include <fstream>
-#include <iostream>
-#include <iomanip>
 #include "funcs/strings.hpp"
 
 extern rr::Settings settings;
@@ -44,10 +42,10 @@ namespace rr {
                 }
             }
             idict.close();
-            std::cout << ">Done.\n";
+            puts(">Done.");
             return true;
         }
-        std::cout << "!Error loading the dictionary!\n";
+        puts("!Error loading the dictionary!");
         return false;
     }
 

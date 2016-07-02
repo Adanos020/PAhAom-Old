@@ -13,21 +13,21 @@ extern rr::Settings  settings;
 namespace rr {
 
     Button::Button(sf::Vector2f position, sf::String str, unsigned chsize, sf::Color c)
-        : Component(),
-          image_   (new Image(position, resources.texture.gui, 14, 0)),
-          text_    (new Text(sf::Vector2f(0, 0), str, resources.font.Unifont, chsize, c)),
-          held_    (false) {
+    : Component(                                                                    ),
+      image_   (new Image(position, resources.texture.gui, 14, 0)                   ),
+      text_    (new Text(sf::Vector2f(0, 0), str, resources.font.Unifont, chsize, c)),
+      held_    (false                                                               ) {
 
-        text_->setPosition(sf::Vector2f(position.x+15, position.y-0.5));
-        text_->setParentComponent(this);
+        text_ ->setPosition       (sf::Vector2f(position.x+15, position.y-0.5));
+        text_ ->setParentComponent(this);
 
         image_->setParentComponent(this);
 
-        body_.setPosition(position);
-        body_.setSize(sf::Vector2f(text_->getSize().x+25, chsize*1.3425));
-        body_.setFillColor(sf::Color(0, 0, 0));
+        body_  .setPosition       (position);
+        body_  .setSize           (sf::Vector2f(text_->getSize().x+25, chsize*1.3425));
+        body_  .setFillColor      (sf::Color(0, 0, 0));
 
-        text_->setPosition(sf::Vector2f(position.x+body_.getSize().x/2-text_->getSize().x/2-chsize/20, position.y-0.5));
+        text_ ->setPosition       (sf::Vector2f(position.x + body_.getSize().x/2 - text_->getSize().x/2 - chsize/20, position.y-0.5));
     }
 
     Button::~Button() {}
@@ -46,8 +46,8 @@ namespace rr {
             held_ = true;
             return true;
         }
-        if (e.type == sf::Event::MouseButtonReleased)
-            held_ = false;
+        if (  e.type == sf::Event::MouseButtonReleased
+            ) held_ = false;
         return false;
     }
 

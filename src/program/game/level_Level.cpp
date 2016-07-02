@@ -16,9 +16,9 @@ extern rr::Resources resources;
 namespace rr {
 
     Level::Level(int number)
-        : size_         (sf::Vector2i(77, 43)),
-          region_count_ (0),
-          levelNumber_  (number) {
+    : size_         (sf::Vector2i(77, 43)),
+      region_count_ (0),
+      levelNumber_  (number) {
 
         tilemap_.setPrimitiveType(sf::Quads);
         tilemap_.resize(size_.x*size_.y*4);
@@ -178,8 +178,8 @@ namespace rr {
             std::vector<sf::Vector2i> unmadeCells;
 
             for (auto dir : directions) {
-                if (!isOnBorder(cell.x+dir.x*3, cell.y+dir.y*3) && tiles_[cell.x+dir.x*2+(cell.y+dir.y*2)*size_.x] == WALL)
-                    unmadeCells.push_back(dir);
+                if (  !isOnBorder(cell.x+dir.x*3, cell.y+dir.y*3) && tiles_[cell.x+dir.x*2+(cell.y+dir.y*2)*size_.x] == WALL
+                    ) unmadeCells.push_back(dir);
             }
 
             if (!unmadeCells.empty()) {
@@ -192,15 +192,12 @@ namespace rr {
                         break;
                     }
                 }
-                if (found && rand()%100 > 0) {
-                    dir = lastDir;
-                }
-                else {
-                    dir = unmadeCells[rand()%unmadeCells.size()];
-                }
+                if (  found && rand()%100 > 0
+                    ) dir = lastDir;
+                else  dir = unmadeCells[rand()%unmadeCells.size()];
 
-                tiles_[ cell.x+dir.x  +  (cell.y+dir.y)*size_.x ] = CORRIDOR;
-                tiles_[cell.x+dir.x*2 + (cell.y+dir.y*2)*size_.x] = CORRIDOR;
+                tiles_  [ cell.x+dir.x  +  (cell.y+dir.y)*size_.x ] = CORRIDOR;
+                tiles_  [cell.x+dir.x*2 + (cell.y+dir.y*2)*size_.x] = CORRIDOR;
 
                 regions_[ cell.x+dir.x  +  (cell.y+dir.y)*size_.x ] = region_count_;
                 regions_[cell.x+dir.x*2 + (cell.y+dir.y*2)*size_.x] = region_count_;
@@ -230,11 +227,10 @@ namespace rr {
                     if (tiles_[pos.x-1+pos.y*size_.x] == CORRIDOR || tiles_[pos.x+1+pos.y*size_.x] == CORRIDOR) {
 
                      // the regions_ on both sides cannot be the same if one of them is a corridor
-                        if (regions_[pos.x-1+pos.y*size_.x] != regions_[pos.x+1+pos.y*size_.x])
-                            connectors.push_back(pos);
+                        if (  regions_[pos.x-1+pos.y*size_.x] != regions_[pos.x+1+pos.y*size_.x]
+                            ) connectors.push_back(pos);
                     }
-                    else
-                        connectors.push_back(pos);
+                    else connectors.push_back(pos);
                 }
 
              // are there walls neither above nor below?
@@ -242,17 +238,16 @@ namespace rr {
                     if (tiles_[pos.x+(pos.y-1)*size_.x] == CORRIDOR || tiles_[pos.x+(pos.y+1)*size_.x] == CORRIDOR) {
 
                      // the regions_ on both sides cannot be the same if one of them is a corridor
-                        if (regions_[pos.x+(pos.y-1)*size_.x] != regions_[pos.x+(pos.y+1)*size_.x])
-                            connectors.push_back(pos);
+                        if (  regions_[pos.x+(pos.y-1)*size_.x] != regions_[pos.x+(pos.y+1)*size_.x]
+                            ) connectors.push_back(pos);
                     }
-                    else
-                        connectors.push_back(pos);
+                    else connectors.push_back(pos);
                 }
             }
         }
 
      // then we iterate on each room and give it a random numbers of entrances
-        for (unsigned it=0; it<rooms_.size(); it++) {
+        for (auto room=rooms_.begin(); room!=rooms_.end(); ++room) {
             for (int entrances = rand()%2+2; entrances>0; entrances--) {
                 sf::Vector2i position;
                 bool found = false;
@@ -260,14 +255,12 @@ namespace rr {
                 int tries = 100;
                 while (!found && tries > 0) {
                     switch (rand()%2) {
-                    case 0: // LEFT OR RIGHT
-                        position = (rand()%2)?sf::Vector2i(rooms_[it].left-1               , rooms_[it].top+rand()%rooms_[it].height)
-                                             :sf::Vector2i(rooms_[it].left+rooms_[it].width, rooms_[it].top+rand()%rooms_[it].height);
-                        break;
-                    case 1: // UP OR DOWN
-                        position = (rand()%2)?sf::Vector2i(rooms_[it].left+rand()%rooms_[it].width, rooms_[it].top-1)
-                                             :sf::Vector2i(rooms_[it].left+rand()%rooms_[it].width, rooms_[it].top+rooms_[it].height);
-                        break;
+                        // LEFT OR RIGHT
+                        case 0: position = (rand()%2)?sf::Vector2i(room->left-1            , room->top + rand()%room->height)
+                                                     :sf::Vector2i(room->left + room->width, room->top + rand()%room->height); break;
+                        // UP OR DOWN
+                        case 1: position = (rand()%2)?sf::Vector2i(room->left + rand()%room->width, room->top-1)
+                                                     :sf::Vector2i(room->left + rand()%room->width, room->top + room->height); break;
                     }
 
                     for (auto x : connectors) {
@@ -287,28 +280,24 @@ namespace rr {
         for (sf::Vector2i pos(1, 1); pos.x<size_.x-1 && pos.y<size_.y-1; pos += ((pos.x >= size_.x-2)?(sf::Vector2i(-(size_.x-3), 1)):(sf::Vector2i(1, 0)))) {
             if (tiles_[pos.x+pos.y*size_.x] == ENTRANCE) {
                 if (tiles_[pos.x-1 + pos.y*size_.x] == ENTRANCE) {
-                    if (rand()%2)
-                        tiles_[ pos.x  + pos.y*size_.x] = WALL;
-                    else
-                        tiles_[pos.x-1 + pos.y*size_.x] = WALL;
+                    if (  rand()%2
+                        ) tiles_[ pos.x  + pos.y*size_.x] = WALL;
+                    else  tiles_[pos.x-1 + pos.y*size_.x] = WALL;
                 }
                 if (tiles_[pos.x+1 + pos.y*size_.x] == ENTRANCE) {
-                    if (rand()%2)
-                        tiles_[ pos.x  + pos.y*size_.x] = WALL;
-                    else
-                        tiles_[pos.x+1 + pos.y*size_.x] = WALL;
+                    if (  rand()%2
+                        ) tiles_[ pos.x  + pos.y*size_.x] = WALL;
+                    else  tiles_[pos.x+1 + pos.y*size_.x] = WALL;
                 }
                 if (tiles_[pos.x+(pos.y-1)*size_.x] == ENTRANCE) {
-                    if (rand()%2)
-                        tiles_[pos.x +   pos.y*size_.x  ] = WALL;
-                    else
-                        tiles_[pos.x + (pos.y-1)*size_.x] = WALL;
+                    if (  rand()%2
+                        ) tiles_[pos.x +   pos.y*size_.x  ] = WALL;
+                    else  tiles_[pos.x + (pos.y-1)*size_.x] = WALL;
                 }
                 if (tiles_[pos.x + (pos.y+1)*size_.x] == ENTRANCE) {
-                    if (rand()%2)
-                        tiles_[pos.x +   pos.y*size_.x  ] = WALL;
-                    else
-                        tiles_[pos.x + (pos.y+1)*size_.x] = WALL;
+                    if (  rand()%2
+                        ) tiles_[pos.x +   pos.y*size_.x  ] = WALL;
+                    else  tiles_[pos.x + (pos.y+1)*size_.x] = WALL;
                 }
             }
         }
@@ -321,22 +310,22 @@ namespace rr {
             done = true;
             for (int i=1; i<size_.x-1; i++) {
                 for (int j=1; j<size_.y-1; j++) {
-                    if (tiles_[i+j*size_.x] == WALL)
-                        continue;
+                    if (  tiles_[i+j*size_.x] == WALL
+                        ) continue;
 
                     // if it only has one exit, it's a dead end.
                     int exits = 0;
-                    if (tiles_[(i-1)+j*size_.x] != WALL)
-                        exits++;
-                    if (tiles_[(i+1)+j*size_.x] != WALL)
-                        exits++;
-                    if (tiles_[i+(j-1)*size_.x] != WALL)
-                        exits++;
-                    if (tiles_[i+(j+1)*size_.x] != WALL)
-                        exits++;
+                    if (  tiles_[(i-1)+j*size_.x] != WALL
+                        ) exits++;
+                    if (  tiles_[(i+1)+j*size_.x] != WALL
+                        ) exits++;
+                    if (  tiles_[i+(j-1)*size_.x] != WALL
+                        ) exits++;
+                    if (  tiles_[i+(j+1)*size_.x] != WALL
+                        ) exits++;
 
-                    if (exits > 1)
-                        continue;
+                    if (  exits > 1
+                        ) continue;
 
                     done = false;
                     tiles_[i+j*size_.x] = WALL;
@@ -352,122 +341,122 @@ namespace rr {
 
              // assigning an appropriate tile number to a given cell
                 switch (tiles_[i+j*size_.x]) {
-                case CHASM: tileNumber = 0; break;
-                case WALL :
-                    tileNumber = rand()%14+2;
-                    enum Neighbour {
-                        NONE,
-                        TOP, BOTTOM, LEFT, RIGHT,
-                        TOP_BOTTOM, TOP_LEFT, TOP_RIGHT, LEFT_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT,
-                        NO_TOP, NO_RIGHT, NO_LEFT, NO_BOTTOM,
-                        ALL
-                    };
-                    if (!isOnBorder(i, j)) {
-                        if      (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] != WALL)
-                                 )                                       tileNumber += ALL         *16;
+                    case CHASM: tileNumber = 0; break;
+                    case WALL :
+                        tileNumber = rand()%14+2;
+                        enum Neighbour {
+                            NONE,
+                            TOP, BOTTOM, LEFT, RIGHT,
+                            TOP_BOTTOM, TOP_LEFT, TOP_RIGHT, LEFT_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT,
+                            NO_TOP, NO_RIGHT, NO_LEFT, NO_BOTTOM,
+                            ALL
+                        };
+                        if (!isOnBorder(i, j)) {
+                            if      (  (tiles_[ i  + (j-1)*size_.x] != WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] != WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] != WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    )                                       tileNumber += ALL         *16;
 
-                        else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] != WALL)
-                                 )                                       tileNumber += NO_TOP      *16;
-                        else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] != WALL)
-                                 )                                       tileNumber += NO_BOTTOM   *16;
-                        else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] != WALL)
-                                 )                                       tileNumber += NO_LEFT     *16;
-                        else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] == WALL)
-                                 )                                       tileNumber += NO_RIGHT    *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] != WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] != WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    )                                       tileNumber += NO_TOP      *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] == WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] != WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    )                                       tileNumber += NO_BOTTOM   *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] != WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] == WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    )                                       tileNumber += NO_LEFT     *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] != WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] != WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    )                                       tileNumber += NO_RIGHT    *16;
 
-                        else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] != WALL)
-                                 )                                       tileNumber += LEFT_RIGHT  *16;
-                        else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] != WALL)
-                                 )                                       tileNumber += BOTTOM_RIGHT*16;
-                        else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] == WALL)
-                                 )                                       tileNumber += BOTTOM_LEFT *16;
-                        else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] == WALL)
-                                 )                                       tileNumber += TOP_BOTTOM  *16;
-                        else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] != WALL)
-                                 )                                       tileNumber += TOP_RIGHT   *16;
-                        else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] == WALL)
-                                 )                                       tileNumber += TOP_LEFT    *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] == WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] != WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    )                                       tileNumber += LEFT_RIGHT  *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] != WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] == WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    )                                       tileNumber += BOTTOM_RIGHT*16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] != WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] != WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    )                                       tileNumber += BOTTOM_LEFT *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] != WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] == WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    )                                       tileNumber += TOP_BOTTOM  *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] == WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] == WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    )                                       tileNumber += TOP_RIGHT   *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] == WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] != WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    )                                       tileNumber += TOP_LEFT    *16;
 
-                        else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] == WALL)
-                                 )                                       tileNumber += TOP         *16;
-                        else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] == WALL)
-                                 )                                       tileNumber += BOTTOM      *16;
-                        else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] == WALL)
-                                 )                                       tileNumber += LEFT        *16;
-                        else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                && (tiles_[i+1 +   j*size_.x  ] != WALL)
-                                 )                                       tileNumber += RIGHT       *16;
-                    }
-                    else if (i == 0) {
-                        if (j > 0 && j < size_.y-1) {
-                            if      ((tiles_[i+1 + j*size_.x] != WALL))  tileNumber += LEFT_RIGHT  *16;
-                            else if ((tiles_[i+1 + j*size_.x] == WALL))  tileNumber += LEFT        *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] == WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] == WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    )                                       tileNumber += TOP         *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] != WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] == WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    )                                       tileNumber += BOTTOM      *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] == WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] != WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    )                                       tileNumber += LEFT        *16;
+                            else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
+                                    && (tiles_[ i  + (j+1)*size_.x] == WALL)
+                                    && (tiles_[i-1 +   j*size_.x  ] == WALL)
+                                    && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    )                                       tileNumber += RIGHT       *16;
                         }
-                        else if (j == 0)                                 tileNumber += TOP_LEFT    *16;
-                        else if (j == size_.y-1)                         tileNumber += BOTTOM_LEFT *16;
-                    }
-                    else if (i == size_.x-1) {
-                        if (j > 0 && j < size_.y-1) {
-                            if      ((tiles_[i-1+j*size_.x] != WALL))    tileNumber += LEFT_RIGHT  *16;
-                            else if ((tiles_[i-1+j*size_.x] == WALL))    tileNumber += RIGHT       *16;
+                        else if (i == 0) {
+                            if (j > 0 && j < size_.y-1) {
+                                if      ((tiles_[i+1 + j*size_.x] != WALL))  tileNumber += LEFT_RIGHT  *16;
+                                else if ((tiles_[i+1 + j*size_.x] == WALL))  tileNumber += LEFT        *16;
+                            }
+                            else if (j == 0)                                 tileNumber += TOP_LEFT    *16;
+                            else if (j == size_.y-1)                         tileNumber += BOTTOM_LEFT *16;
                         }
-                        else if (j == 0)                                 tileNumber += TOP_RIGHT   *16;
-                        else if (j == size_.y-1)                         tileNumber += BOTTOM_RIGHT*16;
-                    }
-                    else if (j == 0 && i > 0 && i < size_.x-1) {
-                        if      ((tiles_[i+(j+1)*size_.x] != WALL))      tileNumber += TOP_BOTTOM  *16;
-                        else if ((tiles_[i+(j+1)*size_.x] == WALL))      tileNumber += TOP         *16;
-                    }
-                    else if (j == size_.y-1 && i > 0 && i < size_.x-1) {
-                        if      ((tiles_[i+(j-1)*size_.x] != WALL))      tileNumber += TOP_BOTTOM  *16;
-                        else if ((tiles_[i+(j-1)*size_.x] == WALL))      tileNumber += BOTTOM      *16;
-                    }
-                    break;
-                default: tileNumber = 17; break;
+                        else if (i == size_.x-1) {
+                            if (j > 0 && j < size_.y-1) {
+                                if      ((tiles_[i-1+j*size_.x] != WALL))    tileNumber += LEFT_RIGHT  *16;
+                                else if ((tiles_[i-1+j*size_.x] == WALL))    tileNumber += RIGHT       *16;
+                            }
+                            else if (j == 0)                                 tileNumber += TOP_RIGHT   *16;
+                            else if (j == size_.y-1)                         tileNumber += BOTTOM_RIGHT*16;
+                        }
+                        else if (j == 0 && i > 0 && i < size_.x-1) {
+                            if      ((tiles_[i+(j+1)*size_.x] != WALL))      tileNumber += TOP_BOTTOM  *16;
+                            else if ((tiles_[i+(j+1)*size_.x] == WALL))      tileNumber += TOP         *16;
+                        }
+                        else if (j == size_.y-1 && i > 0 && i < size_.x-1) {
+                            if      ((tiles_[i+(j-1)*size_.x] != WALL))      tileNumber += TOP_BOTTOM  *16;
+                            else if ((tiles_[i+(j-1)*size_.x] == WALL))      tileNumber += BOTTOM      *16;
+                        }
+                        break;
+                    default: tileNumber = 17; break;
                 }
 
                 int tu = tileNumber%(resources.texture.tileset.getSize().x/16);
@@ -475,10 +464,10 @@ namespace rr {
 
                 sf::Vertex* quad = &tilemap_[(i + j*size_.x)*4];
 
-                quad[0].position = sf::Vector2f(  i  *80,   j  *80);
-                quad[1].position = sf::Vector2f((i+1)*80,   j  *80);
-                quad[2].position = sf::Vector2f((i+1)*80, (j+1)*80);
-                quad[3].position = sf::Vector2f(  i  *80, (j+1)*80);
+                quad[0].position  = sf::Vector2f(  i  *80,   j  *80);
+                quad[1].position  = sf::Vector2f((i+1)*80,   j  *80);
+                quad[2].position  = sf::Vector2f((i+1)*80, (j+1)*80);
+                quad[3].position  = sf::Vector2f(  i  *80, (j+1)*80);
 
                 quad[0].texCoords = sf::Vector2f(  tu  *16+0.0625f,   tv  *16+0.0625f);
                 quad[1].texCoords = sf::Vector2f((tu+1)*16-0.0625f,   tv  *16+0.0625f);
@@ -493,8 +482,8 @@ namespace rr {
      // here we place the doors
         for (int x=1; x<size_.x-1; x++) {
             for (int y=1; y<size_.y-1; y++) {
-                if (tiles_[x+y*size_.x] == ENTRANCE)
-                    addEntity(new Door(false), sf::Vector2i(x, y));
+                if (  tiles_[x+y*size_.x] == ENTRANCE
+                    ) addEntity(new Door(false), sf::Vector2i(x, y));
             }
         }
 
@@ -525,8 +514,10 @@ namespace rr {
         for (int i=0; i<rand()%5; i++) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
+
              // just doing the same checking as in the item generating section
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
+
                  // here we choose randomly whether the chest has to be the special (probability = 5%) or the regular one (p = 95%)
                     addEntity(new Chest((rand()%20) ? Chest::REGULAR : Chest::SPECIAL, getRandomItem()), sf::Vector2i(x, y));
                     tiles_[x+y*size_.x] = OCCUPIED;
@@ -650,21 +641,11 @@ namespace rr {
                 ) break;
         }
         switch (levelNumber_) {
-        case 5:
-            addEntity(new Teacher(Teacher::SWORDSMAN), pos);
-            break;
-        case 10:
-            addEntity(new Teacher(Teacher::SHARPSHOOTER), pos);
-            break;
-        case 15:
-            addEntity(new Teacher(Teacher::CARPENTER), pos);
-            break;
-        case 20:
-            addEntity(new Teacher(Teacher::MAGE), pos);
-            break;
-        case 25:
-            addEntity(new Teacher(Teacher::KUNG_FU_CHAMPION), pos);
-            break;
+            case 5 : addEntity(new Teacher(Teacher::SWORDSMAN     ), pos); break;
+            case 10: addEntity(new Teacher(Teacher::SHARPSHOOTER  ), pos); break;
+            case 15: addEntity(new Teacher(Teacher::CARPENTER     ), pos); break;
+            case 20: addEntity(new Teacher(Teacher::MAGE          ), pos); break;
+            case 25: addEntity(new Teacher(Teacher::KUNG_FU_MASTER), pos); break;
         }
      }
 
@@ -679,26 +660,21 @@ namespace rr {
 
     void Level::onNotify(Observer::Event event, Entity* entity) {
         switch (event) {
-        case Observer::ITEM_DISCOVERED:
-            if (instanceof<Potion, Item>((Item*)entity)) {
-                for (auto item : entities_) {
-                    if (instanceof<Potion, Item>((Item*)item) && ((Potion*)item)->effect_ == ((Potion*)entity)->effect_) {
-                        ((Potion*)item)->reveal();
-                    }
-                }
-            }
-            else if (instanceof<Rune, Item>((Item*)entity)) {
-                for (auto item : entities_) {
-                    if (instanceof<Rune, Item>((Item*)item) && ((Rune*)item)->type_ == ((Rune*)entity)->type_) {
-                        ((Rune*)item)->reveal();
-                    }
-                }
-            }
-            break;
-        case Observer::ITEM_DROPPED:
-            break;
-        default:
-            break;
+        case Observer::ITEM_DISCOVERED: if (instanceof<Potion, Item>((Item*)entity)) {
+                                            for (auto item : entities_) {
+                                                if (  instanceof<Potion, Item>((Item*)item) && ((Potion*)item)->effect_ == ((Potion*)entity)->effect_
+                                                    ) ((Potion*)item)->reveal();
+                                            }
+                                        }
+                                        else if (instanceof<Rune, Item>((Item*)entity)) {
+                                            for (auto item : entities_) {
+                                                if (  instanceof<Rune, Item>((Item*)item) && ((Rune*)item)->type_ == ((Rune*)entity)->type_
+                                                    ) ((Rune*)item)->reveal();
+                                            }
+                                        }
+                                        break;
+        case Observer::ITEM_DROPPED   : break;
+        default                       : break;
         }
     }
 

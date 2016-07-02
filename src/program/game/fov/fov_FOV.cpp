@@ -26,7 +26,9 @@ namespace rr {
                 ) topY = x;
             else {
                 topY = ((x*2-1)*top.y_+top.x_) / (top.x_*2);
-                if (  blocksLight(tiles, x, topY, octant, origin) && top >= Slope(topY*2+1, x*2) && !blocksLight(tiles, x, topY+1, octant, origin)
+                if (  blocksLight(tiles, x, topY, octant, origin)
+                   && top >= Slope(topY*2+1, x*2)
+                   && !blocksLight(tiles, x, topY+1, octant, origin)
                     ) topY++;
                 else {
                     unsigned ax = x*2;
@@ -65,8 +67,7 @@ namespace rr {
                                         bottom = Slope(ny, nx);
                                         break;
                                     }
-                                    else
-                                        compute(masks, tiles, octant, origin, range, x+1, top, Slope(ny, nx));
+                                    else compute(masks, tiles, octant, origin, range, x+1, top, Slope(ny, nx));
                                 }
                                 else if (  y == bottomY
                                          ) return;

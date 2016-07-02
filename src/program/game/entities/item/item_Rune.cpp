@@ -14,7 +14,7 @@ extern int           spellSymbols[11];
 namespace rr {
 
     Rune::Rune(Type type, int am, sf::Vector2i pos)
-    : Discoverable(),
+    : Discoverable(    ),
       type_       (type) {
 
         amount_     = am;
@@ -41,40 +41,63 @@ namespace rr {
 
         switch (type_) {
             case HEAL         : discoveredName_        = resources.dictionary["item.spell.type.heal"               ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.heal"        ]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.heal"        ];
+                                break;
+
             case FIREBOLT     : discoveredName_        = resources.dictionary["item.spell.type.firebolt"           ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.firebolt"    ]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.firebolt"    ];
+                                break;
+
             case LIGHTNING    : discoveredName_        = resources.dictionary["item.spell.type.lightning"          ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.lightning"   ]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.lightning"   ];
+                                break;
+
             case ICE_BULLET   : discoveredName_        = resources.dictionary["item.spell.type.iceBullet"          ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.iceBullet"   ]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.iceBullet"   ];
+                                break;
+
             case TELEPORT     : discoveredName_        = resources.dictionary["item.spell.type.teleport"           ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.teleport"    ]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.teleport"    ];
+                                break;
+
             case FIRE_RAIN    : discoveredName_        = resources.dictionary["item.spell.type.fireRain"           ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.fireRain"    ]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.fireRain"    ];
+                                break;
+
             case STORM        : discoveredName_        = resources.dictionary["item.spell.type.storm"              ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.storm"       ]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.storm"       ];
+                                break;
+
             case ICE_WAVE     : discoveredName_        = resources.dictionary["item.spell.type.iceWave"            ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.iceWave"     ]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.iceWave"     ];
+                                break;
+
             case TIME_FREEZING: discoveredName_        = resources.dictionary["item.spell.type.timeFreezing"       ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.timeFreezing"]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.timeFreezing"];
+                                break;
+
             case IDENTIFY     : discoveredName_        = resources.dictionary["item.spell.type.identify"           ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.identify"    ]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.identify"    ];
+                                break;
+
             case UNCURSE      : discoveredName_        = resources.dictionary["item.spell.type.uncurse"            ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.uncurse"     ]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.uncurse"     ];
+                                break;
+
             case TELEKINESIS  : discoveredName_        = resources.dictionary["item.spell.type.telekinesis"        ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.telekinesis" ]; break;
+                                discoveredDescription_ = resources.dictionary["item.spell.description.telekinesis" ];
+                                break;
         }
 
         int icons[] = { (int)iconIndex_, 64+(int)spellSymbols[type_] };
 
-        setIcon(body_, 2, icons);
+        setIcon    (body_, 2, icons);
         setPosition(pos);
     }
 
     Rune::Rune(Rune const& rune)
-    : Discoverable(),
-      type_        (rune.type_) {
+    : Discoverable(          ),
+      type_       (rune.type_) {
 
         amount_                = rune.amount_;
         disposable_            = rune.disposable_;

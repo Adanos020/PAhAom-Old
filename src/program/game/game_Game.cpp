@@ -33,13 +33,14 @@ namespace rr {
           hud_           (new HUD           ()),
           messageManager_(new MessageManager()),
           player_        (new Player        ()),
-          started_       (false),
-          paused_        (false),
-          levelNumber_   (0) {
+          started_       (false               ),
+          paused_        (false               ),
+          levelNumber_   (0                   ) {
 
-        gameView_.setSize((sf::Vector2f)settings.graphics.resolution);
-        mapView_ .setSize(6160.f, 3440.f);
-        mapView_ .setCenter(mapView_.getSize()/2.f);
+        gameView_.setSize    ((sf::Vector2f)settings.graphics.resolution);
+
+        mapView_ .setSize    (6160.f, 3440.f);
+        mapView_ .setCenter  (mapView_.getSize()/2.f);
         mapView_ .setViewport(sf::FloatRect(0.115f, 0.1275f, 0.77f, 0.745f));
 
         subject.addObserver(inventory_);
@@ -97,15 +98,13 @@ namespace rr {
         if (index > (int)levelNumber_) {
             if (  levelNumber_ < levels_.size()-1
                 ) levelNumber_++;
-            else
-                levelNumber_ = 0;
+            else  levelNumber_ = 0;
             player_->setPosition(levels_[levelNumber_]->getStartingPoint());
         }
         else if (index < (int)levelNumber_) {
             if (  levelNumber_ > 0
                 ) levelNumber_--;
-            else
-                levelNumber_ = levels_.size()-1;
+            else  levelNumber_ = levels_.size()-1;
             player_->setPosition(levels_[levelNumber_]->getEndingPoint());
         }
         messageManager_->addMessage(Message(resources.dictionary["message.welcome_to_level"]+" "+std::to_string(levelNumber_+1)+"!", sf::Color::Green));
@@ -182,8 +181,7 @@ namespace rr {
                 if (instanceof<Door, Entity>(entity)) {
                     if (  player_->intersects(entity)
                         ) ((Door*)entity)->setOpen(true);
-                    else
-                        ((Door*)entity)->setOpen(false);
+                    else  ((Door*)entity)->setOpen(false);
                 }
                 else if (  instanceof<NPC, Entity>(entity)
                          ) ((NPC*)entity)->update(time);
@@ -270,8 +268,7 @@ namespace rr {
                                     levels_[levelNumber_]->removeEntity(i);
                                     break;
                                 }
-                                else
-                                    messageManager_->addMessage(Message(resources.dictionary["message.full_inventory"], sf::Color::Red));
+                                else messageManager_->addMessage(Message(resources.dictionary["message.full_inventory"], sf::Color::Red));
                             }
                             else if (instanceof<Chest, Entity>(entities[i])) {
                                 levels_[levelNumber_]->replaceEntity(i, ((Chest*)entities[i])->getItem());

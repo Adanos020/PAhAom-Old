@@ -9,30 +9,31 @@
 namespace rr {
 
     Bar::Bar(Plain plain, int max_length, sf::Color c, sf::Vector2f pos)
-        : Component() {
+    : Component() {
 
-        if (plain == HORIZONTAL) {
+        if      (plain == HORIZONTAL) {
             border_.setSize(sf::Vector2f(max_length, 5));
-            bar_.setSize(sf::Vector2f(max_length, 5));
-        } else if (plain == VERTICAL) {
+            bar_   .setSize(sf::Vector2f(max_length, 5));
+        }
+        else if (plain == VERTICAL) {
             border_.setSize(sf::Vector2f(5, max_length));
-            bar_.setSize(sf::Vector2f(5, max_length));
+            bar_   .setSize(sf::Vector2f(5, max_length));
         }
 
-        border_.setFillColor(sf::Color::Transparent);
-        border_.setOutlineColor(sf::Color(128, 128, 128));
+        border_.setFillColor       (sf::Color::Transparent);
+        border_.setOutlineColor    (sf::Color(128, 128, 128));
         border_.setOutlineThickness(5);
-        border_.setPosition(pos);
+        border_.setPosition        (pos);
 
-        bar_.setFillColor(c);
-        bar_.setPosition(pos);
+        bar_.setFillColor          (c);
+        bar_.setPosition           (pos);
     }
 
     Bar::~Bar() {}
 
     void Bar::setPosition(sf::Vector2f pos) {
         border_.setPosition(pos);
-        bar_.setPosition(pos);
+        bar_   .setPosition(pos);
     }
 
     void Bar::setSize(sf::Vector2f size) {

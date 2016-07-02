@@ -14,7 +14,7 @@ extern sf::Color     itemColors[9];
 namespace rr {
 
     Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos)
-        : Discoverable(),
+        : Discoverable( ),
           effect_     (e),
           size_       (s) {
 
@@ -37,52 +37,60 @@ namespace rr {
 
         switch (effect_) {
         case HEALING:
-            discoveredName_        = resources.dictionary["item.potion.effect.healing"     ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.healing"];
+            discoveredName_        = resources.dictionary["item.potion.effect.healing"          ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.healing"     ];
             break;
+
         case MAGIC:
-            discoveredName_        = resources.dictionary["item.potion.effect.magic"     ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.magic"];
+            discoveredName_        = resources.dictionary["item.potion.effect.magic"            ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.magic"       ];
             break;
+
         case STRENGTH:
-            discoveredName_        = resources.dictionary["item.potion.effect.strength"     ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.strength"];
+            discoveredName_        = resources.dictionary["item.potion.effect.strength"         ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.strength"    ];
             break;
+
         case DEXTERITY:
-            discoveredName_        = resources.dictionary["item.potion.effect.dexterity"     ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.dexterity"];
+            discoveredName_        = resources.dictionary["item.potion.effect.dexterity"        ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.dexterity"   ];
             break;
+            
         case SPEED:
-            discoveredName_        = resources.dictionary["item.potion.effect.speed"     ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.speed"];
+            discoveredName_        = resources.dictionary["item.potion.effect.speed"            ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.speed"       ];
             break;
+
         case REGENERATION:
             discoveredName_        = resources.dictionary["item.potion.effect.regeneration"     ];
             discoveredDescription_ = resources.dictionary["item.potion.description.regeneration"];
             break;
+
         case POISON:
-            discoveredName_        = resources.dictionary["item.potion.effect.poison"     ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.poison"];
+            discoveredName_        = resources.dictionary["item.potion.effect.poison"           ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.poison"      ];
             break;
+
         case SLOWNESS:
-            discoveredName_        = resources.dictionary["item.potion.effect.slowness"     ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.slowness"];
+            discoveredName_        = resources.dictionary["item.potion.effect.slowness"         ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.slowness"    ];
             break;
+
         case WEAKNESS:
-            discoveredName_        = resources.dictionary["item.potion.effect.weakness"     ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.weakness"];
+            discoveredName_        = resources.dictionary["item.potion.effect.weakness"         ];
+            discoveredDescription_ = resources.dictionary["item.potion.description.weakness"    ];
             break;
         }
 
         int icons[] = { (int)iconIndex_, (int)iconIndex_+16 };
 
-        setIcon(body_, 2, icons);
-        setColor(body_, 1, itemColors[effect_]);
+        setIcon    (body_, 2, icons);
+        setColor   (body_, 1, itemColors[effect_]);
         setPosition(pos);
     }
 
     Potion::Potion(Potion const& potion)
-    : Discoverable(),
+    : Discoverable(              ),
       effect_     (potion.effect_) {
 
         amount_                = potion.amount_;

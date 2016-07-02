@@ -13,7 +13,7 @@ extern rr::Resources resources;
 namespace rr {
 
     Coin::Coin(Type t, Size s, int am, sf::Vector2i pos)
-        : Item() {
+    : Item() {
  
         amount_     = am;
         type_       = t;
@@ -29,21 +29,21 @@ namespace rr {
             case GOLDEN: name_ = resources.dictionary["item.coin.gold"  ]; break;
         }
 
-        setIcon(body_, iconIndex_);
+        setIcon    (body_, iconIndex_);
         setPosition(pos);
     }
 
     Coin::Coin(Coin const& coin)
-    : Item(),
-      type_        (coin.type_) {
+    : Item (          ),
+      type_(coin.type_) {
 
-        amount_                = coin.amount_;
-        disposable_            = coin.disposable_;
-        stackable_             = coin.stackable_;
-        ID_                    = coin.ID_;
-        iconIndex_             = coin.iconIndex_;
-        name_                  = coin.name_;
-        body_                  = coin.body_;
+        amount_     = coin.amount_;
+        disposable_ = coin.disposable_;
+        stackable_  = coin.stackable_;
+        ID_         = coin.ID_;
+        iconIndex_  = coin.iconIndex_;
+        name_       = coin.name_;
+        body_       = coin.body_;
     }
 
     void Coin::draw(sf::RenderWindow& rw) {

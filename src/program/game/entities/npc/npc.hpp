@@ -41,7 +41,7 @@ namespace rr {
             SHARPSHOOTER,
             CARPENTER,
             MAGE,
-            KUNG_FU_CHAMPION
+            KUNG_FU_MASTER
         } type_;
 
          Teacher(Type);
