@@ -7,7 +7,7 @@
 #ifndef item_funcs_hpp
 #define item_funcs_hpp
 
-#include <iostream>
+#include <cstdio>
 
 #include "../game/entities/item/item.hpp"
 
@@ -102,7 +102,7 @@ namespace rr {
             case 128: return new Potion    (Potion::Effect::WEAKNESS    , Potion::Size::BIG   , amount);
 
             /*unknown ID?*/
-            default : std::cout << "UNKNOWN ITEM ID: " << ID << '\n'; return nullptr;
+            default : printf("UNKNOWN ITEM ID: %d\n", ID); return nullptr;
         }
 
     }
