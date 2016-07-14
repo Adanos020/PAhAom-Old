@@ -17,7 +17,7 @@ sf::Color     itemColors[9];
 int           spellSymbols[12];
 
 int main() {
-    auto seed = time(0);
+    unsigned seed = time(0);
     srand(seed);
 
     auto p = new rr::Program(seed);

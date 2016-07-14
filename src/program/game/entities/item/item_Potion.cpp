@@ -107,6 +107,11 @@ namespace rr {
             break;
         }
 
+        if (discovered_) {
+            name_        = discoveredName_;
+            description_ = discoveredDescription_;
+        }
+
         int icons[] = { (int)iconIndex_, (int)iconIndex_+16 };
 
         setIcon    (body_, 2, icons);
@@ -155,7 +160,7 @@ namespace rr {
             readFile <int>  (file, position.x);
             readFile <int>  (file, position.y);
             readFile <int>  (file, amount_);
-            readFile <bool> (file, discovered_);                   
+            readFile <bool> (file, discovered_);
             readFile <int>  (file, effect);
             readFile <int>  (file, size);
         }

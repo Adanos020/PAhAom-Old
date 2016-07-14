@@ -116,30 +116,39 @@ namespace rr {
     }
 
     std::ifstream& Mask::operator<<(std::ifstream& file) {
-        sf::Vector2i position;
-
         try {
-            readFile <int>  (file, position.x);
-            readFile <int>  (file, position.y);
-            readFile <bool> (file, seen_);
-            readFile <bool> (file, discovered_);                   
-            readFile <bool> (file, flipped_);
+            readFile <float> (file, body_[0].position.x);
+            readFile <float> (file, body_[0].position.y);
+            readFile <float> (file, body_[1].position.x);
+            readFile <float> (file, body_[1].position.y);
+            readFile <float> (file, body_[2].position.x);
+            readFile <float> (file, body_[2].position.y);
+            readFile <float> (file, body_[3].position.x);
+            readFile <float> (file, body_[3].position.y);
+            readFile  <bool> (file, seen_);
+            readFile  <bool> (file, discovered_);                   
+            readFile  <bool> (file, flipped_);
         }
         catch (std::exception ex) {
             std::cerr << ex.what() << '\n';
         }
 
         initialize();
-        setPosition(position);
 
         return file;
     }
 
     std::ofstream& Mask::operator>>(std::ofstream& file) {
-        file << (int)body_[0].position.x/80 << ' '
-             << (int)body_[0].position.y/80 << ' '
-             << seen_                       << ' '
-             << discovered_                 << ' '
+        file << body_[0].position.x << ' '
+             << body_[0].position.y << ' '
+             << body_[1].position.x << ' '
+             << body_[1].position.y << ' '
+             << body_[2].position.x << ' '
+             << body_[2].position.y << ' '
+             << body_[3].position.x << ' '
+             << body_[3].position.y << ' '
+             << seen_               << ' '
+             << discovered_         << ' '
              << flipped_;
 
         return file;

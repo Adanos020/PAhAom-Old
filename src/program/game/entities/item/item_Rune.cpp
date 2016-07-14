@@ -114,6 +114,11 @@ namespace rr {
                                 break;
         }
 
+        if (discovered_) {
+            name_        = discoveredName_;
+            description_ = discoveredDescription_;
+        }
+
         int icons[] = { (int)iconIndex_, 64+(int)spellSymbols[type_] };
 
         setIcon    (body_, 2, icons);

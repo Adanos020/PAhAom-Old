@@ -111,6 +111,29 @@ namespace rr {
      // and then we can get rid of the dead ends of the corridors
         removeDeadEnds();
 
+     // here we place the starting point
+        for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
+            if (tiles_[x+y*size_.x] == ROOM) {
+                startingPoint_ = sf::Vector2i(x, y);
+                tiles_[x+y*size_.x] = EXIT;
+                
+                if (  levelNumber_ > 1
+                    ) addEntity(new Stairs(false), startingPoint_);
+                break;
+            }
+        }
+
+     // here we place the ending point
+        if (levelNumber_ < 30)
+        for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
+            if (tiles_[x+y*size_.x] == ROOM && (levelNumber_ == 1 || (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 20))) {
+                endingPoint_ = sf::Vector2i(x, y);
+                tiles_[x+y*size_.x] = EXIT;
+                addEntity(new Stairs(true), endingPoint_);
+                break;
+            }
+        }
+
      // here we generate the entities
         if (  spreadEntities
             ) placeEntities();
@@ -492,29 +515,6 @@ namespace rr {
             }
         }
 
-     // here we place the starting point
-        for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
-            if (tiles_[x+y*size_.x] == ROOM) {
-                startingPoint_ = sf::Vector2i(x, y);
-                tiles_[x+y*size_.x] = EXIT;
-                
-                if (  levelNumber_ > 1
-                    ) addEntity(new Stairs(false), startingPoint_);
-                break;
-            }
-        }
-
-     // here we place the ending point
-        if (levelNumber_ < 30)
-        for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
-            if (tiles_[x+y*size_.x] == ROOM && (levelNumber_ == 1 || (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 20))) {
-                endingPoint_ = sf::Vector2i(x, y);
-                tiles_[x+y*size_.x] = EXIT;
-                addEntity(new Stairs(true), endingPoint_);
-                break;
-            }
-        }
-
      // here we generate the chests
         for (int i=0; i<rand()%5; i++) {
             while (true) {
@@ -595,29 +595,29 @@ namespace rr {
     std::ifstream& Level::operator<<(std::ifstream& file) {
         generateWorld(false);                        // don't generate entities, you're going to load them soon
 
-        int number;
+        int number; file >> number;
 
         try {
-            for (file >> number; number > 0; --number) { // load the entities
+            for (int i=0; i<number; ++number) { // load the entities
                 int identificator; file >> identificator;
                 Entity* entity;
 
                 switch (identificator) {
-                    case  0: entity = new Chest       (Chest::REGULAR, new Book(Book::CRAFTING)); *entity << file; addEntity(entity); break;
-                    case  1: entity = new Door        (false                                   ); *entity << file; addEntity(entity); break;
-                    case  2: entity = new Book        (Book::CRAFTING	                       ); *entity << file; addEntity(entity); break;
-                    case  3: entity = new Coin        (Coin::BRONZE, Coin::SMALL               ); *entity << file; addEntity(entity); break;
-                    case  4: entity = new ColdWeapon  (ColdWeapon::KNIFE                       ); *entity << file; addEntity(entity); break;
-                    case  5: /*entity = new Food        (	                                     ); *entity << file; addEntity(entity);*/ break;
-                    case  6: entity = new Potion      (Potion::HEALING, Potion::SMALL          ); *entity << file; addEntity(entity); break;
-                    case  7: /*entity = new RangedWeapon(	                                     ); *entity << file; addEntity(entity);*/ break;
-                    case  8: entity = new Rune        (Rune::HEAL                              ); *entity << file; addEntity(entity); break;
-                    case  9: entity = new Teacher     (Teacher::SWORDSMAN                      ); *entity << file; addEntity(entity); break;
-                    case 10: entity = new Stairs      (false                                   ); *entity << file; addEntity(entity); break;
+                    case  0: entity = new Chest       (Chest::REGULAR , new Book(Book::CRAFTING)); *entity << file; addEntity(entity); break;
+                    case  1: entity = new Door        (false                                    ); *entity << file; addEntity(entity); break;
+                    case  2: entity = new Book        (Book::CRAFTING	                        ); *entity << file; addEntity(entity); break;
+                    case  3: entity = new Coin        (Coin::BRONZE   , Coin::SMALL             ); *entity << file; addEntity(entity); break;
+                    case  4: entity = new ColdWeapon  (ColdWeapon::KNIFE                        ); *entity << file; addEntity(entity); break;
+                    case  5: /*entity = new Food        (	                                      ); *entity << file; addEntity(entity);*/ break;
+                    case  6: entity = new Potion      (Potion::HEALING, Potion::SMALL           ); *entity << file; addEntity(entity); break;
+                    case  7: /*entity = new RangedWeapon(	                                      ); *entity << file; addEntity(entity);*/ break;
+                    case  8: entity = new Rune        (Rune::HEAL                               ); *entity << file; addEntity(entity); break;
+                    case  9: entity = new Teacher     (Teacher::SWORDSMAN                       ); *entity << file; addEntity(entity); break;
+                    case 10: entity = new Stairs      (false                                    ); *entity << file; addEntity(entity); break;
                 }
             }
-            for (number = 77*43; number > 0; --number) { // load the masks
-                masks_[number] << file;
+            for (int i=0; i<77*43; ++i) { // load the masks
+                masks_[i] << file;
             }
         }
         catch (std::exception ex) {
@@ -629,8 +629,8 @@ namespace rr {
 
     std::ofstream& Level::operator>>(std::ofstream& file) {
         file << entities_.size() << ' ';
-        for (auto it = entities_.begin(); it != entities_.end(); ++it) {
-            **it >> file << ' ';
+        for (unsigned i=0; i<entities_.size(); ++i) {
+            *entities_[i] >> file << ' ';
         }
 
         for (int i=0; i<77*43; ++i) {

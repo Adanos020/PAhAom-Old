@@ -44,6 +44,8 @@ namespace rr {
         attrs_.faster_learning       = false;
 
         initialize();
+        body_        .setPosition   (sf::Vector2f(0, 0));
+        body_        .scale         (sf::Vector2f(5, 5));
     }
 
     Player::Player(Player const& player)
@@ -66,8 +68,6 @@ namespace rr {
 
         body_        .setLooped     (false);
         body_        .pause         ();
-        body_        .setPosition   (sf::Vector2f(0, 0));
-        body_        .scale         (sf::Vector2f(5, 5));
     }
 
     void Player::setPosition(sf::Vector2i pos) {
@@ -82,20 +82,20 @@ namespace rr {
 
     void Player::move(int tiles[], Direction di) {
         if (!moving_) {
-            if (di == UP   && tiles[position_.x+(position_.y-1)*77] != 1) {
+            if (di == UP    && tiles[position_.x   + (position_.y-1)*77] != 1) {
                 position_ = sf::Vector2i(position_.x, position_.y-1);
                 moving_ = true;
             }
-            if (di == DOWN && tiles[position_.x+(position_.y+1)*77] != 1) {
+            if (di == DOWN  && tiles[position_.x   + (position_.y+1)*77] != 1) {
                 position_ = sf::Vector2i(position_.x, position_.y+1);
                 moving_ = true;
             }
-            if (di == LEFT && tiles[position_.x-1+position_.y*77] != 1) {
+            if (di == LEFT  && tiles[position_.x-1 + position_.y*77] != 1) {
                 position_ = sf::Vector2i(position_.x-1, position_.y);
                 moving_ = true;
                 currentAnimation_ = &walkingLeft_;
             }
-            if (di == RIGHT && tiles[position_.x+1+position_.y*77] != 1) {
+            if (di == RIGHT && tiles[position_.x+1 + position_.y*77] != 1) {
                 position_ = sf::Vector2i(position_.x+1, position_.y);
                 moving_ = true;
                 currentAnimation_ = &walkingRight_;
@@ -285,6 +285,7 @@ namespace rr {
         }
 
         initialize();
+        setPosition(position_);
         
         return file;
     }

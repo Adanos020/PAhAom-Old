@@ -128,11 +128,10 @@ namespace rr {
         
         file     << seed_        << ' ' 
                  << levelNumber_ << ' ';
-        *player_ >> file;
+        *player_ >> file         << ' ';
 
-        for (auto it = levels_.begin(); it != levels_.end(); ++it) {
-            *(*it) >> file;
-            file << ' ';
+        for (unsigned i=0; i<levels_.size(); ++i) {
+            *levels_[i] >> file << ' ';
         }
 
         file.close();
@@ -164,7 +163,6 @@ namespace rr {
             std::cerr << ex.what() << '\n';
         }
 
-        player_->setPosition(levels_[levelNumber_]->getStartingPoint());
         start(true);
         pause(false);
 
@@ -331,8 +329,8 @@ namespace rr {
 
     void Game::pause(bool b) {
         paused_ = b;
-        if (paused_)
-            pauseMenu_->open();
+        if (  paused_
+            ) pauseMenu_->open();
         else {
             pauseMenu_   ->close();
             inventory_   ->close();
@@ -351,7 +349,13 @@ namespace rr {
         levels_    .clear();
         inventory_->clear();
         player_   ->reset();
+
+        subject.clear();
+        subject.addObserver(inventory_);
+        subject.addObserver(messageManager_);
+
         levelNumber_ = 0;
+        mapOpen_     = false;
     }
 
 }
