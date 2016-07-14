@@ -35,6 +35,8 @@ namespace rr {
     };
 
     class Teacher : public NPC {
+    private:
+        virtual void           initialize()                   override;
     public:
         enum Type {
             SWORDSMAN,
@@ -48,14 +50,19 @@ namespace rr {
          Teacher(Teacher const&);
         ~Teacher() {}
 
-        virtual Entity* clone () const            override { return new Teacher(*this); }
-        virtual Entity* create() const            override { return new Teacher(SWORDSMAN); }
+        virtual Entity*        clone     () const             override { return new Teacher(*this); }
+        virtual Entity*        create    () const             override { return new Teacher(SWORDSMAN); }
 
-        virtual void    talk  ()                  override;
-        virtual void    update(sf::Time timeStep) override;
+        virtual void           talk      ()                   override;
+        virtual void           update    (sf::Time timeStep)  override;
+
+        virtual std::ifstream& operator<<(std::ifstream&)     override;
+        virtual std::ofstream& operator>>(std::ofstream&)     override;
     };
 
     class Merchant : public NPC {
+    private:
+        virtual void           initialize()                  override;
     public:
         enum Type {
             POTION_SELLER,
@@ -69,14 +76,19 @@ namespace rr {
          Merchant(Merchant const&);
         ~Merchant() {}
 
-        virtual Entity* clone () const            override { return new Merchant(*this); }
-        virtual Entity* create() const            override { return new Merchant(POTION_SELLER); }
+        virtual Entity*        clone     () const            override { return new Merchant(*this); }
+        virtual Entity*        create    () const            override { return new Merchant(POTION_SELLER); }
 
-        virtual void    talk  ()                  override;
-        virtual void    update(sf::Time timeStep) override;
+        virtual void           talk      ()                  override;
+        virtual void           update    (sf::Time timeStep) override;
+
+        virtual std::ifstream& operator<<(std::ifstream&)    override;
+        virtual std::ofstream& operator>>(std::ofstream&)    override;
     };
 
     class QuestGiver : public NPC {
+    private:
+        virtual void           initialize()                  override;
     public:
         enum Type {
             NONE_YET
@@ -86,11 +98,14 @@ namespace rr {
          QuestGiver(QuestGiver const&);
         ~QuestGiver() {}
 
-        virtual Entity* clone () const            override { return new QuestGiver(*this); }
-        virtual Entity* create() const            override { return new QuestGiver(NONE_YET); }
+        virtual Entity*        clone     () const            override { return new QuestGiver(*this); }
+        virtual Entity*        create    () const            override { return new QuestGiver(NONE_YET); }
 
-        virtual void    talk  ()                  override;
-        virtual void    update(sf::Time timeStep) override;
+        virtual void           talk      ()                  override;
+        virtual void           update    (sf::Time timeStep) override;
+
+        virtual std::ifstream& operator<<(std::ifstream&)    override;
+        virtual std::ofstream& operator>>(std::ofstream&)    override;
     };
 
 }

@@ -50,6 +50,8 @@ namespace rr {
         bool               moving_;
         float              velocity_;
         int                sightRange_;
+
+        virtual void          initialize     ()                override;
     public:
          Player();
          Player(Player const&);
@@ -86,6 +88,9 @@ namespace rr {
         int                   getSightRange  ()          const          { return sightRange_; }
     /// Resets the player's atributes
         void                  reset          ();
+
+        virtual std::ifstream& operator<<(std::ifstream&)      override;
+        virtual std::ofstream& operator>>(std::ofstream&)      override;
     };
 
 }

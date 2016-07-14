@@ -7,6 +7,7 @@
 #include "game.hpp"
 #include "../program.hpp"
 #include "../funcs/keys.hpp"
+#include "../funcs/files.hpp"
 
 #include <cstdlib>
 #include <string>
@@ -22,26 +23,25 @@ extern int           spellSymbols[11];
 
 namespace rr {
 
-    Game::Game()
+    Game::Game(unsigned seed)
         : mainMenu_      (new MainMenu      ()),
           pauseMenu_     (new PauseMenu     ()),
           attributes_    (new Attributes    ()),
           inventory_     (new Inventory     ()),
           quests_        (new Quests        ()),
-          gameMap_       (new GameMap       ()),
           bookOfSpells_  (new BookOfSpells  ()),
           hud_           (new HUD           ()),
           messageManager_(new MessageManager()),
           player_        (new Player        ()),
           started_       (false               ),
           paused_        (false               ),
-          levelNumber_   (0                   ) {
+          levelNumber_   (0                   ),
+          seed_          (seed                ) {
 
         gameView_.setSize    ((sf::Vector2f)settings.graphics.resolution);
 
         mapView_ .setSize    (6160.f, 3440.f);
         mapView_ .setCenter  (mapView_.getSize()/2.f);
-        mapView_ .setViewport(sf::FloatRect(0.115f, 0.1275f, 0.77f, 0.745f));
 
         subject.addObserver(inventory_);
         subject.addObserver(messageManager_);
@@ -53,7 +53,6 @@ namespace rr {
         delete attributes_;
         delete inventory_;
         delete quests_;
-        delete gameMap_;
         delete hud_;
         delete player_;
         levels_.clear();
@@ -114,7 +113,7 @@ namespace rr {
         reset();
         for (int i=0; i<30; i++) {
             levels_.push_back(new Level(i+1));
-            levels_.back()->generateWorld();
+            levels_.back()->generateWorld(true);
             subject.addObserver(levels_.back());
         }
         player_->setPosition(levels_[0]->getStartingPoint());
@@ -124,26 +123,63 @@ namespace rr {
     }
 
     void Game::save() {
-        std::ofstream file("data/savedgame/save.pah", std::ios::binary);
-        file.write((char*)this, sizeof(*this));
+        std::ofstream file("data/savedgame/save.pah");
+        file.clear();
+        
+        file     << seed_        << ' ' 
+                 << levelNumber_ << ' ';
+        *player_ >> file;
+
+        for (auto it = levels_.begin(); it != levels_.end(); ++it) {
+            *(*it) >> file;
+            file << ' ';
+        }
+
         file.close();
     }
 
     bool Game::load() {
-        std::ifstream file("data/savedgame/save.pah", std::ios::binary);
-        bool result = file.read((char*)this, sizeof(*this)).good();
+        std::ifstream file("data/savedgame/save.pah");
+
+        if ( !file.good()
+            ) return false;
+
+        reset();
+
+        try {
+            readFile <unsigned> (file, seed_       );
+            readFile <unsigned> (file, levelNumber_);
+            readEntity          (file, player_);
+
+            srand(seed_);
+            randomizeItems();
+
+            for (int i=0; i<30; i++) {
+                levels_.push_back(new Level(i+1));
+                *levels_[i] << file;
+                subject.addObserver(levels_.back());
+            }
+        }
+        catch (std::exception ex) {
+            std::cerr << ex.what() << '\n';
+        }
+
+        player_->setPosition(levels_[levelNumber_]->getStartingPoint());
+        start(true);
+        pause(false);
+
         file.close();
-        return result;
+        return true;
     }
 
     void Game::draw(sf::RenderWindow& rw) {
         if (!started_) {
             rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
             mainMenu_->draw(rw);
-            rw.setView(gameView_);
+            rw.setView((mapOpen_) ? mapView_ : gameView_);
         }
         else {
-            rw.setView(gameView_);
+            rw.setView((mapOpen_) ? mapView_ : gameView_);
             rw.draw(*levels_[levelNumber_]);
             levels_[levelNumber_]->drawObjects(rw);
             player_->draw(rw);
@@ -155,15 +191,7 @@ namespace rr {
             pauseMenu_     ->draw(rw);
             attributes_    ->draw(rw);
             quests_        ->draw(rw);
-            gameMap_       ->draw(rw);
             bookOfSpells_  ->draw(rw);
-
-            if (gameMap_   ->isOpen()) {
-                rw.setView(mapView_);
-                rw.draw(*levels_[levelNumber_]);
-                levels_[levelNumber_]->drawObjects(rw);
-                player_->draw(rw);
-            }
         }
     }
 
@@ -217,7 +245,6 @@ namespace rr {
         if (inventory_   ->isOpen()) inventory_   ->buttonEvents(rw, event, this);
         if (attributes_  ->isOpen()) attributes_  ->buttonEvents(rw, event, this);
         if (quests_      ->isOpen()) quests_      ->buttonEvents(rw, event, this);
-        if (gameMap_     ->isOpen()) gameMap_     ->buttonEvents(rw, event, this);
         if (bookOfSpells_->isOpen()) bookOfSpells_->buttonEvents(rw, event, this);
 
         if (started_) {
@@ -239,8 +266,7 @@ namespace rr {
                     paused_ = true;
                 }
                 else if (wasKeyPressed(event, settings.keys.open_map)) {
-                    gameMap_->open();
-                    paused_ = true;
+                    mapOpen_ = !mapOpen_;
                 }
                 else if (wasKeyPressed(event, settings.keys.open_quests)) {
                     quests_->open();
@@ -312,13 +338,16 @@ namespace rr {
             inventory_   ->close();
             attributes_  ->close();
             quests_      ->close();
-            gameMap_     ->close();
             bookOfSpells_->close();
         }
     }
 
     void Game::reset() {
         randomizeItems   ();
+
+        for (auto it = levels_.begin(); it != levels_.end(); ++it) {
+            delete *it;
+        }
         levels_    .clear();
         inventory_->clear();
         player_   ->reset();

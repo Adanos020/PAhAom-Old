@@ -121,41 +121,42 @@ namespace rr {
                     std::getline(iconfig, param);
                     continue;
                 } else {
-                    if      (param == "lang:"             )   iconfig >>        game.language                        ;
-                    else if (param == "width:"            )   readFile(iconfig, graphics.resolution.x               );
-                    else if (param == "height:"           )   readFile(iconfig, graphics.resolution.y               );
-                    else if (param == "fullscreen:"       )   readFile(iconfig, graphics.fullscreen                 );
-                    else if (param == "vsync:"            )   readFile(iconfig, graphics.vsync                      );
-                    else if (param == "antialiasing:"     )   readFile(iconfig, graphics.csettings.antialiasingLevel);
-                    else if (param == "depth_bits:"       )   readFile(iconfig, graphics.csettings.depthBits        );
-                    else if (param == "stencil_bits:"     )   readFile(iconfig, graphics.csettings.stencilBits      );
-                    else if (param == "music_volume:"     )   readFile(iconfig, sound.music_volume                  );
-                    else if (param == "effects_volume:"   )   readFile(iconfig, sound.effects_volume                );
-                    else if (param == "music_muted:"      )   readFile(iconfig, sound.music_muted                   );
-                    else if (param == "effects_muted:"    )   readFile(iconfig, sound.effects_muted                 );
-                    else if (param == "move_up:"          ) { readFile(iconfig, keyCode                             ); keys.move_up           = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "move_down:"        ) { readFile(iconfig, keyCode                             ); keys.move_down         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "move_left:"        ) { readFile(iconfig, keyCode                             ); keys.move_left         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "move_right:"       ) { readFile(iconfig, keyCode                             ); keys.move_right        = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "interact:"         ) { readFile(iconfig, keyCode                             ); keys.interact          = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "attack:"           ) { readFile(iconfig, keyCode                             ); keys.attack            = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "open_inventory:"   ) { readFile(iconfig, keyCode                             ); keys.open_inventory    = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "open_attributes:"  ) { readFile(iconfig, keyCode                             ); keys.open_attributes   = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "open_quests:"      ) { readFile(iconfig, keyCode                             ); keys.open_quests       = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "open_map:"         ) { readFile(iconfig, keyCode                             ); keys.open_map          = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "open_bookOfSpells:") { readFile(iconfig, keyCode                             ); keys.open_bookOfSpells = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "useslot_1:"        ) { readFile(iconfig, keyCode                             ); keys.useslot_1         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "useslot_2:"        ) { readFile(iconfig, keyCode                             ); keys.useslot_2         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "useslot_3:"        ) { readFile(iconfig, keyCode                             ); keys.useslot_3         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "useslot_4:"        ) { readFile(iconfig, keyCode                             ); keys.useslot_4         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "useslot_5:"        ) { readFile(iconfig, keyCode                             ); keys.useslot_5         = (sf::Keyboard::Key)keyCode; }
-                    else                                  throw "Wrong parameter";
+                    if      (param == "lang:"             )   iconfig >>                             game.language               ;
+                    else if (param == "width:"            )   readFile <unsigned> (iconfig, graphics.resolution.x               );
+                    else if (param == "height:"           )   readFile <unsigned> (iconfig, graphics.resolution.y               );
+                    else if (param == "fullscreen:"       )   readFile   <bool>   (iconfig, graphics.fullscreen                 );
+                    else if (param == "vsync:"            )   readFile   <bool>   (iconfig, graphics.vsync                      );
+                    else if (param == "antialiasing:"     )   readFile <unsigned> (iconfig, graphics.csettings.antialiasingLevel);
+                    else if (param == "depth_bits:"       )   readFile <unsigned> (iconfig, graphics.csettings.depthBits        );
+                    else if (param == "stencil_bits:"     )   readFile <unsigned> (iconfig, graphics.csettings.stencilBits      );
+                    else if (param == "music_volume:"     )   readFile   <float>  (iconfig, sound.music_volume                  );
+                    else if (param == "effects_volume:"   )   readFile   <float>  (iconfig, sound.effects_volume                );
+                    else if (param == "music_muted:"      )   readFile   <bool>   (iconfig, sound.music_muted                   );
+                    else if (param == "effects_muted:"    )   readFile   <bool>   (iconfig, sound.effects_muted                 );
+                    else if (param == "move_up:"          ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_up           = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "move_down:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_down         = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "move_left:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_left         = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "move_right:"       ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_right        = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "interact:"         ) { readFile    <int>   (iconfig, keyCode                             ); keys.interact          = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "attack:"           ) { readFile    <int>   (iconfig, keyCode                             ); keys.attack            = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "open_inventory:"   ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_inventory    = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "open_attributes:"  ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_attributes   = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "open_quests:"      ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_quests       = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "open_map:"         ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_map          = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "open_bookOfSpells:") { readFile    <int>   (iconfig, keyCode                             ); keys.open_bookOfSpells = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "useslot_1:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_1         = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "useslot_2:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_2         = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "useslot_3:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_3         = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "useslot_4:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_4         = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "useslot_5:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_5         = (sf::Keyboard::Key)keyCode; }
+                    else                                  throw std::invalid_argument("Wrong parameter");
                 }
             }
             iconfig.close();
             std::cout << ">Done.\n";
-        } catch (...) {
-            std::cout << "!Error loading config.cfg!\n";
+        } 
+        catch (std::exception ex) {
+            std::cerr << ex.what() << '\n';
             std::cout << ">Creating a new config file...\n";
 
             game.language                        = "en";

@@ -16,25 +16,31 @@ namespace rr {
     class Entity {
     public:
         virtual ~Entity() {}
-
     /// Virtual constructor: creating
-        virtual Entity*       create         ()        const     = 0;
+        virtual Entity*        create         ()        const     = 0;
     /// Virtual constructor: cloning
-        virtual Entity*       clone          ()        const     = 0;
+        virtual Entity*        clone          ()        const     = 0;
     /// Draws the entity's sprite
-        virtual void          draw           (sf::RenderWindow&) = 0;
+        virtual void           draw           (sf::RenderWindow&) = 0;
     /// Sets the entity's position in relation to the grid
-        virtual void          setPosition    (sf::Vector2i pos)  = 0;
+        virtual void           setPosition    (sf::Vector2i pos)  = 0;
     /// Sets the entity's position in relation to the actual coordinate system
-        virtual void          setRealPosition(sf::Vector2f pos)  = 0;
+        virtual void           setRealPosition(sf::Vector2f pos)  = 0;
     /// Tells if this entity collides with another one
-        virtual bool          intersects     (Entity*) const     = 0;
+        virtual bool           intersects     (Entity*) const     = 0;
     /// Returns the entity's bound box
-        virtual sf::FloatRect getBounds      ()        const     = 0;
+        virtual sf::FloatRect  getBounds      ()        const     = 0;
     /// Returns the entity's position in relation to the grid
-        virtual sf::Vector2i  getPosition    ()        const     = 0;
+        virtual sf::Vector2i   getPosition    ()        const     = 0;
     /// Returns the entity's position in relation to the actual coordinate system
-        virtual sf::Vector2f  getRealPosition()        const     = 0;
+        virtual sf::Vector2f   getRealPosition()        const     = 0;
+
+        virtual std::ifstream& operator<<    (std::ifstream&)    = 0;
+        virtual std::ofstream& operator>>    (std::ofstream&)    = 0;
+    
+    private:
+    /// Initializes the object
+        virtual void           initialize    ()                  = 0; 
     };
 
 }

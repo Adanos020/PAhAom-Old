@@ -18,10 +18,13 @@ namespace rr {
          RangedWeapon(RangedWeapon const&);
         ~RangedWeapon();
 /*
-        virtual Entity* clone ()            const override { return new RangedWeapon(*this); }
-        virtual Entity* create()            const override { return new RangedWeapon(); }
+        virtual Entity*        clone     ()            const override { return new RangedWeapon(*this); }
+        virtual Entity*        create    ()            const override { return new RangedWeapon(); }
 */
-        virtual void    draw  (sf::RenderWindow&) override;
+        virtual void           draw      (sf::RenderWindow&) override;
+
+        virtual std::ifstream& operator<<(std::ifstream&)    override;
+        virtual std::ofstream& operator>>(std::ofstream&)    override;
     };
 
 }

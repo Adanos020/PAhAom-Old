@@ -12,6 +12,8 @@
 namespace rr {
 
 	class Coin : public Item {
+    private:
+        virtual void           initialize()                  override;
     public:
         enum Type {
             GOLDEN,
@@ -27,10 +29,13 @@ namespace rr {
          Coin(Coin const&);
         ~Coin() {}
 
-        virtual Entity* clone ()            const override { return new Coin(*this); }
-        virtual Entity* create()            const override { return new Coin(GOLDEN, SMALL); }
+        virtual Entity*        clone     ()            const override { return new Coin(*this); }
+        virtual Entity*        create    ()            const override { return new Coin(GOLDEN, SMALL); }
 
-        virtual void    draw  (sf::RenderWindow&) override;
+        virtual void           draw      (sf::RenderWindow&) override;
+
+        virtual std::ifstream& operator<<(std::ifstream&)    override;
+        virtual std::ofstream& operator>>(std::ofstream&)    override;
 	};
 
 }

@@ -17,9 +17,10 @@ sf::Color     itemColors[9];
 int           spellSymbols[12];
 
 int main() {
-    srand(time(0));
+    auto seed = time(0);
+    srand(seed);
 
-    auto p = new rr::Program();
+    auto p = new rr::Program(seed);
 
     delete p;
     return EXIT_SUCCESS;

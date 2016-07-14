@@ -4,9 +4,11 @@
  * Used library: SFML 2.3.2
  */
 
+#include <iostream>
+
 #include "player.hpp"
 #include "../../../program.hpp"
-#include <iostream>
+#include "../../../funcs/files.hpp"
 
 extern rr::Resources resources;
 extern rr::Subject   subject;
@@ -41,15 +43,7 @@ namespace rr {
         attrs_.health_regeneration   = false;
         attrs_.faster_learning       = false;
 
-        walkingLeft_ .setSpriteSheet(resources.texture.player);
-        walkingRight_.setSpriteSheet(resources.texture.player);
-        walkingLeft_ .addFrame      (sf::IntRect(0, 16, 16, 16));
-        walkingRight_.addFrame      (sf::IntRect(0, 0,  16, 16));
-
-        body_        .setLooped     (false);
-        body_        .pause         ();
-        body_        .setPosition   (sf::Vector2f(0, 0));
-        body_        .scale         (sf::Vector2f(5, 5));
+        initialize();
     }
 
     Player::Player(Player const& player)
@@ -63,6 +57,18 @@ namespace rr {
       moving_                      (player.moving_),
       velocity_                    (player.velocity_),
       sightRange_                  (player.sightRange_) {}
+
+    void Player::initialize() {
+        walkingLeft_ .setSpriteSheet(resources.texture.player);
+        walkingRight_.setSpriteSheet(resources.texture.player);
+        walkingLeft_ .addFrame      (sf::IntRect(0, 16, 16, 16));
+        walkingRight_.addFrame      (sf::IntRect(0, 0,  16, 16));
+
+        body_        .setLooped     (false);
+        body_        .pause         ();
+        body_        .setPosition   (sf::Vector2f(0, 0));
+        body_        .scale         (sf::Vector2f(5, 5));
+    }
 
     void Player::setPosition(sf::Vector2i pos) {
         position_ = pos;
@@ -247,6 +253,67 @@ namespace rr {
         else if (instanceof<ColdWeapon, Item>(item)) {
 
         }
+    }
+
+    std::ifstream& Player::operator<<(std::ifstream& file) {
+        try {
+            readFile <float> (file, attrs_.health);
+            readFile <float> (file, attrs_.mana);
+            readFile <float> (file, attrs_.maxHealth);
+            readFile <float> (file, attrs_.maxMana);
+            readFile <float> (file, attrs_.strength);
+            readFile <float> (file, attrs_.dexterity);
+            readFile <float> (file, attrs_.experience);
+            readFile <float> (file, attrs_.nextLevel);
+            readFile <float> (file, attrs_.level);
+            readFile <float> (file, attrs_.skillPoints);
+                
+            readFile  <bool> (file, attrs_.crafting);
+            readFile  <bool> (file, attrs_.alchemy);
+            readFile  <bool> (file, attrs_.cold_weapon_mastery);
+            readFile  <bool> (file, attrs_.ranged_weapon_mastery);
+            readFile  <bool> (file, attrs_.eagle_eye);
+            readFile  <bool> (file, attrs_.mana_regeneration);
+            readFile  <bool> (file, attrs_.health_regeneration);
+            readFile  <bool> (file, attrs_.faster_learning);
+                
+            readFile  <int>  (file, position_.x);
+            readFile  <int>  (file, position_.y);
+        }
+        catch (std::exception ex) {
+            std::cerr << ex.what() << '\n';
+        }
+
+        initialize();
+        
+        return file;
+    }
+
+    std::ofstream& Player::operator>>(std::ofstream& file) {
+        file << attrs_.health                << ' '
+             << attrs_.mana                  << ' '
+             << attrs_.maxHealth             << ' '
+             << attrs_.maxMana               << ' '
+             << attrs_.strength              << ' '
+             << attrs_.dexterity             << ' '
+             << attrs_.experience            << ' '
+             << attrs_.nextLevel             << ' '
+             << attrs_.level                 << ' '
+             << attrs_.skillPoints           << ' '
+             
+             << attrs_.crafting              << ' '
+             << attrs_.alchemy               << ' '
+             << attrs_.cold_weapon_mastery   << ' '
+             << attrs_.ranged_weapon_mastery << ' '
+             << attrs_.eagle_eye             << ' '
+             << attrs_.mana_regeneration     << ' '
+             << attrs_.health_regeneration   << ' '
+             << attrs_.faster_learning       << ' '
+             
+             << position_.x                  << ' '
+             << position_.y;
+        
+        return file;
     }
 
 }

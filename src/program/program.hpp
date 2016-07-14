@@ -119,7 +119,7 @@ namespace rr {
         bool loadResources();
 
     /// Runs the game
-        void runGame      ();
+        void runGame      (unsigned seed);
 
     /// Runs the game's main loop
         void mainLoop     ();
@@ -133,7 +133,7 @@ namespace rr {
     /// Draws the game's components
         void draw         ();
     public:
-         Program();
+         Program(unsigned seed);
         ~Program();
 
         Game* getGame     () const { return game_; }

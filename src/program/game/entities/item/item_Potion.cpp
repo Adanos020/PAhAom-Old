@@ -4,9 +4,12 @@
  * Used library: SFML 2.3.2
  */
 
+#include <iostream>
+
 #include "item_Potion.hpp"
 #include "../../../program.hpp"
 #include "../../../funcs/images.hpp"
+#include "../../../funcs/files.hpp"
 
 extern rr::Resources resources;
 extern sf::Color     itemColors[9];
@@ -14,11 +17,33 @@ extern sf::Color     itemColors[9];
 namespace rr {
 
     Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos)
-        : Discoverable( ),
-          effect_     (e),
-          size_       (s) {
+    : Discoverable( ),
+      effect_     (e),
+      size_       (s) {
 
         amount_     = am;
+        
+        initialize();
+        setPosition(pos);
+    }
+
+    Potion::Potion(Potion const& potion)
+    : Discoverable(              ),
+      effect_     (potion.effect_) {
+
+        amount_                = potion.amount_;
+        disposable_            = potion.disposable_;
+        stackable_             = potion.stackable_;
+        ID_                    = potion.ID_;
+        iconIndex_             = potion.iconIndex_;
+        name_                  = potion.name_;
+        description_           = potion.description_;
+        discoveredName_        = potion.discoveredName_;
+        discoveredDescription_ = potion.discoveredDescription_;
+        body_                  = potion.body_;
+    }
+
+    void Potion::initialize() {
         disposable_ = true;
         stackable_  = true;
         ID_         = 100 + size_*10 + effect_;
@@ -86,23 +111,6 @@ namespace rr {
 
         setIcon    (body_, 2, icons);
         setColor   (body_, 1, itemColors[effect_]);
-        setPosition(pos);
-    }
-
-    Potion::Potion(Potion const& potion)
-    : Discoverable(              ),
-      effect_     (potion.effect_) {
-
-        amount_                = potion.amount_;
-        disposable_            = potion.disposable_;
-        stackable_             = potion.stackable_;
-        ID_                    = potion.ID_;
-        iconIndex_             = potion.iconIndex_;
-        name_                  = potion.name_;
-        description_           = potion.description_;
-        discoveredName_        = potion.discoveredName_;
-        discoveredDescription_ = potion.discoveredDescription_;
-        body_                  = potion.body_;
     }
 
     void Potion::reveal() {
@@ -137,6 +145,43 @@ namespace rr {
         body_[5].position = body_[1].position;
         body_[6].position = body_[2].position;
         body_[7].position = body_[3].position;
+    }
+
+    std::ifstream& Potion::operator<<(std::ifstream& file) {
+        sf::Vector2i position;
+        int effect, size;
+
+        try {
+            readFile <int>  (file, position.x);
+            readFile <int>  (file, position.y);
+            readFile <int>  (file, amount_);
+            readFile <bool> (file, discovered_);                   
+            readFile <int>  (file, effect);
+            readFile <int>  (file, size);
+        }
+        catch (std::exception ex) {
+            std::cerr << ex.what() << '\n';
+        }
+
+        effect_ = (Effect) effect;
+        size_   = (Size)   size;
+
+        initialize();
+        setPosition(position);
+
+        return file;
+    }
+
+    std::ofstream& Potion::operator>>(std::ofstream& file) {
+        file << 6                           << ' '
+             << (int)body_[0].position.x/80 << ' '
+             << (int)body_[0].position.y/80 << ' '
+             << amount_                     << ' '
+             << discovered_                 << ' '
+             << effect_                     << ' '
+             << size_;
+
+        return file;
     }
 
 }

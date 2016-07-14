@@ -52,8 +52,8 @@ namespace rr {
             for (unsigned y = topY; (int)y >= (int)bottomY; y--) {
                 if (range < 0 || getDistance((int)x, (int)y) <= range) {
                     bool isOpaque  = blocksLight(tiles, x, y, octant, origin);
-                    bool isVisible = isOpaque || ((y != topY || top > Slope(y*4-1, x*4+1)) && (y != bottomY || bottom < Slope(y*4+1, x*4-1)));
-                    if (  isVisible
+                    
+                    if (  isOpaque || ((y != topY || top > Slope(y*4-1, x*4+1)) && (y != bottomY || bottom < Slope(y*4+1, x*4-1)))
                         ) setVisible(masks, x, y, octant, origin);
 
                     if ((int)x != range) {

@@ -12,6 +12,8 @@
 namespace rr {
 
     class Rune : public Discoverable {
+    private:
+        virtual void           initialize     ()                  override;
     public:
         enum Type {
             HEAL,
@@ -32,14 +34,17 @@ namespace rr {
          Rune(Rune const&);
         ~Rune() {}
 
-        virtual Entity* clone          ()            const override { return new Rune(*this); }
-        virtual Entity* create         ()            const override { return new Rune(HEAL); }
+        virtual Entity*        clone          ()            const override { return new Rune(*this); }
+        virtual Entity*        create         ()            const override { return new Rune(HEAL); }
 
-        virtual void    draw           (sf::RenderWindow&) override;
-        virtual void    reveal         ()                  override;
+        virtual void           draw           (sf::RenderWindow&) override;
+        virtual void           reveal         ()                  override;
 
-        void            setPosition    (sf::Vector2i)      override;
-        void            setRealPosition(sf::Vector2f pos)  override;
+        void                   setPosition    (sf::Vector2i)      override;
+        void                   setRealPosition(sf::Vector2f pos)  override;
+
+        virtual std::ifstream& operator<<     (std::ifstream&)    override;
+        virtual std::ofstream& operator>>     (std::ofstream&)    override;
     };
 
 }

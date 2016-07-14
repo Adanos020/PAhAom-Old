@@ -4,9 +4,12 @@
  * Used library: SFML 2.3.2
  */
 
+#include <iostream>
+
 #include "item_Book.hpp"
 #include "../../../program.hpp"
 #include "../../../funcs/images.hpp"
+#include "../../../funcs/files.hpp"
 
 extern rr::Resources resources;
 extern sf::Color itemColors[9];
@@ -18,6 +21,25 @@ namespace rr {
 
         type_       = type;
         amount_     = am;
+
+        initialize();
+        setPosition(pos);
+    }
+
+    Book::Book(Book const& book)
+    : type_(book.type_) {
+
+        amount_      = book.amount_;
+        disposable_  = book.disposable_;
+        stackable_   = book.stackable_;
+        ID_          = book.ID_;
+        iconIndex_   = book.iconIndex_;
+        name_        = book.name_;
+        description_ = book.description_;
+        body_        = book.body_;
+    }
+
+    void Book::initialize() {
         ID_         = type_+30;
         disposable_ = true;
         stackable_  = false;
@@ -47,24 +69,10 @@ namespace rr {
 
         int icons[] = { (int)iconIndex_, icons[1] = (int)iconIndex_+16 };
 
-        setIcon    (body_, 2, icons);
-        setColor   (body_, 0, sf::Color(itemColors[type_].r + (255-itemColors[type_].r)/2,
-                                        itemColors[type_].g + (255-itemColors[type_].g)/2,
-                                        itemColors[type_].b + (255-itemColors[type_].b)/2));
-        setPosition(pos);
-    }
-
-    Book::Book(Book const& book)
-    : type_(book.type_) {
-
-        amount_      = book.amount_;
-        disposable_  = book.disposable_;
-        stackable_   = book.stackable_;
-        ID_          = book.ID_;
-        iconIndex_   = book.iconIndex_;
-        name_        = book.name_;
-        description_ = book.description_;
-        body_        = book.body_;
+        setIcon (body_, 2, icons);
+        setColor(body_, 0, sf::Color(itemColors[type_].r + (255-itemColors[type_].r)/2,
+                                     itemColors[type_].g + (255-itemColors[type_].g)/2,
+                                     itemColors[type_].b + (255-itemColors[type_].b)/2));
     }
 
     void Book::draw(sf::RenderWindow& rw) {
@@ -93,6 +101,38 @@ namespace rr {
         body_[5].position = body_[1].position;
         body_[6].position = body_[2].position;
         body_[7].position = body_[3].position;
+    }
+
+    std::ifstream& Book::operator<<(std::ifstream& file) {
+        sf::Vector2i position;
+        int type;
+        
+        try {
+            readFile <int> (file, position.x);
+            readFile <int> (file, position.y);
+            readFile <int> (file, amount_);
+            readFile <int> (file, type);
+        }
+        catch (std::exception ex) {
+            std::cerr << ex.what() << '\n';
+        }
+        
+        type_ = (Type) type;
+
+        initialize();
+        setPosition(position);
+
+        return file;
+    }
+
+    std::ofstream& Book::operator>>(std::ofstream& file) {
+        file << 2                           << ' '
+             << (int)body_[0].position.x/80 << ' '
+             << (int)body_[0].position.y/80 << ' '
+             << amount_                     << ' '
+             << type_;
+
+        return file;
     }
 
 }

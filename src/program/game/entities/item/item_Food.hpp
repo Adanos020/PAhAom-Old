@@ -13,15 +13,19 @@ namespace rr {
 
     class Food : public Item {
     private:
+        virtual void           initialize()                  override;
     public:
          Food();
          Food(Food const&);
         ~Food();
 
-        virtual Entity* clone () const            override { return new Food(*this); }
-        virtual Entity* create() const            override { return new Food(); }
+        virtual Entity*        clone     () const            override { return new Food(*this); }
+        virtual Entity*        create    () const            override { return new Food(); }
 
-        virtual void    draw  (sf::RenderWindow&) override;
+        virtual void           draw      (sf::RenderWindow&) override;
+
+        virtual std::ifstream& operator<<(std::ifstream&) override;
+        virtual std::ofstream& operator>>(std::ofstream&) override;
     };
 
 }

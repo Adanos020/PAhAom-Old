@@ -7,7 +7,6 @@
 #ifndef game_hpp
 #define game_hpp
 
-#include <ctime>
 #include <vector>
 
 #include "menus/menus.hpp"
@@ -47,7 +46,6 @@ namespace rr {
         Attributes*         attributes_;
         Inventory*          inventory_;
         Quests*             quests_;
-        GameMap*            gameMap_;
         BookOfSpells*       bookOfSpells_;
 
         HUD*                hud_;
@@ -58,7 +56,9 @@ namespace rr {
 
         bool                started_;
         bool                paused_;
+        bool                mapOpen_;
         unsigned            levelNumber_;
+        unsigned            seed_;
 
     /// Keyboard controls
         void controls      (sf::Event&);
@@ -67,7 +67,7 @@ namespace rr {
     /// Switches to the level of a given index
         void switchLevel(int index);
     public:
-         Game();
+         Game(unsigned seed);
         ~Game();
 
     /// Method drawing the game components

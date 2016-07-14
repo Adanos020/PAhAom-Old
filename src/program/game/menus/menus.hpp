@@ -159,27 +159,6 @@ namespace rr {
         bool isOpen      ();
     };
 
-/// Class for the game map
-    class GameMap {
-    private:
-        sf::RectangleShape shadow_;
-        Window             wGmap_;
-    public:
-         GameMap();
-        ~GameMap();
-
-    /// Opens the game map window
-        void open        ();
-    /// Closes the game map window
-        void close       ();
-    /// Handles the button events
-        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-    /// Draws the game map components
-        void draw        (sf::RenderWindow&);
-    /// Tells if the game map is open
-        bool isOpen      ();
-    };
-
 }
 
 #endif // menus_h

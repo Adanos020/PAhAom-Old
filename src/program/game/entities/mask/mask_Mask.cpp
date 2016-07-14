@@ -4,7 +4,10 @@
  * Used library: SFML 2.3.2
  */
 
+#include <iostream>
+
 #include "mask.hpp"
+#include "../../../funcs/files.hpp"
 
 namespace rr {
 
@@ -15,12 +18,7 @@ namespace rr {
       discovered_(false             ),
       flipped_   (false             ) {
 
-        body_.resize(4);
-        body_.setPrimitiveType(sf::Quads);
-
-        rr::setPosition(body_, sf::Vector2f(0, 0));
-        setSize        (body_, sf::Vector2f(80, 80));
-        setColor       (body_, sf::Color::Black);
+        initialize();
     }
 
     Mask::Mask(Mask const& mask)
@@ -30,6 +28,15 @@ namespace rr {
       seen_      (mask.seen_      ),
       discovered_(mask.discovered_),
       flipped_   (mask.flipped_   ) {}
+
+    void Mask::initialize() {
+        body_.resize(4);
+        body_.setPrimitiveType(sf::Quads);
+
+        rr::setPosition(body_, sf::Vector2f(0, 0));
+        setSize        (body_, sf::Vector2f(80, 80));
+        setColor       (body_, sf::Color::Black);
+    }
 
     void Mask::see(bool seen) {
         if (  seen
@@ -106,6 +113,36 @@ namespace rr {
 
     void Mask::draw(sf::RenderWindow& rw) {
         rw.draw(body_);
+    }
+
+    std::ifstream& Mask::operator<<(std::ifstream& file) {
+        sf::Vector2i position;
+
+        try {
+            readFile <int>  (file, position.x);
+            readFile <int>  (file, position.y);
+            readFile <bool> (file, seen_);
+            readFile <bool> (file, discovered_);                   
+            readFile <bool> (file, flipped_);
+        }
+        catch (std::exception ex) {
+            std::cerr << ex.what() << '\n';
+        }
+
+        initialize();
+        setPosition(position);
+
+        return file;
+    }
+
+    std::ofstream& Mask::operator>>(std::ofstream& file) {
+        file << (int)body_[0].position.x/80 << ' '
+             << (int)body_[0].position.y/80 << ' '
+             << seen_                       << ' '
+             << discovered_                 << ' '
+             << flipped_;
+
+        return file;
     }
 
 }

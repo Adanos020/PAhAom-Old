@@ -32,20 +32,24 @@ namespace rr {
 
         virtual void         onNotify        (Event, Entity*) override;
 
-        void                 generateWorld   ();
-        bool                 loadFromFile    (const char* pathToFolder);
+        void                 generateWorld   (bool spreadEntities);
         void                 drawObjects     (sf::RenderWindow&) const;
-        void                 removeEntity    (unsigned index);
         void                 addEntity       (Entity*            , sf::Vector2i position);
+        void                 addEntity       (Entity*);
         void                 replaceEntity   (unsigned index     , Entity*);
-        void                 calculateFOV    (sf::Vector2u origin, int range);    
+        void                 removeEntity    (unsigned index);
+
+        void                 calculateFOV    (sf::Vector2u origin, int range);
 
         std::vector<Entity*> getEntities     ()                  const { return entities_     ; }
         Mask*                getMasks        ()                        { return masks_        ; }
         sf::Vector2i         getStartingPoint()                  const { return startingPoint_; }
         sf::Vector2i         getEndingPoint  ()                  const { return endingPoint_  ; }
-        int*                 getTiles        ();
-        Cell*                getTilesAsCells ();
+        int*                 getTiles        ()                        { return tilesAsInts_  ; }
+        Cell*                getTilesAsCells ()                        { return tiles_        ; }
+
+        std::ifstream& operator<<(std::ifstream&);
+        std::ofstream& operator>>(std::ofstream&);
     private:
         virtual void         draw            (sf::RenderTarget& target, sf::RenderStates states) const;
 

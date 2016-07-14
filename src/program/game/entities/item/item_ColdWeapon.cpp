@@ -4,23 +4,48 @@
  * Used library: SFML 2.3.2
  */
 
+#include <iostream>
+
 #include "item_ColdWeapon.hpp"
 #include "../../../program.hpp"
 #include "../../../funcs/images.hpp"
+#include "../../../funcs/files.hpp"
 
 extern rr::Resources resources;
 
 namespace rr {
 
     ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos)
-        : Equipable(    ),
-          level_   (0   ),
-          type_    (type) {
+    : Equipable(    ),
+      level_   (0   ),
+      type_    (type) {
 
+        amount_     = amount;
+
+        initialize();
+        setPosition(pos);
+    }
+
+    ColdWeapon::ColdWeapon(ColdWeapon const& coldWeapon)
+    : Equipable(                ),
+      type_    (coldWeapon.type_) {
+
+        amount_                = coldWeapon.amount_;
+        disposable_            = coldWeapon.disposable_;
+        stackable_             = coldWeapon.stackable_;
+        ID_                    = coldWeapon.ID_;
+        iconIndex_             = coldWeapon.iconIndex_;
+        name_                  = coldWeapon.name_;
+        description_           = coldWeapon.description_;
+        discoveredName_        = coldWeapon.discoveredName_;
+        discoveredDescription_ = coldWeapon.discoveredDescription_;
+        body_                  = coldWeapon.body_;
+    }
+
+    void ColdWeapon::initialize() {
         disposable_ = false;
         stackable_  = false;
         ID_         = 10+type_;
-        amount_     = amount;
 
         switch (type_) {
         case KNIFE:          damageDealt_      = 10;
@@ -142,23 +167,6 @@ namespace rr {
         }
 
         setIcon    (body_, iconIndex_);
-        setPosition(pos);
-    }
-
-    ColdWeapon::ColdWeapon(ColdWeapon const& coldWeapon)
-    : Equipable(                ),
-      type_    (coldWeapon.type_) {
-
-        amount_                = coldWeapon.amount_;
-        disposable_            = coldWeapon.disposable_;
-        stackable_             = coldWeapon.stackable_;
-        ID_                    = coldWeapon.ID_;
-        iconIndex_             = coldWeapon.iconIndex_;
-        name_                  = coldWeapon.name_;
-        description_           = coldWeapon.description_;
-        discoveredName_        = coldWeapon.discoveredName_;
-        discoveredDescription_ = coldWeapon.discoveredDescription_;
-        body_                  = coldWeapon.body_;
     }
 
     void ColdWeapon::draw(sf::RenderWindow& rw) {
@@ -181,6 +189,52 @@ namespace rr {
         return description_ +              "\n"+resources.dictionary["item.coldweapon.strength_required"]+" "+std::to_string((int)strengthRequired_)
                             +              "\n"+resources.dictionary["item.coldweapon.damage_dealt"     ]+" "+std::to_string((int)damageDealt_)
                             + ((level_!=0)?"\n"+resources.dictionary["item.coldweapon.level"            ]+" "+std::to_string((int)level_):"");
+    }
+
+    std::ifstream& ColdWeapon::operator<<(std::ifstream& file) {
+        sf::Vector2i position;
+        int type;
+
+        try {
+            readFile  <int>  (file, position.x);
+            readFile  <int>  (file, position.y);
+            readFile  <int>  (file, amount_);
+            readFile  <bool> (file, discovered_);
+            readFile  <bool> (file, equipped_);
+            readFile <float> (file, strengthRequired_);
+            readFile <float> (file, damageDealt_);
+            readFile <float> (file, speed_);
+            readFile <float> (file, accuracy_);
+            readFile  <int>  (file, level_);                        
+            readFile  <int>  (file, type);
+        }
+        catch (std::exception ex) {
+            std::cerr << ex.what() << '\n';
+        }
+
+        type_ = (Type) type;
+
+        initialize();
+        setPosition(position);
+
+        return file;
+    }
+
+    std::ofstream& ColdWeapon::operator>>(std::ofstream& file) {
+        file << 4                           << ' '
+             << (int)body_[0].position.x/80 << ' '
+             << (int)body_[0].position.y/80 << ' '
+             << amount_                     << ' '
+             << discovered_                 << ' '
+             << equipped_                   << ' '
+             << strengthRequired_           << ' '
+             << damageDealt_                << ' '
+             << speed_                      << ' '
+             << accuracy_                   << ' '
+             << level_                      << ' '
+             << type_;
+
+        return file;
     }
 
 }

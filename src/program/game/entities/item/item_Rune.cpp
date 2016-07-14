@@ -4,9 +4,12 @@
  * Used library: SFML 2.3.2
  */
 
+#include <iostream>
+
 #include "item_Rune.hpp"
 #include "../../../program.hpp"
 #include "../../../funcs/images.hpp"
+#include "../../../funcs/files.hpp"
 
 extern rr::Resources resources;
 extern int           spellSymbols[11];
@@ -18,6 +21,28 @@ namespace rr {
       type_       (type) {
 
         amount_     = am;
+
+        initialize();
+        setPosition(pos);
+    }
+
+    Rune::Rune(Rune const& rune)
+    : Discoverable(          ),
+      type_       (rune.type_) {
+
+        amount_                = rune.amount_;
+        disposable_            = rune.disposable_;
+        stackable_             = rune.stackable_;
+        ID_                    = rune.ID_;
+        iconIndex_             = rune.iconIndex_;
+        name_                  = rune.name_;
+        description_           = rune.description_;
+        discoveredName_        = rune.discoveredName_;
+        discoveredDescription_ = rune.discoveredDescription_;
+        body_                  = rune.body_;
+    }
+
+    void Rune::initialize() {
         disposable_ = true;
         stackable_  = true;
         ID_         = 39+type_;
@@ -92,23 +117,6 @@ namespace rr {
         int icons[] = { (int)iconIndex_, 64+(int)spellSymbols[type_] };
 
         setIcon    (body_, 2, icons);
-        setPosition(pos);
-    }
-
-    Rune::Rune(Rune const& rune)
-    : Discoverable(          ),
-      type_       (rune.type_) {
-
-        amount_                = rune.amount_;
-        disposable_            = rune.disposable_;
-        stackable_             = rune.stackable_;
-        ID_                    = rune.ID_;
-        iconIndex_             = rune.iconIndex_;
-        name_                  = rune.name_;
-        description_           = rune.description_;
-        discoveredName_        = rune.discoveredName_;
-        discoveredDescription_ = rune.discoveredDescription_;
-        body_                  = rune.body_;
     }
 
     void Rune::reveal() {
@@ -143,6 +151,40 @@ namespace rr {
         body_[5].position = body_[1].position;
         body_[6].position = body_[2].position;
         body_[7].position = body_[3].position;
+    }
+
+    std::ifstream& Rune::operator<<(std::ifstream& file) {
+        sf::Vector2i position;
+        int type;
+
+        try {
+            readFile <int> (file, position.x);
+            readFile <int> (file, position.y);
+            readFile <int> (file, amount_);
+            readFile <bool> (file, discovered_);                   
+            readFile <int> (file, type);
+        }
+        catch (std::exception ex) {
+            std::cerr << ex.what() << '\n';
+        }
+
+        type_ = (Type) type;
+
+        initialize();
+        setPosition(position);
+
+        return file;
+    }
+
+    std::ofstream& Rune::operator>>(std::ofstream& file) {
+        file << 8                           << ' '
+             << (int)body_[0].position.x/80 << ' '
+             << (int)body_[0].position.y/80 << ' '
+             << amount_                     << ' '
+             << discovered_                 << ' '
+             << type_;
+
+        return file;
     }
 
 }

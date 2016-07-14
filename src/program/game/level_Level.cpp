@@ -4,12 +4,14 @@
  * Used library: SFML 2.3.2
  */
 
+#include <iostream>
+
 #include "game.hpp"
-#include "../program.hpp"
+#include "fov/fov.hpp"
 #include "entities/entities.hpp"
+#include "../program.hpp"
 #include "../funcs/files.hpp"
 #include "../funcs/items.hpp"
-#include "fov/fov.hpp"
 
 extern rr::Resources resources;
 
@@ -43,10 +45,6 @@ namespace rr {
         target.draw(tilemap_, states);
     }
 
-    bool Level::loadFromFile(const char*) {
-        return true;
-    }
-
     void Level::drawObjects(sf::RenderWindow& rw) const {
         for (auto entity : entities_) {
             entity->draw(rw);
@@ -63,9 +61,9 @@ namespace rr {
         }
     }
 
-    void Level::removeEntity(unsigned index) {
-        delete entities_[index];
-        entities_.erase(entities_.begin()+index);
+    void Level::addEntity(Entity* e) {
+        if (  e != nullptr
+            ) entities_.push_back(e);
     }
 
     void Level::replaceEntity(unsigned index, Entity* entity) {
@@ -78,11 +76,16 @@ namespace rr {
         entities_[index]->setPosition(position);
     }
 
+    void Level::removeEntity(unsigned index) {
+        delete entities_[index];
+        entities_.erase(entities_.begin()+index);
+    }
+
     void Level::calculateFOV(sf::Vector2u origin, int range) {
         FOV::compute(masks_, tilesAsInts_, origin, range);
     }
 
-    void Level::generateWorld() {
+    void Level::generateWorld(bool spreadEntities) {
      // first we create an 2-dimensional array filled with 1's representing a wall
         for (int i=0; i<size_.x; i++) {
             for (int j=0; j<size_.y; j++) {
@@ -90,10 +93,10 @@ namespace rr {
             }
         }
 
-     // at this point we generate some rooms_ to our level
+     // at this point we generate some rooms to our level
         digRooms();
 
-     // then we pick the entrance cells to be our starting points and start digging corridors among the rooms_
+     // then we pick the entrance cells to be our starting points and start digging corridors among the rooms
         for (int i=1; i<size_.x; i+=2) {
             for (int j=1; j<size_.y; j+=2) {
                 if (tiles_[i+j*size_.x] == WALL) {
@@ -109,12 +112,13 @@ namespace rr {
         removeDeadEnds();
 
      // here we generate the entities
-        placeEntities();
+        if (  spreadEntities
+            ) placeEntities();
 
      // in the end we generate the tile map from the created array
         generateTileMap();
 
-     // and just transform the table of Cells to a table of ints
+     // and just transform the table of cells to a table of ints
         for (int i=0; i<size_.x; i++) {
             for (int j=0; j<size_.y; j++) {
                 tilesAsInts_[i+j*size_.x] = tiles_[i+j*size_.x];
@@ -588,11 +592,52 @@ namespace rr {
         return x <= 0 || y <= 0 || x >= size_.x-1 || y >= size_.y-1;
     }
 
-    int* Level::getTiles() {
-        return tilesAsInts_;
+    std::ifstream& Level::operator<<(std::ifstream& file) {
+        generateWorld(false);                        // don't generate entities, you're going to load them soon
+
+        int number;
+
+        try {
+            for (file >> number; number > 0; --number) { // load the entities
+                int identificator; file >> identificator;
+                Entity* entity;
+
+                switch (identificator) {
+                    case  0: entity = new Chest       (Chest::REGULAR, new Book(Book::CRAFTING)); *entity << file; addEntity(entity); break;
+                    case  1: entity = new Door        (false                                   ); *entity << file; addEntity(entity); break;
+                    case  2: entity = new Book        (Book::CRAFTING	                       ); *entity << file; addEntity(entity); break;
+                    case  3: entity = new Coin        (Coin::BRONZE, Coin::SMALL               ); *entity << file; addEntity(entity); break;
+                    case  4: entity = new ColdWeapon  (ColdWeapon::KNIFE                       ); *entity << file; addEntity(entity); break;
+                    case  5: /*entity = new Food        (	                                     ); *entity << file; addEntity(entity);*/ break;
+                    case  6: entity = new Potion      (Potion::HEALING, Potion::SMALL          ); *entity << file; addEntity(entity); break;
+                    case  7: /*entity = new RangedWeapon(	                                     ); *entity << file; addEntity(entity);*/ break;
+                    case  8: entity = new Rune        (Rune::HEAL                              ); *entity << file; addEntity(entity); break;
+                    case  9: entity = new Teacher     (Teacher::SWORDSMAN                      ); *entity << file; addEntity(entity); break;
+                    case 10: entity = new Stairs      (false                                   ); *entity << file; addEntity(entity); break;
+                }
+            }
+            for (number = 77*43; number > 0; --number) { // load the masks
+                masks_[number] << file;
+            }
+        }
+        catch (std::exception ex) {
+            std::cerr << ex.what() << '\n';
+        }
+
+        return file;
     }
 
-    Level::Cell* Level::getTilesAsCells() {
-        return tiles_;
+    std::ofstream& Level::operator>>(std::ofstream& file) {
+        file << entities_.size() << ' ';
+        for (auto it = entities_.begin(); it != entities_.end(); ++it) {
+            **it >> file << ' ';
+        }
+
+        for (int i=0; i<77*43; ++i) {
+            masks_[i] >> file << ' ';
+        }
+
+        return file;
     }
+
 }
