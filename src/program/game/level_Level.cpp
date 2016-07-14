@@ -30,6 +30,11 @@ namespace rr {
                 regions_[i+j*size_.x] = -1;
             }
         }
+        for (int x=0; x<size_.x; x++) {
+            for (int y=0; y<size_.y; y++) {
+                masks_[x+y*size_.x].setPosition(sf::Vector2i(x, y));
+            }
+        }
     }
 
     Level::~Level() {
@@ -557,14 +562,6 @@ namespace rr {
                case 20: addEntity(new Teacher(Teacher::MAGE          ), pos); break;
                case 25: addEntity(new Teacher(Teacher::KUNG_FU_MASTER), pos); break;
            }
-        }
-
-     /* SHADOWS */
-     // and in the end we place the masks upon the whole level to make the player have to discover it all
-        for (int x=0; x<size_.x; x++) {
-            for (int y=0; y<size_.y; y++) {
-                masks_[x+y*size_.x].setPosition(sf::Vector2i(x, y));
-            }
         }
     }
 

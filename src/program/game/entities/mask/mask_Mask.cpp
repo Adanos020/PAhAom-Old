@@ -117,17 +117,7 @@ namespace rr {
 
     std::ifstream& Mask::operator<<(std::ifstream& file) {
         try {
-            readFile <float> (file, body_[0].position.x);
-            readFile <float> (file, body_[0].position.y);
-            readFile <float> (file, body_[1].position.x);
-            readFile <float> (file, body_[1].position.y);
-            readFile <float> (file, body_[2].position.x);
-            readFile <float> (file, body_[2].position.y);
-            readFile <float> (file, body_[3].position.x);
-            readFile <float> (file, body_[3].position.y);
-            readFile  <bool> (file, seen_);
-            readFile  <bool> (file, discovered_);                   
-            readFile  <bool> (file, flipped_);
+            readFile <bool> (file, discovered_);
         }
         catch (std::exception ex) {
             std::cerr << ex.what() << '\n';
@@ -139,17 +129,7 @@ namespace rr {
     }
 
     std::ofstream& Mask::operator>>(std::ofstream& file) {
-        file << body_[0].position.x << ' '
-             << body_[0].position.y << ' '
-             << body_[1].position.x << ' '
-             << body_[1].position.y << ' '
-             << body_[2].position.x << ' '
-             << body_[2].position.y << ' '
-             << body_[3].position.x << ' '
-             << body_[3].position.y << ' '
-             << seen_               << ' '
-             << discovered_         << ' '
-             << flipped_;
+        file << discovered_;
 
         return file;
     }

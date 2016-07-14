@@ -31,6 +31,7 @@ namespace rr {
           quests_        (new Quests        ()),
           bookOfSpells_  (new BookOfSpells  ()),
           hud_           (new HUD           ()),
+          currentLevel_  (nullptr             ),
           messageManager_(new MessageManager()),
           player_        (new Player        ()),
           started_       (false               ),
@@ -55,7 +56,7 @@ namespace rr {
         delete quests_;
         delete hud_;
         delete player_;
-        levels_.clear();
+        delete currentLevel_;
     }
 
     void Game::randomizeItems() {
@@ -94,45 +95,71 @@ namespace rr {
     }
 
     void Game::switchLevel(int index) {
+        {   std::ofstream file("data/savedgame/level"+std::to_string(levelNumber_)+".pah"); file.clear();
+            *currentLevel_ >> file;
+            file.close();   }
+        
+        std::ifstream file;
         if (index > (int)levelNumber_) {
-            if (  levelNumber_ < levels_.size()-1
+            if (  levelNumber_ < 29
                 ) levelNumber_++;
             else  levelNumber_ = 0;
-            player_->setPosition(levels_[levelNumber_]->getStartingPoint());
+
+            file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
+            *currentLevel_ << file;
+            file.close();
+
+            player_->setPosition(currentLevel_->getStartingPoint());
         }
         else if (index < (int)levelNumber_) {
             if (  levelNumber_ > 0
                 ) levelNumber_--;
-            else  levelNumber_ = levels_.size()-1;
-            player_->setPosition(levels_[levelNumber_]->getEndingPoint());
+            else  levelNumber_ = 29;
+            
+            file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
+            *currentLevel_ << file;
+            file.close();
+
+            player_->setPosition(currentLevel_->getEndingPoint());
         }
         messageManager_->addMessage(Message(resources.dictionary["message.welcome_to_level"]+" "+std::to_string(levelNumber_+1)+"!", sf::Color::Green));
     }
 
     bool Game::loadNewGame() {
         reset();
-        for (int i=0; i<30; i++) {
-            levels_.push_back(new Level(i+1));
-            levels_.back()->generateWorld(true);
-            subject.addObserver(levels_.back());
+        std::ofstream file;
+        for (int i=30; i>=0; --i) {
+            currentLevel_ = new Level(i+1);
+            currentLevel_->generateWorld(true);
+            
+            file.open("data/savedgame/level"+std::to_string(i)+".pah"); file.clear();
+            *currentLevel_ >> file;
+            file.close();
+
+            if (  i!=0
+                ) delete currentLevel_;
         }
-        player_->setPosition(levels_[0]->getStartingPoint());
+        subject.addObserver(currentLevel_);
+
+        player_->setPosition(currentLevel_->getStartingPoint());
+
         start(true);
         pause(false);
         return true;
     }
 
     void Game::save() {
-        std::ofstream file("data/savedgame/save.pah");
-        file.clear();
+        std::ofstream file("data/savedgame/save.pah"); file.clear();
         
         file     << seed_        << ' ' 
                  << levelNumber_ << ' ';
         *player_ >> file         << ' ';
 
-        for (unsigned i=0; i<levels_.size(); ++i) {
-            *levels_[i] >> file << ' ';
-        }
+        file.close();
+
+        file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah"); file.clear();
+
+        *currentLevel_ >> file << ' ';
 
         file.close();
     }
@@ -149,15 +176,17 @@ namespace rr {
             readFile <unsigned> (file, seed_       );
             readFile <unsigned> (file, levelNumber_);
             readEntity          (file, player_);
+            
+            file.close();
 
             srand(seed_);
             randomizeItems();
+            
+            file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
+            *currentLevel_ << file;
+            file.close();
 
-            for (int i=0; i<30; i++) {
-                levels_.push_back(new Level(i+1));
-                *levels_[i] << file;
-                subject.addObserver(levels_.back());
-            }
+            subject.addObserver(currentLevel_);
         }
         catch (std::exception ex) {
             std::cerr << ex.what() << '\n';
@@ -166,7 +195,6 @@ namespace rr {
         start(true);
         pause(false);
 
-        file.close();
         return true;
     }
 
@@ -178,8 +206,8 @@ namespace rr {
         }
         else {
             rw.setView((mapOpen_) ? mapView_ : gameView_);
-            rw.draw(*levels_[levelNumber_]);
-            levels_[levelNumber_]->drawObjects(rw);
+            rw.draw(*currentLevel_);
+            currentLevel_->drawObjects(rw);
             player_->draw(rw);
 
             rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
@@ -203,7 +231,7 @@ namespace rr {
         gameView_.setCenter(sf::Vector2f(player_->getBounds().left+16, player_->getBounds().top+16));
 
         if (!paused_) {
-            for (auto entity : levels_[levelNumber_]->getEntities()) {
+            for (auto entity : currentLevel_->getEntities()) {
                 if (instanceof<Door, Entity>(entity)) {
                     if (  player_->intersects(entity)
                         ) ((Door*)entity)->setOpen(true);
@@ -215,17 +243,17 @@ namespace rr {
         }
 
         for (int i=0; i<77*43; i++) {
-            levels_[levelNumber_]->getMasks()[i].see(false);
+            currentLevel_->getMasks()[i].see(false);
         }
-        levels_[levelNumber_]->calculateFOV((sf::Vector2u)player_->getPosition(), player_->getSightRange());
+        currentLevel_->calculateFOV((sf::Vector2u)player_->getPosition(), player_->getSightRange());
     }
 
     void Game::controls(sf::Event& event) {
         if (started_ && !paused_) {
-            if (isKeyPressed(settings.keys.move_up))    player_->move(levels_[levelNumber_]->getTiles(), Player::UP);
-            if (isKeyPressed(settings.keys.move_down))  player_->move(levels_[levelNumber_]->getTiles(), Player::DOWN);
-            if (isKeyPressed(settings.keys.move_left))  player_->move(levels_[levelNumber_]->getTiles(), Player::LEFT);
-            if (isKeyPressed(settings.keys.move_right)) player_->move(levels_[levelNumber_]->getTiles(), Player::RIGHT);
+            if (isKeyPressed(settings.keys.move_up))    player_->move(currentLevel_->getTiles(), Player::UP);
+            if (isKeyPressed(settings.keys.move_down))  player_->move(currentLevel_->getTiles(), Player::DOWN);
+            if (isKeyPressed(settings.keys.move_left))  player_->move(currentLevel_->getTiles(), Player::LEFT);
+            if (isKeyPressed(settings.keys.move_right)) player_->move(currentLevel_->getTiles(), Player::RIGHT);
 #if 0
                  if (isKeyPressed(sf::Keyboard::Numpad1)) player_->attrs_.health    --;
             else if (isKeyPressed(sf::Keyboard::Numpad2)) player_->attrs_.health    ++;
@@ -280,7 +308,7 @@ namespace rr {
                 }
                 else if (wasKeyPressed(event, settings.keys.interact)) {
 
-#define entities levels_[levelNumber_]->getEntities()
+#define entities currentLevel_->getEntities()
 ;
                     for (unsigned i=0; i<entities.size(); i++) {
 
@@ -289,13 +317,13 @@ namespace rr {
                             if (instanceof<Item, Entity>(entities[i])) {
                                 if (inventory_->addItem((Item*)entities[i])) {
                                     subject.notify(Observer::ITEM_PICKED, entities[i]);
-                                    levels_[levelNumber_]->removeEntity(i);
+                                    currentLevel_->removeEntity(i);
                                     break;
                                 }
                                 else messageManager_->addMessage(Message(resources.dictionary["message.full_inventory"], sf::Color::Red));
                             }
                             else if (instanceof<Chest, Entity>(entities[i])) {
-                                levels_[levelNumber_]->replaceEntity(i, ((Chest*)entities[i])->getItem());
+                                currentLevel_->replaceEntity(i, ((Chest*)entities[i])->getItem());
                             }
                             else if (instanceof<Stairs, Entity>(entities[i])) {
                                 if (((Stairs*)entities[i])->isUpwards()) {
@@ -343,10 +371,9 @@ namespace rr {
     void Game::reset() {
         randomizeItems   ();
 
-        for (auto it = levels_.begin(); it != levels_.end(); ++it) {
-            delete *it;
-        }
-        levels_    .clear();
+        if (  currentLevel_ != nullptr
+            ) delete currentLevel_;
+
         inventory_->clear();
         player_   ->reset();
 
