@@ -33,6 +33,10 @@ namespace sf {
         m_frames.push_back(rect);
     }
 
+    void Animation::clearFrames() {
+        m_frames.clear();
+    }
+
     void Animation::setSpriteSheet(const sf::Texture& texture) {
         m_texture = &texture;
     }

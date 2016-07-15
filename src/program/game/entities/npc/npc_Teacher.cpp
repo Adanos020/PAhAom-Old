@@ -54,6 +54,8 @@ namespace rr {
     }
 
     std::ifstream& Teacher::operator<<(std::ifstream& file) {
+        currentAnimation_->clearFrames();
+        
         sf::Vector2i position;
         int type;
 

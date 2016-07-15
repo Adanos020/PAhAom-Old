@@ -44,16 +44,25 @@ namespace rr {
                 ) bottomY = 0;
             else {
                 bottomY = ((x*2-1)*bottom.y_+bottom.x_)/(bottom.x_*2);
-                if (  bottom >= Slope(bottomY*2+1, x*2) && blocksLight(tiles, x, bottomY, octant, origin) && !blocksLight(tiles, x, bottomY+1, octant, origin)
+                if (  bottom >= Slope(bottomY*2+1, x*2)
+                   && blocksLight(tiles, x, bottomY, octant, origin) 
+                   &&!blocksLight(tiles, x, bottomY+1, octant, origin)
                     ) bottomY++;
             }
 
             int wasOpaque = -1;
             for (unsigned y = topY; (int)y >= (int)bottomY; y--) {
                 if (range < 0 || getDistance((int)x, (int)y) <= range) {
-                    bool isOpaque  = blocksLight(tiles, x, y, octant, origin);
+                    bool isOpaque = blocksLight(tiles, x, y, octant, origin);
                     
-                    if (  isOpaque || ((y != topY || top > Slope(y*4-1, x*4+1)) && (y != bottomY || bottom < Slope(y*4+1, x*4-1)))
+                    if (  isOpaque 
+                       || (  (  y != topY
+                             || top    > Slope(y*4-1, x*4+1)
+                              )
+                          && (  y != bottomY
+                             || bottom < Slope(y*4+1, x*4-1)
+                              )
+                           )
                         ) setVisible(masks, x, y, octant, origin);
 
                     if ((int)x != range) {
@@ -106,7 +115,11 @@ namespace rr {
             case 6: nx += y; ny += x; break;
             case 7: nx += x; ny += y; break;
         }
-        return (nx < 77 && ny < 43) && (tiles[nx+ny*77] == 1 || tiles[nx+ny*77] == 4);
+        return (  (nx < 77 && ny < 43)
+               && (  tiles[nx+ny*77] == 1
+                  || tiles[nx+ny*77] == 4
+                   )
+                );
     }
 
     void FOV::setVisible(Mask masks[], unsigned x, unsigned y, unsigned octant, sf::Vector2u origin) {

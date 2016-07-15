@@ -106,7 +106,8 @@ namespace rr {
                 ) levelNumber_++;
             else  levelNumber_ = 0;
 
-            currentLevel_ = new Level(levelNumber_+1);
+            currentLevel_ = new Level(levelNumber_);
+            currentLevel_->generateWorld();
 
             file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
             *currentLevel_ << file;
@@ -119,7 +120,8 @@ namespace rr {
                 ) levelNumber_--;
             else  levelNumber_ = 29;
 
-            currentLevel_ = new Level(levelNumber_+1);
+            currentLevel_ = new Level(levelNumber_);
+            currentLevel_->generateWorld();
             
             file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
             *currentLevel_ << file;
@@ -132,7 +134,7 @@ namespace rr {
 
     bool Game::loadNewGame() {
         reset();
-        
+
         seed_ = time(0);
         srand(seed_);
         randomizeItems();
@@ -140,7 +142,7 @@ namespace rr {
         std::ofstream file;
 
         for (int i=29; i>=0; --i) {
-            currentLevel_ = new Level(i+1);
+            currentLevel_ = new Level(i);
             currentLevel_->generateWorld();
             
             file.open("data/savedgame/level"+std::to_string(i)+".pah");
@@ -182,8 +184,7 @@ namespace rr {
             srand(seed_);
             randomizeItems();
 
-            currentLevel_ = new Level(levelNumber_+1);
-            currentLevel_->generateWorld();
+            currentLevel_ = new Level(levelNumber_);
             
             file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
             *currentLevel_ << file;

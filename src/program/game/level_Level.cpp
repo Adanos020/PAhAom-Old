@@ -30,11 +30,6 @@ namespace rr {
                 regions_[i+j*size_.x] = -1;
             }
         }
-        for (int x=0; x<size_.x; x++) {
-            for (int y=0; y<size_.y; y++) {
-                masks_[x+y*size_.x].setPosition(sf::Vector2i(x, y));
-            }
-        }
     }
 
     Level::~Level() {
@@ -53,10 +48,10 @@ namespace rr {
     void Level::drawObjects(sf::RenderWindow& rw) const {
         for (auto entity : entities_) {
             entity->draw(rw);
-        }/*
+        }
         for (auto mask : masks_) {
             mask.draw(rw);
-        }*/
+        }
     }
 
     void Level::addEntity(Entity* e, sf::Vector2i position) {
@@ -149,6 +144,12 @@ namespace rr {
         for (int i=0; i<size_.x; i++) {
             for (int j=0; j<size_.y; j++) {
                 tilesAsInts_[i + j*size_.x] = tiles_[i + j*size_.x];
+            }
+        }
+     // ... and place the masks. That's really it
+        for (int x=0; x<size_.x; x++) {
+            for (int y=0; y<size_.y; y++) {
+                masks_[x + y*size_.x].setPosition(sf::Vector2i(x, y));
             }
         }
     }
@@ -595,6 +596,11 @@ namespace rr {
         entities_.clear();
 
         try {
+            readFile <int> (file, startingPoint_.x);
+            readFile <int> (file, startingPoint_.y);
+            readFile <int> (file, endingPoint_  .x);
+            readFile <int> (file, endingPoint_  .y);
+
             int number;
             readFile <int> (file, number);
 
@@ -621,6 +627,17 @@ namespace rr {
             for (int i=0; i<77*43; ++i) { // load the masks
                 masks_[i] << file;
             }
+            for (int x=0; x<size_.x; x++) {
+                for (int y=0; y<size_.y; y++) {
+                    masks_[x+y*size_.x].setPosition(sf::Vector2i(x, y));
+                }
+            }
+            
+            for (int i=0; i<77*43; ++i) { // load the tiles
+                file >> tilesAsInts_[i];
+                tiles_[i] = (Cell)tilesAsInts_[i];
+            }
+            generateTileMap();
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -630,13 +647,20 @@ namespace rr {
     }
 
     std::ofstream& Level::operator>>(std::ofstream& file) {
+        file << startingPoint_.x << ' '
+             << startingPoint_.y << '\n'              // save the starting point
+             << endingPoint_  .x << ' '
+             << endingPoint_  .y << '\n';             // save the ending point
+
         file << entities_.size() << '\n';
-        for (unsigned i=0; i<entities_.size(); ++i) {
+        for (unsigned i=0; i<entities_.size(); ++i) { // save the entities
             *entities_[i] >> file << '\n';
         }
-
-        for (int i=0; i<77*43; ++i) {
+        for (int i=0; i<77*43; ++i) {                 // save the masks
             masks_[i] >> file << (((i+1)%77 == 0) ? '\n' : ' ');
+        }
+        for (int i=0; i<77*43; ++i) {                 // save the tiles
+            file << tiles_[i] << (((i+1)%77 == 0) ? '\n' : ' ');
         }
 
         return file;
