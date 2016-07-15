@@ -18,12 +18,12 @@
 extern rr::Settings  settings;
 extern rr::Resources resources;
 extern rr::Subject   subject;
-extern sf::Color     itemColors[9];
+extern sf::Color     itemColors  [ 9];
 extern int           spellSymbols[11];
 
 namespace rr {
 
-    Game::Game(unsigned seed)
+    Game::Game()
         : mainMenu_      (new MainMenu      ()),
           pauseMenu_     (new PauseMenu     ()),
           attributes_    (new Attributes    ()),
@@ -36,13 +36,12 @@ namespace rr {
           player_        (new Player        ()),
           started_       (false               ),
           paused_        (false               ),
-          levelNumber_   (0                   ),
-          seed_          (seed                ) {
+          levelNumber_   (0                   ) {
 
-        gameView_.setSize    ((sf::Vector2f)settings.graphics.resolution);
+        gameView_.setSize  ((sf::Vector2f)settings.graphics.resolution);
 
-        mapView_ .setSize    (6160.f, 3440.f);
-        mapView_ .setCenter  (mapView_.getSize()/2.f);
+        mapView_ .setSize  (6160.f, 3440.f);
+        mapView_ .setCenter(mapView_.getSize()/2.f);
 
         subject.addObserver(inventory_);
         subject.addObserver(messageManager_);
@@ -95,15 +94,19 @@ namespace rr {
     }
 
     void Game::switchLevel(int index) {
-        {   std::ofstream file("data/savedgame/level"+std::to_string(levelNumber_)+".pah"); file.clear();
+        {   std::ofstream file("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
+            file.clear();
             *currentLevel_ >> file;
             file.close();   }
+        delete currentLevel_;
         
         std::ifstream file;
         if (index > (int)levelNumber_) {
             if (  levelNumber_ < 29
                 ) levelNumber_++;
             else  levelNumber_ = 0;
+
+            currentLevel_ = new Level(levelNumber_+1);
 
             file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
             *currentLevel_ << file;
@@ -115,6 +118,8 @@ namespace rr {
             if (  levelNumber_ > 0
                 ) levelNumber_--;
             else  levelNumber_ = 29;
+
+            currentLevel_ = new Level(levelNumber_+1);
             
             file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
             *currentLevel_ << file;
@@ -122,17 +127,27 @@ namespace rr {
 
             player_->setPosition(currentLevel_->getEndingPoint());
         }
-        messageManager_->addMessage(Message(resources.dictionary["message.welcome_to_level"]+" "+std::to_string(levelNumber_+1)+"!", sf::Color::Green));
+        messageManager_->addMessage(Message(resources.dictionary["message.welcome_to_level"]+" "+std::to_string(levelNumber_+1)+((settings.game.language=="fc") ? "" : "!"), sf::Color::Green));
     }
 
     bool Game::loadNewGame() {
         reset();
+        
+        seed_ = time(0);
+        srand(seed_);
+        randomizeItems();
+
         std::ofstream file;
-        for (int i=30; i>=0; --i) {
+
+        for (int i=29; i>=0; --i) {
             currentLevel_ = new Level(i+1);
-            currentLevel_->generateWorld(true);
+            currentLevel_->generateWorld();
             
-            file.open("data/savedgame/level"+std::to_string(i)+".pah"); file.clear();
+            file.open("data/savedgame/level"+std::to_string(i)+".pah");
+            if ( !file.good()
+                ) return false;
+
+            file.clear();
             *currentLevel_ >> file;
             file.close();
 
@@ -145,23 +160,8 @@ namespace rr {
 
         start(true);
         pause(false);
+
         return true;
-    }
-
-    void Game::save() {
-        std::ofstream file("data/savedgame/save.pah"); file.clear();
-        
-        file     << seed_        << ' ' 
-                 << levelNumber_ << ' ';
-        *player_ >> file         << ' ';
-
-        file.close();
-
-        file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah"); file.clear();
-
-        *currentLevel_ >> file << ' ';
-
-        file.close();
     }
 
     bool Game::load() {
@@ -181,6 +181,9 @@ namespace rr {
 
             srand(seed_);
             randomizeItems();
+
+            currentLevel_ = new Level(levelNumber_+1);
+            currentLevel_->generateWorld();
             
             file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
             *currentLevel_ << file;
@@ -188,7 +191,7 @@ namespace rr {
 
             subject.addObserver(currentLevel_);
         }
-        catch (std::exception ex) {
+        catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
 
@@ -196,6 +199,24 @@ namespace rr {
         pause(false);
 
         return true;
+    }
+
+    void Game::save() {
+        std::ofstream file("data/savedgame/save.pah");
+        file.clear();
+        
+        file     << seed_        << '\n' 
+                 << levelNumber_ << '\n';
+        *player_ >> file         << '\n';
+
+        file.close();
+
+        file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
+        file.clear();
+
+        *currentLevel_ >> file << ' ';
+
+        file.close();
     }
 
     void Game::draw(sf::RenderWindow& rw) {
@@ -369,8 +390,6 @@ namespace rr {
     }
 
     void Game::reset() {
-        randomizeItems   ();
-
         if (  currentLevel_ != nullptr
             ) delete currentLevel_;
 

@@ -20,7 +20,7 @@ namespace rr {
       position_                    (sf::Vector2i(0, 0)),
       currentAnimation_            (&walkingRight_    ),
       moving_                      (false             ),
-      velocity_                    (920.f             ),
+      velocity_                    (1220.f            ),
       sightRange_                  (5                 ) {
 
         attrs_.health                = 0.f;
@@ -115,8 +115,8 @@ namespace rr {
             else
                 moving_ = false;
 
-            if (  (abs(offset.x) < velocity_/32 && abs(offset.x) > 0) // preventing the player from wobbling
-               || (abs(offset.y) < velocity_/32 && abs(offset.y) > 0) // in between of two cells
+            if (  (abs(offset.x) < velocity_/256 && abs(offset.x) > 0) // preventing the player from wobbling
+               || (abs(offset.y) < velocity_/256 && abs(offset.y) > 0) // in between of two cells
                 )  body_.setPosition((sf::Vector2f)position_*80.f);
         }
 
@@ -280,7 +280,7 @@ namespace rr {
             readFile  <int>  (file, position_.x);
             readFile  <int>  (file, position_.y);
         }
-        catch (std::exception ex) {
+        catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
 

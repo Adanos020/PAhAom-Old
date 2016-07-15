@@ -18,6 +18,7 @@ namespace rr {
     : type_(type) {
 
         initialize();
+        body_.scale             (sf::Vector2f(5, 5));
     }
 
     Teacher::Teacher(Teacher const& teacher)
@@ -41,7 +42,6 @@ namespace rr {
         if (  type_ == MAGE
             ) body_.setFrameTime(sf::seconds(.4f));
         else  body_.setFrameTime(sf::seconds(.2f));
-        body_.scale             (sf::Vector2f(5, 5));
     }
 
     void Teacher::talk() {
@@ -62,7 +62,7 @@ namespace rr {
             readFile <int> (file, position.y);                  
             readFile <int> (file, type);
         }
-        catch (std::exception ex) {
+        catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
 

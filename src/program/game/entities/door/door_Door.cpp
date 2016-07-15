@@ -56,7 +56,7 @@ namespace rr {
             readFile <bool> (file, open_);
             readFile <bool> (file, withoutWindow_);
         }
-        catch (std::exception ex) {
+        catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
 

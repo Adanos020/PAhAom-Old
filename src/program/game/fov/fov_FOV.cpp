@@ -1,6 +1,6 @@
 /**
  * @file src/program/game/fov/fov_FOV.cpp
- * @author Adam 'Adanos' G�sior
+ * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 

@@ -208,7 +208,7 @@ namespace rr {
             readFile  <int>  (file, level_);                        
             readFile  <int>  (file, type);
         }
-        catch (std::exception ex) {
+        catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
 

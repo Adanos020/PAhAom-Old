@@ -42,7 +42,7 @@ namespace rr {
             readFile <int>  (file, position.y);
             readFile <bool> (file, upwards_);
         }
-        catch (std::exception ex) {
+        catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
 

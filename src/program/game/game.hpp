@@ -67,7 +67,7 @@ namespace rr {
     /// Switches to the level of a given index
         void switchLevel   (int index);
     public:
-         Game(unsigned seed);
+         Game();
         ~Game();
 
     /// Method drawing the game components

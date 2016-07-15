@@ -53,10 +53,10 @@ namespace rr {
     void Level::drawObjects(sf::RenderWindow& rw) const {
         for (auto entity : entities_) {
             entity->draw(rw);
-        }
+        }/*
         for (auto mask : masks_) {
             mask.draw(rw);
-        }
+        }*/
     }
 
     void Level::addEntity(Entity* e, sf::Vector2i position) {
@@ -90,7 +90,7 @@ namespace rr {
         FOV::compute(masks_, tilesAsInts_, origin, range);
     }
 
-    void Level::generateWorld(bool spreadEntities) {
+    void Level::generateWorld() {
      // first we create an 2-dimensional array filled with 1's representing a wall
         for (int i=0; i<size_.x; i++) {
             for (int j=0; j<size_.y; j++) {
@@ -104,7 +104,7 @@ namespace rr {
      // then we pick the entrance cells to be our starting points and start digging corridors among the rooms
         for (int i=1; i<size_.x; i+=2) {
             for (int j=1; j<size_.y; j+=2) {
-                if (tiles_[i+j*size_.x] == WALL) {
+                if (tiles_[i + j*size_.x] == WALL) {
                     fillWithMaze(i, j);
                 }
             }
@@ -140,8 +140,7 @@ namespace rr {
         }
 
      // here we generate the entities
-        if (  spreadEntities
-            ) placeEntities();
+        placeEntities();
 
      // in the end we generate the tile map from the created array
         generateTileMap();
@@ -149,7 +148,7 @@ namespace rr {
      // and just transform the table of cells to a table of ints
         for (int i=0; i<size_.x; i++) {
             for (int j=0; j<size_.y; j++) {
-                tilesAsInts_[i+j*size_.x] = tiles_[i+j*size_.x];
+                tilesAsInts_[i + j*size_.x] = tiles_[i + j*size_.x];
             }
         }
     }
@@ -590,34 +589,40 @@ namespace rr {
     }
 
     std::ifstream& Level::operator<<(std::ifstream& file) {
-        generateWorld(false);                        // don't generate entities, you're going to load them soon
-
-        int number; file >> number;
+        for (unsigned i=0; i<entities_.size(); ++i) {
+            delete entities_[i];
+        }
+        entities_.clear();
 
         try {
-            for (int i=0; i<number; ++number) { // load the entities
-                int identificator; file >> identificator;
+            int number;
+            readFile <int> (file, number);
+
+            for (int i=0; i<number; ++i) { // load the entities
+                int identificator;
+                readFile <int> (file, identificator);
+
                 Entity* entity;
 
                 switch (identificator) {
-                    case  0: entity = new Chest       (Chest::REGULAR , new Book(Book::CRAFTING)); *entity << file; addEntity(entity); break;
-                    case  1: entity = new Door        (false                                    ); *entity << file; addEntity(entity); break;
-                    case  2: entity = new Book        (Book::CRAFTING	                        ); *entity << file; addEntity(entity); break;
-                    case  3: entity = new Coin        (Coin::BRONZE   , Coin::SMALL             ); *entity << file; addEntity(entity); break;
-                    case  4: entity = new ColdWeapon  (ColdWeapon::KNIFE                        ); *entity << file; addEntity(entity); break;
-                    case  5: /*entity = new Food        (	                                      ); *entity << file; addEntity(entity);*/ break;
-                    case  6: entity = new Potion      (Potion::HEALING, Potion::SMALL           ); *entity << file; addEntity(entity); break;
-                    case  7: /*entity = new RangedWeapon(	                                      ); *entity << file; addEntity(entity);*/ break;
-                    case  8: entity = new Rune        (Rune::HEAL                               ); *entity << file; addEntity(entity); break;
-                    case  9: entity = new Teacher     (Teacher::SWORDSMAN                       ); *entity << file; addEntity(entity); break;
-                    case 10: entity = new Stairs      (false                                    ); *entity << file; addEntity(entity); break;
+                    case  0: entity = new Chest       (Chest::REGULAR , new Book(Book::CRAFTING)); readEntity(file, entity); addEntity(entity); break;
+                    case  1: entity = new Door        (false                                    ); readEntity(file, entity); addEntity(entity); break;
+                    case  2: entity = new Book        (Book::CRAFTING	                        ); readEntity(file, entity); addEntity(entity); break;
+                    case  3: entity = new Coin        (Coin::BRONZE   , Coin::SMALL             ); readEntity(file, entity); addEntity(entity); break;
+                    case  4: entity = new ColdWeapon  (ColdWeapon::KNIFE                        ); readEntity(file, entity); addEntity(entity); break;
+                    case  5: /*entity = new Food        (	                                      ); readEntity(file, entity); addEntity(entity);*/ break;
+                    case  6: entity = new Potion      (Potion::HEALING, Potion::SMALL           ); readEntity(file, entity); addEntity(entity); break;
+                    case  7: /*entity = new RangedWeapon(	                                      ); readEntity(file, entity); addEntity(entity);*/ break;
+                    case  8: entity = new Rune        (Rune::HEAL                               ); readEntity(file, entity); addEntity(entity); break;
+                    case  9: entity = new Teacher     (Teacher::SWORDSMAN                       ); readEntity(file, entity); addEntity(entity); break;
+                    case 10: entity = new Stairs      (false                                    ); readEntity(file, entity); addEntity(entity); break;
                 }
             }
             for (int i=0; i<77*43; ++i) { // load the masks
                 masks_[i] << file;
             }
         }
-        catch (std::exception ex) {
+        catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
 
@@ -625,13 +630,13 @@ namespace rr {
     }
 
     std::ofstream& Level::operator>>(std::ofstream& file) {
-        file << entities_.size() << ' ';
+        file << entities_.size() << '\n';
         for (unsigned i=0; i<entities_.size(); ++i) {
-            *entities_[i] >> file << ' ';
+            *entities_[i] >> file << '\n';
         }
 
         for (int i=0; i<77*43; ++i) {
-            masks_[i] >> file << ' ';
+            masks_[i] >> file << (((i+1)%77 == 0) ? '\n' : ' ');
         }
 
         return file;

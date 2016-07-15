@@ -15,9 +15,9 @@ extern rr::Settings  settings;
 
 namespace rr {
 
-    Program::Program(unsigned seed) {
+    Program::Program() {
         if (  loadResources()
-            ) runGame(seed);
+            ) runGame();
     }
 
     Program::~Program() {
@@ -29,13 +29,13 @@ namespace rr {
              && resources.load());
     }
 
-    void Program::runGame(unsigned seed) {
-        window_.create                (sf::VideoMode(settings.graphics.resolution.x, settings.graphics.resolution.y, 32), "PAhAom",
-                                                     settings.graphics.fullscreen ? (sf::Style::Fullscreen) : (sf::Style::Close), settings.graphics.csettings);
+    void Program::runGame() {
         window_.setVerticalSyncEnabled(settings.graphics.vsync);
         window_.setKeyRepeatEnabled   (false);
-
-        game_ = new Game(seed);
+        window_.create                (sf::VideoMode(settings.graphics.resolution.x, settings.graphics.resolution.y, 32), "PAhAom",
+                                                     settings.graphics.fullscreen ? (sf::Style::Fullscreen) : (sf::Style::Close), settings.graphics.csettings);
+        
+        game_ = new Game();
         mainLoop();
     }
 

@@ -69,7 +69,7 @@ namespace rr {
             readFile <int> (file, type);
             readFile <int> (file, size);
         }
-        catch (std::exception ex) {
+        catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
 

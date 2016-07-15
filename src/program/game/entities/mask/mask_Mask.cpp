@@ -119,7 +119,7 @@ namespace rr {
         try {
             readFile <bool> (file, discovered_);
         }
-        catch (std::exception ex) {
+        catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
 

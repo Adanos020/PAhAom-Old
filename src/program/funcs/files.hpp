@@ -12,7 +12,7 @@
 namespace rr {
 
 /// Reads a variable data from file
-    template <class T>
+    template <typename T>
     inline void readFile(std::ifstream& f, T& x) {
         std::string param;
         f >> x;
