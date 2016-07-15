@@ -117,14 +117,14 @@ namespace rr {
                 startingPoint_ = sf::Vector2i(x, y);
                 tiles_[x+y*size_.x] = EXIT;
                 
-                if (  levelNumber_ > 1
+                if (  levelNumber_ >= 1
                     ) addEntity(new Stairs(false), startingPoint_);
                 break;
             }
         }
 
      // here we place the ending point
-        if (levelNumber_ < 30)
+        if (levelNumber_ < 29)
         for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
             if (tiles_[x+y*size_.x] == ROOM && (levelNumber_ == 1 || (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 20))) {
                 endingPoint_ = sf::Vector2i(x, y);
@@ -632,7 +632,7 @@ namespace rr {
                     masks_[x+y*size_.x].setPosition(sf::Vector2i(x, y));
                 }
             }
-            
+
             for (int i=0; i<77*43; ++i) { // load the tiles
                 file >> tilesAsInts_[i];
                 tiles_[i] = (Cell)tilesAsInts_[i];

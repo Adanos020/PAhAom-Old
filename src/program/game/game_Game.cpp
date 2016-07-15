@@ -94,7 +94,7 @@ namespace rr {
     }
 
     void Game::switchLevel(int index) {
-        {   std::ofstream file("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
+        {   std::ofstream file("save/level"+std::to_string(levelNumber_)+".pah");
             file.clear();
             *currentLevel_ >> file;
             file.close();   }
@@ -109,7 +109,7 @@ namespace rr {
             currentLevel_ = new Level(levelNumber_);
             currentLevel_->generateWorld();
 
-            file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
+            file.open("save/level"+std::to_string(levelNumber_)+".pah");
             *currentLevel_ << file;
             file.close();
 
@@ -123,7 +123,7 @@ namespace rr {
             currentLevel_ = new Level(levelNumber_);
             currentLevel_->generateWorld();
             
-            file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
+            file.open("save/level"+std::to_string(levelNumber_)+".pah");
             *currentLevel_ << file;
             file.close();
 
@@ -145,7 +145,7 @@ namespace rr {
             currentLevel_ = new Level(i);
             currentLevel_->generateWorld();
             
-            file.open("data/savedgame/level"+std::to_string(i)+".pah");
+            file.open("save/level"+std::to_string(i)+".pah");
             if ( !file.good()
                 ) return false;
 
@@ -167,7 +167,7 @@ namespace rr {
     }
 
     bool Game::load() {
-        std::ifstream file("data/savedgame/save.pah");
+        std::ifstream file("save/save.pah");
 
         if ( !file.good()
             ) return false;
@@ -178,15 +178,25 @@ namespace rr {
             readFile <unsigned> (file, seed_       );
             readFile <unsigned> (file, levelNumber_);
             readEntity          (file, player_);
-            
-            file.close();
 
             srand(seed_);
             randomizeItems();
 
+            *inventory_ << file;
+            if (file.fail()) {
+                std::string wtf;
+                file.close();
+                file.clear();
+                file.sync ();
+                file >> wtf;
+                throw std::invalid_argument("Wrong data: " + wtf);
+            }
+
+            file.close();
+
             currentLevel_ = new Level(levelNumber_);
             
-            file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
+            file.open("save/level"+std::to_string(levelNumber_)+".pah");
             *currentLevel_ << file;
             file.close();
 
@@ -203,16 +213,17 @@ namespace rr {
     }
 
     void Game::save() {
-        std::ofstream file("data/savedgame/save.pah");
+        std::ofstream file("save/save.pah");
         file.clear();
         
-        file     << seed_        << '\n' 
-                 << levelNumber_ << '\n';
-        *player_ >> file         << '\n';
+        file        << seed_        << '\n' 
+                    << levelNumber_ << '\n';
+        *player_    >> file         << '\n';
+        *inventory_ >> file;
 
         file.close();
 
-        file.open("data/savedgame/level"+std::to_string(levelNumber_)+".pah");
+        file.open("save/level"+std::to_string(levelNumber_)+".pah");
         file.clear();
 
         *currentLevel_ >> file << ' ';

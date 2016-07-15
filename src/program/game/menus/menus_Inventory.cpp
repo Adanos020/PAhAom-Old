@@ -6,6 +6,7 @@
 
 #include "menus.hpp"
 #include "../../program.hpp"
+#include "../../funcs/files.hpp"
 
 extern rr::Settings  settings;
 extern rr::Resources resources;
@@ -201,17 +202,17 @@ namespace rr {
 
      // if the item we want to add is stackable then we check if any of the slots already contains it
         if (item->isStackable()) {
-            for (int it=0; it<32; it++) {
-                if (!slot(it)->isEmpty() && slot(it)->getItem()->getID() == item->getID()) {
-                    return slot(it)->addItem(item);
+            for (int i=0; i<32; ++i) {
+                if (!slot(i)->isEmpty() && slot(i)->getItem()->getID() == item->getID()) {
+                    return slot(i)->addItem(item);
                 }
             }
         }
 
      // if not then we look for the first empty slot and add the item to it
-        for (int it=0; it<32; it++) {
-            if (slot(it)->isEmpty()) {
-                return slot(it)->addItem(item);
+        for (int i=0; i<32; ++i) {
+            if (slot(i)->isEmpty()) {
+                return slot(i)->addItem(item);
             }
         }
 
@@ -220,11 +221,60 @@ namespace rr {
     }
 
     bool Inventory::contains(Item* sought) {
-        for (int i=0; i<32; i++) {
-	            if (  !slot(i)->isEmpty() && slot(i)->getItem()->getID() == sought->getID()
+        for (int i=0; i<32; ++i) {
+	        if ( !slot(i)->isEmpty() && slot(i)->getItem()->getID() == sought->getID()
                 ) return true;
         }
         return false;
+    }
+
+    std::ifstream& Inventory::operator<<(std::ifstream& file) {
+        readFile <short> (file, bronze_);
+        readFile <short> (file, silver_);
+        readFile <short> (file, gold_);
+
+        int itemsNumber;
+        readFile <int> (file, itemsNumber);
+
+        for (int i=0; i<itemsNumber; ++i) {
+            Item* item = nullptr;
+            int itemType;
+            readFile <int> (file, itemType);
+            
+            switch (itemType) {
+                case 2: item = new Book      (Book::CRAFTING                ); readEntity(file, item); break;
+                case 3: item = new Coin      (Coin::BRONZE, Coin::SMALL     ); readEntity(file, item); break;
+                case 4: item = new ColdWeapon(ColdWeapon::KNIFE             ); readEntity(file, item); break;
+                case 5: /* ERROR 404 */                                                                break;
+                case 6: item = new Potion    (Potion::HEALING, Potion::SMALL); readEntity(file, item); break;
+                case 7: /* ERROR 404 */                                                                break;
+                case 8: item = new Rune      (Rune::HEAL                    ); readEntity(file, item); break;
+            }
+            addItem(item);
+        }
+
+        return file;
+    }
+
+    std::ofstream& Inventory::operator>>(std::ofstream& file) {
+        file << bronze_ << ' '
+             << silver_ << ' '
+             << gold_   << '\n';
+
+        for (int i=0; i<32; ++i) {
+            if (slot(i)->isEmpty()) {
+                file << i << '\n';
+                break;
+            }
+        }
+
+        for (int i=0; i<32; ++i) {
+            if (  slot(i)->isEmpty()
+                ) break;
+            *slot(i)->getItem() >> file << '\n';
+        }
+
+        return file;
     }
 
     void Inventory::onNotify(Event event, Entity* entity) {

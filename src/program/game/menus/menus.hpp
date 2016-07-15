@@ -135,6 +135,9 @@ namespace rr {
     /// Tells if the inventory is open
         bool isOpen      ();
 
+        std::ifstream& operator<<(std::ifstream&);
+        std::ofstream& operator>>(std::ofstream&);
+
         virtual void onNotify(Event, Entity*) override;
     };
 

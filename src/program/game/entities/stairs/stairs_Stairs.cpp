@@ -27,7 +27,7 @@ namespace rr {
     void Stairs::initialize() {
         body_.setTexture    (resources.texture.objects);
         body_.setScale      (sf::Vector2f(5, 5));
-        body_.setTextureRect(sf::IntRect(upwards_?16:0, 64, 16, 16));
+        body_.setTextureRect(sf::IntRect(upwards_ ? 16 : 0, 64, 16, 16));
     }
 
     void Stairs::draw(sf::RenderWindow& rw) {

@@ -14,11 +14,11 @@ namespace rr {
 /// Reads a variable data from file
     template <typename T>
     inline void readFile(std::ifstream& f, T& x) {
-        std::string param;
         f >> x;
         if (f.fail()) {
+            std::string param;
             f.clear();
-            f.sync();
+            f.sync ();
             f >> param;
             throw std::invalid_argument("Wrong data: " + param);
         }
@@ -26,9 +26,9 @@ namespace rr {
 
 /// Reads an entity's data from file
     inline void readEntity(std::ifstream& f, Entity* x) {
-        std::string param;
         *x << f;
         if (f.fail()) {
+            std::string param;
             f.clear();
             f.sync();
             f >> param;
