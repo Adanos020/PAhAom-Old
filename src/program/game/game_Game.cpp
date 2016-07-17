@@ -98,37 +98,33 @@ namespace rr {
             file.clear();
             *currentLevel_ >> file;
             file.close();   }
-        delete currentLevel_;
-        
-        std::ifstream file;
+
+        bool ascending = false;
         if (index > (int)levelNumber_) {
             if (  levelNumber_ < 29
                 ) levelNumber_++;
-            else  levelNumber_ = 0;
-
-            currentLevel_ = new Level(levelNumber_);
-            currentLevel_->generateWorld();
-
-            file.open("save/level"+std::to_string(levelNumber_)+".pah");
-            *currentLevel_ << file;
-            file.close();
-
-            player_->setPosition(currentLevel_->getStartingPoint());
+            else return;
+            ascending = true;
         }
         else if (index < (int)levelNumber_) {
             if (  levelNumber_ > 0
                 ) levelNumber_--;
-            else  levelNumber_ = 29;
-
-            currentLevel_ = new Level(levelNumber_);
-            currentLevel_->generateWorld();
-            
-            file.open("save/level"+std::to_string(levelNumber_)+".pah");
-            *currentLevel_ << file;
-            file.close();
-
-            player_->setPosition(currentLevel_->getEndingPoint());
+            else return;
         }
+
+        subject.removeObserver(currentLevel_);
+        delete currentLevel_;
+
+        currentLevel_ = new Level(levelNumber_);
+        currentLevel_->generateWorld();
+        subject.addObserver(currentLevel_);
+
+        std::ifstream file("save/level"+std::to_string(levelNumber_)+".pah");
+        *currentLevel_ << file;
+        file.close();
+
+        player_->setPosition((ascending) ? currentLevel_->getStartingPoint() : currentLevel_->getEndingPoint());
+
         messageManager_->addMessage(Message(resources.dictionary["message.welcome_to_level"]+" "+std::to_string(levelNumber_+1)+((settings.game.language=="fc") ? "" : "!"), sf::Color::Green));
     }
 

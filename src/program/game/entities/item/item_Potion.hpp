@@ -27,9 +27,9 @@ namespace rr {
             WEAKNESS
         } effect_;
         enum Size {
-            SMALL,
+            BIG,
             MEDIUM,
-            BIG
+            SMALL
         } size_;
 
          Potion(Effect, Size, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));

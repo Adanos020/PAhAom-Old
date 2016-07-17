@@ -46,8 +46,8 @@ namespace rr {
     void Potion::initialize() {
         disposable_ = true;
         stackable_  = true;
-        ID_         = 100 + size_*10 + effect_;
-        iconIndex_  = size_+1;
+        ID_         = 100 + effect_*10 + size_;
+        iconIndex_  = 3-size_;
 
              if (itemColors[effect_] == sf::Color::Red)           name_ = resources.dictionary["item.potion.color.red"     ];
         else if (itemColors[effect_] == sf::Color::Blue)          name_ = resources.dictionary["item.potion.color.blue"    ];
@@ -114,8 +114,8 @@ namespace rr {
 
         int icons[] = { (int)iconIndex_, (int)iconIndex_+16 };
 
-        setIcon    (body_, 2, icons);
-        setColor   (body_, 1, itemColors[effect_]);
+        setIcon (body_, 2, icons);
+        setColor(body_, 1, itemColors[effect_]);
     }
 
     void Potion::reveal() {

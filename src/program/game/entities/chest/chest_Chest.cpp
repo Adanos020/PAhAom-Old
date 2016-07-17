@@ -59,30 +59,19 @@ namespace rr {
 
     std::ifstream& Chest::operator<<(std::ifstream& file) {
         sf::Vector2i position;
-        int type, itemType;
-        Item* item;
+        int type;
 
         try {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
             readFile <int> (file, type);
-            readFile <int> (file, itemType);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
 
         type_ = (Type) type;
-
-        switch (itemType) {
-            case 2: item = new Book      (Book::CRAFTING                ); *item << file; break;
-            case 3: item = new Coin      (Coin::BRONZE, Coin::SMALL     ); *item << file; break;
-            case 4: item = new ColdWeapon(ColdWeapon::KNIFE             ); *item << file; break;
-            case 5: /* ERROR 404 */                                                       break;
-            case 6: item = new Potion    (Potion::HEALING, Potion::SMALL); *item << file; break;
-            case 7: /* ERROR 404 */                                                       break;
-            case 8: item = new Rune      (Rune::HEAL                    ); *item << file; break;
-        }
+        item_ = getRandomItem();
 
         initialize();
         setPosition(position);
@@ -95,7 +84,6 @@ namespace rr {
                  << (int)body_.getPosition().x/80 << ' '
                  << (int)body_.getPosition().y/80 << ' '
                  << type_                         << ' ';
-            *item_ >> file;
 
         return file;
     }

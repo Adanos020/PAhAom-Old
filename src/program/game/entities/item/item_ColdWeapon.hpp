@@ -22,19 +22,19 @@ namespace rr {
         virtual void           initialize    ()                  override;
     public:
         enum Type {
-            KNIFE,
-            DAGGER,
-            SWORD,
-            SERRATED_SWORD,
-            AXE,
+            HAMMER,
             DOUBLE_AXE,
             HALBERD,
-            SPEAR,
+            AXE,
+            SERRATED_SWORD,
             LANCE,
+            CLUB,
+            SWORD,
+            SPEAR,
             PIQUE,
             LONG_STICK,
-            CLUB,
-            HAMMER
+            DAGGER,
+            KNIFE
         } type_;
 
          ColdWeapon(Type, int amount = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
