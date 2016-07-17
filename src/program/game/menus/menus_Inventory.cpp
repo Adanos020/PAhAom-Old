@@ -117,8 +117,10 @@ namespace rr {
                 if (component(wInve_, Slot, i)->containsMouseCursor(rw) && !component(wInve_, Slot, i)->isEmpty()) {
                     if (component(wInve_, Slot, i)->isPressed(rw, e) && !component(wInve_, Slot, i)->isEmpty()) {
                         g->getPlayer()->useItem(component(wInve_, Slot, i)->getItem());
-                        if (  component(wInve_, Slot, i)->getItem()->isDisposable()
-                            ) component(wInve_, Slot, i)->removeItem(1);
+                        if (component(wInve_, Slot, i)->getItem()->isDisposable()) {
+                            component(wInve_, Slot, i)->removeItem(1);
+                            sort();
+                        }
                     }
                     else {
                         wInfo.setParentComponent(component(wInve_, Slot, i));
@@ -128,10 +130,12 @@ namespace rr {
             }
             for (int i=0; i<5; i++) {
                 if (sCarryOn_[i]->containsMouseCursor(rw) && !sCarryOn_[i]->isEmpty()) {
-                    if (sCarryOn_[i]->isPressed(rw, e) && !sCarryOn_[i]->isEmpty()) {
+                    if (sCarryOn_[i]->isPressed(rw, e)    && !sCarryOn_[i]->isEmpty()) {
                         g->getPlayer()->useItem(sCarryOn_[i]->getItem());
-                        if (  sCarryOn_[i]->getItem()->isDisposable()
-                            ) sCarryOn_[i]->removeItem(1);
+                        if (sCarryOn_[i]->getItem()->isDisposable()) {
+                            sCarryOn_[i]->removeItem(1);
+                            sort();
+                        }
                     }
                     else {
                         wInfo.setParentComponent(sCarryOn_[i]);
@@ -148,9 +152,11 @@ namespace rr {
                 wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw) + sf::Vector2f(5, 5));
 
                 if (  wInfo.getPosition().x+wInfo.getSize().x+5 > (float)rw.getSize().x
-                    ) wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)-sf::Vector2f(wInfo.getPosition().x+wInfo.getSize().x-(float)rw.getSize().x, -5));
+                    ) wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)
+                                        -sf::Vector2f(wInfo.getPosition().x + wInfo.getSize().x - (float)rw.getSize().x, -5));
                 if (  wInfo.getPosition().y+wInfo.getSize().y+5 > (float)rw.getSize().y
-                    ) wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)-sf::Vector2f(-5, wInfo.getPosition().y+wInfo.getSize().y-(float)rw.getSize().y));
+                    ) wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)
+                                        -sf::Vector2f(-5, wInfo.getPosition().y + wInfo.getSize().y - (float)rw.getSize().y));
 
                 wInfo.setVisible(true);
             }
@@ -204,7 +210,9 @@ namespace rr {
         if (item->isStackable()) {
             for (int i=0; i<32; ++i) {
                 if (!slot(i)->isEmpty() && slot(i)->getItem()->getID() == item->getID()) {
-                    return slot(i)->addItem(item);
+                    bool success = slot(i)->addItem(item);
+                    sort();
+                    return success;
                 }
             }
         }
@@ -212,12 +220,27 @@ namespace rr {
      // if not then we look for the first empty slot and add the item to it
         for (int i=0; i<32; ++i) {
             if (slot(i)->isEmpty()) {
-                return slot(i)->addItem(item);
+                bool success = slot(i)->addItem(item);
+                sort();
+                return success;
             }
         }
 
-     // if there is no empty slot, we just exit the function
+     // and if there is no empty slot, we just exit the function
         return false;
+    }
+
+    void Inventory::sort() {
+        for (int i=0; i<31; ++i) {
+            for (int j=1; j<32; ++j) {
+                if ( (!slot(j-1)->isEmpty() && slot(j)->isEmpty())
+                   ||( slot(j-1)->isEmpty() && slot(j)->isEmpty())
+                    ) continue;
+                if ( (slot(j-1)->isEmpty() && !slot(j)->isEmpty())
+                   ||(slot(j-1)->getItem()->getID() > slot(j)->getItem()->getID())
+                    ) slot(j-1)->swapItems(slot(j));
+            }
+        }
     }
 
     bool Inventory::contains(Item* sought) {
@@ -283,14 +306,14 @@ namespace rr {
             for (int i=0; i<32; i++) {
                 if (!slot(i)->isEmpty()) {
                     if (instanceof<Potion, Item>((Item*)entity)) {
-                        if (!((Potion*)slot(i)->getItem())->isDiscovered() && ((Potion*)slot(i)->getItem())->effect_ == ((Potion*)entity)->effect_)
-                            ((Potion*)slot(i)->getItem())->reveal();
+                        if ( !((Potion*)slot(i)->getItem())->isDiscovered() && ((Potion*)slot(i)->getItem())->effect_ == ((Potion*)entity)->effect_
+                            ) ((Potion*)slot(i)->getItem())->reveal();
                     }
                 }
                 else if (!slot(i)->isEmpty()) {
                     if (instanceof<Rune, Item>((Item*)entity)) {
-                        if (!((Rune*)slot(i)->getItem())->isDiscovered() && ((Rune*)slot(i)->getItem())->type_ == ((Rune*)entity)->type_)
-                            ((Rune*)slot(i)->getItem())->reveal();
+                        if ( !((Rune*)slot(i)->getItem())->isDiscovered() && ((Rune*)slot(i)->getItem())->type_ == ((Rune*)entity)->type_
+                            ) ((Rune*)slot(i)->getItem())->reveal();
                     }
                 }
             }

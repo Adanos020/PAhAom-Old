@@ -85,6 +85,45 @@ namespace rr {
         }
     }
 
+    void Slot::removeItem() {
+        hollow_ = true;
+        delete item_;
+    }
+
+    void Slot::swapItems(Slot* slot) {
+        Item* temp = item_;
+        item_ = slot->item_;
+        slot->item_ = temp ;
+        
+        if (hollow_ && !slot->hollow_) {
+                  hollow_ = false;
+            slot->hollow_ = true;
+
+            item_->setRealPosition(body_.getPosition());
+
+            text_->setString(std::to_string(item_->getAmount()));
+            text_->setCharacterSize(20);
+        }
+        else if (!hollow_ && slot->hollow_) {
+                  hollow_ = true;
+            slot->hollow_ = false;
+
+            slot->item_->setRealPosition(slot->body_.getPosition());
+
+            slot->text_->setString(std::to_string(slot->item_->getAmount()));
+            slot->text_->setCharacterSize(20);
+        }
+        else if (!hollow_ && !slot->hollow_) {
+                  item_->setRealPosition(      body_.getPosition());
+            slot->item_->setRealPosition(slot->body_.getPosition());
+
+                  text_->setString(std::to_string(      item_->getAmount()));
+            slot->text_->setString(std::to_string(slot->item_->getAmount()));
+                  text_->setCharacterSize(20);
+            slot->text_->setCharacterSize(20);
+        }
+    }
+
     void Slot::clear() {
         if (!hollow_) {
             hollow_ = true;

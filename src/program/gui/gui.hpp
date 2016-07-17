@@ -204,6 +204,9 @@ namespace rr {
         bool         addItem            (Item*);
     /// Removes the item from the slot
         void         removeItem         (int);
+        void         removeItem         ();
+    /// Swaps the items between the slots
+        void         swapItems          (Slot*);
     /// Clears the slot
         void         clear              ();
 

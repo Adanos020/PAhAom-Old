@@ -344,9 +344,7 @@ namespace rr {
 #define entities currentLevel_->getEntities()
 ;
                     for (unsigned i=0; i<entities.size(); i++) {
-
                         if (player_->getPosition() == entities[i]->getPosition()) {
-
                             if (instanceof<Item, Entity>(entities[i])) {
                                 if (inventory_->addItem((Item*)entities[i])) {
                                     subject.notify(Observer::ITEM_PICKED, entities[i]);
