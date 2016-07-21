@@ -15,8 +15,9 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Inventory::Inventory()
+    Inventory::Inventory(Player* p)
     : wInve_  (Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f)(settings.graphics.resolution/2u - sf::Vector2u(382, 225)))),
+      player_ (p),
       bronze_ (0),
       silver_ (0),
       gold_   (0) {
@@ -125,13 +126,16 @@ namespace rr {
                             sort();
                         }
                         if (instanceof<Equipable, Item>(component(wInve_, Slot, i)->getItem())) {
-                            ((Equipable*)component(wInve_, Slot, i)->getItem())->equip(!((Equipable*)component(wInve_, Slot, i)->getItem())->isEquipped());
+                            bool equip = !((Equipable*)component(wInve_, Slot, i)->getItem())->isEquipped(); 
+                            
+                            if (  player_->equipItem((Equipable*)component(wInve_, Slot, i)->getItem(), equip)
+                                ) ((Equipable*)component(wInve_, Slot, i)->getItem())->equip(equip);
                             
                             if (instanceof<ColdWeapon, Item>(component(wInve_, Slot, i)->getItem())) {
                                 for (int j=0; j<32; ++j) {
-                                    if (  j != i  
-                                       && instanceof<ColdWeapon, Item>(component(wInve_, Slot, j)->getItem())
-                                        ) ((Equipable*)component(wInve_, Slot, j)->getItem())->equip(false);
+                                    if (j != i && instanceof <ColdWeapon, Item> (component(wInve_, Slot, j)->getItem())) {
+                                        ((Equipable*)component(wInve_, Slot, j)->getItem())->equip(false);
+                                    }
                                 }
                             }
                         }

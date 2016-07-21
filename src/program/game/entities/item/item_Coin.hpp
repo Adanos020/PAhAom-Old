@@ -34,6 +34,9 @@ namespace rr {
 
         virtual void           draw      (sf::RenderWindow&) override;
 
+        virtual sf::String     getName        ()       const override;
+        virtual sf::String     getDescription ()       const override;
+
         virtual std::ifstream& operator<<(std::ifstream&)    override;
         virtual std::ofstream& operator>>(std::ofstream&)    override;
 	};

@@ -4,8 +4,8 @@
  * Used library: SFML 2.3.2
  */
 
-#ifndef player_h
-#define player_h
+#ifndef player_hpp
+#define player_hpp
 
 #include <SFML/Graphics.hpp>
 #include "../../../../../lib/AnimatedSprite.hpp"
@@ -14,6 +14,8 @@
 namespace rr {
 
     class Level;
+    class ColdWeapon;
+    class Equipable;
 
 /// Class for the player
     class Player : public Entity {
@@ -42,11 +44,14 @@ namespace rr {
             bool  faster_learning;
         } attrs_;
 
+        ColdWeapon*        coldWeapon_;
+
         sf::Vector2i       position_;
         sf::AnimatedSprite body_;
         sf::Animation      walkingLeft_;
         sf::Animation      walkingRight_;
         sf::Animation*     currentAnimation_;
+
         bool               moving_;
         float              velocity_;
         int                sightRange_;
@@ -80,6 +85,8 @@ namespace rr {
         void                  move           (int[], Direction);
     /// Makes the player use a given item
         void                  useItem        (Item*);
+    /// Makes the player equip a given item
+        bool                  equipItem      (Equipable*, bool);
     /// Updates the state of the player character
         void                  update         (sf::Time);
     /// Returns the player's attributes

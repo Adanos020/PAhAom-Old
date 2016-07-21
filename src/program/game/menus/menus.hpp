@@ -108,6 +108,7 @@ namespace rr {
 
         Window             wInve_;
         Slot*              sCarryOn_[5];
+        Player*            player_;
 
         short              bronze_;
         short              silver_;
@@ -115,7 +116,7 @@ namespace rr {
 
         void sort();
     public:
-         Inventory();
+         Inventory(Player*);
         ~Inventory();
 
     /// Adds an item to the inventory

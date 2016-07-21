@@ -292,13 +292,13 @@ item.potion.description.weakness
 .ctäeq dopmbi dpyctpyjehubi ject .avbi to yhjnqhohyj hañletjeñ teh mnqéctypeh vbixiyj .ctoxjbiyje wjnleh tbonx čaqlehyj n yjecyb čémhjeñwa
 
 item.coldweapon.name.knife
-hyxj qyxehhbi
+hyxj qyxeȟbi
 
 item.coldweapon.name.dagger
 wétbilet
 
 item.coldweapon.name.sword
-mhey
+mjey
 
 item.coldweapon.name.serrated_sword
 tnlomjey
@@ -323,6 +323,9 @@ lahua
 
 item.coldweapon.name.pique
 tnqa bojeba
+
+item.coldweapon.name.long_stick
+alytn qoctyp
 
 item.coldweapon.name.hammer
 qamjehhbi mlot
@@ -376,7 +379,7 @@ item.coldweapon.strength_required
 vbimataha wjnla:
 
 item.coldweapon.damage_dealt
-maqcbimalhe ovpaxjehjér:
+maqécbimalhe ovpaxjehjér:
 
 item.coldweapon.level
 točjem yletwehjér:
@@ -541,6 +544,9 @@ message.welcome_to_level
 
 message.full_inventory
 .tbyñ tleuaq telhbi ject
+
+message.item_equip_failure
+!čaloxjbiyj hje moxjew:
 
 message.item_discovered
 .oaqvbilewj

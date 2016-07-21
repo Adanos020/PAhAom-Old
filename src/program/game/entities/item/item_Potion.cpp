@@ -36,10 +36,6 @@ namespace rr {
         stackable_             = potion.stackable_;
         ID_                    = potion.ID_;
         iconIndex_             = potion.iconIndex_;
-        name_                  = potion.name_;
-        description_           = potion.description_;
-        discoveredName_        = potion.discoveredName_;
-        discoveredDescription_ = potion.discoveredDescription_;
         body_                  = potion.body_;
     }
 
@@ -50,69 +46,6 @@ namespace rr {
         ID_         = 100 + effect_*10 + size_;
         iconIndex_  = 3-size_;
 
-             if (itemColors[effect_] == sf::Color::Red)           name_ = resources.dictionary["item.potion.color.red"     ];
-        else if (itemColors[effect_] == sf::Color::Blue)          name_ = resources.dictionary["item.potion.color.blue"    ];
-        else if (itemColors[effect_] == sf::Color(32, 32, 0))     name_ = resources.dictionary["item.potion.color.brown"   ];
-        else if (itemColors[effect_] == sf::Color::Green)         name_ = resources.dictionary["item.potion.color.green"   ];
-        else if (itemColors[effect_] == sf::Color::Cyan)          name_ = resources.dictionary["item.potion.color.cyan"    ];
-        else if (itemColors[effect_] == sf::Color(255, 172, 172)) name_ = resources.dictionary["item.potion.color.pink"    ];
-        else if (itemColors[effect_] == sf::Color::Magenta)       name_ = resources.dictionary["item.potion.color.magenta" ];
-        else if (itemColors[effect_] == sf::Color::Yellow)        name_ = resources.dictionary["item.potion.color.yellow"  ];
-        else if (itemColors[effect_] == sf::Color::White)         name_ = resources.dictionary["item.potion.color.white"   ];
-        description_ = resources.dictionary["item.potion.description.unknown"];
-
-        switch (effect_) {
-        case HEALING:
-            discoveredName_        = resources.dictionary["item.potion.effect.healing"          ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.healing"     ];
-            break;
-
-        case MAGIC:
-            discoveredName_        = resources.dictionary["item.potion.effect.magic"            ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.magic"       ];
-            break;
-
-        case STRENGTH:
-            discoveredName_        = resources.dictionary["item.potion.effect.strength"         ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.strength"    ];
-            break;
-
-        case DEXTERITY:
-            discoveredName_        = resources.dictionary["item.potion.effect.dexterity"        ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.dexterity"   ];
-            break;
-            
-        case SPEED:
-            discoveredName_        = resources.dictionary["item.potion.effect.speed"            ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.speed"       ];
-            break;
-
-        case REGENERATION:
-            discoveredName_        = resources.dictionary["item.potion.effect.regeneration"     ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.regeneration"];
-            break;
-
-        case POISON:
-            discoveredName_        = resources.dictionary["item.potion.effect.poison"           ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.poison"      ];
-            break;
-
-        case SLOWNESS:
-            discoveredName_        = resources.dictionary["item.potion.effect.slowness"         ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.slowness"    ];
-            break;
-
-        case WEAKNESS:
-            discoveredName_        = resources.dictionary["item.potion.effect.weakness"         ];
-            discoveredDescription_ = resources.dictionary["item.potion.description.weakness"    ];
-            break;
-        }
-
-        if (discovered_) {
-            name_        = discoveredName_;
-            description_ = discoveredDescription_;
-        }
-
         int icons[] = { (int)iconIndex_, (int)iconIndex_+16 };
 
         setIcon (body_, 2, icons);
@@ -121,12 +54,57 @@ namespace rr {
 
     void Potion::reveal() {
         discovered_  = true;
-        name_        = discoveredName_;
-        description_ = discoveredDescription_;
     }
 
     void Potion::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
+    }
+
+    sf::String Potion::getName() const {
+        if (!discovered_) {
+                 if (itemColors[effect_] == sf::Color::Red          ) return resources.dictionary["item.potion.color.red"     ];
+            else if (itemColors[effect_] == sf::Color::Blue         ) return resources.dictionary["item.potion.color.blue"    ];
+            else if (itemColors[effect_] == sf::Color(32, 32, 0)    ) return resources.dictionary["item.potion.color.brown"   ];
+            else if (itemColors[effect_] == sf::Color::Green        ) return resources.dictionary["item.potion.color.green"   ];
+            else if (itemColors[effect_] == sf::Color::Cyan         ) return resources.dictionary["item.potion.color.cyan"    ];
+            else if (itemColors[effect_] == sf::Color(255, 172, 172)) return resources.dictionary["item.potion.color.pink"    ];
+            else if (itemColors[effect_] == sf::Color::Magenta      ) return resources.dictionary["item.potion.color.magenta" ];
+            else if (itemColors[effect_] == sf::Color::Yellow       ) return resources.dictionary["item.potion.color.yellow"  ];
+            else if (itemColors[effect_] == sf::Color::White        ) return resources.dictionary["item.potion.color.white"   ];
+        }
+        else {
+            switch (effect_) {
+                case HEALING:      return resources.dictionary["item.potion.effect.healing"     ];
+                case MAGIC:        return resources.dictionary["item.potion.effect.magic"       ];
+                case STRENGTH:     return resources.dictionary["item.potion.effect.strength"    ];
+                case DEXTERITY:    return resources.dictionary["item.potion.effect.dexterity"   ];
+                case SPEED:        return resources.dictionary["item.potion.effect.speed"       ];
+                case REGENERATION: return resources.dictionary["item.potion.effect.regeneration"];
+                case POISON:       return resources.dictionary["item.potion.effect.poison"      ];
+                case SLOWNESS:     return resources.dictionary["item.potion.effect.slowness"    ];
+                case WEAKNESS:     return resources.dictionary["item.potion.effect.weakness"    ];
+            }
+        }
+        return "";
+    }
+
+    sf::String Potion::getDescription() const {
+        if ( !discovered_
+            ) return resources.dictionary["item.potion.description.unknown"];
+        else {
+            switch (effect_) {
+                case HEALING     : return resources.dictionary["item.potion.description.healing"     ];
+                case MAGIC       : return resources.dictionary["item.potion.description.magic"       ];
+                case STRENGTH    : return resources.dictionary["item.potion.description.strength"    ];
+                case DEXTERITY   : return resources.dictionary["item.potion.description.dexterity"   ];
+                case SPEED       : return resources.dictionary["item.potion.description.speed"       ];
+                case REGENERATION: return resources.dictionary["item.potion.description.regeneration"];
+                case POISON      : return resources.dictionary["item.potion.description.poison"      ];
+                case SLOWNESS    : return resources.dictionary["item.potion.description.slowness"    ];
+                case WEAKNESS    : return resources.dictionary["item.potion.description.weakness"    ];
+            }
+        }
+        return "";
     }
 
     void Potion::setPosition(sf::Vector2i pos) {

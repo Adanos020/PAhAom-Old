@@ -17,8 +17,6 @@ namespace rr {
     class Item : public Entity {
     protected:
         sf::VertexArray body_;
-        sf::String      name_;
-        sf::String      description_;
         bool            disposable_;
         bool            stackable_;
         bool            cursed_;
@@ -43,9 +41,9 @@ namespace rr {
     /// Returns the sprite of this item
         virtual sf::VertexArray    getBody        ()          const           { return body_; }
     /// Returns the name of this item
-        virtual sf::String         getName        ()          const           { return name_; }
+        virtual sf::String         getName        ()          const = 0;
     /// Returns the description of this item
-        virtual sf::String         getDescription ()          const           { return description_; }
+        virtual sf::String         getDescription ()          const = 0;
     /// Returns the texture's icon index
         virtual unsigned           getIconIndex   ()          const           { return iconIndex_; }
 
@@ -67,9 +65,7 @@ namespace rr {
 
     class Discoverable : public Item {
     protected:
-        bool       discovered_ = false;
-        sf::String discoveredName_;
-        sf::String discoveredDescription_;
+        bool discovered_ = false;
     public:
     /// A virtual destructor
         virtual ~Discoverable() {}

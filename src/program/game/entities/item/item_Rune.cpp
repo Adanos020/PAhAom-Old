@@ -36,10 +36,6 @@ namespace rr {
         stackable_             = rune.stackable_;
         ID_                    = rune.ID_;
         iconIndex_             = rune.iconIndex_;
-        name_                  = rune.name_;
-        description_           = rune.description_;
-        discoveredName_        = rune.discoveredName_;
-        discoveredDescription_ = rune.discoveredDescription_;
         body_                  = rune.body_;
     }
 
@@ -50,77 +46,6 @@ namespace rr {
         ID_         = 39+type_;
         iconIndex_  = 48;
 
-        switch (spellSymbols[type_]) {
-            case  0: name_ = resources.dictionary["item.spell.symbol.shcha"  ]; break;
-            case  1: name_ = resources.dictionary["item.spell.symbol.jus"    ]; break;
-            case  2: name_ = resources.dictionary["item.spell.symbol.jes"    ]; break;
-            case  3: name_ = resources.dictionary["item.spell.symbol.ef"     ]; break;
-            case  4: name_ = resources.dictionary["item.spell.symbol.ju"     ]; break;
-            case  5: name_ = resources.dictionary["item.spell.symbol.psi"    ]; break;
-            case  6: name_ = resources.dictionary["item.spell.symbol.de"     ]; break;
-            case  7: name_ = resources.dictionary["item.spell.symbol.omega"  ]; break;
-            case  8: name_ = resources.dictionary["item.spell.symbol.je"     ]; break;
-            case  9: name_ = resources.dictionary["item.spell.symbol.zhe"    ]; break;
-            case 10: name_ = resources.dictionary["item.spell.symbol.be"     ]; break;
-            case 11: name_ = resources.dictionary["item.spell.symbol.izhitsa"]; break;
-        }
-        description_ = resources.dictionary["item.spell.description.unknown"];
-
-        switch (type_) {
-            case HEAL         : discoveredName_        = resources.dictionary["item.spell.type.heal"               ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.heal"        ];
-                                break;
-
-            case FIREBOLT     : discoveredName_        = resources.dictionary["item.spell.type.firebolt"           ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.firebolt"    ];
-                                break;
-
-            case LIGHTNING    : discoveredName_        = resources.dictionary["item.spell.type.lightning"          ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.lightning"   ];
-                                break;
-
-            case ICE_BULLET   : discoveredName_        = resources.dictionary["item.spell.type.iceBullet"          ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.iceBullet"   ];
-                                break;
-
-            case TELEPORT     : discoveredName_        = resources.dictionary["item.spell.type.teleport"           ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.teleport"    ];
-                                break;
-
-            case FIRE_RAIN    : discoveredName_        = resources.dictionary["item.spell.type.fireRain"           ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.fireRain"    ];
-                                break;
-
-            case STORM        : discoveredName_        = resources.dictionary["item.spell.type.storm"              ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.storm"       ];
-                                break;
-
-            case ICE_WAVE     : discoveredName_        = resources.dictionary["item.spell.type.iceWave"            ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.iceWave"     ];
-                                break;
-
-            case TIME_FREEZING: discoveredName_        = resources.dictionary["item.spell.type.timeFreezing"       ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.timeFreezing"];
-                                break;
-
-            case IDENTIFY     : discoveredName_        = resources.dictionary["item.spell.type.identify"           ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.identify"    ];
-                                break;
-
-            case UNCURSE      : discoveredName_        = resources.dictionary["item.spell.type.uncurse"            ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.uncurse"     ];
-                                break;
-
-            case TELEKINESIS  : discoveredName_        = resources.dictionary["item.spell.type.telekinesis"        ];
-                                discoveredDescription_ = resources.dictionary["item.spell.description.telekinesis" ];
-                                break;
-        }
-
-        if (discovered_) {
-            name_        = discoveredName_;
-            description_ = discoveredDescription_;
-        }
-
         int icons[] = { (int)iconIndex_, 64+(int)spellSymbols[type_] };
 
         setIcon    (body_, 2, icons);
@@ -128,12 +53,68 @@ namespace rr {
 
     void Rune::reveal() {
         discovered_  = true;
-        name_        = discoveredName_;
-        description_ = discoveredDescription_;
     }
 
     void Rune::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
+    }
+
+    sf::String Rune::getName() const {
+        if (!discovered_) {
+            switch (spellSymbols[type_]) {
+                case  0: return resources.dictionary["item.spell.symbol.shcha"  ];
+                case  1: return resources.dictionary["item.spell.symbol.jus"    ];
+                case  2: return resources.dictionary["item.spell.symbol.jes"    ];
+                case  3: return resources.dictionary["item.spell.symbol.ef"     ];
+                case  4: return resources.dictionary["item.spell.symbol.ju"     ];
+                case  5: return resources.dictionary["item.spell.symbol.psi"    ];
+                case  6: return resources.dictionary["item.spell.symbol.de"     ];
+                case  7: return resources.dictionary["item.spell.symbol.omega"  ];
+                case  8: return resources.dictionary["item.spell.symbol.je"     ];
+                case  9: return resources.dictionary["item.spell.symbol.zhe"    ];
+                case 10: return resources.dictionary["item.spell.symbol.be"     ];
+                case 11: return resources.dictionary["item.spell.symbol.izhitsa"];
+            }
+        }
+        else {
+            switch (type_) {
+                case HEAL         : return resources.dictionary["item.spell.type.heal"        ];
+                case FIREBOLT     : return resources.dictionary["item.spell.type.firebolt"    ];
+                case LIGHTNING    : return resources.dictionary["item.spell.type.lightning"   ];
+                case ICE_BULLET   : return resources.dictionary["item.spell.type.iceBullet"   ];
+                case TELEPORT     : return resources.dictionary["item.spell.type.teleport"    ];
+                case FIRE_RAIN    : return resources.dictionary["item.spell.type.fireRain"    ];
+                case STORM        : return resources.dictionary["item.spell.type.storm"       ];
+                case ICE_WAVE     : return resources.dictionary["item.spell.type.iceWave"     ];
+                case TIME_FREEZING: return resources.dictionary["item.spell.type.timeFreezing"];
+                case IDENTIFY     : return resources.dictionary["item.spell.type.identify"    ];
+                case UNCURSE      : return resources.dictionary["item.spell.type.uncurse"     ];
+                case TELEKINESIS  : return resources.dictionary["item.spell.type.telekinesis" ];
+            }
+        }
+        return "";
+    }
+
+    sf::String Rune::getDescription() const {
+        if ( !discovered_
+            ) return resources.dictionary["item.spell.description.unknown"];
+        else {
+            switch (type_) {
+                case HEAL         : return resources.dictionary["item.spell.description.heal"        ];
+                case FIREBOLT     : return resources.dictionary["item.spell.description.firebolt"    ];
+                case LIGHTNING    : return resources.dictionary["item.spell.description.lightning"   ];
+                case ICE_BULLET   : return resources.dictionary["item.spell.description.iceBullet"   ];
+                case TELEPORT     : return resources.dictionary["item.spell.description.teleport"    ];
+                case FIRE_RAIN    : return resources.dictionary["item.spell.description.fireRain"    ];
+                case STORM        : return resources.dictionary["item.spell.description.storm"       ];
+                case ICE_WAVE     : return resources.dictionary["item.spell.description.iceWave"     ];
+                case TIME_FREEZING: return resources.dictionary["item.spell.description.timeFreezing"];
+                case IDENTIFY     : return resources.dictionary["item.spell.description.identify"    ];
+                case UNCURSE      : return resources.dictionary["item.spell.description.uncurse"     ];
+                case TELEKINESIS  : return resources.dictionary["item.spell.description.telekinesis" ];
+            }
+        }
+        return "";
     }
 
     void Rune::setPosition(sf::Vector2i pos) {

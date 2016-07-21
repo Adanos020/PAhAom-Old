@@ -545,6 +545,9 @@ Welcome to level
 message.full_inventory
 Your backpack is full.
 
+message.item_equip_failure
+You cannot equip
+
 message.item_discovered
 It was a
 

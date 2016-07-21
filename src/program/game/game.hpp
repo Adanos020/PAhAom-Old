@@ -40,6 +40,12 @@ namespace rr {
     private:
         sf::View            gameView_;
         sf::View            mapView_;
+        
+        Level*              currentLevel_;
+
+        MessageManager*     messageManager_;
+
+        Player*             player_;
 
         MainMenu*           mainMenu_;
         PauseMenu*          pauseMenu_;
@@ -47,12 +53,7 @@ namespace rr {
         Inventory*          inventory_;
         Quests*             quests_;
         BookOfSpells*       bookOfSpells_;
-
         HUD*                hud_;
-        Level*              currentLevel_;
-        MessageManager*     messageManager_;
-
-        Player*             player_;
 
         bool                started_;
         bool                paused_;

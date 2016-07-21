@@ -11,7 +11,7 @@
 
 namespace rr {
 
-    class RangedWeapon : public Item {
+    class RangedWeapon : public Equipable {
     private:
     public:
          RangedWeapon();
@@ -22,6 +22,9 @@ namespace rr {
         virtual Entity*        create    ()            const override { return new RangedWeapon(); }
 */
         virtual void           draw      (sf::RenderWindow&) override;
+
+        virtual sf::String     getName        ()            const override;
+        virtual sf::String     getDescription ()            const override;
 
         virtual std::ifstream& operator<<(std::ifstream&)    override;
         virtual std::ofstream& operator>>(std::ofstream&)    override;

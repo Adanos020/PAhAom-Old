@@ -23,20 +23,20 @@ extern int           spellSymbols[11];
 
 namespace rr {
 
-    Game::Game()
-    : mainMenu_      (new MainMenu      ()),
-      pauseMenu_     (new PauseMenu     ()),
-      attributes_    (new Attributes    ()),
-      inventory_     (new Inventory     ()),
-      quests_        (new Quests        ()),
-      bookOfSpells_  (new BookOfSpells  ()),
-      hud_           (new HUD           ()),
-      currentLevel_  (nullptr             ),
-      messageManager_(new MessageManager()),
-      player_        (new Player        ()),
-      started_       (false               ),
-      paused_        (false               ),
-      levelNumber_   (0                   ) {
+    Game::Game() 
+    : currentLevel_  (nullptr               ),
+      messageManager_(new MessageManager  ()),
+      player_        (new Player          ()),
+      mainMenu_      (new MainMenu        ()),
+      pauseMenu_     (new PauseMenu       ()),
+      attributes_    (new Attributes      ()),
+      inventory_     (new Inventory(player_)),
+      quests_        (new Quests          ()),
+      bookOfSpells_  (new BookOfSpells    ()),
+      hud_           (new HUD             ()),
+      started_       (false                 ),
+      paused_        (false                 ),
+      levelNumber_   (0                     ) {
 
         gameView_.setSize  ((sf::Vector2f)settings.graphics.resolution);
 

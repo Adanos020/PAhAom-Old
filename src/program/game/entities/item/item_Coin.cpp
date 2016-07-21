@@ -35,7 +35,6 @@ namespace rr {
         stackable_  = coin.stackable_;
         ID_         = coin.ID_;
         iconIndex_  = coin.iconIndex_;
-        name_       = coin.name_;
         body_       = coin.body_;
     }
 
@@ -46,17 +45,24 @@ namespace rr {
         ID_         = 3*size_ + type_ + 1;
         iconIndex_  = type_ + (size_+2)*16 + 1;
 
-        switch (type_) {
-            case BRONZE: name_ = resources.dictionary["item.coin.bronze"]; break;
-            case SILVER: name_ = resources.dictionary["item.coin.silver"]; break;
-            case GOLDEN: name_ = resources.dictionary["item.coin.gold"  ]; break;
-        }
-
         setIcon(body_, iconIndex_);
     }
 
     void Coin::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
+    }
+    
+    sf::String Coin::getName() const {
+        switch (type_) {
+            case BRONZE: return resources.dictionary["item.coin.bronze"];
+            case SILVER: return resources.dictionary["item.coin.silver"];
+            case GOLDEN: return resources.dictionary["item.coin.gold"  ];
+        }
+        return "";
+    }
+
+    sf::String Coin::getDescription() const {
+        return "";
     }
 
     std::ifstream& Coin::operator<<(std::ifstream& file) {

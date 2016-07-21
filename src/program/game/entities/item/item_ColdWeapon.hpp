@@ -41,22 +41,25 @@ namespace rr {
          ColdWeapon(ColdWeapon const&);
         ~ColdWeapon() {}
 
-        virtual Entity*        clone         ()            const override { return new ColdWeapon(*this); }
-        virtual Entity*        create        ()            const override { return new ColdWeapon(KNIFE); }
+        virtual Entity*        clone              ()            const override { return new ColdWeapon(*this); }
+        virtual Entity*        create             ()            const override { return new ColdWeapon(KNIFE); }
 
-        virtual void           draw          (sf::RenderWindow&) override;
-        virtual sf::String     getDescription()            const override;
-        virtual void           equip         (bool b)            override { equipped_ = b; }
-        virtual void           reveal        ()                  override;
+        virtual void           draw               (sf::RenderWindow&) override;
 
-        void                   enhance       ();
-        void                   enchant       ();
+        virtual sf::String     getName            ()            const override;
+        virtual sf::String     getDescription     ()            const override;
+        
+        virtual void           equip              (bool b)            override { equipped_ = b; }
+        virtual void           reveal             ()                  override;
 
-        float                  getStrength   ()            const          { return strengthRequired_; }
-        float                  getDamageDelt ()            const          { return damageDealt_; }
-        float                  getSpeed      ()            const          { return speed_; }
-        float                  getAccuracy   ()            const          { return accuracy_; }
-        int                    getLevel      ()            const          { return level_; }
+        void                   enhance            ();
+        void                   enchant            ();
+
+        float                  getStrengthRequired()            const          { return strengthRequired_; }
+        float                  getDamageDelt      ()            const          { return damageDealt_; }
+        float                  getSpeed           ()            const          { return speed_; }
+        float                  getAccuracy        ()            const          { return accuracy_; }
+        int                    getLevel           ()            const          { return level_; }
 
         virtual std::ifstream& operator<<    (std::ifstream&)    override;
         virtual std::ofstream& operator>>    (std::ofstream&)    override;

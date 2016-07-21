@@ -15,6 +15,7 @@ namespace rr {
     class Observer {
     public:
         enum Event {
+            ITEM_EQUIP_FAILURE,
             ITEM_DISCOVERED,
             ITEM_DROPPED,
             ITEM_PICKED,
@@ -23,6 +24,7 @@ namespace rr {
         };
 
         virtual ~Observer() {}
+
         virtual void onNotify(Event, Entity*) = 0;
     };
 

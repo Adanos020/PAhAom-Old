@@ -42,6 +42,9 @@ namespace rr {
         virtual void           draw           (sf::RenderWindow&) override;
         virtual void           reveal         ()                  override;
 
+        virtual sf::String     getName        ()            const override;
+        virtual sf::String     getDescription ()            const override;
+
         void                   setPosition    (sf::Vector2i)      override;
         void                   setRealPosition(sf::Vector2f pos)  override;
 

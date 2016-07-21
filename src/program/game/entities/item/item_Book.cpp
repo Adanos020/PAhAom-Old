@@ -34,39 +34,16 @@ namespace rr {
         stackable_   = book.stackable_;
         ID_          = book.ID_;
         iconIndex_   = book.iconIndex_;
-        name_        = book.name_;
-        description_ = book.description_;
         body_        = book.body_;
     }
 
     void Book::initialize() {
         ID_         = type_+30;
-        disposable_ = true;
         stackable_  = false;
         cursed_     = false;
         iconIndex_  = 16;
 
-        switch (type_) {
-            case CRAFTING:              name_        = resources.dictionary["item.book.type.crafting"                    ];
-                                        description_ = resources.dictionary["item.book.description.crafting"             ]; break;
-            case ALCHEMY:               name_        = resources.dictionary["item.book.type.alchemy"                     ];
-                                        description_ = resources.dictionary["item.book.description.alchemy"              ]; break;
-            case COLD_WEAPON_MASTERY:   name_        = resources.dictionary["item.book.type.cold_weapon_mastery"         ];
-                                        description_ = resources.dictionary["item.book.description.cold_weapon_mastery"  ]; break;
-            case RANGED_WEAPON_MASTERY: name_        = resources.dictionary["item.book.type.ranged_weapon_mastery"       ];
-                                        description_ = resources.dictionary["item.book.description.ranged_weapon_mastery"]; break;
-            case EAGLE_EYE:             name_        = resources.dictionary["item.book.type.eagle_eye"                   ];
-                                        description_ = resources.dictionary["item.book.description.eagle_eye"            ]; break;
-            case MANA_REGEN:            name_        = resources.dictionary["item.book.type.mana_regen"                  ];
-                                        description_ = resources.dictionary["item.book.description.mana_regen"           ]; break;
-            case HEALTH_REGEN:          name_        = resources.dictionary["item.book.type.health_regen"                ];
-                                        description_ = resources.dictionary["item.book.description.health_regen"         ]; break;
-            case FASTER_LEARNING:       name_        = resources.dictionary["item.book.type.faster_learning"             ];
-                                        description_ = resources.dictionary["item.book.description.faster_learning"      ]; break;
-            case SPELLS_BOOK:           name_        = resources.dictionary["item.book.type.spells_book"                 ];
-                                        description_ = resources.dictionary["item.book.description.spells_book"          ];
-                                        disposable_  = false;                                                               break;
-        }
+        disposable_ = type_ != SPELLS_BOOK;
 
         int icons[] = { (int)iconIndex_, icons[1] = (int)iconIndex_+16 };
 
@@ -78,6 +55,36 @@ namespace rr {
 
     void Book::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
+    }
+
+    sf::String Book::getName() const {
+        switch (type_) {
+            case CRAFTING:              return resources.dictionary["item.book.type.crafting"                    ];
+            case ALCHEMY:               return resources.dictionary["item.book.type.alchemy"                     ];
+            case COLD_WEAPON_MASTERY:   return resources.dictionary["item.book.type.cold_weapon_mastery"         ];
+            case RANGED_WEAPON_MASTERY: return resources.dictionary["item.book.type.ranged_weapon_mastery"       ];
+            case EAGLE_EYE:             return resources.dictionary["item.book.type.eagle_eye"                   ];
+            case MANA_REGEN:            return resources.dictionary["item.book.type.mana_regen"                  ];
+            case HEALTH_REGEN:          return resources.dictionary["item.book.type.health_regen"                ];
+            case FASTER_LEARNING:       return resources.dictionary["item.book.type.faster_learning"             ];
+            case SPELLS_BOOK:           return resources.dictionary["item.book.type.spells_book"                 ];          
+        }
+        return "";
+    }
+
+    sf::String Book::getDescription() const {
+        switch (type_) {
+            case CRAFTING:              return resources.dictionary["item.book.description.crafting"             ];
+            case ALCHEMY:               return resources.dictionary["item.book.description.alchemy"              ];
+            case COLD_WEAPON_MASTERY:   return resources.dictionary["item.book.description.cold_weapon_mastery"  ];
+            case RANGED_WEAPON_MASTERY: return resources.dictionary["item.book.description.ranged_weapon_mastery"];
+            case EAGLE_EYE:             return resources.dictionary["item.book.description.eagle_eye"            ];
+            case MANA_REGEN:            return resources.dictionary["item.book.description.mana_regen"           ];
+            case HEALTH_REGEN:          return resources.dictionary["item.book.description.health_regen"         ];
+            case FASTER_LEARNING:       return resources.dictionary["item.book.description.faster_learning"      ];
+            case SPELLS_BOOK:           return resources.dictionary["item.book.description.spells_book"          ];          
+        }
+        return "";
     }
 
     void Book::setPosition(sf::Vector2i pos) {

@@ -36,10 +36,6 @@ namespace rr {
         stackable_             = coldWeapon.stackable_;
         ID_                    = coldWeapon.ID_;
         iconIndex_             = coldWeapon.iconIndex_;
-        name_                  = coldWeapon.name_;
-        description_           = coldWeapon.description_;
-        discoveredName_        = coldWeapon.discoveredName_;
-        discoveredDescription_ = coldWeapon.discoveredDescription_;
         body_                  = coldWeapon.body_;
     }
 
@@ -54,8 +50,6 @@ namespace rr {
                              strengthRequired_ = 80;
                              speed_            =  4;
                              accuracy_         = 10;
-                             name_             = resources.dictionary["item.coldweapon.name.hammer"               ];
-                             description_      = resources.dictionary["item.coldweapon.description.hammer"        ];
                              iconIndex_        = 39;
                              break;
 
@@ -63,8 +57,6 @@ namespace rr {
                              strengthRequired_ = 100;
                              speed_            =   5;
                              accuracy_         =   7;
-                             name_             = resources.dictionary["item.coldweapon.name.double_axe"           ];
-                             description_      = resources.dictionary["item.coldweapon.description.double_axe"    ];
                              iconIndex_        = 21;
                              break;
 
@@ -72,8 +64,6 @@ namespace rr {
                              strengthRequired_ = 70;
                              speed_            =  4;
                              accuracy_         =  7;
-                             name_             = resources.dictionary["item.coldweapon.name.halberd"              ];
-                             description_      = resources.dictionary["item.coldweapon.description.halberd"       ];
                              iconIndex_        = 22;
                              break;
 
@@ -81,8 +71,6 @@ namespace rr {
                              strengthRequired_ = 70;
                              speed_            =  7;
                              accuracy_         =  5;
-                             name_             = resources.dictionary["item.coldweapon.name.axe"                  ];
-                             description_      = resources.dictionary["item.coldweapon.description.axe"           ];
                              iconIndex_        = 20;
                              break;
 
@@ -90,8 +78,6 @@ namespace rr {
                              strengthRequired_ = 60;
                              speed_            =  7;
                              accuracy_         =  8;
-                             name_             = resources.dictionary["item.coldweapon.name.serrated_sword"       ];
-                             description_      = resources.dictionary["item.coldweapon.description.serrated_sword"];
                              iconIndex_        =  7;
                              break;
 
@@ -99,8 +85,6 @@ namespace rr {
                              strengthRequired_ = 60;
                              speed_            =  4;
                              accuracy_         =  6;
-                             name_             = resources.dictionary["item.coldweapon.name.lance"                ];
-                             description_      = resources.dictionary["item.coldweapon.description.lance"         ];
                              iconIndex_        = 24;
                              break;
 
@@ -108,8 +92,6 @@ namespace rr {
                              strengthRequired_ = 50;
                              speed_            =  6;
                              accuracy_         =  7;
-                             name_             = resources.dictionary["item.coldweapon.name.club"                 ];
-                             description_      = resources.dictionary["item.coldweapon.description.club"          ];
                              iconIndex_        = 38;
                              break;
                              
@@ -117,8 +99,6 @@ namespace rr {
                              strengthRequired_ = 30;
                              speed_            =  7;
                              accuracy_         =  5;
-                             name_             = resources.dictionary["item.coldweapon.name.sword"                ];
-                             description_      = resources.dictionary["item.coldweapon.description.sword"         ];
                              iconIndex_        =  6;
                              break;
 
@@ -126,8 +106,6 @@ namespace rr {
                              strengthRequired_ = 50;
                              speed_            =  6;
                              accuracy_         =  4;
-                             name_             = resources.dictionary["item.coldweapon.name.spear"                ];
-                             description_      = resources.dictionary["item.coldweapon.description.spear"         ];
                              iconIndex_        = 23;
                              break;
 
@@ -135,8 +113,6 @@ namespace rr {
                              strengthRequired_ = 25;
                              speed_            =  7;
                              accuracy_         =  7;
-                             name_             = resources.dictionary["item.coldweapon.name.pique"                ];
-                             description_      = resources.dictionary["item.coldweapon.description.pique"         ];
                              iconIndex_        = 36;
                              break;
 
@@ -144,8 +120,6 @@ namespace rr {
                              strengthRequired_ = 20;
                              speed_            =  8;
                              accuracy_         =  7;
-                             name_             = resources.dictionary["item.coldweapon.name.long_stick"           ];
-                             description_      = resources.dictionary["item.coldweapon.description.long_stick"    ];
                              iconIndex_        = 37;
                              break;
 
@@ -153,8 +127,6 @@ namespace rr {
                              strengthRequired_ =  5;
                              speed_            =  8;
                              accuracy_         =  5;
-                             name_             = resources.dictionary["item.coldweapon.name.dagger"               ];
-                             description_      = resources.dictionary["item.coldweapon.description.dagger"        ];
                              iconIndex_        =  5;
                              break;
                              
@@ -162,20 +134,66 @@ namespace rr {
                              strengthRequired_ =  5;
                              speed_            = 10;
                              accuracy_         =  4;
-                             name_             = resources.dictionary["item.coldweapon.name.knife"                ];
-                             description_      = resources.dictionary["item.coldweapon.description.knife"         ];
                              iconIndex_        =  4;
                              break;
         }
-        description_ += "\n";
 
-        discoveredName_        = name_        + (cursed_ ? " - "+resources.dictionary["item.enchantment.name.cursed"       ] : "");
-        discoveredDescription_ = description_ + (cursed_ ? "\n" +resources.dictionary["item.enchantment.description.cursed"] : "");
         setIcon    (body_, iconIndex_);
     }
 
     void ColdWeapon::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
+    }
+    
+    sf::String ColdWeapon::getName() const {
+        sf::String name = "";
+
+        switch (type_) {
+            case HAMMER        : name += resources.dictionary["item.coldweapon.name.hammer"        ]; break;
+            case DOUBLE_AXE    : name += resources.dictionary["item.coldweapon.name.double_axe"    ]; break;
+            case HALBERD       : name += resources.dictionary["item.coldweapon.name.halberd"       ]; break;
+            case AXE           : name += resources.dictionary["item.coldweapon.name.axe"           ]; break;
+            case SERRATED_SWORD: name += resources.dictionary["item.coldweapon.name.serrated_sword"]; break;
+            case LANCE         : name += resources.dictionary["item.coldweapon.name.lance"         ]; break;
+            case CLUB          : name += resources.dictionary["item.coldweapon.name.club"          ]; break;
+            case SWORD         : name += resources.dictionary["item.coldweapon.name.sword"         ]; break;
+            case SPEAR         : name += resources.dictionary["item.coldweapon.name.spear"         ]; break;
+            case PIQUE         : name += resources.dictionary["item.coldweapon.name.pique"         ]; break;
+            case LONG_STICK    : name += resources.dictionary["item.coldweapon.name.long_stick"    ]; break;
+            case DAGGER        : name += resources.dictionary["item.coldweapon.name.dagger"        ]; break;
+            case KNIFE         : name += resources.dictionary["item.coldweapon.name.knife"         ]; break;
+        }
+
+        name += ((discovered_ && cursed_) ? " - "+resources.dictionary["item.enchantment.name.cursed"] : "");
+        
+        return name;
+    }
+
+    sf::String ColdWeapon::getDescription() const {
+        sf::String description = "";
+
+        switch (type_) {
+            case HAMMER        : description += resources.dictionary["item.coldweapon.description.hammer"        ]; break;
+            case DOUBLE_AXE    : description += resources.dictionary["item.coldweapon.description.double_axe"    ]; break;
+            case HALBERD       : description += resources.dictionary["item.coldweapon.description.halberd"       ]; break;
+            case AXE           : description += resources.dictionary["item.coldweapon.description.axe"           ]; break;
+            case SERRATED_SWORD: description += resources.dictionary["item.coldweapon.description.serrated_sword"]; break;
+            case LANCE         : description += resources.dictionary["item.coldweapon.description.lance"         ]; break;
+            case CLUB          : description += resources.dictionary["item.coldweapon.description.club"          ]; break;
+            case SWORD         : description += resources.dictionary["item.coldweapon.description.sword"         ]; break;
+            case SPEAR         : description += resources.dictionary["item.coldweapon.description.spear"         ]; break;
+            case PIQUE         : description += resources.dictionary["item.coldweapon.description.pique"         ]; break;
+            case LONG_STICK    : description += resources.dictionary["item.coldweapon.description.long_stick"    ]; break;
+            case DAGGER        : description += resources.dictionary["item.coldweapon.description.dagger"        ]; break;
+            case KNIFE         : description += resources.dictionary["item.coldweapon.description.knife"         ]; break;
+        }
+
+        description += "\n" + ((discovered_ && cursed_  ) ? "\n"+resources.dictionary["item.enchantment.description.cursed"]                                 : "")
+                            +                               "\n"+resources.dictionary["item.coldweapon.strength_required"  ]+" "+std::to_string((int)strengthRequired_)
+                            +                               "\n"+resources.dictionary["item.coldweapon.damage_dealt"       ]+" "+std::to_string((int)damageDealt_)
+                            + ((discovered_ && level_!=0) ? "\n"+resources.dictionary["item.coldweapon.level"              ]+" "+std::to_string((int)level_) : "");
+
+        return description;
     }
 
     void ColdWeapon::enhance() {
@@ -190,16 +208,8 @@ namespace rr {
 
     }
 
-    sf::String ColdWeapon::getDescription() const {
-        return description_ +                "\n"+resources.dictionary["item.coldweapon.strength_required"]+" "+std::to_string((int)strengthRequired_)
-                            +                "\n"+resources.dictionary["item.coldweapon.damage_dealt"     ]+" "+std::to_string((int)damageDealt_)
-                            + ((level_!=0) ? "\n"+resources.dictionary["item.coldweapon.level"            ]+" "+std::to_string((int)level_) : "");
-    }
-
     void ColdWeapon::reveal() {
         discovered_  = true;
-        name_        = discoveredName_;
-        description_ = discoveredDescription_;
     }
 
     std::ifstream& ColdWeapon::operator<<(std::ifstream& file) {

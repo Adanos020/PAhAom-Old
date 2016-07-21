@@ -545,6 +545,9 @@ Witaj na poziomie
 message.full_inventory
 Twój plecak jest pełny.
 
+message.item_equip_failure
+Nie możesz założyć
+
 message.item_discovered
 Odkryłeś
 

@@ -255,6 +255,25 @@ namespace rr {
         }
     }
 
+    bool Player::equipItem(Equipable* item, bool equip) {
+        bool success = false;
+        if (instanceof <ColdWeapon, Equipable> (item)) {
+            if (!equip) {
+                coldWeapon_ = nullptr;
+                success     = true;
+            }
+            else if (((ColdWeapon*)item)->getStrengthRequired() <= attrs_.strength) {
+                coldWeapon_ = (ColdWeapon*)item;
+                success     = true;
+            }
+        }
+
+        if (  !success
+            ) subject.notify(Observer::ITEM_EQUIP_FAILURE, item);
+
+        return success;
+    }
+
     std::ifstream& Player::operator<<(std::ifstream& file) {
         currentAnimation_->clearFrames();
         
