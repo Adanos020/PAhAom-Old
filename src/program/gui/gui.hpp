@@ -197,7 +197,7 @@ namespace rr {
         bool               hollow_;
         bool               held_;
     public:
-         Slot(sf::Vector2f size, sf::Vector2f pos, int icon = 0, sf::Color = sf::Color(110, 110, 110, 128));
+         Slot(sf::Vector2f size, sf::Vector2f pos, int icon = 0);
         ~Slot();
 
     /// Adds an item to the slot

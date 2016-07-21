@@ -13,7 +13,7 @@ extern rr::Resources resources;
 
 namespace rr {
 
-    Slot::Slot(sf::Vector2f size, sf::Vector2f pos, int icon, sf::Color c)
+    Slot::Slot(sf::Vector2f size, sf::Vector2f pos, int icon)
     : Component(                                                                        ),
       image_   (new Image(pos, resources.texture.gui, 14, icon)                         ),
       text_    (new Text (sf::Vector2f(pos.x+5, pos.y+55), "", resources.font.Pixel, 20)),
@@ -21,8 +21,8 @@ namespace rr {
 
         body_  .setSize            (size);
         body_  .setPosition        (pos);
-        body_  .setFillColor       (c);
-        body_  .setOutlineColor    (sf::Color(c.r+20, c.g+20, c.b+20));
+        body_  .setFillColor       (sf::Color(110, 110, 110, 128));
+        body_  .setOutlineColor    (sf::Color(130, 130, 130));
         body_  .setOutlineThickness(5);
 
         image_->setParentComponent (this);
@@ -135,20 +135,17 @@ namespace rr {
     }
 
     bool Slot::containsMouseCursor(sf::RenderWindow& rw) {
-        if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
-            if (  !hollow_
-               && instanceof<Equipable, Item>(item_)
-               && ((Equipable*)item_)->isEquipped()
-                ) body_.setFillColor(sf::Color(128, 128, 188, 128));
-            else  body_.setFillColor(sf::Color(128, 128, 128, 255));
-
-            return true;
-        }
         if (  !hollow_
            && instanceof<Equipable, Item>(item_)
            && ((Equipable*)item_)->isEquipped()
-            ) body_.setFillColor(sf::Color(128, 128, 188, 128));
-        else  body_.setFillColor(sf::Color(128, 128, 128, 128));
+            ) body_.setOutlineColor(sf::Color(128, 128, 180));
+        else  body_.setOutlineColor(sf::Color(130, 130, 130));
+
+        if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
+            body_.setFillColor(sf::Color(128, 128, 128, 255));
+            return true;
+        }
+        body_.setFillColor(sf::Color(128, 128, 128, 128));
         
         return false;
     }

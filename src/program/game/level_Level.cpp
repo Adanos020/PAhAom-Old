@@ -567,21 +567,8 @@ namespace rr {
 
     void Level::onNotify(Observer::Event event, Entity* entity) {
         switch (event) {
-            case Observer::ITEM_DISCOVERED: if (instanceof<Potion, Item>((Item*)entity)) {
-                                                for (auto item : entities_) {
-                                                    if (  instanceof<Potion, Item>((Item*)item) && ((Potion*)item)->effect_ == ((Potion*)entity)->effect_
-                                                        ) ((Potion*)item)->reveal();
-                                                }
-                                            }
-                                            else if (instanceof<Rune, Item>((Item*)entity)) {
-                                                for (auto item : entities_) {
-                                                    if (  instanceof<Rune, Item>((Item*)item) && ((Rune*)item)->type_ == ((Rune*)entity)->type_
-                                                        ) ((Rune*)item)->reveal();
-                                                }
-                                            }
-                                            break;
-            case Observer::ITEM_DROPPED   : break;
-            default                       : break;
+            case Observer::ITEM_DROPPED: break;
+            default                    : break;
         }
     }
 

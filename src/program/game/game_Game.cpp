@@ -174,7 +174,6 @@ namespace rr {
             readFile <unsigned> (file, seed_       );
             readFile <unsigned> (file, levelNumber_);
 
-        
             for (int i=0; i<9; ++i) {
                 readFile <bool> (file, Potion::identified_[i]);
             }
@@ -416,6 +415,13 @@ namespace rr {
     void Game::reset() {
         if (  currentLevel_ != nullptr
             ) delete currentLevel_;
+
+        for (int i=0; i<9; ++i) {
+            Potion::identified_[i] = false;
+        }
+        for (int i=0; i<12; ++i) {
+            Rune  ::identified_[i] = false;
+        }
 
         inventory_->clear();
         player_   ->reset();

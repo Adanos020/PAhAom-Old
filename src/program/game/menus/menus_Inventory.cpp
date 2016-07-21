@@ -332,22 +332,6 @@ namespace rr {
 
     void Inventory::onNotify(Event event, Entity* entity) {
         switch (event) {
-        case ITEM_DISCOVERED:
-            for (int i=0; i<32; ++i) {
-                if (!slot(i)->isEmpty()) {
-                    if (instanceof<Potion, Item>((Item*)entity) && instanceof<Potion, Item>(slot(i)->getItem())) {
-                        if ( !((Potion*)slot(i)->getItem())->isDiscovered() && ((Potion*)slot(i)->getItem())->effect_ == ((Potion*)entity)->effect_
-                            ) ((Potion*)slot(i)->getItem())->reveal();
-                    }
-                }
-                else if (!slot(i)->isEmpty()) {
-                    if (instanceof<Rune, Item>((Item*)entity) && instanceof<Rune, Item>(slot(i)->getItem())) {
-                        if ( !((Rune*)slot(i)->getItem())->isDiscovered() && ((Rune*)slot(i)->getItem())->type_ == ((Rune*)entity)->type_
-                            ) ((Rune*)slot(i)->getItem())->reveal();
-                    }
-                }
-            }
-            break;
         default:
             break;
         }
