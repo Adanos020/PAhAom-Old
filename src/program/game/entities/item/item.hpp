@@ -21,6 +21,7 @@ namespace rr {
         sf::String      description_;
         bool            disposable_;
         bool            stackable_;
+        bool            cursed_;
         int             ID_;
         int             amount_;
         unsigned        iconIndex_;
@@ -37,6 +38,8 @@ namespace rr {
         virtual bool               isDisposable   ()          const           { return disposable_; }
     /// Tells if the item is stackable
         virtual bool               isStackable    ()          const           { return stackable_; }
+    /// Tells if the item is cursed
+        virtual bool               isCursed       ()          const           { return cursed_; }
     /// Returns the sprite of this item
         virtual sf::VertexArray    getBody        ()          const           { return body_; }
     /// Returns the name of this item
@@ -64,7 +67,7 @@ namespace rr {
 
     class Discoverable : public Item {
     protected:
-        bool discovered_ = false;
+        bool       discovered_ = false;
         sf::String discoveredName_;
         sf::String discoveredDescription_;
     public:

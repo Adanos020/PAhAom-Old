@@ -66,6 +66,9 @@ namespace rr {
         if (  instanceof<Discoverable, Item>(item) && ((Discoverable*)item)->isDiscovered()
             ) ((Discoverable*)item_)->reveal();
 
+        if (  instanceof<Equipable, Item>(item) && ((Equipable*)item)->isEquipped()
+            ) ((Equipable*)item_)->equip(true);
+
         item_->setRealPosition(body_.getPosition());
         text_->setString(std::to_string(item_->getAmount()));
 
@@ -133,10 +136,20 @@ namespace rr {
 
     bool Slot::containsMouseCursor(sf::RenderWindow& rw) {
         if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
-            body_.setFillColor(sf::Color(128, 128, 128, 255));
+            if (  !hollow_
+               && instanceof<Equipable, Item>(item_)
+               && ((Equipable*)item_)->isEquipped()
+                ) body_.setFillColor(sf::Color(128, 128, 188, 128));
+            else  body_.setFillColor(sf::Color(128, 128, 128, 255));
+
             return true;
         }
-        body_.setFillColor(sf::Color(128, 128, 128, 128));
+        if (  !hollow_
+           && instanceof<Equipable, Item>(item_)
+           && ((Equipable*)item_)->isEquipped()
+            ) body_.setFillColor(sf::Color(128, 128, 188, 128));
+        else  body_.setFillColor(sf::Color(128, 128, 128, 128));
+        
         return false;
     }
 

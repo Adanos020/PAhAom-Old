@@ -47,7 +47,7 @@ namespace rr {
         virtual void           draw          (sf::RenderWindow&) override;
         virtual sf::String     getDescription()            const override;
         virtual void           equip         (bool b)            override { equipped_ = b; }
-        virtual void           reveal        ()                  override {}
+        virtual void           reveal        ()                  override;
 
         void                   enhance       ();
         void                   enchant       ();

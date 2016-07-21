@@ -43,6 +43,7 @@ namespace rr {
         ID_         = type_+30;
         disposable_ = true;
         stackable_  = false;
+        cursed_     = false;
         iconIndex_  = 16;
 
         switch (type_) {

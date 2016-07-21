@@ -8,6 +8,8 @@
 #include "../../program.hpp"
 #include "../../funcs/files.hpp"
 
+#include <iostream>
+
 extern rr::Settings  settings;
 extern rr::Resources resources;
 
@@ -25,8 +27,8 @@ namespace rr {
 
 #define component(w, c, i) w.getComponent<c>(i)
 
-            for (int i=0; i<4; i++) {
-                for (int j=0; j<8; j++) {
+            for (int i=0; i<4; ++i) {
+                for (int j=0; j<8; ++j) {
                     wInve_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10 + j*95, 30 + i*95));
                 }
             }
@@ -50,7 +52,7 @@ namespace rr {
                 wInfo += new Text(sf::Vector2f(5, 20), "", resources.font.Unifont, 20);
                 component(wInfo, Text, 0)->setStyle(sf::Text::Regular);
 
-        for (int i=0; i<5; i++) {
+        for (int i=0; i<5; ++i) {
             sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(settings.graphics.resolution.x-90, settings.graphics.resolution.y/2-250 + i*95));
         }
 
@@ -78,7 +80,7 @@ namespace rr {
     }
 
     void Inventory::clear() {
-        for (int i=0; i<32; i++) {
+        for (int i=0; i<32; ++i) {
             wInve_.getComponent<Slot>(i)->clear();
         }
         for (auto slot : sCarryOn_) {
@@ -113,13 +115,25 @@ namespace rr {
                 ) g->pause(false);
 
             bool slotPointed = false;
-            for (int i=0; i<32; i++) {
+            /* BACKPACK */
+            for (int i=0; i<32; ++i) {
                 if (component(wInve_, Slot, i)->containsMouseCursor(rw) && !component(wInve_, Slot, i)->isEmpty()) {
                     if (component(wInve_, Slot, i)->isPressed(rw, e) && !component(wInve_, Slot, i)->isEmpty()) {
                         g->getPlayer()->useItem(component(wInve_, Slot, i)->getItem());
                         if (component(wInve_, Slot, i)->getItem()->isDisposable()) {
                             component(wInve_, Slot, i)->removeItem(1);
                             sort();
+                        }
+                        if (instanceof<Equipable, Item>(component(wInve_, Slot, i)->getItem())) {
+                            ((Equipable*)component(wInve_, Slot, i)->getItem())->equip(!((Equipable*)component(wInve_, Slot, i)->getItem())->isEquipped());
+                            
+                            if (instanceof<ColdWeapon, Item>(component(wInve_, Slot, i)->getItem())) {
+                                for (int j=0; j<32; ++j) {
+                                    if (  j != i  
+                                       && instanceof<ColdWeapon, Item>(component(wInve_, Slot, j)->getItem())
+                                        ) ((Equipable*)component(wInve_, Slot, j)->getItem())->equip(false);
+                                }
+                            }
                         }
                     }
                     else {
@@ -128,7 +142,8 @@ namespace rr {
                     }
                 }
             }
-            for (int i=0; i<5; i++) {
+            /* CARRY-ON */
+            for (int i=0; i<5; ++i) {
                 if (sCarryOn_[i]->containsMouseCursor(rw) && !sCarryOn_[i]->isEmpty()) {
                     if (sCarryOn_[i]->isPressed(rw, e)    && !sCarryOn_[i]->isEmpty()) {
                         g->getPlayer()->useItem(sCarryOn_[i]->getItem());
@@ -143,6 +158,7 @@ namespace rr {
                     }
                 }
             }
+
             if (slotPointed) {
                 component(wInfo, Text, 0)->setString(((Slot*)wInfo.getParentComponent())->getItem()->getDescription());
                 component(wInfo, Text, 0)->wrap     ((wInfo.getText()->getSize().x>=300.f) ? wInfo.getText()->getSize().x+10 : 300.f);
@@ -154,6 +170,7 @@ namespace rr {
                 if (  wInfo.getPosition().x+wInfo.getSize().x+5 > (float)rw.getSize().x
                     ) wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)
                                         -sf::Vector2f(wInfo.getPosition().x + wInfo.getSize().x - (float)rw.getSize().x, -5));
+                                        
                 if (  wInfo.getPosition().y+wInfo.getSize().y+5 > (float)rw.getSize().y
                     ) wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)
                                         -sf::Vector2f(-5, wInfo.getPosition().y + wInfo.getSize().y - (float)rw.getSize().y));
@@ -252,28 +269,33 @@ namespace rr {
     }
 
     std::ifstream& Inventory::operator<<(std::ifstream& file) {
-        readFile <short> (file, bronze_);
-        readFile <short> (file, silver_);
-        readFile <short> (file, gold_);
+        try {
+            readFile <short> (file, bronze_);
+            readFile <short> (file, silver_);
+            readFile <short> (file, gold_);
 
-        int itemsNumber;
-        readFile <int> (file, itemsNumber);
+            int itemsNumber;
+            readFile <int> (file, itemsNumber);
 
-        for (int i=0; i<itemsNumber; ++i) {
-            Item* item = nullptr;
-            int itemType;
-            readFile <int> (file, itemType);
-            
-            switch (itemType) {
-                case 2: item = new Book      (Book::CRAFTING                ); readEntity(file, item); break;
-                case 3: item = new Coin      (Coin::BRONZE, Coin::SMALL     ); readEntity(file, item); break;
-                case 4: item = new ColdWeapon(ColdWeapon::KNIFE             ); readEntity(file, item); break;
-                case 5: /* ERROR 404 */                                                                break;
-                case 6: item = new Potion    (Potion::HEALING, Potion::SMALL); readEntity(file, item); break;
-                case 7: /* ERROR 404 */                                                                break;
-                case 8: item = new Rune      (Rune::HEAL                    ); readEntity(file, item); break;
+            for (int i=0; i<itemsNumber; ++i) {
+                int itemType;
+                readFile <int> (file, itemType);
+                
+                Item* item = nullptr;
+                switch (itemType) {
+                    case 2: item = new Book      (Book::CRAFTING                ); readEntity(file, item); break;
+                    case 3: item = new Coin      (Coin::BRONZE, Coin::SMALL     ); readEntity(file, item); break;
+                    case 4: item = new ColdWeapon(ColdWeapon::KNIFE             ); readEntity(file, item); break;
+                    case 5: /* ERROR 404 */                                                                break;
+                    case 6: item = new Potion    (Potion::HEALING, Potion::SMALL); readEntity(file, item); break;
+                    case 7: /* ERROR 404 */                                                                break;
+                    case 8: item = new Rune      (Rune::HEAL                    ); readEntity(file, item); break;
+                }
+                addItem(item);
             }
-            addItem(item);
+        }
+        catch (std::invalid_argument ex) {
+            std::cerr << ex.what() << '\n';
         }
 
         return file;
@@ -303,7 +325,7 @@ namespace rr {
     void Inventory::onNotify(Event event, Entity* entity) {
         switch (event) {
         case ITEM_DISCOVERED:
-            for (int i=0; i<32; i++) {
+            for (int i=0; i<32; ++i) {
                 if (!slot(i)->isEmpty()) {
                     if (instanceof<Potion, Item>((Item*)entity)) {
                         if ( !((Potion*)slot(i)->getItem())->isDiscovered() && ((Potion*)slot(i)->getItem())->effect_ == ((Potion*)entity)->effect_

@@ -10,6 +10,7 @@
 #include "../../../program.hpp"
 #include "../../../funcs/images.hpp"
 #include "../../../funcs/files.hpp"
+#include "../../../funcs/random.hpp"
 
 extern rr::Resources resources;
 extern int           spellSymbols[11];
@@ -45,6 +46,7 @@ namespace rr {
     void Rune::initialize() {
         disposable_ = true;
         stackable_  = true;
+        cursed_     = chance(2, 5);
         ID_         = 39+type_;
         iconIndex_  = 48;
 

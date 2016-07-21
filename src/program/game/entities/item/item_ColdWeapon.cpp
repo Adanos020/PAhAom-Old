@@ -10,6 +10,7 @@
 #include "../../../program.hpp"
 #include "../../../funcs/images.hpp"
 #include "../../../funcs/files.hpp"
+#include "../../../funcs/random.hpp"
 
 extern rr::Resources resources;
 
@@ -45,6 +46,7 @@ namespace rr {
     void ColdWeapon::initialize() {
         disposable_ = false;
         stackable_  = false;
+        cursed_     = chance(1, 4);
         ID_         = 10+type_;
 
         switch (type_) {
@@ -165,7 +167,10 @@ namespace rr {
                              iconIndex_        =  4;
                              break;
         }
+        description_ += "\n";
 
+        discoveredName_        = name_        + (cursed_ ? " - "+resources.dictionary["item.enchantment.name.cursed"       ] : "");
+        discoveredDescription_ = description_ + (cursed_ ? "\n" +resources.dictionary["item.enchantment.description.cursed"] : "");
         setIcon    (body_, iconIndex_);
     }
 
@@ -186,9 +191,15 @@ namespace rr {
     }
 
     sf::String ColdWeapon::getDescription() const {
-        return description_ +              "\n"+resources.dictionary["item.coldweapon.strength_required"]+" "+std::to_string((int)strengthRequired_)
-                            +              "\n"+resources.dictionary["item.coldweapon.damage_dealt"     ]+" "+std::to_string((int)damageDealt_)
-                            + ((level_!=0)?"\n"+resources.dictionary["item.coldweapon.level"            ]+" "+std::to_string((int)level_):"");
+        return description_ +                "\n"+resources.dictionary["item.coldweapon.strength_required"]+" "+std::to_string((int)strengthRequired_)
+                            +                "\n"+resources.dictionary["item.coldweapon.damage_dealt"     ]+" "+std::to_string((int)damageDealt_)
+                            + ((level_!=0) ? "\n"+resources.dictionary["item.coldweapon.level"            ]+" "+std::to_string((int)level_) : "");
+    }
+
+    void ColdWeapon::reveal() {
+        discovered_  = true;
+        name_        = discoveredName_;
+        description_ = discoveredDescription_;
     }
 
     std::ifstream& ColdWeapon::operator<<(std::ifstream& file) {
@@ -201,7 +212,7 @@ namespace rr {
             readFile  <int>  (file, amount_);
             readFile  <bool> (file, discovered_);
             readFile  <bool> (file, equipped_);
-            readFile  <int>  (file, level_);                        
+            readFile  <int>  (file, level_);
             readFile  <int>  (file, type);
         }
         catch (std::invalid_argument ex) {

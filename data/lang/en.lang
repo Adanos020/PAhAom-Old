@@ -138,6 +138,12 @@ gui.window.bookOfSpells
 BOOK OF SPELLS
 
 ;------------ITEMS------------;
+item.enchantment.name.cursed
+cursed
+
+item.enchantment.description.cursed
+This item is cursed.
+
 item.book.type.crafting
 "Crafting basics"
 

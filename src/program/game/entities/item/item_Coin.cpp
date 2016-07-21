@@ -42,6 +42,7 @@ namespace rr {
     void Coin::initialize() {
         disposable_ = false;
         stackable_  = true;
+        cursed_     = false;
         ID_         = 3*size_ + type_ + 1;
         iconIndex_  = type_ + (size_+2)*16 + 1;
 

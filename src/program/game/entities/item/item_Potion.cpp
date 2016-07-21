@@ -46,6 +46,7 @@ namespace rr {
     void Potion::initialize() {
         disposable_ = true;
         stackable_  = true;
+        cursed_     = false;
         ID_         = 100 + effect_*10 + size_;
         iconIndex_  = 3-size_;
 

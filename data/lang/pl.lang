@@ -138,6 +138,12 @@ gui.window.bookOfSpells
 KSIĘGA ZAKLĘĆ
 
 ;---------ITEMS---------;
+item.enchantment.name.cursed
+przeklęty
+
+item.enchantment.description.cursed
+Ten przedmiot jest przeklęty.
+
 item.book.type.crafting
 „Podstawy wytwarzania”
 
