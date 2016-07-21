@@ -30,6 +30,8 @@ namespace rr {
             TELEKINESIS
         } type_;
 
+        static bool identified_[12];
+
          Rune(Type, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
          Rune(Rune const&);
         ~Rune() {}
@@ -38,7 +40,9 @@ namespace rr {
         virtual Entity*        create         ()            const override { return new Rune(HEAL); }
 
         virtual void           draw           (sf::RenderWindow&) override;
-        virtual void           reveal         ()                  override;
+
+        virtual void           reveal         ()                  override { identified_[type_] = true; }
+        virtual bool           isDiscovered   ()            const override { return identified_[type_]; }
 
         virtual sf::String     getName        ()            const override;
         virtual sf::String     getDescription ()            const override;

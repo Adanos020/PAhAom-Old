@@ -16,6 +16,8 @@ extern sf::Color     itemColors[9];
 
 namespace rr {
 
+    bool Potion::identified_[9] = { false, false, false, false, false, false, false, false, false };
+
     Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos)
     : Discoverable( ),
       effect_     (e),
@@ -52,16 +54,12 @@ namespace rr {
         setColor(body_, 1, itemColors[effect_]);
     }
 
-    void Potion::reveal() {
-        discovered_  = true;
-    }
-
     void Potion::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
     }
 
     sf::String Potion::getName() const {
-        if (!discovered_) {
+        if (!identified_[effect_]) {
                  if (itemColors[effect_] == sf::Color::Red          ) return resources.dictionary["item.potion.color.red"     ];
             else if (itemColors[effect_] == sf::Color::Blue         ) return resources.dictionary["item.potion.color.blue"    ];
             else if (itemColors[effect_] == sf::Color(32, 32, 0)    ) return resources.dictionary["item.potion.color.brown"   ];
@@ -89,7 +87,7 @@ namespace rr {
     }
 
     sf::String Potion::getDescription() const {
-        if ( !discovered_
+        if ( !identified_[effect_]
             ) return resources.dictionary["item.potion.description.unknown"];
         else {
             switch (effect_) {
@@ -139,7 +137,6 @@ namespace rr {
             readFile <int>  (file, position.x);
             readFile <int>  (file, position.y);
             readFile <int>  (file, amount_);
-            readFile <bool> (file, discovered_);
             readFile <int>  (file, effect);
             readFile <int>  (file, size);
         }
@@ -161,7 +158,6 @@ namespace rr {
              << (int)body_[0].position.x/80 << ' '
              << (int)body_[0].position.y/80 << ' '
              << amount_                     << ' '
-             << discovered_                 << ' '
              << effect_                     << ' '
              << size_;
 

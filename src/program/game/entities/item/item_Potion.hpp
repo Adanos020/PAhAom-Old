@@ -31,6 +31,8 @@ namespace rr {
             MEDIUM,
             SMALL
         } size_;
+        
+        static bool identified_[9];
 
          Potion(Effect, Size, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
          Potion(Potion const&);
@@ -40,7 +42,9 @@ namespace rr {
         virtual Entity*        create         ()            const override { return new Potion(HEALING, SMALL); }
 
         virtual void           draw           (sf::RenderWindow&) override;
-        virtual void           reveal         ()                  override;
+
+        virtual void           reveal         ()                  override { identified_[effect_] = true; }
+        virtual bool           isDiscovered   ()            const override { return identified_[effect_]; }
 
         virtual sf::String     getName        ()            const override;
         virtual sf::String     getDescription ()            const override;
@@ -48,8 +52,8 @@ namespace rr {
         void                   setPosition    (sf::Vector2i)      override;
         void                   setRealPosition(sf::Vector2f pos)  override;
 
-        virtual std::ifstream& operator<<(std::ifstream&)         override;
-        virtual std::ofstream& operator>>(std::ofstream&)         override;
+        virtual std::ifstream& operator<<     (std::ifstream&)         override;
+        virtual std::ofstream& operator>>     (std::ofstream&)         override;
     };
 
 }

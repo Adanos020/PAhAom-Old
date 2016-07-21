@@ -17,6 +17,8 @@ extern int           spellSymbols[11];
 
 namespace rr {
 
+    bool Rune::identified_[12] = { false, false, false, false, false, false, false, false, false, false, false, false };
+
     Rune::Rune(Type type, int am, sf::Vector2i pos)
     : Discoverable(    ),
       type_       (type) {
@@ -51,16 +53,12 @@ namespace rr {
         setIcon    (body_, 2, icons);
     }
 
-    void Rune::reveal() {
-        discovered_  = true;
-    }
-
     void Rune::draw(sf::RenderWindow& rw) {
         rw.draw(body_, &resources.texture.items);
     }
 
     sf::String Rune::getName() const {
-        if (!discovered_) {
+        if (!identified_[type_]) {
             switch (spellSymbols[type_]) {
                 case  0: return resources.dictionary["item.spell.symbol.shcha"  ];
                 case  1: return resources.dictionary["item.spell.symbol.jus"    ];
@@ -96,7 +94,7 @@ namespace rr {
     }
 
     sf::String Rune::getDescription() const {
-        if ( !discovered_
+        if ( !identified_[type_]
             ) return resources.dictionary["item.spell.description.unknown"];
         else {
             switch (type_) {
@@ -148,8 +146,7 @@ namespace rr {
         try {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
-            readFile <int> (file, amount_);
-            readFile <bool> (file, discovered_);                   
+            readFile <int> (file, amount_);                 
             readFile <int> (file, type);
         }
         catch (std::invalid_argument ex) {
@@ -169,7 +166,6 @@ namespace rr {
              << (int)body_[0].position.x/80 << ' '
              << (int)body_[0].position.y/80 << ' '
              << amount_                     << ' '
-             << discovered_                 << ' '
              << type_;
 
         return file;

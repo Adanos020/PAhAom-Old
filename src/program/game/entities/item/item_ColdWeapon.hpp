@@ -18,6 +18,7 @@ namespace rr {
         float speed_;
         float accuracy_;
         int   level_;
+        bool  identified_;
 
         virtual void           initialize    ()                  override;
     public:
@@ -48,9 +49,12 @@ namespace rr {
 
         virtual sf::String     getName            ()            const override;
         virtual sf::String     getDescription     ()            const override;
-        
+
         virtual void           equip              (bool b)            override { equipped_ = b; }
+        virtual bool           isEquipped         ()            const override { return equipped_; }
+
         virtual void           reveal             ()                  override;
+        virtual bool           isDiscovered       ()            const override { return identified_; }
 
         void                   enhance            ();
         void                   enchant            ();

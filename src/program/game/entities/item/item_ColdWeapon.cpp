@@ -17,9 +17,10 @@ extern rr::Resources resources;
 namespace rr {
 
     ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos)
-    : Equipable(    ),
-      level_   (0   ),
-      type_    (type) {
+    : Equipable  (     ),
+      level_     (0    ),
+      identified_(false),
+      type_      (type ) {
 
         amount_     = amount;
 
@@ -164,7 +165,7 @@ namespace rr {
             case KNIFE         : name += resources.dictionary["item.coldweapon.name.knife"         ]; break;
         }
 
-        name += ((discovered_ && cursed_) ? " - "+resources.dictionary["item.enchantment.name.cursed"] : "");
+        name += ((identified_ && cursed_) ? " - "+resources.dictionary["item.enchantment.name.cursed"] : "");
         
         return name;
     }
@@ -188,10 +189,10 @@ namespace rr {
             case KNIFE         : description += resources.dictionary["item.coldweapon.description.knife"         ]; break;
         }
 
-        description += "\n" + ((discovered_ && cursed_  ) ? "\n"+resources.dictionary["item.enchantment.description.cursed"]                                 : "")
-                            +                               "\n"+resources.dictionary["item.coldweapon.strength_required"  ]+" "+std::to_string((int)strengthRequired_)
-                            +                               "\n"+resources.dictionary["item.coldweapon.damage_dealt"       ]+" "+std::to_string((int)damageDealt_)
-                            + ((discovered_ && level_!=0) ? "\n"+resources.dictionary["item.coldweapon.level"              ]+" "+std::to_string((int)level_) : "");
+        description += "\n" + ((identified_ && cursed_  ) ? "\n"+resources.dictionary["item.enchantment.description.cursed"]                                 : "")
+                            +                                      "\n"+resources.dictionary["item.coldweapon.strength_required"  ]+" "+std::to_string((int)strengthRequired_)
+                            +                                      "\n"+resources.dictionary["item.coldweapon.damage_dealt"       ]+" "+std::to_string((int)damageDealt_)
+                            + ((identified_ && level_!=0) ? "\n"+resources.dictionary["item.coldweapon.level"              ]+" "+std::to_string((int)level_) : "");
 
         return description;
     }
@@ -209,7 +210,7 @@ namespace rr {
     }
 
     void ColdWeapon::reveal() {
-        discovered_  = true;
+        identified_ = true;
     }
 
     std::ifstream& ColdWeapon::operator<<(std::ifstream& file) {
@@ -220,7 +221,7 @@ namespace rr {
             readFile  <int>  (file, position.x);
             readFile  <int>  (file, position.y);
             readFile  <int>  (file, amount_);
-            readFile  <bool> (file, discovered_);
+            readFile  <bool> (file, identified_);
             readFile  <bool> (file, equipped_);
             readFile  <int>  (file, level_);
             readFile  <int>  (file, type);
@@ -248,7 +249,7 @@ namespace rr {
              << (int)body_[0].position.x/80 << ' '
              << (int)body_[0].position.y/80 << ' '
              << amount_                     << ' '
-             << discovered_                 << ' '
+             << identified_                 << ' '
              << equipped_                   << ' '
              << level_                      << ' '
              << type_;

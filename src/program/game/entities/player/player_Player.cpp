@@ -268,8 +268,13 @@ namespace rr {
             }
         }
 
-        if (  !success
-            ) subject.notify(Observer::ITEM_EQUIP_FAILURE, item);
+        if (success) {
+            if (!item->isDiscovered()) {
+                item->reveal();
+                subject.notify(Observer::ITEM_DISCOVERED, item);
+            }
+        }
+        else subject.notify(Observer::ITEM_EQUIP_FAILURE, item);
 
         return success;
     }

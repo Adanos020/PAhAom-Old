@@ -173,6 +173,15 @@ namespace rr {
         try {
             readFile <unsigned> (file, seed_       );
             readFile <unsigned> (file, levelNumber_);
+
+        
+            for (int i=0; i<9; ++i) {
+                readFile <bool> (file, Potion::identified_[i]);
+            }
+            for (int i=0; i<12; ++i) {
+                readFile <bool> (file, Rune  ::identified_[i]);
+            }
+
             readEntity          (file, player_);
 
             srand(seed_);
@@ -214,6 +223,15 @@ namespace rr {
         
         file        << seed_        << '\n' 
                     << levelNumber_ << '\n';
+        
+        for (int i=0; i<9; ++i) {
+            file << Potion::identified_[i] << ' ';
+        }
+        for (int i=0; i<12; ++i) {
+            file << Rune  ::identified_[i] << ' ';
+        }
+        file << '\n';
+
         *player_    >> file         << '\n';
         *inventory_ >> file;
 

@@ -120,11 +120,6 @@ namespace rr {
             for (int i=0; i<32; ++i) {
                 if (component(wInve_, Slot, i)->containsMouseCursor(rw) && !component(wInve_, Slot, i)->isEmpty()) {
                     if (component(wInve_, Slot, i)->isPressed(rw, e) && !component(wInve_, Slot, i)->isEmpty()) {
-                        g->getPlayer()->useItem(component(wInve_, Slot, i)->getItem());
-                        if (component(wInve_, Slot, i)->getItem()->isDisposable()) {
-                            component(wInve_, Slot, i)->removeItem(1);
-                            sort();
-                        }
                         if (instanceof<Equipable, Item>(component(wInve_, Slot, i)->getItem())) {
                             bool equip = !((Equipable*)component(wInve_, Slot, i)->getItem())->isEquipped(); 
                             
@@ -137,6 +132,13 @@ namespace rr {
                                         ((Equipable*)component(wInve_, Slot, j)->getItem())->equip(false);
                                     }
                                 }
+                            }
+                        }
+                        else {
+                            g->getPlayer()->useItem(component(wInve_, Slot, i)->getItem());
+                            if (component(wInve_, Slot, i)->getItem()->isDisposable()) {
+                                component(wInve_, Slot, i)->removeItem(1);
+                                sort();
                             }
                         }
                     }
@@ -191,6 +193,8 @@ namespace rr {
     }
 
     bool Inventory::addItem(Item* item) {
+        if (  item == nullptr
+            ) return false;
 
 #define slot(i) wInve_.getComponent<Slot>(i)
 
@@ -331,13 +335,13 @@ namespace rr {
         case ITEM_DISCOVERED:
             for (int i=0; i<32; ++i) {
                 if (!slot(i)->isEmpty()) {
-                    if (instanceof<Potion, Item>((Item*)entity)) {
+                    if (instanceof<Potion, Item>((Item*)entity) && instanceof<Potion, Item>(slot(i)->getItem())) {
                         if ( !((Potion*)slot(i)->getItem())->isDiscovered() && ((Potion*)slot(i)->getItem())->effect_ == ((Potion*)entity)->effect_
                             ) ((Potion*)slot(i)->getItem())->reveal();
                     }
                 }
                 else if (!slot(i)->isEmpty()) {
-                    if (instanceof<Rune, Item>((Item*)entity)) {
+                    if (instanceof<Rune, Item>((Item*)entity) && instanceof<Rune, Item>(slot(i)->getItem())) {
                         if ( !((Rune*)slot(i)->getItem())->isDiscovered() && ((Rune*)slot(i)->getItem())->type_ == ((Rune*)entity)->type_
                             ) ((Rune*)slot(i)->getItem())->reveal();
                     }

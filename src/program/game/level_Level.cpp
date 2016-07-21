@@ -627,9 +627,9 @@ namespace rr {
             for (int i=0; i<77*43; ++i) { // load the masks
                 masks_[i] << file;
             }
-            for (int x=0; x<size_.x; x++) {
-                for (int y=0; y<size_.y; y++) {
-                    masks_[x+y*size_.x].setPosition(sf::Vector2i(x, y));
+            for (int x=0; x<77; x++) {
+                for (int y=0; y<43; y++) {
+                    masks_[x + y*77].setPosition(sf::Vector2i(x, y));
                 }
             }
 

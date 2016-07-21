@@ -64,17 +64,15 @@ namespace rr {
     };
 
     class Discoverable : public Item {
-    protected:
-        bool discovered_ = false;
     public:
     /// A virtual destructor
         virtual ~Discoverable() {}
 
     /// Reveals the item's properties
-        virtual void reveal      () = 0;
+        virtual void reveal      ()       = 0;
 
     /// Tells if the item is discovered
-        bool         isDiscovered() { return discovered_; }
+        virtual bool isDiscovered() const = 0;
     };
 
     class Equipable : public Discoverable {
@@ -85,10 +83,10 @@ namespace rr {
         virtual ~Equipable() {}
 
     /// Equips or unequips the item
-        virtual void equip     (bool) = 0;
+        virtual void equip     (bool)   = 0;
 
     /// Tells if the item is equipped
-        bool         isEquipped() { return equipped_; }
+        virtual bool isEquipped() const = 0;
     };
 
 }
