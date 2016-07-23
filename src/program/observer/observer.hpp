@@ -13,32 +13,30 @@ namespace rr {
 
 /// Class for the observer
     class Observer {
-    public:
-        enum Event {
-            ITEM_EQUIP_FAILURE,
-            ITEM_DISCOVERED,
-            ITEM_DROPPED,
-            ITEM_PICKED,
-            ITEM_USED,
-            INVENTORY_FULL
-        };
+    public: enum Event {
+                ITEM_EQUIP_FAILURE,
+                ITEM_DISCOVERED,
+                ITEM_DROPPED,
+                ITEM_PICKED,
+                ITEM_USED,
+                INVENTORY_FULL
+            };
 
-        virtual ~Observer() {}
+            virtual ~Observer() {}
 
-        virtual void onNotify(Event, Entity*) = 0;
+            virtual void onNotify(Event, Entity*) = 0;
     };
 
 /// Class for the subject
     class Subject {
-    private:
-        std::vector<Observer*> observers_;
-    public:
-        ~Subject();
+    private: std::vector<Observer*> observers_;
+    
+    public: ~Subject();
 
-        void addObserver   (Observer*);
-        void removeObserver(Observer*);
-        void clear         ();
-        void notify        (Observer::Event, Entity*);
+             void addObserver   (Observer*);
+             void removeObserver(Observer*);
+             void clear         ();
+             void notify        (Observer::Event, Entity*);
     };
 
 }

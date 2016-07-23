@@ -49,16 +49,16 @@ namespace rr {
     }
 
     Player::Player(Player const& player)
-    : Entity                       (),
-      attrs_                       (player.attrs_),
-      position_                    (player.position_),
-      body_                        (player.body_),
-      walkingLeft_                 (player.walkingLeft_),
-      walkingRight_                (player.walkingRight_),
+    : Entity                       (                        ),
+      attrs_                       (player.attrs_           ),
+      position_                    (player.position_        ),
+      body_                        (player.body_            ),
+      walkingLeft_                 (player.walkingLeft_     ),
+      walkingRight_                (player.walkingRight_    ),
       currentAnimation_            (player.currentAnimation_),
-      moving_                      (player.moving_),
-      velocity_                    (player.velocity_),
-      sightRange_                  (player.sightRange_) {}
+      moving_                      (player.moving_          ),
+      velocity_                    (player.velocity_        ),
+      sightRange_                  (player.sightRange_      ) {}
 
     void Player::initialize() {
         walkingLeft_ .setSpriteSheet(resources.texture.player);
@@ -112,18 +112,24 @@ namespace rr {
                 if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep.asSeconds()));
                 if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep.asSeconds()));
             }
-            else
+            else {
+                buffs_.speed        -= (buffs_.speed        == 0 ? 0 : 1);
+                buffs_.regeneration -= (buffs_.regeneration == 0 ? 0 : 1);
+                buffs_.poison       -= (buffs_.poison       == 0 ? 0 : 1);
+                buffs_.slowness     -= (buffs_.slowness     == 0 ? 0 : 1);
+                buffs_.weakness     -= (buffs_.weakness     == 0 ? 0 : 1);
                 moving_ = false;
+            }
 
             if (  (abs(offset.x) < velocity_/256 && abs(offset.x) > 0) // preventing the player from wobbling
                || (abs(offset.y) < velocity_/256 && abs(offset.y) > 0) // in between of two cells
                 )  body_.setPosition((sf::Vector2f)position_*80.f);
         }
 
-        if (attrs_.health >= attrs_.maxHealth)      attrs_.health = attrs_.maxHealth;
-        if (attrs_.health <= 0)                     attrs_.health = 0;
-        if (attrs_.mana   <= 0)                     attrs_.mana   = 0;
-        if (attrs_.mana   >= attrs_.maxMana)        attrs_.mana   = attrs_.maxMana;
+        if (attrs_.health >= attrs_.maxHealth)      attrs_.health       = attrs_.maxHealth;
+        if (attrs_.health <= 0)                     attrs_.health       = 0;
+        if (attrs_.mana   <= 0)                     attrs_.mana         = 0;
+        if (attrs_.mana   >= attrs_.maxMana)        attrs_.mana         = attrs_.maxMana;
         if (attrs_.experience  >= attrs_.nextLevel) {
                                                     attrs_.experience   = 0;
                                                     attrs_.nextLevel   *= 1.25f;
@@ -180,57 +186,57 @@ namespace rr {
         if (instanceof<Potion, Item>(item)) {
             switch (((Potion*)item)->effect_) {
                 case Potion::HEALING     : switch (((Potion*)item)->size_) {
-                                               case Potion::SMALL : attrs_.health    += attrs_.maxHealth*0.25; break;
-                                               case Potion::MEDIUM: attrs_.health    += attrs_.maxHealth*0.50; break;
-                                               case Potion::BIG   : attrs_.health    += attrs_.maxHealth*0.75; break;
+                                               case Potion::SMALL : attrs_.health       += attrs_.maxHealth*0.25; break;
+                                               case Potion::MEDIUM: attrs_.health       += attrs_.maxHealth*0.50; break;
+                                               case Potion::BIG   : attrs_.health       += attrs_.maxHealth*0.75; break;
                                            } break;
 
                 case Potion::MAGIC       : switch (((Potion*)item)->size_) {
-                                               case Potion::SMALL : attrs_.mana      += attrs_.maxMana * 0.25; break;
-                                               case Potion::MEDIUM: attrs_.mana      += attrs_.maxMana * 0.50; break;
-                                               case Potion::BIG   : attrs_.mana      += attrs_.maxMana * 0.75; break;
+                                               case Potion::SMALL : attrs_.mana         += attrs_.maxMana * 0.25; break;
+                                               case Potion::MEDIUM: attrs_.mana         += attrs_.maxMana * 0.50; break;
+                                               case Potion::BIG   : attrs_.mana         += attrs_.maxMana * 0.75; break;
                                            } break;
 
                 case Potion::STRENGTH    : switch (((Potion*)item)->size_) {
-                                               case Potion::SMALL : attrs_.strength  +=                     1; break;
-                                               case Potion::MEDIUM: attrs_.strength  +=                     2; break;
-                                               case Potion::BIG   : attrs_.strength  +=                     3; break;
+                                               case Potion::SMALL : attrs_.strength     += 1                    ; break;
+                                               case Potion::MEDIUM: attrs_.strength     += 3                    ; break;
+                                               case Potion::BIG   : attrs_.strength     += 5                    ; break;
                                            } break;
 
                 case Potion::DEXTERITY   : switch (((Potion*)item)->size_) {
-                                               case Potion::SMALL : attrs_.dexterity +=                     1; break;
-                                               case Potion::MEDIUM: attrs_.dexterity +=                     2; break;
-                                               case Potion::BIG   : attrs_.dexterity +=                     3; break;
+                                               case Potion::SMALL : attrs_.dexterity    += 1                    ; break;
+                                               case Potion::MEDIUM: attrs_.dexterity    += 3                    ; break;
+                                               case Potion::BIG   : attrs_.dexterity    += 5                    ; break;
                                            } break;
 
                 case Potion::SPEED       : switch (((Potion*)item)->size_) {
-                                               case Potion::SMALL :                                            break;
-                                               case Potion::MEDIUM:                                            break;
-                                               case Potion::BIG   :                                            break;
+                                               case Potion::SMALL : buffs_.speed        += 10                   ; break;
+                                               case Potion::MEDIUM: buffs_.speed        += 30                   ; break;
+                                               case Potion::BIG   : buffs_.speed        += 50                   ; break;
                                            } break;
 
                 case Potion::REGENERATION: switch (((Potion*)item)->size_) {
-                                               case Potion::SMALL :                                            break;
-                                               case Potion::MEDIUM:                                            break;
-                                               case Potion::BIG   :                                            break;
+                                               case Potion::SMALL : buffs_.regeneration += 10                   ; break;
+                                               case Potion::MEDIUM: buffs_.regeneration += 30                   ; break;
+                                               case Potion::BIG   : buffs_.regeneration += 50                   ; break;
                                            } break;
 
                 case Potion::POISON      : switch (((Potion*)item)->size_) {
-                                               case Potion::SMALL :                                            break;
-                                               case Potion::MEDIUM:                                            break;
-                                               case Potion::BIG   :                                            break;
+                                               case Potion::SMALL : buffs_.poison       += 10                   ; break;
+                                               case Potion::MEDIUM: buffs_.poison       += 30                   ; break;
+                                               case Potion::BIG   : buffs_.poison       += 50                   ; break;
                                            } break;
 
                 case Potion::SLOWNESS    : switch (((Potion*)item)->size_) {
-                                               case Potion::SMALL :                                            break;
-                                               case Potion::MEDIUM:                                            break;
-                                               case Potion::BIG   :                                            break;
+                                               case Potion::SMALL : buffs_.slowness     += 10                   ; break;
+                                               case Potion::MEDIUM: buffs_.slowness     += 30                   ; break;
+                                               case Potion::BIG   : buffs_.slowness     += 50                   ; break;
                                            } break;
                                         
                 case Potion::WEAKNESS    : switch (((Potion*)item)->size_) {
-                                               case Potion::SMALL :                                            break;
-                                               case Potion::MEDIUM:                                            break;
-                                               case Potion::BIG   :                                            break;
+                                               case Potion::SMALL : buffs_.weakness     += 10                   ; break;
+                                               case Potion::MEDIUM: buffs_.weakness     += 30                   ; break;
+                                               case Potion::BIG   : buffs_.weakness     += 50                   ; break;
                                            } break;
             }
         }
@@ -248,9 +254,6 @@ namespace rr {
             }
         }
         else if (instanceof<Rune, Item>(item)) {
-
-        }
-        else if (instanceof<ColdWeapon, Item>(item)) {
 
         }
     }

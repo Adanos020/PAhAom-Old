@@ -14,19 +14,20 @@ extern rr::Resources resources;
 namespace rr {
 
     Slot::Slot(sf::Vector2f size, sf::Vector2f pos, int icon)
-    : Component(                                                                        ),
-      image_   (new Image(pos, resources.texture.gui, 14, icon)                         ),
-      text_    (new Text (sf::Vector2f(pos.x+5, pos.y+55), "", resources.font.Pixel, 20)),
-      hollow_  (true                                                                    ) {
+    : Component(                                                                    ),
+      image_   (Image(pos, resources.texture.gui, 14, icon)                         ),
+      item_    (nullptr                                                             ),
+      text_    (Text (sf::Vector2f(pos.x+5, pos.y+55), "", resources.font.Pixel, 20)),
+      hollow_  (true                                                                ) {
 
-        body_  .setSize            (size);
-        body_  .setPosition        (pos);
-        body_  .setFillColor       (sf::Color(110, 110, 110, 128));
-        body_  .setOutlineColor    (sf::Color(130, 130, 130));
-        body_  .setOutlineThickness(5);
+        body_ .setSize            (size);
+        body_ .setPosition        (pos);
+        body_ .setFillColor       (sf::Color(110, 110, 110, 128));
+        body_ .setOutlineColor    (sf::Color(130, 130, 130));
+        body_ .setOutlineThickness(5);
 
-        image_->setParentComponent (this);
-        text_ ->setParentComponent (this);
+        image_.setParentComponent (this);
+        text_ .setParentComponent (this);
     }
 
     Slot::~Slot() {
@@ -35,20 +36,20 @@ namespace rr {
     }
 
     void Slot::setPosition(sf::Vector2f pos) {
-        body_  .setPosition(pos);
-        image_->setPosition(pos);
-        text_ ->setPosition(sf::Vector2f(pos.x+5, pos.y+55));
+        body_ .setPosition(pos);
+        image_.setPosition(pos);
+        text_ .setPosition(sf::Vector2f(pos.x+5, pos.y+55));
     }
 
     void Slot::draw(sf::RenderWindow& rw) {
         rw.draw(body_);
 
         if (  hollow_
-            ) image_->draw(rw);
+            ) image_.draw(rw);
         else {
             item_->draw(rw);
             if (  item_->getAmount() > 1
-                ) text_->draw(rw);
+                ) text_.draw(rw);
         }
     }
 
@@ -56,7 +57,7 @@ namespace rr {
         if (!hollow_) {
             if (item->getID() == item_->getID()) {
                 item_->setAmount(item_->getAmount()+item->getAmount());
-                text_->setString(std::to_wstring(item_->getAmount()));
+                text_.setString(std::to_wstring(item_->getAmount()));
                 return true;
             }
             return false;
@@ -70,7 +71,7 @@ namespace rr {
             ) ((Equipable*)item_)->equip(true);
 
         item_->setRealPosition(body_.getPosition());
-        text_->setString(std::to_string(item_->getAmount()));
+        text_.setString(std::to_string(item_->getAmount()));
 
         hollow_ = false;
         return true;
@@ -79,8 +80,8 @@ namespace rr {
     void Slot::removeItem(int x) {
         if (!hollow_) {
             item_->setAmount(item_->getAmount()-x);
-            text_->setString(std::to_string(item_->getAmount()));
-            text_->setCharacterSize(20);
+            text_.setString(std::to_string(item_->getAmount()));
+            text_.setCharacterSize(20);
             if (item_->getAmount() == 0) {
                 hollow_ = true;
                 delete item_;
@@ -104,8 +105,8 @@ namespace rr {
 
             item_->setRealPosition(body_.getPosition());
 
-            text_->setString(std::to_string(item_->getAmount()));
-            text_->setCharacterSize(20);
+            text_.setString(std::to_string(item_->getAmount()));
+            text_.setCharacterSize(20);
         }
         else if (!hollow_ && slot->hollow_) {
                   hollow_ = true;
@@ -113,17 +114,17 @@ namespace rr {
 
             slot->item_->setRealPosition(slot->body_.getPosition());
 
-            slot->text_->setString(std::to_string(slot->item_->getAmount()));
-            slot->text_->setCharacterSize(20);
+            slot->text_.setString(std::to_string(slot->item_->getAmount()));
+            slot->text_.setCharacterSize(20);
         }
         else if (!hollow_ && !slot->hollow_) {
                   item_->setRealPosition(      body_.getPosition());
             slot->item_->setRealPosition(slot->body_.getPosition());
 
-                  text_->setString(std::to_string(      item_->getAmount()));
-            slot->text_->setString(std::to_string(slot->item_->getAmount()));
-                  text_->setCharacterSize(20);
-            slot->text_->setCharacterSize(20);
+                  text_.setString(std::to_string(      item_->getAmount()));
+            slot->text_.setString(std::to_string(slot->item_->getAmount()));
+                  text_.setCharacterSize(20);
+            slot->text_.setCharacterSize(20);
         }
     }
 

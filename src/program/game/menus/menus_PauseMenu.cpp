@@ -14,7 +14,7 @@ extern rr::Resources resources;
 namespace rr {
 
     PauseMenu::PauseMenu()
-    : title_(new Text(sf::Vector2f(0, 0), "PAhAom", resources.font.Pixel, 100, sf::Color::Yellow)),
+    : title_(Text(sf::Vector2f(0, 0), "PAhAom", resources.font.Pixel, 100, sf::Color::Yellow)),
       wMenu_(Window("", sf::Vector2f(244, 230), sf::Vector2f(25, settings.graphics.resolution.y/2-153))) {
 
         shadow_.setSize((sf::Vector2f)settings.graphics.resolution);
@@ -23,7 +23,7 @@ namespace rr {
 
 #define component(w, c, i) w.getComponent<c>(i)
 
-        title_->setPosition(sf::Vector2f(settings.graphics.resolution.x/2-title_->getSize().x/2, 10));
+        title_.setPosition(sf::Vector2f(settings.graphics.resolution.x/2-title_.getSize().x/2, 10));
 
             wMenu_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.resume" ], 52);
             wMenu_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.help"   ], 52);
@@ -101,7 +101,7 @@ namespace rr {
     void PauseMenu::draw(sf::RenderWindow& rw) {
         if (isOpen()) {
             rw.draw(shadow_);
-            title_->draw(rw);
+            title_.draw(rw);
             wMenu_.draw(rw);
         }
     }

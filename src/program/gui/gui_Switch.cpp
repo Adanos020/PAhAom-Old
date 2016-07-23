@@ -15,7 +15,7 @@ namespace rr {
     : Component(                                                                                  ),
       left_    (Button(pos, "<", 30)                                                              ),
       right_   (Button(sf::Vector2f(body_.getPosition().x + body_.getSize().x+24, pos.y), ">", 30)),
-      text_    (new Text(sf::Vector2f(0, 0), L">TE'EM 'ECTEM", resources.font.Unifont, size.y)    ) {
+      text_    (Text  (sf::Vector2f(0, 0), L">TE'EM 'ECTEM", resources.font.Unifont, size.y)      ) {
 
         body_ .setSize            (size);
         body_ .setPosition        (sf::Vector2f(pos.x+44, pos.y+5));
@@ -25,7 +25,7 @@ namespace rr {
 
         left_ .setParentComponent (this);
         right_.setParentComponent (this);
-        text_->setParentComponent (this);
+        text_ .setParentComponent (this);
 
         counter_ = 0;
     }
@@ -35,7 +35,7 @@ namespace rr {
     void Switch::setPosition(sf::Vector2f pos) {
         left_ .setPosition(pos);
         body_ .setPosition(sf::Vector2f(pos.x+44, pos.y+5));
-        text_->setPosition(sf::Vector2f(body_.getPosition().x+10, pos.y-4));
+        text_ .setPosition(sf::Vector2f(body_.getPosition().x+10, pos.y-4));
         right_.setPosition(sf::Vector2f(pos.x+body_.getSize().x + body_.getSize().y+24, pos.y));
     }
 
@@ -50,23 +50,23 @@ namespace rr {
                 ) counter_--;
             else  counter_ = options_.size()-1;
             
-            text_->setString  (options_[counter_]);
-            text_->setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_->getSize().x/2, body_.getPosition().y-4));
+            text_.setString  (options_[counter_]);
+            text_.setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
         } else if (right_.isPressed(rw, e)) {
             if (  counter_<options_.size()-1
                 ) counter_++;
             else  counter_ = 0;
             
-            text_->setString  (options_[counter_]);
-            text_->setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_->getSize().x/2, body_.getPosition().y-4));
+            text_.setString  (options_[counter_]);
+            text_.setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
         }
     }
 
     void Switch::addOption(sf::String opt) {
         options_.push_back(opt);
         if (options_.size() == 1) {
-            text_->setString  (options_[counter_]);
-            text_->setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_->getSize().x/2, body_.getPosition().y-4));
+            text_.setString  (options_[counter_]);
+            text_.setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
         }
     }
 
@@ -78,15 +78,15 @@ namespace rr {
             i++;
         }
         counter_ = i;
-        text_->setString  (options_[counter_]);
-        text_->setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_->getSize().x/2, body_.getPosition().y-4));
+        text_.setString  (options_[counter_]);
+        text_.setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
     }
 
     void Switch::draw(sf::RenderWindow& rw) {
         rw.draw(body_);
         left_ .draw(rw);
         right_.draw(rw);
-        text_->draw(rw);
+        text_ .draw(rw);
     }
 
 }

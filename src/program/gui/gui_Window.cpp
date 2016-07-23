@@ -12,9 +12,9 @@ extern rr::Resources resources;
 namespace rr {
 
     Window::Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c)
-    : Component(                                                                                 ),
-      header_  (new Text(sf::Vector2f(0, 0), head, resources.font.Unifont, 20, sf::Color::Yellow)),
-      visible_ (false                                                                            ) {
+    : Component(                                                                             ),
+      header_  (Text(sf::Vector2f(0, 0), head, resources.font.Unifont, 20, sf::Color::Yellow)),
+      visible_ (false                                                                        ) {
 
         body_.setSize              (size);
         body_.setPosition          (position);
@@ -22,8 +22,8 @@ namespace rr {
         body_.setOutlineColor      (c);
         body_.setOutlineThickness  (5);
 
-        header_->setPosition       (sf::Vector2f(position.x+5, position.y));
-        header_->setParentComponent(this);
+        header_.setPosition       (sf::Vector2f(position.x+5, position.y));
+        header_.setParentComponent(this);
     }
 
     Window::~Window() {
@@ -39,10 +39,10 @@ namespace rr {
 
     void Window::setPosition(sf::Vector2f pos) {
         for (auto component : components_) {
-            component->setPosition(pos+component->getPosition()-body_.getPosition());
+            component->setPosition(pos + component->getPosition() - body_.getPosition());
         }
-        body_   .setPosition(pos);
-        header_->setPosition(sf::Vector2f(pos.x+5, pos.y));
+        body_  .setPosition(pos);
+        header_.setPosition(sf::Vector2f(pos.x+5, pos.y));
     }
 
     void Window::setVisible(bool b) {
@@ -52,7 +52,7 @@ namespace rr {
     void Window::draw(sf::RenderWindow& rw) {
         if (visible_) {
             rw.draw(body_);
-            header_->draw(rw);
+            header_.draw(rw);
             for (auto component : components_) {
                 component->draw(rw);
             }

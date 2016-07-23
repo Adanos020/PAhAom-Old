@@ -22,145 +22,139 @@ namespace rr {
 
 /// Class for the main menu
     class MainMenu {
-    private:
-        Text*   title_;
-        Window  wMenu_;
-    public:
-         MainMenu();
-        ~MainMenu();
-
-    /// Handles the button events
-        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-    /// Draws the main menu's components
-        void draw        (sf::RenderWindow&);
+    private: Text    title_;
+             Window  wMenu_;
+    
+    public:  MainMenu();
+            ~MainMenu();
+         
+         /// Handles the button events
+             void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
+         /// Draws the main menu's components
+             void draw        (sf::RenderWindow&);
     };
 
 /// Class for the pause menu
     class PauseMenu {
-    private:
-        sf::RectangleShape shadow_;
-        Text*              title_;
-        Window             wMenu_;
-    public:
-         PauseMenu();
-        ~PauseMenu();
-
-    /// Opens the pause menu
-        void open        ();
-    /// Closes the pause menu window
-        void close       ();
-    /// Handles the button events
-        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-    /// Draws the pause menu's components
-        void draw        (sf::RenderWindow&);
-    /// Tells if the pause menu is open
-        bool isOpen      ();
+    private: sf::RectangleShape shadow_;
+             Text               title_;
+             Window             wMenu_;
+    
+    public:  PauseMenu();
+            ~PauseMenu();
+         
+         /// Opens the pause menu
+             void open        ();
+         /// Closes the pause menu window
+             void close       ();
+         /// Handles the button events
+             void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
+         /// Draws the pause menu's components
+             void draw        (sf::RenderWindow&);
+         /// Tells if the pause menu is open
+             bool isOpen      ();
     };
 
 /// Class for the player attributes window
     class Attributes {
-    private:
-        sf::RectangleShape shadow_;
-        Window             wAttr_;
-    public:
-         Attributes();
-        ~Attributes();
+    private: sf::RectangleShape shadow_;
+             Window             wAttr_;
+    
+    public:  Attributes();
+            ~Attributes();
 
-    /// Opens the player attributes window
-        void open        ();
-    /// Closes the player attributes window
-        void close       ();
-    /// Updates the info about the player attributes
-        void update      (Player*);
-    /// Handles the button events
-        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-    /// Draws the player attributes components
-        void draw        (sf::RenderWindow&);
-    /// Tells if the player attributes is open
-        bool isOpen      ();
+         /// Opens the player attributes window
+             void open        ();
+         /// Closes the player attributes window
+             void close       ();
+         /// Updates the info about the player attributes
+             void update      (Player*);
+         /// Handles the button events
+             void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
+         /// Draws the player attributes components
+             void draw        (sf::RenderWindow&);
+         /// Tells if the player attributes is open
+             bool isOpen      ();
     };
 
 /// Class for the book of Runes
     class BookOfSpells {
-    private:
-        sf::RectangleShape shadow_;
-        Window             wBofs_;
-    public:
-         BookOfSpells();
-        ~BookOfSpells();
-
-    /// Opens the window of the book of Runes
-        void open        ();
-    /// Closes the window of the book of Runes
-        void close       ();
-    /// Handles the button events
-        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-    /// Draws the components of the window of the book of Runes
-        void draw        (sf::RenderWindow&);
-    /// Tells if the window of the book of Runes is open
-        bool isOpen      ();
+    private: sf::RectangleShape shadow_;
+             Window             wBofs_;
+   
+    public:  BookOfSpells();
+            ~BookOfSpells();
+         
+         /// Opens the window of the book of Runes
+             void open        ();
+         /// Closes the window of the book of Runes
+             void close       ();
+         /// Handles the button events
+             void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
+         /// Draws the components of the window of the book of Runes
+             void draw        (sf::RenderWindow&);
+         /// Tells if the window of the book of Runes is open
+             bool isOpen      ();
     };
 
 /// Class for the player inventory
     class Inventory : public Observer {
-    private:
-        sf::RectangleShape shadow_;
-
-        Window             wInve_;
-        Slot*              sCarryOn_[5];
-        Player*            player_;
-
-        short              bronze_;
-        short              silver_;
-        short              gold_;
-
-        void sort();
-    public:
-         Inventory(Player*);
-        ~Inventory();
-
-    /// Adds an item to the inventory
-        bool addItem     (Item*);
-    /// Tells if there is such an item in the inventory
-        bool contains    (Item*);
-    /// Opens the inventory window
-        void open        ();
-    /// Closes the inventory window
-        void close       ();
-    /// Clears the inventory
-        void clear       ();
-    /// Handles the button events
-        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-    /// Draws the inventory components
-        void draw        (sf::RenderWindow&);
-    /// Tells if the inventory is open
-        bool isOpen      ();
-
-        std::ifstream& operator<<(std::ifstream&);
-        std::ofstream& operator>>(std::ofstream&);
-
-        virtual void onNotify(Event, Entity*) override;
+    private: sf::RectangleShape shadow_;
+     
+             Window             wInve_;
+             Slot*              sCarryOn_[5];
+             Player*            player_;
+         
+             short              bronze_;
+             short              silver_;
+             short              gold_;
+         
+             void sort();
+    
+    public:  Inventory(Player*);
+            ~Inventory();
+         
+         /// Adds an item to the inventory
+             bool addItem     (Item*);
+         /// Tells if there is such an item in the inventory
+             bool contains    (Item*);
+         /// Opens the inventory window
+             void open        ();
+         /// Closes the inventory window
+             void close       ();
+         /// Clears the inventory
+             void clear       ();
+         /// Handles the button events
+             void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
+         /// Draws the inventory components
+             void draw        (sf::RenderWindow&);
+         /// Tells if the inventory is open
+             bool isOpen      ();
+         
+             std::ifstream& operator<<(std::ifstream&);
+             std::ofstream& operator>>(std::ofstream&);
+         
+             virtual void onNotify(Event, Entity*) override;
     };
 
 /// Class for the task list
     class Quests {
-    private:
-        sf::RectangleShape shadow_;
-        Window             wQues_;
-    public:
-         Quests();
-        ~Quests();
-
-    /// Opens the task list window
-        void open        ();
-    /// Closes the task list window
-        void close       ();
-    /// Handles the button events
-        void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-    /// Draws the task list components
-        void draw        (sf::RenderWindow&);
-    /// Tells if the task list is open
-        bool isOpen      ();
+    private: sf::RectangleShape shadow_;
+             Window             wQues_;
+    
+    public:  Quests();
+            ~Quests();
+        
+         /// Opens the task list window
+             void open        ();
+         /// Closes the task list window
+             void close       ();
+         /// Handles the button events
+             void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
+         /// Draws the task list components
+             void draw        (sf::RenderWindow&);
+         /// Tells if the task list is open
+             bool isOpen      ();
     };
 
 }

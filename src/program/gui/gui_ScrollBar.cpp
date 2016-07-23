@@ -18,13 +18,14 @@ namespace rr {
       indicator_ (Button(position+sf::Vector2f(10, 5), "|", 30)       ),
       bLeft_     (Button(position, "<", 30)                           ),
       bRight_    (Button(position+sf::Vector2f(length+20, 0), ">", 30)),
+      label_     (Text(sf::Vector2f(0, 0), "", resources.font.Unifont)),
       value_     (valueLimit_.x                                       ) {
 
         if (p == VERTICAL) {
             bLeft_      = Button  (position, L"∧", 30);
             bRight_     = Button  (position+sf::Vector2f(0, length+20), L"∨", 30);
             indicator_  = Button  (position+sf::Vector2f(0, 10), "_", 30);
-            label_      = new Text(sf::Vector2f(0, 0), "", resources.font.Unifont);
+            label_      = Text    (sf::Vector2f(0, 0), "", resources.font.Unifont);
 
             border_.setPosition        (bLeft_.getPosition() + sf::Vector2f(bLeft_.getSize().x+10, 5));
             border_.setOutlineThickness(5);
@@ -32,18 +33,16 @@ namespace rr {
             border_.setFillColor       (sf::Color(128, 128, 128, 128));
             border_.setSize            (sf::Vector2f(28, length));
 
-            label_->setPosition        (border_.getPosition() + sf::Vector2f(-5, border_.getSize().y/2 - label_->getSize().y/2));
+            label_ .setPosition        (border_.getPosition() + sf::Vector2f(-5, border_.getSize().y/2 - label_.getSize().y/2));
         }
         else {
-            label_ = new Text(sf::Vector2f(0, 0), "", resources.font.Unifont);
-
             border_.setPosition        (bLeft_.getPosition() + sf::Vector2f(bLeft_.getSize().x+10, 5));
             border_.setOutlineThickness(5);
             border_.setOutlineColor    (sf::Color(128, 128, 128, 128));
             border_.setFillColor       (sf::Color(128, 128, 128, 128));
             border_.setSize            (sf::Vector2f(length, 30));
 
-            label_->setPosition        (border_.getPosition() + sf::Vector2f(border_.getSize().x/2 - label_->getSize().x/2, -5));
+            label_ .setPosition        (border_.getPosition() + sf::Vector2f(border_.getSize().x/2 - label_.getSize().x/2, -5));
         }
     }
 
@@ -55,14 +54,14 @@ namespace rr {
             border_   .setPosition(bLeft_ .getPosition() + sf::Vector2f(bLeft_.getSize().x+10, 5));
             bRight_   .setPosition(border_.getPosition() + sf::Vector2f(border_.getSize().x+10, -5));
             indicator_.setPosition(border_.getPosition() + sf::Vector2f(-5, -5));
-            label_   ->setPosition(bRight_.getPosition() + sf::Vector2f(10, 0));
+            label_    .setPosition(bRight_.getPosition() + sf::Vector2f(10, 0));
         }
         else if (plain_ == VERTICAL) {
             bLeft_    .setPosition(pos);
             border_   .setPosition(bLeft_ .getPosition() + sf::Vector2f( 5, bLeft_.getSize().y+10));
             bRight_   .setPosition(border_.getPosition() + sf::Vector2f(-5, border_.getSize().y+10));
             indicator_.setPosition(border_.getPosition() + sf::Vector2f(-5, -5));
-            label_   ->setPosition(bRight_.getPosition() + sf::Vector2f(0, border_.getSize().y/2-label_->getSize().y/2));
+            label_    .setPosition(bRight_.getPosition() + sf::Vector2f(0, border_.getSize().y/2-label_.getSize().y/2));
         }
     }
 
@@ -70,12 +69,12 @@ namespace rr {
         if (plain_ == HORIZONTAL) {
             border_.setSize    (sf::Vector2f(siz.x, 30));
             bRight_.setPosition(border_.getPosition() + sf::Vector2f(border_.getSize().x+10, 0));
-            label_->setPosition(bRight_.getPosition() + sf::Vector2f(10, 0));
+            label_ .setPosition(bRight_.getPosition() + sf::Vector2f(10, 0));
         }
         else if (plain_ == VERTICAL) {
             border_.setSize    (sf::Vector2f(28, siz.y));
             bRight_.setPosition(border_.getPosition() + sf::Vector2f(0, border_.getSize().y+10));
-            label_->setPosition(border_.getPosition() + sf::Vector2f(border_.getSize().x/2 - label_->getSize().x/2-4, border_.getSize().y/2 - label_->getSize().y/2-5));
+            label_ .setPosition(border_.getPosition() + sf::Vector2f(border_.getSize().x/2 - label_.getSize().x/2-4, border_.getSize().y/2 - label_.getSize().y/2-5));
         }
     }
 
@@ -86,8 +85,8 @@ namespace rr {
         else if (  value_ > valueLimit_.y
                  ) value_ = valueLimit_.y;
 
-        label_->setString  (std::to_string((int)value_));
-        label_->setPosition(border_.getPosition()+sf::Vector2f(border_.getSize().x/2 - label_->getSize().x/2, border_.getSize().y/2 - label_->getSize().y/2-10));
+        label_.setString  (std::to_string((int)value_));
+        label_.setPosition(border_.getPosition()+sf::Vector2f(border_.getSize().x/2 - label_.getSize().x/2, border_.getSize().y/2 - label_.getSize().y/2-10));
     }
 
     void ScrollBar::draw(sf::RenderWindow& rw) {
@@ -95,7 +94,7 @@ namespace rr {
         bLeft_    .draw(rw);
         bRight_   .draw(rw);
         indicator_.draw(rw);
-        label_   ->draw(rw);
+        label_    .draw(rw);
     }
 
     void ScrollBar::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {

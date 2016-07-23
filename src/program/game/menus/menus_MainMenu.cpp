@@ -15,12 +15,12 @@ extern rr::Resources resources;
 namespace rr {
 
     MainMenu::MainMenu()
-    : wMenu_ (Window("", sf::Vector2f(244, 454), sf::Vector2f(25, settings.graphics.resolution.y/2-225))) {
+    : title_(Text  (sf::Vector2f(0, 0), "PAhAom", resources.font.Pixel, 100, sf::Color::Yellow)        ),
+      wMenu_(Window("", sf::Vector2f(244, 454), sf::Vector2f(25, settings.graphics.resolution.y/2-225))) {
 
 #define component(w, c, i) w.getComponent<c>(i)
 
-        title_ = new Text(sf::Vector2f(0, 0), "PAhAom", resources.font.Pixel, 100, sf::Color::Yellow);
-        title_->setPosition(sf::Vector2f(settings.graphics.resolution.x/2-title_->getSize().x/2, 10));
+        title_.setPosition(sf::Vector2f(settings.graphics.resolution.x/2-title_.getSize().x/2, 10));
 
             wMenu_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.newgame"], 52);
             wMenu_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.load"   ], 52);
@@ -297,22 +297,22 @@ namespace rr {
                         settings.sound.effects_muted    = component(wSoun, Checkbox,  1)->isChecked();
                         settings.sound.effects_volume   = component(wSoun, ScrollBar, 1)->getValue();
 
-                        settings.keys.move_up           = getKeyCode(component(wCont, Button,  0)->getText()->getString());
-                        settings.keys.move_down         = getKeyCode(component(wCont, Button,  1)->getText()->getString());
-                        settings.keys.move_left         = getKeyCode(component(wCont, Button,  2)->getText()->getString());
-                        settings.keys.move_right        = getKeyCode(component(wCont, Button,  3)->getText()->getString());
-                        settings.keys.interact          = getKeyCode(component(wCont, Button,  4)->getText()->getString());
-                        settings.keys.attack            = getKeyCode(component(wCont, Button,  5)->getText()->getString());
-                        settings.keys.open_inventory    = getKeyCode(component(wCont, Button,  6)->getText()->getString());
-                        settings.keys.open_attributes   = getKeyCode(component(wCont, Button,  7)->getText()->getString());
-                        settings.keys.open_quests       = getKeyCode(component(wCont, Button,  8)->getText()->getString());
-                        settings.keys.open_map          = getKeyCode(component(wCont, Button,  9)->getText()->getString());
-                        settings.keys.open_bookOfSpells = getKeyCode(component(wCont, Button, 10)->getText()->getString());
-                        settings.keys.useslot_1         = getKeyCode(component(wCont, Button, 11)->getText()->getString());
-                        settings.keys.useslot_2         = getKeyCode(component(wCont, Button, 12)->getText()->getString());
-                        settings.keys.useslot_3         = getKeyCode(component(wCont, Button, 13)->getText()->getString());
-                        settings.keys.useslot_4         = getKeyCode(component(wCont, Button, 14)->getText()->getString());
-                        settings.keys.useslot_5         = getKeyCode(component(wCont, Button, 15)->getText()->getString());
+                        settings.keys.move_up           = getKeyCode(component(wCont, Button,  0)->getText().getString());
+                        settings.keys.move_down         = getKeyCode(component(wCont, Button,  1)->getText().getString());
+                        settings.keys.move_left         = getKeyCode(component(wCont, Button,  2)->getText().getString());
+                        settings.keys.move_right        = getKeyCode(component(wCont, Button,  3)->getText().getString());
+                        settings.keys.interact          = getKeyCode(component(wCont, Button,  4)->getText().getString());
+                        settings.keys.attack            = getKeyCode(component(wCont, Button,  5)->getText().getString());
+                        settings.keys.open_inventory    = getKeyCode(component(wCont, Button,  6)->getText().getString());
+                        settings.keys.open_attributes   = getKeyCode(component(wCont, Button,  7)->getText().getString());
+                        settings.keys.open_quests       = getKeyCode(component(wCont, Button,  8)->getText().getString());
+                        settings.keys.open_map          = getKeyCode(component(wCont, Button,  9)->getText().getString());
+                        settings.keys.open_bookOfSpells = getKeyCode(component(wCont, Button, 10)->getText().getString());
+                        settings.keys.useslot_1         = getKeyCode(component(wCont, Button, 11)->getText().getString());
+                        settings.keys.useslot_2         = getKeyCode(component(wCont, Button, 12)->getText().getString());
+                        settings.keys.useslot_3         = getKeyCode(component(wCont, Button, 13)->getText().getString());
+                        settings.keys.useslot_4         = getKeyCode(component(wCont, Button, 14)->getText().getString());
+                        settings.keys.useslot_5         = getKeyCode(component(wCont, Button, 15)->getText().getString());
 
                         settings.save();
 
@@ -334,27 +334,27 @@ namespace rr {
                             ) component(wGrap, Switch, 1)->setCurrentOption("NONE");
                         else  component(wGrap, Switch, 1)->setCurrentOption("x"+std::to_string(settings.graphics.csettings.antialiasingLevel));
 
-                        component(wSoun, Checkbox,  0)           ->check    (settings.sound.music_muted);
-                        component(wSoun, ScrollBar, 0)           ->setValue (settings.sound.music_volume);
-                        component(wSoun, Checkbox,  1)           ->check    (settings.sound.effects_muted);
-                        component(wSoun, ScrollBar, 1)           ->setValue (settings.sound.effects_volume);
+                        component(wSoun, Checkbox,  0)          ->check    (settings.sound.music_muted);
+                        component(wSoun, ScrollBar, 0)          ->setValue (settings.sound.music_volume);
+                        component(wSoun, Checkbox,  1)          ->check    (settings.sound.effects_muted);
+                        component(wSoun, ScrollBar, 1)          ->setValue (settings.sound.effects_volume);
 
-                        component(wCont, Button,    0)->getText()->setString(getKeyName(settings.keys.move_up));
-                        component(wCont, Button,    1)->getText()->setString(getKeyName(settings.keys.move_down));
-                        component(wCont, Button,    2)->getText()->setString(getKeyName(settings.keys.move_left));
-                        component(wCont, Button,    3)->getText()->setString(getKeyName(settings.keys.move_right));
-                        component(wCont, Button,    4)->getText()->setString(getKeyName(settings.keys.interact));
-                        component(wCont, Button,    5)->getText()->setString(getKeyName(settings.keys.attack));
-                        component(wCont, Button,    6)->getText()->setString(getKeyName(settings.keys.open_inventory));
-                        component(wCont, Button,    7)->getText()->setString(getKeyName(settings.keys.open_attributes));
-                        component(wCont, Button,    8)->getText()->setString(getKeyName(settings.keys.open_quests));
-                        component(wCont, Button,    9)->getText()->setString(getKeyName(settings.keys.open_map));
-                        component(wCont, Button,   10)->getText()->setString(getKeyName(settings.keys.open_bookOfSpells));
-                        component(wCont, Button,   11)->getText()->setString(getKeyName(settings.keys.useslot_1));
-                        component(wCont, Button,   12)->getText()->setString(getKeyName(settings.keys.useslot_2));
-                        component(wCont, Button,   13)->getText()->setString(getKeyName(settings.keys.useslot_3));
-                        component(wCont, Button,   14)->getText()->setString(getKeyName(settings.keys.useslot_4));
-                        component(wCont, Button,   15)->getText()->setString(getKeyName(settings.keys.useslot_5));
+                        component(wCont, Button,    0)->getText().setString(getKeyName(settings.keys.move_up));
+                        component(wCont, Button,    1)->getText().setString(getKeyName(settings.keys.move_down));
+                        component(wCont, Button,    2)->getText().setString(getKeyName(settings.keys.move_left));
+                        component(wCont, Button,    3)->getText().setString(getKeyName(settings.keys.move_right));
+                        component(wCont, Button,    4)->getText().setString(getKeyName(settings.keys.interact));
+                        component(wCont, Button,    5)->getText().setString(getKeyName(settings.keys.attack));
+                        component(wCont, Button,    6)->getText().setString(getKeyName(settings.keys.open_inventory));
+                        component(wCont, Button,    7)->getText().setString(getKeyName(settings.keys.open_attributes));
+                        component(wCont, Button,    8)->getText().setString(getKeyName(settings.keys.open_quests));
+                        component(wCont, Button,    9)->getText().setString(getKeyName(settings.keys.open_map));
+                        component(wCont, Button,   10)->getText().setString(getKeyName(settings.keys.open_bookOfSpells));
+                        component(wCont, Button,   11)->getText().setString(getKeyName(settings.keys.useslot_1));
+                        component(wCont, Button,   12)->getText().setString(getKeyName(settings.keys.useslot_2));
+                        component(wCont, Button,   13)->getText().setString(getKeyName(settings.keys.useslot_3));
+                        component(wCont, Button,   14)->getText().setString(getKeyName(settings.keys.useslot_4));
+                        component(wCont, Button,   15)->getText().setString(getKeyName(settings.keys.useslot_5));
 
                         wOpts.setVisible(false);
                     }
@@ -402,7 +402,7 @@ namespace rr {
                         }
                         else if (wWait.isVisible() && e.type == sf::Event::KeyPressed) {
                             if (  e.key.code != sf::Keyboard::Escape
-                                ) ((Button*)wWait.getParentComponent())->getText()->setString(getKeyName(e.key.code));
+                                ) ((Button*)wWait.getParentComponent())->getText().setString(getKeyName(e.key.code));
                             wWait.setParentComponent(&wCont);
                             wWait.setVisible(false);
                         }
@@ -437,8 +437,8 @@ namespace rr {
     }
 
     void MainMenu::draw(sf::RenderWindow& rw) {
-        title_->draw(rw);
-        wMenu_. draw(rw);
+        title_.draw(rw);
+        wMenu_.draw(rw);
     }
 
 }
