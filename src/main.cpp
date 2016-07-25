@@ -6,7 +6,10 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "program/program.hpp"
+#include "program/Program.hpp"
+#include "program/Settings.hpp"
+#include "program/Resources.hpp"
+#include "program/observer/Observer.hpp"
 
 rr::Resources resources;
 rr::Settings  settings;

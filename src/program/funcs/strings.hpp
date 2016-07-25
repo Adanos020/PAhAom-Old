@@ -4,8 +4,8 @@
  * Used library: SFML 2.3.2
  */
 
-#ifndef strings_hpp
-#define strings_hpp
+#ifndef FUNCS_STRINGS_HPP
+#define FUNCS_STRINGS_HPP
 
 #include <string>
 #include <sstream>
@@ -73,4 +73,4 @@ namespace rr {
 
 }
 
-#endif // strings_hpp
+#endif // FUNCS_STRINGS_HPP

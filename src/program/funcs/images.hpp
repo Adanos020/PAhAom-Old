@@ -4,8 +4,8 @@
  * Used library: SFML 2.3.2
  */
 
-#ifndef images_hpp
-#define images_hpp
+#ifndef FUNCS_IMAGES_HPP
+#define FUNCS_IMAGES_HPP
 
 #include <SFML/Graphics.hpp>
 
@@ -103,4 +103,4 @@ namespace rr {
 
 }
 
-#endif // images_hpp
+#endif // FUNCS_IMAGES_HPP

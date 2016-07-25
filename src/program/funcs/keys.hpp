@@ -4,8 +4,8 @@
  * Used library: SFML 2.3.2
  */
 
-#ifndef keys_hpp
-#define keys_hpp
+#ifndef FUNCS_KEYS_HPP
+#define FUNCS_KEYS_HPP
 
 #include <SFML/Window/Keyboard.hpp>
 
@@ -232,4 +232,4 @@ inline sf::Keyboard::Key getKeyCode(sf::String keyName) { // I would use a switc
 
 }
 
-#endif // keys_hpp
+#endif // FUNCS_KEYS_HPP

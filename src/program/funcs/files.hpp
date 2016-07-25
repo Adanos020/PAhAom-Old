@@ -4,10 +4,12 @@
  * Used library: SFML 2.3.2
  */
 
-#ifndef files_h
-#define files_h
+#ifndef FUNCS_FILES_HPP
+#define FUNCS_FILES_HPP
 
 #include <fstream>
+
+#include "../game/entity/ALL.hpp"
 
 namespace rr {
 
@@ -38,4 +40,4 @@ namespace rr {
 
 }
 
-#endif // files_h
+#endif // FUNCS_FILES_HPP

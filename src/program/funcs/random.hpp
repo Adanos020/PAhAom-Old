@@ -4,8 +4,8 @@
  * Used library: SFML 2.3.2
  */
 
-#ifndef random_hpp
-#define random_hpp
+#ifndef FUNCS_RANDOM_HPP
+#define FUNCS_RANDOM_HPP
 
 #include <cstdlib>
 
@@ -25,4 +25,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // FUNCS_RANDOM_HPP

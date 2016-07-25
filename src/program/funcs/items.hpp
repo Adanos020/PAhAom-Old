@@ -4,12 +4,13 @@
  * Used library: SFML 2.3.2
  */
 
-#ifndef item_funcs_hpp
-#define item_funcs_hpp
+#ifndef FUNCS_ITEMS_HPP
+#define FUNCS_ITEMS_HPP
 
 #include <cstdio>
 
-#include "../game/entities/item/item.hpp"
+#include "../game/entity/item/Item.hpp"
+#include "../game/entity/item/ALL.hpp"
 
 namespace rr {
 
@@ -122,4 +123,4 @@ namespace rr {
 
 }
 
-#endif // item_funcs_hpp
+#endif // FUNCS_ITEMS_HPP
