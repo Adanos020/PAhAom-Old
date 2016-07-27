@@ -25,7 +25,6 @@ namespace rr {
              Window             wAttr_;
     
     public:  Attributes();
-            ~Attributes();
 
          /// Opens the player attributes window
              void open        ();

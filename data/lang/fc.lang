@@ -95,8 +95,8 @@ eqbntyheq
 gui.text.open_attributes
 atvbibytbi
 
-gui.text.open_quests
-lncta čåhj
+gui.text.open_journal
+yjehhjnq
 
 gui.text.open_map
 mata
@@ -128,8 +128,8 @@ ATVBIBYTBI
 gui.window.inventory
 EQBNTYHEQ
 
-gui.window.quests
-ČÅHJÉR
+gui.window.journal
+YJEHHJNQ
 
 gui.window.game_map
 MATA

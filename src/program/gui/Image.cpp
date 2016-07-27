@@ -6,12 +6,9 @@
 
 #include "Image.hpp"
 
-#include "../Resources.hpp"
-
 namespace rr {
 
-    Image::Image(sf::Vector2f pos, sf::Texture& texture, int iconSize, unsigned index)
-    :
+    Image::Image(sf::Vector2f pos, sf::Texture& texture, int iconSize, unsigned index) :
       Component(        ),
       icon_    (iconSize) {
 
@@ -23,8 +20,6 @@ namespace rr {
         body_.setTextureRect(sf::IntRect(tu*icon_, tv*icon_, icon_, icon_));
         body_.scale         (sf::Vector2f(5, 5));
     }
-
-    Image::~Image() {}
 
     void Image::setIconIndex(unsigned index) {
         unsigned tu = index%(body_.getTexture()->getSize().x/icon_);

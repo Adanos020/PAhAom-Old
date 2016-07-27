@@ -5,16 +5,13 @@
  */
 
 #include "Program.hpp"
-#include "Resources.hpp"
 #include "Settings.hpp"
+#include "Resources.hpp"
 
 #include "funcs/files.hpp"
 #include "funcs/classes.hpp"
 
 #include <SFML/System/String.hpp>
-
-extern rr::Resources resources;
-extern rr::Settings  settings;
 
 namespace rr {
 
@@ -23,20 +20,16 @@ namespace rr {
             ) runGame();
     }
 
-    Program::~Program() {
-        delete game_;
-    }
-
     bool Program::loadResources() {
-        return (settings .load()
-             && resources.load());
+        return Settings ::load()
+            && Resources::load();
     }
 
     void Program::runGame() {
-        window_.setVerticalSyncEnabled(settings.graphics.vsync);
+        window_.setVerticalSyncEnabled(Settings::graphics.vsync);
         window_.setKeyRepeatEnabled   (false);
-        window_.create                (sf::VideoMode(settings.graphics.resolution.x, settings.graphics.resolution.y, 32), "PAhAom",
-                                                     settings.graphics.fullscreen ? (sf::Style::Fullscreen) : (sf::Style::Close), settings.graphics.csettings);
+        window_.create                (sf::VideoMode(Settings::graphics.resolution.x, Settings::graphics.resolution.y, 32), "PAhAom",
+                                                     Settings::graphics.fullscreen ? (sf::Style::Fullscreen) : (sf::Style::Close), Settings::graphics.csettings);
         
         game_ = new Game();
         mainLoop();
@@ -52,9 +45,8 @@ namespace rr {
     }
 
     void Program::update(sf::Clock& timer) {
-        if (game_->isStarted()) {
-            game_->update(event_, timer.getElapsedTime());
-        }
+        if (  game_->isStarted()
+            ) game_->update(event_, timer.getElapsedTime());
         timer.restart();
     }
 

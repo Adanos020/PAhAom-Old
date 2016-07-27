@@ -12,25 +12,21 @@
 #include "../../gui/Image.hpp"
 #include "../../gui/Text.hpp"
 
-#include "../../Settings.hpp"
 #include "../../Resources.hpp"
+#include "../../Settings.hpp"
 
 #include "../../funcs/files.hpp"
 
-extern rr::Settings  settings;
-extern rr::Resources resources;
-
 namespace rr {
 
-    Inventory::Inventory(Player* p)
-    :
-      wInve_  (Window(resources.dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f)(settings.graphics.resolution/2u - sf::Vector2u(382, 225)))),
+    Inventory::Inventory(Player* p) :
+      wInve_  (Window(Resources::dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f) (Settings::graphics.resolution/2u - sf::Vector2u(382, 225)))),
       player_ (p),
       bronze_ (0),
       silver_ (0),
       gold_   (0) {
 
-        shadow_.setSize     ((sf::Vector2f)settings.graphics.resolution);
+        shadow_.setSize     ((sf::Vector2f) Settings::graphics.resolution);
         shadow_.setPosition (sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
@@ -42,27 +38,27 @@ namespace rr {
                 }
             }
 
-            wInve_ += new Image (sf::Vector2f(0  , 390), resources.texture.items, 16, 33);
-            wInve_ += new Image (sf::Vector2f(150, 390), resources.texture.items, 16, 34);
-            wInve_ += new Image (sf::Vector2f(300, 390), resources.texture.items, 16, 35);
+            wInve_ += new Image (sf::Vector2f(0  , 390), Resources::texture.items, 16, 33);
+            wInve_ += new Image (sf::Vector2f(150, 390), Resources::texture.items, 16, 34);
+            wInve_ += new Image (sf::Vector2f(300, 390), Resources::texture.items, 16, 35);
 
-            wInve_ += new Text  (sf::Vector2f(70 , 415), "GOLD", resources.font.Pixel, 30);
-            wInve_ += new Text  (sf::Vector2f(220, 415), "SILV", resources.font.Pixel, 30);
-            wInve_ += new Text  (sf::Vector2f(370, 415), "BRON", resources.font.Pixel, 30);
+            wInve_ += new Text  (sf::Vector2f(70 , 415), "GOLD", Resources::font.Pixel, 30);
+            wInve_ += new Text  (sf::Vector2f(220, 415), "SILV", Resources::font.Pixel, 30);
+            wInve_ += new Text  (sf::Vector2f(370, 415), "BRON", Resources::font.Pixel, 30);
 
-            wInve_ += new Button(sf::Vector2f(0, 0), resources.dictionary["gui.button.quit"], 30);
+            wInve_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
                 component(wInve_, Button, 0)->setPosition(sf::Vector2f(wInve_.getPosition().x+wInve_.getSize().x - component(wInve_, Button, 0)->getSize().x-15, 
-                                                                       settings.graphics.resolution.y/2+235      - component(wInve_, Button, 0)->getSize().y-5));
+                                                                       Settings::graphics.resolution.y/2+235     - component(wInve_, Button, 0)->getSize().y-5));
 
             wInve_ += new Window("", sf::Vector2f(410, 40), sf::Vector2f(0, 0));
 
 #define wInfo (*component(wInve_, Window, 0))
 ;
-                wInfo += new Text(sf::Vector2f(5, 20), "", resources.font.Unifont, 20);
+                wInfo += new Text(sf::Vector2f(5, 20), "", Resources::font.Unifont, 20);
                 component(wInfo, Text, 0)->setStyle(sf::Text::Regular);
 
         for (int i=0; i<5; ++i) {
-            sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(settings.graphics.resolution.x-90, settings.graphics.resolution.y/2-250 + i*95));
+            sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(Settings::graphics.resolution.x-90, Settings::graphics.resolution.y/2-250 + i*95));
         }
 
 #undef component
@@ -70,7 +66,11 @@ namespace rr {
 
     }
 
-    Inventory::~Inventory() {}
+    Inventory::~Inventory() {
+        for (auto slot : sCarryOn_) {
+            delete slot;
+        }
+    }
 
     void Inventory::open() {
         wInve_.getComponent<Text>(0)->setString(std::to_string((int)gold_));
@@ -110,14 +110,14 @@ namespace rr {
         return wInve_.isVisible();
     }
 
-    void Inventory::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
+    void Inventory::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* game) {
 
 #define component(w, c, i) w.getComponent<c>(i)
 #define wInfo (*component(wInve_, Window, 0))
 ;
         if (wInve_.isVisible()) {
             if (  component(wInve_, Button, 0)->isPressed(rw, e)
-                ) g->pause(false);
+                ) game->pause(false);
 
             bool slotPointed = false;
             /* BACKPACK */
@@ -139,7 +139,7 @@ namespace rr {
                             }
                         }
                         else {
-                            g->getPlayer()->useItem(component(wInve_, Slot, i)->getItem());
+                            game->getPlayer()->useItem(component(wInve_, Slot, i)->getItem());
                             if (component(wInve_, Slot, i)->getItem()->isDisposable()) {
                                 component(wInve_, Slot, i)->removeItem(1);
                                 sort();
@@ -156,7 +156,7 @@ namespace rr {
             for (int i=0; i<5; ++i) {
                 if (sCarryOn_[i]->containsMouseCursor(rw) && !sCarryOn_[i]->isEmpty()) {
                     if (sCarryOn_[i]->isPressed(rw, e)    && !sCarryOn_[i]->isEmpty()) {
-                        g->getPlayer()->useItem(sCarryOn_[i]->getItem());
+                        game->getPlayer()->useItem(sCarryOn_[i]->getItem());
                         if (sCarryOn_[i]->getItem()->isDisposable()) {
                             sCarryOn_[i]->removeItem(1);
                             sort();
@@ -175,14 +175,14 @@ namespace rr {
 
                 wInfo.setTitle   (((Slot*)wInfo.getParentComponent())->getItem()->getName());
                 wInfo.setSize    (component(wInfo, Text, 0)->getSize() + sf::Vector2f(10, 30));
-                wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw) + sf::Vector2f(5, 5));
+                wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw) + sf::Vector2f(5, 5));
 
                 if (  wInfo.getPosition().x+wInfo.getSize().x+5 > (float)rw.getSize().x
-                    ) wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)
+                    ) wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw)
                                         -sf::Vector2f(wInfo.getPosition().x + wInfo.getSize().x - (float)rw.getSize().x, -5));
                                         
                 if (  wInfo.getPosition().y+wInfo.getSize().y+5 > (float)rw.getSize().y
-                    ) wInfo.setPosition((sf::Vector2f)sf::Mouse::getPosition(rw)
+                    ) wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw)
                                         -sf::Vector2f(-5, wInfo.getPosition().y + wInfo.getSize().y - (float)rw.getSize().y));
 
                 wInfo.setVisible(true);

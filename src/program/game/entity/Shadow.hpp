@@ -25,7 +25,6 @@ namespace rr {
     
     public:  Shadow();
              Shadow(Shadow const&);
-            ~Shadow() {}
      
              void                   see            (bool seen);
              bool                   isSeen         ()                               { return seen_; }

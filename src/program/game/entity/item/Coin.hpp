@@ -26,7 +26,6 @@ namespace rr {
          
              Coin(Type, Size, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
              Coin(Coin const&);
-            ~Coin() {}
          
              virtual Entity*        clone     ()            const override { return new Coin(*this); }
              virtual Entity*        create    ()            const override { return new Coin(GOLDEN, SMALL); }

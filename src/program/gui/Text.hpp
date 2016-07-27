@@ -17,7 +17,6 @@ namespace rr {
     
     public:  Text(                       sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Bold);
              Text(sf::Vector2f position, sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Bold);
-            ~Text();
         
              void            setPosition     (sf::Vector2f)      override;
          

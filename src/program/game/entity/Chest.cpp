@@ -13,12 +13,9 @@
 #include "../../funcs/items.hpp"
 #include "../../funcs/files.hpp"
 
-extern rr::Resources resources;
-
 namespace rr {
 
-    Chest::Chest(Type t, Item* i)
-    :
+    Chest::Chest(Type t, Item* i) :
       Entity( ),
       item_ (i),
       type_ (t) {
@@ -26,8 +23,7 @@ namespace rr {
         initialize();
     }
 
-    Chest::Chest(Chest const& chest)
-    :
+    Chest::Chest(Chest const& chest) :
       Entity(           ),
       body_ (chest.body_),
       item_ (chest.item_),
@@ -40,16 +36,16 @@ namespace rr {
     void Chest::initialize() {
         int tu, tv;
         if (type_ == SPECIAL) {
-            tu = (rand()%2+18)%(resources.texture.objects.getSize().x/16);
-            tv = (rand()%2+18)/(resources.texture.objects.getSize().y/16);
+            tu = (rand()%2+18)%(Resources::texture.objects.getSize().x/16);
+            tv = (rand()%2+18)/(Resources::texture.objects.getSize().y/16);
         }
         else {
-            tu = (rand()%3+15)%(resources.texture.objects.getSize().x/16);
-            tv = (rand()%3+15)/(resources.texture.objects.getSize().y/16);
+            tu = (rand()%3+15)%(Resources::texture.objects.getSize().x/16);
+            tv = (rand()%3+15)/(Resources::texture.objects.getSize().y/16);
         }
 
         body_.setTextureRect(sf::IntRect(tu*16, tv*16, 16, 16));
-        body_.setTexture    (resources.texture.objects);
+        body_.setTexture    (Resources::texture.objects);
         body_.setScale      (sf::Vector2f(5.f, 5.f));
     }
 

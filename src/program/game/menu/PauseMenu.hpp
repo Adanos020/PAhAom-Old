@@ -25,7 +25,6 @@ namespace rr {
              Window             wMenu_;
     
     public:  PauseMenu();
-            ~PauseMenu();
          
          /// Opens the pause menu
              void open        ();

@@ -17,7 +17,6 @@ namespace rr {
              int        icon_;
     
     public:  Image(sf::Vector2f position, sf::Texture&, int iconSize, unsigned index);
-            ~Image();
         
              void          setPosition (sf::Vector2f)      override;
              void          setSize     (sf::Vector2f)      override;

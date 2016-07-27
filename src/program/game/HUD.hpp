@@ -21,7 +21,6 @@ namespace rr {
              Text tLevelNumber;
     
     public:  HUD();
-            ~HUD();
         
          /// Updates the HUD state
              void update      (Player*, int lvl);

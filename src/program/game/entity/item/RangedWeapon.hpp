@@ -14,7 +14,6 @@ namespace rr {
     class RangedWeapon : public Equipable {
     public: RangedWeapon();
             RangedWeapon(RangedWeapon const&);
-           ~RangedWeapon();
 /*
             virtual Entity*        clone     ()            const override { return new RangedWeapon(*this); }
             virtual Entity*        create    ()            const override { return new RangedWeapon(); }

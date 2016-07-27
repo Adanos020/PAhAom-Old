@@ -20,7 +20,6 @@ namespace rr {
          
              QuestGiver(Type);
              QuestGiver(QuestGiver const&);
-            ~QuestGiver() {}
          
              virtual Entity*        clone     () const            override { return new QuestGiver(*this); }
              virtual Entity*        create    () const            override { return new QuestGiver(NONE_YET); }

@@ -6,19 +6,16 @@
 
 #include "Switch.hpp"
 
-#include "../Resources.hpp"
-
-extern rr::Resources resources;
+#include "../Program.hpp"
 
 namespace rr {
 
-    Switch::Switch(sf::Vector2f size, sf::Vector2f pos)
-    :
+    Switch::Switch(sf::Vector2f size, sf::Vector2f pos) :
       Component(                                                                                  ),
       left_    (Button(pos, "<", 30)                                                              ),
       right_   (Button(sf::Vector2f(body_.getPosition().x + body_.getSize().x+24, pos.y), ">", 30)),
-      text_    (Text  (sf::Vector2f(0, 0), L">TE'EM 'ECTEM", resources.font.Unifont, size.y)      ) {
-
+      text_    (Text  (sf::Vector2f(0, 0), L"QYTA CLOHJER", Resources::font.Unifont, size.y)      )
+    {
         body_ .setSize            (size);
         body_ .setPosition        (sf::Vector2f(pos.x+44, pos.y+5));
         body_ .setFillColor       (sf::Color(128, 128, 128, 128));
@@ -31,8 +28,6 @@ namespace rr {
 
         counter_ = 0;
     }
-
-    Switch::~Switch() {}
 
     void Switch::setPosition(sf::Vector2f pos) {
         left_ .setPosition(pos);

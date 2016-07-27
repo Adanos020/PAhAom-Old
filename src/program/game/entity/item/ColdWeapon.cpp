@@ -14,12 +14,9 @@
 #include "../../../funcs/files.hpp"
 #include "../../../funcs/random.hpp"
 
-extern rr::Resources resources;
-
 namespace rr {
 
-    ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos)
-    :
+    ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos) :
       Equipable  (     ),
       level_     (0    ),
       identified_(false),
@@ -31,8 +28,7 @@ namespace rr {
         setPosition(pos);
     }
 
-    ColdWeapon::ColdWeapon(ColdWeapon const& coldWeapon)
-    :
+    ColdWeapon::ColdWeapon(ColdWeapon const& coldWeapon) :
       Equipable(                ),
       type_    (coldWeapon.type_) {
 
@@ -147,29 +143,29 @@ namespace rr {
     }
 
     void ColdWeapon::draw(sf::RenderWindow& rw) {
-        rw.draw(body_, &resources.texture.items);
+        rw.draw(body_, &Resources::texture.items);
     }
     
     sf::String ColdWeapon::getName() const {
         sf::String name = "";
 
         switch (type_) {
-            case HAMMER        : name += resources.dictionary["item.coldweapon.name.hammer"        ]; break;
-            case DOUBLE_AXE    : name += resources.dictionary["item.coldweapon.name.double_axe"    ]; break;
-            case HALBERD       : name += resources.dictionary["item.coldweapon.name.halberd"       ]; break;
-            case AXE           : name += resources.dictionary["item.coldweapon.name.axe"           ]; break;
-            case SERRATED_SWORD: name += resources.dictionary["item.coldweapon.name.serrated_sword"]; break;
-            case LANCE         : name += resources.dictionary["item.coldweapon.name.lance"         ]; break;
-            case CLUB          : name += resources.dictionary["item.coldweapon.name.club"          ]; break;
-            case SWORD         : name += resources.dictionary["item.coldweapon.name.sword"         ]; break;
-            case SPEAR         : name += resources.dictionary["item.coldweapon.name.spear"         ]; break;
-            case PIQUE         : name += resources.dictionary["item.coldweapon.name.pique"         ]; break;
-            case LONG_STICK    : name += resources.dictionary["item.coldweapon.name.long_stick"    ]; break;
-            case DAGGER        : name += resources.dictionary["item.coldweapon.name.dagger"        ]; break;
-            case KNIFE         : name += resources.dictionary["item.coldweapon.name.knife"         ]; break;
+            case HAMMER        : name += Resources::dictionary["item.coldweapon.name.hammer"        ]; break;
+            case DOUBLE_AXE    : name += Resources::dictionary["item.coldweapon.name.double_axe"    ]; break;
+            case HALBERD       : name += Resources::dictionary["item.coldweapon.name.halberd"       ]; break;
+            case AXE           : name += Resources::dictionary["item.coldweapon.name.axe"           ]; break;
+            case SERRATED_SWORD: name += Resources::dictionary["item.coldweapon.name.serrated_sword"]; break;
+            case LANCE         : name += Resources::dictionary["item.coldweapon.name.lance"         ]; break;
+            case CLUB          : name += Resources::dictionary["item.coldweapon.name.club"          ]; break;
+            case SWORD         : name += Resources::dictionary["item.coldweapon.name.sword"         ]; break;
+            case SPEAR         : name += Resources::dictionary["item.coldweapon.name.spear"         ]; break;
+            case PIQUE         : name += Resources::dictionary["item.coldweapon.name.pique"         ]; break;
+            case LONG_STICK    : name += Resources::dictionary["item.coldweapon.name.long_stick"    ]; break;
+            case DAGGER        : name += Resources::dictionary["item.coldweapon.name.dagger"        ]; break;
+            case KNIFE         : name += Resources::dictionary["item.coldweapon.name.knife"         ]; break;
         }
 
-        name += ((identified_ && cursed_) ? " - "+resources.dictionary["item.enchantment.name.cursed"] : "");
+        name += ((identified_ && cursed_) ? " - "+Resources::dictionary["item.enchantment.name.cursed"] : "");
         
         return name;
     }
@@ -178,25 +174,25 @@ namespace rr {
         sf::String description = "";
 
         switch (type_) {
-            case HAMMER        : description += resources.dictionary["item.coldweapon.description.hammer"        ]; break;
-            case DOUBLE_AXE    : description += resources.dictionary["item.coldweapon.description.double_axe"    ]; break;
-            case HALBERD       : description += resources.dictionary["item.coldweapon.description.halberd"       ]; break;
-            case AXE           : description += resources.dictionary["item.coldweapon.description.axe"           ]; break;
-            case SERRATED_SWORD: description += resources.dictionary["item.coldweapon.description.serrated_sword"]; break;
-            case LANCE         : description += resources.dictionary["item.coldweapon.description.lance"         ]; break;
-            case CLUB          : description += resources.dictionary["item.coldweapon.description.club"          ]; break;
-            case SWORD         : description += resources.dictionary["item.coldweapon.description.sword"         ]; break;
-            case SPEAR         : description += resources.dictionary["item.coldweapon.description.spear"         ]; break;
-            case PIQUE         : description += resources.dictionary["item.coldweapon.description.pique"         ]; break;
-            case LONG_STICK    : description += resources.dictionary["item.coldweapon.description.long_stick"    ]; break;
-            case DAGGER        : description += resources.dictionary["item.coldweapon.description.dagger"        ]; break;
-            case KNIFE         : description += resources.dictionary["item.coldweapon.description.knife"         ]; break;
+            case HAMMER        : description += Resources::dictionary["item.coldweapon.description.hammer"        ]; break;
+            case DOUBLE_AXE    : description += Resources::dictionary["item.coldweapon.description.double_axe"    ]; break;
+            case HALBERD       : description += Resources::dictionary["item.coldweapon.description.halberd"       ]; break;
+            case AXE           : description += Resources::dictionary["item.coldweapon.description.axe"           ]; break;
+            case SERRATED_SWORD: description += Resources::dictionary["item.coldweapon.description.serrated_sword"]; break;
+            case LANCE         : description += Resources::dictionary["item.coldweapon.description.lance"         ]; break;
+            case CLUB          : description += Resources::dictionary["item.coldweapon.description.club"          ]; break;
+            case SWORD         : description += Resources::dictionary["item.coldweapon.description.sword"         ]; break;
+            case SPEAR         : description += Resources::dictionary["item.coldweapon.description.spear"         ]; break;
+            case PIQUE         : description += Resources::dictionary["item.coldweapon.description.pique"         ]; break;
+            case LONG_STICK    : description += Resources::dictionary["item.coldweapon.description.long_stick"    ]; break;
+            case DAGGER        : description += Resources::dictionary["item.coldweapon.description.dagger"        ]; break;
+            case KNIFE         : description += Resources::dictionary["item.coldweapon.description.knife"         ]; break;
         }
 
-        description += "\n" + ((identified_ && cursed_  ) ? "\n"+resources.dictionary["item.enchantment.description.cursed"]                                 : "")
-                            +                                      "\n"+resources.dictionary["item.coldweapon.strength_required"  ]+" "+std::to_string((int)strengthRequired_)
-                            +                                      "\n"+resources.dictionary["item.coldweapon.damage_dealt"       ]+" "+std::to_string((int)damageDealt_)
-                            + ((identified_ && level_!=0) ? "\n"+resources.dictionary["item.coldweapon.level"              ]+" "+std::to_string((int)level_) : "");
+        description += "\n" + ((identified_ && cursed_  ) ? "\n"+Resources::dictionary["item.enchantment.description.cursed"]                                 : "")
+                            +                                      "\n"+Resources::dictionary["item.coldweapon.strength_required"  ]+" "+std::to_string((int)strengthRequired_)
+                            +                                      "\n"+Resources::dictionary["item.coldweapon.damage_dealt"       ]+" "+std::to_string((int)damageDealt_)
+                            + ((identified_ && level_!=0) ? "\n"+Resources::dictionary["item.coldweapon.level"              ]+" "+std::to_string((int)level_) : "");
 
         return description;
     }

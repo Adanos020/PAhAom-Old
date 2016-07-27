@@ -7,20 +7,15 @@
 #include "Button.hpp"
 
 #include "../Resources.hpp"
-#include "../Settings.hpp"
-
-extern rr::Resources resources;
-extern rr::Settings  settings;
 
 namespace rr {
 
-    Button::Button(sf::Vector2f position, sf::String str, unsigned chsize, sf::Color c)
-    :
-      Component(                                                                ),
-      image_   (Image(position, resources.texture.gui, 14, 0)                   ),
-      text_    (Text(sf::Vector2f(0, 0), str, resources.font.Unifont, chsize, c)),
-      held_    (false                                                           ) {
-
+    Button::Button(sf::Vector2f position, sf::String str, unsigned chsize, sf::Color c) :
+      Component(                                                                  ),
+      image_   (Image(position, Resources::texture.gui, 14, 0)                    ),
+      text_    (Text (sf::Vector2f(0, 0), str, Resources::font.Unifont, chsize, c)),
+      held_    (false                                                             )
+    {
         text_ .setPosition       (sf::Vector2f(position.x+15, position.y-0.5));
         text_ .setParentComponent(this);
 
@@ -32,8 +27,6 @@ namespace rr {
 
         text_ .setPosition       (sf::Vector2f(position.x + body_.getSize().x/2 - text_.getSize().x/2 - chsize/20, position.y-0.5));
     }
-
-    Button::~Button() {}
 
     bool Button::containsMouseCursor(sf::RenderWindow& rw) {
         if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {

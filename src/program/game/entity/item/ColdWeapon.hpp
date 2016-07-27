@@ -39,7 +39,6 @@ namespace rr {
          
              ColdWeapon(Type, int amount = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
              ColdWeapon(ColdWeapon const&);
-            ~ColdWeapon() {}
          
              virtual Entity*        clone              ()            const override { return new ColdWeapon(*this); }
              virtual Entity*        create             ()            const override { return new ColdWeapon(KNIFE); }

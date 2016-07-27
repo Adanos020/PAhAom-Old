@@ -23,7 +23,6 @@ namespace rr {
              Window             wBofs_;
    
     public:  BookOfSpells();
-            ~BookOfSpells();
          
          /// Opens the window of the book of Runes
              void open        ();

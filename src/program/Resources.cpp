@@ -7,13 +7,16 @@
 #include <fstream>
 
 #include "Resources.hpp"
-#include "Settings.hpp"
+#include "Program.hpp"
 
 #include "funcs/strings.hpp"
 
-extern rr::Settings settings;
-
 namespace rr {
+
+    Resources::Font                  Resources::font;
+    Resources::Texture               Resources::texture;
+    Resources::Music                 Resources::music;
+    std::map<sf::String, sf::String> Resources::dictionary;
 
     bool Resources::load() {
         return (loadDict()
@@ -29,7 +32,7 @@ namespace rr {
 
     bool Resources::loadDict() {
         std::ifstream idict;
-        idict.open("data/lang/"+settings.game.language+".lang");
+        idict.open("data/lang/"+Settings::game.language+".lang");
 
         if (idict.good()) {
             puts(">Loading the dictionary...");

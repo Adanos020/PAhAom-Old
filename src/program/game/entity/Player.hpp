@@ -70,7 +70,6 @@ namespace rr {
 
     public:  Player();
              Player(Player const&);
-            ~Player() {}
     
              enum Direction {
                  UP,

@@ -8,16 +8,13 @@
 
 #include "../Resources.hpp"
 
-extern rr::Resources resources;
-
 namespace rr {
 
-    Checkbox::Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color c)
-    :
-      Component(                                                              ),
-      image_   (Image(pos, resources.texture.gui, 14, 1)                      ),
-      text_    (Text (sf::Vector2f(0, 0), txt, resources.font.Unifont, chsize)) {
-
+    Checkbox::Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color c) :
+      Component(                                                               ),
+      image_   (Image(pos, Resources::texture.gui, 14, 1)                      ),
+      text_    (Text (sf::Vector2f(0, 0), txt, Resources::font.Unifont, chsize))
+    {
         body_ .setSize            (sf::Vector2f(35, 35));
         body_ .setPosition        (pos);
         body_ .setFillColor       (c);
@@ -29,8 +26,6 @@ namespace rr {
         image_.setParentComponent (this);
         text_ .setParentComponent (this);
     }
-
-    Checkbox::~Checkbox() {}
 
     void Checkbox::check(bool b) {
         checked_ = b;

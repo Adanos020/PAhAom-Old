@@ -9,15 +9,13 @@
 #include "Coin.hpp"
 
 #include "../../../Resources.hpp"
+
 #include "../../../funcs/images.hpp"
 #include "../../../funcs/files.hpp"
 
-extern rr::Resources resources;
-
 namespace rr {
 
-    Coin::Coin(Type t, Size s, int am, sf::Vector2i pos)
-    :
+    Coin::Coin(Type t, Size s, int am, sf::Vector2i pos) :
       Item() {
  
         amount_ = am;
@@ -28,8 +26,7 @@ namespace rr {
         setPosition(pos);
     }
 
-    Coin::Coin(Coin const& coin)
-    :
+    Coin::Coin(Coin const& coin) :
       Item (          ),
       type_(coin.type_) {
 
@@ -52,14 +49,14 @@ namespace rr {
     }
 
     void Coin::draw(sf::RenderWindow& rw) {
-        rw.draw(body_, &resources.texture.items);
+        rw.draw(body_, &Resources::texture.items);
     }
     
     sf::String Coin::getName() const {
         switch (type_) {
-            case BRONZE: return resources.dictionary["item.coin.bronze"];
-            case SILVER: return resources.dictionary["item.coin.silver"];
-            case GOLDEN: return resources.dictionary["item.coin.gold"  ];
+            case BRONZE: return Resources::dictionary["item.coin.bronze"];
+            case SILVER: return Resources::dictionary["item.coin.silver"];
+            case GOLDEN: return Resources::dictionary["item.coin.gold"  ];
         }
         return "";
     }

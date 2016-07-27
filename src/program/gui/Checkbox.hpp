@@ -22,7 +22,6 @@ namespace rr {
              bool               held_;
     
     public:  Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color = sf::Color(110, 110, 110, 128));
-            ~Checkbox();
         
          /// Sets the checkbox checked or not, depending on the value of the given argument
              void         check              (bool b);

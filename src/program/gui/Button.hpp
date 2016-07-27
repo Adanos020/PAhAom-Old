@@ -21,7 +21,6 @@ namespace rr {
              bool               held_;
     
     public:  Button(sf::Vector2f position, sf::String, unsigned chsize, sf::Color = sf::Color::White);
-            ~Button();
         
              bool         containsMouseCursor(sf::RenderWindow&);
              bool         isPressed          (sf::RenderWindow&, sf::Event&);

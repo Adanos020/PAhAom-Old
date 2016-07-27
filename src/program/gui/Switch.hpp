@@ -23,7 +23,6 @@ namespace rr {
              mutable unsigned        counter_;
     
     public:  Switch(sf::Vector2f size, sf::Vector2f position);
-            ~Switch();
         
              void                 setPosition        (sf::Vector2f)      override;
              void                 setSize            (sf::Vector2f)      override;

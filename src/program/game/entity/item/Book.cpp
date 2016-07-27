@@ -13,13 +13,11 @@
 #include "../../../funcs/images.hpp"
 #include "../../../funcs/files.hpp"
 
-extern rr::Resources resources;
 extern sf::Color itemColors[9];
 
 namespace rr {
 
-    Book::Book(Type type, int am, sf::Vector2i pos)
-    :
+    Book::Book(Type type, int am, sf::Vector2i pos) :
       Item() {
 
         type_       = type;
@@ -29,8 +27,7 @@ namespace rr {
         setPosition(pos);
     }
 
-    Book::Book(Book const& book)
-    :
+    Book::Book(Book const& book) :
       Item (          ),
       type_(book.type_) {
 
@@ -59,35 +56,35 @@ namespace rr {
     }
 
     void Book::draw(sf::RenderWindow& rw) {
-        rw.draw(body_, &resources.texture.items);
+        rw.draw(body_, &Resources::texture.items);
     }
 
     sf::String Book::getName() const {
         switch (type_) {
-            case CRAFTING:              return resources.dictionary["item.book.type.crafting"                    ];
-            case ALCHEMY:               return resources.dictionary["item.book.type.alchemy"                     ];
-            case COLD_WEAPON_MASTERY:   return resources.dictionary["item.book.type.cold_weapon_mastery"         ];
-            case RANGED_WEAPON_MASTERY: return resources.dictionary["item.book.type.ranged_weapon_mastery"       ];
-            case EAGLE_EYE:             return resources.dictionary["item.book.type.eagle_eye"                   ];
-            case MANA_REGEN:            return resources.dictionary["item.book.type.mana_regen"                  ];
-            case HEALTH_REGEN:          return resources.dictionary["item.book.type.health_regen"                ];
-            case FASTER_LEARNING:       return resources.dictionary["item.book.type.faster_learning"             ];
-            case SPELLS_BOOK:           return resources.dictionary["item.book.type.spells_book"                 ];          
+            case CRAFTING:              return Resources::dictionary["item.book.type.crafting"                    ];
+            case ALCHEMY:               return Resources::dictionary["item.book.type.alchemy"                     ];
+            case COLD_WEAPON_MASTERY:   return Resources::dictionary["item.book.type.cold_weapon_mastery"         ];
+            case RANGED_WEAPON_MASTERY: return Resources::dictionary["item.book.type.ranged_weapon_mastery"       ];
+            case EAGLE_EYE:             return Resources::dictionary["item.book.type.eagle_eye"                   ];
+            case MANA_REGEN:            return Resources::dictionary["item.book.type.mana_regen"                  ];
+            case HEALTH_REGEN:          return Resources::dictionary["item.book.type.health_regen"                ];
+            case FASTER_LEARNING:       return Resources::dictionary["item.book.type.faster_learning"             ];
+            case SPELLS_BOOK:           return Resources::dictionary["item.book.type.spells_book"                 ];          
         }
         return "";
     }
 
     sf::String Book::getDescription() const {
         switch (type_) {
-            case CRAFTING:              return resources.dictionary["item.book.description.crafting"             ];
-            case ALCHEMY:               return resources.dictionary["item.book.description.alchemy"              ];
-            case COLD_WEAPON_MASTERY:   return resources.dictionary["item.book.description.cold_weapon_mastery"  ];
-            case RANGED_WEAPON_MASTERY: return resources.dictionary["item.book.description.ranged_weapon_mastery"];
-            case EAGLE_EYE:             return resources.dictionary["item.book.description.eagle_eye"            ];
-            case MANA_REGEN:            return resources.dictionary["item.book.description.mana_regen"           ];
-            case HEALTH_REGEN:          return resources.dictionary["item.book.description.health_regen"         ];
-            case FASTER_LEARNING:       return resources.dictionary["item.book.description.faster_learning"      ];
-            case SPELLS_BOOK:           return resources.dictionary["item.book.description.spells_book"          ];          
+            case CRAFTING:              return Resources::dictionary["item.book.description.crafting"             ];
+            case ALCHEMY:               return Resources::dictionary["item.book.description.alchemy"              ];
+            case COLD_WEAPON_MASTERY:   return Resources::dictionary["item.book.description.cold_weapon_mastery"  ];
+            case RANGED_WEAPON_MASTERY: return Resources::dictionary["item.book.description.ranged_weapon_mastery"];
+            case EAGLE_EYE:             return Resources::dictionary["item.book.description.eagle_eye"            ];
+            case MANA_REGEN:            return Resources::dictionary["item.book.description.mana_regen"           ];
+            case HEALTH_REGEN:          return Resources::dictionary["item.book.description.health_regen"         ];
+            case FASTER_LEARNING:       return Resources::dictionary["item.book.description.faster_learning"      ];
+            case SPELLS_BOOK:           return Resources::dictionary["item.book.description.spells_book"          ];          
         }
         return "";
     }

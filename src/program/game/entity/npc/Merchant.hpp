@@ -24,7 +24,6 @@ namespace rr {
              
              Merchant(Type);
              Merchant(Merchant const&);
-            ~Merchant() {}
          
              virtual Entity*        clone     () const            override { return new Merchant(*this); }
              virtual Entity*        create    () const            override { return new Merchant(POTION_SELLER); }

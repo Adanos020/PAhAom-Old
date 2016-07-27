@@ -21,7 +21,6 @@ namespace rr {
                  VERTICAL
              };
              Bar(Plain, int max_length, sf::Color, sf::Vector2f pos);
-            ~Bar();
          
              void         setPosition        (sf::Vector2f)      override;
              void         setSize            (sf::Vector2f)      override;

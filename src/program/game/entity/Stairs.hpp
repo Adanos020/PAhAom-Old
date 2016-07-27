@@ -20,7 +20,6 @@ namespace rr {
     
     public:  Stairs(bool upwards);
              Stairs(Stairs const&);
-            ~Stairs() {}
          
              bool                   isUpwards      ()          const                { return upwards_; }
          

@@ -14,4 +14,4 @@
 #include "MainMenu.hpp"
 #include "PauseMenu.hpp"
 
-#endif // menus_h
+#endif // MENU_ALL_HPP

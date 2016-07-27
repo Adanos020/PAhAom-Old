@@ -95,8 +95,8 @@ Ekwipunek
 gui.text.open_attributes
 Atrybuty
 
-gui.text.open_quests
-Lista zadań
+gui.text.open_journal
+Dziennik
 
 gui.text.open_map
 Mapa
@@ -128,8 +128,8 @@ ATRYBUTY
 gui.window.inventory
 EKWIPUNEK
 
-gui.window.quests
-ZADANIA
+gui.window.journal
+DZIENNIK
 
 gui.window.game_map
 MAPA

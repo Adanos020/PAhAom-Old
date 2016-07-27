@@ -8,26 +8,23 @@
 
 #include "../Resources.hpp"
 
-extern rr::Resources resources;
-
 namespace rr {
 
-    ScrollBar::ScrollBar(Plain p, sf::Vector2f position, float length, sf::Vector2f min_max)
-    :
-      Component  (                                                    ),
-      plain_     (p                                                   ),
-      valueLimit_(min_max                                             ),
-      indicator_ (Button(position+sf::Vector2f(10, 5), "|", 30)       ),
-      bLeft_     (Button(position, "<", 30)                           ),
-      bRight_    (Button(position+sf::Vector2f(length+20, 0), ">", 30)),
-      label_     (Text(sf::Vector2f(0, 0), "", resources.font.Unifont)),
-      value_     (valueLimit_.x                                       ) {
-
+    ScrollBar::ScrollBar(Plain p, sf::Vector2f position, float length, sf::Vector2f min_max) :
+      Component  (                                                     ),
+      plain_     (p                                                    ),
+      valueLimit_(min_max                                              ),
+      indicator_ (Button(position+sf::Vector2f(10, 5), "|", 30)        ),
+      bLeft_     (Button(position, "<", 30)                            ),
+      bRight_    (Button(position+sf::Vector2f(length+20, 0), ">", 30) ),
+      label_     (Text(sf::Vector2f(0, 0), "", Resources::font.Unifont)),
+      value_     (valueLimit_.x                                        )
+    {
         if (p == VERTICAL) {
             bLeft_      = Button  (position, L"∧", 30);
             bRight_     = Button  (position+sf::Vector2f(0, length+20), L"∨", 30);
             indicator_  = Button  (position+sf::Vector2f(0, 10), "_", 30);
-            label_      = Text    (sf::Vector2f(0, 0), "", resources.font.Unifont);
+            label_      = Text    (sf::Vector2f(0, 0), "", Resources::font.Unifont);
 
             border_.setPosition        (bLeft_.getPosition() + sf::Vector2f(bLeft_.getSize().x+10, 5));
             border_.setOutlineThickness(5);
@@ -47,8 +44,6 @@ namespace rr {
             label_ .setPosition        (border_.getPosition() + sf::Vector2f(border_.getSize().x/2 - label_.getSize().x/2, -5));
         }
     }
-
-    ScrollBar::~ScrollBar() {}
 
     void ScrollBar::setPosition(sf::Vector2f pos) {
         if (plain_ == HORIZONTAL) {

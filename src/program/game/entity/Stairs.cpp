@@ -6,26 +6,26 @@
 
 #include <iostream>
 
-#include "Stairs.hpp"
 #include "../../Resources.hpp"
+
 #include "../../funcs/files.hpp"
 
-extern rr::Resources resources;
+#include "Stairs.hpp"
 
 namespace rr {
 
-    Stairs::Stairs(bool upwards)
-    : upwards_ (upwards) {
+    Stairs::Stairs(bool upwards) :
+      upwards_ (upwards) {
 
         initialize();
     }
 
-    Stairs::Stairs(Stairs const& stairs)
-    : body_    (stairs.body_   ),
+    Stairs::Stairs(Stairs const& stairs) :
+      body_    (stairs.body_   ),
       upwards_ (stairs.upwards_) {}
 
     void Stairs::initialize() {
-        body_.setTexture    (resources.texture.objects);
+        body_.setTexture    (Resources::texture.objects);
         body_.setScale      (sf::Vector2f(5, 5));
         body_.setTextureRect(sf::IntRect(upwards_ ? 16 : 0, 64, 16, 16));
     }

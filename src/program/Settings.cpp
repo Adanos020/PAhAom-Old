@@ -16,6 +16,11 @@
 
 namespace rr {
 
+    Settings::Keys     Settings::keys     = Settings::Keys    ();
+    Settings::Sound    Settings::sound    = Settings::Sound   ();
+    Settings::Graphics Settings::graphics = Settings::Graphics();
+    Settings::Game     Settings::game     = Settings::Game    ();
+
     void Settings::print() {
         std::cout << "+========PARAMETER========|===========VALUE===========+\n";
         std::cout << "+-------------------Game settings---------------------+\n";
@@ -160,34 +165,10 @@ namespace rr {
             std::cerr << ex.what() << '\n';
             std::cout << ">Creating a new config file...\n";
 
-            game.language                        = "en";
-            graphics.resolution.x                = 1280;
-            graphics.resolution.y                = 720;
-            graphics.fullscreen                  = false;
-            graphics.vsync                       = true;
-            graphics.csettings.antialiasingLevel = 4;
-            graphics.csettings.depthBits         = 24;
-            graphics.csettings.stencilBits       = 8;
-            sound.music_volume                   = 50.f;
-            sound.effects_volume                 = 50.f;
-            sound.music_muted                    = false;
-            sound.effects_muted                  = false;
-            keys.move_up                         = sf::Keyboard::W;
-            keys.move_down                       = sf::Keyboard::S;
-            keys.move_left                       = sf::Keyboard::A;
-            keys.move_right                      = sf::Keyboard::D;
-            keys.interact                        = sf::Keyboard::E;
-            keys.attack                          = sf::Keyboard::Space;
-            keys.open_inventory                  = sf::Keyboard::Tab;
-            keys.open_attributes                 = sf::Keyboard::B;
-            keys.open_journal                    = sf::Keyboard::N;
-            keys.open_map                        = sf::Keyboard::M;
-            keys.open_bookOfSpells               = sf::Keyboard::V;
-            keys.useslot_1                       = sf::Keyboard::Num1;
-            keys.useslot_2                       = sf::Keyboard::Num2;
-            keys.useslot_3                       = sf::Keyboard::Num3;
-            keys.useslot_4                       = sf::Keyboard::Num4;
-            keys.useslot_5                       = sf::Keyboard::Num5;
+            game     = Settings::Game();
+            graphics = Settings::Graphics();
+            sound    = Settings::Sound();
+            keys     = Settings::Keys();
 
             save ();
         }

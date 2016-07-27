@@ -12,27 +12,24 @@
 
 #include "../../../funcs/files.hpp"
 
-extern rr::Resources resources;
-
 namespace rr {
 
-    Teacher::Teacher(Type type)
-    :
+    Teacher::Teacher(Type type) :
       type_(type) {
 
         initialize();
-        body_.scale             (sf::Vector2f(5, 5));
+        body_.scale(sf::Vector2f(5, 5));
     }
 
-    Teacher::Teacher(Teacher const& teacher)
-    : type_(teacher.type_) {
+    Teacher::Teacher(Teacher const& teacher) :
+      type_(teacher.type_) {
 
         body_             = teacher.body_;
         currentAnimation_ = teacher.currentAnimation_;
     }
 
     void Teacher::initialize() {
-        standingStill_.setSpriteSheet(resources.texture.npc);
+        standingStill_.setSpriteSheet(Resources::texture.npc);
 
         for (int i=0; i<((type_ == KUNG_FU_MASTER)?20:10); i++) {
             standingStill_.addFrame(sf::IntRect(i*16, type_*16, 16, 16));

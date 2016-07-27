@@ -7,19 +7,19 @@
 #include <iostream>
 
 #include "Player.hpp"
+#include "item/ALL.hpp"
 
 #include "../../Resources.hpp"
 #include "../../observer/Observer.hpp"
 
 #include "../../funcs/files.hpp"
+#include "../../funcs/classes.hpp"
 
-extern rr::Resources resources;
 extern rr::Subject   subject;
 
 namespace rr {
 
-    Player::Player()
-    :
+    Player::Player() :
       Entity                       (                  ),
       position_                    (sf::Vector2i(0, 0)),
       currentAnimation_            (&walkingRight_    ),
@@ -48,12 +48,11 @@ namespace rr {
         attrs_.faster_learning       = false;
 
         initialize();
-        body_        .setPosition   (sf::Vector2f(0, 0));
-        body_        .scale         (sf::Vector2f(5, 5));
+        body_.setPosition(sf::Vector2f(0, 0));
+        body_.scale      (sf::Vector2f(5, 5));
     }
 
-    Player::Player(Player const& player)
-    :
+    Player::Player(Player const& player) :
       Entity                       (                        ),
       attrs_                       (player.attrs_           ),
       position_                    (player.position_        ),
@@ -66,8 +65,8 @@ namespace rr {
       sightRange_                  (player.sightRange_      ) {}
 
     void Player::initialize() {
-        walkingLeft_ .setSpriteSheet(resources.texture.player);
-        walkingRight_.setSpriteSheet(resources.texture.player);
+        walkingLeft_ .setSpriteSheet(Resources::texture.player );
+        walkingRight_.setSpriteSheet(Resources::texture.player );
         walkingLeft_ .addFrame      (sf::IntRect(0, 16, 16, 16));
         walkingRight_.addFrame      (sf::IntRect(0, 0,  16, 16));
 

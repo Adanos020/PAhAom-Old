@@ -20,14 +20,20 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 ////////////////////////////////////////////////////////////
+//
+// Note from the PAhAom author:
+// The only thing I have changed here is the code formatting.
+// Whole code here is written by Maximilian Wagenbach (aka. Foaly)
+// mentioned in the notice above.
+//
+//////////////////////////////////////////////////////////// 
 
 #include "Animation.hpp"
 
 namespace sf {
 
-    Animation::Animation() : m_texture(NULL) {
-
-    }
+    Animation::Animation() :
+      m_texture(NULL) {}
 
     void Animation::addFrame(sf::IntRect rect) {
         m_frames.push_back(rect);

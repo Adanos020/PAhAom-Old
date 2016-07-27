@@ -35,7 +35,6 @@ namespace rr {
          
              Potion(Effect, Size, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
              Potion(Potion const&);
-            ~Potion() {}
          
              virtual Entity*        clone          ()            const override { return new Potion(*this); }
              virtual Entity*        create         ()            const override { return new Potion(HEALING, SMALL); }

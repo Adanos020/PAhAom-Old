@@ -8,16 +8,13 @@
 
 #include "../Resources.hpp"
 
-extern rr::Resources resources;
-
 namespace rr {
 
-    Window::Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c)
-    :
-      Component(                                                                             ),
-      header_  (Text(sf::Vector2f(0, 0), head, resources.font.Unifont, 20, sf::Color::Yellow)),
-      visible_ (false                                                                        ) {
-
+    Window::Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c) :
+      Component(                                                                              ),
+      header_  (Text(sf::Vector2f(0, 0), head, Resources::font.Unifont, 20, sf::Color::Yellow)),
+      visible_ (false                                                                         )
+    {
         body_.setSize              (size);
         body_.setPosition          (position);
         body_.setFillColor         (sf::Color(c.r, c.g, c.b, 128));
@@ -29,6 +26,9 @@ namespace rr {
     }
 
     Window::~Window() {
+        for (auto component : components_) {
+            delete component;
+        }
         components_.clear();
     }
 

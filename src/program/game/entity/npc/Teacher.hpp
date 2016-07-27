@@ -24,7 +24,6 @@ namespace rr {
          
              Teacher(Type);
              Teacher(Teacher const&);
-            ~Teacher() {}
          
              virtual Entity*        clone     () const             override { return new Teacher(*this); }
              virtual Entity*        create    () const             override { return new Teacher(SWORDSMAN); }

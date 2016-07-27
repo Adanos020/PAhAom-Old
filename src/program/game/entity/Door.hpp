@@ -4,6 +4,9 @@
  * Used library: SFML 2.3.2
  */
 
+#ifndef ENTITY_DOOR_HPP
+#define ENTITY_DOOR_HPP
+
 #include "Entity.hpp"
 
 namespace rr {
@@ -18,7 +21,6 @@ namespace rr {
     
     public:  Door(bool lock);
              Door(Door const&);
-            ~Door() {}
          
              void                   setOpen        (bool);
              bool                   isOpen         ()          const            { return open_; }
@@ -42,3 +44,5 @@ namespace rr {
     };
 
 }
+
+#endif // ENTITY_DOOR_HPP

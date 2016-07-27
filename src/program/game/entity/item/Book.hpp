@@ -28,7 +28,6 @@ namespace rr {
          
              Book(Type, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
              Book(Book const&);
-            ~Book() {}
          
              virtual Entity*        clone          ()            const override { return new Book(*this); }
              virtual Entity*        create         ()            const override { return new Book(CRAFTING); }

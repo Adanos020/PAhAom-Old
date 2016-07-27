@@ -95,8 +95,8 @@ Inventory
 gui.text.open_attributes
 Attributes
 
-gui.text.open_quests
-Quest list
+gui.text.open_journal
+Journal
 
 gui.text.open_map
 Map
@@ -128,8 +128,8 @@ ATTRIBUTES
 gui.window.inventory
 INVENTORY
 
-gui.window.quests
-QUESTS
+gui.window.journal
+JOURNAL
 
 gui.window.game_map
 MAP

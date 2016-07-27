@@ -24,7 +24,6 @@ namespace rr {
              Window  wMenu_;
     
     public:  MainMenu();
-            ~MainMenu();
          
          /// Handles the button events
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);

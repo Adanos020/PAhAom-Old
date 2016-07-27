@@ -14,12 +14,12 @@ namespace rr {
 
 /// Structure for the resources
     struct Resources {
-    public: struct {
+    public: static struct Font {
             public: sf::Font Unifont;
                     sf::Font Pixel;
             } font;
         
-            struct {
+            static struct Texture {
             public: sf::Texture gui;
                     sf::Texture player;
                     sf::Texture items;
@@ -28,18 +28,18 @@ namespace rr {
                     sf::Texture npc;
             } texture;
 
-            struct {
+            static struct Music {
             public: sf::Music menu;
                     sf::Music level;
                     sf::Music boss;
             } music;
 
-            std::map<sf::String, sf::String> dictionary;
+            static std::map<sf::String, sf::String> dictionary;
 
         /// Separate method loading the dictionary
-            bool loadDict();
+            static bool loadDict();
         /// Method loading the resources
-            bool load    ();
+            static bool load    ();
     };
 
 }

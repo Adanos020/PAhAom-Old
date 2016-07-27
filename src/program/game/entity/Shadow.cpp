@@ -12,8 +12,7 @@
 
 namespace rr {
 
-    Shadow::Shadow()
-    :
+    Shadow::Shadow() :
       Entity     (                  ),
       position_  (sf::Vector2i(0, 0)),
       seen_      (false             ),
@@ -23,8 +22,7 @@ namespace rr {
         initialize();
     }
 
-    Shadow::Shadow(Shadow const& shadow)
-    :
+    Shadow::Shadow(Shadow const& shadow) :
       Entity     (                  ),
       body_      (shadow.body_      ),
       position_  (shadow.position_  ),

@@ -11,6 +11,8 @@
 
 #include <map>
 
+#include "Settings.hpp"
+#include "Resources.hpp"
 #include "game/Game.hpp"
 
 namespace rr {
@@ -25,27 +27,26 @@ namespace rr {
              Game*            game_;
          
          /// Loads all the resources, settings and dictionary
-             bool loadResources();
+             bool        loadResources();
          
          /// Runs the game
-             void runGame      ();
+             void        runGame      ();
          
          /// Runs the game's main loop
-             void mainLoop     ();
+             void        mainLoop     ();
          
          /// Handles the window events
-             void handleEvents ();
+             void        handleEvents ();
          
          /// Updates the game's state
-             void update       (sf::Clock&);
+             void        update       (sf::Clock&);
          
          /// Draws the game's components
-             void draw         ();
+             void        draw         ();
     
     public:  Program();
-            ~Program();
          
-             Game* getGame     () const { return game_; }
+             Game*            getGame      () const { return game_; }
     };
 
 }

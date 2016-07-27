@@ -23,7 +23,6 @@ namespace rr {
              Window             wJour_;
     
     public:  Journal();
-            ~Journal();
         
          /// Opens the task list window
              void open        ();

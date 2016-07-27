@@ -9,7 +9,7 @@
 
 #include <fstream>
 
-#include "../game/entity/ALL.hpp"
+#include "../game/entity/Entity.hpp"
 
 namespace rr {
 

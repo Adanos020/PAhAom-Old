@@ -15,12 +15,9 @@
 #include "../funcs/files.hpp"
 #include "../funcs/items.hpp"
 
-extern rr::Resources resources;
-
 namespace rr {
 
-    Level::Level(int number)
-    :
+    Level::Level(int number) :
       size_         (sf::Vector2i(77, 43)),
       region_count_ (0                   ),
       levelNumber_  (number              ) {
@@ -44,7 +41,7 @@ namespace rr {
 
     void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         states.transform *= getTransform();
-        states.texture = &resources.texture.tileset;
+        states.texture = &Resources::texture.tileset;
         target.draw(tilemap_, states);
     }
 
@@ -495,8 +492,8 @@ namespace rr {
                                 break;
                 }
 
-                int tu = tileNumber%(resources.texture.tileset.getSize().x/16);
-                int tv = tileNumber/(resources.texture.tileset.getSize().y/16);
+                int tu = tileNumber%(Resources::texture.tileset.getSize().x/16);
+                int tv = tileNumber/(Resources::texture.tileset.getSize().y/16);
 
                 sf::Vertex* quad = &tilemap_[(i + j*size_.x)*4];
 

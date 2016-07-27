@@ -20,16 +20,13 @@
 #include "../funcs/keys.hpp"
 #include "../funcs/files.hpp"
 
-extern rr::Settings  settings;
-extern rr::Resources resources;
 extern rr::Subject   subject;
 extern sf::Color     itemColors  [ 9];
 extern int           spellSymbols[11];
 
 namespace rr {
 
-    Game::Game() 
-    :
+    Game::Game() :
       currentLevel_  (nullptr               ),
       messageManager_(new MessageManager  ()),
       player_        (new Player          ()),
@@ -37,14 +34,14 @@ namespace rr {
       pauseMenu_     (new PauseMenu       ()),
       attributes_    (new Attributes      ()),
       inventory_     (new Inventory(player_)),
-      journal_       (new Journal          ()),
+      journal_       (new Journal         ()),
       bookOfSpells_  (new BookOfSpells    ()),
       hud_           (new HUD             ()),
       started_       (false                 ),
       paused_        (false                 ),
       levelNumber_   (0                     ) {
 
-        gameView_.setSize  ((sf::Vector2f)settings.graphics.resolution);
+        gameView_.setSize  ((sf::Vector2f) Settings::graphics.resolution);
 
         mapView_ .setSize  (6160.f, 3440.f);
         mapView_ .setCenter(mapView_.getSize()/2.f);
@@ -131,7 +128,7 @@ namespace rr {
 
         player_->setPosition((ascending) ? currentLevel_->getStartingPoint() : currentLevel_->getEndingPoint());
 
-        messageManager_->addMessage(Message(resources.dictionary["message.welcome_to_level"]+" "+std::to_string(levelNumber_+1)+((settings.game.language=="fc") ? "" : "!"), sf::Color::Green));
+        messageManager_->addMessage(Message(Resources::dictionary["message.welcome_to_level"]+" "+std::to_string(levelNumber_+1)+((Settings::game.language=="fc") ? "" : "!"), sf::Color::Green));
     }
 
     bool Game::loadNewGame() {
@@ -252,7 +249,7 @@ namespace rr {
 
     void Game::draw(sf::RenderWindow& rw) {
         if (!started_) {
-            rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
+            rw.setView(sf::View((sf::Vector2f) rw.getSize()/2.f, (sf::Vector2f) rw.getSize()));
             mainMenu_->draw(rw);
             rw.setView((mapOpen_) ? mapView_ : gameView_);
         }
@@ -262,7 +259,7 @@ namespace rr {
             currentLevel_->drawObjects(rw);
             player_->draw(rw);
 
-            rw.setView(sf::View((sf::Vector2f)rw.getSize()/2.f, (sf::Vector2f)rw.getSize()));
+            rw.setView(sf::View((sf::Vector2f) rw.getSize()/2.f, (sf::Vector2f) rw.getSize()));
             hud_           ->draw(rw);
             messageManager_->draw(rw);
             inventory_     ->draw(rw);
@@ -302,10 +299,10 @@ namespace rr {
 
     void Game::controls(sf::Event& event) {
         if (started_ && !paused_) {
-            if (isKeyPressed(settings.keys.move_up))    player_->move(currentLevel_->getTiles(), Player::UP);
-            if (isKeyPressed(settings.keys.move_down))  player_->move(currentLevel_->getTiles(), Player::DOWN);
-            if (isKeyPressed(settings.keys.move_left))  player_->move(currentLevel_->getTiles(), Player::LEFT);
-            if (isKeyPressed(settings.keys.move_right)) player_->move(currentLevel_->getTiles(), Player::RIGHT);
+            if (isKeyPressed(Settings::keys.move_up))    player_->move(currentLevel_->getTiles(), Player::UP);
+            if (isKeyPressed(Settings::keys.move_down))  player_->move(currentLevel_->getTiles(), Player::DOWN);
+            if (isKeyPressed(Settings::keys.move_left))  player_->move(currentLevel_->getTiles(), Player::LEFT);
+            if (isKeyPressed(Settings::keys.move_right)) player_->move(currentLevel_->getTiles(), Player::RIGHT);
 #if 0
                  if (isKeyPressed(sf::Keyboard::Numpad1)) player_->attrs_.health    --;
             else if (isKeyPressed(sf::Keyboard::Numpad2)) player_->attrs_.health    ++;
@@ -334,31 +331,31 @@ namespace rr {
             if (  wasKeyPressed(event, sf::Keyboard::Escape)
                 ) pause(!isPaused());
             if (!paused_) {
-                if (wasKeyPressed(event, settings.keys.open_attributes)) {
+                if (wasKeyPressed(event, Settings::keys.open_attributes)) {
                     attributes_->update(player_);
                     attributes_->open();
                     paused_ = true;
                 }
-                else if (wasKeyPressed(event, settings.keys.open_inventory)) {
+                else if (wasKeyPressed(event, Settings::keys.open_inventory)) {
                     inventory_->open();
                     paused_ = true;
                 }
-                else if (wasKeyPressed(event, settings.keys.open_map)) {
+                else if (wasKeyPressed(event, Settings::keys.open_map)) {
                     mapOpen_ = !mapOpen_;
                 }
-                else if (wasKeyPressed(event, settings.keys.open_journal)) {
+                else if (wasKeyPressed(event, Settings::keys.open_journal)) {
                     journal_->open();
                     paused_ = true;
                 }
-                else if (wasKeyPressed(event, settings.keys.open_bookOfSpells) && inventory_->contains(new Book(Book::SPELLS_BOOK, 0))) {
+                else if (wasKeyPressed(event, Settings::keys.open_bookOfSpells) && inventory_->contains(new Book(Book::SPELLS_BOOK, 0))) {
                     bookOfSpells_->open();
                     paused_ = true;
                 }
 
-                else if (wasKeyPressed(event, settings.keys.attack)) {
+                else if (wasKeyPressed(event, Settings::keys.attack)) {
 
                 }
-                else if (wasKeyPressed(event, settings.keys.interact)) {
+                else if (wasKeyPressed(event, Settings::keys.interact)) {
 
 #define entities currentLevel_->getEntities()
 ;
@@ -370,7 +367,7 @@ namespace rr {
                                     currentLevel_->removeEntity(i);
                                     break;
                                 }
-                                else messageManager_->addMessage(Message(resources.dictionary["message.full_inventory"], sf::Color::Red));
+                                else messageManager_->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
                             }
                             else if (instanceof<Chest, Entity>(entities[i])) {
                                 currentLevel_->replaceEntity(i, ((Chest*)entities[i])->getItem());
@@ -392,11 +389,11 @@ namespace rr {
 
                 }
 
-                if      (wasKeyPressed(event, settings.keys.useslot_1)) {}
-                else if (wasKeyPressed(event, settings.keys.useslot_2)) {}
-                else if (wasKeyPressed(event, settings.keys.useslot_3)) {}
-                else if (wasKeyPressed(event, settings.keys.useslot_4)) {}
-                else if (wasKeyPressed(event, settings.keys.useslot_5)) {}
+                if      (wasKeyPressed(event, Settings::keys.useslot_1)) {}
+                else if (wasKeyPressed(event, Settings::keys.useslot_2)) {}
+                else if (wasKeyPressed(event, Settings::keys.useslot_3)) {}
+                else if (wasKeyPressed(event, Settings::keys.useslot_4)) {}
+                else if (wasKeyPressed(event, Settings::keys.useslot_5)) {}
             }
         }
     }
