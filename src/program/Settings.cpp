@@ -126,7 +126,8 @@ namespace rr {
                 if (param[0] == ';' || param == "") {
                     std::getline(iconfig, param);
                     continue;
-                } else {
+                }
+                else {
                     if      (param == "lang:"             )   iconfig >>                             game.language               ;
                     else if (param == "width:"            )   readFile <unsigned> (iconfig, graphics.resolution.x               );
                     else if (param == "height:"           )   readFile <unsigned> (iconfig, graphics.resolution.y               );
@@ -155,13 +156,13 @@ namespace rr {
                     else if (param == "useslot_3:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_3         = (sf::Keyboard::Key)keyCode; }
                     else if (param == "useslot_4:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_4         = (sf::Keyboard::Key)keyCode; }
                     else if (param == "useslot_5:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_5         = (sf::Keyboard::Key)keyCode; }
-                    else                                  throw std::invalid_argument("Wrong parameter");
+                    else                                  throw std::invalid_argument("Wrong parameter: "+param);
                 }
             }
             iconfig.close();
             std::cout << ">Done.\n";
         } 
-        catch (std::exception ex) {
+        catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
             std::cout << ">Creating a new config file...\n";
 

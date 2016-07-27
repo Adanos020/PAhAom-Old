@@ -22,8 +22,8 @@ namespace rr {
     Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos) :
       Discoverable( ),
       effect_     (e),
-      size_       (s) {
-
+      size_       (s)
+    {
         amount_     = am;
         
         initialize();
@@ -32,8 +32,8 @@ namespace rr {
 
     Potion::Potion(Potion const& potion) :
       Discoverable(              ),
-      effect_     (potion.effect_) {
-
+      effect_     (potion.effect_)
+    {
         amount_                = potion.amount_;
         disposable_            = potion.disposable_;
         stackable_             = potion.stackable_;

@@ -20,8 +20,8 @@ namespace rr {
       Equipable  (     ),
       level_     (0    ),
       identified_(false),
-      type_      (type ) {
-
+      type_      (type )
+    {
         amount_     = amount;
 
         initialize();
@@ -30,8 +30,8 @@ namespace rr {
 
     ColdWeapon::ColdWeapon(ColdWeapon const& coldWeapon) :
       Equipable(                ),
-      type_    (coldWeapon.type_) {
-
+      type_    (coldWeapon.type_)
+    {
         amount_                = coldWeapon.amount_;
         disposable_            = coldWeapon.disposable_;
         stackable_             = coldWeapon.stackable_;

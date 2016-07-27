@@ -15,7 +15,8 @@
 namespace rr {
 
     BookOfSpells::BookOfSpells() :
-      wBofs_(Window(Resources::dictionary["gui.window.bookOfSpells"], sf::Vector2f(765, 470), (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(382.5f, 235))) {
+      wBofs_(Window(Resources::dictionary["gui.window.bookOfSpells"], sf::Vector2f(765, 470), (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(382.5f, 235)))
+    {
 
 #define component(w, c, i) w.getComponent<c>(i)
 

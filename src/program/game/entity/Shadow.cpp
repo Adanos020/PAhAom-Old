@@ -17,8 +17,8 @@ namespace rr {
       position_  (sf::Vector2i(0, 0)),
       seen_      (false             ),
       discovered_(false             ),
-      flipped_   (false             ) {
-
+      flipped_   (false             )
+    {
         initialize();
     }
 

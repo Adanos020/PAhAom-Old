@@ -18,8 +18,8 @@ namespace rr {
       Entity         (        ),
       locked_        (lock    ),
       open_          (false   ),
-      withoutWindow_ (rand()%2) {
-
+      withoutWindow_ (rand()%2)
+    {
         initialize();
     }
 

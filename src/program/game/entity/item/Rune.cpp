@@ -22,8 +22,8 @@ namespace rr {
 
     Rune::Rune(Type type, int am, sf::Vector2i pos) :
       Discoverable(    ),
-      type_       (type) {
-
+      type_       (type)
+    {
         amount_     = am;
 
         initialize();
@@ -32,8 +32,8 @@ namespace rr {
 
     Rune::Rune(Rune const& rune) :
       Discoverable(          ),
-      type_       (rune.type_) {
-
+      type_       (rune.type_)
+    {
         amount_                = rune.amount_;
         disposable_            = rune.disposable_;
         stackable_             = rune.stackable_;

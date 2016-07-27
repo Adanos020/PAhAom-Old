@@ -16,8 +16,8 @@
 namespace rr {
 
     Coin::Coin(Type t, Size s, int am, sf::Vector2i pos) :
-      Item() {
- 
+      Item()
+    {
         amount_ = am;
         type_   = t;
         size_   = s;
@@ -28,8 +28,8 @@ namespace rr {
 
     Coin::Coin(Coin const& coin) :
       Item (          ),
-      type_(coin.type_) {
-
+      type_(coin.type_)
+    {
         amount_     = coin.amount_;
         disposable_ = coin.disposable_;
         stackable_  = coin.stackable_;

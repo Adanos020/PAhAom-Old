@@ -6,24 +6,24 @@
 
 #include <iostream>
 
-#include "Teacher.hpp"
-
 #include "../../../Resources.hpp"
 
 #include "../../../funcs/files.hpp"
 
+#include "Teacher.hpp"
+
 namespace rr {
 
     Teacher::Teacher(Type type) :
-      type_(type) {
-
+      type_(type)
+    {
         initialize();
         body_.scale(sf::Vector2f(5, 5));
     }
 
     Teacher::Teacher(Teacher const& teacher) :
-      type_(teacher.type_) {
-
+      type_(teacher.type_)
+    {
         body_             = teacher.body_;
         currentAnimation_ = teacher.currentAnimation_;
     }

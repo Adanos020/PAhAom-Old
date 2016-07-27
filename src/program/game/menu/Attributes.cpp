@@ -15,8 +15,8 @@
 namespace rr {
 
     Attributes::Attributes() :
-      wAttr_ (Window(Resources::dictionary["gui.window.attributes"], sf::Vector2f(900, 310), (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(450, 155))) {
-
+      wAttr_ (Window(Resources::dictionary["gui.window.attributes"], sf::Vector2f(900, 310), (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(450, 155)))
+    {
         shadow_.setSize     ((sf::Vector2f) Settings::graphics.resolution);
         shadow_.setPosition (sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));

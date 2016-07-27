@@ -25,8 +25,8 @@ namespace rr {
       currentAnimation_            (&walkingRight_    ),
       moving_                      (false             ),
       velocity_                    (1120.f            ),
-      sightRange_                  (5                 ) {
-
+      sightRange_                  (5                 )
+    {
         attrs_.health                = 0.f;
         attrs_.mana                  = 5.f;
         attrs_.maxHealth             = 30.f;

@@ -18,8 +18,8 @@ namespace rr {
 
     PauseMenu::PauseMenu() :
       title_(Text  (sf::Vector2f(0, 0), "PAhAom", Resources::font.Pixel, 100, sf::Color::Yellow        )),
-      wMenu_(Window("", sf::Vector2f(244, 230), sf::Vector2f(25, Settings::graphics.resolution.y/2-153))) {
-
+      wMenu_(Window("", sf::Vector2f(244, 230), sf::Vector2f(25, Settings::graphics.resolution.y/2-153)))
+    {
         shadow_.setSize((sf::Vector2f)Settings::graphics.resolution);
         shadow_.setPosition(sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));

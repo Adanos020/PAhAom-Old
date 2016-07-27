@@ -22,7 +22,8 @@ namespace rr {
 
     MainMenu::MainMenu() :
       title_(Text  (sf::Vector2f(0, 0), "PAhAom", Resources::font.Pixel, 100, sf::Color::Yellow)        ),
-      wMenu_(Window("", sf::Vector2f(244, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225))) {
+      wMenu_(Window("", sf::Vector2f(244, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225)))
+    {
 
 #define component(w, c, i) w.getComponent<c>(i)
 

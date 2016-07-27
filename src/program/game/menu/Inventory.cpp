@@ -24,8 +24,8 @@ namespace rr {
       player_ (p),
       bronze_ (0),
       silver_ (0),
-      gold_   (0) {
-
+      gold_   (0)
+    {
         shadow_.setSize     ((sf::Vector2f) Settings::graphics.resolution);
         shadow_.setPosition (sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));

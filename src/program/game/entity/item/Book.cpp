@@ -18,8 +18,8 @@ extern sf::Color itemColors[9];
 namespace rr {
 
     Book::Book(Type type, int am, sf::Vector2i pos) :
-      Item() {
-
+      Item()
+    {
         type_       = type;
         amount_     = am;
 
@@ -29,8 +29,8 @@ namespace rr {
 
     Book::Book(Book const& book) :
       Item (          ),
-      type_(book.type_) {
-
+      type_(book.type_)
+    {
         amount_      = book.amount_;
         disposable_  = book.disposable_;
         stackable_   = book.stackable_;

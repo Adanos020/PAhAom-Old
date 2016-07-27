@@ -15,8 +15,8 @@
 namespace rr {
 
     Stairs::Stairs(bool upwards) :
-      upwards_ (upwards) {
-
+      upwards_ (upwards)
+    {
         initialize();
     }
 

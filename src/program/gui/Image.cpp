@@ -10,8 +10,8 @@ namespace rr {
 
     Image::Image(sf::Vector2f pos, sf::Texture& texture, int iconSize, unsigned index) :
       Component(        ),
-      icon_    (iconSize) {
-
+      icon_    (iconSize)
+    {
         unsigned tu = index%(texture.getSize().x/icon_);
         unsigned tv = index/(texture.getSize().y/icon_);
 

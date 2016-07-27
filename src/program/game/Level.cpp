@@ -20,8 +20,8 @@ namespace rr {
     Level::Level(int number) :
       size_         (sf::Vector2i(77, 43)),
       region_count_ (0                   ),
-      levelNumber_  (number              ) {
-
+      levelNumber_  (number              )
+    {
         tilemap_.setPrimitiveType(sf::Quads);
         tilemap_.resize(size_.x*size_.y*4);
 

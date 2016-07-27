@@ -18,8 +18,8 @@ namespace rr {
     Chest::Chest(Type t, Item* i) :
       Entity( ),
       item_ (i),
-      type_ (t) {
-
+      type_ (t)
+    {
         initialize();
     }
 

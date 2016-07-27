@@ -20,9 +20,9 @@
 #include "../funcs/keys.hpp"
 #include "../funcs/files.hpp"
 
-extern rr::Subject   subject;
-extern sf::Color     itemColors  [ 9];
-extern int           spellSymbols[11];
+extern rr::Subject subject;
+extern sf::Color   itemColors  [ 9];
+extern int         spellSymbols[12];
 
 namespace rr {
 
@@ -39,8 +39,8 @@ namespace rr {
       hud_           (new HUD             ()),
       started_       (false                 ),
       paused_        (false                 ),
-      levelNumber_   (0                     ) {
-
+      levelNumber_   (0                     )
+    {
         gameView_.setSize  ((sf::Vector2f) Settings::graphics.resolution);
 
         mapView_ .setSize  (6160.f, 3440.f);
@@ -64,14 +64,13 @@ namespace rr {
     void Game::randomizeItems() {
         /* colors */ {
             int pot[9];
-            for (int i=0; i<9; i++) {
-                hell: int x = rand()%9;
-                for (int j=0; j<i; j++) {
-                    if (  pot[j] == x
+            for (int i=0; i<9; ++i) {
+                hell: pot[i] = rand()%9;
+                for (int j=0; j<i; ++j) {
+                    if (  pot[j] == pot[i]
                         ) goto hell;
                 }
-                pot[i] = x;
-                switch (x) {
+                switch (pot[i]) {
                     case 0: itemColors[i] = sf::Color::Red          ; break;
                     case 1: itemColors[i] = sf::Color::Blue         ; break;
                     case 2: itemColors[i] = sf::Color(32, 32, 0)    ; break;
@@ -85,13 +84,12 @@ namespace rr {
             }
         }
         /* Rune symbols */ {
-            for (int i=0; i<12; i++) {
-                topkek: int x = rand()%12;
-                for (int j=0; j<i; j++) {
-                    if (  spellSymbols[j] == x
+            for (int i=0; i<12; ++i) {
+                topkek: spellSymbols[i] = rand()%12;
+                for (int j=0; j<i; ++j) {
+                    if (  spellSymbols[j] == spellSymbols[i]
                         ) goto topkek;
                 }
-                spellSymbols[i] = x;
             }
         }
     }
