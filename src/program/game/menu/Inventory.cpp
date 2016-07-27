@@ -72,18 +72,6 @@ namespace rr {
         }
     }
 
-    void Inventory::open() {
-        wInve_.getComponent<Text>(0)->setString(std::to_string((int)gold_));
-        wInve_.getComponent<Text>(1)->setString(std::to_string((int)silver_));
-        wInve_.getComponent<Text>(2)->setString(std::to_string((int)bronze_));
-
-        wInve_.setVisible(true);
-    }
-
-    void Inventory::close() {
-        wInve_.setVisible(false);
-    }
-
     void Inventory::clear() {
         for (int i=0; i<32; ++i) {
             wInve_.getComponent<Slot>(i)->clear();
@@ -94,20 +82,6 @@ namespace rr {
         gold_   = 0;
         silver_ = 0;
         bronze_ = 0;
-    }
-
-    void Inventory::draw(sf::RenderWindow& rw) {
-        if (isOpen()) {
-            rw.draw(shadow_);
-            wInve_.draw(rw);
-        }
-        for (auto slot : sCarryOn_) {
-            slot->draw(rw);
-        }
-    }
-
-    bool Inventory::isOpen() {
-        return wInve_.isVisible();
     }
 
     void Inventory::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* game) {
@@ -277,6 +251,24 @@ namespace rr {
                 ) return true;
         }
         return false;
+    }
+
+    void Inventory::draw(sf::RenderWindow& rw) {
+        if (isOpen()) {
+            rw.draw(shadow_);
+            wInve_.draw(rw);
+        }
+        for (auto slot : sCarryOn_) {
+            slot->draw(rw);
+        }
+    }
+
+    void Inventory::open() {
+        wInve_.getComponent<Text>(0)->setString(std::to_string((int)gold_));
+        wInve_.getComponent<Text>(1)->setString(std::to_string((int)silver_));
+        wInve_.getComponent<Text>(2)->setString(std::to_string((int)bronze_));
+
+        wInve_.setVisible(true);
     }
 
     std::ifstream& Inventory::operator<<(std::ifstream& file) {

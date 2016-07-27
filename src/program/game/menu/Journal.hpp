@@ -9,8 +9,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../Game.hpp"
-
 #include "../../gui/Window.hpp"
 
 namespace rr {
@@ -24,18 +22,20 @@ namespace rr {
     
     public:  Journal();
         
-         /// Opens the task list window
-             void open        ();
-         /// Closes the task list window
-             void close       ();
          /// Handles the button events
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
+         /// Opens the task list window
+             void open        ()       { wJour_.setVisible(true); }
+         /// Closes the task list window
+             void close       ()       { wJour_.setVisible(false); }
          /// Draws the task list components
              void draw        (sf::RenderWindow&);
          /// Tells if the task list is open
-             bool isOpen      ();
+             bool isOpen      () const { return wJour_.isVisible(); }
     };
 
 }
+
+#include "../Game.hpp"
 
 #endif

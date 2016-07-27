@@ -150,7 +150,7 @@ namespace rr {
         for (int i=0; i<77; i++) {
             for (int j=0; j<43; j++) {
                 sf::Color shades[4] = sf::Color(0, 0, 0, 200);
-                if (i > 0 && i < 76 && j > 0 && j < 42) {           // is not on border
+                if (i > 0 && i < 76 && j > 0 && j < 42) {            // is not on border
                     if (shadows[i + j*77].isSeen()) {                // current tile is seen
                         if (  shadows[i-1 + (j-1)*77].isSeen()       // top left is seen
                             ) shades[0] = sf::Color::Transparent;
@@ -232,57 +232,57 @@ namespace rr {
 
                         shadows[i + j*77].setFadeOut(shades);
                     }
-                    else if (shadows[i + j*77].isDiscovered()) {     // current tile was seen
-                        if (  shadows[i-1 + (j-1)*77].isDiscovered() // top left was seen
+                    else if (shadows[i + j*77].isDiscovered()) {     // current tile was discovered
+                        if (  shadows[i-1 + (j-1)*77].isDiscovered() // top left was discovered
                             ) shades[0] = sf::Color(0, 0, 0, 200);
-                        if (  shadows[i+1 + (j-1)*77].isDiscovered() // top right was seen
+                        if (  shadows[i+1 + (j-1)*77].isDiscovered() // top right was discovered
                             ) shades[1] = sf::Color(0, 0, 0, 200);
-                        if (  shadows[i+1 + (j+1)*77].isDiscovered() // bottom right was seen
+                        if (  shadows[i+1 + (j+1)*77].isDiscovered() // bottom right was discovered
                             ) shades[2] = sf::Color(0, 0, 0, 200);
-                        if (  shadows[i-1 + (j+1)*77].isDiscovered() // bottom left was seen
+                        if (  shadows[i-1 + (j+1)*77].isDiscovered() // bottom left was discovered
                             ) shades[3] = sf::Color(0, 0, 0, 200);
 
-                        if (shadows[i-1 + j*77].isDiscovered()) {    // left was seen
+                        if (shadows[i-1 + j*77].isDiscovered()) {    // left was discovered
                             shades[0] = sf::Color(0, 0, 0, 200);
                             shades[3] = sf::Color(0, 0, 0, 200);
                         }
-                        if (shadows[i+1 + j*77].isDiscovered()) {    // right was seen
+                        if (shadows[i+1 + j*77].isDiscovered()) {    // right was discovered
                             shades[1] = sf::Color(0, 0, 0, 200);
                             shades[2] = sf::Color(0, 0, 0, 200);
                         }
-                        if (shadows[i + (j-1)*77].isDiscovered()) {  // top was seen
+                        if (shadows[i + (j-1)*77].isDiscovered()) {  // top was discovered
                             shades[0] = sf::Color(0, 0, 0, 200);
                             shades[1] = sf::Color(0, 0, 0, 200);
                         }
-                        if (shadows[i + (j+1)*77].isDiscovered()) {  // bottom was seen
+                        if (shadows[i + (j+1)*77].isDiscovered()) {  // bottom was discovered
                             shades[2] = sf::Color(0, 0, 0, 200);
                             shades[3] = sf::Color(0, 0, 0, 200);
                         }
 
-                        if (!shadows[i-1 + j*77].isDiscovered()) {   // left was never seen
+                        if (!shadows[i-1 + j*77].isDiscovered()) {   // left was never discovered
                             shades[0] = sf::Color::Black;
                             shades[3] = sf::Color::Black;
                         }
-                        if (!shadows[i+1 + j*77].isDiscovered()) {   // right was never seen
+                        if (!shadows[i+1 + j*77].isDiscovered()) {   // right was never discovered
                             shades[1] = sf::Color::Black;
                             shades[2] = sf::Color::Black;
                         }
-                        if (!shadows[i + (j-1)*77].isDiscovered()) { // top was never seen
+                        if (!shadows[i + (j-1)*77].isDiscovered()) { // top was never discovered
                             shades[0] = sf::Color::Black;
                             shades[1] = sf::Color::Black;
                         }
-                        if (!shadows[i + (j+1)*77].isDiscovered()) { // bottom was never seen
+                        if (!shadows[i + (j+1)*77].isDiscovered()) { // bottom was never discovered
                             shades[2] = sf::Color::Black;
                             shades[3] = sf::Color::Black;
                         }
 
-                        if ( !shadows[i-1 + (j-1)*77].isDiscovered() // top left was never seen
+                        if ( !shadows[i-1 + (j-1)*77].isDiscovered() // top left was never discovered
                             ) shades[0] = sf::Color::Black;
-                        if ( !shadows[i+1 + (j-1)*77].isDiscovered() // top right was never seen
+                        if ( !shadows[i+1 + (j-1)*77].isDiscovered() // top right was never discovered
                             ) shades[1] = sf::Color::Black;
-                        if ( !shadows[i+1 + (j+1)*77].isDiscovered() // bottom right was never seen
+                        if ( !shadows[i+1 + (j+1)*77].isDiscovered() // bottom right was never discovered
                             ) shades[2] = sf::Color::Black;
-                        if ( !shadows[i-1 + (j+1)*77].isDiscovered() // bottom left was never seen
+                        if ( !shadows[i-1 + (j+1)*77].isDiscovered() // bottom left was never discovered
                             ) shades[3] = sf::Color::Black;
 
                         shadows[i + j*77].setFadeOut(shades);
@@ -304,185 +304,153 @@ namespace rr {
                                  ) shades[0] = sf::Color::Transparent;
 
                         else if (i == 0  && j > 0 && j < 42) {      // left edge
-                            if (  shadows[i+1 + (j-1)*77].isSeen()       // top right
+                            if (  shadows[i+1 + (j-1)*77].isSeen()  // top right
                                 ) shades[1] = sf::Color::Transparent;
-                            else
-                                shades[1] = (shadows[i+1 + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[1] = (shadows[i+1 + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
 
-                            if (  shadows[i + (j-1)*77].isSeen()         // top
+                            if (  shadows[i + (j-1)*77].isSeen()    // top
                                 ) shades[1] = sf::Color::Transparent;
-                            else
-                                shades[1] = (shadows[i + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[1] = (shadows[i + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
                             
-                            if (  shadows[i+1 + (j+1)*77].isSeen()       // bottom right
+                            if (  shadows[i+1 + (j+1)*77].isSeen()  // bottom right
                                 ) shades[2] = sf::Color::Transparent;
-                            else
-                                shades[2] = (shadows[i+1 + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[2] = (shadows[i+1 + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
                             
-                            if (  shadows[i + (j+1)*77].isSeen()         // bottom
+                            if (  shadows[i + (j+1)*77].isSeen()    // bottom
                                 ) shades[2] = sf::Color::Transparent;
-                            else
-                                shades[2] = (shadows[i + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[2] = (shadows[i + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
                         }
                         else if (i == 76 && j > 0 && j < 42) {      // right edge
-                            if (  shadows[i-1 + (j-1)*77].isSeen()       // top left
+                            if (  shadows[i-1 + (j-1)*77].isSeen()  // top left
                                 ) shades[0] = sf::Color::Transparent;
-                            else
-                                  shades[0] = (shadows[i+1 + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[0] = (shadows[i+1 + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
 
-                            if (  shadows[i + (j-1)*77].isSeen()         // top
+                            if (  shadows[i + (j-1)*77].isSeen()    // top
                                 ) shades[0] = sf::Color::Transparent;
-                            else
-                                  shades[0] = (shadows[i + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[0] = (shadows[i + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
 
-                            if (  shadows[i-1 + (j+1)*77].isSeen()       // bottom right
+                            if (  shadows[i-1 + (j+1)*77].isSeen()  // bottom right
                                 ) shades[3] = sf::Color::Transparent;
-                            else
-                                  shades[3] = (shadows[i+1 + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[3] = (shadows[i+1 + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
 
-                            if (  shadows[i + (j+1)*77].isSeen()         // bottom
+                            if (  shadows[i + (j+1)*77].isSeen()    // bottom
                                 ) shades[3] = sf::Color::Transparent;
-                            else
-                                  shades[3] = (shadows[i + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[3] = (shadows[i + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
                         }
                         else if (j == 0  && i > 0 && i < 76) {      // top edge
-                            if (  shadows[i+1 + (j+1)*77].isSeen()       // bottom right
+                            if (  shadows[i+1 + (j+1)*77].isSeen()  // bottom right
                                 ) shades[2] = sf::Color::Transparent;
-                            else
-                                  shades[2] = (shadows[i+1 + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[2] = (shadows[i+1 + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
 
-                            if (  shadows[i+1 + j*77].isSeen()           // right
+                            if (  shadows[i+1 + j*77].isSeen()      // right
                                 ) shades[2] = sf::Color::Transparent;
-                            else
-                                  shades[2] = (shadows[i+1 + j*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[2] = (shadows[i+1 + j*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
 
-                            if (  shadows[i-1 + (j+1)*77].isSeen()       // bottom left
+                            if (  shadows[i-1 + (j+1)*77].isSeen()  // bottom left
                                 ) shades[3] = sf::Color::Transparent;
-                            else
-                                  shades[3] = (shadows[i-1 + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[3] = (shadows[i-1 + (j+1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
 
-                            if (  shadows[i-1 + j*77].isSeen()           // left
+                            if (  shadows[i-1 + j*77].isSeen()      // left
                                 ) shades[3] = sf::Color::Transparent;
-                            else
-                                  shades[3] = (shadows[i-1 + j*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[3] = (shadows[i-1 + j*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
                         }
                         else if (j == 42 && i > 0 && i < 76) {      // bottom edge
-                            if (  shadows[i+1 + (j-1)*77].isSeen()       // top right
+                            if (  shadows[i+1 + (j-1)*77].isSeen()  // top right
                                 ) shades[1] = sf::Color::Transparent;
-                            else
-                                  shades[1] = (shadows[i+1 + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[1] = (shadows[i+1 + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
 
-                            if (  shadows[i+1 + j*77].isSeen()           // right
+                            if (  shadows[i+1 + j*77].isSeen()      // right
                                 ) shades[1] = sf::Color::Transparent;
-                            else
-                                  shades[1] = (shadows[i+1 + j*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[1] = (shadows[i+1 + j*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
 
-                            if (  shadows[i-1 + (j-1)*77].isSeen()       // top left
+                            if (  shadows[i-1 + (j-1)*77].isSeen()  // top left
                                 ) shades[0] = sf::Color::Transparent;
-                            else
-                                  shades[0] = (shadows[i-1 + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[0] = (shadows[i-1 + (j-1)*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
 
-                            if (  shadows[i-1 + j*77].isSeen()           // left
+                            if (  shadows[i-1 + j*77].isSeen()      // left
                                 ) shades[0] = sf::Color::Transparent;
-                            else
-                                  shades[0] = (shadows[i-1 + j*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
+                            else  shades[0] = (shadows[i-1 + j*77].isDiscovered()) ? sf::Color(0, 0, 0, 200) : sf::Color::Black;
                         }
 
                         shadows[i + j*77].setFadeOut(shades);
                     }
                     else if (shadows[i + j*77].isDiscovered()) {
-                        if      (  i == 0  && j == 0                // top left corner
+                        if      (  i == 0  && j == 0                     // top left corner
                                  ) shades[2] = sf::Color(0, 0, 0, 200);
-                        else if (  i == 76 && j == 0                // top right corner
+                        else if (  i == 76 && j == 0                     // top right corner
                                  ) shades[3] = sf::Color(0, 0, 0, 200);
-                        else if (  i == 0  && j == 42               // bottom left corner
+                        else if (  i == 0  && j == 42                    // bottom left corner
                                  ) shades[1] = sf::Color(0, 0, 0, 200);
-                        else if (  i == 76 && j == 42               // bottom right corner
+                        else if (  i == 76 && j == 42                    // bottom right corner
                                  ) shades[0] = sf::Color(0, 0, 0, 200);
 
-                        else if (i == 0  && j > 0 && j < 42) {       // left edge
+                        else if (i == 0  && j > 0 && j < 42) {           // left edge
                             if ( !shadows[i+1 + (j-1)*77].isDiscovered() // top right
                                 ) shades[1] = sf::Color::Black;
-                            else
-                                  shades[1] = sf::Color(0, 0, 0, 200);
+                            else  shades[1] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i + (j-1)*77].isDiscovered()   // top
                                 ) shades[1] = sf::Color::Black;
-                            else
-                                  shades[1] = sf::Color(0, 0, 0, 200);
+                            else  shades[1] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i+1 + (j+1)*77].isDiscovered() // bottom right
                                 ) shades[2] = sf::Color::Black;
-                            else
-                                  shades[2] = sf::Color(0, 0, 0, 200);
+                            else  shades[2] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i + (j+1)*77].isDiscovered()   // bottom
                                 ) shades[2] = sf::Color::Black;
-                            else
-                                  shades[2] = sf::Color(0, 0, 0, 200);
+                            else  shades[2] = sf::Color(0, 0, 0, 200);
                         }
-                        else if (i == 76 && j > 0 && j < 42) {       // right edge
+                        else if (i == 76 && j > 0 && j < 42) {           // right edge
                             if ( !shadows[i-1 + (j-1)*77].isDiscovered() // top left
                                 ) shades[0] = sf::Color::Black;
-                            else
-                                  shades[0] = sf::Color(0, 0, 0, 200);
+                            else  shades[0] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i + (j-1)*77].isDiscovered()   // top
                                 ) shades[0] = sf::Color::Black;
-                            else
-                                  shades[0] = sf::Color(0, 0, 0, 200);
+                            else  shades[0] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i-1 + (j+1)*77].isDiscovered() // bottom left
                                 ) shades[3] = sf::Color::Black;
-                            else
-                                  shades[3] = sf::Color(0, 0, 0, 200);
+                            else  shades[3] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i + (j+1)*77].isDiscovered()   // bottom
                                 ) shades[3] = sf::Color::Black;
-                            else
-                                  shades[3] = sf::Color(0, 0, 0, 200);
+                            else  shades[3] = sf::Color(0, 0, 0, 200);
                         }
-                        else if (j == 0  && i > 0 && i < 76) {       // top edge
+                        else if (j == 0  && i > 0 && i < 76) {           // top edge
                             if ( !shadows[i+1 + (j+1)*77].isDiscovered() // bottom right
                                 ) shades[2] = sf::Color::Black;
-                            else
-                                  shades[2] = sf::Color(0, 0, 0, 200);
+                            else  shades[2] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i+1 + j*77].isDiscovered()     // right
                                 ) shades[2] = sf::Color::Black;
-                            else
-                                  shades[2] = sf::Color(0, 0, 0, 200);
+                            else  shades[2] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i-1 + (j+1)*77].isDiscovered() // bottom left
                                 ) shades[3] = sf::Color::Black;
-                            else
-                                  shades[3] = sf::Color(0, 0, 0, 200);
+                            else  shades[3] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i-1 + j*77].isDiscovered()     // left
                                 ) shades[3] = sf::Color::Black;
-                            else
-                                  shades[3] = sf::Color(0, 0, 0, 200);
+                            else  shades[3] = sf::Color(0, 0, 0, 200);
                         }
-                        else if (j == 42 && i > 0 && i < 76) {       // bottom edge
+                        else if (j == 42 && i > 0 && i < 76) {           // bottom edge
                             if ( !shadows[i+1 + (j-1)*77].isDiscovered() // top right
                                 ) shades[1] = sf::Color::Black;
-                            else
-                                  shades[1] = sf::Color(0, 0, 0, 200);
+                            else  shades[1] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i+1 + j*77].isDiscovered()     // right
                                 ) shades[1] = sf::Color::Black;
-                            else
-                                  shades[1] = sf::Color(0, 0, 0, 200);
+                            else  shades[1] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i-1 + (j-1)*77].isDiscovered() // top left
                                 ) shades[0] = sf::Color::Black;
-                            else
-                                  shades[0] = sf::Color(0, 0, 0, 200);
+                            else  shades[0] = sf::Color(0, 0, 0, 200);
 
                             if ( !shadows[i-1 + j*77].isDiscovered()     // left
                                 ) shades[0] = sf::Color::Black;
-                            else
-                                  shades[0] = sf::Color(0, 0, 0, 200);
+                            else  shades[0] = sf::Color(0, 0, 0, 200);
                         }
 
                         shadows[i + j*77].setFadeOut(shades);

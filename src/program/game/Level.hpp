@@ -26,8 +26,6 @@ namespace rr {
                  EXIT
              };
  
-             int  tilesAsInts_[77*43];
- 
              virtual void         onNotify        (Event, Entity*) override;
  
              void                 generateWorld   ();
@@ -65,6 +63,7 @@ namespace rr {
              sf::Vector2i             endingPoint_;
          
              int                      regions_[77*43];
+             int                      tilesAsInts_[77*43];
              Cell                     tiles_  [77*43];
              Shadow                   shadows_[77*43];
              std::vector<Entity*>     entities_;

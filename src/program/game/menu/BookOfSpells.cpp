@@ -33,23 +33,9 @@ namespace rr {
             wBofs_+= new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
                 component(wBofs_, Button, 0)->setPosition(sf::Vector2f(wBofs_.getPosition().x+wBofs_.getSize().x - component(wBofs_, Button, 0)->getSize().x-15,
                                                           	           Settings::graphics.resolution.y/2+235      - component(wBofs_, Button, 0)->getSize().y-5));
-
-#undef component
-
-    }
-
-    void BookOfSpells::open() {
-        wBofs_.setVisible(true);
-    }
-
-    void BookOfSpells::close() {
-        wBofs_.setVisible(false);
     }
 
     void BookOfSpells::buttonEvents(sf::RenderWindow& rw, sf::Event& ev, Game* g) {
-
-#define component(w, c, i) w.getComponent<c>(i)
-
         if (isOpen()) {
             if (  component(wBofs_, Button, 0)->isPressed(rw, ev)
                 ) g->pause(false);
@@ -70,10 +56,6 @@ namespace rr {
             rw.draw(shadow_);
             wBofs_.draw(rw);
         }
-    }
-
-    bool BookOfSpells::isOpen() {
-        return wBofs_.isVisible();
     }
 
 }

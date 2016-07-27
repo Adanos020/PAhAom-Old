@@ -8,8 +8,6 @@
 #define MENU_INVENTORY_HPP
 
 #include <SFML/Graphics.hpp>
-
-#include "../Game.hpp"
 #include "../../observer/Observer.hpp"
 
 #include "../../gui/Window.hpp"
@@ -43,18 +41,18 @@ namespace rr {
              bool addItem     (Item*);
          /// Tells if there is such an item in the inventory
              bool contains    (Item*);
-         /// Opens the inventory window
-             void open        ();
-         /// Closes the inventory window
-             void close       ();
          /// Clears the inventory
              void clear       ();
          /// Handles the button events
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
          /// Draws the inventory components
              void draw        (sf::RenderWindow&);
+         /// Opens the inventory window
+             void open        ();
+         /// Closes the inventory window
+             void close       ()       { wInve_.setVisible(false); }
          /// Tells if the inventory is open
-             bool isOpen      ();
+             bool isOpen      () const { return wInve_.isVisible(); }
          
              std::ifstream& operator<<(std::ifstream&);
              std::ofstream& operator>>(std::ofstream&);
@@ -63,5 +61,7 @@ namespace rr {
     };
 
 }
+
+#include "../Game.hpp"
 
 #endif

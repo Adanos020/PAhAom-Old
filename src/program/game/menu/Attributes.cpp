@@ -36,23 +36,9 @@ namespace rr {
             wAttr_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
                 component(wAttr_, Button, 0)->setPosition(sf::Vector2f(wAttr_.getPosition().x+wAttr_.getSize().x/2-component(wAttr_, Button, 0)->getSize().x/2,
                                                                        wAttr_.getPosition().y+wAttr_.getSize().y  -component(wAttr_, Button, 0)->getSize().y-10));
-
-#undef component
-
-    }
-
-    void Attributes::open() {
-        wAttr_.setVisible(true);
-    }
-
-    void Attributes::close() {
-        wAttr_.setVisible(false);
     }
 
     void Attributes::update(Player* p) {
-
-#define component(w, c, i) w.getComponent<c>(i)
-
         component(wAttr_, Text, 1)->setString( std::to_string((int)p->getAttributes().health     )+"/"+std::to_string((int)p->getAttributes().maxHealth)+"\n"
                                               +std::to_string((int)p->getAttributes().mana       )+"/"+std::to_string((int)p->getAttributes().maxMana  )+"\n"
                                               +std::to_string((int)p->getAttributes().strength   )                                                      +"\n"
@@ -69,15 +55,9 @@ namespace rr {
                                          +"\n"+(p->getAttributes().mana_regeneration      ? Resources::dictionary["player.skills.mana_regen"           ] : sf::String("-"))
                                          +"\n"+(p->getAttributes().health_regeneration    ? Resources::dictionary["player.skills.health_regen"         ] : sf::String("-"))
                                          +"\n"+(p->getAttributes().faster_learning        ? Resources::dictionary["player.skills.faster_learn"         ] : sf::String("-")));
-
-#undef component
-
     }
 
     void Attributes::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
-
-#define component(w, c, x) w.getComponent<c>(x)
-
         if (wAttr_.isVisible()) {
             if (  component(wAttr_, Button, 0)->isPressed(rw, e)
                 ) g->pause(false);
@@ -92,10 +72,6 @@ namespace rr {
             rw.draw(shadow_);
             wAttr_.draw(rw);
         }
-    }
-
-    bool Attributes::isOpen() {
-        return wAttr_.isVisible();
     }
 
 }

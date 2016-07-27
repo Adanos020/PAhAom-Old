@@ -9,8 +9,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../Game.hpp"
-
 #include "../../gui/Window.hpp"
 #include "../../gui/Text.hpp"
 
@@ -32,5 +30,7 @@ namespace rr {
     };
 
 }
+
+#include "../Game.hpp"
 
 #endif

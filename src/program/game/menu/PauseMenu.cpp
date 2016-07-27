@@ -46,34 +46,9 @@ namespace rr {
                 wHelp += new Button(sf::Vector2f(5, 380), Resources::dictionary["gui.button.quit"], 30);
                 component(wHelp, Button, 0)->setPosition(sf::Vector2f(wHelp.getPosition().x + wHelp.getSize().x/2 - component(wHelp, Button, 0)->getSize().x/2,
                                                                       wHelp.getPosition().y + wHelp.getSize().y   - component(wHelp, Button, 0)->getSize().y-10));
-
-#undef wHelp
-#undef component
-
-    }
-
-    void PauseMenu::open() {
-        wMenu_.setVisible(true);
-    }
-
-    void PauseMenu::close() {
-
-#define component(w, c, i) w.getComponent<c>(i)
-#define wHelp (*component(wMenu_, Window, 0))
-;
-        wMenu_.setVisible(false);
-        wHelp .setVisible(false);
-
-#undef component
-#undef wHelp
-
     }
 
     void PauseMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
-
-#define component(w, c, i) w.getComponent<c>(i)
-#define wHelp (*component(wMenu_, Window, 0))
-;
         if (wMenu_.isVisible()) {
             if (!wHelp.isVisible()) {
                 if (  component(wMenu_, Button, 0)->isPressed(rw, e)
@@ -93,11 +68,7 @@ namespace rr {
                     ) wHelp.setVisible(false);
             }
         }
-
-#undef component
-#undef wHelp
-
-        }
+    }
 
     void PauseMenu::draw(sf::RenderWindow& rw) {
         if (isOpen()) {
@@ -107,8 +78,13 @@ namespace rr {
         }
     }
 
-    bool PauseMenu::isOpen() {
-        return wMenu_.isVisible();
+    void PauseMenu::close() {
+        wMenu_.setVisible(false);
+        wHelp .setVisible(false);
+
+#undef component
+#undef wHelp
+
     }
 
 }

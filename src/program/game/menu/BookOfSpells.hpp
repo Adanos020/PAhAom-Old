@@ -9,8 +9,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../Game.hpp"
-
 #include "../../gui/Window.hpp"
 
 namespace rr {
@@ -24,18 +22,20 @@ namespace rr {
    
     public:  BookOfSpells();
          
-         /// Opens the window of the book of Runes
-             void open        ();
-         /// Closes the window of the book of Runes
-             void close       ();
          /// Handles the button events
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
          /// Draws the components of the window of the book of Runes
              void draw        (sf::RenderWindow&);
+         /// Opens the window of the book of Runes
+             void open        ()       { wBofs_.setVisible(true); }
+         /// Closes the window of the book of Runes
+             void close       ()       { wBofs_.setVisible(false); }
          /// Tells if the window of the book of Runes is open
-             bool isOpen      ();
+             bool isOpen      () const { return wBofs_.isVisible(); }
     };
 
 }
+
+#include "../Game.hpp"
 
 #endif

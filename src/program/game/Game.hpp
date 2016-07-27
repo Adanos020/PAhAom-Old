@@ -19,13 +19,12 @@ namespace rr {
 
     class MainMenu;
     class PauseMenu;
-    class Inventory;
     class Attributes;
+    class Inventory;
     class Journal;
-    class GameMap;
     class BookOfSpells;
-
     class HUD;
+
     class Level;
     class FOV;
     class MessageManager;
@@ -43,17 +42,17 @@ namespace rr {
              
              Level*              currentLevel_;
          
-             MessageManager*     messageManager_;
+             MessageManager      messageManager_;
          
-             Player*             player_;
+             Player              player_;
          
-             MainMenu*           mainMenu_;
-             PauseMenu*          pauseMenu_;
-             Attributes*         attributes_;
-             Inventory*          inventory_;
-             Journal*            journal_;
-             BookOfSpells*       bookOfSpells_;
-             HUD*                hud_;
+             MainMenu            mainMenu_;
+             PauseMenu           pauseMenu_;
+             Attributes          attributes_;
+             Inventory           inventory_;
+             Journal             journal_;
+             BookOfSpells        bookOfSpells_;
+             HUD                 hud_;
          
              bool                started_;
              bool                paused_;
@@ -92,7 +91,7 @@ namespace rr {
          /// Method telling if the game is paused
              bool                isPaused       () { return paused_; }
          /// Returns the pointer to the player
-             Player*             getPlayer      () { return player_; }
+             Player*             getPlayer      () { return &player_; }
          /// Returns the vector of game levels
              Level*              getCurrentLevel() { return currentLevel_; }
          /// Resets the game state
@@ -101,4 +100,4 @@ namespace rr {
 
 }
 
-#endif // game_h
+#endif // GAME_HPP

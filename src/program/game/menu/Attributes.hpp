@@ -9,8 +9,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../Game.hpp"
-
 #include "../../gui/Window.hpp"
 
 #include "../entity/Player.hpp"
@@ -26,20 +24,22 @@ namespace rr {
     
     public:  Attributes();
 
-         /// Opens the player attributes window
-             void open        ();
-         /// Closes the player attributes window
-             void close       ();
          /// Updates the info about the player attributes
              void update      (Player*);
          /// Handles the button events
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
          /// Draws the player attributes components
              void draw        (sf::RenderWindow&);
+         /// Opens the player attributes window
+             void open        ()       { wAttr_.setVisible(true); }
+         /// Closes the player attributes window
+             void close       ()       { wAttr_.setVisible(false); }
          /// Tells if the player attributes is open
-             bool isOpen      ();
+             bool isOpen      () const { return wAttr_.isVisible(); }
     };
 
 }
+
+#include "../Game.hpp"
 
 #endif

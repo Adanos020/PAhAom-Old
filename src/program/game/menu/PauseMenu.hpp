@@ -9,8 +9,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../Game.hpp"
-
 #include "../../gui/Window.hpp"
 #include "../../gui/Text.hpp"
 
@@ -26,18 +24,20 @@ namespace rr {
     
     public:  PauseMenu();
          
-         /// Opens the pause menu
-             void open        ();
-         /// Closes the pause menu window
-             void close       ();
          /// Handles the button events
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
          /// Draws the pause menu's components
              void draw        (sf::RenderWindow&);
+         /// Opens the pause menu
+             void open        ()       { wMenu_.setVisible(true); }
+         /// Closes the pause menu window
+             void close       ();
          /// Tells if the pause menu is open
-             bool isOpen      ();
+             bool isOpen      () const { return wMenu_.isVisible();}
     };
 
 }
+
+#include "../Game.hpp"
 
 #endif

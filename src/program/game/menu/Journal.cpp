@@ -24,25 +24,12 @@ namespace rr {
 #define component(w, c, i) w.getComponent<c>(i)
 
             wJour_.addComponent(new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30), true);
-            component(wJour_, Button, 0)->setPosition(sf::Vector2f(wJour_.getPosition().x+wJour_.getSize().x - component(wJour_, Button, 0)->getSize().x-15,
-                                                                   Settings::graphics.resolution.y/2+225      - component(wJour_, Button, 0)->getSize().y-5));
+            component(wJour_, Button, 0)->setPosition(sf::Vector2f(wJour_.getPosition().x + wJour_.getSize().x - component(wJour_, Button, 0)->getSize().x-15,
+                                                                   Settings::graphics.resolution.y/2+225       - component(wJour_, Button, 0)->getSize().y-5));
 
-#undef component
-
-    }
-
-    void Journal::open() {
-        wJour_.setVisible(true);
-    }
-
-    void Journal::close() {
-        wJour_.setVisible(false);
     }
 
     void Journal::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
-
-#define component(w, c, i) w.getComponent<c>(i)
-
         if (wJour_.isVisible()) {
             if (  component(wJour_, Button, 0)->isPressed(rw, e)
                 ) g->pause(false);
@@ -57,10 +44,6 @@ namespace rr {
             rw.draw(shadow_);
             wJour_.draw(rw);
         }
-    }
-
-    bool Journal::isOpen() {
-        return wJour_.isVisible();
     }
 
 }
