@@ -7,7 +7,7 @@
 #ifndef LEVEL_HPP
 #define LEVEL_HPP
 
-#include <list>
+#include <vector>
 
 #include "../observer/Observer.hpp"
 
@@ -28,18 +28,18 @@ namespace rr {
                  EXIT
              };
  
-             virtual void         onNotify        (Event, Entity*) override;
+             virtual void         onNotify        (Event         , Entity*) override;
  
              void                 generateWorld   ();
              void                 drawObjects     (sf::RenderWindow&) const;
-             void                 addEntity       (Entity*            , sf::Vector2i position);
+             void                 addEntity       (Entity*       , sf::Vector2i position);
              void                 addEntity       (Entity*);
-             void                 replaceEntity   (unsigned index     , Entity*);
+             void                 replaceEntity   (unsigned index, Entity*);
              void                 removeEntity    (unsigned index);
  
              void                 calculateFOV    (sf::Vector2u origin, int range);
  
-             std::list<Entity*>   getEntities     ()                  const { return entities_     ; }
+             std::vector<Entity*> getEntities     ()                  const { return entities_     ; }
              Shadow*              getShadows      ()                        { return shadows_      ; }
              sf::Vector2i         getStartingPoint()                  const { return startingPoint_; }
              sf::Vector2i         getEndingPoint  ()                  const { return endingPoint_  ; }
@@ -68,7 +68,7 @@ namespace rr {
              int                      tilesAsInts_[77*43];
              Cell                     tiles_  [77*43];
              Shadow                   shadows_[77*43];
-             std::list<Entity*>       entities_;
+             std::vector<Entity*>     entities_;
              std::vector<sf::IntRect> rooms_;
              int                      region_count_;
              int                      levelNumber_;

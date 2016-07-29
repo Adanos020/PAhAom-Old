@@ -136,8 +136,10 @@ namespace rr {
             currentLevel_->generateWorld();
             
             file.open("save/level"+std::to_string(i)+".pah");
-            if ( !file.good()
-                ) return false;
+            if (!file.good()) {
+                system("mkdir save");
+                file.open("save/level"+std::to_string(i)+".pah");
+            }
 
             file.clear();
             *currentLevel_ >> file;
@@ -347,10 +349,9 @@ namespace rr {
 
                 }
                 else if (wasKeyPressed(event, Settings::keys.interact)) {
-                    unsigned i=0;
-                    for (auto it=currentLevel_->getEntities().begin(); it!=currentLevel_->getEntities().end(); ++it) {
+                    for (unsigned i=0; i<currentLevel_->getEntities().size(); ++i) {
                         try {
-                            Entity* entity = *it;
+                            Entity* entity = currentLevel_->getEntities()[i];
                             if (  entity == nullptr
                                 ) throw std::runtime_error("The entity is null");
                             if (player_.getPosition() == entity->getPosition()) {
@@ -376,7 +377,6 @@ namespace rr {
                                     }
                                 }
                             }
-                            ++i;
                         }
                         catch (std::runtime_error ex) {
                             std::cerr << ex.what() << '\n';

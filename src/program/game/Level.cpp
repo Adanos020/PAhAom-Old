@@ -25,8 +25,8 @@ namespace rr {
         tilemap_.setPrimitiveType(sf::Quads);
         tilemap_.resize(size_.x*size_.y*4);
 
-        for (int i=0; i<size_.x; i++) {
-            for (int j=0; j<size_.y; j++) {
+        for (int i=0; i<size_.x; ++i) {
+            for (int j=0; j<size_.y; ++j) {
                 regions_[i+j*size_.x] = -1;
             }
         }
@@ -96,8 +96,8 @@ namespace rr {
 
     void Level::generateWorld() {
      // first we create an 2-dimensional array filled with 1's representing a wall
-        for (int i=0; i<size_.x; i++) {
-            for (int j=0; j<size_.y; j++) {
+        for (int i=0; i<size_.x; ++i) {
+            for (int j=0; j<size_.y; ++j) {
                 tiles_[i+j*size_.x] = WALL;
             }
         }
@@ -150,32 +150,32 @@ namespace rr {
         generateTileMap();
 
      // and just transform the table of cells to a table of ints
-        for (int i=0; i<size_.x; i++) {
-            for (int j=0; j<size_.y; j++) {
+        for (int i=0; i<size_.x; ++i) {
+            for (int j=0; j<size_.y; ++j) {
                 tilesAsInts_[i + j*size_.x] = tiles_[i + j*size_.x];
             }
         }
      // ... and place the shadows. That's really it
-        for (int x=0; x<size_.x; x++) {
-            for (int y=0; y<size_.y; y++) {
+        for (int x=0; x<size_.x; ++x) {
+            for (int y=0; y<size_.y; ++y) {
                 shadows_[x + y*size_.x].setPosition(sf::Vector2i(x, y));
             }
         }
     }
 
     void Level::digRooms() {
-        for (int i=0; i<100; i++) {
+        for (int i=0; i<100; ++i) {
             sf::Vector2i rsize((rand()%4+1)*2+1, (rand()%4+1)*2+1);
             sf::Vector2i rpos(rand()%((size_.x-rsize.x)/2)*2+1, rand()%((size_.y-rsize.y)/2)*2+1);
 
             bool intersects = false;
-            for (int i=rpos.x; i<rpos.x+rsize.x; i++) {
+            for (int i=rpos.x; i<rpos.x+rsize.x; ++i) {
                 if (tiles_[i+(rpos.y-1)*size_.x] == ROOM || tiles_[i+(rpos.y+rsize.y+1)*size_.x] == ROOM) {
                     intersects = true;
                     break;
                 }
             }
-            for (int i=rpos.y; i<rpos.y+rsize.y && !intersects; i++) {
+            for (int i=rpos.y; i<rpos.y+rsize.y && !intersects; ++i) {
                 if (tiles_[rpos.x-1+i*size_.x] == ROOM || tiles_[rpos.x+rsize.x+i*size_.x] == ROOM) {
                     intersects = true;
                     break;
@@ -183,8 +183,8 @@ namespace rr {
             }
 
             if (!intersects) {
-                for (int i=rpos.x; i<rpos.x+rsize.x; i++) {
-                    for (int j=rpos.y; j<rpos.y+rsize.y; j++) {
+                for (int i=rpos.x; i<rpos.x+rsize.x; ++i) {
+                    for (int j=rpos.y; j<rpos.y+rsize.y; ++j) {
                         tiles_  [i+j*size_.x] = ROOM;
                         regions_[i+j*size_.x] = region_count_;
                     }
@@ -349,8 +349,8 @@ namespace rr {
 
         while (!done) {
             done = true;
-            for (int i=1; i<size_.x-1; i++) {
-                for (int j=1; j<size_.y-1; j++) {
+            for (int i=1; i<size_.x-1; ++i) {
+                for (int j=1; j<size_.y-1; ++j) {
                     if (  tiles_[i+j*size_.x] == WALL
                         ) continue;
 
@@ -522,15 +522,15 @@ namespace rr {
     void Level::placeEntities() {
      /* OBJECTS */
      // here we place the doors
-        for (int x=1; x<size_.x-1; x++) {
-            for (int y=1; y<size_.y-1; y++) {
+        for (int x=1; x<size_.x-1; ++x) {
+            for (int y=1; y<size_.y-1; ++y) {
                 if (  tiles_[x+y*size_.x] == ENTRANCE
                     ) addEntity(new Door(false), sf::Vector2i(x, y));
             }
         }
 
      // here we generate the chests
-        for (int i=0; i<rand()%5; i++) {
+        for (int i=0; i<rand()%5; ++i) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
@@ -543,7 +543,7 @@ namespace rr {
 
      /* ITEMS */
      // at this moment all we need is just to place random items in random places, we'll deal with the balance later
-        for (int i=0; i<rand()%15+15; i++) {
+        for (int i=0; i<rand()%15+15; ++i) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
@@ -587,7 +587,7 @@ namespace rr {
     }
 
     std::ifstream& Level::operator<<(std::ifstream& file) {
-        for (auto entity=entities_.begin(); entity!=entities_.end(); ++entity) { // save the entities
+        for (auto entity=entities_.begin(); entity!=entities_.end(); ++entity) { // delete the entities
             delete *entity;
         }
         entities_.clear();
@@ -624,8 +624,8 @@ namespace rr {
             for (int i=0; i<77*43; ++i) { // load the shadows
                 shadows_[i] << file;
             }
-            for (int x=0; x<77; x++) {
-                for (int y=0; y<43; y++) {
+            for (int x=0; x<77; ++x) {
+                for (int y=0; y<43; ++y) {
                     shadows_[x + y*77].setPosition(sf::Vector2i(x, y));
                 }
             }
