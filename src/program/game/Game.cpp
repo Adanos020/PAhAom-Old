@@ -273,7 +273,8 @@ namespace rr {
         gameView_.setCenter(sf::Vector2f(player_.getBounds().left+16, player_.getBounds().top+16));
 
         if (!paused_) {
-            for (auto entity : currentLevel_->getEntities()) {
+            for (unsigned i=0; i<currentLevel_->getEntityCount(); ++i) {
+                Entity* entity = currentLevel_->getEntity(i);
                 if (instanceof<Door, Entity>(entity)) {
                     if (  player_.intersects(entity)
                         ) ((Door*)entity)->setOpen(true);
@@ -349,9 +350,9 @@ namespace rr {
 
                 }
                 else if (wasKeyPressed(event, Settings::keys.interact)) {
-                    for (unsigned i=0; i<currentLevel_->getEntities().size(); ++i) {
+                    for (unsigned i=0; i<currentLevel_->getEntityCount(); ++i) {
                         try {
-                            Entity* entity = currentLevel_->getEntities()[i];
+                            Entity* entity = currentLevel_->getEntity(i);
                             if (  entity == nullptr
                                 ) throw std::runtime_error("The entity is null");
                             if (player_.getPosition() == entity->getPosition()) {

@@ -90,6 +90,16 @@ namespace rr {
         entities_.erase(it);
     }
 
+    Entity* Level::getEntity(unsigned index) const {
+        unsigned i=0;
+        for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
+            if (  i == index
+                ) return *it;
+            ++i;
+        }
+        return nullptr;
+    }
+
     void Level::calculateFOV(sf::Vector2u origin, int range) {
         FOV::compute(shadows_, tilesAsInts_, origin, range);
     }

@@ -7,7 +7,7 @@
 #ifndef LEVEL_HPP
 #define LEVEL_HPP
 
-#include <vector>
+#include <list>
 
 #include "../observer/Observer.hpp"
 
@@ -36,10 +36,11 @@ namespace rr {
              void                 addEntity       (Entity*);
              void                 replaceEntity   (unsigned index, Entity*);
              void                 removeEntity    (unsigned index);
+             Entity*              getEntity       (unsigned index)    const;
+             unsigned             getEntityCount  ()                  const { return entities_.size(); }
  
              void                 calculateFOV    (sf::Vector2u origin, int range);
  
-             std::vector<Entity*> getEntities     ()                  const { return entities_     ; }
              Shadow*              getShadows      ()                        { return shadows_      ; }
              sf::Vector2i         getStartingPoint()                  const { return startingPoint_; }
              sf::Vector2i         getEndingPoint  ()                  const { return endingPoint_  ; }
@@ -68,7 +69,7 @@ namespace rr {
              int                      tilesAsInts_[77*43];
              Cell                     tiles_  [77*43];
              Shadow                   shadows_[77*43];
-             std::vector<Entity*>     entities_;
+             std::list<Entity*>       entities_;
              std::vector<sf::IntRect> rooms_;
              int                      region_count_;
              int                      levelNumber_;
