@@ -46,8 +46,8 @@ namespace rr {
     }
 
     void Level::drawObjects(sf::RenderWindow& rw) const {
-        for (auto entity : entities_) {
-            entity->draw(rw);
+        for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
+            (*it)->draw(rw);
         }
         for (auto shadow : shadows_) {
             shadow.draw(rw);
@@ -68,17 +68,26 @@ namespace rr {
 
     void Level::replaceEntity(unsigned index, Entity* entity) {
         Entity* temp  = entity->clone();
-        auto position = entities_[index]->getPosition();
-        
-        delete entities_[index];
-        entities_[index] = temp;
 
-        entities_[index]->setPosition(position);
+        auto it = entities_.begin();
+        for (unsigned i=0; i<index; ++i) {
+            ++it;
+        }
+
+        auto position = (*it)->getPosition();
+        
+        delete *it;
+        *it = temp;
+
+        (*it)->setPosition(position);
     }
 
     void Level::removeEntity(unsigned index) {
-        delete entities_[index];
-        entities_.erase(entities_.begin()+index);
+        auto it = entities_.begin();
+        for (unsigned i=0; i<index; ++i) {
+            ++it;
+        }
+        entities_.erase(it);
     }
 
     void Level::calculateFOV(sf::Vector2u origin, int range) {
@@ -578,8 +587,8 @@ namespace rr {
     }
 
     std::ifstream& Level::operator<<(std::ifstream& file) {
-        for (unsigned i=0; i<entities_.size(); ++i) {
-            delete entities_[i];
+        for (auto entity=entities_.begin(); entity!=entities_.end(); ++entity) { // save the entities
+            delete *entity;
         }
         entities_.clear();
 
@@ -641,8 +650,8 @@ namespace rr {
              << endingPoint_  .y << '\n';             // save the ending point
 
         file << entities_.size() << '\n';
-        for (unsigned i=0; i<entities_.size(); ++i) { // save the entities
-            *entities_[i] >> file << '\n';
+        for (auto entity=entities_.begin(); entity!=entities_.end(); ++entity) { // save the entities
+            *(*entity) >> file << '\n';
         }
         for (int i=0; i<77*43; ++i) {                 // save the shadows
             shadows_[i] >> file << (((i+1)%77 == 0) ? '\n' : ' ');

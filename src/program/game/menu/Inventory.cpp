@@ -147,7 +147,7 @@ namespace rr {
 
                 }
 
-                if (e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left) {
+                if (e.type == sf::Event::MouseButtonPressed && e.mouseButton.button != sf::Mouse::Middle) {
                     wOpts.setParentComponent(nullptr);
                     wOpts.setVisible(false);
                 }
@@ -234,7 +234,7 @@ namespace rr {
                        && !sCarryOn_[i]->isEmpty()
                         ) {
                         if (   sCarryOn_[i]->isPressed(rw, e)
-                        && !sCarryOn_[i]->isEmpty()
+                           && !sCarryOn_[i]->isEmpty()
                             ) {
                             game->getPlayer()->useItem(sCarryOn_[i]->getItem());
                             if (sCarryOn_[i]->getItem()->isDisposable()) {

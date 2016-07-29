@@ -21,13 +21,15 @@
 namespace rr {
 
     MainMenu::MainMenu() :
-      title_(Text  (sf::Vector2f(0, 0), "PAhAom", Resources::font.Pixel, 100, sf::Color::Yellow)        ),
-      wMenu_(Window("", sf::Vector2f(244, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225)))
+      title_  (Text  (sf::Vector2f(0, 0), "PAhAom"   , Resources::font.Pixel, 100, sf::Color::Yellow)     ),
+      version_(Text  (sf::Vector2f(0, 0), "alpha 0.5", Resources::font.Pixel,  50, sf::Color::Yellow)     ),
+      wMenu_  (Window("", sf::Vector2f(244, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225)))
     {
 
 #define component(w, c, i) w.getComponent<c>(i)
 
-        title_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-title_.getSize().x/2, 10));
+        title_  .setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-title_  .getSize().x/2,  10));
+        version_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-version_.getSize().x/2, 100));
 
             wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.newgame"], 52);
             wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.load"   ], 52);
@@ -443,8 +445,9 @@ namespace rr {
     }
 
     void MainMenu::draw(sf::RenderWindow& rw) {
-        title_.draw(rw);
-        wMenu_.draw(rw);
+        title_  .draw(rw);
+        version_.draw(rw);
+        wMenu_  .draw(rw);
     }
 
 }

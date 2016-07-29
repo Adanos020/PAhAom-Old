@@ -17,8 +17,9 @@
 namespace rr {
 
     PauseMenu::PauseMenu() :
-      title_(Text  (sf::Vector2f(0, 0), "PAhAom", Resources::font.Pixel, 100, sf::Color::Yellow        )),
-      wMenu_(Window("", sf::Vector2f(244, 230), sf::Vector2f(25, Settings::graphics.resolution.y/2-153)))
+      title_  (Text  (sf::Vector2f(0, 0), "PAhAom"   , Resources::font.Pixel, 100, sf::Color::Yellow     )),
+      version_(Text  (sf::Vector2f(0, 0), "alpha 0.5", Resources::font.Pixel,  50, sf::Color::Yellow)     ),
+      wMenu_  (Window("", sf::Vector2f(244, 230), sf::Vector2f(25, Settings::graphics.resolution.y/2-153)))
     {
         shadow_.setSize((sf::Vector2f)Settings::graphics.resolution);
         shadow_.setPosition(sf::Vector2f(0, 0));
@@ -26,7 +27,8 @@ namespace rr {
 
 #define component(w, c, i) w.getComponent<c>(i)
 
-        title_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-title_.getSize().x/2, 10));
+        title_  .setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-title_  .getSize().x/2,  10));
+        version_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-version_.getSize().x/2, 100));
 
             wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.resume" ], 52);
             wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.help"   ], 52);
@@ -73,8 +75,9 @@ namespace rr {
     void PauseMenu::draw(sf::RenderWindow& rw) {
         if (isOpen()) {
             rw.draw(shadow_);
-            title_.draw(rw);
-            wMenu_.draw(rw);
+            title_  .draw(rw);
+            version_.draw(rw);
+            wMenu_  .draw(rw);
         }
     }
 

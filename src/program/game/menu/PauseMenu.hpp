@@ -20,6 +20,7 @@ namespace rr {
     class PauseMenu {
     private: sf::RectangleShape shadow_;
              Text               title_;
+             Text               version_;
              Window             wMenu_;
     
     public:  PauseMenu();

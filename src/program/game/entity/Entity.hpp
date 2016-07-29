@@ -35,11 +35,11 @@ namespace rr {
         /// Returns the entity's position in relation to the actual coordinate system
             virtual sf::Vector2f   getRealPosition()        const     = 0;
 
-            virtual std::ifstream& operator<<    (std::ifstream&)    = 0;
-            virtual std::ofstream& operator>>    (std::ofstream&)    = 0;
+            virtual std::ifstream& operator<<     (std::ifstream&)    = 0;
+            virtual std::ofstream& operator>>     (std::ofstream&)    = 0;
     
     private: /// Initializes the object
-            virtual void           initialize    ()                  = 0; 
+            virtual void           initialize     ()                  = 0; 
     };
 
 }

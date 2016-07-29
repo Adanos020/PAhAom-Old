@@ -347,37 +347,41 @@ namespace rr {
 
                 }
                 else if (wasKeyPressed(event, Settings::keys.interact)) {
-
-#define entities currentLevel_->getEntities()
-;
-                    for (unsigned i=0; i<entities.size(); i++) {
-                        if (player_.getPosition() == entities[i]->getPosition()) {
-                            if (instanceof<Item, Entity>(entities[i])) {
-                                if (inventory_.addItem((Item*)entities[i])) {
-                                    subject.notify(Observer::ITEM_PICKED, entities[i]);
-                                    currentLevel_->removeEntity(i);
-                                    break;
+                    unsigned i=0;
+                    for (auto it=currentLevel_->getEntities().begin(); it!=currentLevel_->getEntities().end(); ++it) {
+                        try {
+                            Entity* entity = *it;
+                            if (  entity == nullptr
+                                ) throw std::runtime_error("The entity is null");
+                            if (player_.getPosition() == entity->getPosition()) {
+                                if (instanceof<Item, Entity>(entity)) {
+                                    if (inventory_.addItem((Item*) entity)) {
+                                        subject.notify(Observer::ITEM_PICKED, entity);
+                                        currentLevel_->removeEntity(i);
+                                        break;
+                                    }
+                                    else messageManager_.addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
                                 }
-                                else messageManager_.addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
-                            }
-                            else if (instanceof<Chest, Entity>(entities[i])) {
-                                currentLevel_->replaceEntity(i, ((Chest*)entities[i])->getItem());
-                            }
-                            else if (instanceof<Stairs, Entity>(entities[i])) {
-                                if (((Stairs*)entities[i])->isUpwards()) {
-                                    switchLevel(levelNumber_+1);
-                                    break;
+                                else if (instanceof<Chest, Entity>(entity)) {
+                                    currentLevel_->replaceEntity(i, ((Chest*) entity)->getItem());
                                 }
-                                else {
-                                    switchLevel(levelNumber_-1);
-                                    break;
+                                else if (instanceof<Stairs, Entity>(entity)) {
+                                    if (((Stairs*) entity)->isUpwards()) {
+                                        switchLevel(levelNumber_+1);
+                                        break;
+                                    }
+                                    else {
+                                        switchLevel(levelNumber_-1);
+                                        break;
+                                    }
                                 }
                             }
+                            ++i;
+                        }
+                        catch (std::runtime_error ex) {
+                            std::cerr << ex.what() << '\n';
                         }
                     }
-
-#undef entities
-
                 }
 
                 if      (wasKeyPressed(event, Settings::keys.useslot_1)) {}

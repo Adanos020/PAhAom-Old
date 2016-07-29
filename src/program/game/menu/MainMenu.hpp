@@ -19,6 +19,7 @@ namespace rr {
 /// Class for the main menu
     class MainMenu {
     private: Text    title_;
+             Text    version_;
              Window  wMenu_;
     
     public:  MainMenu();
