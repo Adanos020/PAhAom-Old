@@ -14,7 +14,7 @@
 #include "../../../funcs/files.hpp"
 #include "../../../funcs/random.hpp"
 
-extern int spellSymbols[11];
+extern int spellSymbols[12];
 
 namespace rr {
 

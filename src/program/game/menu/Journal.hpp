@@ -38,4 +38,4 @@ namespace rr {
 
 #include "../Game.hpp"
 
-#endif
+#endif // MENU_JOURNAL_HPP

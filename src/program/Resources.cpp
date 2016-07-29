@@ -27,7 +27,8 @@ namespace rr {
              && texture.items  .loadFromFile("data/graphics/items.png")
              && texture.tileset.loadFromFile("data/graphics/tileset.png")
              && texture.objects.loadFromFile("data/graphics/objects.png")
-             && texture.npc    .loadFromFile("data/graphics/npc.png"));
+             && texture.npc    .loadFromFile("data/graphics/npc.png")
+             && texture.enemies.loadFromFile("data/graphics/enemies.png"));
     }
 
     bool Resources::loadDict() {

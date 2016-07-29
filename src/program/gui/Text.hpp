@@ -51,4 +51,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // GUI_TEXT_HPP

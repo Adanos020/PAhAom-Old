@@ -37,4 +37,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // NPC_MERCHANT_HPP

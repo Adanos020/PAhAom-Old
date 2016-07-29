@@ -42,4 +42,4 @@ namespace rr {
 
 #include "../Game.hpp"
 
-#endif
+#endif // MENU_ATTRIBUTES_HPP

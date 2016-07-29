@@ -46,4 +46,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // GUI_SWITCH_HPP

@@ -77,21 +77,25 @@ namespace rr {
         return true;
     }
 
-    void Slot::removeItem(int x) {
+    void Slot::removeItem(int x, bool deleteFromMemory) {
         if (!hollow_) {
             item_->setAmount(item_->getAmount()-x);
             text_.setString(std::to_string(item_->getAmount()));
             text_.setCharacterSize(20);
             if (item_->getAmount() == 0) {
                 hollow_ = true;
-                delete item_;
+                if (  deleteFromMemory
+                    ) delete item_;
+                else  item_ = nullptr;
             }
         }
     }
 
-    void Slot::removeItem() {
+    void Slot::removeItem(bool deleteFromMemory) {
         hollow_ = true;
-        delete item_;
+        if (  deleteFromMemory
+            ) delete item_;
+        else  item_ = nullptr;
     }
 
     void Slot::swapItems(Slot* slot) {
@@ -151,8 +155,8 @@ namespace rr {
         return false;
     }
 
-    bool Slot::isPressed(sf::RenderWindow& rw, sf::Event& e) {
-        if (containsMouseCursor(rw) && e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left) {
+    bool Slot::isPressed(sf::RenderWindow& rw, sf::Event& e, sf::Mouse::Button button) {
+        if (containsMouseCursor(rw) && e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == button) {
             held_ = true;
             return true;
         }

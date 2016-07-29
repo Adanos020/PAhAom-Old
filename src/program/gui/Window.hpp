@@ -71,4 +71,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // GUI_WINDOW_HPP

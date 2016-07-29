@@ -41,4 +41,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // GUI_IMAGE_HPP

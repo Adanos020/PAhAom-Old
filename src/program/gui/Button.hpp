@@ -22,18 +22,19 @@ namespace rr {
     
     public:  Button(sf::Vector2f position, sf::String, unsigned chsize, sf::Color = sf::Color::White);
         
-             bool         containsMouseCursor(sf::RenderWindow&);
-             bool         isPressed          (sf::RenderWindow&, sf::Event&);
-             bool         isHeld             () const                     { return held_; }
-             Text         getText            () const                     { return text_; }
-             sf::Vector2f getPosition        () const            override { return body_.getPosition(); }
-             sf::Vector2f getSize            () const            override { return body_.getSize(); }
-             void         setPosition        (sf::Vector2f)      override;
-             void         draw               (sf::RenderWindow&) override;
+             bool                 containsMouseCursor(sf::RenderWindow&);
+             bool                 isPressed          (sf::RenderWindow&, sf::Event&);
+             bool                 isHeld             () const                     { return held_; }
+             Text                 getText            () const                     { return text_; }
+             
+             virtual sf::Vector2f getPosition        () const            override { return body_.getPosition(); }
+             virtual sf::Vector2f getSize            () const            override { return body_.getSize(); }
+             virtual void         setPosition        (sf::Vector2f)      override;
+             virtual void         setSize            (sf::Vector2f size) override { body_.setSize(size); }
+             virtual void         draw               (sf::RenderWindow&) override;
          
-             void         setSize            (sf::Vector2f)      override {}
     };
 
 }
 
-#endif
+#endif // GUI_BUTTON_HPP

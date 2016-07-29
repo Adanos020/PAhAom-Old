@@ -41,6 +41,27 @@ PEŁNY EKRAN
 gui.checkbox.vsync
 SYNCHRONIZACJA PIONOWA
 
+gui.menu.equip
+ZAŁÓŻ
+
+gui.menu.drink
+WYPIJ
+
+gui.menu.eat
+ZJEDZ
+
+gui.menu.read
+PRZECZYTAJ
+
+gui.menu.use
+UŻYJ
+
+gui.menu.move_to_carryon
+DO PODRĘCZNEGO
+
+gui.menu.drop
+WYRZUĆ
+
 gui.text.resolution
 ROZDZIELCZOŚĆ
 

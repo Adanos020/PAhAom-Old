@@ -8,6 +8,7 @@
 #define MENU_INVENTORY_HPP
 
 #include <SFML/Graphics.hpp>
+
 #include "../../observer/Observer.hpp"
 
 #include "../../gui/Window.hpp"
@@ -50,7 +51,7 @@ namespace rr {
          /// Opens the inventory window
              void open        ();
          /// Closes the inventory window
-             void close       ()       { wInve_.setVisible(false); }
+             void close       ();
          /// Tells if the inventory is open
              bool isOpen      () const { return wInve_.isVisible(); }
          
@@ -64,4 +65,4 @@ namespace rr {
 
 #include "../Game.hpp"
 
-#endif
+#endif // MENU_INVENTORY_HPP

@@ -40,4 +40,4 @@ namespace rr {
 
 #include "../Game.hpp"
 
-#endif
+#endif // MENU_PAUSE_HPP

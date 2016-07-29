@@ -26,6 +26,7 @@ namespace rr {
                     sf::Texture tileset;
                     sf::Texture objects;
                     sf::Texture npc;
+                    sf::Texture enemies;
             } texture;
 
             static struct Music {
@@ -44,4 +45,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // RESOURCES_HPP

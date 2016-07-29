@@ -33,4 +33,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // GUI_BAR_HPP

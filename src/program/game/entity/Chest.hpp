@@ -49,4 +49,4 @@ namespace rr {
 
 }
 
-#endif // chest_hpp
+#endif // ENTITY_CHEST_HPP

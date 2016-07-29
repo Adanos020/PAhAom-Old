@@ -51,4 +51,4 @@ namespace rr {
 
 }
 
-#endif // program_h
+#endif // PROGRAM_HPP

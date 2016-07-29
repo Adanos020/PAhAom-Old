@@ -15,4 +15,4 @@
 #include "RangedWeapon.hpp"
 #include "Rune.hpp"
 
-#endif
+#endif // ITEM_ALL_HPP

@@ -111,4 +111,4 @@ namespace rr {
 
 }
 
-#endif // player_h
+#endif // ENTITY_PLAYER_HPP

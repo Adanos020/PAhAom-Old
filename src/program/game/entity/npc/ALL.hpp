@@ -11,4 +11,4 @@
 #include "QuestGiver.hpp"
 #include "Teacher.hpp"
 
-#endif
+#endif // NPC_ALL_HPP

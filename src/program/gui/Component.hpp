@@ -35,4 +35,4 @@ namespace rr {
 
 }
 
-#endif // gui_hpp
+#endif // GUI_COMPONENT_HPP

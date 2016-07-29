@@ -103,4 +103,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // SETTINGS_HPP

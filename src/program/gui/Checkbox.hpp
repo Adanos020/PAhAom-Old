@@ -44,4 +44,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // GUI_CHECKBOX_HPP

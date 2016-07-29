@@ -48,4 +48,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // GUI_SCROLLBAR_HPP

@@ -42,4 +42,3 @@ namespace rr {
 }
 
 #endif // ITEM_COIN_HPP
-

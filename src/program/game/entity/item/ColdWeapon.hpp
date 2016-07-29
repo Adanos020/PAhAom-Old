@@ -70,4 +70,3 @@ namespace rr {
 }
 
 #endif // ITEM_COLDWEAPON_HPP
-

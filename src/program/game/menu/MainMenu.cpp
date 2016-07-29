@@ -208,7 +208,7 @@ namespace rr {
 
 #undef wHelp
 
-            wMenu_.addComponent(new Window(Resources::dictionary["gui.button.credits"], sf::Vector2f(485, 330),
+            wMenu_.addComponent(new Window(Resources::dictionary["gui.button.credits"], sf::Vector2f(485, 335),
                                            sf::Vector2f(Settings::graphics.resolution.x-510, Settings::graphics.resolution.y/2-165)), false);
 
 #define wCred (*component(wMenu_, Window, 2))
@@ -218,14 +218,15 @@ namespace rr {
 
                 wCred += new Text(sf::Vector2f(20,  80), Resources::dictionary["gui.button.graphical"], Resources::font.Unifont, 30);
                 wCred += new Text(sf::Vector2f( 0, 110), "\tJan Lewandowski", Resources::font.Unifont, 25, sf::Color::Yellow);
+                wCred += new Text(sf::Vector2f( 0, 135), L"\tKamil 'Kwasior' Kwaśnik", Resources::font.Unifont, 25, sf::Color::Yellow);
 
-                wCred += new Text(sf::Vector2f(20, 140), Resources::dictionary["gui.text.literary_support"], Resources::font.Unifont, 30);
-                wCred += new Text(sf::Vector2f( 0, 170), "\tDominik 'Marco' Otmianowski", Resources::font.Unifont, 25, sf::Color::Yellow);
+                wCred += new Text(sf::Vector2f(20, 165), Resources::dictionary["gui.text.literary_support"], Resources::font.Unifont, 30);
+                wCred += new Text(sf::Vector2f( 0, 195), "\tDominik 'Marco' Otmianowski", Resources::font.Unifont, 25, sf::Color::Yellow);
 
-                wCred += new Text(sf::Vector2f(20, 200), Resources::dictionary["gui.text.usedlib"], Resources::font.Unifont, 30);
-                wCred += new Text(sf::Vector2f( 0, 230), "\tSFML 2.3.2", Resources::font.Unifont, 25, sf::Color::Yellow);
+                wCred += new Text(sf::Vector2f(20, 225), Resources::dictionary["gui.text.usedlib"], Resources::font.Unifont, 30);
+                wCred += new Text(sf::Vector2f( 0, 255), "\tSFML 2.3.2", Resources::font.Unifont, 25, sf::Color::Yellow);
 
-                wCred += new Button(sf::Vector2f(5, 225), Resources::dictionary["gui.button.quit"], 30);
+                wCred += new Button(sf::Vector2f(5, 255), Resources::dictionary["gui.button.quit"], 30);
                     component(wCred, Button, 0)->setPosition(sf::Vector2f(wCred.getPosition().x+wCred.getSize().x/2 - component(wCred, Button, 0)->getSize().x/2,
                                                                           wCred.getPosition().y+wCred.getSize().y   - component(wCred, Button, 0)->getSize().y-10));
 

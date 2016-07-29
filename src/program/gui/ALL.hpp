@@ -1,3 +1,9 @@
+/**
+ * @file src/program/gui/ALL.hpp
+ * @author Adam 'Adanos' Gąsior
+ * Used library: SFML 2.3.2
+ */
+
 #ifndef GUI_ALL
 #define GUI_ALL
 
@@ -6,10 +12,11 @@
 #include "Button.hpp"
 #include "Checkbox.hpp"
 #include "Image.hpp"
+#include "Menu.hpp"
 #include "ScrollBar.hpp"
 #include "Slot.hpp"
 #include "Switch.hpp"
 #include "Text.hpp"
 #include "Window.hpp"
 
-#endif
+#endif // GUI_ALL

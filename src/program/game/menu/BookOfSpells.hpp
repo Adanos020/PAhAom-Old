@@ -38,4 +38,4 @@ namespace rr {
 
 #include "../Game.hpp"
 
-#endif
+#endif // MENU_BOOKOFSPELLS_HPP

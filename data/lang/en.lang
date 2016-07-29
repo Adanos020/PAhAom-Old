@@ -41,6 +41,27 @@ FULLSCREEN
 gui.checkbox.vsync
 VERTICAL SYNCHRONIZATION
 
+gui.menu.equip
+EQUIP
+
+gui.menu.drink
+DRINK
+
+gui.menu.eat
+EAT
+
+gui.menu.read
+READ
+
+gui.menu.use
+USE
+
+gui.menu.move_to_carryon
+CARRY-ON
+
+gui.menu.drop
+DROP
+
 gui.text.resolution
 RESOLUTION
 

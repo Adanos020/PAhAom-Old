@@ -33,4 +33,4 @@ namespace rr {
 
 }
 
-#endif
+#endif // NPC_QUESTGIVER_HPP

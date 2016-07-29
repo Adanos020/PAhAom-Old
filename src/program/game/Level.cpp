@@ -567,7 +567,8 @@ namespace rr {
 
     void Level::onNotify(Observer::Event event, Entity* entity) {
         switch (event) {
-            case Observer::ITEM_DROPPED: break;
+            case Observer::ITEM_DROPPED: addEntity(entity);
+                                         break;
             default                    : break;
         }
     }
