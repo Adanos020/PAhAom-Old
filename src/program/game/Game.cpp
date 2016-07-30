@@ -350,7 +350,8 @@ namespace rr {
 
                 }
                 else if (wasKeyPressed(event, Settings::keys.interact)) {
-                    for (unsigned i=0; i<currentLevel_->getEntityCount(); ++i) {
+                    unsigned i=0;
+                    while (i<currentLevel_->getEntityCount()) {
                         try {
                             Entity* entity = currentLevel_->getEntity(i);
                             if (  entity == nullptr
@@ -359,25 +360,28 @@ namespace rr {
                                 if (instanceof<Item, Entity>(entity)) {
                                     if (inventory_.addItem((Item*) entity)) {
                                         subject.notify(Observer::ITEM_PICKED, entity);
-                                        currentLevel_->removeEntity(i);
+                                        currentLevel_->removeEntity(i++);
                                         break;
                                     }
-                                    else messageManager_.addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
+                                    messageManager_.addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
                                 }
                                 else if (instanceof<Chest, Entity>(entity)) {
-                                    currentLevel_->replaceEntity(i, ((Chest*) entity)->getItem());
+                                    currentLevel_->replaceEntity(i++, ((Chest*) entity)->getItem());
                                 }
                                 else if (instanceof<Stairs, Entity>(entity)) {
                                     if (((Stairs*) entity)->isUpwards()) {
                                         switchLevel(levelNumber_+1);
+                                        ++i;
                                         break;
                                     }
                                     else {
                                         switchLevel(levelNumber_-1);
+                                        ++i;
                                         break;
                                     }
                                 }
                             }
+                            ++i;
                         }
                         catch (std::runtime_error ex) {
                             std::cerr << ex.what() << '\n';

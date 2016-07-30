@@ -47,8 +47,8 @@ namespace rr {
              int*                 getTiles        ()                        { return tilesAsInts_  ; }
              Cell*                getTilesAsCells ()                        { return tiles_        ; }
  
-             std::ifstream& operator<<(std::ifstream&);
-             std::ofstream& operator>>(std::ofstream&);
+             std::ifstream&       operator<<      (std::ifstream&);
+             std::ofstream&       operator>>      (std::ofstream&);
     
     private: virtual void         draw            (sf::RenderTarget& target, sf::RenderStates states) const;
      
