@@ -76,10 +76,9 @@ namespace rr {
                 if (instanceof<Item, Entity>(*it)) {
                     if (game->getInventory()->addItem((Item*) *it)) {
                         subject.notify(Observer::ITEM_PICKED, *it);
-                        entities_.erase(it);
-                        break;
+                        entities_.erase(it++);
                     }
-                    game->getMessageManager()->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
+                    else game->getMessageManager()->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
                 }
                 else if (instanceof<Chest, Entity>(*it)) {
                     Entity* temp  = ((Chest*) *it)->getItem()->clone();
@@ -93,12 +92,10 @@ namespace rr {
                     if (((Stairs*) *it)->isUpwards()) {
                         game->switchLevel(levelNumber_+1);
                         ++it;
-                        break;
                     }
                     else {
                         game->switchLevel(levelNumber_-1);
                         ++it;
-                        break;
                     }
                 }
             }
