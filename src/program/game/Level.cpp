@@ -8,12 +8,15 @@
 
 #include "Game.hpp"
 #include "fov/FOV.hpp"
-#include "entity/Entity.hpp"
+
+#include "menu/Inventory.hpp"
 
 #include "../Resources.hpp"
 
 #include "../funcs/files.hpp"
 #include "../funcs/items.hpp"
+
+extern rr::Subject subject;
 
 namespace rr {
 
@@ -66,41 +69,59 @@ namespace rr {
             ) entities_.push_back(e);
     }
 
-    void Level::replaceEntity(unsigned index, Entity* entity) {
-        Entity* temp  = entity->clone();
-
-        auto it = entities_.begin();
-        for (unsigned i=0; i<index; ++i) {
+    void Level::playerInteraction(Game* game) {
+        auto it=entities_.begin();
+        while (it != entities_.end()) {
+            if (game->getPlayer()->getPosition() == (*it)->getPosition()) {
+                if (instanceof<Item, Entity>(*it)) {
+                    if (game->getInventory()->addItem((Item*) *it)) {
+                        subject.notify(Observer::ITEM_PICKED, *it);
+                        entities_.erase(it);
+                        break;
+                    }
+                    game->getMessageManager()->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
+                }
+                else if (instanceof<Chest, Entity>(*it)) {
+                    Entity* temp  = ((Chest*) *it)->getItem()->clone();
+                    auto position = (*it)->getPosition();
+                    
+                    delete *it;
+                    *it = temp;
+                    (*it++)->setPosition(position);
+                }
+                else if (instanceof<Stairs, Entity>(*it)) {
+                    if (((Stairs*) *it)->isUpwards()) {
+                        game->switchLevel(levelNumber_+1);
+                        ++it;
+                        break;
+                    }
+                    else {
+                        game->switchLevel(levelNumber_-1);
+                        ++it;
+                        break;
+                    }
+                }
+            }
             ++it;
         }
-
-        auto position = (*it)->getPosition();
-        
-        delete *it;
-        *it = temp;
-
-        (*it)->setPosition(position);
     }
 
-    void Level::removeEntity(unsigned index) {
-        auto it = entities_.begin();
-        for (unsigned i=0; i<index; ++i) {
-            ++it;
-        }
-        entities_.erase(it);
-    }
-
-    Entity* Level::getEntity(unsigned index) const {
-        unsigned i=0;
+    void Level::update(Game* game, sf::Time time) {
         for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
-            if (  i == index
-                ) return *it;
-            ++i;
+            if (instanceof<Door, Entity>(*it)) {
+                if (  game->getPlayer()->intersects(*it)
+                    ) ((Door*) *it)->setOpen(true);
+                else  ((Door*) *it)->setOpen(false);
+            }
+            else if (  instanceof<NPC, Entity>(*it)
+                     ) ((NPC*) *it)->update(time);
         }
-        return nullptr;
     }
 
     void Level::calculateFOV(sf::Vector2u origin, int range) {
+        for (int i=0; i<77*43; i++) {
+            shadows_[i].see(false);
+        }
         FOV::compute(shadows_, tilesAsInts_, origin, range);
     }
 

@@ -273,21 +273,9 @@ namespace rr {
         gameView_.setCenter(sf::Vector2f(player_.getBounds().left+16, player_.getBounds().top+16));
 
         if (!paused_) {
-            for (unsigned i=0; i<currentLevel_->getEntityCount(); ++i) {
-                Entity* entity = currentLevel_->getEntity(i);
-                if (instanceof<Door, Entity>(entity)) {
-                    if (  player_.intersects(entity)
-                        ) ((Door*)entity)->setOpen(true);
-                    else  ((Door*)entity)->setOpen(false);
-                }
-                else if (  instanceof<NPC, Entity>(entity)
-                         ) ((NPC*)entity)->update(time);
-            }
+            currentLevel_->update(this, time);
         }
 
-        for (int i=0; i<77*43; i++) {
-            currentLevel_->getShadows()[i].see(false);
-        }
         currentLevel_->calculateFOV((sf::Vector2u)player_.getPosition(), player_.getSightRange());
     }
 
@@ -350,43 +338,7 @@ namespace rr {
 
                 }
                 else if (wasKeyPressed(event, Settings::keys.interact)) {
-                    unsigned i=0;
-                    while (i<currentLevel_->getEntityCount()) {
-                        try {
-                            Entity* entity = currentLevel_->getEntity(i);
-                            if (  entity == nullptr
-                                ) throw std::runtime_error("The entity is null");
-                            if (player_.getPosition() == entity->getPosition()) {
-                                if (instanceof<Item, Entity>(entity)) {
-                                    if (inventory_.addItem((Item*) entity)) {
-                                        subject.notify(Observer::ITEM_PICKED, entity);
-                                        currentLevel_->removeEntity(i++);
-                                        break;
-                                    }
-                                    messageManager_.addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
-                                }
-                                else if (instanceof<Chest, Entity>(entity)) {
-                                    currentLevel_->replaceEntity(i++, ((Chest*) entity)->getItem());
-                                }
-                                else if (instanceof<Stairs, Entity>(entity)) {
-                                    if (((Stairs*) entity)->isUpwards()) {
-                                        switchLevel(levelNumber_+1);
-                                        ++i;
-                                        break;
-                                    }
-                                    else {
-                                        switchLevel(levelNumber_-1);
-                                        ++i;
-                                        break;
-                                    }
-                                }
-                            }
-                            ++i;
-                        }
-                        catch (std::runtime_error ex) {
-                            std::cerr << ex.what() << '\n';
-                        }
-                    }
+                    currentLevel_->playerInteraction(this);
                 }
 
                 if      (wasKeyPressed(event, Settings::keys.useslot_1)) {}

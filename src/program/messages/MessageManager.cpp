@@ -49,7 +49,7 @@ namespace rr {
             case ITEM_EQUIP_FAILURE: addMessage(Message(Resources::dictionary["message.item_equip_failure"]
                                                       +" "
                                                       +((Item*)entity)->getName()
-                                                      +((Settings::game.language != "fc") ? sf::String("!") : sf::String(""))));
+                                                      +((Settings::game.language != "fc") ? sf::String("!") : sf::String("")), sf::Color::Red));
                                      break;
 
             case ITEM_DISCOVERED   : addMessage(Message(Resources::dictionary["message.item_discovered"]+" "

@@ -64,38 +64,42 @@ namespace rr {
              void controls      (sf::Event&);
          /// Randomizes the disposable items' colors/symbols
              void randomizeItems();
-         /// Switches to the level of a given index
-             void switchLevel   (int index);
     
     public:  Game();
             ~Game();
         
          /// Method drawing the game components
-             void                draw           (sf::RenderWindow&);
+             void                draw             (sf::RenderWindow&);
          /// Method for handling the button events
-             void                buttonEvents   (sf::RenderWindow&, sf::Event&);
+             void                buttonEvents     (sf::RenderWindow&, sf::Event&);
          /// Method drawing the game components
-             void                update         (sf::Event&       , sf::Time);
+             void                update           (sf::Event&       , sf::Time);
+         /// Switches to the level of a given index
+             void                switchLevel   (int index);
          /// Method starting the game or not, depending on the argument's value
-             void                start          (bool);
+             void                start            (bool);
          /// Method pause the game or not, depending on the argument's value
-             void                pause          (bool);
+             void                pause            (bool);
          /// Method saving the game progress
-             void                save           ();
+             void                save             ();
          /// Method loading the game progress
-             bool                load           ();
+             bool                load             ();
          /// Method the new game
-             bool                loadNewGame    ();
+             bool                loadNewGame      ();
          /// Method telling if the game is started
-             bool                isStarted      () { return started_; }
+             bool                isStarted        () { return started_; }
          /// Method telling if the game is paused
-             bool                isPaused       () { return paused_; }
+             bool                isPaused         () { return paused_; }
          /// Returns the pointer to the player
-             Player*             getPlayer      () { return &player_; }
+             Player*             getPlayer        () { return &player_; }
+         /// Returns the inventory
+             Inventory*          getInventory     () { return &inventory_; }
          /// Returns the vector of game levels
-             Level*              getCurrentLevel() { return currentLevel_; }
+             Level*              getCurrentLevel  () { return currentLevel_; }
+         /// Returns the vector of game levels
+             MessageManager*     getMessageManager() { return &messageManager_; }
          /// Resets the game state
-             void                reset          ();
+             void                reset            ();
     };
 
 }
