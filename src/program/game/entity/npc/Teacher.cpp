@@ -37,6 +37,8 @@ namespace rr {
 
         currentAnimation_ = &standingStill_;
 
+        attitude_ = Resources::dictionary["npc.attitude.passive"];
+
         body_.setAnimation      (*currentAnimation_);
         body_.setLooped         (true);
         if (  type_ == MAGE
@@ -53,6 +55,10 @@ namespace rr {
         body_.play(*currentAnimation_);
     }
 
+    void Teacher::handleDamage(int damage) {
+        
+    }
+
     std::ifstream& Teacher::operator<<(std::ifstream& file) {
         currentAnimation_->clearFrames();
         
@@ -60,9 +66,9 @@ namespace rr {
         int type;
 
         try {
-            readFile <int> (file, position.x);
-            readFile <int> (file, position.y);                  
-            readFile <int> (file, type);
+            readFile <int>  (file, position.x);
+            readFile <int>  (file, position.y);
+            readFile <int>  (file, type);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';

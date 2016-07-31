@@ -15,13 +15,14 @@ namespace rr {
 
     class NPC : public Entity {
     protected: sf::AnimatedSprite body_;
-               sf::Animation      standingStill_;
                sf::Animation*     currentAnimation_;
+               
+               sf::String         attitude_;
     
     public:    virtual ~NPC() {}
        
-               virtual void          talk            ()                  = 0;
                virtual void          update          (sf::Time timeStep) = 0;
+               virtual void          handleDamage    (int damage)        = 0;
        
                virtual void          draw            (sf::RenderWindow& rw) override { rw.draw(body_); }
                virtual void          setPosition     (sf::Vector2i pos)     override { body_.setPosition((sf::Vector2f)pos*80.f); }
@@ -31,6 +32,8 @@ namespace rr {
                virtual sf::FloatRect getBounds       ()          const      override { return body_.getGlobalBounds(); }
                virtual sf::Vector2i  getPosition     ()          const      override { return (sf::Vector2i)body_.getPosition()/80; }
                virtual sf::Vector2f  getRealPosition ()          const      override { return body_.getPosition(); }
+
+               sf::String            getAttitude     ()          const      	     { return attitude_; }
     };
 
 }

@@ -26,11 +26,10 @@ namespace rr {
                  SPELLS_BOOK
              } type_;
          
-             Book(Type, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+             Book(Type = CRAFTING, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
              Book(Book const&);
          
              virtual Entity*        clone          ()            const override { return new Book(*this); }
-             virtual Entity*        create         ()            const override { return new Book(CRAFTING); }
              
              virtual void           draw           (sf::RenderWindow&) override;
          

@@ -123,7 +123,7 @@ namespace rr {
     }
 
     void FOV::setVisible(Shadow shadows[], unsigned x, unsigned y, unsigned octant, sf::Vector2u origin) {
-        unsigned nx = origin.x, ny = origin.y;
+        int nx = origin.x, ny = origin.y;
         switch (octant) {
             case 0: nx += x; ny -= y; break;
             case 1: nx += y; ny -= x; break;

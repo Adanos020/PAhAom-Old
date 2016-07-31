@@ -15,9 +15,9 @@
 
 namespace rr {
 
-    Chest::Chest(Type t, Item* i) :
+    Chest::Chest(Type t) :
       Entity( ),
-      item_ (i),
+      item_ (getRandomItem()),
       type_ (t)
     {
         initialize();
@@ -47,10 +47,6 @@ namespace rr {
         body_.setTextureRect(sf::IntRect(tu*16, tv*16, 16, 16));
         body_.setTexture    (Resources::texture.objects);
         body_.setScale      (sf::Vector2f(5.f, 5.f));
-    }
-
-    Entity* Chest::create() const {
-        return new Chest(REGULAR, getRandomItem());
     }
 
     void Chest::draw(sf::RenderWindow& rw) {

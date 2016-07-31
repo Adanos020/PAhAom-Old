@@ -16,7 +16,6 @@ namespace rr {
             RangedWeapon(RangedWeapon const&);
 /*
             virtual Entity*        clone     ()            const override { return new RangedWeapon(*this); }
-            virtual Entity*        create    ()            const override { return new RangedWeapon(); }
 */
             virtual void           draw      (sf::RenderWindow&) override;
     

@@ -1,5 +1,5 @@
 /**
- * @file src/program/funcs/funcs.hpp
+ * @file src/program/funcs/classes.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */

@@ -12,6 +12,7 @@
 #include "../../../../lib/AnimatedSprite.hpp"
 
 #include "Entity.hpp"
+#include "npc/NPC.hpp"
 #include "item/ColdWeapon.hpp"
 #include "item/Item.hpp"
 
@@ -25,15 +26,16 @@ namespace rr {
     class Player : public Entity {
     private: struct Attrs { /// Structure for the player attributes
              public: float health;
-                     float mana;
                      float maxHealth;
+                     float mana;
                      float maxMana;
                      float strength;
                      float dexterity;
                      float experience;
                      float nextLevel;
-                     float level;
+                     int   level;
                      float skillPoints;
+                     float armor;
                  
                      bool  crafting;
                      bool  alchemy;
@@ -79,7 +81,6 @@ namespace rr {
              };
      
              virtual Entity*       clone          ()          const override { return new Player(*this); }
-             virtual Entity*       create         ()          const override { return new Player(); }
      
              virtual void          draw           (sf::RenderWindow&);
              virtual void          setPosition    (sf::Vector2i)    override;
@@ -98,6 +99,10 @@ namespace rr {
              bool                  equipItem      (Equipable*, bool);
          /// Updates the state of the player character
              void                  update         (sf::Time);
+         /// Makes the player attack an NPC
+             void                  attack         (NPC*);
+         /// Makes the player handle the damage dealt by an NPC
+             void                  handleDamage   (int damage);
          /// Returns the player's attributes
              Attrs                 getAttributes  ()          const          { return attrs_; }
          /// Returns the player's sight range

@@ -7,6 +7,7 @@
 #ifndef NPC_ALL_HPP
 #define NPC_ALL_HPP
 
+#include "Bandit.hpp"
 #include "Merchant.hpp"
 #include "QuestGiver.hpp"
 #include "Teacher.hpp"

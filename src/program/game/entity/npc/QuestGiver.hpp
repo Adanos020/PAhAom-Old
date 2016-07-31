@@ -12,23 +12,25 @@
 namespace rr {
 
     class QuestGiver : public NPC {
-    private: virtual void           initialize()                  override;
+    private: sf::Animation standingStill_;
+    
+             virtual void           initialize()                  override;
     
     public:  enum Type {
                  NONE_YET
              } type_;
          
-             QuestGiver(Type);
+             QuestGiver(Type = NONE_YET);
              QuestGiver(QuestGiver const&);
          
-             virtual Entity*        clone     () const            override { return new QuestGiver(*this); }
-             virtual Entity*        create    () const            override { return new QuestGiver(NONE_YET); }
+             virtual Entity*        clone       () const            override { return new QuestGiver(*this); }
          
-             virtual void           talk      ()                  override;
-             virtual void           update    (sf::Time timeStep) override;
+             virtual void           talk        ();
+             virtual void           update      (sf::Time timeStep) override;
+             virtual void           handleDamage(int damage)        override;
          
-             virtual std::ifstream& operator<<(std::ifstream&)    override;
-             virtual std::ofstream& operator>>(std::ofstream&)    override;
+             virtual std::ifstream& operator<<  (std::ifstream&)    override;
+             virtual std::ofstream& operator>>  (std::ofstream&)    override;
     };
 
 }

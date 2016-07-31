@@ -28,15 +28,7 @@ namespace rr {
 
     Game::Game() :
       currentLevel_  (nullptr            ),
-      messageManager_(MessageManager(   )),
-      player_        (Player(           )),
-      mainMenu_      (MainMenu(         )),
-      pauseMenu_     (PauseMenu(        )),
-      attributes_    (Attributes(       )),
       inventory_     (Inventory(&player_)),
-      journal_       (Journal(          )),
-      bookOfSpells_  (BookOfSpells(     )),
-      hud_           (HUD(              )),
       started_       (false              ),
       paused_        (false              ),
       levelNumber_   (0                  )
@@ -119,7 +111,12 @@ namespace rr {
 
         player_.setPosition((ascending) ? currentLevel_->getStartingPoint() : currentLevel_->getEndingPoint());
 
-        messageManager_.addMessage(Message(Resources::dictionary["message.welcome_to_level"]+" "+std::to_string(levelNumber_+1)+((Settings::game.language=="fc") ? "" : "!"), sf::Color::Green));
+        messageManager_.addMessage(Message(Resources::dictionary["message.welcome_to_level"]
+                                          +" "
+                                          +std::to_string(levelNumber_+1)
+                                          +((Settings::game.language=="fc") ? "" : "!"), sf::Color::Green));
+
+        save();
     }
 
     bool Game::loadNewGame() {
@@ -335,10 +332,10 @@ namespace rr {
                 }
 
                 else if (wasKeyPressed(event, Settings::keys.attack)) {
-
+                    currentLevel_->playerAttack(&player_);
                 }
                 else if (wasKeyPressed(event, Settings::keys.interact)) {
-                    currentLevel_->playerInteraction(this);
+                    currentLevel_->playerInteract(this);
                 }
 
                 if      (wasKeyPressed(event, Settings::keys.useslot_1)) {}

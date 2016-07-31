@@ -32,7 +32,6 @@ namespace rr {
              void                   setFadeOut     (sf::Color[]);
      
              virtual Entity*        clone          ()          const       override { return new Shadow(*this); }
-             virtual Entity*        create         ()          const       override { return new Shadow(); }
      
              virtual void           draw           (sf::RenderWindow&)     override;
              virtual void           setPosition    (sf::Vector2i position) override { setRealPosition((sf::Vector2f)position*80.f); }

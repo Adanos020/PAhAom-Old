@@ -516,6 +516,16 @@ Czar ten usuwa negatywne skutki rzuconych na ciebie klątw i zapewnia chwilową 
 item.spell.description.telekinesis
 Czym jest telekineza, każdy wie. Kto nie wie, niech spróbuje podnieść i przenieść jakiś przedmiot za pomocą umysłu.
 
+;-------------NPC-------------;
+npc.attitude.aggressive
+agresywny
+
+npc.attitude.neutral
+neutralny
+
+npc.attitude.passive
+pasywny
+
 ;-----------PLAYER-----------;
 player.attributes.health
 ZDROWIE

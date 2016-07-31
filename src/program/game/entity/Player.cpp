@@ -27,25 +27,24 @@ namespace rr {
       velocity_                    (1120.f            ),
       sightRange_                  (5                 )
     {
-        attrs_.health                = 0.f;
-        attrs_.mana                  = 5.f;
-        attrs_.maxHealth             = 30.f;
-        attrs_.maxMana               = 5.f;
-        attrs_.strength              = 10.f;
-        attrs_.dexterity             = 10.f;
-        attrs_.skillPoints           = 0.f;
-        attrs_.experience            = 0.f;
-        attrs_.nextLevel             = 100.f;
-        attrs_.level                 = 0.f;
+        attrs_.health = attrs_.maxHealth =  30.f;
+        attrs_.mana   = attrs_.maxMana   =   5.f;
+        attrs_.strength                  =  10.f;
+        attrs_.dexterity                 =  10.f;
+        attrs_.experience                =   0.f;
+        attrs_.nextLevel                 = 100.f;
+        attrs_.level                     =   0  ;
+        attrs_.skillPoints               =   0.f;
+        attrs_.armor                     =   0.f;
 
-        attrs_.crafting              = false;
-        attrs_.alchemy               = false;
-        attrs_.cold_weapon_mastery   = false;
-        attrs_.ranged_weapon_mastery = false;
-        attrs_.eagle_eye             = false;
-        attrs_.mana_regeneration     = false;
-        attrs_.health_regeneration   = false;
-        attrs_.faster_learning       = false;
+        attrs_.crafting                  = false;
+        attrs_.alchemy                   = false;
+        attrs_.cold_weapon_mastery       = false;
+        attrs_.ranged_weapon_mastery     = false;
+        attrs_.eagle_eye                 = false;
+        attrs_.mana_regeneration         = false;
+        attrs_.health_regeneration       = false;
+        attrs_.faster_learning           = false;
 
         initialize();
         body_.setPosition(sf::Vector2f(0, 0));
@@ -153,6 +152,19 @@ namespace rr {
         body_.play  (*currentAnimation_);
     }
 
+    void Player::attack(NPC* npc) {
+        int maxDamage = attrs_.strength;
+        if (  coldWeapon_ != nullptr
+            ) maxDamage = coldWeapon_->getDamageDealt() - (coldWeapon_->getStrengthRequired() - attrs_.strength);
+        
+        npc->handleDamage(rand()%maxDamage);
+    }
+
+    void Player::handleDamage(int damage) {
+        if (  damage >= attrs_.armor
+            ) attrs_.health -= (damage - attrs_.armor);
+    }
+
     void Player::reset() {
         attrs_.health                =  30.f;
         attrs_.mana                  =   5.f;
@@ -160,10 +172,11 @@ namespace rr {
         attrs_.maxMana               =   5.f;
         attrs_.strength              =  10.f;
         attrs_.dexterity             =  10.f;
-        attrs_.skillPoints           =   0.f;
         attrs_.experience            =   0.f;
         attrs_.nextLevel             = 100.f;
-        attrs_.level                 =   0.f;
+        attrs_.level                 =   0  ;
+        attrs_.skillPoints           =   0.f;
+        attrs_.armor                 =   0.f;
 
         attrs_.crafting              = false;
         attrs_.alchemy               = false;
@@ -298,20 +311,20 @@ namespace rr {
             readFile <float> (file, attrs_.dexterity);
             readFile <float> (file, attrs_.experience);
             readFile <float> (file, attrs_.nextLevel);
-            readFile <float> (file, attrs_.level);
+            readFile < int > (file, attrs_.level);
             readFile <float> (file, attrs_.skillPoints);
                 
-            readFile  <bool> (file, attrs_.crafting);
-            readFile  <bool> (file, attrs_.alchemy);
-            readFile  <bool> (file, attrs_.cold_weapon_mastery);
-            readFile  <bool> (file, attrs_.ranged_weapon_mastery);
-            readFile  <bool> (file, attrs_.eagle_eye);
-            readFile  <bool> (file, attrs_.mana_regeneration);
-            readFile  <bool> (file, attrs_.health_regeneration);
-            readFile  <bool> (file, attrs_.faster_learning);
+            readFile < bool> (file, attrs_.crafting);
+            readFile < bool> (file, attrs_.alchemy);
+            readFile < bool> (file, attrs_.cold_weapon_mastery);
+            readFile < bool> (file, attrs_.ranged_weapon_mastery);
+            readFile < bool> (file, attrs_.eagle_eye);
+            readFile < bool> (file, attrs_.mana_regeneration);
+            readFile < bool> (file, attrs_.health_regeneration);
+            readFile < bool> (file, attrs_.faster_learning);
                 
-            readFile  <int>  (file, position_.x);
-            readFile  <int>  (file, position_.y);
+            readFile < int > (file, position_.x);
+            readFile < int > (file, position_.y);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';

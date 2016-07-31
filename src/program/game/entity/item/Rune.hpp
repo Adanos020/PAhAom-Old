@@ -31,11 +31,10 @@ namespace rr {
          
              static bool identified_[12];
          
-             Rune(Type, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+             Rune(Type = HEAL, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
              Rune(Rune const&);
          
              virtual Entity*        clone          ()            const override { return new Rune(*this); }
-             virtual Entity*        create         ()            const override { return new Rune(HEAL); }
          
              virtual void           draw           (sf::RenderWindow&) override;
          

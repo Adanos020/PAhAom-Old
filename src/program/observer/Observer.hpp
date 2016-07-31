@@ -1,5 +1,5 @@
 /**
- * @file src/program/observer/observer.hpp
+ * @file src/program/observer/Observer.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */

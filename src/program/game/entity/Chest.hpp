@@ -7,6 +7,8 @@
 #ifndef ENTITY_CHEST_HPP
 #define ENTITY_CHEST_HPP
 
+#include "../../funcs/items.hpp"
+
 #include "Entity.hpp"
 #include "item/Item.hpp"
 
@@ -25,12 +27,11 @@ namespace rr {
                  SPECIAL
              } type_;
          
-             Chest(Type t, Item*);
+             Chest(Type = REGULAR);
              Chest(Chest const&);
             ~Chest();
          
              virtual Entity*        clone          ()          const   override { return new Chest(*this); }
-             virtual Entity*        create         ()          const   override;
          
              virtual void           draw           (sf::RenderWindow&) override;
              virtual void           setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }

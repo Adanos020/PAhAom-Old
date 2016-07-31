@@ -37,11 +37,10 @@ namespace rr {
                  KNIFE
              } type_;
          
-             ColdWeapon(Type, int amount = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+             ColdWeapon(Type = HAMMER, int amount = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
              ColdWeapon(ColdWeapon const&);
          
              virtual Entity*        clone              ()            const override { return new ColdWeapon(*this); }
-             virtual Entity*        create             ()            const override { return new ColdWeapon(KNIFE); }
          
              virtual void           draw               (sf::RenderWindow&) override;
          
@@ -58,7 +57,7 @@ namespace rr {
              void                   enchant            ();
          
              float                  getStrengthRequired()            const          { return strengthRequired_; }
-             float                  getDamageDelt      ()            const          { return damageDealt_; }
+             float                  getDamageDealt     ()            const          { return damageDealt_; }
              float                  getSpeed           ()            const          { return speed_; }
              float                  getAccuracy        ()            const          { return accuracy_; }
              int                    getLevel           ()            const          { return level_; }

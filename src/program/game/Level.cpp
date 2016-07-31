@@ -69,7 +69,7 @@ namespace rr {
             ) entities_.push_back(e);
     }
 
-    void Level::playerInteraction(Game* game) {
+    void Level::playerInteract(Game* game) {
         auto it=entities_.begin();
         while (it != entities_.end()) {
             if (game->getPlayer()->getPosition() == (*it)->getPosition()) {
@@ -91,16 +91,20 @@ namespace rr {
                 else if (instanceof<Stairs, Entity>(*it)) {
                     if (((Stairs*) *it)->isUpwards()) {
                         game->switchLevel(levelNumber_+1);
-                        ++it;
+                        break;
                     }
                     else {
                         game->switchLevel(levelNumber_-1);
-                        ++it;
+                        break;
                     }
                 }
             }
             ++it;
         }
+    }
+
+    void Level::playerAttack(Player* player) {
+
     }
 
     void Level::update(Game* game, sf::Time time) {
@@ -162,7 +166,7 @@ namespace rr {
 
      // here we place the ending point
         if (levelNumber_ < 29)
-        for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
+        for (int x=rand()%size_.x, y=rand()%size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
             if (tiles_[x+y*size_.x] == ROOM && (levelNumber_ == 1 || (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 30))) {
                 endingPoint_ = sf::Vector2i(x, y);
                 tiles_[x+y*size_.x] = EXIT;
@@ -317,11 +321,11 @@ namespace rr {
 
      // then we iterate on each room and give it a random numbers of entrances
         for (auto room=rooms_.begin(); room!=rooms_.end(); ++room) {
-            for (int entrances = rand()%2+3; entrances>0; entrances--) {
+            for (int entrances = rand()%2+2; entrances>0; --entrances) {
                 sf::Vector2i position;
                 bool found = false;
 
-                int tries = 100;
+                int tries = 1000;
                 while (!found && tries > 0) {
                     switch (rand()%2) {
                         // LEFT OR RIGHT
@@ -424,7 +428,7 @@ namespace rr {
                                             && (tiles_[ i  + (j+1)*size_.x] != WALL)
                                             && (tiles_[i-1 +   j*size_.x  ] != WALL)
                                             && (tiles_[i+1 +   j*size_.x  ] != WALL)
-                                                   )                                       tileNumber += ALL         *16;
+                                             )                                      tileNumber += ALL         *16;
         
                                     else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
                                             && (tiles_[ i  + (j+1)*size_.x] != WALL)
@@ -445,7 +449,7 @@ namespace rr {
                                             && (tiles_[ i  + (j+1)*size_.x] != WALL)
                                             && (tiles_[i-1 +   j*size_.x  ] != WALL)
                                             && (tiles_[i+1 +   j*size_.x  ] == WALL)
-                                                   )                                       tileNumber += NO_RIGHT    *16;
+                                             )                                      tileNumber += NO_RIGHT    *16;
         
                                     else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
                                             && (tiles_[ i  + (j+1)*size_.x] == WALL)
@@ -476,7 +480,7 @@ namespace rr {
                                             && (tiles_[ i  + (j+1)*size_.x] == WALL)
                                             && (tiles_[i-1 +   j*size_.x  ] != WALL)
                                             && (tiles_[i+1 +   j*size_.x  ] == WALL)
-                                                   )                                       tileNumber += TOP_LEFT    *16;
+                                             )                                      tileNumber += TOP_LEFT    *16;
         
                                     else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
                                             && (tiles_[ i  + (j+1)*size_.x] == WALL)
@@ -501,27 +505,27 @@ namespace rr {
                                 }
                                 else if (i == 0) {
                                     if (j > 0 && j < size_.y-1) {
-                                        if      ((tiles_[i+1 + j*size_.x] != WALL))  tileNumber += LEFT_RIGHT  *16;
-                                        else if ((tiles_[i+1 + j*size_.x] == WALL))  tileNumber += LEFT        *16;
+                                        if      ((tiles_[i+1 + j*size_.x] != WALL)) tileNumber += LEFT_RIGHT  *16;
+                                        else if ((tiles_[i+1 + j*size_.x] == WALL)) tileNumber += LEFT        *16;
                                     }
-                                    else if (j == 0)                                 tileNumber += TOP_LEFT    *16;
-                                    else if (j == size_.y-1)                         tileNumber += BOTTOM_LEFT *16;
+                                    else if (j == 0)                                tileNumber += TOP_LEFT    *16;
+                                    else if (j == size_.y-1)                        tileNumber += BOTTOM_LEFT *16;
                                 }
                                 else if (i == size_.x-1) {
                                     if (j > 0 && j < size_.y-1) {
-                                        if      ((tiles_[i-1+j*size_.x] != WALL))    tileNumber += LEFT_RIGHT  *16;
-                                        else if ((tiles_[i-1+j*size_.x] == WALL))    tileNumber += RIGHT       *16;
+                                        if      ((tiles_[i-1+j*size_.x] != WALL))   tileNumber += LEFT_RIGHT  *16;
+                                        else if ((tiles_[i-1+j*size_.x] == WALL))   tileNumber += RIGHT       *16;
                                     }
-                                    else if (j == 0)                                 tileNumber += TOP_RIGHT   *16;
-                                    else if (j == size_.y-1)                         tileNumber += BOTTOM_RIGHT*16;
+                                    else if (j == 0)                                tileNumber += TOP_RIGHT   *16;
+                                    else if (j == size_.y-1)                        tileNumber += BOTTOM_RIGHT*16;
                                 }
                                 else if (j == 0 && i > 0 && i < size_.x-1) {
-                                    if      ((tiles_[i+(j+1)*size_.x] != WALL))      tileNumber += TOP_BOTTOM  *16;
-                                    else if ((tiles_[i+(j+1)*size_.x] == WALL))      tileNumber += TOP         *16;
+                                    if      ((tiles_[i+(j+1)*size_.x] != WALL))     tileNumber += TOP_BOTTOM  *16;
+                                    else if ((tiles_[i+(j+1)*size_.x] == WALL))     tileNumber += TOP         *16;
                                 }
                                 else if (j == size_.y-1 && i > 0 && i < size_.x-1) {
-                                    if      ((tiles_[i+(j-1)*size_.x] != WALL))      tileNumber += TOP_BOTTOM  *16;
-                                    else if ((tiles_[i+(j-1)*size_.x] == WALL))      tileNumber += BOTTOM      *16;
+                                    if      ((tiles_[i+(j-1)*size_.x] != WALL))     tileNumber += TOP_BOTTOM  *16;
+                                    else if ((tiles_[i+(j-1)*size_.x] == WALL))     tileNumber += BOTTOM      *16;
                                 }
                                 break;
                     
@@ -562,9 +566,9 @@ namespace rr {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
-                    addEntity(new Chest((rand()%20) ? Chest::REGULAR : Chest::SPECIAL, getRandomItem()), sf::Vector2i(x, y)); // here we choose randomly whether the chest
-                    tiles_[x+y*size_.x] = OCCUPIED;                                                                           // has to be the special (probability = 5%)
-                    break;                                                                                                    // or the regular one (p = 95%)
+                    addEntity(new Chest((rand()%20) ? Chest::REGULAR : Chest::SPECIAL), sf::Vector2i(x, y)); // here we choose randomly whether the chest
+                    tiles_[x+y*size_.x] = OCCUPIED;                                                          // has to be the special (probability = 5%)
+                    break;                                                                                   // or the regular one (p = 95%)
                 }
             }
         }
@@ -599,6 +603,22 @@ namespace rr {
                case 20: addEntity(new Teacher(Teacher::MAGE          ), pos); break;
                case 25: addEntity(new Teacher(Teacher::KUNG_FU_MASTER), pos); break;
            }
+        }
+     // here we put some enemies
+        for (int i=0; i<rand()%15+15; ++i) {
+            while (true) {
+                int x=rand()%size_.x, y=rand()%size_.y;
+                if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
+                    int weapon = rand()%3;
+                    switch (weapon) {
+                        case 0: addEntity(new Bandit(Bandit::CLUB    ), sf::Vector2i(x, y)); break;
+                        case 1: addEntity(new Bandit(Bandit::CROSSBOW), sf::Vector2i(x, y)); break;
+                        case 2: addEntity(new Bandit(Bandit::DAGGER  ), sf::Vector2i(x, y)); break;
+                    }
+                    tiles_[x+y*size_.x] = OCCUPIED;
+                    break;
+                }
+            }
         }
     }
 
@@ -636,17 +656,18 @@ namespace rr {
                 Entity* entity;
 
                 switch (identificator) {
-                    case  0: entity = new Chest       (Chest::REGULAR , new Book(Book::CRAFTING)); readEntity(file, entity); addEntity(entity); break;
-                    case  1: entity = new Door        (false                                    ); readEntity(file, entity); addEntity(entity); break;
-                    case  2: entity = new Book        (Book::CRAFTING	                        ); readEntity(file, entity); addEntity(entity); break;
-                    case  3: entity = new Coin        (Coin::BRONZE   , Coin::SMALL             ); readEntity(file, entity); addEntity(entity); break;
-                    case  4: entity = new ColdWeapon  (ColdWeapon::KNIFE                        ); readEntity(file, entity); addEntity(entity); break;
-                    case  5: /*entity = new Food        (	                                      ); readEntity(file, entity); addEntity(entity);*/ break;
+                    case  0: entity = new Chest       (); readEntity(file, entity); addEntity(entity); break;
+                    case  1: entity = new Door        (); readEntity(file, entity); addEntity(entity); break;
+                    case  2: entity = new Book        (); readEntity(file, entity); addEntity(entity); break;
+                    case  3: entity = new Coin        (); readEntity(file, entity); addEntity(entity); break;
+                    case  4: entity = new ColdWeapon  (); readEntity(file, entity); addEntity(entity); break;
+                    case  5: /*entity = new Food        (); readEntity(file, entity); addEntity(entity);*/ break;
                     case  6: entity = new Potion      (Potion::HEALING, Potion::SMALL           ); readEntity(file, entity); addEntity(entity); break;
-                    case  7: /*entity = new RangedWeapon(	                                      ); readEntity(file, entity); addEntity(entity);*/ break;
-                    case  8: entity = new Rune        (Rune::HEAL                               ); readEntity(file, entity); addEntity(entity); break;
-                    case  9: entity = new Teacher     (Teacher::SWORDSMAN                       ); readEntity(file, entity); addEntity(entity); break;
-                    case 10: entity = new Stairs      (false                                    ); readEntity(file, entity); addEntity(entity); break;
+                    case  7: /*entity = new RangedWeapon(); readEntity(file, entity); addEntity(entity);*/ break;
+                    case  8: entity = new Rune        (); readEntity(file, entity); addEntity(entity); break;
+                    case  9: entity = new Teacher     (); readEntity(file, entity); addEntity(entity); break;
+                    case 10: entity = new Stairs      (); readEntity(file, entity); addEntity(entity); break;
+                    case 11: entity = new Bandit      (); readEntity(file, entity); addEntity(entity); break;
                 }
             }
             for (int i=0; i<77*43; ++i) { // load the shadows

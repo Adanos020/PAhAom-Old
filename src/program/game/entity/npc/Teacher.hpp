@@ -12,7 +12,9 @@
 namespace rr {
 
     class Teacher : public NPC {
-    private: virtual void           initialize()                   override;
+    private: sf::Animation standingStill_;
+             
+             virtual void           initialize()                   override;
     
     public:  enum Type {
                  SWORDSMAN,
@@ -22,17 +24,18 @@ namespace rr {
                  KUNG_FU_MASTER
              } type_;
          
-             Teacher(Type);
+             Teacher(Type = SWORDSMAN);
              Teacher(Teacher const&);
          
-             virtual Entity*        clone     () const             override { return new Teacher(*this); }
-             virtual Entity*        create    () const             override { return new Teacher(SWORDSMAN); }
+             virtual Entity*        clone       () const             override { return new Teacher(*this); }
          
-             virtual void           talk      ()                   override;
-             virtual void           update    (sf::Time timeStep)  override;
+             virtual void           handleDamage(int damage)         override;
+
+             virtual void           talk        ();
+             virtual void           update      (sf::Time timeStep)  override;
          
-             virtual std::ifstream& operator<<(std::ifstream&)     override;
-             virtual std::ofstream& operator>>(std::ofstream&)     override;
+             virtual std::ifstream& operator<<  (std::ifstream&)     override;
+             virtual std::ofstream& operator>>  (std::ofstream&)     override;
     };
 
 }

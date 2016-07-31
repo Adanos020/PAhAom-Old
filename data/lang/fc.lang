@@ -516,6 +516,16 @@ item.spell.description.uncurse
 item.spell.description.telekinesis
 .ybim teleqnheča ject qaxjabi bje .qto hje bje hjex jérqnwjé txieamjet ča tomouoh ymbicly toahjewjyj n txiehjewjyj cétpybyje
 
+;-------------NPC-------------;
+npc.attitude.aggressive
+atpecbibéhbi
+
+npc.attitude.neutral
+heytpalhbi
+
+npc.attitude.passive
+tacbibéhbi
+
 ;-------------PLAYER--------------;
 player.attributes.health
 ČAPOBJE

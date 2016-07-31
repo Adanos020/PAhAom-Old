@@ -19,7 +19,7 @@ namespace rr {
              
              virtual void           initialize     ()                  override;
     
-    public:  Door(bool lock);
+    public:  Door(bool lock = false);
              Door(Door const&);
          
              void                   setOpen        (bool);
@@ -28,7 +28,6 @@ namespace rr {
              bool                   isWithoutWindow()          const            { return withoutWindow_; }
          
              virtual Entity*        clone          ()          const   override { return new Door(*this); }
-             virtual Entity*        create         ()          const   override { return new Door(false); }
          
              virtual void           draw           (sf::RenderWindow&) override;
              virtual void           setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }

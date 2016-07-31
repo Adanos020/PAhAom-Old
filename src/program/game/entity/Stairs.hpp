@@ -18,13 +18,12 @@ namespace rr {
              
              virtual void           initialize     ()                      override;
     
-    public:  Stairs(bool upwards);
+    public:  Stairs(bool upwards = true);
              Stairs(Stairs const&);
          
              bool                   isUpwards      ()          const                { return upwards_; }
          
              virtual Entity*        clone          ()          const       override { return new Stairs(*this); }
-             virtual Entity*        create         ()          const       override { return new Stairs(false); }
          
              virtual void           draw           (sf::RenderWindow&)     override;
              virtual void           setPosition    (sf::Vector2i position) override { position_ = position; setRealPosition((sf::Vector2f)position*80.f); }

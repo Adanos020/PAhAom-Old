@@ -12,7 +12,9 @@
 namespace rr {
 
     class Merchant : public NPC {
-    private: virtual void           initialize()                  override;
+    private: sf::Animation standingStill_;
+    
+             virtual void           initialize()                  override;
     
     public:  enum Type {
                  POTION_SELLER,
@@ -22,17 +24,17 @@ namespace rr {
                  ARTIFACT_SELLER
              } type_;
              
-             Merchant(Type);
+             Merchant(Type = POTION_SELLER);
              Merchant(Merchant const&);
          
-             virtual Entity*        clone     () const            override { return new Merchant(*this); }
-             virtual Entity*        create    () const            override { return new Merchant(POTION_SELLER); }
+             virtual Entity*        clone       () const            override { return new Merchant(*this); }
          
-             virtual void           talk      ()                  override;
-             virtual void           update    (sf::Time timeStep) override;
+             virtual void           talk        ();
+             virtual void           update      (sf::Time timeStep) override;
+             virtual void           handleDamage(int damage)        override;
          
-             virtual std::ifstream& operator<<(std::ifstream&)    override;
-             virtual std::ofstream& operator>>(std::ofstream&)    override;
+             virtual std::ifstream& operator<<  (std::ifstream&)    override;
+             virtual std::ofstream& operator>>  (std::ofstream&)    override;
     };
 
 }

@@ -16,8 +16,6 @@ namespace rr {
     class Entity {
     public: virtual ~Entity() {}
 
-        /// Virtual constructor: creating
-            virtual Entity*        create         ()        const     = 0;
         /// Virtual constructor: cloning
             virtual Entity*        clone          ()        const     = 0;
         /// Draws the entity's sprite
