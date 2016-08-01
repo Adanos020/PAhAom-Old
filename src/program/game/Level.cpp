@@ -657,8 +657,8 @@ namespace rr {
                     case  2: entity = new Book        (); readEntity(file, entity); addEntity(entity); break;
                     case  3: entity = new Coin        (); readEntity(file, entity); addEntity(entity); break;
                     case  4: entity = new ColdWeapon  (); readEntity(file, entity); addEntity(entity); break;
-                    case  5: /*entity = new Food        (); readEntity(file, entity); addEntity(entity);*/ break;
-                    case  6: entity = new Potion      (Potion::HEALING, Potion::SMALL           ); readEntity(file, entity); addEntity(entity); break;
+                    case  5: entity = new Food        (); readEntity(file, entity); addEntity(entity); break;
+                    case  6: entity = new Potion      (); readEntity(file, entity); addEntity(entity); break;
                     case  7: /*entity = new RangedWeapon(); readEntity(file, entity); addEntity(entity);*/ break;
                     case  8: entity = new Rune        (); readEntity(file, entity); addEntity(entity); break;
                     case  9: entity = new Teacher     (); readEntity(file, entity); addEntity(entity); break;

@@ -18,7 +18,7 @@ namespace rr {
 
     PauseMenu::PauseMenu() :
       title_  (Text  (sf::Vector2f(0, 0), "PAhAom"   , Resources::font.Pixel, 100, sf::Color::Yellow     )),
-      version_(Text  (sf::Vector2f(0, 0), "alpha 0.5", Resources::font.Pixel,  50, sf::Color::Yellow)     ),
+      version_(Text  (sf::Vector2f(0, 0), "alpha 0.6", Resources::font.Pixel,  50, sf::Color::Yellow)     ),
       wMenu_  (Window("", sf::Vector2f(244, 230), sf::Vector2f(25, Settings::graphics.resolution.y/2-153)))
     {
         shadow_.setSize((sf::Vector2f)Settings::graphics.resolution);

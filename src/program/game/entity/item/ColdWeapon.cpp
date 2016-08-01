@@ -17,12 +17,11 @@
 namespace rr {
 
     ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos) :
-      Equipable  (     ),
       level_     (0    ),
       identified_(false),
       type_      (type )
     {
-        amount_     = amount;
+        amount_ = amount;
 
         initialize();
         setGridPosition(pos);
@@ -32,12 +31,12 @@ namespace rr {
       Equipable(                ),
       type_    (coldWeapon.type_)
     {
-        amount_                = coldWeapon.amount_;
-        disposable_            = coldWeapon.disposable_;
-        stackable_             = coldWeapon.stackable_;
-        ID_                    = coldWeapon.ID_;
-        iconIndex_             = coldWeapon.iconIndex_;
-        body_                  = coldWeapon.body_;
+        amount_     = coldWeapon.amount_;
+        disposable_ = coldWeapon.disposable_;
+        stackable_  = coldWeapon.stackable_;
+        ID_         = coldWeapon.ID_;
+        iconIndex_  = coldWeapon.iconIndex_;
+        body_       = coldWeapon.body_;
     }
 
     void ColdWeapon::initialize() {

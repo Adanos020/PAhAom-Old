@@ -20,7 +20,6 @@ namespace rr {
     bool Potion::identified_[9] = { false, false, false, false, false, false, false, false, false };
 
     Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos) :
-      Discoverable( ),
       effect_     (e),
       size_       (s)
     {
@@ -31,7 +30,6 @@ namespace rr {
     }
 
     Potion::Potion(Potion const& potion) :
-      Discoverable(              ),
       effect_     (potion.effect_)
     {
         amount_                = potion.amount_;

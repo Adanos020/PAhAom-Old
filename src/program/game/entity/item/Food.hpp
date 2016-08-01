@@ -14,7 +14,18 @@ namespace rr {
     class Food : public Item {
     private: virtual void           initialize    ()                  override;
     
-    public:  Food();
+    public:  enum Type {
+                 MEAT,
+                 SANDVICH,
+                 APPLE,
+                 BEER,
+                 HOT_DOG,
+                 HAMBURGER,
+                 BAGUETTE,
+                 DUMPLING
+             } type_;
+    
+             Food(Type = MEAT, int amount = 1, sf::Vector2i position = sf::Vector2i(0, 0));
              Food(Food const&);
          
              virtual Entity*        clone         () const            override { return new Food(*this); }

@@ -21,7 +21,6 @@ namespace rr {
     bool Rune::identified_[12] = { false, false, false, false, false, false, false, false, false, false, false, false };
 
     Rune::Rune(Type type, int am, sf::Vector2i pos) :
-      Discoverable(    ),
       type_       (type)
     {
         amount_     = am;
@@ -31,7 +30,6 @@ namespace rr {
     }
 
     Rune::Rune(Rune const& rune) :
-      Discoverable(          ),
       type_       (rune.type_)
     {
         amount_                = rune.amount_;

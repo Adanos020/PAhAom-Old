@@ -65,6 +65,16 @@ namespace rr {
             case  49: return new Rune      (Rune::UNCURSE                                     , amount);
             case  50: return new Rune      (Rune::TELEKINESIS                                 , amount);
 
+            /* FOOD */
+            case  51: return new Food      (Food::MEAT                                        , amount);
+            case  52: return new Food      (Food::SANDVICH                                    , amount);
+            case  53: return new Food      (Food::APPLE                                       , amount);
+            case  54: return new Food      (Food::BEER                                        , amount);
+            case  55: return new Food      (Food::HOT_DOG                                     , amount);
+            case  56: return new Food      (Food::HAMBURGER                                   , amount);
+            case  57: return new Food      (Food::BAGUETTE                                    , amount);
+            case  58: return new Food      (Food::DUMPLING                                    , amount);
+
             /* POTIONS */
             case 100: return new Potion    (Potion::Effect::HEALING     , Potion::Size::BIG   , amount);
             case 101: return new Potion    (Potion::Effect::HEALING     , Potion::Size::MEDIUM, amount);
@@ -114,6 +124,7 @@ namespace rr {
              10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22, // COLD WEAPON
              30,  31,  32,  33,  34,  35,  36,  37,  38,                     // BOOKS
              39,  40,  41,  42,  43,  44,  45,  46,  47,  48,  49,  50,      // RUNES
+             51,  52,  53,  54,  55,  56,  57,  58,                          // FOOD
             100, 101, 102, 110, 111, 112, 120, 121, 122, 130, 131, 132,      // POTIONS
             140, 141, 142, 150, 151, 152, 160, 161, 162, 170, 171, 172,
             180, 181, 182 

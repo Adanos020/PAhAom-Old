@@ -405,6 +405,30 @@ Maximum damage dealt:
 item.coldweapon.level
 Upgrade level:
 
+item.food.name.meat
+Piece of ham
+
+item.food.name.sandvich
+Sandvich
+
+item.food.name.apple
+Apple (don't sue me)
+
+item.food.name.beer
+Beer
+
+item.food.name.hot_dog
+Hot dog
+
+item.food.name.hamburger
+Hamburger
+
+item.food.name.baguette
+Baguette
+
+item.food.name.dumpling
+Dumpling
+
 item.spell.symbol.shcha
 "Shcha" rune
 

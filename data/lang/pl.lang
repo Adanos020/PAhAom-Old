@@ -405,6 +405,30 @@ Maksymalne obrażenia:
 item.coldweapon.level
 Poziom ulepszenia:
 
+item.food.name.meat
+Kawałek szynki
+
+item.food.name.sandvich
+Sandvich
+
+item.food.name.apple
+Jabłko
+
+item.food.name.beer
+Piwo
+
+item.food.name.hot_dog
+Hot dog
+
+item.food.name.hamburger
+Hamburger
+
+item.food.name.baguette
+Bagietka
+
+item.food.name.dumpling
+Pieróg
+
 item.spell.symbol.shcha
 Runa „ścia”
 
