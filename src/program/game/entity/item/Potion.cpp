@@ -27,7 +27,7 @@ namespace rr {
         amount_     = am;
         
         initialize();
-        setPosition(pos);
+        setGridPosition(pos);
     }
 
     Potion::Potion(Potion const& potion) :
@@ -53,10 +53,6 @@ namespace rr {
 
         setIcon (body_, 2, icons);
         setColor(body_, 1, itemColors[effect_]);
-    }
-
-    void Potion::draw(sf::RenderWindow& rw) {
-        rw.draw(body_, &Resources::texture.items);
     }
 
     sf::String Potion::getName() const {
@@ -106,7 +102,7 @@ namespace rr {
         return "";
     }
 
-    void Potion::setPosition(sf::Vector2i pos) {
+    void Potion::setGridPosition(sf::Vector2i pos) {
         body_[0].position = (sf::Vector2f)pos*80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
@@ -118,7 +114,7 @@ namespace rr {
         body_[7].position = body_[3].position;
     }
 
-    void Potion::setRealPosition(sf::Vector2f pos) {
+    void Potion::setPosition(sf::Vector2f pos) {
         body_[0].position = pos;
         body_[1].position = sf::Vector2f(pos.x+80, pos.y   );
         body_[2].position = sf::Vector2f(pos.x+80, pos.y+80);
@@ -149,7 +145,7 @@ namespace rr {
         size_   = (Size)   size;
 
         initialize();
-        setPosition(position);
+        setGridPosition(position);
 
         return file;
     }

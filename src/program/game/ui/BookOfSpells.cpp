@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/menu/BookOfSpells.cpp
+ * @file src/program/game/ui/BookOfSpells.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
@@ -51,10 +51,10 @@ namespace rr {
 
     }
 
-    void BookOfSpells::draw(sf::RenderWindow& rw) {
+    void BookOfSpells::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         if (isOpen()) {
-            rw.draw(shadow_);
-            wBofs_.draw(rw);
+            target.draw(shadow_, states);
+            target.draw(wBofs_ , states);
         }
     }
 

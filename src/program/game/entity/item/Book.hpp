@@ -12,7 +12,7 @@
 namespace rr {
 
     class Book : public Item {
-    private: virtual void           initialize     ()                  override;
+    private: virtual void           initialize     ()               override;
     
     public:  enum Type {
                  CRAFTING,
@@ -29,18 +29,16 @@ namespace rr {
              Book(Type = CRAFTING, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
              Book(Book const&);
          
-             virtual Entity*        clone          ()            const override { return new Book(*this); }
+             virtual Entity*        clone          () const         override { return new Book(*this); }
+
+
+             void                   setGridPosition(sf::Vector2i)   override;
              
-             virtual void           draw           (sf::RenderWindow&) override;
+             virtual sf::String     getName        () const         override;
+             virtual sf::String     getDescription () const         override;
          
-             void                   setPosition    (sf::Vector2i)      override;
-             void                   setRealPosition(sf::Vector2f pos)  override;
-             
-             virtual sf::String     getName        ()            const override;
-             virtual sf::String     getDescription ()            const override;
-         
-             virtual std::ifstream& operator<<     (std::ifstream&)    override;
-             virtual std::ofstream& operator>>     (std::ofstream&)    override;
+             virtual std::ifstream& operator<<     (std::ifstream&) override;
+             virtual std::ofstream& operator>>     (std::ofstream&) override;
     };
 
 }

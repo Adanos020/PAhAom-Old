@@ -43,8 +43,9 @@ namespace rr {
         else  body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80+80*withoutWindow_, 0), sf::Vector2i(16, 16)));
     }
 
-    void Door::draw(sf::RenderWindow& rw) {
-        rw.draw(body_);
+    void Door::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        states.texture = &Resources::texture.objects;
+        target.draw(body_, states);
     }
 
     std::ifstream& Door::operator<<(std::ifstream& file) {
@@ -62,7 +63,7 @@ namespace rr {
         }
 
         initialize();
-        setPosition(position);
+        setGridPosition(position);
 
         return file;
     }

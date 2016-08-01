@@ -16,7 +16,6 @@ namespace rr {
       text_    (Text (sf::Vector2f(0, 0), str, Resources::font.Unifont, chsize, c)),
       held_    (false                                                             )
     {
-        text_ .setPosition       (sf::Vector2f(position.x+15, position.y-0.5));
         text_ .setParentComponent(this);
 
         image_.setParentComponent(this);
@@ -25,7 +24,17 @@ namespace rr {
         body_ .setSize           (sf::Vector2f(text_.getSize().x+25, chsize*1.3425));
         body_ .setFillColor      (sf::Color(0, 0, 0));
 
-        text_ .setPosition       (sf::Vector2f(position.x + body_.getSize().x/2 - text_.getSize().x/2 - chsize/20, position.y-0.5));
+        text_ .setPosition       (sf::Vector2f(position.x + body_.getSize().x/2 - text_.getSize().x/2 - chsize/20,
+                                               position.y-0.5));
+    }
+
+    void Button::setText(sf::String s) {
+        text_.setString(s);
+        body_.setSize           (sf::Vector2f(text_.getSize().x+25, text_.getCharacterSize()*1.3425));
+        body_.setFillColor      (sf::Color(0, 0, 0));
+
+        text_.setPosition       (sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2 - text_.getCharacterSize()/20,
+                                              body_.getPosition().y-0.5));
     }
 
     bool Button::containsMouseCursor(sf::RenderWindow& rw) {
@@ -53,9 +62,10 @@ namespace rr {
         image_.setPosition(position);
     }
 
-    void Button::draw(sf::RenderWindow& rw) {
-        rw.draw(body_);
-        text_.draw(rw);
+    void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(body_ , states);
+        target.draw(text_ , states);
+        target.draw(image_, states);
     }
 
 }

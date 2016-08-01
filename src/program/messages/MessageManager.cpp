@@ -40,7 +40,7 @@ namespace rr {
 
     void MessageManager::draw(sf::RenderWindow& rw) {
         for (auto message : messages_) {
-            message.draw(rw);
+            rw.draw(message);
         }
     }
 

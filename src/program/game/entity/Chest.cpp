@@ -49,8 +49,9 @@ namespace rr {
         body_.setScale      (sf::Vector2f(5.f, 5.f));
     }
 
-    void Chest::draw(sf::RenderWindow& rw) {
-        rw.draw(body_);
+    void Chest::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        states.texture = &Resources::texture.objects;
+        target.draw(body_, states);
     }
 
     std::ifstream& Chest::operator<<(std::ifstream& file) {
@@ -70,7 +71,7 @@ namespace rr {
         item_ = getRandomItem();
 
         initialize();
-        setPosition(position);
+        setGridPosition(position);
 
         return file;
     }

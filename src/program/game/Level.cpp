@@ -9,8 +9,6 @@
 #include "Game.hpp"
 #include "fov/FOV.hpp"
 
-#include "menu/Inventory.hpp"
-
 #include "../Resources.hpp"
 
 #include "../funcs/files.hpp"
@@ -46,21 +44,19 @@ namespace rr {
         states.transform *= getTransform();
         states.texture = &Resources::texture.tileset;
         target.draw(tilemap_, states);
-    }
 
-    void Level::drawObjects(sf::RenderWindow& rw) const {
         for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
-            (*it)->draw(rw);
+            target.draw(**it);
         }
         for (auto shadow : shadows_) {
-            shadow.draw(rw);
+            target.draw(shadow);
         }
     }
 
     void Level::addEntity(Entity* e, sf::Vector2i position) {
         if (e != nullptr) {
             entities_.push_back(e);
-            entities_.back()->setPosition(position);
+            entities_.back()->setGridPosition(position);
         }
     }
 
@@ -72,7 +68,7 @@ namespace rr {
     void Level::playerInteract(Game* game) {
         auto it=entities_.begin();
         while (it != entities_.end()) {
-            if (game->getPlayer()->getPosition() == (*it)->getPosition()) {
+            if (game->getPlayer()->getGridPosition() == (*it)->getGridPosition()) {
                 if (instanceof<Item, Entity>(*it)) {
                     if (game->getInventory()->addItem((Item*) *it)) {
                         subject.notify(Observer::ITEM_PICKED, *it);
@@ -82,11 +78,11 @@ namespace rr {
                 }
                 else if (instanceof<Chest, Entity>(*it)) {
                     Entity* temp  = ((Chest*) *it)->getItem()->clone();
-                    auto position = (*it)->getPosition();
+                    auto position = (*it)->getGridPosition();
                     
                     delete *it;
                     *it = temp;
-                    (*it++)->setPosition(position);
+                    (*it++)->setGridPosition(position);
                 }
                 else if (instanceof<Stairs, Entity>(*it)) {
                     if (((Stairs*) *it)->isUpwards()) {
@@ -110,7 +106,7 @@ namespace rr {
     void Level::update(Game* game, sf::Time time) {
         for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
             if (instanceof<Door, Entity>(*it)) {
-                if (  game->getPlayer()->intersects(*it)
+                if (  game->getPlayer()->collides(*it)
                     ) ((Door*) *it)->setOpen(true);
                 else  ((Door*) *it)->setOpen(false);
             }
@@ -190,7 +186,7 @@ namespace rr {
      // ... and place the shadows. That's really it
         for (int x=0; x<size_.x; ++x) {
             for (int y=0; y<size_.y; ++y) {
-                shadows_[x + y*size_.x].setPosition(sf::Vector2i(x, y));
+                shadows_[x + y*size_.x].setGridPosition(sf::Vector2i(x, y));
             }
         }
     }
@@ -675,7 +671,7 @@ namespace rr {
             }
             for (int x=0; x<77; ++x) {
                 for (int y=0; y<43; ++y) {
-                    shadows_[x + y*77].setPosition(sf::Vector2i(x, y));
+                    shadows_[x + y*77].setGridPosition(sf::Vector2i(x, y));
                 }
             }
 

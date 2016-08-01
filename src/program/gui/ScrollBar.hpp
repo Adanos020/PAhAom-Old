@@ -15,11 +15,6 @@ namespace rr {
 
 /// Class for a ScrollBar component
     class ScrollBar : public Component {
-    public:  enum Plain {
-                 HORIZONTAL,
-                 VERTICAL
-             } plain_;
-    
     private: sf::RectangleShape border_;
              sf::Vector2f       valueLimit_;
              Button             indicator_;
@@ -27,23 +22,31 @@ namespace rr {
              Button             bRight_;
              Text               label_;
              float              value_;
-    
-    public:  ScrollBar(Plain, sf::Vector2f position, float length, sf::Vector2f min_max = sf::Vector2f(0, 100));
+
+             virtual void draw        (sf::RenderTarget&,
+                                       sf::RenderStates) const override;
+
+    public:  enum Plain {
+                 HORIZONTAL,
+                 VERTICAL
+             } plain_;
+
+             ScrollBar(Plain, sf::Vector2f position, float length, sf::Vector2f min_max = sf::Vector2f(0, 100));
              
-             void         setPosition (sf::Vector2f)            override;
-             void         setSize     (sf::Vector2f)            override;
-         
+             void         setPosition (sf::Vector2f)           override;
+             void         setSize     (sf::Vector2f)           override;
+             void         setText     (sf::String s)                    { label_.setString(s); }
+
          /// Sets the actual value of the scroll bar
              void         setValue    (int);
-             void         draw        (sf::RenderWindow&)       override;
              void         buttonEvents(sf::RenderWindow&, sf::Event&);
          
-             sf::Vector2f getPosition ()                  const override { return bLeft_.getPosition(); }
-             sf::Vector2f getSize     ()                  const override { return border_.getSize(); }
-             Text         getText     ()                  const          { return label_; }
-         
+             sf::Vector2f getPosition ()                 const override { return bLeft_.getPosition(); }
+             sf::Vector2f getSize     ()                 const override { return border_.getSize(); }
+             Text         getText     ()                 const          { return label_; }
+
          /// Returns the actual value of the scroll bar
-             int          getValue    ()                  const          { return value_; }
+             int          getValue    ()                 const          { return value_; }
     };
 
 }

@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/menu/MainMenu.cpp
+ * @file src/program/game/ui/MainMenu.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
@@ -410,7 +410,7 @@ namespace rr {
                         }
                         else if (wWait.isVisible() && e.type == sf::Event::KeyPressed) {
                             if (  e.key.code != sf::Keyboard::Escape
-                                ) ((Button*)wWait.getParentComponent())->getText().setString(getKeyName(e.key.code));
+                                ) ((Button*) wWait.getParentComponent())->setText(getKeyName(e.key.code));
                             wWait.setParentComponent(&wCont);
                             wWait.setVisible(false);
                         }
@@ -444,10 +444,10 @@ namespace rr {
 
     }
 
-    void MainMenu::draw(sf::RenderWindow& rw) {
-        title_  .draw(rw);
-        version_.draw(rw);
-        wMenu_  .draw(rw);
+    void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(title_  , states);
+        target.draw(version_, states);
+        target.draw(wMenu_  , states);
     }
 
 }

@@ -9,6 +9,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../../../Resources.hpp"
+
 #include "../Entity.hpp"
 
 namespace rr {
@@ -22,9 +24,14 @@ namespace rr {
                int             ID_;
                int             amount_;
                unsigned        iconIndex_;
+
+               virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
+                   states.texture = &Resources::texture.items;
+                   target.draw(body_, states);
+               }
     
     public:	   virtual ~Item() {}
-
+               
            /// Changes the amount
                virtual void               setAmount      (int x)                     { amount_ = x; }
            /// Returns the item's ID
@@ -45,21 +52,23 @@ namespace rr {
                virtual sf::String         getDescription ()          const = 0;
            /// Returns the texture's icon index
                virtual unsigned           getIconIndex   ()          const           { return iconIndex_; }
-       
-               virtual void               setRealPosition(sf::Vector2f pos) override { body_[0].position = (sf::Vector2f)pos;
-                                                                                       body_[1].position =  sf::Vector2f(pos.x+80, pos.y);
-                                                                                       body_[2].position =  sf::Vector2f(pos.x+80, pos.y+80);
-                                                                                       body_[3].position =  sf::Vector2f(pos.x   , pos.y+80);
-                                                                                     }
-               virtual void               setPosition    (sf::Vector2i pos) override { body_[0].position = (sf::Vector2f)pos*80.f;
-                                                                                       body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
-                                                                                       body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
-                                                                                       body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
-                                                                                     }
-               virtual bool               intersects     (Entity* e) const  override { return (e->getBounds().intersects(getBounds())); }
+               
+               virtual void               setGridPosition(sf::Vector2i pos) override {
+                   body_[0].position = (sf::Vector2f)pos*80.f;
+                   body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
+                   body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
+                   body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
+               }
+               virtual sf::Vector2i       getGridPosition()          const  override { return (sf::Vector2i) body_[0].position/80; }
+               virtual void               setPosition    (sf::Vector2f pos) override {
+                   body_[0].position =               pos;
+                   body_[1].position =  sf::Vector2f(pos.x+80, pos.y);
+                   body_[2].position =  sf::Vector2f(pos.x+80, pos.y+80);
+                   body_[3].position =  sf::Vector2f(pos.x   , pos.y+80);
+               }
+               virtual sf::Vector2f       getPosition()              const  override { return body_[0].position/80.f; }
+               virtual bool               collides       (Entity* e) const  override { return (e->getBounds().intersects(getBounds())); }
                virtual sf::FloatRect      getBounds      ()          const  override { return sf::FloatRect(body_[0].position, body_[2].position-body_[0].position); }
-               virtual sf::Vector2i       getPosition    ()          const  override { return (sf::Vector2i)body_[0].position/80; }
-               virtual sf::Vector2f       getRealPosition()          const  override { return body_[0].position; }
     };
 
     class Discoverable : public Item {

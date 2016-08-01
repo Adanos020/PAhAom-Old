@@ -14,10 +14,13 @@
 namespace rr {
 
 /// Class for a message
-    class Message {
+    class Message : public sf::Drawable {
     private: Text     message_;
              sf::Time timeElapsed_;
              sf::Time lifeTime_;
+
+             virtual void draw       (sf::RenderTarget&,
+                                      sf::RenderStates) const override;
     
     public:  Message(sf::String, sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Style::Regular);
 
@@ -25,8 +28,6 @@ namespace rr {
              void         setPosition(sf::Vector2f);
          /// Updates the lifetime counter of the message
              void         update     (sf::Time);
-         /// Draws the message on the screen
-             void         draw       (sf::RenderWindow&);
          
              sf::Vector2f getPosition() const { return message_.getPosition(); }
              sf::Vector2f getSize    () const { return message_.getSize    (); }

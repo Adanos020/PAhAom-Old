@@ -77,7 +77,7 @@ namespace rr {
         type_ = (Type) type;
 
         initialize();
-        setPosition(position);
+        setGridPosition(position);
 
         return file;
     }

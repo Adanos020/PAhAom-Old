@@ -23,7 +23,7 @@ namespace rr {
         size_   = s;
 
         initialize();
-        setPosition(pos);
+        setGridPosition(pos);
     }
 
     Coin::Coin(Coin const& coin) :
@@ -46,10 +46,6 @@ namespace rr {
         iconIndex_  = type_ + (size_+2)*16 + 1;
 
         setIcon(body_, iconIndex_);
-    }
-
-    void Coin::draw(sf::RenderWindow& rw) {
-        rw.draw(body_, &Resources::texture.items);
     }
     
     sf::String Coin::getName() const {
@@ -84,7 +80,7 @@ namespace rr {
         size_ = (Size) size;
 
         initialize();
-        setPosition(position);
+        setGridPosition(position);
 
         return file;
     }

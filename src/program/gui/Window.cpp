@@ -51,12 +51,12 @@ namespace rr {
         visible_ = b;
     }
 
-    void Window::draw(sf::RenderWindow& rw) {
+    void Window::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         if (visible_) {
-            rw.draw(body_);
-            header_.draw(rw);
+            target.draw(body_  , states);
+            target.draw(header_, states);
             for (auto component : components_) {
-                component->draw(rw);
+                target.draw(*component, states);
             }
         }
     }

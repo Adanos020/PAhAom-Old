@@ -12,7 +12,7 @@
 namespace rr {
     
     void FOV::compute(Shadow shadows[], int tiles[], sf::Vector2u origin, int range) {
-        shadows[origin.x+origin.y*77].see(true);
+        shadows[origin.x + 77*origin.y].see(true);
         for (unsigned octant = 0; octant < 8; octant++) {
             compute(shadows, tiles, octant, origin, 2*range, 1, Slope(1, 1), Slope(0, 1));
         }

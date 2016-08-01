@@ -25,7 +25,7 @@ namespace rr {
         amount_     = amount;
 
         initialize();
-        setPosition(pos);
+        setGridPosition(pos);
     }
 
     ColdWeapon::ColdWeapon(ColdWeapon const& coldWeapon) :
@@ -141,10 +141,6 @@ namespace rr {
 
         setIcon    (body_, iconIndex_);
     }
-
-    void ColdWeapon::draw(sf::RenderWindow& rw) {
-        rw.draw(body_, &Resources::texture.items);
-    }
     
     sf::String ColdWeapon::getName() const {
         sf::String name = "";
@@ -239,7 +235,7 @@ namespace rr {
         damageDealt_      += level_*5;
         strengthRequired_ -= level_*3;
 
-        setPosition(position);
+        setGridPosition(position);
 
         return file;
     }

@@ -21,7 +21,9 @@ namespace rr {
              bool            discovered_;
              bool            flipped_;
          
-             virtual void           initialize     ()                      override;
+             virtual void           initialize     ()                       override;
+             virtual void           draw           (sf::RenderTarget&,
+                                                    sf::RenderStates) const override;
     
     public:  Shadow();
              Shadow(Shadow const&);
@@ -31,19 +33,18 @@ namespace rr {
              bool                   isDiscovered   ()                               { return discovered_; }
              void                   setFadeOut     (sf::Color[]);
      
-             virtual Entity*        clone          ()          const       override { return new Shadow(*this); }
+             virtual Entity*        clone          ()                 const override { return new Shadow(*this); }
+
+             virtual void           setGridPosition(sf::Vector2i position)  override { setPosition((sf::Vector2f)position*80.f); }
+             virtual void           setPosition    (sf::Vector2f position)  override { position_ = (sf::Vector2i)position/80; rr::setPosition(body_, position); }
      
-             virtual void           draw           (sf::RenderWindow&)     override;
-             virtual void           setPosition    (sf::Vector2i position) override { setRealPosition((sf::Vector2f)position*80.f); }
-             virtual void           setRealPosition(sf::Vector2f position) override { position_ = (sf::Vector2i)position/80; rr::setPosition(body_, position); }
+             virtual bool           collides       (Entity* e)        const override { return e->getBounds().intersects(getBounds()); }
+             virtual sf::FloatRect  getBounds      ()                 const override { return sf::FloatRect(body_[0].position, body_[3].position-body_[0].position); }
+             virtual sf::Vector2i   getGridPosition()                 const override { return position_; }
+             virtual sf::Vector2f   getPosition    ()                 const override { return body_[0].position; }
      
-             virtual bool           intersects     (Entity* e) const       override { return e->getBounds().intersects(getBounds()); }
-             virtual sf::FloatRect  getBounds      ()          const       override { return sf::FloatRect(body_[0].position, body_[3].position-body_[0].position); }
-             virtual sf::Vector2i   getPosition    ()          const       override { return position_; }
-             virtual sf::Vector2f   getRealPosition()          const       override { return body_[0].position; }
-     
-             virtual std::ifstream& operator<<     (std::ifstream&)        override;
-             virtual std::ofstream& operator>>     (std::ofstream&)        override;
+             virtual std::ifstream& operator<<     (std::ifstream&)         override;
+             virtual std::ofstream& operator>>     (std::ofstream&)         override;
     };
 
 }

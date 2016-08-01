@@ -23,7 +23,10 @@ namespace rr {
              Text               text_;
              bool               hollow_;
              bool               held_;
-    
+
+             virtual void draw        (sf::RenderTarget&,
+                                       sf::RenderStates) const override;
+
     public:  Slot(sf::Vector2f size, sf::Vector2f pos, int icon = 0);
             ~Slot();
 
@@ -36,18 +39,18 @@ namespace rr {
              void         swapItems          (Slot*);
          /// Clears the slot
              void         clear              ();
-         
+
+             void         setText            (sf::String s)               { text_.setString(s); }
              void         setPosition        (sf::Vector2f)      override;
-             void         draw               (sf::RenderWindow&) override;
              void         setSize            (sf::Vector2f size) override { body_.setSize(size); }
-         
+
              bool         containsMouseCursor(sf::RenderWindow&);
              bool         isPressed          (sf::RenderWindow&, sf::Event&, sf::Mouse::Button = sf::Mouse::Left);
              bool         isHeld             () const                     { return held_; }
              Text         getText            () const                     { return text_; }
              sf::Vector2f getPosition        () const            override { return body_.getPosition(); }
              sf::Vector2f getSize            () const            override { return body_.getSize(); }
-         
+
          /// Returns the item contained in the slot
              Item*        getItem            () const                     { if ( !hollow_
                                                                                 ) return item_;

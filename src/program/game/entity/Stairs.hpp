@@ -16,26 +16,26 @@ namespace rr {
              sf::Vector2i position_;
              bool         upwards_;
              
-             virtual void           initialize     ()                      override;
+             virtual void           initialize     ()                       override;
+             virtual void           draw           (sf::RenderTarget&,
+                                                    sf::RenderStates) const override;
     
     public:  Stairs(bool upwards = true);
              Stairs(Stairs const&);
          
-             bool                   isUpwards      ()          const                { return upwards_; }
+             bool                   isUpwards      ()                 const          { return upwards_; }
          
-             virtual Entity*        clone          ()          const       override { return new Stairs(*this); }
+             virtual Entity*        clone          ()                 const override { return new Stairs(*this); }
+
+             virtual void           setGridPosition(sf::Vector2i pos)       override { body_.setPosition((sf::Vector2f)pos*80.f); }
+             virtual void           setPosition    (sf::Vector2f pos)       override { body_.setPosition(pos); }
+             virtual bool           collides       (Entity* e)        const override { return e->getBounds().intersects(getBounds()); }
+             virtual sf::Vector2i   getGridPosition()                 const override { return (sf::Vector2i)body_.getPosition()/80; }
+             virtual sf::Vector2f   getPosition    ()                 const override { return body_.getPosition(); }
+             virtual sf::FloatRect  getBounds      ()                 const override { return body_.getGlobalBounds(); }
          
-             virtual void           draw           (sf::RenderWindow&)     override;
-             virtual void           setPosition    (sf::Vector2i position) override { position_ = position; setRealPosition((sf::Vector2f)position*80.f); }
-             virtual void           setRealPosition(sf::Vector2f position) override { position_ = (sf::Vector2i)position/80; body_.setPosition(position); }
-         
-             virtual bool           intersects     (Entity* e) const       override { return e->getBounds().intersects(getBounds()); }
-             virtual sf::FloatRect  getBounds      ()          const       override { return body_.getGlobalBounds(); }
-             virtual sf::Vector2i   getPosition    ()          const       override { return position_; }
-             virtual sf::Vector2f   getRealPosition()          const       override { return body_.getPosition(); }
-         
-             virtual std::ifstream& operator<<     (std::ifstream&)        override;
-             virtual std::ofstream& operator>>     (std::ofstream&)        override;
+             virtual std::ifstream& operator<<     (std::ifstream&)         override;
+             virtual std::ofstream& operator>>     (std::ofstream&)         override;
     };
 
 }

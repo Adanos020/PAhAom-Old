@@ -48,7 +48,7 @@ namespace rr {
         body_.setScale(sf::Vector2f(size.x/body_.getGlobalBounds().width, size.y/body_.getGlobalBounds().height));
     }
 
-    void Image::draw(sf::RenderWindow& rw) {
-        rw.draw(body_);
+    void Image::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(body_, states);
     }
 }

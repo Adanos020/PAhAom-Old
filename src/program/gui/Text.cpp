@@ -63,8 +63,8 @@ namespace rr {
         text_.setString(text);
     }
 
-    void Text::draw(sf::RenderWindow& rw) {
-        rw.draw(text_);
+    void Text::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(text_, states);
     }
 
 }

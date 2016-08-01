@@ -14,6 +14,9 @@ namespace rr {
 /// A class for a text component
     class Text : public Component {
     private: sf::Text text_;
+
+             virtual void draw        (sf::RenderTarget&,
+                                       sf::RenderStates) const override;
     
     public:  Text(                       sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Bold);
              Text(sf::Vector2f position, sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Bold);
@@ -33,7 +36,6 @@ namespace rr {
          /// Sets the text's style
              void            setStyle        (sf::Text::Style s)          { text_.setStyle(s); }
          
-             void            draw            (sf::RenderWindow&) override;
              void            setSize         (sf::Vector2f)      override {}
          
              sf::Vector2f    getSize         () const            override { return sf::Vector2f(text_.getGlobalBounds().width, text_.getGlobalBounds().height); }

@@ -1,11 +1,11 @@
 /**
- * @file src/program/game/menu/BookOfSpells.hpp
+ * @file src/program/game/ui/BookOfSpells.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
-#ifndef MENU_BOOKOFSPELLS_HPP
-#define MENU_BOOKOFSPELLS_HPP
+#ifndef UI_BOOKOFSPELLS_HPP
+#define UI_BOOKOFSPELLS_HPP
 
 #include <SFML/Graphics.hpp>
 
@@ -16,16 +16,16 @@ namespace rr {
     class Game;
 
 /// Class for the book of Runes
-    class BookOfSpells {
+    class BookOfSpells : public sf::Drawable {
     private: sf::RectangleShape shadow_;
              Window             wBofs_;
+
+             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
    
     public:  BookOfSpells();
          
          /// Handles the button events
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-         /// Draws the components of the window of the book of Runes
-             void draw        (sf::RenderWindow&);
          /// Opens the window of the book of Runes
              void open        ()       { wBofs_.setVisible(true); }
          /// Closes the window of the book of Runes
@@ -38,4 +38,4 @@ namespace rr {
 
 #include "../Game.hpp"
 
-#endif // MENU_BOOKOFSPELLS_HPP
+#endif // UI_BOOKOFSPELLS_HPP

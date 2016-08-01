@@ -20,26 +20,27 @@ namespace rr {
              Text               text_;
              bool               checked_;
              bool               held_;
-    
+
+             virtual void draw               (sf::RenderTarget&,
+                                              sf::RenderStates) const override;
+
     public:  Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color = sf::Color(110, 110, 110, 128));
-        
+
          /// Sets the checkbox checked or not, depending on the value of the given argument
              void         check              (bool b);
-         
-             void         draw               (sf::RenderWindow& rw) override;
-             void         setPosition        (sf::Vector2f)         override;
-         
+
+             void         setPosition        (sf::Vector2f)           override;
+             void         setText            (sf::String s)                    { text_.setString(s); }
+
              bool         containsMouseCursor(sf::RenderWindow&);
              bool         isPressed          (sf::RenderWindow&, sf::Event&);
-             sf::Vector2f getPosition        () const               override { return body_.getPosition(); }
-             sf::Vector2f getSize            () const               override { return body_.getSize(); }
-         
+             sf::Vector2f getPosition        ()                 const override { return body_.getPosition(); }
+             sf::Vector2f getSize            ()                 const override { return body_.getSize(); }
+
          /// Method telling if the checkbox is checked
-             bool         isChecked          () const                        { return checked_; }
-         
-             Text         getText            () const                        { return text_; }
-         
-             void         setSize            (sf::Vector2f)         override {}
+             bool         isChecked          ()                 const          { return checked_; }
+             Text         getText            ()                 const          { return text_; }
+             void         setSize            (sf::Vector2f)           override {}
     };
 
 }

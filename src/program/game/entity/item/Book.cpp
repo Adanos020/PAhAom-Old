@@ -24,7 +24,7 @@ namespace rr {
         amount_     = am;
 
         initialize();
-        setPosition(pos);
+        setGridPosition(pos);
     }
 
     Book::Book(Book const& book) :
@@ -53,10 +53,6 @@ namespace rr {
         setColor(body_, 0, sf::Color(itemColors[type_].r + (255-itemColors[type_].r)/2,
                                      itemColors[type_].g + (255-itemColors[type_].g)/2,
                                      itemColors[type_].b + (255-itemColors[type_].b)/2));
-    }
-
-    void Book::draw(sf::RenderWindow& rw) {
-        rw.draw(body_, &Resources::texture.items);
     }
 
     sf::String Book::getName() const {
@@ -89,23 +85,11 @@ namespace rr {
         return "";
     }
 
-    void Book::setPosition(sf::Vector2i pos) {
+    void Book::setGridPosition(sf::Vector2i pos) {
         body_[0].position = (sf::Vector2f)pos*80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
         body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
-
-        body_[4].position = body_[0].position;
-        body_[5].position = body_[1].position;
-        body_[6].position = body_[2].position;
-        body_[7].position = body_[3].position;
-    }
-
-    void Book::setRealPosition(sf::Vector2f pos) {
-        body_[0].position = pos;
-        body_[1].position = sf::Vector2f(pos.x+80, pos.y   );
-        body_[2].position = sf::Vector2f(pos.x+80, pos.y+80);
-        body_[3].position = sf::Vector2f(pos.x   , pos.y+80);
 
         body_[4].position = body_[0].position;
         body_[5].position = body_[1].position;
@@ -130,7 +114,7 @@ namespace rr {
         type_ = (Type) type;
 
         initialize();
-        setPosition(position);
+        setGridPosition(position);
 
         return file;
     }

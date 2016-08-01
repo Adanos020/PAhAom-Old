@@ -1,33 +1,33 @@
 /**
- * @file src/program/game/HUD.hpp
+ * @file src/program/game/ui/HUD.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
-#ifndef HUD_HPP
-#define HUD_HPP
+#ifndef UI_HUD_HPP
+#define UI_HUD_HPP
 
-#include "../gui/Bar.hpp"
-#include "../gui/Text.hpp"
+#include "../../gui/Bar.hpp"
+#include "../../gui/Text.hpp"
 
 namespace rr {
 
 /// Class for the HUD
-    class HUD {
+    class HUD : public sf::Drawable {
     private: Bar  bHP_;
              Bar  bMP_;
              Bar  bXP_;
              Text tXPlevel_;
-             Text tLevelNumber;
+             Text tLevelNumber_;
+
+             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     
     public:  HUD();
         
          /// Updates the HUD state
              void update      (Player*, int lvl);
-         /// Method drawing the HUD components
-             void draw        (sf::RenderWindow&);
     };
 
 }
 
-#endif // HUD_HPP
+#endif // UI_HUD_HPP

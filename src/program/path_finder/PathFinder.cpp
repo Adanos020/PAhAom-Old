@@ -11,9 +11,9 @@
 namespace rr {
 
     std::vector<sf::Vector2i> PathFinder::aStar(sf::Vector2i from, sf::Vector2i to, int tiles[]) {
-        std::vector<sf::Vector2i>     path;
-        std::list  <Point*>           opened;
-        std::list  <Point*>           closed;
+        std::vector<sf::Vector2i> path;
+        std::list  <   Point*   > opened;
+        std::list  <   Point*   > closed;
 
         Point* start = getPoint(tiles, from);
         Point* end   = getPoint(tiles, to);

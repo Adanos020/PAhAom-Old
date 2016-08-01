@@ -35,17 +35,15 @@ namespace rr {
              Rune(Rune const&);
          
              virtual Entity*        clone          ()            const override { return new Rune(*this); }
-         
-             virtual void           draw           (sf::RenderWindow&) override;
-         
+
              virtual void           reveal         ()                  override { identified_[type_] = true; }
              virtual bool           isDiscovered   ()            const override { return identified_[type_]; }
          
              virtual sf::String     getName        ()            const override;
              virtual sf::String     getDescription ()            const override;
          
-             void                   setPosition    (sf::Vector2i)      override;
-             void                   setRealPosition(sf::Vector2f pos)  override;
+             void                   setGridPosition(sf::Vector2i)      override;
+             void                   setPosition    (sf::Vector2f)      override;
          
              virtual std::ifstream& operator<<     (std::ifstream&)    override;
              virtual std::ofstream& operator>>     (std::ofstream&)    override;

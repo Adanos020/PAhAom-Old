@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/menu/PauseMenu.cpp
+ * @file src/program/game/ui/PauseMenu.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
@@ -72,12 +72,12 @@ namespace rr {
         }
     }
 
-    void PauseMenu::draw(sf::RenderWindow& rw) {
+    void PauseMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         if (isOpen()) {
-            rw.draw(shadow_);
-            title_  .draw(rw);
-            version_.draw(rw);
-            wMenu_  .draw(rw);
+            target.draw(shadow_ , states);
+            target.draw(title_  , states);
+            target.draw(version_, states);
+            target.draw(wMenu_  , states);
         }
     }
 

@@ -12,13 +12,13 @@ namespace rr {
 
     ScrollBar::ScrollBar(Plain p, sf::Vector2f position, float length, sf::Vector2f min_max) :
       Component  (                                                     ),
-      plain_     (p                                                    ),
       valueLimit_(min_max                                              ),
       indicator_ (Button(position+sf::Vector2f(10, 5), "|", 30)        ),
       bLeft_     (Button(position, "<", 30)                            ),
       bRight_    (Button(position+sf::Vector2f(length+20, 0), ">", 30) ),
       label_     (Text(sf::Vector2f(0, 0), "", Resources::font.Unifont)),
-      value_     (valueLimit_.x                                        )
+      value_     (valueLimit_.x                                        ),
+      plain_     (p                                                    )
     {
         if (p == VERTICAL) {
             bLeft_      = Button  (position, L"∧", 30);
@@ -86,12 +86,12 @@ namespace rr {
         label_.setPosition(border_.getPosition()+sf::Vector2f(border_.getSize().x/2 - label_.getSize().x/2, border_.getSize().y/2 - label_.getSize().y/2-10));
     }
 
-    void ScrollBar::draw(sf::RenderWindow& rw) {
-        rw.draw(border_);
-        bLeft_    .draw(rw);
-        bRight_   .draw(rw);
-        indicator_.draw(rw);
-        label_    .draw(rw);
+    void ScrollBar::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(border_   , states);
+        target.draw(bLeft_    , states);
+        target.draw(bRight_   , states);
+        target.draw(indicator_, states);
+        target.draw(label_    , states);
     }
 
     void ScrollBar::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {

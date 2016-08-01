@@ -21,26 +21,28 @@ namespace rr {
              Button                  right_;
              Text                    text_;
              mutable unsigned        counter_;
-    
+
+             virtual void draw        (sf::RenderTarget&,
+                                       sf::RenderStates) const override;
+
     public:  Switch(sf::Vector2f size, sf::Vector2f position);
         
              void                 setPosition        (sf::Vector2f)      override;
              void                 setSize            (sf::Vector2f)      override;
-         
+             void                 setText            (sf::String s)               { text_.setString(s); }
+
          /// Method for handling the button events
              void                 buttonEvents       (sf::RenderWindow&, sf::Event&);
          /// Adds an option to the switch
              void                 addOption          (sf::String);
          /// Sets the current option
              void                 setCurrentOption   (sf::String);
-         
-             void                 draw               (sf::RenderWindow&) override;
-         
+
          /// Returns the current option
              sf::String           getCurrentOption   () const                     { return options_[counter_]; }
              virtual sf::Vector2f getPosition        () const            override { return left_.getPosition(); }
              virtual sf::Vector2f getSize            () const            override { return body_.getSize(); }
-         
+
              Text                 getText            () const                     { return text_; }
     };
 

@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/menu/Inventory.cpp
+ * @file src/program/game/ui/Inventory.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
@@ -211,8 +211,8 @@ namespace rr {
                                 else       component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.use"]);
 
                                 wOpts.setTitle(item->getName());
-                                if (  wOpts.getText().getSize().x+10 >= 142
-                                    ) wOpts.setSize(sf::Vector2f(wOpts.getText().getSize().x+10, 143));
+                                if (  wOpts.getHeader().getSize().x+10 >= 142
+                                    ) wOpts.setSize(sf::Vector2f(wOpts.getHeader().getSize().x+10, 143));
 
                                 else wOpts.setSize(sf::Vector2f(142, 143));
                                 wOpts.setVisible(true);
@@ -252,7 +252,7 @@ namespace rr {
                 // HANDLING THE ITEM INFO WINDOW
                 if (!wOpts.isVisible() && slotPointed) {
                     component(wInfo, Text, 0)->setString(((Slot*)wInfo.getParentComponent())->getItem()->getDescription());
-                    component(wInfo, Text, 0)->wrap     ((wInfo.getText().getSize().x>=300.f) ? wInfo.getText().getSize().x+10 : 300.f);
+                    component(wInfo, Text, 0)->wrap     ((wInfo.getHeader().getSize().x>=300.f) ? wInfo.getHeader().getSize().x+10 : 300.f);
 
                     wInfo.setTitle   (((Slot*)wInfo.getParentComponent())->getItem()->getName());
                     wInfo.setSize    (component(wInfo, Text, 0)->getSize() + sf::Vector2f(10, 30));
@@ -362,13 +362,13 @@ namespace rr {
         return false;
     }
 
-    void Inventory::draw(sf::RenderWindow& rw) {
+    void Inventory::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         if (isOpen()) {
-            rw.draw(shadow_);
-            wInve_.draw(rw);
+            target.draw(shadow_, states);
+            target.draw(wInve_ , states);
         }
         for (auto slot : sCarryOn_) {
-            slot->draw(rw);
+            target.draw(*slot  , states);
         }
     }
 

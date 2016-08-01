@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/entities/npc/Merchant.hpp
+ * @file src/program/game/entity/npc/Merchant.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */

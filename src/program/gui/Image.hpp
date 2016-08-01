@@ -15,28 +15,29 @@ namespace rr {
     class Image : public Component {
     private: sf::Sprite body_;
              int        icon_;
-    
+
+             virtual void draw        (sf::RenderTarget&,
+                                       sf::RenderStates) const override;
+
     public:  Image(sf::Vector2f position, sf::Texture&, int iconSize, unsigned index);
-        
-             void          setPosition (sf::Vector2f)      override;
-             void          setSize     (sf::Vector2f)      override;
-         
+
+             void         setPosition (sf::Vector2f)           override;
+             void         setSize     (sf::Vector2f)           override;
+
          /// Changes the icon index
-             void          setIconIndex(unsigned index);
+             void         setIconIndex(unsigned index);
          /// Changes the texture
-             void          setTexture  (sf::Texture&);
+             void         setTexture  (sf::Texture&);
          /// Method scaling the body's size
-             void          scale       (sf::Vector2f);
+             void         scale       (sf::Vector2f);
          /// Method painting the body to a given color
-             void          paint       (sf::Color);
-         
-             void          draw        (sf::RenderWindow&) override;
-         
+             void         paint       (sf::Color);
+
          /// Returns the image's body
-             sf::Sprite    getBody     () const                     { return body_; }
-         
-             sf::Vector2f  getPosition () const            override { return body_.getPosition(); }
-             sf::Vector2f  getSize     () const            override { return sf::Vector2f(body_.getGlobalBounds().width, body_.getGlobalBounds().height); }
+             sf::Sprite   getBody     ()                 const          { return body_; }
+
+             sf::Vector2f getPosition ()                 const override { return body_.getPosition(); }
+             sf::Vector2f getSize     ()                 const override { return sf::Vector2f(body_.getGlobalBounds().width, body_.getGlobalBounds().height); }
     };
 
 }

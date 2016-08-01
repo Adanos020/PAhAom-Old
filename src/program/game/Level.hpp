@@ -35,7 +35,6 @@ namespace rr {
              virtual void         onNotify        (Event         , Entity*) override;
  
              void                 generateWorld   ();
-             void                 drawObjects     (sf::RenderWindow&) const;
 
              void                 addEntity       (Entity*       , sf::Vector2i position);
              void                 addEntity       (Entity*);

@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/menu/Journal.cpp
+ * @file src/program/game/ui/Journal.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
@@ -39,10 +39,10 @@ namespace rr {
 
     }
 
-    void Journal::draw(sf::RenderWindow& rw) {
+    void Journal::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         if (isOpen()) {
-            rw.draw(shadow_);
-            wJour_.draw(rw);
+            target.draw(shadow_, states);
+            target.draw(wJour_ , states);
         }
     }
 

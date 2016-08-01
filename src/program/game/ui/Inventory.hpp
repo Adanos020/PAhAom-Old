@@ -1,11 +1,11 @@
 /**
- * @file src/program/game/menu/BookOfSpells.hpp
+ * @file src/program/game/ui/BookOfSpells.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
-#ifndef MENU_INVENTORY_HPP
-#define MENU_INVENTORY_HPP
+#ifndef UI_INVENTORY_HPP
+#define UI_INVENTORY_HPP
 
 #include <SFML/Graphics.hpp>
 
@@ -22,7 +22,7 @@ namespace rr {
     class Game;
 
 /// Class for the player inventory
-    class Inventory : public Observer {
+    class Inventory : public Observer, public sf::Drawable {
     private: sf::RectangleShape shadow_;
      
              Window             wInve_;
@@ -34,6 +34,8 @@ namespace rr {
              short              gold_;
          
              void sort();
+
+             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     
     public:  Inventory(Player*);
             ~Inventory();
@@ -46,8 +48,6 @@ namespace rr {
              void clear       ();
          /// Handles the button events
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-         /// Draws the inventory components
-             void draw        (sf::RenderWindow&);
          /// Opens the inventory window
              void open        ();
          /// Closes the inventory window
@@ -65,4 +65,4 @@ namespace rr {
 
 #include "../Game.hpp"
 
-#endif // MENU_INVENTORY_HPP
+#endif // UI_INVENTORY_HPP

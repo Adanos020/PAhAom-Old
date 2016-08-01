@@ -37,11 +37,12 @@ namespace rr {
         image_.setPosition(pos);
     }
 
-    void Checkbox::draw(sf::RenderWindow& rw) {
-        rw.draw(body_);
+
+    void Checkbox::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(body_ , states);
         if (  checked_
-            ) image_.draw(rw);
-        text_.draw(rw);
+            ) target.draw(image_, states);
+        target.draw(text_ , states);
     }
 
     bool Checkbox::containsMouseCursor(sf::RenderWindow& rw) {

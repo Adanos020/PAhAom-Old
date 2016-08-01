@@ -109,7 +109,7 @@ namespace rr {
         *currentLevel_ << file;
         file.close();
 
-        player_.setPosition((ascending) ? currentLevel_->getStartingPoint() : currentLevel_->getEndingPoint());
+        player_.setGridPosition((ascending) ? currentLevel_->getStartingPoint() : currentLevel_->getEndingPoint());
 
         messageManager_.addMessage(Message(Resources::dictionary["message.welcome_to_level"]
                                           +" "
@@ -147,7 +147,7 @@ namespace rr {
         }
         subject.addObserver(currentLevel_);
 
-        player_.setPosition(currentLevel_->getStartingPoint());
+        player_.setGridPosition(currentLevel_->getStartingPoint());
 
         start(true);
         pause(false);
@@ -240,23 +240,24 @@ namespace rr {
     void Game::draw(sf::RenderWindow& rw) {
         if (!started_) {
             rw.setView(sf::View((sf::Vector2f) rw.getSize()/2.f, (sf::Vector2f) rw.getSize()));
-            mainMenu_.draw(rw);
+            rw.draw(mainMenu_);
             rw.setView((mapOpen_) ? mapView_ : gameView_);
         }
         else {
             rw.setView((mapOpen_) ? mapView_ : gameView_);
             rw.draw(*currentLevel_);
-            currentLevel_->drawObjects(rw);
-            player_.draw(rw);
+            rw.draw(player_);
 
             rw.setView(sf::View((sf::Vector2f) rw.getSize()/2.f, (sf::Vector2f) rw.getSize()));
-            hud_           .draw(rw);
+
             messageManager_.draw(rw);
-            inventory_     .draw(rw);
-            pauseMenu_     .draw(rw);
-            attributes_    .draw(rw);
-            journal_       .draw(rw);
-            bookOfSpells_  .draw(rw);
+
+            rw.draw(hud_);
+            rw.draw(inventory_);
+            rw.draw(pauseMenu_);
+            rw.draw(attributes_);
+            rw.draw(journal_);
+            rw.draw(bookOfSpells_);
         }
     }
 
@@ -271,9 +272,8 @@ namespace rr {
 
         if (!paused_) {
             currentLevel_->update(this, time);
+            currentLevel_->calculateFOV((sf::Vector2u)player_.getGridPosition(), player_.getSightRange());
         }
-
-        currentLevel_->calculateFOV((sf::Vector2u)player_.getPosition(), player_.getSightRange());
     }
 
     void Game::controls(sf::Event& event) {

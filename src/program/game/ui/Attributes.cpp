@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/menus/Attributes.cpp
+ * @file src/program/game/ui/Attributes.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
@@ -67,10 +67,10 @@ namespace rr {
 
     }
 
-    void Attributes::draw(sf::RenderWindow& rw) {
+    void Attributes::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         if (isOpen()) {
-            rw.draw(shadow_);
-            wAttr_.draw(rw);
+            target.draw(shadow_, states);
+            target.draw(wAttr_ , states);
         }
     }
 

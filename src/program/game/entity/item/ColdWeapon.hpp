@@ -42,8 +42,6 @@ namespace rr {
          
              virtual Entity*        clone              ()            const override { return new ColdWeapon(*this); }
          
-             virtual void           draw               (sf::RenderWindow&) override;
-         
              virtual sf::String     getName            ()            const override;
              virtual sf::String     getDescription     ()            const override;
          

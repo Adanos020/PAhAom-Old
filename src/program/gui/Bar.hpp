@@ -15,6 +15,10 @@ namespace rr {
     class Bar : public Component {
     private: sf::RectangleShape border_;
              sf::RectangleShape bar_;
+
+             virtual void draw               (sf::RenderTarget&,
+                                              sf::RenderStates) const override;
+
     public:  
              enum Plain {
                  HORIZONTAL,
@@ -22,13 +26,12 @@ namespace rr {
              };
              Bar(Plain, int max_length, sf::Color, sf::Vector2f pos);
          
-             void         setPosition        (sf::Vector2f)      override;
-             void         setSize            (sf::Vector2f)      override;
+             void         setPosition        (sf::Vector2f)           override;
+             void         setSize            (sf::Vector2f)           override;
              void         setValue           (sf::Vector2f);
-             void         draw               (sf::RenderWindow&) override;
          
-             sf::Vector2f getPosition        () const            override { return border_.getPosition(); }
-             sf::Vector2f getSize            () const            override { return border_.getSize(); }
+             sf::Vector2f getPosition        ()                 const override { return border_.getPosition(); }
+             sf::Vector2f getSize            ()                 const override { return border_.getSize(); }
     };
 
 }

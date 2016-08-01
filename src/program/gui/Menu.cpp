@@ -39,9 +39,9 @@ namespace rr {
         return "";
     }
 
-    void Menu::draw(sf::RenderWindow& rw) {
+    void Menu::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         for (auto button : options_) {
-            button.draw(rw);
+            target.draw(button, states);
         }
     }
 

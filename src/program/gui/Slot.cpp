@@ -41,15 +41,15 @@ namespace rr {
         text_ .setPosition(sf::Vector2f(pos.x+5, pos.y+55));
     }
 
-    void Slot::draw(sf::RenderWindow& rw) {
-        rw.draw(body_);
+    void Slot::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(body_, states);
 
         if (  hollow_
-            ) image_.draw(rw);
+            ) target.draw(image_, states);
         else {
-            item_->draw(rw);
+            target.draw(*item_, states);
             if (  item_->getAmount() > 1
-                ) text_.draw(rw);
+                ) target.draw(text_, states);
         }
     }
 
@@ -70,7 +70,7 @@ namespace rr {
         if (  instanceof<Equipable, Item>(item) && ((Equipable*)item)->isEquipped()
             ) ((Equipable*)item_)->equip(true);
 
-        item_->setRealPosition(body_.getPosition());
+        item_->setPosition(body_.getPosition());
         text_.setString(std::to_string(item_->getAmount()));
 
         hollow_ = false;
@@ -107,7 +107,7 @@ namespace rr {
                   hollow_ = false;
             slot->hollow_ = true;
 
-            item_->setRealPosition(body_.getPosition());
+            item_->setPosition(body_.getPosition());
 
             text_.setString(std::to_string(item_->getAmount()));
             text_.setCharacterSize(20);
@@ -116,14 +116,14 @@ namespace rr {
                   hollow_ = true;
             slot->hollow_ = false;
 
-            slot->item_->setRealPosition(slot->body_.getPosition());
+            slot->item_->setPosition(slot->body_.getPosition());
 
             slot->text_.setString(std::to_string(slot->item_->getAmount()));
             slot->text_.setCharacterSize(20);
         }
         else if (!hollow_ && !slot->hollow_) {
-                  item_->setRealPosition(      body_.getPosition());
-            slot->item_->setRealPosition(slot->body_.getPosition());
+                  item_->setPosition(      body_.getPosition());
+            slot->item_->setPosition(slot->body_.getPosition());
 
                   text_.setString(std::to_string(      item_->getAmount()));
             slot->text_.setString(std::to_string(slot->item_->getAmount()));

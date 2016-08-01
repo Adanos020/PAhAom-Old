@@ -18,19 +18,21 @@ namespace rr {
     private: std::vector<Button> options_;
              sf::Vector2f        position_;
 
+             virtual void         draw           (sf::RenderTarget&,
+                                                  sf::RenderStates) const override;
+
     public:  void                 addOption      (sf::String);
              void                 setOption      (unsigned index, sf::String);
              void                 removeOption   (unsigned index);
-             void                 clear          ()                           { options_.clear(); }
+             void                 clear          ()                                { options_.clear(); }
 
              sf::String           getChosenOption(sf::RenderWindow&, sf::Event&);
-             int                  getOptionCount () const                     { return options_.size(); }
+             int                  getOptionCount ()                 const          { return options_.size(); }
              
-             virtual void         draw           (sf::RenderWindow&) override;
-             virtual void         setPosition    (sf::Vector2f)      override;
-             virtual void         setSize        (sf::Vector2f)      override {}
-             virtual sf::Vector2f getPosition    () const                     { return position_; }
-             virtual sf::Vector2f getSize        () const                     { return sf::Vector2f(0, options_.size()*40); }
+             virtual void         setPosition    (sf::Vector2f)           override;
+             virtual void         setSize        (sf::Vector2f)           override {}
+             virtual sf::Vector2f getPosition    ()                 const          { return position_; }
+             virtual sf::Vector2f getSize        ()                 const          { return sf::Vector2f(0, options_.size()*40); }
 
              Menu(sf::Vector2f position = sf::Vector2f(0, 0));
             ~Menu();

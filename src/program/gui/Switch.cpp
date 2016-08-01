@@ -79,11 +79,11 @@ namespace rr {
         text_.setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
     }
 
-    void Switch::draw(sf::RenderWindow& rw) {
-        rw.draw(body_);
-        left_ .draw(rw);
-        right_.draw(rw);
-        text_ .draw(rw);
+    void Switch::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(body_ , states);
+        target.draw(left_ , states);
+        target.draw(right_, states);
+        target.draw(text_ , states);
     }
 
 }

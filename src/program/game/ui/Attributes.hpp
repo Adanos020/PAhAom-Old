@@ -1,11 +1,11 @@
 /**
- * @file src/program/game/menu/Attributes.hpp
+ * @file src/program/game/ui/Attributes.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
-#ifndef MENU_ATTRIBUTES_HPP
-#define MENU_ATTRIBUTES_HPP
+#ifndef UI_ATTRIBUTES_HPP
+#define UI_ATTRIBUTES_HPP
 
 #include <SFML/Graphics.hpp>
 
@@ -18,18 +18,18 @@ namespace rr {
     class Game;
 
 /// Class for the player attributes window
-    class Attributes {
+    class Attributes : public sf::Drawable {
     private: sf::RectangleShape shadow_;
              Window             wAttr_;
-    
+
+             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
     public:  Attributes();
 
          /// Updates the info about the player attributes
              void update      (Player*);
          /// Handles the button events
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-         /// Draws the player attributes components
-             void draw        (sf::RenderWindow&);
          /// Opens the player attributes window
              void open        ()       { wAttr_.setVisible(true); }
          /// Closes the player attributes window
@@ -42,4 +42,4 @@ namespace rr {
 
 #include "../Game.hpp"
 
-#endif // MENU_ATTRIBUTES_HPP
+#endif // UI_ATTRIBUTES_HPP

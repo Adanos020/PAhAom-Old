@@ -46,9 +46,9 @@ namespace rr {
                  ) bar_.setScale(scale.x, 1);
     }
 
-    void Bar::draw(sf::RenderWindow& rw) {
-        rw.draw(bar_);
-        rw.draw(border_);
+    void Bar::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(bar_   , states);
+        target.draw(border_, states);
     }
 
 }

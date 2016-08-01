@@ -112,8 +112,8 @@ namespace rr {
         }
     }
 
-    void Shadow::draw(sf::RenderWindow& rw) {
-        rw.draw(body_);
+    void Shadow::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(body_, states);
     }
 
     std::ifstream& Shadow::operator<<(std::ifstream& file) {

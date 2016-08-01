@@ -1,11 +1,11 @@
 /**
- * @file src/program/game/menu/Journal.hpp
+ * @file src/program/game/ui/Journal.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
  
-#ifndef MENU_JOURNAL_HPP
-#define MENU_JOURNAL_HPP
+#ifndef UI_JOURNAL_HPP
+#define UI_JOURNAL_HPP
 
 #include <SFML/Graphics.hpp>
 
@@ -16,9 +16,11 @@ namespace rr {
     class Game;
 
 /// Class for the task list
-    class Journal {
+    class Journal : public sf::Drawable {
     private: sf::RectangleShape shadow_;
              Window             wJour_;
+
+             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     
     public:  Journal();
         
@@ -28,8 +30,6 @@ namespace rr {
              void open        ()       { wJour_.setVisible(true); }
          /// Closes the task list window
              void close       ()       { wJour_.setVisible(false); }
-         /// Draws the task list components
-             void draw        (sf::RenderWindow&);
          /// Tells if the task list is open
              bool isOpen      () const { return wJour_.isVisible(); }
     };
@@ -38,4 +38,4 @@ namespace rr {
 
 #include "../Game.hpp"
 
-#endif // MENU_JOURNAL_HPP
+#endif // UI_JOURNAL_HPP

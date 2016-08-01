@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/entities/npc/QuestGiver.hpp
+ * @file src/program/game/entity/npc/QuestGiver.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */

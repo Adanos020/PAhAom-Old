@@ -1,11 +1,11 @@
 /**
- * @file src/program/game/menu/MainMenu.hpp
+ * @file src/program/game/ui/MainMenu.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
-#ifndef MENU_MAINMENU_HPP
-#define MENU_MAINMENU_HPP
+#ifndef UI_MAINMENU_HPP
+#define UI_MAINMENU_HPP
 
 #include <SFML/Graphics.hpp>
 
@@ -17,21 +17,21 @@ namespace rr {
     class Game;
 
 /// Class for the main menu
-    class MainMenu {
+    class MainMenu : public sf::Drawable {
     private: Text    title_;
              Text    version_;
              Window  wMenu_;
+
+             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     
     public:  MainMenu();
          
          /// Handles the button events
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-         /// Draws the main menu's components
-             void draw        (sf::RenderWindow&);
     };
 
 }
 
 #include "../Game.hpp"
 
-#endif // MENU_MAINMENU_HPP
+#endif // UI_MAINMENU_HPP

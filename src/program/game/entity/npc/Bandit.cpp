@@ -122,7 +122,7 @@ namespace rr {
         weapon_ = (Weapon) weapon;
 
         initialize();
-        setPosition(position);
+        setGridPosition(position);
 
         return file;
     }

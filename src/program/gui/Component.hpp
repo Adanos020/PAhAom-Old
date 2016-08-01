@@ -12,13 +12,11 @@
 namespace rr {
 
 /// Abstract class for all the GUI components
-    class Component {
+    class Component : public sf::Drawable {
     private: Component* parentComponent_;
     
     public:  virtual ~Component() {}
 
-         /// Method drawing the component on the screen
-             virtual void         draw               (sf::RenderWindow&)  = 0;
          /// Sets the component's body's position
              virtual void         setPosition        (sf::Vector2f)       = 0;
          /// Sets the component's body's size

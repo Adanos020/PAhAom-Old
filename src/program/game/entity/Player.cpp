@@ -73,16 +73,6 @@ namespace rr {
         body_        .pause         ();
     }
 
-    void Player::setPosition(sf::Vector2i pos) {
-        position_ = pos;
-        body_.setPosition((sf::Vector2f)pos*80.f);
-    }
-
-    void Player::setRealPosition(sf::Vector2f pos) {
-        position_ = (sf::Vector2i)pos/80;
-        body_.setPosition(pos);
-    }
-
     void Player::move(int tiles[], Direction di) {
         if (!moving_) {
             if (di == UP    && tiles[position_.x   + (position_.y-1)*77] != 1) {
@@ -188,8 +178,9 @@ namespace rr {
         attrs_.faster_learning       = false;
     }
 
-    void Player::draw(sf::RenderWindow& rw) {
-        rw.draw(body_);
+    void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        states.texture = &Resources::texture.player;
+        target.draw(body_, states);
     }
 
     void Player::useItem(Item* item) {
@@ -331,7 +322,7 @@ namespace rr {
         }
 
         initialize();
-        setPosition(position_);
+        setGridPosition(position_);
         
         return file;
     }

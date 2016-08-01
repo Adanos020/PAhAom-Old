@@ -32,8 +32,8 @@ namespace rr {
         }
     }
 
-    void Message::draw(sf::RenderWindow& rw) {
-        message_.draw(rw);
+    void Message::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(message_);
     }
 
 }

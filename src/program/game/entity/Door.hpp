@@ -17,29 +17,29 @@ namespace rr {
              bool       open_;
              bool       withoutWindow_;
              
-             virtual void           initialize     ()                  override;
+             virtual void           initialize     ()                       override;
+             virtual void           draw           (sf::RenderTarget&,
+                                                    sf::RenderStates) const override;
     
     public:  Door(bool lock = false);
              Door(Door const&);
          
              void                   setOpen        (bool);
-             bool                   isOpen         ()          const            { return open_; }
-             bool                   isLocked       ()          const            { return locked_; }
-             bool                   isWithoutWindow()          const            { return withoutWindow_; }
+             bool                   isOpen         ()                 const          { return open_; }
+             bool                   isLocked       ()                 const          { return locked_; }
+             bool                   isWithoutWindow()                 const          { return withoutWindow_; }
          
-             virtual Entity*        clone          ()          const   override { return new Door(*this); }
+             virtual Entity*        clone          ()                 const override { return new Door(*this); }
+
+             virtual void           setGridPosition(sf::Vector2i pos)       override { body_.setPosition((sf::Vector2f)pos*80.f); }
+             virtual void           setPosition    (sf::Vector2f pos)       override { body_.setPosition(pos); }
+             virtual bool           collides       (Entity* e)        const override { return e->getBounds().intersects(getBounds()); }
+             virtual sf::Vector2i   getGridPosition()                 const override { return (sf::Vector2i)body_.getPosition()/80; }
+             virtual sf::Vector2f   getPosition    ()                 const override { return body_.getPosition(); }
+             virtual sf::FloatRect  getBounds      ()                 const override { return body_.getGlobalBounds(); }
          
-             virtual void           draw           (sf::RenderWindow&) override;
-             virtual void           setPosition    (sf::Vector2i pos)  override { body_.setPosition((sf::Vector2f)pos*80.f); }
-             virtual void           setRealPosition(sf::Vector2f pos)  override { body_.setPosition(pos); }
-         
-             virtual bool           intersects     (Entity* e) const   override { return e->getBounds().intersects(getBounds()); }
-             virtual sf::FloatRect  getBounds      ()          const   override { return body_.getGlobalBounds(); }
-             virtual sf::Vector2i   getPosition    ()          const   override { return (sf::Vector2i)body_.getPosition()/80; }
-             virtual sf::Vector2f   getRealPosition()          const   override { return body_.getPosition(); }
-         
-             virtual std::ifstream& operator<<     (std::ifstream&)    override;
-             virtual std::ofstream& operator>>     (std::ofstream&)    override;
+             virtual std::ifstream& operator<<     (std::ifstream&)         override;
+             virtual std::ofstream& operator>>     (std::ofstream&)         override;
     };
 
 }

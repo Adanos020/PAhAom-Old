@@ -1,11 +1,11 @@
 /**
- * @file src/program/game/menu/PauseMenu.hpp
+ * @file src/program/game/ui/PauseMenu.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
-#ifndef MENU_PAUSE_HPP
-#define MENU_PAUSE_HPP
+#ifndef UI_PAUSE_HPP
+#define UI_PAUSE_HPP
 
 #include <SFML/Graphics.hpp>
 
@@ -17,18 +17,18 @@ namespace rr {
     class Game;
 
 /// Class for the pause menu
-    class PauseMenu {
+    class PauseMenu : public sf::Drawable {
     private: sf::RectangleShape shadow_;
              Text               title_;
              Text               version_;
              Window             wMenu_;
+
+             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     
     public:  PauseMenu();
          
          /// Handles the button events
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-         /// Draws the pause menu's components
-             void draw        (sf::RenderWindow&);
          /// Opens the pause menu
              void open        ()       { wMenu_.setVisible(true); }
          /// Closes the pause menu window
@@ -41,4 +41,4 @@ namespace rr {
 
 #include "../Game.hpp"
 
-#endif // MENU_PAUSE_HPP
+#endif // UI_PAUSE_HPP

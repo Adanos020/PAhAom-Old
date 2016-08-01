@@ -30,8 +30,9 @@ namespace rr {
         body_.setTextureRect(sf::IntRect(upwards_ ? 16 : 0, 64, 16, 16));
     }
 
-    void Stairs::draw(sf::RenderWindow& rw) {
-        rw.draw(body_);
+    void Stairs::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        states.texture = &Resources::texture.objects;
+        target.draw(body_, states);
     }
 
     std::ifstream& Stairs::operator<<(std::ifstream& file) {
@@ -47,7 +48,7 @@ namespace rr {
         }
 
         initialize();
-        setPosition(position);
+        setGridPosition(position);
 
         return file;
     }

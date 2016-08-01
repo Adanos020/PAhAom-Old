@@ -27,7 +27,7 @@ namespace rr {
         amount_     = am;
 
         initialize();
-        setPosition(pos);
+        setGridPosition(pos);
     }
 
     Rune::Rune(Rune const& rune) :
@@ -52,10 +52,6 @@ namespace rr {
         int icons[] = { (int)iconIndex_, 64+(int)spellSymbols[type_] };
 
         setIcon    (body_, 2, icons);
-    }
-
-    void Rune::draw(sf::RenderWindow& rw) {
-        rw.draw(body_, &Resources::texture.items);
     }
 
     sf::String Rune::getName() const {
@@ -116,7 +112,7 @@ namespace rr {
         return "";
     }
 
-    void Rune::setPosition(sf::Vector2i pos) {
+    void Rune::setGridPosition(sf::Vector2i pos) {
         body_[0].position = (sf::Vector2f)pos*80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
@@ -128,7 +124,7 @@ namespace rr {
         body_[7].position = body_[3].position;
     }
 
-    void Rune::setRealPosition(sf::Vector2f pos) {
+    void Rune::setPosition(sf::Vector2f pos) {
         body_[0].position = pos;
         body_[1].position = sf::Vector2f(pos.x+80, pos.y   );
         body_[2].position = sf::Vector2f(pos.x+80, pos.y+80);
@@ -157,7 +153,7 @@ namespace rr {
         type_ = (Type) type;
 
         initialize();
-        setPosition(position);
+        setGridPosition(position);
 
         return file;
     }

@@ -4,10 +4,10 @@
  * Used library: SFML 2.3.2
  */
 
-#include "Game.hpp"
+#include "../Game.hpp"
 
-#include "../Settings.hpp"
-#include "../Resources.hpp"
+#include "../../Settings.hpp"
+#include "../../Resources.hpp"
 
 namespace rr {
 
@@ -21,11 +21,11 @@ namespace rr {
                                           Settings::graphics.resolution.y-20)                                       )),
 
       tXPlevel_    (Text(sf::Vector2f(0, 0), ""  , Resources::font.Pixel, 40, sf::Color::Yellow                     )),
-      tLevelNumber (Text(sf::Vector2f(0, 0), "L0", Resources::font.Pixel, 30, sf::Color::Green                      ))
+      tLevelNumber_ (Text(sf::Vector2f(0, 0), "L0", Resources::font.Pixel, 30, sf::Color::Green                      ))
     {
         tXPlevel_.setPosition(sf::Vector2f(bXP_.getPosition().x + bXP_.getSize().x/2 - tXPlevel_.getSize().x/2,
                                            bXP_.getPosition().y - tXPlevel_.getSize().y));
-        tLevelNumber.setPosition(sf::Vector2f(Settings::graphics.resolution.x - tLevelNumber.getSize().x-10, 10));
+        tLevelNumber_.setPosition(sf::Vector2f(Settings::graphics.resolution.x - tLevelNumber_.getSize().x-10, 10));
     }
 
     void HUD::update(Player* p, int lvl) {
@@ -37,16 +37,16 @@ namespace rr {
         tXPlevel_.setPosition(sf::Vector2f(bXP_.getPosition().x + bXP_.getSize().x/2 - tXPlevel_.getSize().x/2,
                                            bXP_.getPosition().y - tXPlevel_.getSize().y));
 
-        tLevelNumber.setString  ("L"+std::to_string(lvl));
-        tLevelNumber.setPosition(sf::Vector2f(Settings::graphics.resolution.x - tLevelNumber.getSize().x-10, 10));
+        tLevelNumber_.setString  ("L"+std::to_string(lvl));
+        tLevelNumber_.setPosition(sf::Vector2f(Settings::graphics.resolution.x - tLevelNumber_.getSize().x-10, 10));
     }
 
-    void HUD::draw(sf::RenderWindow& rw) {
-        bHP_        .draw(rw);
-        bMP_        .draw(rw);
-        bXP_        .draw(rw);
-        tXPlevel_   .draw(rw);
-        tLevelNumber.draw(rw);
+    void HUD::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        target.draw(bHP_         , states);
+        target.draw(bMP_         , states);
+        target.draw(bXP_         , states);
+        target.draw(tXPlevel_    , states);
+        target.draw(tLevelNumber_, states);
     }
 
 }
