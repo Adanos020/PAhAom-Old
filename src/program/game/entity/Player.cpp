@@ -20,7 +20,6 @@ extern rr::Subject   subject;
 namespace rr {
 
     Player::Player() :
-      Entity                       (                  ),
       position_                    (sf::Vector2i(0, 0)),
       currentAnimation_            (&walkingRight_    ),
       moving_                      (false             ),
@@ -46,13 +45,19 @@ namespace rr {
         attrs_.health_regeneration       = false;
         attrs_.faster_learning           = false;
 
+        buffs_.speed                     = 0;
+        buffs_.regeneration              = 0;
+        buffs_.poison                    = 0;
+        buffs_.slowness                  = 0;
+        buffs_.weakness                  = 0;
+        buffs_.hunger                    = 0;
+
         initialize();
         body_.setPosition(sf::Vector2f(0, 0));
         body_.scale      (sf::Vector2f(5, 5));
     }
 
     Player::Player(Player const& player) :
-      Entity                       (                        ),
       attrs_                       (player.attrs_           ),
       position_                    (player.position_        ),
       body_                        (player.body_            ),
@@ -111,6 +116,7 @@ namespace rr {
                 buffs_.poison       -= (buffs_.poison       == 0 ? 0 : 1);
                 buffs_.slowness     -= (buffs_.slowness     == 0 ? 0 : 1);
                 buffs_.weakness     -= (buffs_.weakness     == 0 ? 0 : 1);
+                buffs_.hunger       ++;
                 moving_ = false;
             }
 
@@ -119,23 +125,23 @@ namespace rr {
                 )  body_.setPosition((sf::Vector2f)position_*80.f);
         }
 
-        if (attrs_.health >= attrs_.maxHealth)      attrs_.health       = attrs_.maxHealth;
-        if (attrs_.health <= 0)                     attrs_.health       = 0;
-        if (attrs_.mana   <= 0)                     attrs_.mana         = 0;
-        if (attrs_.mana   >= attrs_.maxMana)        attrs_.mana         = attrs_.maxMana;
-        if (attrs_.experience  >= attrs_.nextLevel) {
-                                                    attrs_.experience   = 0;
-                                                    attrs_.nextLevel   *= 1.25f;
-                                                    attrs_.level       ++;
-                                                    attrs_.skillPoints += (attrs_.faster_learning) ? 15 : 10;
+        if (attrs_.health     >= attrs_.maxHealth) attrs_.health       = attrs_.maxHealth;
+        if (attrs_.health     <= 0)                attrs_.health       = 0;
+        if (attrs_.mana       <= 0)                attrs_.mana         = 0;
+        if (attrs_.mana       >= attrs_.maxMana)   attrs_.mana         = attrs_.maxMana;
+        if (attrs_.experience >= attrs_.nextLevel) {
+                                                   attrs_.experience   = 0;
+                                                   attrs_.nextLevel   *= 1.25f;
+                                                   attrs_.level       ++;
+                                                   attrs_.skillPoints += (attrs_.faster_learning) ? 15 : 10;
 
-                                                    float temp          = attrs_.health/attrs_.maxHealth;
-                                                    attrs_.maxHealth   += 10;
-                                                    attrs_.health       = temp*attrs_.maxHealth;
+                                                   float temp          = attrs_.health/attrs_.maxHealth;
+                                                   attrs_.maxHealth   += 10;
+                                                   attrs_.health       = temp*attrs_.maxHealth;
 
-                                                    temp                = attrs_.mana/attrs_.maxMana;
-                                                    attrs_.maxMana     += 1;
-                                                    attrs_.mana         = temp*attrs_.maxMana;
+                                                   temp                = attrs_.mana/attrs_.maxMana;
+                                                   attrs_.maxMana     += 1;
+                                                   attrs_.mana         = temp*attrs_.maxMana;
         }
 
         body_.update(timeStep);
@@ -191,7 +197,25 @@ namespace rr {
 
         subject.notify(Observer::ITEM_USED, item);
 
-        if (instanceof<Potion, Item>(item)) {
+        if (instanceof<Book, Item>(item)) {
+            switch (((Book*)item)->type_) {
+                case Book::CRAFTING             : attrs_.crafting              = true; break;
+                case Book::ALCHEMY              : attrs_.alchemy               = true; break;
+                case Book::COLD_WEAPON_MASTERY  : attrs_.cold_weapon_mastery   = true; break;
+                case Book::RANGED_WEAPON_MASTERY: attrs_.ranged_weapon_mastery = true; break;
+                case Book::EAGLE_EYE            : attrs_.eagle_eye             = true; break;
+                case Book::MANA_REGEN           : attrs_.mana_regeneration     = true; break;
+                case Book::HEALTH_REGEN         : attrs_.health_regeneration   = true; break;
+                case Book::FASTER_LEARNING      : attrs_.faster_learning       = true; break;
+                default                         :                                      break;
+            }
+        }
+        else if (instanceof<Food, Item>(item)) {
+            if (  buffs_.hunger >= 200
+                ) buffs_.hunger  = 100;
+            else  buffs_.hunger  =   0;
+        }
+        else if (instanceof<Potion, Item>(item)) {
             switch (((Potion*)item)->effect_) {
                 case Potion::HEALING     : switch (((Potion*)item)->size_) {
                                                case Potion::SMALL : attrs_.health       += attrs_.maxHealth*0.25; break;
@@ -240,25 +264,12 @@ namespace rr {
                                                case Potion::MEDIUM: buffs_.slowness     += 30                   ; break;
                                                case Potion::BIG   : buffs_.slowness     += 50                   ; break;
                                            } break;
-                                        
+
                 case Potion::WEAKNESS    : switch (((Potion*)item)->size_) {
                                                case Potion::SMALL : buffs_.weakness     += 10                   ; break;
                                                case Potion::MEDIUM: buffs_.weakness     += 30                   ; break;
                                                case Potion::BIG   : buffs_.weakness     += 50                   ; break;
                                            } break;
-            }
-        }
-        else if (instanceof<Book, Item>(item)) {
-            switch (((Book*)item)->type_) {
-                case Book::CRAFTING             : attrs_.crafting              = true; break;
-                case Book::ALCHEMY              : attrs_.alchemy               = true; break;
-                case Book::COLD_WEAPON_MASTERY  : attrs_.cold_weapon_mastery   = true; break;
-                case Book::RANGED_WEAPON_MASTERY: attrs_.ranged_weapon_mastery = true; break;
-                case Book::EAGLE_EYE            : attrs_.eagle_eye             = true; break;
-                case Book::MANA_REGEN           : attrs_.mana_regeneration     = true; break;
-                case Book::HEALTH_REGEN         : attrs_.health_regeneration   = true; break;
-                case Book::FASTER_LEARNING      : attrs_.faster_learning       = true; break;
-                default                         :                                      break;
             }
         }
         else if (instanceof<Rune, Item>(item)) {

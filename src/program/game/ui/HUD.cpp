@@ -15,13 +15,13 @@ namespace rr {
       bHP_         (Bar (Bar::HORIZONTAL, 150, sf::Color::Red , sf::Vector2f(15, Settings::graphics.resolution.y-20))),
       bMP_         (Bar (Bar::HORIZONTAL, 150, sf::Color::Blue, sf::Vector2f(    Settings::graphics.resolution.x-165,
                                                                                  Settings::graphics.resolution.y-20))),
-                                                                             
+
       bXP_         (Bar (Bar::HORIZONTAL, Settings::graphics.resolution.x-400, sf::Color(128, 128, 255),
                              sf::Vector2f(Settings::graphics.resolution.x/2 - (Settings::graphics.resolution.x-400)/2,
                                           Settings::graphics.resolution.y-20)                                       )),
 
       tXPlevel_    (Text(sf::Vector2f(0, 0), ""  , Resources::font.Pixel, 40, sf::Color::Yellow                     )),
-      tLevelNumber_ (Text(sf::Vector2f(0, 0), "L0", Resources::font.Pixel, 30, sf::Color::Green                      ))
+      tLevelNumber_(Text(sf::Vector2f(0, 0), "L0", Resources::font.Pixel, 30, sf::Color::Green                      ))
     {
         tXPlevel_.setPosition(sf::Vector2f(bXP_.getPosition().x + bXP_.getSize().x/2 - tXPlevel_.getSize().x/2,
                                            bXP_.getPosition().y - tXPlevel_.getSize().y));

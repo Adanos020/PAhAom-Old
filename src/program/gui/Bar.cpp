@@ -8,9 +8,7 @@
 
 namespace rr {
 
-    Bar::Bar(Plain plain, int max_length, sf::Color c, sf::Vector2f pos) :
-      Component()
-    {
+    Bar::Bar(Plain plain, int max_length, sf::Color c, sf::Vector2f pos) {
         if      (plain == HORIZONTAL) {
             border_.setSize(sf::Vector2f(max_length, 5));
             bar_   .setSize(sf::Vector2f(max_length, 5));

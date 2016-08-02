@@ -65,20 +65,7 @@ namespace rr {
                                                        +((Settings::game.language != "fc") ? sf::String("!") : sf::String(""))));
                                      break;
 
-            case ITEM_USED         : if (instanceof<Potion, Entity>((Item*)entity)) {
-                                         switch (((Potion*)entity)->effect_) {
-                                             case Potion::HEALING              : addMessage(Message(Resources::dictionary["message.item_used.potion.healing"            ])); break;
-                                             case Potion::MAGIC                : addMessage(Message(Resources::dictionary["message.item_used.potion.magic"              ])); break;
-                                             case Potion::STRENGTH             : addMessage(Message(Resources::dictionary["message.item_used.potion.strength"           ])); break;
-                                             case Potion::DEXTERITY            : addMessage(Message(Resources::dictionary["message.item_used.potion.dexterity"          ])); break;
-                                             case Potion::SPEED                : addMessage(Message(Resources::dictionary["message.item_used.potion.speed"              ])); break;
-                                             case Potion::REGENERATION         : addMessage(Message(Resources::dictionary["message.item_used.potion.regeneration"       ])); break;
-                                             case Potion::POISON               : addMessage(Message(Resources::dictionary["message.item_used.potion.poison"             ])); break;
-                                             case Potion::SLOWNESS             : addMessage(Message(Resources::dictionary["message.item_used.potion.slowness"           ])); break;
-                                             case Potion::WEAKNESS             : addMessage(Message(Resources::dictionary["message.item_used.potion.weakness"           ])); break;
-                                         }
-                                     }
-                                     else if (instanceof<Book, Item>((Item*)entity)) {
+            case ITEM_USED         : if (instanceof<Book, Item>((Item*)entity)) {
                                          switch (((Book*)entity)->type_) {
                                              case Book  ::CRAFTING             : addMessage(Message(Resources::dictionary["message.item_used.book.crafting"             ])); break;
                                              case Book  ::ALCHEMY              : addMessage(Message(Resources::dictionary["message.item_used.book.alchemy"              ])); break;
@@ -89,6 +76,22 @@ namespace rr {
                                              case Book  ::HEALTH_REGEN         : addMessage(Message(Resources::dictionary["message.item_used.book.health_regen"         ])); break;
                                              case Book  ::FASTER_LEARNING      : addMessage(Message(Resources::dictionary["message.item_used.book.faster_learning"      ])); break;
                                              default: break;
+                                         }
+                                     }
+                                     else if (instanceof<Food, Item>((Item*)entity)) {
+                                         addMessage(Message(Resources::dictionary["message.item_used.food"]));
+                                     }
+                                     else if (instanceof<Potion, Entity>((Item*)entity)) {
+                                         switch (((Potion*)entity)->effect_) {
+                                             case Potion::HEALING              : addMessage(Message(Resources::dictionary["message.item_used.potion.healing"            ])); break;
+                                             case Potion::MAGIC                : addMessage(Message(Resources::dictionary["message.item_used.potion.magic"              ])); break;
+                                             case Potion::STRENGTH             : addMessage(Message(Resources::dictionary["message.item_used.potion.strength"           ])); break;
+                                             case Potion::DEXTERITY            : addMessage(Message(Resources::dictionary["message.item_used.potion.dexterity"          ])); break;
+                                             case Potion::SPEED                : addMessage(Message(Resources::dictionary["message.item_used.potion.speed"              ])); break;
+                                             case Potion::REGENERATION         : addMessage(Message(Resources::dictionary["message.item_used.potion.regeneration"       ])); break;
+                                             case Potion::POISON               : addMessage(Message(Resources::dictionary["message.item_used.potion.poison"             ])); break;
+                                             case Potion::SLOWNESS             : addMessage(Message(Resources::dictionary["message.item_used.potion.slowness"           ])); break;
+                                             case Potion::WEAKNESS             : addMessage(Message(Resources::dictionary["message.item_used.potion.weakness"           ])); break;
                                          }
                                      }
                                      else if (instanceof<Rune, Item>((Item*)entity)) {

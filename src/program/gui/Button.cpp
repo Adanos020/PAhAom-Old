@@ -11,7 +11,6 @@
 namespace rr {
 
     Button::Button(sf::Vector2f position, sf::String str, unsigned chsize, sf::Color c) :
-      Component(                                                                  ),
       image_   (Image(position, Resources::texture.gui, 14, 0)                    ),
       text_    (Text (sf::Vector2f(0, 0), str, Resources::font.Unifont, chsize, c)),
       held_    (false                                                             )

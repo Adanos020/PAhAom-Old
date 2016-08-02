@@ -28,7 +28,6 @@ namespace rr {
     }
 
     ColdWeapon::ColdWeapon(ColdWeapon const& coldWeapon) :
-      Equipable(                ),
       type_    (coldWeapon.type_)
     {
         amount_     = coldWeapon.amount_;

@@ -14,10 +14,9 @@
 namespace rr {
 
     Slot::Slot(sf::Vector2f size, sf::Vector2f pos, int icon) :
-      Component(                                                                     ),
       image_   (Image(pos, Resources::texture.gui, 14, icon)                         ),
-      item_    (nullptr                                                              ),
       text_    (Text (sf::Vector2f(pos.x+5, pos.y+55), "", Resources::font.Pixel, 20)),
+      item_    (nullptr                                                              ),
       hollow_  (true                                                                 )
     {
         body_ .setSize            (size);

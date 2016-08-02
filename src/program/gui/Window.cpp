@@ -11,7 +11,6 @@
 namespace rr {
 
     Window::Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c) :
-      Component(                                                                              ),
       header_  (Text(sf::Vector2f(0, 0), head, Resources::font.Unifont, 20, sf::Color::Yellow)),
       visible_ (false                                                                         )
     {

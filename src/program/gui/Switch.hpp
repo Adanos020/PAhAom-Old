@@ -27,9 +27,9 @@ namespace rr {
 
     public:  Switch(sf::Vector2f size, sf::Vector2f position);
         
-             void                 setPosition        (sf::Vector2f)      override;
-             void                 setSize            (sf::Vector2f)      override;
-             void                 setText            (sf::String s)               { text_.setString(s); }
+             void                 setPosition        (sf::Vector2f) override;
+             void                 setSize            (sf::Vector2f) override;
+             void                 setText            (sf::String s)          { text_.setString(s); }
 
          /// Method for handling the button events
              void                 buttonEvents       (sf::RenderWindow&, sf::Event&);
@@ -39,11 +39,12 @@ namespace rr {
              void                 setCurrentOption   (sf::String);
 
          /// Returns the current option
-             sf::String           getCurrentOption   () const                     { return options_[counter_]; }
-             virtual sf::Vector2f getPosition        () const            override { return left_.getPosition(); }
-             virtual sf::Vector2f getSize            () const            override { return body_.getSize(); }
+             sf::String           getCurrentOption   () const                { return options_[counter_]; }
+             
+             virtual sf::Vector2f getPosition        () const       override { return left_.getPosition(); }
+             virtual sf::Vector2f getSize            () const       override { return body_.getSize(); }
 
-             Text                 getText            () const                     { return text_; }
+             Text                 getText            () const                { return text_; }
     };
 
 }

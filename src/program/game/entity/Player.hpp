@@ -46,7 +46,7 @@ namespace rr {
                      bool  health_regeneration;
                      bool  faster_learning;
              } attrs_;
-     
+
              struct {   /// Structure for buffs - each buff is represented by an integer
                         /// which tells for how many turns is it going to be valid 
              public: int speed;
@@ -54,10 +54,11 @@ namespace rr {
                      int poison;
                      int slowness;
                      int weakness;
+                     int hunger;
              } buffs_;
-     
+
              ColdWeapon*        coldWeapon_;
-     
+
              sf::Vector2i       position_;
              sf::AnimatedSprite body_;
              sf::Animation      walkingLeft_;
@@ -81,17 +82,17 @@ namespace rr {
                  LEFT,
                  RIGHT
              };
-     
-             virtual Entity*       clone          ()                 const override       { return new Player(*this); }
+
+             virtual Entity*       clone          ()                 const override { return new Player(*this); }
 
              virtual void          setGridPosition(sf::Vector2i pos)       override { position_ = pos; body_.setPosition((sf::Vector2f)pos*80.f); }
              virtual void          setPosition    (sf::Vector2f pos)       override { position_ = (sf::Vector2i)pos/80; body_.setPosition(pos); }
-     
+
              virtual bool          collides       (Entity* e)        const override { return e->getBounds().intersects(getBounds()); }
              virtual sf::FloatRect getBounds      ()                 const override { return body_.getGlobalBounds(); }
              virtual sf::Vector2i  getGridPosition()                 const override { return (sf::Vector2i)body_.getPosition()/80; }
              virtual sf::Vector2f  getPosition    ()                 const override { return body_.getPosition(); }
-     
+
          /// Moves the player's character's to a cell in a given direction
              void                  move           (int[], Direction);
          /// Makes the player use a given item
@@ -105,14 +106,14 @@ namespace rr {
          /// Makes the player handle the damage dealt by an NPC
              void                  handleDamage   (int damage);
          /// Returns the player's attributes
-             Attrs                 getAttributes  ()          const          { return attrs_; }
+             Attrs                 getAttributes  ()                 const          { return attrs_; }
          /// Returns the player's sight range
-             int                   getSightRange  ()          const          { return sightRange_; }
+             int                   getSightRange  ()                 const          { return sightRange_; }
          /// Resets the player's atributes
              void                  reset          ();
-     
-             virtual std::ifstream& operator<<(std::ifstream&)             override;
-             virtual std::ofstream& operator>>(std::ofstream&)             override;
+
+             virtual std::ifstream& operator<<    (std::ifstream&)         override;
+             virtual std::ofstream& operator>>    (std::ofstream&)         override;
     };
 
 }

@@ -14,29 +14,25 @@
 namespace rr {
 
     Journal::Journal() :
-      wJour_ (Window(Resources::dictionary["gui.window.journal"], sf::Vector2f(725, 470),
-              sf::Vector2f(Settings::graphics.resolution.x/2-362.5, Settings::graphics.resolution.y/2-225)))
+      wJour_ (Window(Resources::dictionary["gui.window.journal"], sf::Vector2f(725, 470), sf::Vector2f(Settings::graphics.resolution.x/2-362.5,
+                                                                                                       Settings::graphics.resolution.y/2-225)))
     {
         shadow_.setSize((sf::Vector2f)Settings::graphics.resolution);
         shadow_.setPosition(sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 128));
 
-#define component(w, c, i) w.getComponent<c>(i)
+        auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
+             bQuit->setPosition(sf::Vector2f(wJour_.getSize().x - bQuit->getSize().x - 15,
+                                             wJour_.getSize().y - bQuit->getSize().y -  5));
 
-            wJour_.addComponent(new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30), true);
-            component(wJour_, Button, 0)->setPosition(sf::Vector2f(wJour_.getPosition().x + wJour_.getSize().x - component(wJour_, Button, 0)->getSize().x-15,
-                                                                   Settings::graphics.resolution.y/2+225       - component(wJour_, Button, 0)->getSize().y-5));
-
+        wJour_ += bQuit;
     }
 
     void Journal::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
         if (wJour_.isVisible()) {
-            if (  component(wJour_, Button, 0)->isPressed(rw, e)
+            if (  wJour_.getComponent<Button>(0)->isPressed(rw, e)
                 ) g->pause(false);
         }
-
-#undef component
-
     }
 
     void Journal::draw(sf::RenderTarget& target, sf::RenderStates states) const {

@@ -68,9 +68,15 @@ namespace rr {
              Text         getHeader   ()               const          { return header_; }
 
          /// Opeartor overload allowing to add the attached components without calling the addComponent method manually
-             Window&      operator+=  (Component* c)                  { addComponent(c, true);
-                                                                        return *this;
-                                                                      }
+             Window& operator+= (Component* c) {
+                 addComponent(c, true);
+                 return *this;
+             }
+         /// Opeartor overload allowing to add the unattached components without calling the addComponent method manually
+             Window& operator|= (Component* c) {
+                 addComponent(c, false);
+                 return *this;
+             }
     };
 
 }

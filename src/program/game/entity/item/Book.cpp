@@ -94,10 +94,22 @@ namespace rr {
         body_[7].position = body_[3].position;
     }
 
+    void Book::setPosition(sf::Vector2f pos) {
+        body_[0].position = pos;
+        body_[1].position = sf::Vector2f(pos.x+80, pos.y   );
+        body_[2].position = sf::Vector2f(pos.x+80, pos.y+80);
+        body_[3].position = sf::Vector2f(pos.x   , pos.y+80);
+
+        body_[4].position = body_[0].position;
+        body_[5].position = body_[1].position;
+        body_[6].position = body_[2].position;
+        body_[7].position = body_[3].position;
+    }
+
     std::ifstream& Book::operator<<(std::ifstream& file) {
         sf::Vector2i position;
         int type;
-        
+
         try {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
@@ -107,7 +119,7 @@ namespace rr {
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
-        
+
         type_ = (Type) type;
 
         initialize();

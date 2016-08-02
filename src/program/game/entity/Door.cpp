@@ -15,7 +15,6 @@
 namespace rr {
 
     Door::Door(bool lock) :
-      Entity         (        ),
       locked_        (lock    ),
       open_          (false   ),
       withoutWindow_ (rand()%2)
@@ -24,7 +23,6 @@ namespace rr {
     }
 
     Door::Door(Door const& door) :
-      Entity         (                   ),
       body_          (door.body_         ),
       locked_        (door.locked_       ),
       open_          (door.open_         ),

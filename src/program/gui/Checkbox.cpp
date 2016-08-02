@@ -11,7 +11,6 @@
 namespace rr {
 
     Checkbox::Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color c) :
-      Component(                                                               ),
       image_   (Image(pos, Resources::texture.gui, 14, 1)                      ),
       text_    (Text (sf::Vector2f(0, 0), txt, Resources::font.Unifont, chsize))
     {

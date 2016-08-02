@@ -33,6 +33,7 @@ namespace rr {
 
 
              void                   setGridPosition(sf::Vector2i)   override;
+             void                   setPosition    (sf::Vector2f)      override;
              
              virtual sf::String     getName        () const         override;
              virtual sf::String     getDescription () const         override;

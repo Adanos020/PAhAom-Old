@@ -19,8 +19,8 @@ namespace rr {
     class Slot : public Component {
     private: sf::RectangleShape body_;
              Image              image_;
-             Item*              item_;
              Text               text_;
+             Item*              item_;
              bool               hollow_;
              bool               held_;
 
