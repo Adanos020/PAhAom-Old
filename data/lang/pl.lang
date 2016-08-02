@@ -412,7 +412,7 @@ item.food.name.sandvich
 Sandvich
 
 item.food.name.apple
-Jabłko
+Ogromne jabłko
 
 item.food.name.beer
 Piwo
@@ -659,4 +659,7 @@ Teraz umiesz regenerować zdrowie!
 
 message.item_used.book.faster_learning
 Teraz uczysz się szybciej!
+
+message.item_used.food
+To smakowało świetnie! No i teraz czujesz się mniej głodny.
 

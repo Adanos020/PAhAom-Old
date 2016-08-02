@@ -24,15 +24,17 @@ namespace rr {
         shadow_.setPosition (sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
-            for (int i=0; i<3; i++) {
-                wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(145, 100+100*i));
-                wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(245, 100+100*i));
-                wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(450, 100+100*i));
-                wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(550, 100+100*i));
-            }
-            wBofs_+= new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
-                component(wBofs_, Button, 0)->setPosition(sf::Vector2f(wBofs_.getPosition().x+wBofs_.getSize().x - component(wBofs_, Button, 0)->getSize().x-15,
-                                                          	           Settings::graphics.resolution.y/2+235      - component(wBofs_, Button, 0)->getSize().y-5));
+        for (int i=0; i<3; i++) {
+            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(145, 100+100*i));
+            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(245, 100+100*i));
+            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(450, 100+100*i));
+            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(550, 100+100*i));
+        }
+        auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
+             bQuit->setPosition(sf::Vector2f(wBofs_.getSize().x - bQuit->getSize().x - 15,
+                                             wBofs_.getSize().y - bQuit->getSize().y -  5));
+
+        wBofs_ += bQuit;
     }
 
     void BookOfSpells::buttonEvents(sf::RenderWindow& rw, sf::Event& ev, Game* g) {

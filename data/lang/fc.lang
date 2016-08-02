@@ -9,7 +9,7 @@ gui.button.save
 ČATNW
 
 gui.button.load
-BYBITAÑ
+BYBITANJ
 
 gui.button.options
 OTUJE
@@ -21,7 +21,7 @@ gui.button.credits
 AYTOXIBI
 
 gui.button.quit
-VBIÑYJ
+VBINJYJ
 
 gui.button.game
 TPA
@@ -45,16 +45,16 @@ gui.menu.equip
 ČALYXJ
 
 gui.menu.drink
-VBITNÑ
+VBITNNJ
 
 gui.menu.eat
 ČJEU
 
 gui.menu.read
-TXIEYBITAÑ
+TXIEYBITANJ
 
 gui.menu.use
-YXJBIÑ
+YXJBINJ
 
 gui.menu.move_to_carryon
 AO TOATPEHYHETO
@@ -69,7 +69,7 @@ gui.text.language
 JEHČBIQ
 
 gui.text.killurslf
-.wjeh čabnñ
+.wjeh čabnnj
 
 gui.text.programming
 TPOTPAMOBAHJE
@@ -102,10 +102,10 @@ gui.text.move_right
 bé tpabo nyj
 
 gui.text.interact
-yjérlañ
+yjérlanj
 
 gui.text.attack
-ataqyñ
+ataqynj
 
 gui.text.pickup
 toahjewjé
@@ -126,22 +126,22 @@ gui.text.open_bookOfSpells
 qwjehta čaqlehyj
 
 gui.text.useslot_1
-céxobqa 1 yxjbiñ
+céxobqa 1 yxjbinj
 
 gui.text.useslot_2
-céxobqa 2 yxjbiñ
+céxobqa 2 yxjbinj
 
 gui.text.useslot_3
-céxobqa 3 yxjbiñ
+céxobqa 3 yxjbinj
 
 gui.text.useslot_4
-céxobqa 4 yxjbiñ
+céxobqa 4 yxjbinj
 
 gui.text.useslot_5
-céxobqa 5 yxjbiñ
+céxobqa 5 yxjbinj
 
 gui.text.press_a_key
-.qlabnw hayjnwjéhjnñ
+.qlabnw hayjnwjéhjnnj
 
 gui.window.attributes
 ATVBIBYTBI
@@ -178,46 +178,46 @@ item.book.type.ranged_weapon_mastery
 «qwjehta cétxieluyb»
 
 item.book.type.eagle_eye
-«bjehueñ bnyjeyj»
+«bjehuenj bnyjeyj»
 
 item.book.type.mana_regen
-«wtyqa meabitauñén y.1 - matjér»
+«wtyqa meabitaunjén y.1 - matjér»
 
 item.book.type.health_regen
-«wtyqa meabitauñén y.2 - čapobje»
+«wtyqa meabitaunjén y.2 - čapobje»
 
 item.book.type.faster_learning
-«topähjnq wbibqjeñ hayqn»
+«topähjnq wbibqjenj hayqn»
 
 item.book.type.spells_book
 «qwjehta čaqlehyj»
 
 item.book.description.crafting
-.qomtleqcovbi topähjnq ala toyohtqyjehubix mañctepqobnÿbi né člotbix pohyeq, qtyvbi toactab vbitbaxiahjér pyxjéhbix txieamjetyb yjeh haÿbiw
+.qomtleqcovbi topähjnq ala toyohtqyjehubix manjctepqobnÿbi né člotbix pohyeq, qtyvbi toactab vbitbaxiahjér pyxjéhbix txieamjetyb yjeh haÿbiw
 
 item.book.description.alchemy
-.yjehqn teñ qwjehue txibiäthowjyjn bwelaqnx čjyleq ybi cklähjnqyb točbicqnbahbix č totbopyb aoctxiexjew n blache mnqéctyvbi tboxibiyj mytl behyjew
+.yjehqn tenj qwjehue txibiäthowjyjn bwelaqnx čjyleq ybi cklähjnqyb točbicqnbahbix č totbopyb aoctxiexjew n blache mnqéctyvbi tboxibiyj mytl behyjew
 
 item.book.description.cold_weapon_mastery
-?maxahjér mjeyem jérq uetem aowjyj maw ?bé balue yjehtle oavbibaw .bé tbim topähjnqy hobe, bapyjeñ čäbahcobahe texhjnqn balqn [yjehqn qtyvbim bé wtyue dextyhqy wjeh toawqolnw] točhaw
+?maxahjér mjeyem jérq uetem aowjyj maw ?bé balue yjehtle oavbibaw .bé tbim topähjnqy hobe, bapyjenj čäbahcobahe texhjnqn balqn [yjehqn qtyvbim bé wtyue dextyhqy wjeh toawqolnw] točhaw
 
 item.book.description.ranged_weapon_mastery
 .cétxielahje č lyqy ybi č qywbi bahalhe buale hje ject .jewjéln ha aotpauobahjy texhjnqn n uelhowjyjn yjn čalexjbi - ta qwjehxjqa bapuo tomouha wjeh oqaxje
 
 item.book.description.eagle_eye
-?qto tam .jewjéln ha qpytqobčpoyhowjyj haxieqaw to yjehqn teñ qwjehue cboje tole bnuehjér towexibiw .aoclobhje
+?qto tam .jewjéln ha qpytqobčpoyhowjyj haxieqaw to yjehqn tenj qwjehue cboje tole bnuehjér towexibiw .aoclobhje
 
 item.book.description.mana_regen
-.cbyñ ymbicl oybiwjyj n oxlohj - texhjnqn meabitaubiñhe b teñ qwjehue čabapte tbojeh petehepaujeh mahbi txibictiewoh
+.cbynj ymbicl oybiwjyj n oxlohj - texhjnqn meabitaubinjhe b tenj qwjehue čabapte tbojeh petehepaujeh mahbi txibictiewoh
 
 item.book.description.health_regen
 .ta hatncaha txieč mhjnxyb č äleqnx qpanh - texhjnqn ymoxjlnbjérjehue yjn petepaujeh oahjewjehbix pah čabjepa
 
 item.book.description.faster_learning
-.yjehqn texhjnqom wbibqjeto ybitahjér čabapétbix b teñ qwjehue - wbibyjeñ bjeueh txibicbajérw
+.yjehqn texhjnqom wbibqjeto ybitahjér čabapétbix b tenj qwjehue - wbibyjenj bjeueh txibicbajérw
 
 item.book.description.spells_book
-!oa aotbiqy teñ qwjehtn yjeh talue émpobjeh !to qwjehta čaqlehyj vbiyj mywjn ?tbitahje - uo ča matjér b wjépoaqy wjeh qvbije
+!oa aotbiqy tenj qwjehtn yjeh talue émpobjeh !to qwjehta čaqlehyj vbiyj mywjn ?tbitahje - uo ča matjér b wjépoaqy wjeh qvbije
 
 item.coin.gold
 člotbi
@@ -247,7 +247,7 @@ item.potion.effect.poison
 mnqéctypa čatpÿjér
 
 item.potion.effect.regeneration
-mnqéctypa petehepauñén
+mnqéctypa petehepaunjén
 
 item.potion.effect.slowness
 mnqéctypa ctobolhjehjér
@@ -283,34 +283,34 @@ item.potion.color.white
 bjérla mnqéctypa
 
 item.potion.description.unknown
-.qolopoba byteleyqa - ?a moxje to hatyñ bé wjépoaqy ?qto to bjeyjeyj [jérqn edeqt vbitnyje teñ mnqéctyvbi txibihjewje] moxje
+.qolopoba byteleyqa - ?a moxje to hatynj bé wjépoaqy ?qto to bjeyjeyj [jérqn edeqt vbitnyje tenj mnqéctyvbi txibihjewje] moxje
 
 item.potion.description.healing
-.ta mnqéctypa tboje pahbi čacqletn n tehepalhje cqytqn ctapyj č hañpyxjhjeñwbimn txieyjnbhjnqamn čalatoyjnyj wjeh toctapa
+.ta mnqéctypa tboje pahbi čacqletn n tehepalhje cqytqn ctapyj č hanjpyxjhjenjwbimn txieyjnbhjnqamn čalatoyjnyj wjeh toctapa
 
 item.potion.description.magic
-.qaxjaeto yacem cywbi - !matyb texj .xjevbi ytawjényj tpathjehje yjncqahjér bé vpotyb bélbicqabnuamn - teh mnqéctypeh ctoxjbiñ n cboje čacovbi moubi matnyheñ čpetehepyñ
+.qaxjaeto yacem cywbi - !matyb texj .xjevbi ytawjényj tpathjehje yjncqahjér bé vpotyb bélbicqabnuamn - teh mnqéctypeh ctoxjbinj n cboje čacovbi moubi matnyhenj čpetehepynj
 
 item.potion.description.strength
-.jewjéln [xje octathjnmn yacbi čévbit xiäqo wjnlobhjeh oabjeuaw a bélbicqabnyhje txibitaqobayj totxiebyjew] ÿjew - teh hatyñ ala yjebje ject
+.jewjéln [xje octathjnmn yacbi čévbit xiäqo wjnlobhjeh oabjeuaw a bélbicqabnyhje txibitaqobayj totxiebyjew] ÿjew - teh hatynj ala yjebje ject
 
 item.potion.description.dexterity
-.hjeqtype cbityauje bé xjbiyjy towyqnbaya txibitya tpoxeh hječpehyhe coh .avbi nx yhjnqhohyj teh hatyñ ctoxjbiñ: +x tyhqtyb čpehyhowjyjn (b čalexjhowjyjn oa bjelqowjyjn bytelqn)
+.hjeqtype cbityauje bé xjbiyjy towyqnbaya txibitya tpoxeh hječpehyhe coh .avbi nx yhjnqhohyj teh hatynj ctoxjbinj: +x tyhqtyb čpehyhowjyjn (b čalexjhowjyjn oa bjelqowjyjn bytelqn)
 
 item.potion.description.speed
 .yjehxjqo ča tpehämn, čloyjejérmn ybi totbopamn tohjnyj ject - .ta mnqéctypa tbojeh vbibqowjyj čbjehqéwbi n towjyjnt lyb ÿjeyqeh ylatbn
 
 item.potion.description.poison
-!dyñ .taq tbilqo uowjé uo äbho temy čaexlo n qohtayj wjeh ča xjbiyjr hje lybnlo
+!dynj .taq tbilqo uowjé uo äbho temy čaexlo n qohtayj wjeh ča xjbiyjr hje lybnlo
 
 item.potion.description.regeneration
 ?ao telhjn čapobjér yjn wjeh hje ctjevbi .jewjéln tpoxeh yjeptlnbowjyjn maw - !ta mnqctypa ala yjebje ject
 
 item.potion.description.slowness
-.qoleñhbi hatyñ qtypeto letjeñ hje tnyj, xbiba xje dovbi tohjehubim yjeh totbopom äyj xuew
+.qolenjhbi hatynj qtypeto letjenj hje tnyj, xbiba xje dovbi tohjehubim yjeh totbopom äyj xuew
 
 item.potion.description.weakness
-.ctäeq dopmbi dpyctpyjehubi ject .avbi to yhjnqhohyj hañletjeñ teh mnqéctypeh vbixiyj .ctoxjbiyje wjnleh tbonx čaqlehyj n yjecyb čémhjeñwa
+.ctäeq dopmbi dpyctpyjehubi ject .avbi to yhjnqhohyj hanjletjenj teh mnqéctypeh vbixiyj .ctoxjbiyje wjnleh tbonx čaqlehyj n yjecyb čémhjenjwa
 
 item.coldweapon.name.knife
 hyxj qyxeȟbi
@@ -355,46 +355,46 @@ item.coldweapon.name.runic_sword
 pyhjnyhbi mjey
 
 item.coldweapon.description.knife
-.yehwjyjeñ bapuo yxjbiteyhe n bwextpoȟe haxiehyje hjnxj tpabyjnboh vpohj ctahobn, ale n bé tbim uely to vbiqoxibictayj moxjha
+.yehwjyjenj bapuo yxjbiteyhe n bwextpoȟe haxiehyje hjnxj tpabyjnboh vpohj ctahobn, ale n bé tbim uely to vbiqoxibictayj moxjha
 
 item.coldweapon.description.dagger
-.alyxjéwbi oa hoxja, vpohj cqvbitobyñuyb n xiečjnmjewqyb, naealha ao vbiqohbibahjr tčb. «yjnxeñ pobotbi» ybi balqn bé bohcéqnx ylnyqax
+.alyxjéwbi oa hoxja, vpohj cqvbitobynjuyb n xiečjnmjewqyb, naealha ao vbiqohbibahjr tčb. «yjnxenj pobotbi» ybi balqn bé bohcéqnx ylnyqax
 
 item.coldweapon.description.sword
-.ao teñ qatetopjn čalnybiyj vpohj pyxjheñ alytowjyjn moxjha, ale tpocte océtxie n pehqojewjyj č jeluem ylatbjérjehubim tapobahje je xapaqtevbičyje .mjey cbimbolem ctatycy bojebhjnqa yehcto vbil n vbicoqoh točbiujeh očhayal
+.ao tenj qatetopjn čalnybiyj vpohj pyxjhenj alytowjyjn moxjha, ale tpocte océtxie n pehqojewjyj č jeluem ylatbjérjehubim tapobahje je xapaqtevbičyje .mjey cbimbolem ctatycy bojebhjnqa yehcto vbil n vbicoqoh točbiujeh očhayal
 
 item.coldweapon.description.serrated_sword
-.ovbitnhalhbi vbihalačeq qtypeto cqyteyhowjyj oqačjeh cétpabyjnyj mjérl behyjew .pybhje dahtactbiyhbi uo hjeqtype bectje čé qtyvbimn yjn wjeh mjexibiyj txibiñyje
+.ovbitnhalhbi vbihalačeq qtypeto cqyteyhowjyj oqačjeh cétpabyjnyj mjérl behyjew .pybhje dahtactbiyhbi uo hjeqtype bectje čé qtyvbimn yjn wjeh mjexibiyj txibinjyje
 
 item.coldweapon.description.club
-.jérqa maÿta ject, qaxjabi bnyjn .jeñ txiečhayehjem yaexiayj ject, a txieyjexj yaexiehje obyxem bé tlobeh otlywbiyj moxje .letehtaphbi tbypua teñ maÿtn čawj clobo äl xje ta b otlywahjy cobje pybéhbix hje ma
+.jérqa maÿta ject, qaxjabi bnyjn .jenj txiečhayehjem yaexiayj ject, a txieyjexj yaexiehje obyxem bé tlobeh otlywbiyj moxje .letehtaphbi tbypua tenj maÿtn čawj clobo äl xje ta b otlywahjy cobje pybéhbix hje ma
 
 item.coldweapon.description.axe
 .totyp teh b oqolnuax tpyxla otpomheto yjnqa ibwbi pač čhalečjeho, ale daqt [xje ha océtxiy wjéläyb qévbn čhayj hje vbilo] cohyjnyj [xje totxieahjn blawjyjnyjel cboje čaolhowjyjn xiyuahjér be vpotyb taqoh vpohjeh hjeuo txieuehjnl] točbala
 
 item.coldweapon.description.double_axe
-.teh zbypehyhbi totyp o zbyx océtxiax txiepaxjajehuoh n totehxjhoh vpohjeh [qtypoh tbilqo hañwjnlhjeñvbi bojebhjnq b telhjn vbiqoxibicta] ject .čaeubiaobahje ha cbojeh hačbeh čaclyxjbil
+.teh zbypehyhbi totyp o zbyx océtxiax txiepaxjajehuoh n totehxjhoh vpohjeh [qtypoh tbilqo hanjwjnlhjenjvbi bojebhjnq b telhjn vbiqoxibicta] ject .čaeubiaobahje ha cbojeh hačbeh čaclyxjbil
 
 item.coldweapon.description.spear
-.iha č hañctapéwbix vpohjn wjébjérta, jeahaq hjex o jeñ cqyteyhowjyjn daqt [xje byjehxj totylapha ject - hje tbilqo jrqo vpohj macobo yxjbibaha txieč ybotje oayjérélbi] towjébjéräybi .teh blÿhjeh cam Byt Boñéhbi toblotoclabnl, vbi ha jeto xbaleh uelhje n mouho yaexiala
+.iha č hanjctapéwbix vpohjn wjébjérta, jeahaq hjex o jenj cqyteyhowjyjn daqt [xje byjehxj totylapha ject - hje tbilqo jrqo vpohj macobo yxjbibaha txieč ybotje oayjérélbi] towjébjéräybi .teh blÿhjeh cam Byt Bonjéhbi toblotoclabnl, vbi ha jeto xbaleh uelhje n mouho yaexiala
 
 item.coldweapon.description.halberd
-.ta vpohj qxibixybqeh blÿhjn n totopa txibitomnha - lohyohu čaletbi nx oby .totylapha jérqo vpohj mjeñcqnx mnlnuñén, yjehqn cbeñ byaobje tpočjhe haxiehyje bé pehqax čaolheto bojebhjnqa ctahobnyj moxje
+.ta vpohj qxibixybqeh blÿhjn n totopa txibitomnha - lohyohu čaletbi nx oby .totylapha jérqo vpohj mjenjcqnx mnlnunjén, yjehqn cbenj byaobje tpočjhe haxiehyje bé pehqax čaolheto bojebhjnqa ctahobnyj moxje
 
 item.coldweapon.description.lance
 .vpohj axiebuoba qojérxioha č aowjéräjehubim qohjn vbicepéctbem, vbiqoxibictbibaha ao lamahjér vbiqyb txieyjnbhjnqa toayac wapxjbi qabalepjn
 
 item.coldweapon.description.pique
-.alyxjwa oa blÿhjn, hañletjeñ bé čébapétbim vbiqy tjexotbi jérqo vbohj aedehcébibha wjeh čétpabua .cétbil balqn tnqnhjepyb ao ctapoxjbitheñ taqtbiqn xotlntyb n dalahtntyb habjehčyje
+.alyxjwa oa blÿhjn, hanjletjenj bé čébapétbim vbiqy tjexotbi jérqo vbohj aedehcébibha wjeh čétpabua .cétbil balqn tnqnhjepyb ao ctapoxjbithenj taqtbiqn xotlntyb n dalahtntyb habjehčyje
 
 item.coldweapon.description.long_stick
-.alytje lacqn teto tbity čé behapobéhbimn matamn ybi tjeltxibimamn hañyehwjyjeñ qojrxiohe coh, a yjehqn cbeñ alytowjyjn n bwexctpoȟowjyjn ha txibimahje txieyjnbhjnqa ha abictahc točbalajeh
+.alytje lacqn teto tbity čé behapobéhbimn matamn ybi tjeltxibimamn hanjyehwjyjenj qojrxiohe coh, a yjehqn cbenj alytowjyjn n bwexctpoȟowjyjn ha txibimahje txieyjnbhjnqa ha abictahc točbalajeh
 
 item.coldweapon.description.hammer
-.qamjehj yjehxjqn ject - mlot texj .bobeu teto qamjehhbi mlot ajrbelhje yjehxjqoh n tobolhoh vpohjeh vbiyj [qtypoh xbiba tbilqo qtowj o hjelyuqjeñ wjnle wjeh toclytyje] mywjn
+.qamjehj yjehxjqn ject - mlot texj .bobeu teto qamjehhbi mlot ajrbelhje yjehxjqoh n tobolhoh vpohjeh vbiyj [qtypoh xbiba tbilqo qtowj o hjelyuqjenj wjnle wjeh toclytyje] mywjn
 
 item.coldweapon.description.runic_sword
-.teh aocqohale vbiqytbi n vbibaxjehbi mjey mjeñcue ha matnyhoh pyheh [qtypa my aoätqobe, cteujrlhe blawjyjnbowjyn čatebhjn] towjérå
+.teh aocqohale vbiqytbi n vbibaxjehbi mjey mjenjcue ha matnyhoh pyheh [qtypa my aoätqobe, cteujrlhe blawjyjnbowjyn čatebhjn] towjérå
 
 item.coldweapon.strength_required
 vbimataha wjnla:
@@ -412,7 +412,7 @@ item.food.name.sandvich
 sandvich
 
 item.food.name.apple
-jérbélqo
+otpomhe jérbélqo
 
 item.food.name.beer
 tnbo
@@ -505,13 +505,13 @@ item.spell.description.unknown
 .hjebohtlnbje to matnyha pyha ject, a uo ča tbim nyje: xiÿjnyj tebhe čaqlehyje točbala .hjectetbi cétbjepyjnyj jérqje bé ctahje hje jectewjé
 
 item.spell.description.heal
-!cam cobje ctepem, xjetlaxiem n... atteyqoh .ta pyha daleh leyhjnyeñ eheptn [qtypa tboje pahbi čacqletjér n wjénlbi txibivpaua] vbičbala
+!cam cobje ctepem, xjetlaxiem n... atteyqoh .ta pyha daleh leyhjnyenj eheptn [qtypa tboje pahbi čacqletjér n wjénlbi txibivpaua] vbičbala
 
 item.spell.description.firebolt
-.wtahäpobe čaqlehyje äettyb wtyqn matnyheñ .xoyjérxj čvbit bjely ovpaxjehj hje čåje, č ayxjoh yehctotlnbowyjyeh to yxjbibayj moxjha
+.wtahäpobe čaqlehyje äettyb wtyqn matnyhenj .xoyjérxj čvbit bjely ovpaxjehj hje čåje, č ayxjoh yehctotlnbowyjyeh to yxjbibayj moxjha
 
 item.spell.description.lightning
-.xoyjérxj jeñ xiayjeñ hjnxj othjncteñ cétxialbi yxjbibayj moxjha, texj bjehqwe oa hjeñ ovpaxjehjér čåje .tohäto [xje txieč tebjeh yac vpotobje cbonx čaolhowjyjn cteujérléhbix yxjbibayj hje motoh] ctpabjér
+.xoyjérxj jenj xiayjenj hjnxj othjnctenj cétxialbi yxjbibayj moxjha, texj bjehqwe oa hjenj ovpaxjehjér čåje .tohäto [xje txieč tebjeh yac vpotobje cbonx čaolhowjyjn cteujérléhbix yxjbibayj hje motoh] ctpabjér
 
 item.spell.description.iceBullet
 .bévbila loay qtypa to yaexiehjy bé vpota otlywehje toboayje
@@ -532,7 +532,7 @@ item.spell.description.timeFreezing
 .wjébjéry boqolo b yawje čactbita .to totehxjhe čaqlehyje [qtype yjn bjele moxjlnbowjyjn hje tbilqo bé balue ale n txibi počbjehčbibahjy čatäeq äje] ject
 
 item.spell.description.identify
-?ybi teh tjepwjyjehj matnyhe blawjyjnbowjyjn ma ?a jewjéln taq, to jérqje ohe coh ?ybi to vbitnyjy teñ mnqéctyvbi bé vbixoaqy ha ctale čamjewqam .to čaqlehyje blawjyjnbowjyjn matnyhbix txieamjetyb ybi mnqéctyp oaqvbiyj yjn točboln
+?ybi teh tjepwjyjehj matnyhe blawjyjnbowjyjn ma ?a jewjéln taq, to jérqje ohe coh ?ybi to vbitnyjy tenj mnqéctyvbi bé vbixoaqy ha ctale čamjewqam .to čaqlehyje blawjyjnbowjyjn matnyhbix txieamjetyb ybi mnqéctyp oaqvbiyj yjn točboln
 
 item.spell.description.uncurse
 .yap teh hetatbibhe cqytqn qlohtéb xiyuohbix ha yjebje ycyba, n xbnloboh oatophowjyj ha taqobe čatebhjér
@@ -595,10 +595,10 @@ VBIBWA HAYQA
 
 ;------------MESSAGES-------------;
 message.welcome_to_level
-!ha točjemje bntañ:
+!ha točjemje bntanj:
 
 message.full_inventory
-.tbyñ tleuaq telhbi ject
+.tbynj tleuaq telhbi ject
 
 message.item_equip_failure
 !čaloxjbiyj hje moxjew:
@@ -613,10 +613,10 @@ message.item_used.potion.healing
 .o bjele čapobéwbi wjeh ÿjew
 
 message.item_used.potion.magic
-.béčpoct matnyheñ eheptjn ÿjew
+.béčpoct matnyhenj eheptjn ÿjew
 
 message.item_used.potion.strength
-.o bjele wjnléhjeñwébi wjeh ÿjew
+.o bjele wjnléhjenjwébi wjeh ÿjew
 
 message.item_used.potion.dexterity
 .jérqvbiwjé haqyvbjéryj calto mytl wjeh ÿjew
@@ -649,7 +649,7 @@ message.item_used.book.ranged_weapon_mastery
 !tepač vpohjeh abictahcoboh wjeh toclytnbay ymjew
 
 message.item_used.book.eagle_eye
-!tepač letjeñ bnyjnw
+!tepač letjenj bnyjnw
 
 message.item_used.book.mana_regen
 !tepač maheh petehepobayj ymjew
@@ -658,4 +658,8 @@ message.item_used.book.health_regen
 !tepač čapobje petehepobay ymjew
 
 message.item_used.book.faster_learning
-!tepač vbibyjeñ wjeh ÿbiw
+!tepač vbibyjenj wjeh ÿbiw
+
+message.item_used.food
+!to wjébjethje cmaqobalo .ho n tepač mhjenj tloahbi wjeh ÿjew
+

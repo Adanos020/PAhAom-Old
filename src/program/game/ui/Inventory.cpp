@@ -49,31 +49,30 @@ namespace rr {
             wInve_ += new Text  (sf::Vector2f(220, 415), "SILV", Resources::font.Pixel, 30);
             wInve_ += new Text  (sf::Vector2f(370, 415), "BRON", Resources::font.Pixel, 30);
 
-            wInve_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
-                component(wInve_, Button, 0)->setPosition(sf::Vector2f(wInve_.getPosition().x+wInve_.getSize().x - component(wInve_, Button, 0)->getSize().x-15, 
-                                                                       Settings::graphics.resolution.y/2+235     - component(wInve_, Button, 0)->getSize().y-5));
+            auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
+                 bQuit->setPosition(sf::Vector2f(wInve_.getSize().x - bQuit->getSize().x - 15, 
+                                                 wInve_.getSize().y - bQuit->getSize().y -  5));
 
-#define wInfo (*component(wInve_, Window, 0))
-;
-            wInve_ += new Window("", sf::Vector2f(410, 40), sf::Vector2f(0, 0));
-                wInfo += new Text(sf::Vector2f(5, 20), "", Resources::font.Unifont, 20);
-                component(wInfo, Text, 0)->setStyle(sf::Text::Regular);
+            auto wInfo = new Window("", sf::Vector2f(410, 40), sf::Vector2f(0, 0)); {
+                auto tDescription = new Text(sf::Vector2f(5, 20), "", Resources::font.Unifont, 20);
+                	 tDescription->setStyle(sf::Text::Regular);
+                *wInfo += tDescription;
+            }
+            auto wOpts = new Window("", sf::Vector2f(142, 143), sf::Vector2f(0, 0)); {
+                 auto mOpts = new Menu(sf::Vector2f(5, 25));
+                      mOpts->addOption(Resources::dictionary["gui.menu.use"            ]);
+                      mOpts->addOption(Resources::dictionary["gui.menu.move_to_carryon"]);
+                      mOpts->addOption(Resources::dictionary["gui.menu.drop"           ]);
+                 *wOpts += mOpts;
+            }
 
-#define wOpts (*component(wInve_, Window, 1))
-;
-            wInve_ += new Window("", sf::Vector2f(142, 143), sf::Vector2f(0, 0));
-                wOpts += new Menu(sf::Vector2f(5, 25));
-                component(wOpts, Menu, 0)->addOption(Resources::dictionary["gui.menu.use"            ]);
-                component(wOpts, Menu, 0)->addOption(Resources::dictionary["gui.menu.move_to_carryon"]);
-                component(wOpts, Menu, 0)->addOption(Resources::dictionary["gui.menu.drop"           ]);
+            ((wInve_ += wInfo) += wOpts) += bQuit;
 
         for (int i=0; i<5; ++i) {
             sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(Settings::graphics.resolution.x-90, Settings::graphics.resolution.y/2-250 + i*95));
         }
 
 #undef component
-#undef wInfo
-#undef wOpts
 
     }
 

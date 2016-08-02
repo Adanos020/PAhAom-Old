@@ -11,7 +11,6 @@
 namespace rr {
 
     Switch::Switch(sf::Vector2f size, sf::Vector2f pos) :
-      Component(                                                                                  ),
       left_    (Button(pos, "<", 30)                                                              ),
       right_   (Button(sf::Vector2f(body_.getPosition().x + body_.getSize().x+24, pos.y), ">", 30)),
       text_    (Text  (sf::Vector2f(0, 0), L"QYTA CLOHJER", Resources::font.Unifont, size.y)      )
@@ -32,7 +31,7 @@ namespace rr {
     void Switch::setPosition(sf::Vector2f pos) {
         left_ .setPosition(pos);
         body_ .setPosition(sf::Vector2f(pos.x+44, pos.y+5));
-        text_ .setPosition(sf::Vector2f(body_.getPosition().x+10, pos.y-4));
+        text_ .setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
         right_.setPosition(sf::Vector2f(pos.x+body_.getSize().x + body_.getSize().y+24, pos.y));
     }
 
@@ -72,7 +71,7 @@ namespace rr {
         for (auto x : options_) {
             if (  x == o
                 ) break;
-            i++;
+            ++i;
         }
         counter_ = i;
         text_.setString  (options_[counter_]);

@@ -20,8 +20,8 @@ namespace rr {
     bool Potion::identified_[9] = { false, false, false, false, false, false, false, false, false };
 
     Potion::Potion(Effect e, Size s, int am, sf::Vector2i pos) :
-      effect_     (e),
-      size_       (s)
+      effect_(e),
+      size_  (s)
     {
         amount_     = am;
         
@@ -30,7 +30,8 @@ namespace rr {
     }
 
     Potion::Potion(Potion const& potion) :
-      effect_     (potion.effect_)
+      effect_(potion.effect_),
+      size_  (potion.size_  )
     {
         amount_                = potion.amount_;
         disposable_            = potion.disposable_;
@@ -55,15 +56,15 @@ namespace rr {
 
     sf::String Potion::getName() const {
         if (!identified_[effect_]) {
-                 if (itemColors[effect_] == sf::Color::Red          ) return Resources::dictionary["item.potion.color.red"     ];
-            else if (itemColors[effect_] == sf::Color::Blue         ) return Resources::dictionary["item.potion.color.blue"    ];
-            else if (itemColors[effect_] == sf::Color(32, 32, 0)    ) return Resources::dictionary["item.potion.color.brown"   ];
-            else if (itemColors[effect_] == sf::Color::Green        ) return Resources::dictionary["item.potion.color.green"   ];
-            else if (itemColors[effect_] == sf::Color::Cyan         ) return Resources::dictionary["item.potion.color.cyan"    ];
-            else if (itemColors[effect_] == sf::Color(255, 172, 172)) return Resources::dictionary["item.potion.color.pink"    ];
-            else if (itemColors[effect_] == sf::Color::Magenta      ) return Resources::dictionary["item.potion.color.magenta" ];
-            else if (itemColors[effect_] == sf::Color::Yellow       ) return Resources::dictionary["item.potion.color.yellow"  ];
-            else if (itemColors[effect_] == sf::Color::White        ) return Resources::dictionary["item.potion.color.white"   ];
+                 if (itemColors[effect_] == sf::Color::Red          ) return Resources::dictionary["item.potion.color.red"    ];
+            else if (itemColors[effect_] == sf::Color::Blue         ) return Resources::dictionary["item.potion.color.blue"   ];
+            else if (itemColors[effect_] == sf::Color(32, 32, 0)    ) return Resources::dictionary["item.potion.color.brown"  ];
+            else if (itemColors[effect_] == sf::Color::Green        ) return Resources::dictionary["item.potion.color.green"  ];
+            else if (itemColors[effect_] == sf::Color::Cyan         ) return Resources::dictionary["item.potion.color.cyan"   ];
+            else if (itemColors[effect_] == sf::Color(255, 172, 172)) return Resources::dictionary["item.potion.color.pink"   ];
+            else if (itemColors[effect_] == sf::Color::Magenta      ) return Resources::dictionary["item.potion.color.magenta"];
+            else if (itemColors[effect_] == sf::Color::Yellow       ) return Resources::dictionary["item.potion.color.yellow" ];
+            else if (itemColors[effect_] == sf::Color::White        ) return Resources::dictionary["item.potion.color.white"  ];
         }
         else {
             switch (effect_) {

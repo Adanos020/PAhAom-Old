@@ -11,7 +11,6 @@
 namespace rr {
 
     ScrollBar::ScrollBar(Plain p, sf::Vector2f position, float length, sf::Vector2f min_max) :
-      Component  (                                                     ),
       valueLimit_(min_max                                              ),
       indicator_ (Button(position+sf::Vector2f(10, 5), "|", 30)        ),
       bLeft_     (Button(position, "<", 30)                            ),
@@ -41,7 +40,7 @@ namespace rr {
             border_.setFillColor       (sf::Color(128, 128, 128, 128));
             border_.setSize            (sf::Vector2f(length, 30));
 
-            label_ .setPosition        (border_.getPosition() + sf::Vector2f(border_.getSize().x/2 - label_.getSize().x/2, -5));
+            label_.setPosition(border_.getPosition() + sf::Vector2f(border_.getSize().x/2 - label_.getSize().x/2, border_.getSize().y/2 - label_.getSize().y/2-10));
         }
     }
 
@@ -51,7 +50,7 @@ namespace rr {
             border_   .setPosition(bLeft_ .getPosition() + sf::Vector2f(bLeft_.getSize().x+10, 5));
             bRight_   .setPosition(border_.getPosition() + sf::Vector2f(border_.getSize().x+10, -5));
             indicator_.setPosition(border_.getPosition() + sf::Vector2f(-5, -5));
-            label_    .setPosition(bRight_.getPosition() + sf::Vector2f(10, 0));
+            label_    .setPosition(border_.getPosition()+sf::Vector2f(border_.getSize().x/2 - label_.getSize().x/2, border_.getSize().y/2 - label_.getSize().y/2-10));
         }
         else if (plain_ == VERTICAL) {
             bLeft_    .setPosition(pos);

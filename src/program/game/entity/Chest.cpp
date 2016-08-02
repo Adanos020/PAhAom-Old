@@ -16,15 +16,13 @@
 namespace rr {
 
     Chest::Chest(Type t) :
-      Entity( ),
       item_ (getRandomItem()),
-      type_ (t)
+      type_ (t              )
     {
         initialize();
     }
 
     Chest::Chest(Chest const& chest) :
-      Entity(           ),
       body_ (chest.body_),
       item_ (chest.item_),
       type_ (chest.type_) {}

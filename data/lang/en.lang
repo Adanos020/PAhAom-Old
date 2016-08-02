@@ -412,7 +412,7 @@ item.food.name.sandvich
 Sandvich
 
 item.food.name.apple
-Apple (don't sue me)
+Enormous apple
 
 item.food.name.beer
 Beer
@@ -659,4 +659,7 @@ Now you can regenerate your health!
 
 message.item_used.book.faster_learning
 Now you know how to learn faster!
+
+message.item_used.food
+The food tasted amazing! Also you feel less hungry now.
 
