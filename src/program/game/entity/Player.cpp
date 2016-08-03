@@ -80,20 +80,20 @@ namespace rr {
 
     void Player::move(int tiles[], Direction di) {
         if (!moving_) {
-            if (di == UP    && tiles[position_.x   + (position_.y-1)*77] != 1) {
+            if (di == UP    && (tiles[position_.x   + (position_.y-1)*77] != 1 && tiles[position_.x   + (position_.y-1)*77] != 5)) {
                 position_ = sf::Vector2i(position_.x, position_.y-1);
                 moving_ = true;
             }
-            if (di == DOWN  && tiles[position_.x   + (position_.y+1)*77] != 1) {
+            if (di == DOWN  && (tiles[position_.x   + (position_.y+1)*77] != 1 && tiles[position_.x   + (position_.y+1)*77] != 5)) {
                 position_ = sf::Vector2i(position_.x, position_.y+1);
                 moving_ = true;
             }
-            if (di == LEFT  && tiles[position_.x-1 + position_.y*77] != 1) {
+            if (di == LEFT  && (tiles[position_.x-1 + position_.y*77] != 1 && tiles[position_.x-1 + position_.y*77] != 5)) {
                 position_ = sf::Vector2i(position_.x-1, position_.y);
                 moving_ = true;
                 currentAnimation_ = &walkingLeft_;
             }
-            if (di == RIGHT && tiles[position_.x+1 + position_.y*77] != 1) {
+            if (di == RIGHT && (tiles[position_.x+1 + position_.y*77] != 1 && tiles[position_.x+1 + position_.y*77] != 5)) {
                 position_ = sf::Vector2i(position_.x+1, position_.y);
                 moving_ = true;
                 currentAnimation_ = &walkingRight_;

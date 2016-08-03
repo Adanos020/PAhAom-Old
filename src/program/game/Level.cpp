@@ -5,6 +5,7 @@
  */
 
 #include <iostream>
+#include <stack>
 
 #include "Game.hpp"
 #include "fov/FOV.hpp"
@@ -557,6 +558,8 @@ namespace rr {
             }
         }
 
+        std::stack<sf::Vector2i> toUnOccupy;
+
      // here we generate the chests
         for (int i=0; i<rand()%5; ++i) {
             while (true) {
@@ -564,7 +567,8 @@ namespace rr {
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
                     addEntity(new Chest((rand()%20) ? Chest::REGULAR : Chest::SPECIAL), sf::Vector2i(x, y)); // here we choose randomly whether the chest
                     tiles_[x+y*size_.x] = OCCUPIED;                                                          // has to be the special (probability = 5%)
-                    break;                                                                                   // or the regular one (p = 95%)
+                    toUnOccupy.push(sf::Vector2i(x, y));                                                     // or the regular one (p = 95%)
+                    break;
                 }
             }
         }
@@ -577,6 +581,7 @@ namespace rr {
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
                     addEntity(getRandomItem(), sf::Vector2i(x, y));
                     tiles_[x+y*size_.x] = OCCUPIED;
+                    toUnOccupy.push(sf::Vector2i(x, y));
                     break;
                 }
             }
@@ -615,6 +620,11 @@ namespace rr {
                     break;
                 }
             }
+        }
+
+        while (!toUnOccupy.empty()) {
+            tiles_[toUnOccupy.top().x + 77*toUnOccupy.top().y] = ROOM;
+            toUnOccupy.pop();
         }
     }
 

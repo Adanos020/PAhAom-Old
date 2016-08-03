@@ -231,207 +231,195 @@ namespace rr {
     }
 
     void MainMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
+        auto wOpts = wMenu_.getComponent<Window>(0);
+        auto wGame = wOpts->getComponent<Window>(0);
+        auto wGrap = wOpts->getComponent<Window>(1);
+        auto wSoun = wOpts->getComponent<Window>(2);
+        auto wCont = wOpts->getComponent<Window>(3);
+        auto wWait = wCont->getComponent<Window>(0);
+        auto wHelp = wMenu_.getComponent<Window>(1);
+        auto wCred = wMenu_.getComponent<Window>(2);
 
-#define component(w, c, i) w.getComponent<c>(i)
-#define wOpts (*component(wMenu_, Window, 0))
-#define wGame (*component(wOpts,  Window, 0))
-#define wGrap (*component(wOpts,  Window, 1))
-#define wSoun (*component(wOpts,  Window, 2))
-#define wCont (*component(wOpts,  Window, 3))
-#define wWait (*component(wCont,  Window, 0))
-#define wHelp (*component(wMenu_, Window, 1))
-#define wCred (*component(wMenu_, Window, 2))
-;
         if (wMenu_.isVisible()) {
-            if (!wOpts.isVisible() && !wHelp.isVisible() && !wCred.isVisible()) {
-                if (  component(wMenu_, Button, 0)->isPressed(rw, e)
+            if (!wOpts->isVisible() && !wHelp->isVisible() && !wCred->isVisible()) {
+                if (  wMenu_.getComponent<Button>(0)->isPressed(rw, e)
                     ) g->loadNewGame();
-                if (  component(wMenu_, Button, 1)->isPressed(rw, e)
+                if (  wMenu_.getComponent<Button>(1)->isPressed(rw, e)
                     ) if (g->load()) g->start(true);
-                if (  component(wMenu_, Button, 2)->isPressed(rw, e)
-                    ) wOpts.setVisible(true);
-                if (  component(wMenu_, Button, 3)->isPressed(rw, e)
-                    ) wHelp.setVisible(true);
-                if (  component(wMenu_, Button, 4)->isPressed(rw, e)
-                    ) wCred.setVisible(true);
-                if (  component(wMenu_, Button, 5)->isPressed(rw, e)
+                if (  wMenu_.getComponent<Button>(2)->isPressed(rw, e)
+                    ) wOpts->setVisible(true);
+                if (  wMenu_.getComponent<Button>(3)->isPressed(rw, e)
+                    ) wHelp->setVisible(true);
+                if (  wMenu_.getComponent<Button>(4)->isPressed(rw, e)
+                    ) wCred->setVisible(true);
+                if (  wMenu_.getComponent<Button>(5)->isPressed(rw, e)
                     ) rw.close();
             }
 
-            else if (wOpts.isVisible()) {
-                if (!wGame.isVisible() && !wGrap.isVisible() && !wSoun.isVisible() && !wCont.isVisible()) {
-                    if (  component(wOpts, Button, 0)->isPressed(rw, e)
-                        ) wGame.setVisible(true);
-                    if (  component(wOpts, Button, 1)->isPressed(rw, e)
-                        ) wGrap.setVisible(true);
-                    if (  component(wOpts, Button, 2)->isPressed(rw, e)
-                        ) wSoun.setVisible(true);
-                    if (  component(wOpts, Button, 3)->isPressed(rw, e)
-                        ) wCont.setVisible(true);
-                    if (component(wOpts, Button, 4)->isPressed(rw, e)) {
+            else if (wOpts->isVisible()) {
+                if (!wGame->isVisible() && !wGrap->isVisible() && !wSoun->isVisible() && !wCont->isVisible()) {
+                    if (  wOpts->getComponent<Button>(0)->isPressed(rw, e)
+                        ) wGame->setVisible(true);
+                    if (  wOpts->getComponent<Button>(1)->isPressed(rw, e)
+                        ) wGrap->setVisible(true);
+                    if (  wOpts->getComponent<Button>(2)->isPressed(rw, e)
+                        ) wSoun->setVisible(true);
+                    if (  wOpts->getComponent<Button>(3)->isPressed(rw, e)
+                        ) wCont->setVisible(true);
+                    if (wOpts->getComponent<Button>(4)->isPressed(rw, e)) {
                         puts(">Saving the settings...");
-                        if      (  component(wGame, Switch, 0)->getCurrentOption() == "ENGLISH"
+                        if      (  wGame->getComponent<Switch>(0)->getCurrentOption() == "ENGLISH"
                                  ) Settings::game.language = "en";
-                        else if (  component(wGame, Switch, 0)->getCurrentOption() == "POLSKI"
+                        else if (  wGame->getComponent<Switch>(0)->getCurrentOption() == "POLSKI"
                                  ) Settings::game.language = "pl";
-                        else if (  component(wGame, Switch, 0)->getCurrentOption() == L"DNQUBINJHBI"
+                        else if (  wGame->getComponent<Switch>(0)->getCurrentOption() == L"DNQUBINJHBI"
                                  ) Settings::game.language = "fc";
 
-                        std::vector<std::string> splitted = split(wtoa(component(wGrap, Switch, 0)->getCurrentOption()), 'x');
+                        std::vector<std::string> splitted = split(wtoa(wGrap->getComponent<Switch>(0)->getCurrentOption()), 'x');
 
                         Settings::graphics.resolution = sf::Vector2u(stoi(splitted[0]), stoi(splitted[1]));
-                        Settings::graphics.fullscreen = component(wGrap, Checkbox, 0)->isChecked();
-                        Settings::graphics.vsync      = component(wGrap, Checkbox, 1)->isChecked();
+                        Settings::graphics.fullscreen = wGrap->getComponent<Checkbox>(0)->isChecked();
+                        Settings::graphics.vsync      = wGrap->getComponent<Checkbox>(1)->isChecked();
 
-                        if      (  component(wGrap, Switch, 1)->getCurrentOption() == "x2"
+                        if      (  wGrap->getComponent<Switch>(1)->getCurrentOption() == "x2"
                                  ) Settings::graphics.csettings.antialiasingLevel = 2;
-                        else if (  component(wGrap, Switch, 1)->getCurrentOption() == "x4"
+                        else if (  wGrap->getComponent<Switch>(1)->getCurrentOption() == "x4"
                                  ) Settings::graphics.csettings.antialiasingLevel = 4;
-                        else if (  component(wGrap, Switch, 1)->getCurrentOption() == "x8"
+                        else if (  wGrap->getComponent<Switch>(1)->getCurrentOption() == "x8"
                                  ) Settings::graphics.csettings.antialiasingLevel = 8;
                         else       Settings::graphics.csettings.antialiasingLevel = 0;
 
-                        Settings::sound.music_muted      = component(wSoun, Checkbox, 0)->isChecked();
-                        Settings::sound.music_volume     = component(wSoun, ScrollBar, 0)->getValue();
-                        Settings::sound.effects_muted    = component(wSoun, Checkbox,  1)->isChecked();
-                        Settings::sound.effects_volume   = component(wSoun, ScrollBar, 1)->getValue();
+                        Settings::sound.music_muted      = wSoun->getComponent<Checkbox >(0)->isChecked();
+                        Settings::sound.music_volume     = wSoun->getComponent<ScrollBar>(0)->getValue();
+                        Settings::sound.effects_muted    = wSoun->getComponent<Checkbox >(1)->isChecked();
+                        Settings::sound.effects_volume   = wSoun->getComponent<ScrollBar>(1)->getValue();
 
-                        Settings::keys.move_up           = getKeyCode(component(wCont, Button,  0)->getText().getString());
-                        Settings::keys.move_down         = getKeyCode(component(wCont, Button,  1)->getText().getString());
-                        Settings::keys.move_left         = getKeyCode(component(wCont, Button,  2)->getText().getString());
-                        Settings::keys.move_right        = getKeyCode(component(wCont, Button,  3)->getText().getString());
-                        Settings::keys.interact          = getKeyCode(component(wCont, Button,  4)->getText().getString());
-                        Settings::keys.attack            = getKeyCode(component(wCont, Button,  5)->getText().getString());
-                        Settings::keys.open_inventory    = getKeyCode(component(wCont, Button,  6)->getText().getString());
-                        Settings::keys.open_attributes   = getKeyCode(component(wCont, Button,  7)->getText().getString());
-                        Settings::keys.open_journal      = getKeyCode(component(wCont, Button,  8)->getText().getString());
-                        Settings::keys.open_map          = getKeyCode(component(wCont, Button,  9)->getText().getString());
-                        Settings::keys.open_bookOfSpells = getKeyCode(component(wCont, Button, 10)->getText().getString());
-                        Settings::keys.useslot_1         = getKeyCode(component(wCont, Button, 11)->getText().getString());
-                        Settings::keys.useslot_2         = getKeyCode(component(wCont, Button, 12)->getText().getString());
-                        Settings::keys.useslot_3         = getKeyCode(component(wCont, Button, 13)->getText().getString());
-                        Settings::keys.useslot_4         = getKeyCode(component(wCont, Button, 14)->getText().getString());
-                        Settings::keys.useslot_5         = getKeyCode(component(wCont, Button, 15)->getText().getString());
+                        Settings::keys.move_up           = getKeyCode(wCont->getComponent<Button>( 0)->getText().getString());
+                        Settings::keys.move_down         = getKeyCode(wCont->getComponent<Button>( 1)->getText().getString());
+                        Settings::keys.move_left         = getKeyCode(wCont->getComponent<Button>( 2)->getText().getString());
+                        Settings::keys.move_right        = getKeyCode(wCont->getComponent<Button>( 3)->getText().getString());
+                        Settings::keys.interact          = getKeyCode(wCont->getComponent<Button>( 4)->getText().getString());
+                        Settings::keys.attack            = getKeyCode(wCont->getComponent<Button>( 5)->getText().getString());
+                        Settings::keys.open_inventory    = getKeyCode(wCont->getComponent<Button>( 6)->getText().getString());
+                        Settings::keys.open_attributes   = getKeyCode(wCont->getComponent<Button>( 7)->getText().getString());
+                        Settings::keys.open_journal      = getKeyCode(wCont->getComponent<Button>( 8)->getText().getString());
+                        Settings::keys.open_map          = getKeyCode(wCont->getComponent<Button>( 9)->getText().getString());
+                        Settings::keys.open_bookOfSpells = getKeyCode(wCont->getComponent<Button>(10)->getText().getString());
+                        Settings::keys.useslot_1         = getKeyCode(wCont->getComponent<Button>(11)->getText().getString());
+                        Settings::keys.useslot_2         = getKeyCode(wCont->getComponent<Button>(12)->getText().getString());
+                        Settings::keys.useslot_3         = getKeyCode(wCont->getComponent<Button>(13)->getText().getString());
+                        Settings::keys.useslot_4         = getKeyCode(wCont->getComponent<Button>(14)->getText().getString());
+                        Settings::keys.useslot_5         = getKeyCode(wCont->getComponent<Button>(15)->getText().getString());
 
                         Settings::save();
 
                         puts(">Done.");
-                        wOpts.setVisible(false);
+                        wOpts->setVisible(false);
                     }
-                    if (component(wOpts, Button, 5)->isPressed(rw, e)) {
+                    if (wOpts->getComponent<Button>(5)->isPressed(rw, e)) {
                         if      (  Settings::game.language == "en"
-                                 ) component(wGame, Switch, 0)->setCurrentOption("ENGLISH");
+                                 ) wGame->getComponent<Switch>(0)->setCurrentOption("ENGLISH");
                         else if (  Settings::game.language == "pl"
-                                 ) component(wGame, Switch, 0)->setCurrentOption("POLSKI");
+                                 ) wGame->getComponent<Switch>(0)->setCurrentOption("POLSKI");
                         else if (  Settings::game.language == "fc"
-                                 ) component(wGame, Switch, 0)->setCurrentOption(L"DNQUBINJHBI");
+                                 ) wGame->getComponent<Switch>(0)->setCurrentOption(L"DNQUBINJHBI");
 
-                        component(wGrap, Switch, 0)->setCurrentOption(std::to_string(Settings::graphics.resolution.x)+"x"+std::to_string(Settings::graphics.resolution.y));
-                        component(wGrap, Checkbox, 0)->check(Settings::graphics.fullscreen);
-                        component(wGrap, Checkbox, 1)->check(Settings::graphics.vsync);
+                        wGrap->getComponent<Switch>(0)->setCurrentOption(std::to_string(Settings::graphics.resolution.x)+"x"+std::to_string(Settings::graphics.resolution.y));
+                        wGrap->getComponent<Checkbox>(0)->check(Settings::graphics.fullscreen);
+                        wGrap->getComponent<Checkbox>(1)->check(Settings::graphics.vsync);
                         if (  Settings::graphics.csettings.antialiasingLevel == 0
-                            ) component(wGrap, Switch, 1)->setCurrentOption("NONE");
-                        else  component(wGrap, Switch, 1)->setCurrentOption("x"+std::to_string(Settings::graphics.csettings.antialiasingLevel));
+                            ) wGrap->getComponent<Switch>(1)->setCurrentOption("NONE");
+                        else  wGrap->getComponent<Switch>(1)->setCurrentOption("x"+std::to_string(Settings::graphics.csettings.antialiasingLevel));
 
-                        component(wSoun, Checkbox,  0)->check   (Settings::sound.music_muted);
-                        component(wSoun, ScrollBar, 0)->setValue(Settings::sound.music_volume);
-                        component(wSoun, Checkbox,  1)->check   (Settings::sound.effects_muted);
-                        component(wSoun, ScrollBar, 1)->setValue(Settings::sound.effects_volume);
+                        wSoun->getComponent<Checkbox>(0)->check   (Settings::sound.music_muted);
+                        wSoun->getComponent<ScrollBar>(0)->setValue(Settings::sound.music_volume);
+                        wSoun->getComponent<Checkbox>(1)->check   (Settings::sound.effects_muted);
+                        wSoun->getComponent<ScrollBar>(1)->setValue(Settings::sound.effects_volume);
 
-                        component(wCont, Button,    0)->getText().setString(getKeyName(Settings::keys.move_up));
-                        component(wCont, Button,    1)->getText().setString(getKeyName(Settings::keys.move_down));
-                        component(wCont, Button,    2)->getText().setString(getKeyName(Settings::keys.move_left));
-                        component(wCont, Button,    3)->getText().setString(getKeyName(Settings::keys.move_right));
-                        component(wCont, Button,    4)->getText().setString(getKeyName(Settings::keys.interact));
-                        component(wCont, Button,    5)->getText().setString(getKeyName(Settings::keys.attack));
-                        component(wCont, Button,    6)->getText().setString(getKeyName(Settings::keys.open_inventory));
-                        component(wCont, Button,    7)->getText().setString(getKeyName(Settings::keys.open_attributes));
-                        component(wCont, Button,    8)->getText().setString(getKeyName(Settings::keys.open_journal));
-                        component(wCont, Button,    9)->getText().setString(getKeyName(Settings::keys.open_map));
-                        component(wCont, Button,   10)->getText().setString(getKeyName(Settings::keys.open_bookOfSpells));
-                        component(wCont, Button,   11)->getText().setString(getKeyName(Settings::keys.useslot_1));
-                        component(wCont, Button,   12)->getText().setString(getKeyName(Settings::keys.useslot_2));
-                        component(wCont, Button,   13)->getText().setString(getKeyName(Settings::keys.useslot_3));
-                        component(wCont, Button,   14)->getText().setString(getKeyName(Settings::keys.useslot_4));
-                        component(wCont, Button,   15)->getText().setString(getKeyName(Settings::keys.useslot_5));
+                        wCont->getComponent<Button>( 0)->getText().setString(getKeyName(Settings::keys.move_up));
+                        wCont->getComponent<Button>( 1)->getText().setString(getKeyName(Settings::keys.move_down));
+                        wCont->getComponent<Button>( 2)->getText().setString(getKeyName(Settings::keys.move_left));
+                        wCont->getComponent<Button>( 3)->getText().setString(getKeyName(Settings::keys.move_right));
+                        wCont->getComponent<Button>( 4)->getText().setString(getKeyName(Settings::keys.interact));
+                        wCont->getComponent<Button>( 5)->getText().setString(getKeyName(Settings::keys.attack));
+                        wCont->getComponent<Button>( 6)->getText().setString(getKeyName(Settings::keys.open_inventory));
+                        wCont->getComponent<Button>( 7)->getText().setString(getKeyName(Settings::keys.open_attributes));
+                        wCont->getComponent<Button>( 8)->getText().setString(getKeyName(Settings::keys.open_journal));
+                        wCont->getComponent<Button>( 9)->getText().setString(getKeyName(Settings::keys.open_map));
+                        wCont->getComponent<Button>(10)->getText().setString(getKeyName(Settings::keys.open_bookOfSpells));
+                        wCont->getComponent<Button>(11)->getText().setString(getKeyName(Settings::keys.useslot_1));
+                        wCont->getComponent<Button>(12)->getText().setString(getKeyName(Settings::keys.useslot_2));
+                        wCont->getComponent<Button>(13)->getText().setString(getKeyName(Settings::keys.useslot_3));
+                        wCont->getComponent<Button>(14)->getText().setString(getKeyName(Settings::keys.useslot_4));
+                        wCont->getComponent<Button>(15)->getText().setString(getKeyName(Settings::keys.useslot_5));
 
-                        wOpts.setVisible(false);
+                        wOpts->setVisible(false);
                     }
                 }
 
-                else if (wGame.isVisible()) {
-                    component(wGame, Switch, 0)->buttonEvents(rw, e);
-                    if (  component(wGame, Button, 0)->isPressed(rw, e)
-                        ) wGame.setVisible(false);
+                else if (wGame->isVisible()) {
+                    wGame->getComponent<Switch>(0)->buttonEvents(rw, e);
+                    if (  wGame->getComponent<Button>(0)->isPressed(rw, e)
+                        ) wGame->setVisible(false);
                 }
 
-                else if (wGrap.isVisible()) {
+                else if (wGrap->isVisible()) {
                     for (unsigned i=0; i<2; i++) {
-                        if (component(wGrap, Checkbox, i)->isPressed(rw, e)) {
-                            if ( !component(wGrap, Checkbox, i)->isChecked()
-                                ) component(wGrap, Checkbox, i)->check(true);
-                            else  component(wGrap, Checkbox, i)->check(false);
+                        if (wGrap->getComponent<Checkbox>(i)->isPressed(rw, e)) {
+                            if ( !wGrap->getComponent<Checkbox>(i)->isChecked()
+                                ) wGrap->getComponent<Checkbox>(i)->check(true);
+                            else  wGrap->getComponent<Checkbox>(i)->check(false);
                         }
                     }
-                    component(wGrap, Switch, 0)->buttonEvents(rw, e);
-                    component(wGrap, Switch, 1)->buttonEvents(rw, e);
-                    if (  component(wGrap, Button, 0)->isPressed(rw, e)
-                        ) wGrap.setVisible(false);
+                    wGrap->getComponent<Switch>(0)->buttonEvents(rw, e);
+                    wGrap->getComponent<Switch>(1)->buttonEvents(rw, e);
+                    if (  wGrap->getComponent<Button>(0)->isPressed(rw, e)
+                        ) wGrap->setVisible(false);
                 }
 
-                else if (wSoun.isVisible()) {
+                else if (wSoun->isVisible()) {
                     for (int i=0; i<2; i++) {
-                        if (component(wSoun, Checkbox, i)->isPressed(rw, e)) {
-                            if ( !component(wSoun, Checkbox, i)->isChecked()
-                                ) component(wSoun, Checkbox, i)->check(true);
-                            else  component(wSoun, Checkbox, i)->check(false);
+                        if (wSoun->getComponent<Checkbox>(i)->isPressed(rw, e)) {
+                            if ( !wSoun->getComponent<Checkbox>(i)->isChecked()
+                                ) wSoun->getComponent<Checkbox>(i)->check(true);
+                            else  wSoun->getComponent<Checkbox>(i)->check(false);
                         }
-                        component(wSoun, ScrollBar, 0)->buttonEvents(rw, e);
-                        component(wSoun, ScrollBar, 1)->buttonEvents(rw, e);
+                        wSoun->getComponent<ScrollBar>(0)->buttonEvents(rw, e);
+                        wSoun->getComponent<ScrollBar>(1)->buttonEvents(rw, e);
                     }
-                    if (  component(wSoun, Button, 0)->isPressed(rw, e)
-                        ) wSoun.setVisible(false);
+                    if (  wSoun->getComponent<Button>(0)->isPressed(rw, e)
+                        ) wSoun->setVisible(false);
                 }
 
-                else if (wCont.isVisible()) {
+                else if (wCont->isVisible()) {
                     for (int i=0; i<16; i++) {
-                        if (!wWait.isVisible() && component(wCont, Button, i)->isPressed(rw, e)) {
-                            wWait.setVisible(true);
-                            wWait.setParentComponent(component(wCont, Button, i));
+                        if (!wWait->isVisible() && wCont->getComponent<Button>(i)->isPressed(rw, e)) {
+                            wWait->setVisible(true);
+                            wWait->setParentComponent(wCont->getComponent<Button>(i));
                         }
-                        else if (wWait.isVisible() && e.type == sf::Event::KeyPressed) {
+                        else if (wWait->isVisible() && e.type == sf::Event::KeyPressed) {
                             if (  e.key.code != sf::Keyboard::Escape
-                                ) ((Button*) wWait.getParentComponent())->setText(getKeyName(e.key.code));
-                            wWait.setParentComponent(&wCont);
-                            wWait.setVisible(false);
+                                ) ((Button*) wWait->getParentComponent())->setText(getKeyName(e.key.code));
+                            wWait->setParentComponent(wCont);
+                            wWait->setVisible(false);
                         }
                     }
-                    if ( !wWait.isVisible() && component(wCont, Button, 16)->isPressed(rw, e)
-                        ) wCont.setVisible(false);
+                    if ( !wWait->isVisible() && wCont->getComponent<Button>(16)->isPressed(rw, e)
+                        ) wCont->setVisible(false);
                 }
 
             }
 
-            else if (wHelp.isVisible()) {
-                if (  component(wHelp, Button, 0)->isPressed(rw, e)
-                    ) wHelp.setVisible(false);
+            else if (wHelp->isVisible()) {
+                if (  wHelp->getComponent<Button>(0)->isPressed(rw, e)
+                    ) wHelp->setVisible(false);
             }
 
-            else if (wCred.isVisible()) {
-                if (  component(wCred, Button, 0)->isPressed(rw, e)
-                    ) wCred.setVisible(false);
+            else if (wCred->isVisible()) {
+                if (  wCred->getComponent<Button>(0)->isPressed(rw, e)
+                    ) wCred->setVisible(false);
             }
         }
-
-#undef component
-#undef wOpts
-#undef wGame
-#undef wGrap
-#undef wSoun
-#undef wCont
-#undef wWait
-#undef wHelp
-#undef wCred
 
     }
 

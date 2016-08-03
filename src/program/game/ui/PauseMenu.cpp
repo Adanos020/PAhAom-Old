@@ -50,15 +50,14 @@ namespace rr {
     }
 
     void PauseMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
+        auto wHelp = wMenu_.getComponent<Window>(0);
 
-#define wHelp (*wMenu_.getComponent<Window>(0))
-;
         if (wMenu_.isVisible()) {
-            if (!wHelp.isVisible()) {
+            if (!wHelp->isVisible()) {
                 if (  wMenu_.getComponent<Button>(0)->isPressed(rw, e)
                     ) g->pause(false);
                 if (  wMenu_.getComponent<Button>(1)->isPressed(rw, e)
-                    ) wHelp.setVisible(true);
+                    ) wHelp->setVisible(true);
                 if (  wMenu_.getComponent<Button>(2)->isPressed(rw, e)) {
                     g->pause(false);
                     g->start(false);
@@ -67,9 +66,9 @@ namespace rr {
                 }
             }
 
-            else if (wHelp.isVisible()) {
-                if (  wHelp.getComponent<Button>(0)->isPressed(rw, e)
-                    ) wHelp.setVisible(false);
+            else if (wHelp->isVisible()) {
+                if (  wHelp->getComponent<Button>(0)->isPressed(rw, e)
+                    ) wHelp->setVisible(false);
             }
         }
     }
@@ -84,11 +83,9 @@ namespace rr {
     }
 
     void PauseMenu::close() {
+        auto wHelp = wMenu_.getComponent<Window>(0);
         wMenu_.setVisible(false);
-        wHelp .setVisible(false);
-
-#undef wHelp
-
+        wHelp->setVisible(false);
     }
 
 }

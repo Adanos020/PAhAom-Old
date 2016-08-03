@@ -66,7 +66,7 @@ namespace rr {
                  *wOpts += mOpts;
             }
 
-            ((wInve_ += wInfo) += wOpts) += bQuit;
+            ((wInve_ |= wInfo) |= wOpts) += bQuit;
 
         for (int i=0; i<5; ++i) {
             sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(Settings::graphics.resolution.x-90, Settings::graphics.resolution.y/2-250 + i*95));
