@@ -573,7 +573,7 @@ namespace rr {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
-                    addEntity(getRandomItem/*Balanced*/(), sf::Vector2i(x, y));
+                    addEntity(getRandomItemBalanced(), sf::Vector2i(x, y));
                     tiles_[x+y*size_.x] = OCCUPIED;
                     toUnOccupy.push(sf::Vector2i(x, y));
                     break;
@@ -670,6 +670,7 @@ namespace rr {
                     case 11: entity = new Bandit      (); readEntity(file, entity); addEntity(entity); break;
                 }
             }
+
             shadowMap_ << file;
 
             for (int i=0; i<77*43; ++i) { // load the tiles
@@ -693,7 +694,7 @@ namespace rr {
 
         file << entities_.size() << '\n';
         for (auto entity=entities_.begin(); entity!=entities_.end(); ++entity) { // save the entities
-            *(*entity) >> file << '\n';
+            **entity >> file << '\n';
         }
         
         shadowMap_ >> file;

@@ -29,8 +29,6 @@ namespace rr {
             }
         }
 
-        //darken();
-
         for (int i=0; i<size.x*size.y; ++i) {
             discovered_[i] = false;
             flipped_   [i] = false;
@@ -42,147 +40,157 @@ namespace rr {
     }
 
     void ShadowMap::setLit(sf::Vector2i pos) {
-        int index = (pos.x + 77*pos.y)*4;
+        int index = (pos.x + size_.x*pos.y)*4;
                                                                 /////////
         shadows_[index + 0].color = sf::Color::Transparent;     // --- //
         shadows_[index + 1].color = sf::Color::Transparent;     // -O- //
         shadows_[index + 2].color = sf::Color::Transparent;     // --- //
         shadows_[index + 3].color = sf::Color::Transparent;     /////////
-        if (pos.x > 0 && pos.x < size_.x && pos.y > 0 && pos.y < size_.y) {
 #if 0
-            index = ((pos.x-1) + (pos.y-1)*77)*4;               /////////
+        if (pos.x > 0 && pos.x < size_.x && pos.y > 0 && pos.y < size_.y) {
+            index = ((pos.x-1) + (pos.y-1)*size_.x)*4;          /////////
             shadows_[index + 2].color = sf::Color::Transparent; // O-- //
                                                                 // --- //
                                                                 // --- //
                                                                 /////////
             
-            index = (pos.x + (pos.y-1)*77)*4;                   /////////
+            index = (pos.x + (pos.y-1)*size_.x)*4;              /////////
             shadows_[index + 2].color = sf::Color::Transparent; // -O- //
             shadows_[index + 3].color = sf::Color::Transparent; // --- //
                                                                 // --- //
                                                                 /////////
 
-            index = ((pos.x+1) + (pos.y-1)*77)*4;               /////////
+            index = ((pos.x+1) + (pos.y-1)*size_.x)*4;          /////////
             shadows_[index + 3].color = sf::Color::Transparent; // --O //
                                                                 // --- //
                                                                 // --- //
                                                                 /////////
 
-            index = ((pos.x+1) + pos.y*77)*4;                   /////////
+            index = ((pos.x+1) + pos.y*size_.x)*4;              /////////
             shadows_[index + 0].color = sf::Color::Transparent; // --- //
             shadows_[index + 3].color = sf::Color::Transparent; // --O //
                                                                 // --- //
                                                                 /////////
 
-            index = ((pos.x+1) + (pos.y+1)*77)*4;               /////////
+            index = ((pos.x+1) + (pos.y+1)*size_.x)*4;          /////////
             shadows_[index + 0].color = sf::Color::Transparent; // --- //
                                                                 // --- //
                                                                 // --O //
                                                                 /////////
 
-            index = (pos.x + (pos.y+1)*77)*4;                   /////////
+            index = (pos.x + (pos.y+1)*size_.x)*4;              /////////
             shadows_[index + 0].color = sf::Color::Transparent; // --- //
             shadows_[index + 1].color = sf::Color::Transparent; // --- //
                                                                 // -O- //
                                                                 /////////
 
-            index = ((pos.x-1) + (pos.y+1)*77)*4;               /////////
+            index = ((pos.x-1) + (pos.y+1)*size_.x)*4;          /////////
             shadows_[index + 1].color = sf::Color::Transparent; // --- //
                                                                 // --- //
                                                                 // O-- //
                                                                 /////////
 
-            index = ((pos.x-1) + pos.y*77)*4;                   /////////
+            index = ((pos.x-1) + pos.y*size_.x)*4;              /////////
             shadows_[index + 1].color = sf::Color::Transparent; // --- //
             shadows_[index + 2].color = sf::Color::Transparent; // O-- //
                                                                 // --- //
                                                                 /////////
-#endif
         }
-        index = pos.x + 77*pos.y;
+#endif
+        index = pos.x + size_.x*pos.y;
         discovered_[index] = true;
     }
 
     void ShadowMap::darken() {
         int index = 0;
-        for (int x=0; x<77; ++x) {
-            for (int y=0; y<43; ++y) {
-                index = (x + y*77)*4;
-                shadows_[index + 0].color = sf::Color::Black;
-                shadows_[index + 1].color = sf::Color::Black;
-                shadows_[index + 2].color = sf::Color::Black;
-                shadows_[index + 3].color = sf::Color::Black;
+        for (int x=0; x<size_.x; ++x) {
+            for (int y=0; y<size_.y; ++y) {
+                index = (x + y*size_.x)*4;
+                if (discovered_[index/4]) {                             
+                    shadows_[index + 0].color = sf::Color(0, 0, 0, 200);
+                    shadows_[index + 1].color = sf::Color(0, 0, 0, 200);
+                    shadows_[index + 2].color = sf::Color(0, 0, 0, 200);
+                    shadows_[index + 3].color = sf::Color(0, 0, 0, 200);
+                }
+                else {
+                    shadows_[index + 0].color = sf::Color::Black;
+                    shadows_[index + 1].color = sf::Color::Black;
+                    shadows_[index + 2].color = sf::Color::Black;
+                    shadows_[index + 3].color = sf::Color::Black;
+                }
             }
         }
-
-        for (int x=0; x<77; ++x) {
-            for (int y=0; y<43; ++y) {
-                index = (x + y*77)*4;
+#if 0
+        for (int x=0; x<size_.x; ++x) {
+            for (int y=0; y<size_.y; ++y) {
+                index = (x + y*size_.x)*4;
                 if (discovered_[index/4]) {                              /////////
                     shadows_[index + 0].color = sf::Color(0, 0, 0, 200); // --- //
                     shadows_[index + 1].color = sf::Color(0, 0, 0, 200); // -O- //
                     shadows_[index + 2].color = sf::Color(0, 0, 0, 200); // --- //
                     shadows_[index + 3].color = sf::Color(0, 0, 0, 200); /////////
-#if 0
+
                         if (.x > 0 && .x < size_.x && .y > 0 && .y < size_.y) {
-                            index = ((x-1) + (y-1)*77)*4;                        /////////
+                            index = ((x-1) + (y-1)*size_.x)*4;                   /////////
                             shadows_[index + 2].color = sf::Color(0, 0, 0, 200); // O-- //
                                                                                  // --- //
                                                                                  // --- //
                                                                                  /////////
                             
-                            index = (x + (y-1)*77)*4;                            /////////
+                            index = (x + (y-1)*size_.x)*4;                       /////////
                             shadows_[index + 2].color = sf::Color(0, 0, 0, 200); // -O- //
                             shadows_[index + 3].color = sf::Color(0, 0, 0, 200); // --- //
                                                                                  // --- //
                                                                                  /////////
     
-                            index = ((x+1) + (y-1)*77)*4;                        /////////
+                            index = ((x+1) + (y-1)*size_.x)*4;                   /////////
                             shadows_[index + 3].color = sf::Color(0, 0, 0, 200); // --O //
                                                                                  // --- //
                                                                                  // --- //
                                                                                  /////////
     
-                            index = ((x+1) + y*77)*4;                            /////////
+                            index = ((x+1) + y*size_.x)*4;                       /////////
                             shadows_[index + 0].color = sf::Color(0, 0, 0, 200); // --- //
                             shadows_[index + 3].color = sf::Color(0, 0, 0, 200); // --O //
                                                                                  // --- //
                                                                                  /////////
     
-                            index = ((x+1) + (y+1)*77)*4;                        /////////
+                            index = ((x+1) + (y+1)*size_.x)*4;                   /////////
                             shadows_[index + 0].color = sf::Color(0, 0, 0, 200); // --- //
                                                                                  // --- //
                                                                                  // --O //
                                                                                  /////////
     
-                            index = (x + (y+1)*77)*4;                            /////////
+                            index = (x + (y+1)*size_.x)*4;                       /////////
                             shadows_[index + 0].color = sf::Color(0, 0, 0, 200); // --- //
                             shadows_[index + 1].color = sf::Color(0, 0, 0, 200); // --- //
                                                                                  // -O- //
                                                                                  /////////
     
-                            index = ((x-1) + (y+1)*77)*4;                        /////////
+                            index = ((x-1) + (y+1)*size_.x)*4;                   /////////
                             shadows_[index + 1].color = sf::Color(0, 0, 0, 200); // --- //
                                                                                  // --- //
                                                                                  // O-- //
                                                                                  /////////
     
-                            index = ((x-1) + y*77)*4;                            /////////
+                            index = ((x-1) + y*size_.x)*4;                       /////////
                             shadows_[index + 1].color = sf::Color(0, 0, 0, 200); // --- //
                             shadows_[index + 2].color = sf::Color(0, 0, 0, 200); // O-- //
                                                                                  // --- //
                                                                                  /////////
                     }
-#endif
                 }
             }
         }
+#endif
     }
 
     std::ifstream& ShadowMap::operator<<(std::ifstream& file) {
         try {
-            for (int i=0; i<77*43; ++i) {
-                readFile <bool> (file, discovered_[i]);
+            for (int x=0; x<size_.x; ++x) {
+                for (int y=0; y<size_.y; ++y) {
+                    readFile <bool> (file, discovered_[x + y*size_.x]);
+                }
             }
         }
         catch (std::invalid_argument ex) {
@@ -193,8 +201,11 @@ namespace rr {
     }
 
     std::ofstream& ShadowMap::operator>>(std::ofstream& file) {
-        for (int i=0; i<77*43; ++i) {
-            file << discovered_[i];
+        for (int x=0; x<size_.x; ++x) {
+            for (int y=0; y<size_.y; ++y) {
+                file << discovered_[x + y*size_.x] << ' ';
+            }
+            file << '\n';
         }
 
         return file;
