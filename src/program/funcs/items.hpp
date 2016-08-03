@@ -9,6 +9,9 @@
 
 #include <cstdio>
 
+#include "classes.hpp"
+#include "random.hpp"
+
 #include "../game/entity/item/Item.hpp"
 #include "../game/entity/item/ALL.hpp"
 
@@ -119,7 +122,7 @@ namespace rr {
     }
 
     inline Item* getRandomItem(int amount = 1) {
-        int IDs[] {
+        int IDs[] = {
               1,   2,   3,   4,   5,   6,                                    // COINS
              10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22, // COLD WEAPON
              30,  31,  32,  33,  34,  35,  36,  37,  38,                     // BOOKS
@@ -129,7 +132,51 @@ namespace rr {
             140, 141, 142, 150, 151, 152, 160, 161, 162, 170, 171, 172,
             180, 181, 182 
         };
-        return getItemFromID(IDs[rand()%(sizeof(IDs)/sizeof(*IDs))], amount);
+        return getItemFromID(elementOf(IDs, sizeof(IDs)/sizeof(*IDs)), amount);
+    }
+
+    inline Item* getRandomItemBalanced() {
+        auto item = getRandomItem();
+
+        if (instanceof<Coin, Item>(item)) {
+            auto coin = (Coin*) item;
+
+            if (coin->size_ == Coin::SMALL) {
+                switch (coin->type_) {
+                    case Coin::BRONZE: coin->setAmount(rand() % 50 + 1); break;
+                    case Coin::SILVER: coin->setAmount(rand() % 10 + 1); break;
+                    case Coin::GOLDEN: coin->setAmount(rand() %  3 + 1); break;
+                }
+            }
+            else if (coin->size_ == Coin::BIG) {
+                switch (coin->type_) {
+                    case Coin::BRONZE: coin->setAmount(rand() % 10 + 1); break;
+                    case Coin::SILVER: coin->setAmount(rand() %  2 + 1); break;
+                    case Coin::GOLDEN: if (chance(0.75)) {
+                                           coin->type_ = (chance(1, 3)) ? Coin::BRONZE
+                                                                        : Coin::SILVER;
+                                           *coin = Coin(*coin);
+                                       } else coin->setAmount(1);        break;
+                }
+            }
+        }
+        else if (instanceof<Potion, Item>(item)) {
+            auto potion = (Potion*) item;
+
+            if (potion->effect_ == Potion::STRENGTH || Potion::DEXTERITY) {
+                int eff = rand() % 6;
+                switch (eff) {
+                    case 0: potion = new Potion(Potion::HEALING     , potion->size_); break;
+                    case 1: potion = new Potion(Potion::MAGIC       , potion->size_); break;
+                    case 2: potion = new Potion(Potion::SPEED       , potion->size_); break;
+                    case 3: potion = new Potion(Potion::REGENERATION, potion->size_); break;
+                    case 4: potion = new Potion(Potion::POISON      , potion->size_); break;
+                    case 5: potion = new Potion(Potion::SLOWNESS    , potion->size_); break;
+                }
+            }
+        }
+
+        return item;
     }
 
 }

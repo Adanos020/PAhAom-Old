@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/Level.cpp
+ * @file src/program/game/level/Level.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
@@ -7,13 +7,14 @@
 #include <iostream>
 #include <stack>
 
-#include "Game.hpp"
-#include "fov/FOV.hpp"
+#include "../fov/FOV.hpp"
 
-#include "../Resources.hpp"
+#include "../../Resources.hpp"
+#include "../../observer/Observer.hpp"
+#include "../../funcs/files.hpp"
+#include "../../funcs/items.hpp"
 
-#include "../funcs/files.hpp"
-#include "../funcs/items.hpp"
+#include "Level.hpp"
 
 extern rr::Subject subject;
 
@@ -21,6 +22,7 @@ namespace rr {
 
     Level::Level(int number) :
       size_         (sf::Vector2i(77, 43)),
+      shadowMap_    (size_               ),
       region_count_ (0                   ),
       levelNumber_  (number              )
     {
@@ -49,9 +51,9 @@ namespace rr {
         for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
             target.draw(**it);
         }
-        for (auto shadow : shadows_) {
-            target.draw(shadow);
-        }
+        
+        states = sf::RenderStates::Default;
+        target.draw(shadowMap_, states);
     }
 
     void Level::addEntity(Entity* e, sf::Vector2i position) {
@@ -117,10 +119,8 @@ namespace rr {
     }
 
     void Level::calculateFOV(sf::Vector2u origin, int range) {
-        for (int i=0; i<77*43; i++) {
-            shadows_[i].see(false);
-        }
-        FOV::compute(shadows_, tilesAsInts_, origin, range);
+        shadowMap_.darken();
+        FOV::compute(&shadowMap_, tilesAsInts_, origin, range);
     }
 
     void Level::generateWorld() {
@@ -182,12 +182,6 @@ namespace rr {
         for (int i=0; i<size_.x; ++i) {
             for (int j=0; j<size_.y; ++j) {
                 tilesAsInts_[i + j*size_.x] = tiles_[i + j*size_.x];
-            }
-        }
-     // ... and place the shadows. That's really it
-        for (int x=0; x<size_.x; ++x) {
-            for (int y=0; y<size_.y; ++y) {
-                shadows_[x + y*size_.x].setGridPosition(sf::Vector2i(x, y));
             }
         }
     }
@@ -579,7 +573,7 @@ namespace rr {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
-                    addEntity(getRandomItem(), sf::Vector2i(x, y));
+                    addEntity(getRandomItem/*Balanced*/(), sf::Vector2i(x, y));
                     tiles_[x+y*size_.x] = OCCUPIED;
                     toUnOccupy.push(sf::Vector2i(x, y));
                     break;
@@ -676,14 +670,7 @@ namespace rr {
                     case 11: entity = new Bandit      (); readEntity(file, entity); addEntity(entity); break;
                 }
             }
-            for (int i=0; i<77*43; ++i) { // load the shadows
-                shadows_[i] << file;
-            }
-            for (int x=0; x<77; ++x) {
-                for (int y=0; y<43; ++y) {
-                    shadows_[x + y*77].setGridPosition(sf::Vector2i(x, y));
-                }
-            }
+            shadowMap_ << file;
 
             for (int i=0; i<77*43; ++i) { // load the tiles
                 file >> tilesAsInts_[i];
@@ -708,9 +695,9 @@ namespace rr {
         for (auto entity=entities_.begin(); entity!=entities_.end(); ++entity) { // save the entities
             *(*entity) >> file << '\n';
         }
-        for (int i=0; i<77*43; ++i) {                 // save the shadows
-            shadows_[i] >> file << (((i+1)%77 == 0) ? '\n' : ' ');
-        }
+        
+        shadowMap_ >> file;
+        
         for (int i=0; i<77*43; ++i) {                 // save the tiles
             file << tiles_[i] << (((i+1)%77 == 0) ? '\n' : ' ');
         }

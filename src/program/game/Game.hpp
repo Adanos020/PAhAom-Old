@@ -11,7 +11,7 @@
 
 #include "ui/ALL.hpp"
 #include "entity/ALL.hpp"
-#include "Level.hpp"
+#include "level/Level.hpp"
 #include "../messages/MessageManager.hpp"
 
 namespace rr {

@@ -11,7 +11,6 @@
 #include "Door.hpp"
 #include "item/ALL.hpp"
 #include "Player.hpp"
-#include "Shadow.hpp"
 #include "Stairs.hpp"
 #include "npc/ALL.hpp"
 

@@ -202,9 +202,9 @@ namespace rr {
                                 if      (  instanceof<Equipable, Item>(item)
                                          ) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.equip"]);
                                 else if (  instanceof<Potion   , Item>(item)
-                                         ) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.drink"]);/*
+                                         ) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.drink"]);
                                 else if (  instanceof<Food     , Item>(item)
-                                         ) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.eat"]);*/
+                                         ) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.eat"]);
                                 else if (  instanceof<Book     , Item>(item)
                                          ) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.read"]);
                                 else       component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.use"]);
@@ -288,17 +288,17 @@ namespace rr {
          // first we recognize the coin type and size
             if (((Coin*)item)->type_ == Coin::BRONZE) {
                 if (  ((Coin*)item)->size_ == Coin::BIG
-                    ) bronze_ += item->getAmount()*10;
+                    ) bronze_ += item->getAmount()*5;
                 else  bronze_ += item->getAmount();
             }
             else if (((Coin*)item)->type_ == Coin::SILVER) {
                 if (  ((Coin*)item)->size_ == Coin::BIG
-                    ) silver_ += item->getAmount()*10;
+                    ) silver_ += item->getAmount()*5;
                 else  silver_ += item->getAmount();
             }
             else if (((Coin*)item)->type_ == Coin::GOLDEN) {
                 if (  ((Coin*)item)->size_ == Coin::BIG
-                    ) gold_ += item->getAmount()*10;
+                    ) gold_ += item->getAmount()*5;
                 else  gold_ += item->getAmount();
             }
 

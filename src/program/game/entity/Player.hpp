@@ -90,7 +90,7 @@ namespace rr {
 
              virtual bool          collides       (Entity* e)        const override { return e->getBounds().intersects(getBounds()); }
              virtual sf::FloatRect getBounds      ()                 const override { return body_.getGlobalBounds(); }
-             virtual sf::Vector2i  getGridPosition()                 const override { return (sf::Vector2i)body_.getPosition()/80; }
+             virtual sf::Vector2i  getGridPosition()                 const override { return position_; }
              virtual sf::Vector2f  getPosition    ()                 const override { return body_.getPosition(); }
 
          /// Moves the player's character's to a cell in a given direction

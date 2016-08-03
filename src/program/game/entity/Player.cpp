@@ -88,14 +88,18 @@ namespace rr {
                 position_ = sf::Vector2i(position_.x, position_.y+1);
                 moving_ = true;
             }
-            if (di == LEFT  && (tiles[position_.x-1 + position_.y*77] != 1 && tiles[position_.x-1 + position_.y*77] != 5)) {
-                position_ = sf::Vector2i(position_.x-1, position_.y);
-                moving_ = true;
+            if (di == LEFT) {
+                if (tiles[position_.x-1 + position_.y*77] != 1 && tiles[position_.x-1 + position_.y*77] != 5) {
+                    position_ = sf::Vector2i(position_.x-1, position_.y);
+                    moving_ = true;
+                }
                 currentAnimation_ = &walkingLeft_;
             }
-            if (di == RIGHT && (tiles[position_.x+1 + position_.y*77] != 1 && tiles[position_.x+1 + position_.y*77] != 5)) {
-                position_ = sf::Vector2i(position_.x+1, position_.y);
-                moving_ = true;
+            if (di == RIGHT) {
+                if (tiles[position_.x+1 + position_.y*77] != 1 && tiles[position_.x+1 + position_.y*77] != 5) {
+                    position_ = sf::Vector2i(position_.x+1, position_.y);
+                    moving_ = true;
+                }
                 currentAnimation_ = &walkingRight_;
             }
         }
@@ -152,7 +156,7 @@ namespace rr {
         int maxDamage = attrs_.strength;
         if (  coldWeapon_ != nullptr
             ) maxDamage = coldWeapon_->getDamageDealt() - (coldWeapon_->getStrengthRequired() - attrs_.strength);
-        
+
         npc->handleDamage(rand()%maxDamage);
     }
 

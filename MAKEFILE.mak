@@ -40,9 +40,9 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
 OUT_RELEASE = bin/Release/pahaom
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/src/program/game/ui/PauseMenu.o $(OBJDIR_DEBUG)/src/program/game/ui/MainMenu.o $(OBJDIR_DEBUG)/src/program/game/ui/Journal.o $(OBJDIR_DEBUG)/src/program/game/ui/Inventory.o $(OBJDIR_DEBUG)/src/program/game/ui/BookOfSpells.o $(OBJDIR_DEBUG)/src/program/gui/Bar.o $(OBJDIR_DEBUG)/src/program/game/ui/Attributes.o $(OBJDIR_DEBUG)/src/program/game/fov/FOV.o $(OBJDIR_DEBUG)/src/program/game/entity/npc/Bandit.o $(OBJDIR_DEBUG)/src/program/game/entity/npc/Teacher.o $(OBJDIR_DEBUG)/src/program/path_finder/PathFinder.o $(OBJDIR_DEBUG)/src/program/path_finder/PathFinder_Node.o $(OBJDIR_DEBUG)/src/program/observer/Observer.o $(OBJDIR_DEBUG)/src/program/messages/MessageManager.o $(OBJDIR_DEBUG)/src/program/messages/Message.o $(OBJDIR_DEBUG)/src/program/gui/Window.o $(OBJDIR_DEBUG)/src/program/gui/Text.o $(OBJDIR_DEBUG)/src/program/gui/Switch.o $(OBJDIR_DEBUG)/src/program/game/entity/item/Rune.o $(OBJDIR_DEBUG)/src/program/gui/Slot.o $(OBJDIR_DEBUG)/src/program/gui/ScrollBar.o $(OBJDIR_DEBUG)/src/program/gui/Menu.o $(OBJDIR_DEBUG)/src/program/gui/Image.o $(OBJDIR_DEBUG)/src/program/gui/Checkbox.o $(OBJDIR_DEBUG)/src/program/gui/Button.o $(OBJDIR_DEBUG)/src/program/game/Level.o $(OBJDIR_DEBUG)/src/program/game/ui/HUD.o $(OBJDIR_DEBUG)/src/program/game/Game.o $(OBJDIR_DEBUG)/src/program/Settings.o $(OBJDIR_DEBUG)/src/program/Resources.o $(OBJDIR_DEBUG)/src/program/Program.o $(OBJDIR_DEBUG)/src/main.o $(OBJDIR_DEBUG)/lib/Animation.o $(OBJDIR_DEBUG)/src/program/game/entity/item/Potion.o $(OBJDIR_DEBUG)/src/program/game/entity/item/Food.o $(OBJDIR_DEBUG)/src/program/game/entity/item/ColdWeapon.o $(OBJDIR_DEBUG)/src/program/game/entity/item/Coin.o $(OBJDIR_DEBUG)/src/program/game/entity/item/Book.o $(OBJDIR_DEBUG)/lib/AnimatedSprite.o $(OBJDIR_DEBUG)/src/program/game/entity/Stairs.o $(OBJDIR_DEBUG)/src/program/game/entity/Shadow.o $(OBJDIR_DEBUG)/src/program/game/entity/Player.o $(OBJDIR_DEBUG)/src/program/game/entity/Door.o $(OBJDIR_DEBUG)/src/program/game/entity/Chest.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/src/program/game/ui/PauseMenu.o $(OBJDIR_DEBUG)/src/program/game/ui/MainMenu.o $(OBJDIR_DEBUG)/src/program/game/ui/Journal.o $(OBJDIR_DEBUG)/src/program/game/ui/Inventory.o $(OBJDIR_DEBUG)/src/program/game/ui/BookOfSpells.o $(OBJDIR_DEBUG)/src/program/gui/Bar.o $(OBJDIR_DEBUG)/src/program/game/ui/Attributes.o $(OBJDIR_DEBUG)/src/program/game/fov/FOV.o $(OBJDIR_DEBUG)/src/program/game/entity/npc/Bandit.o $(OBJDIR_DEBUG)/src/program/game/entity/npc/Teacher.o $(OBJDIR_DEBUG)/src/program/path_finder/PathFinder.o $(OBJDIR_DEBUG)/src/program/path_finder/PathFinder_Node.o $(OBJDIR_DEBUG)/src/program/observer/Observer.o $(OBJDIR_DEBUG)/src/program/messages/MessageManager.o $(OBJDIR_DEBUG)/src/program/messages/Message.o $(OBJDIR_DEBUG)/src/program/gui/Window.o $(OBJDIR_DEBUG)/src/program/gui/Text.o $(OBJDIR_DEBUG)/src/program/gui/Switch.o $(OBJDIR_DEBUG)/src/program/game/entity/item/Rune.o $(OBJDIR_DEBUG)/src/program/gui/Slot.o $(OBJDIR_DEBUG)/src/program/gui/ScrollBar.o $(OBJDIR_DEBUG)/src/program/gui/Menu.o $(OBJDIR_DEBUG)/src/program/gui/Image.o $(OBJDIR_DEBUG)/src/program/gui/Checkbox.o $(OBJDIR_DEBUG)/src/program/gui/Button.o $(OBJDIR_DEBUG)/src/program/game/level/Level.o $(OBJDIR_DEBUG)/src/program/game/level/ShadowMap.o $(OBJDIR_DEBUG)/src/program/game/ui/HUD.o $(OBJDIR_DEBUG)/src/program/game/Game.o $(OBJDIR_DEBUG)/src/program/Settings.o $(OBJDIR_DEBUG)/src/program/Resources.o $(OBJDIR_DEBUG)/src/program/Program.o $(OBJDIR_DEBUG)/src/main.o $(OBJDIR_DEBUG)/lib/Animation.o $(OBJDIR_DEBUG)/src/program/game/entity/item/Potion.o $(OBJDIR_DEBUG)/src/program/game/entity/item/Food.o $(OBJDIR_DEBUG)/src/program/game/entity/item/ColdWeapon.o $(OBJDIR_DEBUG)/src/program/game/entity/item/Coin.o $(OBJDIR_DEBUG)/src/program/game/entity/item/Book.o $(OBJDIR_DEBUG)/lib/AnimatedSprite.o $(OBJDIR_DEBUG)/src/program/game/entity/Stairs.o $(OBJDIR_DEBUG)/src/program/game/entity/Player.o $(OBJDIR_DEBUG)/src/program/game/entity/Door.o $(OBJDIR_DEBUG)/src/program/game/entity/Chest.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/src/program/game/ui/PauseMenu.o $(OBJDIR_RELEASE)/src/program/game/ui/MainMenu.o $(OBJDIR_RELEASE)/src/program/game/ui/Journal.o $(OBJDIR_RELEASE)/src/program/game/ui/Inventory.o $(OBJDIR_RELEASE)/src/program/game/ui/BookOfSpells.o $(OBJDIR_RELEASE)/src/program/gui/Bar.o $(OBJDIR_RELEASE)/src/program/game/ui/Attributes.o $(OBJDIR_RELEASE)/src/program/game/fov/FOV.o $(OBJDIR_RELEASE)/src/program/game/entity/npc/Bandit.o $(OBJDIR_RELEASE)/src/program/game/entity/npc/Teacher.o $(OBJDIR_RELEASE)/src/program/path_finder/PathFinder.o $(OBJDIR_RELEASE)/src/program/path_finder/PathFinder_Node.o $(OBJDIR_RELEASE)/src/program/observer/Observer.o $(OBJDIR_RELEASE)/src/program/messages/MessageManager.o $(OBJDIR_RELEASE)/src/program/messages/Message.o $(OBJDIR_RELEASE)/src/program/gui/Window.o $(OBJDIR_RELEASE)/src/program/gui/Text.o $(OBJDIR_RELEASE)/src/program/gui/Switch.o $(OBJDIR_RELEASE)/src/program/game/entity/item/Rune.o $(OBJDIR_RELEASE)/src/program/gui/Slot.o $(OBJDIR_RELEASE)/src/program/gui/ScrollBar.o $(OBJDIR_RELEASE)/src/program/gui/Menu.o $(OBJDIR_RELEASE)/src/program/gui/Image.o $(OBJDIR_RELEASE)/src/program/gui/Checkbox.o $(OBJDIR_RELEASE)/src/program/gui/Button.o $(OBJDIR_RELEASE)/src/program/game/Level.o $(OBJDIR_RELEASE)/src/program/game/ui/HUD.o $(OBJDIR_RELEASE)/src/program/game/Game.o $(OBJDIR_RELEASE)/src/program/Settings.o $(OBJDIR_RELEASE)/src/program/Resources.o $(OBJDIR_RELEASE)/src/program/Program.o $(OBJDIR_RELEASE)/src/main.o $(OBJDIR_RELEASE)/lib/Animation.o $(OBJDIR_RELEASE)/src/program/game/entity/item/Potion.o $(OBJDIR_RELEASE)/src/program/game/entity/item/Food.o $(OBJDIR_RELEASE)/src/program/game/entity/item/ColdWeapon.o $(OBJDIR_RELEASE)/src/program/game/entity/item/Coin.o $(OBJDIR_RELEASE)/src/program/game/entity/item/Book.o $(OBJDIR_RELEASE)/lib/AnimatedSprite.o $(OBJDIR_RELEASE)/src/program/game/entity/Stairs.o $(OBJDIR_RELEASE)/src/program/game/entity/Shadow.o $(OBJDIR_RELEASE)/src/program/game/entity/Player.o $(OBJDIR_RELEASE)/src/program/game/entity/Door.o $(OBJDIR_RELEASE)/src/program/game/entity/Chest.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/src/program/game/ui/PauseMenu.o $(OBJDIR_RELEASE)/src/program/game/ui/MainMenu.o $(OBJDIR_RELEASE)/src/program/game/ui/Journal.o $(OBJDIR_RELEASE)/src/program/game/ui/Inventory.o $(OBJDIR_RELEASE)/src/program/game/ui/BookOfSpells.o $(OBJDIR_RELEASE)/src/program/gui/Bar.o $(OBJDIR_RELEASE)/src/program/game/ui/Attributes.o $(OBJDIR_RELEASE)/src/program/game/fov/FOV.o $(OBJDIR_RELEASE)/src/program/game/entity/npc/Bandit.o $(OBJDIR_RELEASE)/src/program/game/entity/npc/Teacher.o $(OBJDIR_RELEASE)/src/program/path_finder/PathFinder.o $(OBJDIR_RELEASE)/src/program/path_finder/PathFinder_Node.o $(OBJDIR_RELEASE)/src/program/observer/Observer.o $(OBJDIR_RELEASE)/src/program/messages/MessageManager.o $(OBJDIR_RELEASE)/src/program/messages/Message.o $(OBJDIR_RELEASE)/src/program/gui/Window.o $(OBJDIR_RELEASE)/src/program/gui/Text.o $(OBJDIR_RELEASE)/src/program/gui/Switch.o $(OBJDIR_RELEASE)/src/program/game/entity/item/Rune.o $(OBJDIR_RELEASE)/src/program/gui/Slot.o $(OBJDIR_RELEASE)/src/program/gui/ScrollBar.o $(OBJDIR_RELEASE)/src/program/gui/Menu.o $(OBJDIR_RELEASE)/src/program/gui/Image.o $(OBJDIR_RELEASE)/src/program/gui/Checkbox.o $(OBJDIR_RELEASE)/src/program/gui/Button.o $(OBJDIR_RELEASE)/src/program/game/level/ShadowMap.o $(OBJDIR_RELEASE)/src/program/game/level/Level.o $(OBJDIR_RELEASE)/src/program/game/ui/HUD.o $(OBJDIR_RELEASE)/src/program/game/Game.o $(OBJDIR_RELEASE)/src/program/Settings.o $(OBJDIR_RELEASE)/src/program/Resources.o $(OBJDIR_RELEASE)/src/program/Program.o $(OBJDIR_RELEASE)/src/main.o $(OBJDIR_RELEASE)/lib/Animation.o $(OBJDIR_RELEASE)/src/program/game/entity/item/Potion.o $(OBJDIR_RELEASE)/src/program/game/entity/item/Food.o $(OBJDIR_RELEASE)/src/program/game/entity/item/ColdWeapon.o $(OBJDIR_RELEASE)/src/program/game/entity/item/Coin.o $(OBJDIR_RELEASE)/src/program/game/entity/item/Book.o $(OBJDIR_RELEASE)/lib/AnimatedSprite.o $(OBJDIR_RELEASE)/src/program/game/entity/Stairs.o $(OBJDIR_RELEASE)/src/program/game/entity/Player.o $(OBJDIR_RELEASE)/src/program/game/entity/Door.o $(OBJDIR_RELEASE)/src/program/game/entity/Chest.o
 
 all: debug release
 
@@ -58,6 +58,7 @@ before_debug:
 	test -d $(OBJDIR_DEBUG)/src/program/path_finder || mkdir -p $(OBJDIR_DEBUG)/src/program/path_finder
 	test -d $(OBJDIR_DEBUG)/src/program/messages || mkdir -p $(OBJDIR_DEBUG)/src/program/messages
 	test -d $(OBJDIR_DEBUG)/src/program/game/entity/item || mkdir -p $(OBJDIR_DEBUG)/src/program/game/entity/item
+	test -d $(OBJDIR_DEBUG)/src/program/game/level || mkdir -p $(OBJDIR_DEBUG)/src/program/game/level
 	test -d $(OBJDIR_DEBUG)/src/program/game || mkdir -p $(OBJDIR_DEBUG)/src/program/game
 	test -d $(OBJDIR_DEBUG)/src/program || mkdir -p $(OBJDIR_DEBUG)/src/program
 	test -d $(OBJDIR_DEBUG)/src || mkdir -p $(OBJDIR_DEBUG)/src
@@ -146,8 +147,11 @@ $(OBJDIR_DEBUG)/src/program/gui/Checkbox.o: src/program/gui/Checkbox.cpp
 $(OBJDIR_DEBUG)/src/program/gui/Button.o: src/program/gui/Button.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/gui/Button.cpp -o $(OBJDIR_DEBUG)/src/program/gui/Button.o
 
-$(OBJDIR_DEBUG)/src/program/game/Level.o: src/program/game/Level.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/Level.cpp -o $(OBJDIR_DEBUG)/src/program/game/Level.o
+$(OBJDIR_DEBUG)/src/program/game/level/Level.o: src/program/game/level/Level.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/level/Level.cpp -o $(OBJDIR_DEBUG)/src/program/game/level/Level.o
+
+$(OBJDIR_DEBUG)/src/program/game/level/ShadowMap.o: src/program/game/level/ShadowMap.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/level/ShadowMap.cpp -o $(OBJDIR_DEBUG)/src/program/game/level/ShadowMap.o
 
 $(OBJDIR_DEBUG)/src/program/game/ui/HUD.o: src/program/game/ui/HUD.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/ui/HUD.cpp -o $(OBJDIR_DEBUG)/src/program/game/ui/HUD.o
@@ -191,9 +195,6 @@ $(OBJDIR_DEBUG)/lib/AnimatedSprite.o: lib/AnimatedSprite.cpp
 $(OBJDIR_DEBUG)/src/program/game/entity/Stairs.o: src/program/game/entity/Stairs.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entity/Stairs.cpp -o $(OBJDIR_DEBUG)/src/program/game/entity/Stairs.o
 
-$(OBJDIR_DEBUG)/src/program/game/entity/Shadow.o: src/program/game/entity/Shadow.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entity/Shadow.cpp -o $(OBJDIR_DEBUG)/src/program/game/entity/Shadow.o
-
 $(OBJDIR_DEBUG)/src/program/game/entity/Player.o: src/program/game/entity/Player.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/program/game/entity/Player.cpp -o $(OBJDIR_DEBUG)/src/program/game/entity/Player.o
 
@@ -230,6 +231,7 @@ before_release:
 	test -d $(OBJDIR_RELEASE)/src/program/path_finder || mkdir -p $(OBJDIR_RELEASE)/src/program/path_finder
 	test -d $(OBJDIR_RELEASE)/src/program/messages || mkdir -p $(OBJDIR_RELEASE)/src/program/messages
 	test -d $(OBJDIR_RELEASE)/src/program/game/entity/item || mkdir -p $(OBJDIR_RELEASE)/src/program/game/entity/item
+	test -d $(OBJDIR_RELEASE)/src/program/game/level || mkdir -p $(OBJDIR_RELEASE)/src/program/game/level
 	test -d $(OBJDIR_RELEASE)/src/program/game || mkdir -p $(OBJDIR_RELEASE)/src/program/game
 	test -d $(OBJDIR_RELEASE)/src/program || mkdir -p $(OBJDIR_RELEASE)/src/program
 	test -d $(OBJDIR_RELEASE)/src || mkdir -p $(OBJDIR_RELEASE)/src
@@ -318,8 +320,11 @@ $(OBJDIR_RELEASE)/src/program/gui/Checkbox.o: src/program/gui/Checkbox.cpp
 $(OBJDIR_RELEASE)/src/program/gui/Button.o: src/program/gui/Button.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/gui/Button.cpp -o $(OBJDIR_RELEASE)/src/program/gui/Button.o
 
-$(OBJDIR_RELEASE)/src/program/game/Level.o: src/program/game/Level.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/Level.cpp -o $(OBJDIR_RELEASE)/src/program/game/Level.o
+$(OBJDIR_RELEASE)/src/program/game/level/Level.o: src/program/game/level/Level.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/level/Level.cpp -o $(OBJDIR_RELEASE)/src/program/game/level/Level.o
+
+$(OBJDIR_RELEASE)/src/program/game/level/ShadowMap.o: src/program/game/level/ShadowMap.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/level/ShadowMap.cpp -o $(OBJDIR_RELEASE)/src/program/game/level/ShadowMap.o
 
 $(OBJDIR_RELEASE)/src/program/game/ui/HUD.o: src/program/game/ui/HUD.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/ui/HUD.cpp -o $(OBJDIR_RELEASE)/src/program/game/ui/HUD.o
@@ -362,9 +367,6 @@ $(OBJDIR_RELEASE)/lib/AnimatedSprite.o: lib/AnimatedSprite.cpp
 
 $(OBJDIR_RELEASE)/src/program/game/entity/Stairs.o: src/program/game/entity/Stairs.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entity/Stairs.cpp -o $(OBJDIR_RELEASE)/src/program/game/entity/Stairs.o
-
-$(OBJDIR_RELEASE)/src/program/game/entity/Shadow.o: src/program/game/entity/Shadow.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entity/Shadow.cpp -o $(OBJDIR_RELEASE)/src/program/game/entity/Shadow.o
 
 $(OBJDIR_RELEASE)/src/program/game/entity/Player.o: src/program/game/entity/Player.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/program/game/entity/Player.cpp -o $(OBJDIR_RELEASE)/src/program/game/entity/Player.o
