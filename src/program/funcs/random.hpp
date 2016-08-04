@@ -8,6 +8,7 @@
 #define FUNCS_RANDOM_HPP
 
 #include <cstdlib>
+#include <vector>
 
 namespace rr {
 
@@ -20,7 +21,18 @@ namespace rr {
 /// To make it work you need to pass the percentage as a number in range between 0 and 1
 /// eg. 15.27% = 0.1527
     inline bool chance(double percentage) {
-        return false;
+        percentage *= 100000000;
+        return rand()%100000000 < (int)percentage;
+    }
+
+/// This function returns a random element of a given array
+    template <typename T> inline T elementOf(T arr[], int size) {
+        return arr[rand()%size];
+    }
+
+/// This function returns a random element of a given vector
+    template <typename T> inline T elementOf(std::vector<T> vec) {
+        return vec[rand()%vec.size()];
     }
 
 }

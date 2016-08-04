@@ -13,7 +13,7 @@ namespace rr {
 
     class Rune : public Discoverable {
     private: virtual void           initialize     ()                  override;
-    
+
     public:  enum Type {
                  HEAL,
                  FIREBOLT,
@@ -28,23 +28,23 @@ namespace rr {
                  UNCURSE,
                  TELEKINESIS
              } type_;
-         
+
              static bool identified_[12];
-         
+
              Rune(Type = HEAL, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
              Rune(Rune const&);
-         
+
              virtual Entity*        clone          ()            const override { return new Rune(*this); }
 
              virtual void           reveal         ()                  override { identified_[type_] = true; }
              virtual bool           isDiscovered   ()            const override { return identified_[type_]; }
-         
+
              virtual sf::String     getName        ()            const override;
              virtual sf::String     getDescription ()            const override;
-         
+
              void                   setGridPosition(sf::Vector2i)      override;
              void                   setPosition    (sf::Vector2f)      override;
-         
+
              virtual std::ifstream& operator<<     (std::ifstream&)    override;
              virtual std::ofstream& operator>>     (std::ofstream&)    override;
     };

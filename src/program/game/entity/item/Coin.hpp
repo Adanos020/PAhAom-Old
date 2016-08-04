@@ -27,7 +27,7 @@ namespace rr {
              Coin(Type = GOLDEN, Size = SMALL, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
              Coin(Coin const&);
          
-             virtual Entity*        clone     ()                                    const override { return new Coin(*this); }
+             virtual Entity*        clone          ()                               const override { return new Coin(*this); }
          
              virtual sf::String     getName        ()                               const override;
              virtual sf::String     getDescription ()                               const override;

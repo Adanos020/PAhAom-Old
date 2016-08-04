@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/Level.hpp
+ * @file src/program/game/level/Level.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
@@ -9,11 +9,12 @@
 
 #include <list>
 
-#include "../observer/Observer.hpp"
+#include "../../observer/Observer.hpp"
 
-#include "Game.hpp"
+#include "../Game.hpp"
 
-#include "entity/Player.hpp"
+#include "ShadowMap.hpp"
+#include "../entity/Player.hpp"
 
 namespace rr {
 
@@ -43,13 +44,12 @@ namespace rr {
              void                 update          (Game*, sf::Time);
  
              void                 calculateFOV    (sf::Vector2u origin, int range);
- 
-             Shadow*              getShadows      ()                        { return shadows_      ; }
+
              sf::Vector2i         getStartingPoint()                  const { return startingPoint_; }
              sf::Vector2i         getEndingPoint  ()                  const { return endingPoint_  ; }
              int*                 getTiles        ()                        { return tilesAsInts_  ; }
              Cell*                getTilesAsCells ()                        { return tiles_        ; }
- 
+
              std::ifstream&       operator<<      (std::ifstream&);
              std::ofstream&       operator>>      (std::ofstream&);
     
@@ -71,7 +71,7 @@ namespace rr {
              int                      regions_    [77*43];
              int                      tilesAsInts_[77*43];
              Cell                     tiles_      [77*43];
-             Shadow                   shadows_    [77*43];
+             ShadowMap                shadowMap_;
              std::list<Entity*>       entities_;
              std::vector<sf::IntRect> rooms_;
              int                      region_count_;

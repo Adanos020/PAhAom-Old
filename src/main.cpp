@@ -15,6 +15,7 @@ int         spellSymbols[12];
 
 int main() {
     auto p = new rr::Program();
+    
     delete p;
     
     return EXIT_SUCCESS;

@@ -59,7 +59,7 @@ namespace rr {
 
             case ITEM_PICKED       : addMessage(Message(Resources::dictionary["message.item_picked"]
                                                        +sf::String(" ")
-                                                       +std::to_string((instanceof<Coin, Item>((Item*)entity) && ((Coin*)entity)->size_ == Coin::BIG) ? 10*((Item*)entity)->getAmount() : ((Item*)entity)->getAmount())
+                                                       +std::to_string((instanceof<Coin, Item>((Item*)entity) && ((Coin*)entity)->size_ == Coin::BIG) ? 5*((Item*)entity)->getAmount() : ((Item*)entity)->getAmount())
                                                        +sf::String("x ")
                                                        +((Item*)entity)->getName()
                                                        +((Settings::game.language != "fc") ? sf::String("!") : sf::String(""))));
