@@ -262,13 +262,14 @@ namespace rr {
     }
 
     void Game::update(sf::Event& event, sf::Time time) {
+
         controls(event);
 
         player_        .update(time);
         hud_           .update(&player_, levelNumber_+1);
         messageManager_.update(time);
 
-        gameView_.setCenter(sf::Vector2f(player_.getBounds().left+16, player_.getBounds().top+16));
+        gameView_.setCenter(sf::Vector2f(player_.getBounds().left+40, player_.getBounds().top+40));
 
         if (!paused_) {
             currentLevel_->update(this, time);

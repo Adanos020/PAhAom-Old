@@ -12,7 +12,7 @@
 namespace rr {
     
     void FOV::compute(ShadowMap* shadows, int tiles[], sf::Vector2u origin, int range) {
-        shadows->setLit((sf::Vector2i) origin);
+        shadows->setLit(origin.x, origin.y);
         for (unsigned octant = 0; octant < 8; octant++) {
             compute(shadows, tiles, octant, origin, 2*range, 1, Slope(1, 1), Slope(0, 1));
         }
@@ -129,7 +129,7 @@ namespace rr {
             case 6: nx += y; ny += x; break;
             case 7: nx += x; ny += y; break;
         }
-        shadows->setLit(sf::Vector2i(nx, ny));
+        shadows->setLit(nx, ny);
     }
 
     int FOV::getDistance(int x, int y) {
