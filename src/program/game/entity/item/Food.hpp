@@ -21,8 +21,7 @@ namespace rr {
                  BEER,
                  HOT_DOG,
                  HAMBURGER,
-                 BAGUETTE,
-                 DUMPLING
+                 BAGUETTE
              } type_;
     
              Food(Type = MEAT, int amount = 1, sf::Vector2i position = sf::Vector2i(0, 0));
