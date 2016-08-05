@@ -54,7 +54,7 @@ namespace rr {
             case HOT_DOG  : return Resources::dictionary["item.food.name.hot_dog"  ];
             case HAMBURGER: return Resources::dictionary["item.food.name.hamburger"];
             case BAGUETTE : return Resources::dictionary["item.food.name.baguette" ];
-            case DUMPLING : return Resources::dictionary["item.food.name.dumpling" ];
+         // case DUMPLING : return Resources::dictionary["item.food.name.dumpling" ];
         }
         return "";
     }
@@ -68,7 +68,7 @@ namespace rr {
             case HOT_DOG  : return Resources::dictionary["item.food.description.hot_dog"  ];
             case HAMBURGER: return Resources::dictionary["item.food.description.hamburger"];
             case BAGUETTE : return Resources::dictionary["item.food.description.baguette" ];
-            case DUMPLING : return Resources::dictionary["item.food.description.dumpling" ];
+         // case DUMPLING : return Resources::dictionary["item.food.description.dumpling" ];
         }
         return "";
     }

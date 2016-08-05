@@ -17,6 +17,7 @@ namespace rr {
              bool         discovered_[77*43];
 
              void           fillCell   (int x, int y, sf::Color);
+             bool           isFilled   (int x, int y, sf::Color);
 
              virtual void   draw       (sf::RenderTarget&, sf::RenderStates) const;
 
