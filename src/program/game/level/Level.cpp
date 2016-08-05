@@ -47,12 +47,12 @@ namespace rr {
         states.transform *= getTransform();
         states.texture = &Resources::texture.tileset;
         target.draw(tilemap_, states);
+        
+        states = sf::RenderStates::Default;
 
         for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
             target.draw(**it);
         }
-        
-        states = sf::RenderStates::Default;
         target.draw(shadowMap_, states);
     }
 
