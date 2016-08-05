@@ -35,6 +35,10 @@ namespace rr {
     }
 
     bool ShadowMap::isFilled(int x, int y, sf::Color probe) {
+        if (  x < 0 || x > size_.x-1
+           || y < 0 || y > size_.y-1
+            ) return false;
+
         int tx = 3*x, ty = 3*y;
 
         bool filled = true;
