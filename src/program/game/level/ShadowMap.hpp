@@ -12,20 +12,21 @@
 namespace rr {
 
     class ShadowMap : public sf::Drawable {
-    private: sf::VertexArray shadows_;
-             sf::Vector2i    size_;
-             bool            discovered_[77*43];
+    private: sf::Image    shadows_;
+             sf::Vector2i size_;
+             bool         discovered_[77*43];
 
-             virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
-    
-    public:  ShadowMap(sf::Vector2i size);
+             void           fillCell   (int x, int y, sf::Color);
 
-             void           setLit      (int x, int y);
-             void           darken      ();
-             bool           isDiscovered(int x, int y) const { return discovered_[x + y*size_.x]; }
+             virtual void   draw       (sf::RenderTarget&, sf::RenderStates) const;
 
-             std::ifstream& operator<<  (std::ifstream&);
-             std::ofstream& operator>>  (std::ofstream&);
+    public:  void           setLit     (int x, int y);
+             void           darken     ();
+
+             std::ifstream& operator<< (std::ifstream&);
+             std::ofstream& operator>> (std::ofstream&);
+
+             ShadowMap(sf::Vector2i size);
     };
 
 }
