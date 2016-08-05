@@ -16,7 +16,6 @@ namespace rr {
     Resources::Font                  Resources::font;
     Resources::Texture               Resources::texture;
     Resources::Music                 Resources::music;
-    Resources::Shader                Resources::shader;
     std::map<sf::String, sf::String> Resources::dictionary;
 
     bool Resources::load() {
@@ -29,9 +28,7 @@ namespace rr {
              && texture.tileset         .loadFromFile("data/graphics/tileset.png")
              && texture.objects         .loadFromFile("data/graphics/objects.png")
              && texture.npc             .loadFromFile("data/graphics/npc.png")
-             && texture.enemies         .loadFromFile("data/graphics/enemies.png")
-             && shader .shadowSmoothener.loadFromFile("data/shader/shadow_smoothener.vs",
-                                                      "data/shader/shadow_smoothener.frag"));
+             && texture.enemies         .loadFromFile("data/graphics/enemies.png"));
     }
 
     bool Resources::loadDict() {

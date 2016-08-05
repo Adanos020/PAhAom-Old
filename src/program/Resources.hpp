@@ -35,10 +35,6 @@ namespace rr {
                     sf::Music boss;
             } music;
 
-            static struct Shader {
-            public: sf::Shader shadowSmoothener;
-            } shader;
-
             static std::map<sf::String, sf::String> dictionary;
 
         /// Separate method loading the dictionary

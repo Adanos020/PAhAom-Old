@@ -406,7 +406,7 @@ namespace rr {
                     case CHASM: tileNumber = 0;
                                 break;
 
-                    case WALL : tileNumber = rand()%14+2;
+                    case WALL : tileNumber = 8;
                                 enum Neighbour {
                                     NONE,
                                     TOP, BOTTOM, LEFT, RIGHT,
