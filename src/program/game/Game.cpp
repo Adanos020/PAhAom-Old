@@ -262,7 +262,6 @@ namespace rr {
     }
 
     void Game::update(sf::Event& event, sf::Time time) {
-
         controls(event);
 
         player_        .update(time);
@@ -271,7 +270,7 @@ namespace rr {
 
         gameView_.setCenter(sf::Vector2f(player_.getBounds().left+40, player_.getBounds().top+40));
 
-        if (!paused_) {
+        if (started_ && !paused_) {
             currentLevel_->update(this, time);
             currentLevel_->calculateFOV((sf::Vector2u)player_.getGridPosition(), player_.getSightRange());
         }
