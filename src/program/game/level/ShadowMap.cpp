@@ -16,25 +16,44 @@ namespace rr {
     ShadowMap::ShadowMap(sf::Vector2i size) :
       size_(size)
     {
-        shadows_.create(3*size_.x, 3*size_.y, sf::Color::Black);
+        shadowTexture_.create(3*size_.x, 3*size_.y);
+        shadowTexture_.setSmooth(true);
 
         for (int i=0; i<size.x*size.y; ++i) {
             discovered_[i] = false;
         }
     }
 
-    void ShadowMap::fillCell(int x, int y, sf::Color c) {
+    void ShadowMap::setColor(int x, int y, sf::Uint8 r, sf::Uint8 g, sf::Uint8 b, sf::Uint8 a) {
+        shadows_[4*(x + y*size_.x) + 0] = r;
+        shadows_[4*(x + y*size_.x) + 1] = g;
+        shadows_[4*(x + y*size_.x) + 2] = b;
+        shadows_[4*(x + y*size_.x) + 3] = a;
+    }
+
+    sf::Color ShadowMap::getColor(int x, int y) const {
+        sf::Color c;
+
+        c.r = shadows_[4*(x + y*size_.x) + 0];
+        c.g = shadows_[4*(x + y*size_.x) + 1];
+        c.b = shadows_[4*(x + y*size_.x) + 2];
+        c.a = shadows_[4*(x + y*size_.x) + 3];
+
+        return c;
+    }
+
+    void ShadowMap::fillCell(int x, int y, sf::Uint8 r, sf::Uint8 g, sf::Uint8 b, sf::Uint8 a) {
         x *= 3; // setting the pixel coordinates to
         y *= 3; // the top-left edge of the cell
 
         for (int i=0; i<3; ++i) {
             for (int j=0; j<3; ++j) {
-                shadows_.setPixel(x+i, y+j, c);
+                setColor(x+i, y+j, r, g, b, a);
             }
         }
     }
 
-    bool ShadowMap::isFilled(int x, int y, sf::Color probe) {
+    bool ShadowMap::isFilled(int x, int y, sf::Uint8 r, sf::Uint8 g, sf::Uint8 b, sf::Uint8 a) const {
         if (  x < 0 || x > size_.x-1
            || y < 0 || y > size_.y-1
             ) return false;
@@ -45,7 +64,7 @@ namespace rr {
 
         for (int i=0; i<3; ++i) {
             for (int j=0; j<3; ++j) {
-                if (shadows_.getPixel(tx+i, ty+j) != probe) {
+                if (getColor(tx+i, ty+j) != sf::Color(r, g, b, a)) {
                     filled = false;
                     break;
                 } 
@@ -56,11 +75,9 @@ namespace rr {
     }
 
     void ShadowMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        sf::Texture stt;
-        stt.loadFromImage(shadows_);
-        stt.setSmooth(true);
-        
-        sf::Sprite sts(stt);
+        shadowTexture_.update(shadows_);
+
+        sf::Sprite sts(shadowTexture_);
         sts.setScale(80.f/3.f, 80.f/3.f);
 
         target.draw(sts, states);
@@ -71,78 +88,78 @@ namespace rr {
 
         int tx = 3*x + 1, ty = 3*y + 1;
 
-        shadows_.setPixel(tx, ty, sf::Color::Transparent);
+        setColor(tx, ty, 0, 0, 0, 0);
 
         if (x < size_.x-1) {
             if (y > 0) {
-                if (shadows_.getPixel(tx+3, ty-3) == sf::Color::Transparent) {  // TOP RIGHT
-                    shadows_.setPixel(tx+1, ty-1,    sf::Color::Transparent);
-                    shadows_.setPixel(tx+1,  ty ,    sf::Color::Transparent);
-                    shadows_.setPixel( tx , ty-1,    sf::Color::Transparent);
+                if (getColor(tx+3, ty-3) == sf::Color::Transparent) {  // TOP RIGHT
+                    setColor(tx+1, ty-1, 0, 0, 0, 0);
+                    setColor(tx+1,  ty , 0, 0, 0, 0);
+                    setColor( tx , ty-1, 0, 0, 0, 0);
 
-                    shadows_.setPixel(tx+2, ty-2,    sf::Color::Transparent);
+                    setColor(tx+2, ty-2, 0, 0, 0, 0);
                 }
             }
 
             if (y < size_.y-1) {
-                if (shadows_.getPixel(tx+3, ty+3) == sf::Color::Transparent) {  // BOTTOM RIGHT
-                    shadows_.setPixel(tx+1, ty+1,    sf::Color::Transparent);
-                    shadows_.setPixel(tx+1,  ty ,    sf::Color::Transparent);
-                    shadows_.setPixel( tx , ty+1,    sf::Color::Transparent);
+                if (getColor(tx+3, ty+3) == sf::Color::Transparent) {  // BOTTOM RIGHT
+                    setColor(tx+1, ty+1, 0, 0, 0, 0);
+                    setColor(tx+1,  ty , 0, 0, 0, 0);
+                    setColor( tx , ty+1, 0, 0, 0, 0);
 
-                    shadows_.setPixel(tx+2, ty+2,    sf::Color::Transparent);
+                    setColor(tx+2, ty+2, 0, 0, 0, 0);
                 }
             }
 
-            if (shadows_.getPixel(tx+3, ty) == sf::Color::Transparent) {        // RIGHT
-                shadows_.setPixel(tx+1, ty,    sf::Color::Transparent);
-                shadows_.setPixel(tx+2, ty,    sf::Color::Transparent);
+            if (getColor(tx+3, ty) == sf::Color::Transparent) {        // RIGHT
+                setColor(tx+1, ty, 0, 0, 0, 0);
+                setColor(tx+2, ty, 0, 0, 0, 0);
             }
         }
 
         if (x > 0) {
             if (y > 0) {
-                if (shadows_.getPixel(tx-3, ty-3) == sf::Color::Transparent) {  // TOP LEFT
-                    shadows_.setPixel(tx-1, ty-1,    sf::Color::Transparent);
-                    shadows_.setPixel(tx-1,  ty ,    sf::Color::Transparent);
-                    shadows_.setPixel( tx , ty-1,    sf::Color::Transparent);
+                if (getColor(tx-3, ty-3) == sf::Color::Transparent) {  // TOP LEFT
+                    setColor(tx-1, ty-1, 0, 0, 0, 0);
+                    setColor(tx-1,  ty , 0, 0, 0, 0);
+                    setColor( tx , ty-1, 0, 0, 0, 0);
 
-                    shadows_.setPixel(tx-2, ty-2,    sf::Color::Transparent);
+                    setColor(tx-2, ty-2, 0, 0, 0, 0);
                 }
             }
 
             if (y < size_.y-1) {
-                if (shadows_.getPixel(tx-3, ty+3) == sf::Color::Transparent) {  // BOTTOM LEFT
-                    shadows_.setPixel(tx-1, ty+1,    sf::Color::Transparent);
-                    shadows_.setPixel(tx-1,  ty ,    sf::Color::Transparent);
-                    shadows_.setPixel( tx , ty+1,    sf::Color::Transparent);
+                if (getColor(tx-3, ty+3) == sf::Color::Transparent) {  // BOTTOM LEFT
+                    setColor(tx-1, ty+1, 0, 0, 0, 0);
+                    setColor(tx-1,  ty , 0, 0, 0, 0);
+                    setColor( tx , ty+1, 0, 0, 0, 0);
 
-                    shadows_.setPixel(tx-2, ty+2,    sf::Color::Transparent);
+                    setColor(tx-2, ty+2, 0, 0, 0, 0);
                 }
             }
 
-            if (shadows_.getPixel(tx-3, ty) == sf::Color::Transparent) {        // LEFT
-                shadows_.setPixel(tx-1, ty,    sf::Color::Transparent);
-                shadows_.setPixel(tx-2, ty,    sf::Color::Transparent);
+            if (getColor(tx-3, ty) == sf::Color::Transparent) {        // LEFT
+                setColor(tx-1, ty, 0, 0, 0, 0);
+                setColor(tx-2, ty, 0, 0, 0, 0);
             }
         }
 
         if (y > 0) {
-            if (shadows_.getPixel(tx  , ty-3) == sf::Color::Transparent) {      // TOP
-                shadows_.setPixel(tx  , ty-1,    sf::Color::Transparent);
-                shadows_.setPixel(tx  , ty-2,    sf::Color::Transparent);
+            if (getColor(tx  , ty-3) == sf::Color::Transparent) {      // TOP
+                setColor(tx  , ty-1, 0, 0, 0, 0);
+                setColor(tx  , ty-2, 0, 0, 0, 0);
             }
         }
 
         if (y < size_.y-1) {
-            if (shadows_.getPixel(tx  , ty+3) == sf::Color::Transparent) {      // BOTTOM
-                shadows_.setPixel(tx  , ty+1,    sf::Color::Transparent);
-                shadows_.setPixel(tx  , ty+2,    sf::Color::Transparent);
+            if (getColor(tx  , ty+3) == sf::Color::Transparent) {      // BOTTOM
+                setColor(tx  , ty+1, 0, 0, 0, 0);
+                setColor(tx  , ty+2, 0, 0, 0, 0);
             }
         }
 
 // CORRECTING THE FINAL SHAPE OF THE SHADOWS
-
+/*
         if (  isFilled(x, y, sf::Color::Transparent)
             ) return;
 
@@ -155,7 +172,7 @@ namespace rr {
            && isFilled(x-1, y+1, sf::Color::Transparent)
            && isFilled(x-1,  y , sf::Color::Transparent)
             ) return;
-
+*/
         std::vector<char> neighbors;
         if (x > 0) {
             if (  y > 0
@@ -196,46 +213,48 @@ namespace rr {
                 case 8: tx = 3*(x-1) + 1; ty = 3*( y ) + 1; break;              // LEFT
             }
 
-            if (  shadows_.getPixel(tx-1,  ty ) == sf::Color::Transparent       // IF LEFT
-               && shadows_.getPixel( tx , ty-1) == sf::Color::Transparent       // AND TOP ARE TRANSPARENT
-                ) shadows_.setPixel(tx-1, ty-1,    sf::Color::Transparent);     // THEN SET TOP LEFT TO TRANSPARENT
+            if (  getColor(tx-1,  ty ) == sf::Color::Transparent       // IF LEFT
+               && getColor( tx , ty-1) == sf::Color::Transparent       // AND TOP ARE TRANSPARENT
+                ) setColor(tx-1, ty-1, 0, 0, 0, 0);                    // THEN SET TOP LEFT TO TRANSPARENT
 
-            if (  shadows_.getPixel(tx-1,  ty ) == sf::Color::Transparent       // IF LEFT
-               && shadows_.getPixel( tx , ty+1) == sf::Color::Transparent       // AND BOTTOM ARE TRANSPARENT
-                ) shadows_.setPixel(tx-1, ty+1,    sf::Color::Transparent);     // THEN SET BOTTOM LEFT TO TRANSPARENT
+            if (  getColor(tx-1,  ty ) == sf::Color::Transparent       // IF LEFT
+               && getColor( tx , ty+1) == sf::Color::Transparent       // AND BOTTOM ARE TRANSPARENT
+                ) setColor(tx-1, ty+1, 0, 0, 0, 0);                    // THEN SET BOTTOM LEFT TO TRANSPARENT
 
-            if (  shadows_.getPixel(tx+1,  ty ) == sf::Color::Transparent       // IF RIGHT
-               && shadows_.getPixel( tx , ty-1) == sf::Color::Transparent       // AND TOP ARE TRANSPARENT
-                ) shadows_.setPixel(tx+1, ty-1,    sf::Color::Transparent);     // THEN SET TOP RIGHT TO TRANSPARENT
+            if (  getColor(tx+1,  ty ) == sf::Color::Transparent       // IF RIGHT
+               && getColor( tx , ty-1) == sf::Color::Transparent       // AND TOP ARE TRANSPARENT
+                ) setColor(tx+1, ty-1, 0, 0, 0, 0);                    // THEN SET TOP RIGHT TO TRANSPARENT
 
-            if (  shadows_.getPixel(tx+1,  ty ) == sf::Color::Transparent       // IF RIGHT
-               && shadows_.getPixel( tx , ty+1) == sf::Color::Transparent       // AND BOTTOM ARE TRANSPARENT
-                ) shadows_.setPixel(tx+1, ty+1,    sf::Color::Transparent);     // THEN SET BOTTOM RIGHT TO TRANSPARENT
+            if (  getColor(tx+1,  ty ) == sf::Color::Transparent       // IF RIGHT
+               && getColor( tx , ty+1) == sf::Color::Transparent       // AND BOTTOM ARE TRANSPARENT
+                ) setColor(tx+1, ty+1, 0, 0, 0, 0);                    // THEN SET BOTTOM RIGHT TO TRANSPARENT
 
-            if (  shadows_.getPixel(tx-1, ty-1) == sf::Color::Transparent       // IF TOP LEFT
-               && shadows_.getPixel(tx-1, ty+1) == sf::Color::Transparent       // AND BOTTOM LEFT ARE TRANSPARENT
-                ) shadows_.setPixel(tx-1,  ty ,    sf::Color::Transparent);     // THEN SET LEFT TO TRANSPARENT
+            if (  getColor(tx-1, ty-1) == sf::Color::Transparent       // IF TOP LEFT
+               && getColor(tx-1, ty+1) == sf::Color::Transparent       // AND BOTTOM LEFT ARE TRANSPARENT
+                ) setColor(tx-1,  ty , 0, 0, 0, 0);                    // THEN SET LEFT TO TRANSPARENT
 
-            if (  shadows_.getPixel(tx-1, ty-1) == sf::Color::Transparent       // IF TOP LEFT
-               && shadows_.getPixel(tx+1, ty-1) == sf::Color::Transparent       // AND TOP RIGHT ARE TRANSPARENT
-                ) shadows_.setPixel( tx , ty-1,    sf::Color::Transparent);     // THEN SET TOP TO TRANSPARENT
+            if (  getColor(tx-1, ty-1) == sf::Color::Transparent       // IF TOP LEFT
+               && getColor(tx+1, ty-1) == sf::Color::Transparent       // AND TOP RIGHT ARE TRANSPARENT
+                ) setColor( tx , ty-1, 0, 0, 0, 0);                    // THEN SET TOP TO TRANSPARENT
 
-            if (  shadows_.getPixel(tx+1, ty+1) == sf::Color::Transparent       // IF BOTTOM RIGHT
-               && shadows_.getPixel(tx+1, ty-1) == sf::Color::Transparent       // AND TOP RIGHT ARE TRANSPARENT
-                ) shadows_.setPixel(tx+1,  ty ,    sf::Color::Transparent);     // THEN SET RIGHT TO TRANSPARENT
+            if (  getColor(tx+1, ty+1) == sf::Color::Transparent       // IF BOTTOM RIGHT
+               && getColor(tx+1, ty-1) == sf::Color::Transparent       // AND TOP RIGHT ARE TRANSPARENT
+                ) setColor(tx+1,  ty , 0, 0, 0, 0);                    // THEN SET RIGHT TO TRANSPARENT
 
-            if (  shadows_.getPixel(tx+1, ty+1) == sf::Color::Transparent       // IF BOTTOM RIGHT
-               && shadows_.getPixel(tx-1, ty+1) == sf::Color::Transparent       // AND BOTTOM LEFT ARE TRANSPARENT
-                ) shadows_.setPixel( tx , ty+1,    sf::Color::Transparent);     // THEN SET BOTTOM TO TRANSPARENT
+            if (  getColor(tx+1, ty+1) == sf::Color::Transparent       // IF BOTTOM RIGHT
+               && getColor(tx-1, ty+1) == sf::Color::Transparent       // AND BOTTOM LEFT ARE TRANSPARENT
+                ) setColor( tx , ty+1, 0, 0, 0, 0);                    // THEN SET BOTTOM TO TRANSPARENT
         }
     }
 
     void ShadowMap::darken() {
-        shadows_.create(3*size_.x, 3*size_.y, sf::Color::Black);
+        for (int i=0; i<4*77*43; ++i) {
+            shadows_[i] = ((i+1)%4 == 0 ? 255 : 0);
+        }
         for (int x=0; x<size_.x; ++x) {
             for (int y=0; y<size_.y; ++y) {
                 if (  discovered_[x + y*size_.x]
-                    ) fillCell(x, y, sf::Color(0, 0, 0, 200));
+                    ) fillCell(x, y, 0, 0, 0, 200);
             }
         }
     }
