@@ -33,7 +33,7 @@ namespace rr {
              
              static bool identified_[9];
          
-             Potion(Effect = HEALING, Size = BIG, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+             Potion(Effect = HEALING, Size = BIG, int am = 1, sf::Vector2u pos = sf::Vector2u(0, 0));
              Potion(Potion const&);
          
              virtual Entity*        clone          ()            const override { return new Potion(*this); }
@@ -45,10 +45,10 @@ namespace rr {
              virtual sf::String     getDescription ()            const override;
          
              void                   setPosition    (sf::Vector2f)      override;
-             void                   setGridPosition(sf::Vector2i)      override;
+             void                   setGridPosition(sf::Vector2u)      override;
          
-             virtual std::ifstream& operator<<     (std::ifstream&)         override;
-             virtual std::ofstream& operator>>     (std::ofstream&)         override;
+             virtual std::ifstream& operator<<     (std::ifstream&)    override;
+             virtual std::ofstream& operator>>     (std::ofstream&)    override;
     };
 
 }

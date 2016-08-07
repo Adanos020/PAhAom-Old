@@ -15,7 +15,7 @@
 
 namespace rr {
 
-    Food::Food(Type type, int amount, sf::Vector2i position) :
+    Food::Food(Type type, int amount, sf::Vector2u position) :
       type_(type)
     {
         amount_ = amount;
@@ -74,14 +74,14 @@ namespace rr {
     }
 
     std::ifstream& Food::operator<<(std::ifstream& file) {
-        sf::Vector2i position;
+        sf::Vector2u position;
         int type;
 
         try {
-            readFile <int> (file, position.x);
-            readFile <int> (file, position.y);
-            readFile <int> (file, amount_);
-            readFile <int> (file, type);
+            readFile <unsigned> (file, position.x);
+            readFile <unsigned> (file, position.y);
+            readFile <   int  > (file, amount_);
+            readFile <   int  > (file, type);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -96,10 +96,10 @@ namespace rr {
     }
 
     std::ofstream& Food::operator>>(std::ofstream& file) {
-        file << 5                           << ' '
-             << (int)body_[0].position.x/80 << ' '
-             << (int)body_[0].position.y/80 << ' '
-             << amount_                     << ' '
+        file << 5                                  << ' '
+             << (unsigned) body_[0].position.x/80u << ' '
+             << (unsigned) body_[0].position.y/80u << ' '
+             << amount_                            << ' '
              << type_;
 
         return file;

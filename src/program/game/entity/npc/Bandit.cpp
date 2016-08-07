@@ -106,14 +106,14 @@ namespace rr {
     std::ifstream& Bandit::operator<<(std::ifstream& file) {
         currentAnimation_->clearFrames();
         
-        sf::Vector2i position;
+        sf::Vector2u position;
         int weapon;
 
         try {
-            readFile <int > (file, position.x);
-            readFile <int > (file, position.y);  
-            readFile <bool> (file, asleep_);                
-            readFile <int > (file, weapon);
+            readFile <unsigned> (file, position.x);
+            readFile <unsigned> (file, position.y);  
+            readFile <  bool  > (file, asleep_);                
+            readFile <  int   > (file, weapon);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -128,10 +128,10 @@ namespace rr {
     }
 
     std::ofstream& Bandit::operator>>(std::ofstream& file) {
-        file << 11                            << ' '
-             << (int)body_.getPosition().x/80 << ' '
-             << (int)body_.getPosition().y/80 << ' '
-             << asleep_                       << ' '
+        file << 11                                   << ' '
+             << (unsigned) body_.getPosition().x/80u << ' '
+             << (unsigned) body_.getPosition().y/80u << ' '
+             << asleep_                              << ' '
              << weapon_;
 
         return file;

@@ -16,7 +16,7 @@
 
 namespace rr {
 
-    ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos) :
+    ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2u pos) :
       level_     (0    ),
       identified_(false),
       type_      (type )
@@ -45,96 +45,96 @@ namespace rr {
         ID_         = 10+type_;
 
         switch (type_) {
-        case HAMMER:         damageDealt_      = 70;
-                             strengthRequired_ = 80;
-                             speed_            =  4;
-                             accuracy_         = 10;
-                             iconIndex_        = 39;
-                             break;
+            case HAMMER:         damageDealt_      = 70;
+                                 strengthRequired_ = 80;
+                                 speed_            =  4;
+                                 accuracy_         = 10;
+                                 iconIndex_        = 39;
+                                 break;
 
-        case DOUBLE_AXE:     damageDealt_      =  90;
-                             strengthRequired_ = 100;
-                             speed_            =   5;
-                             accuracy_         =   7;
-                             iconIndex_        = 21;
-                             break;
+            case DOUBLE_AXE:     damageDealt_      =  90;
+                                 strengthRequired_ = 100;
+                                 speed_            =   5;
+                                 accuracy_         =   7;
+                                 iconIndex_        = 21;
+                                 break;
 
-        case HALBERD:        damageDealt_      = 60;
-                             strengthRequired_ = 70;
-                             speed_            =  4;
-                             accuracy_         =  7;
-                             iconIndex_        = 22;
-                             break;
+            case HALBERD:        damageDealt_      = 60;
+                                 strengthRequired_ = 70;
+                                 speed_            =  4;
+                                 accuracy_         =  7;
+                                 iconIndex_        = 22;
+                                 break;
 
-        case AXE:            damageDealt_      = 55;
-                             strengthRequired_ = 70;
-                             speed_            =  7;
-                             accuracy_         =  5;
-                             iconIndex_        = 20;
-                             break;
+            case AXE:            damageDealt_      = 55;
+                                 strengthRequired_ = 70;
+                                 speed_            =  7;
+                                 accuracy_         =  5;
+                                 iconIndex_        = 20;
+                                 break;
 
-        case SERRATED_SWORD: damageDealt_      = 50;
-                             strengthRequired_ = 60;
-                             speed_            =  7;
-                             accuracy_         =  8;
-                             iconIndex_        =  7;
-                             break;
+            case SERRATED_SWORD: damageDealt_      = 50;
+                                 strengthRequired_ = 60;
+                                 speed_            =  7;
+                                 accuracy_         =  8;
+                                 iconIndex_        =  7;
+                                 break;
 
-        case LANCE:          damageDealt_      = 50;
-                             strengthRequired_ = 60;
-                             speed_            =  4;
-                             accuracy_         =  6;
-                             iconIndex_        = 24;
-                             break;
+            case LANCE:          damageDealt_      = 50;
+                                 strengthRequired_ = 60;
+                                 speed_            =  4;
+                                 accuracy_         =  6;
+                                 iconIndex_        = 24;
+                                 break;
 
-        case CLUB:           damageDealt_      = 40;
-                             strengthRequired_ = 50;
-                             speed_            =  6;
-                             accuracy_         =  7;
-                             iconIndex_        = 38;
-                             break;
+            case CLUB:           damageDealt_      = 40;
+                                 strengthRequired_ = 50;
+                                 speed_            =  6;
+                                 accuracy_         =  7;
+                                 iconIndex_        = 38;
+                                 break;
                              
-        case SWORD:          damageDealt_      = 30;
-                             strengthRequired_ = 30;
-                             speed_            =  7;
-                             accuracy_         =  5;
-                             iconIndex_        =  6;
-                             break;
+            case SWORD:          damageDealt_      = 30;
+                                 strengthRequired_ = 30;
+                                 speed_            =  7;
+                                 accuracy_         =  5;
+                                 iconIndex_        =  6;
+                                 break;
 
-        case SPEAR:          damageDealt_      = 30;
-                             strengthRequired_ = 50;
-                             speed_            =  6;
-                             accuracy_         =  4;
-                             iconIndex_        = 23;
-                             break;
+            case SPEAR:          damageDealt_      = 30;
+                                 strengthRequired_ = 50;
+                                 speed_            =  6;
+                                 accuracy_         =  4;
+                                 iconIndex_        = 23;
+                                 break;
 
-        case PIQUE:          damageDealt_      = 20;
-                             strengthRequired_ = 25;
-                             speed_            =  7;
-                             accuracy_         =  7;
-                             iconIndex_        = 36;
-                             break;
+            case PIQUE:          damageDealt_      = 20;
+                                 strengthRequired_ = 25;
+                                 speed_            =  7;
+                                 accuracy_         =  7;
+                                 iconIndex_        = 36;
+                                 break;
 
-        case LONG_STICK:     damageDealt_      = 15;
-                             strengthRequired_ = 20;
-                             speed_            =  8;
-                             accuracy_         =  7;
-                             iconIndex_        = 37;
-                             break;
+            case LONG_STICK:     damageDealt_      = 15;
+                                 strengthRequired_ = 20;
+                                 speed_            =  8;
+                                 accuracy_         =  7;
+                                 iconIndex_        = 37;
+                                 break;
 
-        case DAGGER:         damageDealt_      = 15;
-                             strengthRequired_ =  5;
-                             speed_            =  8;
-                             accuracy_         =  5;
-                             iconIndex_        =  5;
-                             break;
+            case DAGGER:         damageDealt_      = 15;
+                                 strengthRequired_ =  5;
+                                 speed_            =  8;
+                                 accuracy_         =  5;
+                                 iconIndex_        =  5;
+                                 break;
                              
-        case KNIFE:          damageDealt_      = 10;
-                             strengthRequired_ =  5;
-                             speed_            = 10;
-                             accuracy_         =  4;
-                             iconIndex_        =  4;
-                             break;
+            case KNIFE:          damageDealt_      = 10;
+                                 strengthRequired_ =  5;
+                                 speed_            = 10;
+                                 accuracy_         =  4;
+                                 iconIndex_        =  4;
+                                 break;
         }
 
         setIcon    (body_, iconIndex_);
@@ -184,8 +184,8 @@ namespace rr {
         }
 
         description += "\n" + ((identified_ && cursed_  ) ? "\n"+Resources::dictionary["item.enchantment.description.cursed"]                                 : "")
-                            +                                      "\n"+Resources::dictionary["item.coldweapon.strength_required"  ]+" "+std::to_string((int)strengthRequired_)
-                            +                                      "\n"+Resources::dictionary["item.coldweapon.damage_dealt"       ]+" "+std::to_string((int)damageDealt_)
+                            +                               "\n"+Resources::dictionary["item.coldweapon.strength_required"  ]+" "+std::to_string((int)strengthRequired_)
+                            +                               "\n"+Resources::dictionary["item.coldweapon.damage_dealt"       ]+" "+std::to_string((int)damageDealt_)
                             + ((identified_ && level_!=0) ? "\n"+Resources::dictionary["item.coldweapon.level"              ]+" "+std::to_string((int)level_) : "");
 
         return description;
@@ -208,17 +208,17 @@ namespace rr {
     }
 
     std::ifstream& ColdWeapon::operator<<(std::ifstream& file) {
-        sf::Vector2i position;
+        sf::Vector2u position;
         int type;
 
         try {
-            readFile  <int>  (file, position.x);
-            readFile  <int>  (file, position.y);
-            readFile  <int>  (file, amount_);
-            readFile  <bool> (file, identified_);
-            readFile  <bool> (file, equipped_);
-            readFile  <int>  (file, level_);
-            readFile  <int>  (file, type);
+            readFile <unsigned> (file, position.x);
+            readFile <unsigned> (file, position.y);
+            readFile <  int   > (file, amount_);
+            readFile <  bool  > (file, identified_);
+            readFile <  bool  > (file, equipped_);
+            readFile <  int   > (file, level_);
+            readFile <  int   > (file, type);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -239,13 +239,13 @@ namespace rr {
     }
 
     std::ofstream& ColdWeapon::operator>>(std::ofstream& file) {
-        file << 4                           << ' '
-             << (int)body_[0].position.x/80 << ' '
-             << (int)body_[0].position.y/80 << ' '
-             << amount_                     << ' '
-             << identified_                 << ' '
-             << equipped_                   << ' '
-             << level_                      << ' '
+        file << 4                                  << ' '
+             << (unsigned) body_[0].position.x/80u << ' '
+             << (unsigned) body_[0].position.y/80u << ' '
+             << amount_                            << ' '
+             << identified_                        << ' '
+             << equipped_                          << ' '
+             << level_                             << ' '
              << type_;
 
         return file;

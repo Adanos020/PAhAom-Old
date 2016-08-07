@@ -59,7 +59,7 @@ namespace rr {
 
              ColdWeapon*        coldWeapon_;
 
-             sf::Vector2i       position_;
+             sf::Vector2u       position_;
              sf::AnimatedSprite body_;
              sf::Animation      walkingLeft_;
              sf::Animation      walkingRight_;
@@ -85,12 +85,12 @@ namespace rr {
 
              virtual Entity*       clone          ()                 const override { return new Player(*this); }
 
-             virtual void          setGridPosition(sf::Vector2i pos)       override { position_ = pos; body_.setPosition((sf::Vector2f)pos*80.f); }
-             virtual void          setPosition    (sf::Vector2f pos)       override { position_ = (sf::Vector2i)pos/80; body_.setPosition(pos); }
+             virtual void          setGridPosition(sf::Vector2u pos)       override { position_ = pos; body_.setPosition((sf::Vector2f)pos*80.f); }
+             virtual void          setPosition    (sf::Vector2f pos)       override { position_ = (sf::Vector2u) pos/80u; body_.setPosition(pos); }
 
              virtual bool          collides       (Entity* e)        const override { return e->getBounds().intersects(getBounds()); }
              virtual sf::FloatRect getBounds      ()                 const override { return body_.getGlobalBounds(); }
-             virtual sf::Vector2i  getGridPosition()                 const override { return position_; }
+             virtual sf::Vector2u  getGridPosition()                 const override { return position_; }
              virtual sf::Vector2f  getPosition    ()                 const override { return body_.getPosition(); }
 
          /// Moves the player's character's to a cell in a given direction

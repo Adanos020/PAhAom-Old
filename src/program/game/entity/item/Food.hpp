@@ -24,7 +24,7 @@ namespace rr {
                  BAGUETTE
              } type_;
     
-             Food(Type = MEAT, int amount = 1, sf::Vector2i position = sf::Vector2i(0, 0));
+             Food(Type = MEAT, int amount = 1, sf::Vector2u position = sf::Vector2u(0, 0));
              Food(Food const&);
          
              virtual Entity*        clone         () const            override { return new Food(*this); }

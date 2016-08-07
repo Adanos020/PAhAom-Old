@@ -47,14 +47,14 @@ namespace rr {
     }
 
     std::ifstream& Door::operator<<(std::ifstream& file) {
-        sf::Vector2i position;
+        sf::Vector2u position;
 
         try {
-            readFile <int>  (file, position.x);
-            readFile <int>  (file, position.y);
-            readFile <bool> (file, locked_);
-            readFile <bool> (file, open_);
-            readFile <bool> (file, withoutWindow_);
+            readFile <unsigned> (file, position.x);
+            readFile <unsigned> (file, position.y);
+            readFile <  bool  > (file, locked_);
+            readFile <  bool  > (file, open_);
+            readFile <  bool  > (file, withoutWindow_);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -67,11 +67,11 @@ namespace rr {
     }
 
     std::ofstream& Door::operator>>(std::ofstream& file) {
-        file << 1                             << ' '
-             << (int)body_.getPosition().x/80 << ' '
-             << (int)body_.getPosition().y/80 << ' '
-             << locked_                       << ' '
-             << open_                         << ' '
+        file << 1                                    << ' '
+             << (unsigned) body_.getPosition().x/80u << ' '
+             << (unsigned) body_.getPosition().y/80u << ' '
+             << locked_                              << ' '
+             << open_                                << ' '
              << withoutWindow_;
 
         return file;

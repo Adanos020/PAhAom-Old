@@ -12,26 +12,28 @@
 namespace rr {
 
     class ShadowMap : public sf::Drawable {
-    private: sf::Vector2i size_;
-     mutable sf::Texture  shadowTexture_;
-             bool         discovered_[77*43];
-             sf::Uint8    shadows_ [4*77*43];
+    private: bool            discovered_[77*43];
+             char            cellIDs_ [3*77*43];
 
-             void           setColor   (int x, int y, sf::Uint8 r, sf::Uint8 g, sf::Uint8 b, sf::Uint8 a);
-             sf::Color      getColor   (int x, int y) const;
+             sf::Vector2u    size_;
+             sf::VertexArray shadowSprite_;
+             sf::Texture     shadowTexture_;
+             sf::Image       shadowImage_;
 
-             void           fillCell   (int x, int y, sf::Uint8 r, sf::Uint8 g, sf::Uint8 b, sf::Uint8 a);
-             bool           isFilled   (int x, int y, sf::Uint8 r, sf::Uint8 g, sf::Uint8 b, sf::Uint8 a) const;
+             void fillCell             (unsigned x, unsigned y, char id);
+             bool isFilled             (unsigned x, unsigned y, char id) const;
 
-             virtual void   draw       (sf::RenderTarget&, sf::RenderStates) const;
+     virtual void draw                 (sf::RenderTarget&, sf::RenderStates) const;
 
-    public:  void           setLit     (int x, int y);
-             void           darken     ();
+    public:  void setLit               (unsigned x, unsigned y);
+             void darken               ();
+
+             void update               ();
 
              std::ifstream& operator<< (std::ifstream&);
              std::ofstream& operator>> (std::ofstream&);
 
-             ShadowMap(sf::Vector2i size);
+             ShadowMap(sf::Vector2u size);
     };
 
 }

@@ -23,9 +23,9 @@ namespace rr {
              };
          
              static void compute    (ShadowMap* shadows, int tiles[], unsigned octant    , sf::Vector2u origin, int range          , unsigned x, Slope top, Slope bottom);
-             static bool blocksLight(int tiles[]      , unsigned x , unsigned y         , unsigned octant    , sf::Vector2u origin);
+             static bool blocksLight(int tiles[]       , unsigned x , unsigned y         , unsigned octant    , sf::Vector2u origin);
              static void setVisible (ShadowMap* shadows, unsigned x , unsigned y         , unsigned octant    , sf::Vector2u origin);
-             static int  getDistance(int x            , int y);
+             static int  getDistance(int x             , int y);
 
     public:  static void compute    (ShadowMap* shadows, int tiles[], sf::Vector2u origin, int range);
     };

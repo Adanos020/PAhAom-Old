@@ -53,13 +53,13 @@ namespace rr {
            /// Returns the texture's icon index
                virtual unsigned           getIconIndex   ()          const           { return iconIndex_; }
                
-               virtual void               setGridPosition(sf::Vector2i pos) override {
+               virtual void               setGridPosition(sf::Vector2u pos) override {
                    body_[0].position = (sf::Vector2f)pos*80.f;
                    body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
                    body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
                    body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
                }
-               virtual sf::Vector2i       getGridPosition()          const  override { return (sf::Vector2i) body_[0].position/80; }
+               virtual sf::Vector2u       getGridPosition()          const  override { return (sf::Vector2u) body_[0].position/80u; }
                virtual void               setPosition    (sf::Vector2f pos) override {
                    body_[0].position =               pos;
                    body_[1].position =  sf::Vector2f(pos.x+80, pos.y);

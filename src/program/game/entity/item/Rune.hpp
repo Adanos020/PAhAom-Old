@@ -31,7 +31,7 @@ namespace rr {
 
              static bool identified_[12];
 
-             Rune(Type = HEAL, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+             Rune(Type = HEAL, int am = 1, sf::Vector2u pos = sf::Vector2u(0, 0));
              Rune(Rune const&);
 
              virtual Entity*        clone          ()            const override { return new Rune(*this); }
@@ -42,7 +42,7 @@ namespace rr {
              virtual sf::String     getName        ()            const override;
              virtual sf::String     getDescription ()            const override;
 
-             void                   setGridPosition(sf::Vector2i)      override;
+             void                   setGridPosition(sf::Vector2u)      override;
              void                   setPosition    (sf::Vector2f)      override;
 
              virtual std::ifstream& operator<<     (std::ifstream&)    override;
