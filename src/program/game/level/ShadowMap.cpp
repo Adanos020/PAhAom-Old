@@ -16,6 +16,18 @@ namespace rr {
     ShadowMap::ShadowMap(sf::Vector2u size) :
       size_(size)
     {
+        shadowImage_.create(3*size_.x, 3*size_.y);
+
+        shadowTexture_.setSmooth(true);
+        
+        shadowSprite_.resize(4);
+        shadowSprite_.setPrimitiveType(sf::Quads);
+
+        shadowSprite_[0].position = sf::Vector2f(0        , 0);
+        shadowSprite_[1].position = sf::Vector2f(80*size.x, 0);
+        shadowSprite_[2].position = sf::Vector2f(80*size.x, 80*size.y);
+        shadowSprite_[3].position = sf::Vector2f(0        , 80*size.y);
+
         for (unsigned i=0; i<size_.x*size_.y; ++i) {
             discovered_[i] = false;
         }
@@ -56,27 +68,8 @@ namespace rr {
     }
 
     void ShadowMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        sf::Image   shadowImage_;
-        shadowImage_.create(3*size_.x, 3*size_.y);
-
-        for (unsigned x=0; x<3*size_.x; ++x) {
-            for (unsigned y=0; y<3*size_.y; ++y) {
-                switch (cellIDs_[x + y*3*size_.x]) {
-                    case 0: shadowImage_.setPixel(x, y, sf::Color(0, 0, 0, 255)); break;
-                    case 1: shadowImage_.setPixel(x, y, sf::Color(0, 0, 0, 200)); break;
-                    case 2: shadowImage_.setPixel(x, y, sf::Color(0, 0, 0,   0)); break;
-                }
-            }
-        }
-        
-        sf::Texture shadowTexture_;
-        shadowTexture_.loadFromImage(shadowImage_);
-        shadowTexture_.setSmooth(true);
-
-        sf::Sprite sts(shadowTexture_);
-        sts.setScale(80.f/3.f, 80.f/3.f);
-
-        target.draw(sts, states);
+        states.texture = &shadowTexture_;
+        target.draw(shadowSprite_, states);
     }
 
     void ShadowMap::setLit(unsigned x, unsigned y) {
@@ -253,6 +246,20 @@ namespace rr {
                     ) fillCell(x, y, 1);
             }
         }
+    }
+
+    void ShadowMap::update() {
+        for (unsigned x=0; x<3*size_.x; ++x) {
+            for (unsigned y=0; y<3*size_.y; ++y) {
+                switch (cellIDs_[x + y*3*size_.x]) {
+                    case 0: shadowImage_.setPixel(x, y, sf::Color(0, 0, 0, 255)); break;
+                    case 1: shadowImage_.setPixel(x, y, sf::Color(0, 0, 0, 200)); break;
+                    case 2: shadowImage_.setPixel(x, y, sf::Color(0, 0, 0,   0)); break;
+                }
+            }
+        }
+
+        shadowTexture_.loadFromImage(shadowImage_);
     }
 
     std::ifstream& ShadowMap::operator<<(std::ifstream& file) {

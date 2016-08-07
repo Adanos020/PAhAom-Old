@@ -121,6 +121,7 @@ namespace rr {
     void Level::calculateFOV(sf::Vector2u origin, int range) {
         shadowMap_.darken();
         FOV::compute(&shadowMap_, tilesAsInts_, origin, range);
+        shadowMap_.update();
     }
 
     void Level::generateWorld() {
