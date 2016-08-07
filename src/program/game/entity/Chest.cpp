@@ -53,13 +53,13 @@ namespace rr {
     }
 
     std::ifstream& Chest::operator<<(std::ifstream& file) {
-        sf::Vector2i position;
+        sf::Vector2u position;
         int type;
 
         try {
-            readFile <int> (file, position.x);
-            readFile <int> (file, position.y);
-            readFile <int> (file, type);
+            readFile <unsigned> (file, position.x);
+            readFile <unsigned> (file, position.y);
+            readFile <   int  > (file, type);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -75,10 +75,10 @@ namespace rr {
     }
 
     std::ofstream& Chest::operator>>(std::ofstream& file) {
-            file << 0                             << ' '
-                 << (int)body_.getPosition().x/80 << ' '
-                 << (int)body_.getPosition().y/80 << ' '
-                 << type_                         << ' ';
+            file << 0                                    << ' '
+                 << (unsigned) body_.getPosition().x/80u << ' '
+                 << (unsigned) body_.getPosition().y/80u << ' '
+                 << type_                                << ' ';
 
         return file;
     }

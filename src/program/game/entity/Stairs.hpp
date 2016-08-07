@@ -13,7 +13,7 @@ namespace rr {
 
     class Stairs : public Entity {
     private: sf::Sprite   body_;
-             sf::Vector2i position_;
+             sf::Vector2u position_;
              bool         upwards_;
              
              virtual void           initialize     ()                       override;
@@ -27,10 +27,10 @@ namespace rr {
          
              virtual Entity*        clone          ()                 const override { return new Stairs(*this); }
 
-             virtual void           setGridPosition(sf::Vector2i pos)       override { body_.setPosition((sf::Vector2f)pos*80.f); }
+             virtual void           setGridPosition(sf::Vector2u pos)       override { body_.setPosition((sf::Vector2f)pos*80.f); }
              virtual void           setPosition    (sf::Vector2f pos)       override { body_.setPosition(pos); }
              virtual bool           collides       (Entity* e)        const override { return e->getBounds().intersects(getBounds()); }
-             virtual sf::Vector2i   getGridPosition()                 const override { return (sf::Vector2i)body_.getPosition()/80; }
+             virtual sf::Vector2u   getGridPosition()                 const override { return (sf::Vector2u)body_.getPosition()/80u; }
              virtual sf::Vector2f   getPosition    ()                 const override { return body_.getPosition(); }
              virtual sf::FloatRect  getBounds      ()                 const override { return body_.getGlobalBounds(); }
          

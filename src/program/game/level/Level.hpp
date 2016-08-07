@@ -16,6 +16,10 @@
 #include "ShadowMap.hpp"
 #include "../entity/Player.hpp"
 
+namespace sf {
+    typedef Rect<unsigned> UintRect;
+}
+
 namespace rr {
 
 /// Class for the level
@@ -37,7 +41,7 @@ namespace rr {
  
              void                 generateWorld   ();
 
-             void                 addEntity       (Entity*       , sf::Vector2i position);
+             void                 addEntity       (Entity*       , sf::Vector2u position);
              void                 addEntity       (Entity*);
              void                 playerInteract  (Game*);
              void                 playerAttack    (Player*);
@@ -45,8 +49,8 @@ namespace rr {
  
              void                 calculateFOV    (sf::Vector2u origin, int range);
 
-             sf::Vector2i         getStartingPoint()                  const { return startingPoint_; }
-             sf::Vector2i         getEndingPoint  ()                  const { return endingPoint_  ; }
+             sf::Vector2u         getStartingPoint()                  const { return startingPoint_; }
+             sf::Vector2u         getEndingPoint  ()                  const { return endingPoint_  ; }
              int*                 getTiles        ()                        { return tilesAsInts_  ; }
              Cell*                getTilesAsCells ()                        { return tiles_        ; }
 
@@ -56,24 +60,24 @@ namespace rr {
     private: virtual void         draw            (sf::RenderTarget& target, sf::RenderStates states) const;
      
              void                 digRooms        ();
-             void                 fillWithMaze    (int, int);
+             void                 fillWithMaze    (unsigned, unsigned);
              void                 connectRooms    ();
              void                 removeDeadEnds  ();
              void                 placeEntities   ();
              void                 generateTileMap ();
-             bool                 isOnBorder      (int, int);
+             bool                 isOnBorder      (unsigned, unsigned);
          
              sf::VertexArray          tilemap_;
-             sf::Vector2i             size_;
-             sf::Vector2i             startingPoint_;
-             sf::Vector2i             endingPoint_;
+             sf::Vector2u             size_;
+             sf::Vector2u             startingPoint_;
+             sf::Vector2u             endingPoint_;
          
              int                      regions_    [77*43];
              int                      tilesAsInts_[77*43];
              Cell                     tiles_      [77*43];
              ShadowMap                shadowMap_;
              std::list<Entity*>       entities_;
-             std::vector<sf::IntRect> rooms_;
+             std::vector<sf::UintRect>rooms_;
              int                      region_count_;
              int                      levelNumber_;
     };

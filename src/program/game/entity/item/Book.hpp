@@ -26,14 +26,14 @@ namespace rr {
                  SPELLS_BOOK
              } type_;
          
-             Book(Type = CRAFTING, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+             Book(Type = CRAFTING, int am = 1, sf::Vector2u pos = sf::Vector2u(0, 0));
              Book(Book const&);
          
              virtual Entity*        clone          () const         override { return new Book(*this); }
 
 
-             void                   setGridPosition(sf::Vector2i)   override;
-             void                   setPosition    (sf::Vector2f)      override;
+             void                   setGridPosition(sf::Vector2u)   override;
+             void                   setPosition    (sf::Vector2f)   override;
              
              virtual sf::String     getName        () const         override;
              virtual sf::String     getDescription () const         override;

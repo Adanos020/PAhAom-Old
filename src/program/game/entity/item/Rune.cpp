@@ -20,8 +20,8 @@ namespace rr {
 
     bool Rune::identified_[12] = { false, false, false, false, false, false, false, false, false, false, false, false };
 
-    Rune::Rune(Type type, int am, sf::Vector2i pos) :
-      type_       (type)
+    Rune::Rune(Type type, int am, sf::Vector2u pos) :
+      type_ (type)
     {
         amount_     = am;
 
@@ -30,7 +30,7 @@ namespace rr {
     }
 
     Rune::Rune(Rune const& rune) :
-      type_       (rune.type_)
+      type_ (rune.type_)
     {
         amount_                = rune.amount_;
         disposable_            = rune.disposable_;
@@ -110,7 +110,7 @@ namespace rr {
         return "";
     }
 
-    void Rune::setGridPosition(sf::Vector2i pos) {
+    void Rune::setGridPosition(sf::Vector2u pos) {
         body_[0].position = (sf::Vector2f)pos*80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
@@ -135,14 +135,14 @@ namespace rr {
     }
 
     std::ifstream& Rune::operator<<(std::ifstream& file) {
-        sf::Vector2i position;
+        sf::Vector2u position;
         int type;
 
         try {
-            readFile <int> (file, position.x);
-            readFile <int> (file, position.y);
-            readFile <int> (file, amount_);                 
-            readFile <int> (file, type);
+            readFile <unsigned> (file, position.x);
+            readFile <unsigned> (file, position.y);
+            readFile <   int  > (file, amount_);                 
+            readFile <   int  > (file, type);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -157,10 +157,10 @@ namespace rr {
     }
 
     std::ofstream& Rune::operator>>(std::ofstream& file) {
-        file << 8                           << ' '
-             << (int)body_[0].position.x/80 << ' '
-             << (int)body_[0].position.y/80 << ' '
-             << amount_                     << ' '
+        file << 8                                  << ' '
+             << (unsigned) body_[0].position.x/80u << ' '
+             << (unsigned) body_[0].position.y/80u << ' '
+             << amount_                            << ' '
              << type_;
 
         return file;

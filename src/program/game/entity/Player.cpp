@@ -20,7 +20,7 @@ extern rr::Subject   subject;
 namespace rr {
 
     Player::Player() :
-      position_                    (sf::Vector2i(0, 0)),
+      position_                    (sf::Vector2u(0, 0)),
       currentAnimation_            (&walkingRight_    ),
       moving_                      (false             ),
       velocity_                    (1120.f            ),
@@ -81,23 +81,23 @@ namespace rr {
     void Player::move(int tiles[], Direction di) {
         if (!moving_) {
             if (di == UP    && (tiles[position_.x   + (position_.y-1)*77] != 1 && tiles[position_.x   + (position_.y-1)*77] != 5)) {
-                position_ = sf::Vector2i(position_.x, position_.y-1);
+                position_ = sf::Vector2u(position_.x, position_.y-1);
                 moving_ = true;
             }
             if (di == DOWN  && (tiles[position_.x   + (position_.y+1)*77] != 1 && tiles[position_.x   + (position_.y+1)*77] != 5)) {
-                position_ = sf::Vector2i(position_.x, position_.y+1);
+                position_ = sf::Vector2u(position_.x, position_.y+1);
                 moving_ = true;
             }
             if (di == LEFT) {
                 if (tiles[position_.x-1 + position_.y*77] != 1 && tiles[position_.x-1 + position_.y*77] != 5) {
-                    position_ = sf::Vector2i(position_.x-1, position_.y);
+                    position_ = sf::Vector2u(position_.x-1, position_.y);
                     moving_ = true;
                 }
                 currentAnimation_ = &walkingLeft_;
             }
             if (di == RIGHT) {
                 if (tiles[position_.x+1 + position_.y*77] != 1 && tiles[position_.x+1 + position_.y*77] != 5) {
-                    position_ = sf::Vector2i(position_.x+1, position_.y);
+                    position_ = sf::Vector2u(position_.x+1, position_.y);
                     moving_ = true;
                 }
                 currentAnimation_ = &walkingRight_;
@@ -107,7 +107,7 @@ namespace rr {
 
     void Player::update(sf::Time timeStep) {
         if (moving_) {
-            sf::Vector2f offset = body_.getPosition()-(sf::Vector2f)position_*80.f;
+            sf::Vector2f offset = body_.getPosition()-(sf::Vector2f) position_*80.f;
             if (offset != sf::Vector2f(0, 0)) {
                 if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep.asSeconds(),  0));
                 if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep.asSeconds(),  0));
@@ -126,7 +126,7 @@ namespace rr {
 
             if (  (abs(offset.x) < velocity_/256 && abs(offset.x) > 0) // preventing the player from wobbling
                || (abs(offset.y) < velocity_/256 && abs(offset.y) > 0) // in between of two cells
-                )  body_.setPosition((sf::Vector2f)position_*80.f);
+                )  body_.setPosition((sf::Vector2f) position_*80.f);
         }
 
         if (attrs_.health     >= attrs_.maxHealth) attrs_.health       = attrs_.maxHealth;
@@ -307,30 +307,30 @@ namespace rr {
 
     std::ifstream& Player::operator<<(std::ifstream& file) {
         currentAnimation_->clearFrames();
-        
+
         try {
-            readFile <float> (file, attrs_.health);
-            readFile <float> (file, attrs_.mana);
-            readFile <float> (file, attrs_.maxHealth);
-            readFile <float> (file, attrs_.maxMana);
-            readFile <float> (file, attrs_.strength);
-            readFile <float> (file, attrs_.dexterity);
-            readFile <float> (file, attrs_.experience);
-            readFile <float> (file, attrs_.nextLevel);
-            readFile < int > (file, attrs_.level);
-            readFile <float> (file, attrs_.skillPoints);
-                
-            readFile < bool> (file, attrs_.crafting);
-            readFile < bool> (file, attrs_.alchemy);
-            readFile < bool> (file, attrs_.cold_weapon_mastery);
-            readFile < bool> (file, attrs_.ranged_weapon_mastery);
-            readFile < bool> (file, attrs_.eagle_eye);
-            readFile < bool> (file, attrs_.mana_regeneration);
-            readFile < bool> (file, attrs_.health_regeneration);
-            readFile < bool> (file, attrs_.faster_learning);
-                
-            readFile < int > (file, position_.x);
-            readFile < int > (file, position_.y);
+            readFile <  float > (file, attrs_.health);
+            readFile <  float > (file, attrs_.mana);
+            readFile <  float > (file, attrs_.maxHealth);
+            readFile <  float > (file, attrs_.maxMana);
+            readFile <  float > (file, attrs_.strength);
+            readFile <  float > (file, attrs_.dexterity);
+            readFile <  float > (file, attrs_.experience);
+            readFile <  float > (file, attrs_.nextLevel);
+            readFile <   int  > (file, attrs_.level);
+            readFile <  float > (file, attrs_.skillPoints);
+
+            readFile <  bool  > (file, attrs_.crafting);
+            readFile <  bool  > (file, attrs_.alchemy);
+            readFile <  bool  > (file, attrs_.cold_weapon_mastery);
+            readFile <  bool  > (file, attrs_.ranged_weapon_mastery);
+            readFile <  bool  > (file, attrs_.eagle_eye);
+            readFile <  bool  > (file, attrs_.mana_regeneration);
+            readFile <  bool  > (file, attrs_.health_regeneration);
+            readFile <  bool  > (file, attrs_.faster_learning);
+
+            readFile <unsigned> (file, position_.x);
+            readFile <unsigned> (file, position_.y);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -338,7 +338,7 @@ namespace rr {
 
         initialize();
         setGridPosition(position_);
-        
+
         return file;
     }
 

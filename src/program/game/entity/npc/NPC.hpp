@@ -30,8 +30,8 @@ namespace rr {
        
                virtual void          update          (sf::Time timeStep) = 0;
                virtual void          handleDamage    (int damage)        = 0;
-               virtual void          setGridPosition (sf::Vector2i pos) override { body_.setPosition((sf::Vector2f)pos*80.f); }
-               virtual sf::Vector2i  getGridPosition ()          const  override { return (sf::Vector2i) body_.getPosition()/80; }
+               virtual void          setGridPosition (sf::Vector2u pos) override { body_.setPosition((sf::Vector2f)pos*80.f); }
+               virtual sf::Vector2u  getGridPosition ()          const  override { return (sf::Vector2u) body_.getPosition()/80u; }
                virtual void          setPosition     (sf::Vector2f pos) override { body_.setPosition(pos); }
                virtual sf::Vector2f  getPosition     ()          const  override { return body_.getPosition(); }
                virtual bool          collides        (Entity* e) const  override { return e->getBounds().intersects(getBounds()); }

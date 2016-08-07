@@ -62,13 +62,13 @@ namespace rr {
     std::ifstream& Teacher::operator<<(std::ifstream& file) {
         currentAnimation_->clearFrames();
         
-        sf::Vector2i position;
+        sf::Vector2u position;
         int type;
 
         try {
-            readFile <int>  (file, position.x);
-            readFile <int>  (file, position.y);
-            readFile <int>  (file, type);
+            readFile <unsigned> (file, position.x);
+            readFile <unsigned> (file, position.y);
+            readFile <   int  > (file, type);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -83,9 +83,9 @@ namespace rr {
     }
 
     std::ofstream& Teacher::operator>>(std::ofstream& file) {
-        file << 9                             << ' '
-             << (int)body_.getPosition().x/80 << ' '
-             << (int)body_.getPosition().y/80 << ' '
+        file << 9                                    << ' '
+             << (unsigned) body_.getPosition().x/80u << ' '
+             << (unsigned) body_.getPosition().y/80u << ' '
              << type_;
 
         return file;
