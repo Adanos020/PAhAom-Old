@@ -22,7 +22,7 @@ namespace rr {
 
     Level::Level(int number) :
       size_         (sf::Vector2u(77, 43)),
-      shadowMap_    (size_               ),
+      shadowMap_    (new ShadowMap(size_)),
       region_count_ (0                   ),
       levelNumber_  (number              )
     {
@@ -31,12 +31,13 @@ namespace rr {
 
         for (unsigned i=0; i<size_.x; ++i) {
             for (unsigned j=0; j<size_.y; ++j) {
-                regions_[i+j*size_.x] = -1;
+                regions_[i + j*size_.x] = -1;
             }
         }
     }
 
     Level::~Level() {
+        delete shadowMap_;
         for (auto entity : entities_) {
             delete entity;
         }
@@ -53,7 +54,7 @@ namespace rr {
         for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
             target.draw(**it);
         }
-        target.draw(shadowMap_, states);
+        target.draw(*shadowMap_, states);
     }
 
     void Level::addEntity(Entity* e, sf::Vector2u position) {
@@ -119,9 +120,7 @@ namespace rr {
     }
 
     void Level::calculateFOV(sf::Vector2u origin, int range) {
-        shadowMap_.darken();
-        FOV::compute(&shadowMap_, tilesAsInts_, origin, range);
-        shadowMap_.update();
+        FOV::compute(shadowMap_, tilesAsInts_, origin, range);
     }
 
     void Level::generateWorld() {
@@ -672,7 +671,7 @@ namespace rr {
                 }
             }
 
-            shadowMap_ << file;
+            *shadowMap_ << file;
 
             for (int i=0; i<77*43; ++i) { // load the tiles
                 file >> tilesAsInts_[i];
@@ -698,7 +697,7 @@ namespace rr {
             **entity >> file << '\n';
         }
         
-        shadowMap_ >> file;
+        *shadowMap_ >> file;
         
         for (int i=0; i<77*43; ++i) {                 // save the tiles
             file << tiles_[i] << (((i+1)%77 == 0) ? '\n' : ' ');

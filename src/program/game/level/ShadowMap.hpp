@@ -12,26 +12,25 @@
 namespace rr {
 
     class ShadowMap : public sf::Drawable {
-    private: bool            discovered_[77*43];
-             char            cellIDs_ [3*77*43];
+    private: bool               discovered_[77*43];
+             unsigned char      cellIDs_ [9*77*43];
 
-             sf::Vector2u    size_;
-             sf::VertexArray shadowSprite_;
-             sf::Texture     shadowTexture_;
-             sf::Image       shadowImage_;
+             sf::Vector2u       size_;
+             sf::RectangleShape shadowSprite_;
+             sf::Texture        shadowTexture_;
+             sf::Image          shadowImage_;
 
-             void fillCell             (unsigned x, unsigned y, char id);
-             bool isFilled             (unsigned x, unsigned y, char id) const;
+             bool isFilled            (unsigned x, unsigned y, unsigned char id) const;
 
-     virtual void draw                 (sf::RenderTarget&, sf::RenderStates) const;
+     virtual void draw                (sf::RenderTarget&, sf::RenderStates)      const;
 
-    public:  void setLit               (unsigned x, unsigned y);
-             void darken               ();
+    public:  void setLit              (unsigned x, unsigned y);
+             void darken              ();
 
-             void update               ();
+             void update              ();
 
-             std::ifstream& operator<< (std::ifstream&);
-             std::ofstream& operator>> (std::ofstream&);
+             std::ifstream& operator<<(std::ifstream&);
+             std::ofstream& operator>>(std::ofstream&);
 
              ShadowMap(sf::Vector2u size);
     };
