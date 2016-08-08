@@ -12,7 +12,7 @@ namespace rr {
         text_.setFont         (font);
         text_.setCharacterSize(chsize);
         text_.setString       (str);
-        text_.setColor        (color);
+        text_.setFillColor    (color);
         text_.setStyle        (style);
     }
 
@@ -21,7 +21,7 @@ namespace rr {
         text_.setPosition     (pos);
         text_.setCharacterSize(chsize);
         text_.setString       (str);
-        text_.setColor        (color);
+        text_.setFillColor    (color);
         text_.setStyle        (style);
     }
 

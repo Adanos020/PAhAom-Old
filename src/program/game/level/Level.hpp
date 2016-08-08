@@ -75,7 +75,7 @@ namespace rr {
              int                      regions_    [77*43];
              int                      tilesAsInts_[77*43];
              Cell                     tiles_      [77*43];
-             ShadowMap                shadowMap_;
+             ShadowMap*               shadowMap_;
              std::list<Entity*>       entities_;
              std::vector<sf::UintRect>rooms_;
              int                      region_count_;

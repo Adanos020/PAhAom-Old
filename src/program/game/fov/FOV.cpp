@@ -12,10 +12,12 @@
 namespace rr {
     
     void FOV::compute(ShadowMap* shadows, int tiles[], sf::Vector2u origin, int range) {
+        shadows->darken();
         shadows->setLit(origin.x, origin.y);
         for (unsigned octant = 0; octant < 8; octant++) {
             compute(shadows, tiles, octant, origin, 2*range, 1, Slope(1, 1), Slope(0, 1));
         }
+        shadows->update();
     }
 
     void FOV::compute(ShadowMap* shadows, int tiles[], unsigned octant, sf::Vector2u origin, int range, unsigned x, Slope top, Slope bottom) {

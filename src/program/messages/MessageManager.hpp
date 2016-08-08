@@ -29,10 +29,10 @@ namespace rr {
          /// Updates the lifetime counter of the message
              void         update     (sf::Time);
          
-             sf::Vector2f getPosition() const { return message_.getPosition(); }
-             sf::Vector2f getSize    () const { return message_.getSize    (); }
-             sf::Color    getColor   () const { return message_.getColor   (); }
-             sf::String   getString  () const { return message_.getString  (); }
+             sf::Vector2f getPosition() const { return message_.getPosition (); }
+             sf::Vector2f getSize    () const { return message_.getSize     (); }
+             sf::Color    getColor   () const { return message_.getFillColor(); }
+             sf::String   getString  () const { return message_.getString   (); }
     };
 
 /// Class for the message manager implementing the Observer interface

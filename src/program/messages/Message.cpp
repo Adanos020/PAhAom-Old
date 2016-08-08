@@ -15,6 +15,8 @@ namespace rr {
       timeElapsed_(sf::Time::Zero                                           ),
       lifeTime_   (sf::seconds(5)                                           )
     {
+        message_.setOutlineColor(sf::Color::Black);
+        message_.setOutlineThickness(1);
         message_.wrap(400);
     }
 
@@ -26,9 +28,9 @@ namespace rr {
         timeElapsed_ += timeStep;
 
         if (timeElapsed_ >= lifeTime_) {
-            sf::Color newColor = message_.getColor();
+            sf::Color newColor = message_.getFillColor();
             newColor.a -= 5;
-            message_.setColor(newColor);
+            message_.setFillColor(newColor);
         }
     }
 
