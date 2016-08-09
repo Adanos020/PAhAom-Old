@@ -19,13 +19,14 @@ namespace rr {
              Bar  bXP_;
              Text tXPlevel_;
              Text tLevelNumber_;
+             Text tFPS_;
 
              virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     
     public:  HUD();
         
          /// Updates the HUD state
-             void update      (Player*, int lvl);
+             void update      (Player*, int lvl, sf::Time);
     };
 
 }

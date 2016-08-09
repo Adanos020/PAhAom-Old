@@ -87,9 +87,11 @@ namespace rr {
             
             static struct Game {
             public: std::string language;
+                    bool        debugMode;
 
                     Game() {
-                        language = "en";
+                        language  = "en";
+                        debugMode = false;
                     }
             } game;
 

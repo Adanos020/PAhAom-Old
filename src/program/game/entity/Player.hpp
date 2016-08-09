@@ -64,7 +64,7 @@ namespace rr {
              sf::Animation      walkingLeft_;
              sf::Animation      walkingRight_;
              sf::Animation*     currentAnimation_;
-     
+
              bool               moving_;
              float              velocity_;
              int                sightRange_;
@@ -109,6 +109,8 @@ namespace rr {
              Attrs                 getAttributes  ()                 const          { return attrs_; }
          /// Returns the player's sight range
              int                   getSightRange  ()                 const          { return sightRange_; }
+         /// Tells if the player is moving
+             bool                  isMoving       ()                 const          { return moving_; }
          /// Resets the player's atributes
              void                  reset          ();
 

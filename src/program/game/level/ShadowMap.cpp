@@ -21,18 +21,18 @@ namespace rr {
         shadowTexture_.loadFromImage(shadowImage_);
         shadowTexture_.setSmooth(true);
 
-#if 1
-        shadowSprite_.setSize((sf::Vector2f) size_*80.f);
-        shadowSprite_.setTexture(&shadowTexture_);
-#else
         shadowSprite_.resize(4);
         shadowSprite_.setPrimitiveType(sf::Quads);
 
-        shadowSprite_[0].position = sf::Vector2f(0        , 0        );
-        shadowSprite_[1].position = sf::Vector2f(80*size.x, 0        );
-        shadowSprite_[2].position = sf::Vector2f(80*size.x, 80*size.y);
-        shadowSprite_[3].position = sf::Vector2f(0        , 80*size.y);
-#endif
+        shadowSprite_[0].position  = sf::Vector2f(0        , 0        );
+        shadowSprite_[1].position  = sf::Vector2f(80*size.x, 0        );
+        shadowSprite_[2].position  = sf::Vector2f(80*size.x, 80*size.y);
+        shadowSprite_[3].position  = sf::Vector2f(0        , 80*size.y);
+
+        shadowSprite_[0].texCoords = sf::Vector2f(0       , 0       );
+        shadowSprite_[1].texCoords = sf::Vector2f(3*size.x, 0       );
+        shadowSprite_[2].texCoords = sf::Vector2f(3*size.x, 3*size.y);
+        shadowSprite_[3].texCoords = sf::Vector2f(0       , 3*size.y);
 
         for (unsigned int i=0; i<size_.x*size_.y; ++i) {
             discovered_[i] = false;
@@ -62,7 +62,6 @@ namespace rr {
             if ( !filled
                 ) break;
         }
-
         return filled;
     }
 
@@ -77,7 +76,7 @@ namespace rr {
         unsigned int tx = 3*x + 1, ty = 3*y + 1;
 
         cellIDs_[tx + ty*size_.x*3] = 2;
-        //lastlyLit_.push_back(sf::Vector2u(tx, ty));
+        lastlyLit_.push_back(sf::Vector2u(tx, ty));
 
         if (x < size_.x-1) {
             if (y > 0) {
@@ -88,10 +87,10 @@ namespace rr {
 
                     cellIDs_[tx+2 + (ty-2)*size_.x*3] =  2;
 
-                    //lastlyLit_.push_back(sf::Vector2u(tx+1, ty-1));
-                    //lastlyLit_.push_back(sf::Vector2u(tx+1, ty  ));
-                    //lastlyLit_.push_back(sf::Vector2u(tx  , ty-1));
-                    //lastlyLit_.push_back(sf::Vector2u(tx+2, ty-2));
+                    lastlyLit_.push_back(sf::Vector2u(tx+1, ty-1));
+                    lastlyLit_.push_back(sf::Vector2u(tx+1,  ty ));
+                    lastlyLit_.push_back(sf::Vector2u( tx , ty-1));
+                    lastlyLit_.push_back(sf::Vector2u(tx+2, ty-2));
                 }
             }
 
@@ -103,10 +102,10 @@ namespace rr {
 
                     cellIDs_[tx+2 + (ty+2)*size_.x*3] =  2;
 
-                    //lastlyLit_.push_back(sf::Vector2u(tx+1, ty+1));
-                    //lastlyLit_.push_back(sf::Vector2u(tx+1, ty  ));
-                    //lastlyLit_.push_back(sf::Vector2u(tx  , ty+1));
-                    //lastlyLit_.push_back(sf::Vector2u(tx+2, ty+2));
+                    lastlyLit_.push_back(sf::Vector2u(tx+1, ty+1));
+                    lastlyLit_.push_back(sf::Vector2u(tx+1,  ty ));
+                    lastlyLit_.push_back(sf::Vector2u( tx , ty+1));
+                    lastlyLit_.push_back(sf::Vector2u(tx+2, ty+2));
                 }
             }
 
@@ -114,8 +113,8 @@ namespace rr {
                 cellIDs_[tx+1 + ty*size_.x*3] =  2;
                 cellIDs_[tx+2 + ty*size_.x*3] =  2;
 
-                //lastlyLit_.push_back(sf::Vector2u(tx+1, ty));
-                //lastlyLit_.push_back(sf::Vector2u(tx+2, ty));
+                lastlyLit_.push_back(sf::Vector2u(tx+1, ty));
+                lastlyLit_.push_back(sf::Vector2u(tx+2, ty));
             }
         }
 
@@ -128,10 +127,10 @@ namespace rr {
 
                     cellIDs_[tx-2 + (ty-2)*size_.x*3] =  2;
 
-                    //lastlyLit_.push_back(sf::Vector2u(tx-1, ty-1));
-                    //lastlyLit_.push_back(sf::Vector2u(tx-1, ty  ));
-                    //lastlyLit_.push_back(sf::Vector2u(tx  , ty-1));
-                    //lastlyLit_.push_back(sf::Vector2u(tx-2, ty-2));
+                    lastlyLit_.push_back(sf::Vector2u(tx-1, ty-1));
+                    lastlyLit_.push_back(sf::Vector2u(tx-1,  ty ));
+                    lastlyLit_.push_back(sf::Vector2u( tx , ty-1));
+                    lastlyLit_.push_back(sf::Vector2u(tx-2, ty-2));
                 }
             }
 
@@ -143,10 +142,10 @@ namespace rr {
 
                     cellIDs_[tx-2 + (ty+2)*size_.x*3] =  2;
 
-                    //lastlyLit_.push_back(sf::Vector2u(tx+1, ty-1));
-                    //lastlyLit_.push_back(sf::Vector2u(tx+1, ty  ));
-                    //lastlyLit_.push_back(sf::Vector2u(tx  , ty-1));
-                    //lastlyLit_.push_back(sf::Vector2u(tx+2, ty-2));
+                    lastlyLit_.push_back(sf::Vector2u(tx-1, ty+1));
+                    lastlyLit_.push_back(sf::Vector2u(tx-1,  ty ));
+                    lastlyLit_.push_back(sf::Vector2u( tx , ty+1));
+                    lastlyLit_.push_back(sf::Vector2u(tx-2, ty+2));
                 }
             }
 
@@ -154,8 +153,8 @@ namespace rr {
                 cellIDs_[tx-1 + ty*size_.x*3] =  2;
                 cellIDs_[tx-2 + ty*size_.x*3] =  2;
 
-                //lastlyLit_.push_back(sf::Vector2u(tx-1, ty));
-                //lastlyLit_.push_back(sf::Vector2u(tx-2, ty));
+                lastlyLit_.push_back(sf::Vector2u(tx-1, ty));
+                lastlyLit_.push_back(sf::Vector2u(tx-2, ty));
             }
         }
 
@@ -164,8 +163,8 @@ namespace rr {
                 cellIDs_[tx + (ty-1)*size_.x*3] =  2;
                 cellIDs_[tx + (ty-2)*size_.x*3] =  2;
 
-                //lastlyLit_.push_back(sf::Vector2u(tx, ty-1));
-                //lastlyLit_.push_back(sf::Vector2u(tx, ty-2));
+                lastlyLit_.push_back(sf::Vector2u(tx, ty-1));
+                lastlyLit_.push_back(sf::Vector2u(tx, ty-2));
             }
         }
 
@@ -174,16 +173,16 @@ namespace rr {
                 cellIDs_[tx + (ty+1)*size_.x*3] =  2;
                 cellIDs_[tx + (ty+2)*size_.x*3] =  2;
 
-                //lastlyLit_.push_back(sf::Vector2u(tx, ty+1));
-                //lastlyLit_.push_back(sf::Vector2u(tx, ty+2));
+                lastlyLit_.push_back(sf::Vector2u(tx, ty+1));
+                lastlyLit_.push_back(sf::Vector2u(tx, ty+2));
             }
         }
 
 // CORRECTING THE FINAL SHAPE OF THE SHADOWS
-/*
+
         if (  isFilled(x, y, 2)
             ) return;
-
+/*
         if (  isFilled(x-1, y-1, 2)
            && isFilled( x , y-1, 2)
            && isFilled(x+1, y-1, 2)
@@ -237,58 +236,58 @@ namespace rr {
             if (  cellIDs_[tx-1 + ( ty )*size_.x*3] == 2            // IF LEFT
                && cellIDs_[ tx  + (ty-1)*size_.x*3] == 2) {         // AND TOP ARE TRANSPARENT
                   cellIDs_[tx-1 + (ty-1)*size_.x*3] =  2;           // THEN SET TOP LEFT TO TRANSPARENT
-                  //lastlyLit_.push_back(sf::Vector2u(tx-1, ty-1));
+                  lastlyLit_.push_back(sf::Vector2u(tx-1, ty-1));
             }
 
             if (  cellIDs_[tx-1 + ( ty )*size_.x*3] == 2            // IF LEFT
                && cellIDs_[ tx  + (ty+1)*size_.x*3] == 2) {         // AND BOTTOM ARE TRANSPARENT
                   cellIDs_[tx-1 + (ty+1)*size_.x*3] =  2;           // THEN SET BOTTOM LEFT TO TRANSPARENT
-                  //lastlyLit_.push_back(sf::Vector2u(tx-1, ty+1));
+                  lastlyLit_.push_back(sf::Vector2u(tx-1, ty+1));
             }
 
             if (  cellIDs_[tx+1 + ( ty )*size_.x*3] == 2            // IF RIGHT
                && cellIDs_[ tx  + (ty-1)*size_.x*3] == 2) {         // AND TOP ARE TRANSPARENT
                   cellIDs_[tx+1 + (ty-1)*size_.x*3] =  2;           // THEN SET TOP RIGHT TO TRANSPARENT
-                  //lastlyLit_.push_back(sf::Vector2u(tx+1, ty-1));
+                  lastlyLit_.push_back(sf::Vector2u(tx+1, ty-1));
             }
 
             if (  cellIDs_[tx+1 + ( ty )*size_.x*3] == 2            // IF RIGHT
                && cellIDs_[ tx  + (ty+1)*size_.x*3] == 2) {         // AND BOTTOM ARE TRANSPARENT
                   cellIDs_[tx+1 + (ty+1)*size_.x*3] =  2;           // THEN SET BOTTOM RIGHT TO TRANSPARENT
-                  //lastlyLit_.push_back(sf::Vector2u(tx+1, ty+1));
+                  lastlyLit_.push_back(sf::Vector2u(tx+1, ty+1));
             }
 
             if (  cellIDs_[tx-1 + (ty-1)*size_.x*3] == 2            // IF TOP LEFT
                && cellIDs_[tx-1 + (ty+1)*size_.x*3] == 2) {         // AND BOTTOM LEFT ARE TRANSPARENT
                   cellIDs_[tx-1 + ( ty )*size_.x*3] =  2;           // THEN SET LEFT TO TRANSPARENT
-                  //lastlyLit_.push_back(sf::Vector2u(tx-1, ty));
+                  lastlyLit_.push_back(sf::Vector2u(tx-1, ty));
             }
 
             if (  cellIDs_[tx-1 + (ty-1)*size_.x*3] == 2            // IF TOP LEFT
                && cellIDs_[tx+1 + (ty-1)*size_.x*3] == 2) {         // AND TOP RIGHT ARE TRANSPARENT
                   cellIDs_[ tx  + (ty-1)*size_.x*3] =  2;           // THEN SET TOP TO TRANSPARENT
-                  //lastlyLit_.push_back(sf::Vector2u(tx, ty-1));
+                  lastlyLit_.push_back(sf::Vector2u(tx, ty-1));
             }
 
             if (  cellIDs_[tx+1 + (ty+1)*size_.x*3] == 2            // IF BOTTOM RIGHT
                && cellIDs_[tx+1 + (ty-1)*size_.x*3] == 2) {         // AND TOP RIGHT ARE TRANSPARENT
                   cellIDs_[tx+1 + ( ty )*size_.x*3] =  2;           // THEN SET RIGHT TO TRANSPARENT
-                  //lastlyLit_.push_back(sf::Vector2u(tx+1, ty));
+                  lastlyLit_.push_back(sf::Vector2u(tx+1, ty));
             }
 
             if (  cellIDs_[tx+1 + (ty+1)*size_.x*3] == 2            // IF BOTTOM RIGHT
                && cellIDs_[tx-1 + (ty+1)*size_.x*3] == 2) {         // AND BOTTOM LEFT ARE TRANSPARENT
                   cellIDs_[ tx  + (ty+1)*size_.x*3] =  2;           // THEN SET BOTTOM TO TRANSPARENT
-                  //lastlyLit_.push_back(sf::Vector2u(tx, ty+1));
+                  lastlyLit_.push_back(sf::Vector2u(tx, ty+1));
             }
         }
     }
 
     void ShadowMap::darken() {
-        for (unsigned int i=0; i<9*77*43; ++i) {
-            if (  cellIDs_[i] == 2
-                ) cellIDs_[i] =  1;
+        for (unsigned int i=0; i<lastlyLit_.size(); ++i) {
+            cellIDs_[lastlyLit_[i].x + lastlyLit_[i].y*size_.x*3] = 1;
         }
+        lastlyLit_.clear();
     }
 
     void ShadowMap::update() {

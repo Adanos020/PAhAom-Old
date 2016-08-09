@@ -23,7 +23,7 @@ namespace rr {
       position_                    (sf::Vector2u(0, 0)),
       currentAnimation_            (&walkingRight_    ),
       moving_                      (false             ),
-      velocity_                    (1120.f            ),
+      velocity_                    (1000.f            ),
       sightRange_                  (5                 )
     {
         attrs_.health = attrs_.maxHealth =  30.f;
