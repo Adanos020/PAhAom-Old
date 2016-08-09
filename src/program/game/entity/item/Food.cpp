@@ -24,15 +24,15 @@ namespace rr {
         setGridPosition(position);
     }
 
-    Food::Food(Food const& food) :
-      type_(food.type_)
+    Food::Food(Food const& copy) :
+      type_(copy.type_)
     {
-        amount_     = food.amount_;
-        disposable_ = food.disposable_;
-        stackable_  = food.stackable_;
-        ID_         = food.ID_;
-        iconIndex_  = food.iconIndex_;
-        body_       = food.body_;
+        amount_     = copy.amount_;
+        disposable_ = copy.disposable_;
+        stackable_  = copy.stackable_;
+        ID_         = copy.ID_;
+        iconIndex_  = copy.iconIndex_;
+        body_       = copy.body_;
     }
 
     void Food::initialize() {

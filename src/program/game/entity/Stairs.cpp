@@ -20,9 +20,9 @@ namespace rr {
         initialize();
     }
 
-    Stairs::Stairs(Stairs const& stairs) :
-      body_    (stairs.body_   ),
-      upwards_ (stairs.upwards_) {}
+    Stairs::Stairs(Stairs const& copy) :
+      body_   (copy.body_   ),
+      upwards_(copy.upwards_) {}
 
     void Stairs::initialize() {
         body_.setTexture    (Resources::texture.objects);

@@ -9,20 +9,24 @@
 namespace rr {
 
     Text::Text(sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style) {
-        text_.setFont         (font);
-        text_.setCharacterSize(chsize);
-        text_.setString       (str);
-        text_.setFillColor    (color);
-        text_.setStyle        (style);
+        text_.setFont            (font);
+        text_.setCharacterSize   (chsize);
+        text_.setString          (str);
+        text_.setFillColor       (color);
+        text_.setStyle           (style);
+        text_.setOutlineColor    (sf::Color::Black);
+        text_.setOutlineThickness((float) chsize/20.f);
     }
 
     Text::Text(sf::Vector2f pos, sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style) {
-        text_.setFont         (font);
-        text_.setPosition     (pos);
-        text_.setCharacterSize(chsize);
-        text_.setString       (str);
-        text_.setFillColor    (color);
-        text_.setStyle        (style);
+        text_.setFont            (font);
+        text_.setPosition        (pos);
+        text_.setCharacterSize   (chsize);
+        text_.setString          (str);
+        text_.setFillColor       (color);
+        text_.setStyle           (style);
+        text_.setOutlineColor    (sf::Color::Black);
+        text_.setOutlineThickness((float) chsize/20.f);
     }
 
     void Text::setPosition(sf::Vector2f pos) {

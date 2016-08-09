@@ -113,6 +113,8 @@ namespace rr {
              bool                  isMoving       ()                 const          { return moving_; }
          /// Resets the player's atributes
              void                  reset          ();
+         /// Handles the game cheats if the debug mode is enabled
+             void                  cheat          ();
 
              virtual std::ifstream& operator<<    (std::ifstream&)         override;
              virtual std::ofstream& operator>>    (std::ofstream&)         override;

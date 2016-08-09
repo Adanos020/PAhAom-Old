@@ -19,9 +19,9 @@ namespace rr {
 
     bool Potion::identified_[9] = { false, false, false, false, false, false, false, false, false };
 
-    Potion::Potion(Effect e, Size s, int am, sf::Vector2u pos) :
-      effect_(e),
-      size_  (s)
+    Potion::Potion(Type e, Size s, int am, sf::Vector2u pos) :
+      type_(e),
+      size_(s)
     {
         amount_     = am;
         
@@ -29,45 +29,45 @@ namespace rr {
         setGridPosition(pos);
     }
 
-    Potion::Potion(Potion const& potion) :
-      effect_(potion.effect_),
-      size_  (potion.size_  )
+    Potion::Potion(Potion const& copy) :
+      type_(copy.type_),
+      size_(copy.size_)
     {
-        amount_                = potion.amount_;
-        disposable_            = potion.disposable_;
-        stackable_             = potion.stackable_;
-        ID_                    = potion.ID_;
-        iconIndex_             = potion.iconIndex_;
-        body_                  = potion.body_;
+        amount_     = copy.amount_;
+        disposable_ = copy.disposable_;
+        stackable_  = copy.stackable_;
+        ID_         = copy.ID_;
+        iconIndex_  = copy.iconIndex_;
+        body_       = copy.body_;
     }
 
     void Potion::initialize() {
         disposable_ = true;
         stackable_  = true;
         cursed_     = false;
-        ID_         = 100 + effect_*10 + size_;
+        ID_         = 100 + type_*10 + size_;
         iconIndex_  = 3-size_;
 
         int icons[] = { (int)iconIndex_, (int)iconIndex_+16 };
 
         setIcon (body_, 2, icons);
-        setColor(body_, 1, itemColors[effect_]);
+        setColor(body_, 1, itemColors[type_]);
     }
 
     sf::String Potion::getName() const {
-        if (!identified_[effect_]) {
-                 if (itemColors[effect_] == sf::Color::Red          ) return Resources::dictionary["item.potion.color.red"    ];
-            else if (itemColors[effect_] == sf::Color::Blue         ) return Resources::dictionary["item.potion.color.blue"   ];
-            else if (itemColors[effect_] == sf::Color(32, 32, 0)    ) return Resources::dictionary["item.potion.color.brown"  ];
-            else if (itemColors[effect_] == sf::Color::Green        ) return Resources::dictionary["item.potion.color.green"  ];
-            else if (itemColors[effect_] == sf::Color::Cyan         ) return Resources::dictionary["item.potion.color.cyan"   ];
-            else if (itemColors[effect_] == sf::Color(255, 172, 172)) return Resources::dictionary["item.potion.color.pink"   ];
-            else if (itemColors[effect_] == sf::Color::Magenta      ) return Resources::dictionary["item.potion.color.magenta"];
-            else if (itemColors[effect_] == sf::Color::Yellow       ) return Resources::dictionary["item.potion.color.yellow" ];
-            else if (itemColors[effect_] == sf::Color::White        ) return Resources::dictionary["item.potion.color.white"  ];
+        if (!identified_[type_]) {
+                 if (itemColors[type_] == sf::Color::Red          ) return Resources::dictionary["item.potion.color.red"    ];
+            else if (itemColors[type_] == sf::Color::Blue         ) return Resources::dictionary["item.potion.color.blue"   ];
+            else if (itemColors[type_] == sf::Color(32, 32, 0)    ) return Resources::dictionary["item.potion.color.brown"  ];
+            else if (itemColors[type_] == sf::Color::Green        ) return Resources::dictionary["item.potion.color.green"  ];
+            else if (itemColors[type_] == sf::Color::Cyan         ) return Resources::dictionary["item.potion.color.cyan"   ];
+            else if (itemColors[type_] == sf::Color(255, 172, 172)) return Resources::dictionary["item.potion.color.pink"   ];
+            else if (itemColors[type_] == sf::Color::Magenta      ) return Resources::dictionary["item.potion.color.magenta"];
+            else if (itemColors[type_] == sf::Color::Yellow       ) return Resources::dictionary["item.potion.color.yellow" ];
+            else if (itemColors[type_] == sf::Color::White        ) return Resources::dictionary["item.potion.color.white"  ];
         }
         else {
-            switch (effect_) {
+            switch (type_) {
                 case HEALING:      return Resources::dictionary["item.potion.effect.healing"     ];
                 case MAGIC:        return Resources::dictionary["item.potion.effect.magic"       ];
                 case STRENGTH:     return Resources::dictionary["item.potion.effect.strength"    ];
@@ -83,10 +83,10 @@ namespace rr {
     }
 
     sf::String Potion::getDescription() const {
-        if ( !identified_[effect_]
+        if ( !identified_[type_]
             ) return Resources::dictionary["item.potion.description.unknown"];
         else {
-            switch (effect_) {
+            switch (type_) {
                 case HEALING     : return Resources::dictionary["item.potion.description.healing"     ];
                 case MAGIC       : return Resources::dictionary["item.potion.description.magic"       ];
                 case STRENGTH    : return Resources::dictionary["item.potion.description.strength"    ];
@@ -127,21 +127,21 @@ namespace rr {
 
     std::ifstream& Potion::operator<<(std::ifstream& file) {
         sf::Vector2u position;
-        int effect, size;
+        int type, size;
 
         try {
             readFile <unsigned> (file, position.x);
             readFile <unsigned> (file, position.y);
             readFile <   int  > (file, amount_);
-            readFile <   int  > (file, effect);
+            readFile <   int  > (file, type);
             readFile <   int  > (file, size);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
         }
 
-        effect_ = (Effect) effect;
-        size_   = (Size)   size;
+        type_ = (Type) type;
+        size_ = (Size) size;
 
         initialize();
         setGridPosition(position);
@@ -154,7 +154,7 @@ namespace rr {
              << (unsigned) body_[0].position.x/80u << ' '
              << (unsigned) body_[0].position.y/80u << ' '
              << amount_                            << ' '
-             << effect_                            << ' '
+             << type_                              << ' '
              << size_;
 
         return file;

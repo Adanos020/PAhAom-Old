@@ -11,30 +11,36 @@
 
 namespace rr {
 
-	class Coin : public Item {
-    private: virtual void           initialize()                  override;
+    class Coin : public Item {
+    private: virtual void           initialize     ()          override;
     
     public:  enum Type {
                  GOLDEN,
                  SILVER,
                  BRONZE
-             } type_;
+             };
              enum Size {
                  SMALL,
                  BIG
-             } size_;
-         
+             };
+
              Coin(Type = GOLDEN, Size = SMALL, int am = 1, sf::Vector2u pos = sf::Vector2u(0, 0));
              Coin(Coin const&);
-         
-             virtual Entity*        clone          ()                               const override { return new Coin(*this); }
-         
-             virtual sf::String     getName        ()                               const override;
-             virtual sf::String     getDescription ()                               const override;
-         
-             virtual std::ifstream& operator<<(std::ifstream&)                            override;
-             virtual std::ofstream& operator>>(std::ofstream&)                            override;
-	};
+
+             Type                   getType        () const             { return type_; }
+             Size                   getSize        () const             { return size_; }
+
+             virtual Entity*        clone          () const    override { return new Coin(*this); }
+
+             virtual sf::String     getName        () const    override;
+             virtual sf::String     getDescription () const    override;
+
+             virtual std::ifstream& operator<<(std::ifstream&) override;
+             virtual std::ofstream& operator>>(std::ofstream&) override;
+
+    private: Type type_;
+             Size size_;
+    };
 
 }
 

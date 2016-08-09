@@ -56,6 +56,7 @@ namespace rr {
             auto wInfo = new Window("", sf::Vector2f(410, 40), sf::Vector2f(0, 0)); {
                 auto tDescription = new Text(sf::Vector2f(5, 20), "", Resources::font.Unifont, 20);
                 	 tDescription->setStyle(sf::Text::Regular);
+                     tDescription->setOutlineColor(sf::Color(0x40, 0x40, 0x40));
                 *wInfo += tDescription;
             }
             auto wOpts = new Window("", sf::Vector2f(142, 143), sf::Vector2f(0, 0)); {
@@ -168,13 +169,13 @@ namespace rr {
                             if (instanceof<Equipable, Item>(component(wInve_, Slot, i)->getItem())) {
                                 bool equip = !((Equipable*)component(wInve_, Slot, i)->getItem())->isEquipped(); 
                                 
-                                if (  player_->equipItem((Equipable*)component(wInve_, Slot, i)->getItem(), equip)
+                                if (  player_->equipItem((Equipable*) component(wInve_, Slot, i)->getItem(), equip)
                                     ) ((Equipable*)component(wInve_, Slot, i)->getItem())->equip(equip);
                                 
                                 if (instanceof<ColdWeapon, Item>(component(wInve_, Slot, i)->getItem())) {
                                     for (int j=0; j<32; ++j) {
                                         if (j != i && instanceof <ColdWeapon, Item> (component(wInve_, Slot, j)->getItem())) {
-                                            ((Equipable*)component(wInve_, Slot, j)->getItem())->equip(false);
+                                            ((Equipable*) component(wInve_, Slot, j)->getItem())->equip(false);
                                         }
                                     }
                                 }
@@ -286,18 +287,18 @@ namespace rr {
      // in the beginning we check if the picked item is a coin
         if (instanceof<Coin, Item>(item)) {
          // first we recognize the coin type and size
-            if (((Coin*)item)->type_ == Coin::BRONZE) {
-                if (  ((Coin*)item)->size_ == Coin::BIG
+            if (((Coin*)item)->getType() == Coin::BRONZE) {
+                if (  ((Coin*)item)->getSize() == Coin::BIG
                     ) bronze_ += item->getAmount()*5;
                 else  bronze_ += item->getAmount();
             }
-            else if (((Coin*)item)->type_ == Coin::SILVER) {
-                if (  ((Coin*)item)->size_ == Coin::BIG
+            else if (((Coin*)item)->getType() == Coin::SILVER) {
+                if (  ((Coin*)item)->getSize() == Coin::BIG
                     ) silver_ += item->getAmount()*5;
                 else  silver_ += item->getAmount();
             }
-            else if (((Coin*)item)->type_ == Coin::GOLDEN) {
-                if (  ((Coin*)item)->size_ == Coin::BIG
+            else if (((Coin*)item)->getType() == Coin::GOLDEN) {
+                if (  ((Coin*)item)->getSize() == Coin::BIG
                     ) gold_ += item->getAmount()*5;
                 else  gold_ += item->getAmount();
             }
@@ -372,9 +373,9 @@ namespace rr {
     }
 
     void Inventory::open() {
-        wInve_.getComponent<Text>(0)->setString(std::to_string((int)gold_));
-        wInve_.getComponent<Text>(1)->setString(std::to_string((int)silver_));
-        wInve_.getComponent<Text>(2)->setString(std::to_string((int)bronze_));
+        wInve_.getComponent<Text>(0)->setString(std::to_string((int) gold_));
+        wInve_.getComponent<Text>(1)->setString(std::to_string((int) silver_));
+        wInve_.getComponent<Text>(2)->setString(std::to_string((int) bronze_));
 
         wInve_.setVisible(true);
     }
@@ -400,13 +401,13 @@ namespace rr {
                 
                 Item* item = nullptr;
                 switch (itemType) {
-                    case 2: item = new Book      (Book::CRAFTING                ); readEntity(file, item); break;
-                    case 3: item = new Coin      (Coin::BRONZE, Coin::SMALL     ); readEntity(file, item); break;
-                    case 4: item = new ColdWeapon(ColdWeapon::KNIFE             ); readEntity(file, item); break;
-                    case 5: /* ERROR 404 */                                                                break;
-                    case 6: item = new Potion    (Potion::HEALING, Potion::SMALL); readEntity(file, item); break;
-                    case 7: /* ERROR 404 */                                                                break;
-                    case 8: item = new Rune      (Rune::HEAL                    ); readEntity(file, item); break;
+                    case 2: item = new Book        (); readEntity(file, item); break;
+                    case 3: item = new Coin        (); readEntity(file, item); break;
+                    case 4: item = new ColdWeapon  (); readEntity(file, item); break;
+                    case 5: item = new Food        (); readEntity(file, item); break;
+                    case 6: item = new Potion      (); readEntity(file, item); break;
+                    case 7: item = new RangedWeapon(); readEntity(file, item); break;
+                    case 8: item = new Rune        (); readEntity(file, item); break;
                 }
                 addItem(item);
             }
@@ -441,8 +442,7 @@ namespace rr {
 
     void Inventory::onNotify(Event event, Entity* entity) {
         switch (event) {
-        default:
-            break;
+            default: break;
         }
 
 #undef slot

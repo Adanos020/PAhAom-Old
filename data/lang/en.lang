@@ -77,6 +77,9 @@ PROGRAMMING
 gui.text.literary_support
 DESCRIPTIONS, DIALOGUES, ETC.
 
+gui.text.testers
+TESTING
+
 gui.text.usedlib
 USED LIBRARY
 
@@ -391,7 +394,7 @@ item.coldweapon.description.long_stick
 Long sticks of this kind are most often associated with the wandering mages or pilgrims and thanks to their length and versatility they allow keeping the opponent in a distance.
 
 item.coldweapon.description.hammer
-Stone is heavy, as well as the hammer. That means a stone hammer must be a cursedly heavy and slow weapon which could be used only by someone with supernatural strngth.
+Stone is heavy, as well as the hammer. That means a stone hammer must be a cursedly heavy and slow weapon which could be used only by someone with supernatural strength.
 
 item.magicweapon.description.runic_sword
 This perfectly forged and balanced sword has a slot for a magical rune that will provide it some additional, special properties. Even without it it's a fast and valued weapon.
@@ -662,4 +665,10 @@ Now you know how to learn faster!
 
 message.item_used.food
 The food tasted amazing! Also you feel less hungry now.
+
+message.player_hungry
+You are hungry.
+
+message.player_starving
+You are starving!
 

@@ -17,25 +17,25 @@
 namespace rr {
 
     ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2u pos) :
-      level_     (0    ),
-      identified_(false),
       type_      (type )
     {
-        amount_ = amount;
+        level_      = 0;
+        identified_ = false;
+        amount_     = amount;
 
         initialize();
         setGridPosition(pos);
     }
 
-    ColdWeapon::ColdWeapon(ColdWeapon const& coldWeapon) :
-      type_    (coldWeapon.type_)
+    ColdWeapon::ColdWeapon(ColdWeapon const& copy) :
+      type_(copy.type_)
     {
-        amount_     = coldWeapon.amount_;
-        disposable_ = coldWeapon.disposable_;
-        stackable_  = coldWeapon.stackable_;
-        ID_         = coldWeapon.ID_;
-        iconIndex_  = coldWeapon.iconIndex_;
-        body_       = coldWeapon.body_;
+        amount_     = copy.amount_;
+        disposable_ = copy.disposable_;
+        stackable_  = copy.stackable_;
+        ID_         = copy.ID_;
+        iconIndex_  = copy.iconIndex_;
+        body_       = copy.body_;
     }
 
     void ColdWeapon::initialize() {
@@ -45,95 +45,95 @@ namespace rr {
         ID_         = 10+type_;
 
         switch (type_) {
-            case HAMMER:         damageDealt_      = 70;
-                                 strengthRequired_ = 80;
-                                 speed_            =  4;
-                                 accuracy_         = 10;
-                                 iconIndex_        = 39;
+            case HAMMER:         damageDealt_ = 70;
+                                 requirement_ = 80;
+                                 speed_       =  4;
+                                 accuracy_    = 10;
+                                 iconIndex_   = 39;
                                  break;
 
-            case DOUBLE_AXE:     damageDealt_      =  90;
-                                 strengthRequired_ = 100;
-                                 speed_            =   5;
-                                 accuracy_         =   7;
-                                 iconIndex_        = 21;
+            case DOUBLE_AXE:     damageDealt_ =  90;
+                                 requirement_ = 100;
+                                 speed_       =   5;
+                                 accuracy_    =   7;
+                                 iconIndex_   = 21;
                                  break;
 
-            case HALBERD:        damageDealt_      = 60;
-                                 strengthRequired_ = 70;
-                                 speed_            =  4;
-                                 accuracy_         =  7;
-                                 iconIndex_        = 22;
+            case HALBERD:        damageDealt_ = 60;
+                                 requirement_ = 70;
+                                 speed_       =  4;
+                                 accuracy_    =  7;
+                                 iconIndex_   = 22;
                                  break;
 
-            case AXE:            damageDealt_      = 55;
-                                 strengthRequired_ = 70;
-                                 speed_            =  7;
-                                 accuracy_         =  5;
-                                 iconIndex_        = 20;
+            case AXE:            damageDealt_ = 55;
+                                 requirement_ = 70;
+                                 speed_       =  7;
+                                 accuracy_    =  5;
+                                 iconIndex_   = 20;
                                  break;
 
-            case SERRATED_SWORD: damageDealt_      = 50;
-                                 strengthRequired_ = 60;
-                                 speed_            =  7;
-                                 accuracy_         =  8;
-                                 iconIndex_        =  7;
+            case SERRATED_SWORD: damageDealt_ = 50;
+                                 requirement_ = 60;
+                                 speed_       =  7;
+                                 accuracy_    =  8;
+                                 iconIndex_   =  7;
                                  break;
 
-            case LANCE:          damageDealt_      = 50;
-                                 strengthRequired_ = 60;
-                                 speed_            =  4;
-                                 accuracy_         =  6;
-                                 iconIndex_        = 24;
+            case LANCE:          damageDealt_ = 50;
+                                 requirement_ = 60;
+                                 speed_       =  4;
+                                 accuracy_    =  6;
+                                 iconIndex_   = 24;
                                  break;
 
-            case CLUB:           damageDealt_      = 40;
-                                 strengthRequired_ = 50;
-                                 speed_            =  6;
-                                 accuracy_         =  7;
-                                 iconIndex_        = 38;
+            case CLUB:           damageDealt_ = 40;
+                                 requirement_ = 50;
+                                 speed_       =  6;
+                                 accuracy_    =  7;
+                                 iconIndex_   = 38;
                                  break;
                              
-            case SWORD:          damageDealt_      = 30;
-                                 strengthRequired_ = 30;
-                                 speed_            =  7;
-                                 accuracy_         =  5;
-                                 iconIndex_        =  6;
+            case SWORD:          damageDealt_ = 30;
+                                 requirement_ = 30;
+                                 speed_       =  7;
+                                 accuracy_    =  5;
+                                 iconIndex_   =  6;
                                  break;
 
-            case SPEAR:          damageDealt_      = 30;
-                                 strengthRequired_ = 50;
-                                 speed_            =  6;
-                                 accuracy_         =  4;
-                                 iconIndex_        = 23;
+            case SPEAR:          damageDealt_ = 30;
+                                 requirement_ = 50;
+                                 speed_       =  6;
+                                 accuracy_    =  4;
+                                 iconIndex_   = 23;
                                  break;
 
-            case PIQUE:          damageDealt_      = 20;
-                                 strengthRequired_ = 25;
-                                 speed_            =  7;
-                                 accuracy_         =  7;
-                                 iconIndex_        = 36;
+            case PIQUE:          damageDealt_ = 20;
+                                 requirement_ = 25;
+                                 speed_       =  7;
+                                 accuracy_    =  7;
+                                 iconIndex_   = 36;
                                  break;
 
-            case LONG_STICK:     damageDealt_      = 15;
-                                 strengthRequired_ = 20;
-                                 speed_            =  8;
-                                 accuracy_         =  7;
-                                 iconIndex_        = 37;
+            case LONG_STICK:     damageDealt_ = 15;
+                                 requirement_ = 20;
+                                 speed_       =  8;
+                                 accuracy_    =  7;
+                                 iconIndex_   = 37;
                                  break;
 
-            case DAGGER:         damageDealt_      = 15;
-                                 strengthRequired_ =  5;
-                                 speed_            =  8;
-                                 accuracy_         =  5;
-                                 iconIndex_        =  5;
+            case DAGGER:         damageDealt_ = 15;
+                                 requirement_ =  5;
+                                 speed_       =  8;
+                                 accuracy_    =  5;
+                                 iconIndex_   =  5;
                                  break;
                              
-            case KNIFE:          damageDealt_      = 10;
-                                 strengthRequired_ =  5;
-                                 speed_            = 10;
-                                 accuracy_         =  4;
-                                 iconIndex_        =  4;
+            case KNIFE:          damageDealt_ = 10;
+                                 requirement_ =  5;
+                                 speed_       = 10;
+                                 accuracy_    =  4;
+                                 iconIndex_   =  4;
                                  break;
         }
 
@@ -184,7 +184,7 @@ namespace rr {
         }
 
         description += "\n" + ((identified_ && cursed_  ) ? "\n"+Resources::dictionary["item.enchantment.description.cursed"]                                 : "")
-                            +                               "\n"+Resources::dictionary["item.coldweapon.strength_required"  ]+" "+std::to_string((int)strengthRequired_)
+                            +                               "\n"+Resources::dictionary["item.coldweapon.strength_required"  ]+" "+std::to_string((int)requirement_)
                             +                               "\n"+Resources::dictionary["item.coldweapon.damage_dealt"       ]+" "+std::to_string((int)damageDealt_)
                             + ((identified_ && level_!=0) ? "\n"+Resources::dictionary["item.coldweapon.level"              ]+" "+std::to_string((int)level_) : "");
 
@@ -192,19 +192,15 @@ namespace rr {
     }
 
     void ColdWeapon::enhance() {
-        level_            ++;
-        speed_            ++;
-        accuracy_         ++;
-        damageDealt_      += 5;
-        strengthRequired_ -= 3;
+        level_       ++;
+        speed_       ++;
+        accuracy_    ++;
+        damageDealt_ += 5;
+        requirement_ -= 3;
     }
 
     void ColdWeapon::enchant() {
 
-    }
-
-    void ColdWeapon::reveal() {
-        identified_ = true;
     }
 
     std::ifstream& ColdWeapon::operator<<(std::ifstream& file) {
@@ -228,10 +224,10 @@ namespace rr {
 
         initialize();
 
-        speed_            += level_;
-        accuracy_         += level_;
-        damageDealt_      += level_*5;
-        strengthRequired_ -= level_*3;
+        speed_       += level_;
+        accuracy_    += level_;
+        damageDealt_ += level_*5;
+        requirement_ -= level_*3;
 
         setGridPosition(position);
 

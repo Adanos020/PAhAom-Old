@@ -23,7 +23,7 @@ namespace rr {
     MainMenu::MainMenu() :
       title_  (Text  (sf::Vector2f(0, 0), "PAhAom"       , Resources::font.Pixel, 100, sf::Color::Yellow) ),
       version_(Text  (sf::Vector2f(0, 0), "pre-alpha 0.6", Resources::font.Pixel,  50, sf::Color::Yellow) ),
-      wMenu_  (Window("", sf::Vector2f(244, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225)))
+      wMenu_  (Window("", sf::Vector2f(248, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225)))
     {
 
         title_  .setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-title_  .getSize().x/2,  10));
@@ -51,8 +51,8 @@ namespace rr {
                 wOpts->getComponent<Button>(i)->setPosition(wOpts->getPosition()+sf::Vector2f(wOpts->getSize().x/2 - wOpts->getComponent<Button>(i)->getSize().x/2, 30+i*75));
             }
 
-            auto bSave = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.save"     ], 30);
-            auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"     ], 30);
+            auto bSave = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.save"], 30);
+            auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
                  bSave->setPosition(sf::Vector2f(wOpts->getSize().x/2 - (bSave->getSize().x + bQuit->getSize().x+5)/2, 350));
                  bQuit->setPosition(sf::Vector2f(bSave->getSize().x+5, 0) + bSave->getPosition());
 
@@ -203,7 +203,7 @@ namespace rr {
             *wHelp += bQuit;
         }
 
-        auto wCred = new Window(Resources::dictionary["gui.button.credits"], sf::Vector2f(485, 335), sf::Vector2f(Settings::graphics.resolution.x-510,
+        auto wCred = new Window(Resources::dictionary["gui.button.credits"], sf::Vector2f(485, 405), sf::Vector2f(Settings::graphics.resolution.x-510,
                                                                                                                   Settings::graphics.resolution.y/2-165));
         {
             *wCred += new Text(sf::Vector2f(20,  20), Resources::dictionary["gui.text.programming"], Resources::font.Unifont, 30);
@@ -216,8 +216,11 @@ namespace rr {
             *wCred += new Text(sf::Vector2f(20, 165), Resources::dictionary["gui.text.literary_support"], Resources::font.Unifont, 30);
             *wCred += new Text(sf::Vector2f( 0, 195), "\tDominik 'Marco' Otmianowski", Resources::font.Unifont, 25, sf::Color::Yellow);
 
-            *wCred += new Text(sf::Vector2f(20, 225), Resources::dictionary["gui.text.usedlib"], Resources::font.Unifont, 30);
-            *wCred += new Text(sf::Vector2f( 0, 255), "\tSFML 2.3.2", Resources::font.Unifont, 25, sf::Color::Yellow);
+            *wCred += new Text(sf::Vector2f(20, 225), Resources::dictionary["gui.text.testers"], Resources::font.Unifont, 30);
+            *wCred += new Text(sf::Vector2f( 0, 255), "\tJakub Szewczyk", Resources::font.Unifont, 25, sf::Color::Yellow);
+
+            *wCred += new Text(sf::Vector2f(20, 285), Resources::dictionary["gui.text.usedlib"], Resources::font.Unifont, 30);
+            *wCred += new Text(sf::Vector2f( 0, 315), "\tSFML 2.3.2", Resources::font.Unifont, 25, sf::Color::Yellow);
 
             auto wQuit = new Button(sf::Vector2f(5, 255), Resources::dictionary["gui.button.quit"], 30);
                  wQuit->setPosition(sf::Vector2f(wCred->getSize().x/2 - wQuit->getSize().x/2,

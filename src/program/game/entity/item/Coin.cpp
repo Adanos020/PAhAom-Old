@@ -24,15 +24,15 @@ namespace rr {
         setGridPosition(pos);
     }
 
-    Coin::Coin(Coin const& coin) :
-      type_(coin.type_)
+    Coin::Coin(Coin const& copy) :
+      type_(copy.type_)
     {
-        amount_     = coin.amount_;
-        disposable_ = coin.disposable_;
-        stackable_  = coin.stackable_;
-        ID_         = coin.ID_;
-        iconIndex_  = coin.iconIndex_;
-        body_       = coin.body_;
+        amount_     = copy.amount_;
+        disposable_ = copy.disposable_;
+        stackable_  = copy.stackable_;
+        ID_         = copy.ID_;
+        iconIndex_  = copy.iconIndex_;
+        body_       = copy.body_;
     }
 
     void Coin::initialize() {

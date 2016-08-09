@@ -25,15 +25,15 @@ namespace rr {
         setGridPosition(pos);
     }
 
-    Book::Book(Book const& book) :
-      type_(book.type_)
+    Book::Book(Book const& copy) :
+      type_(copy.type_)
     {
-        amount_      = book.amount_;
-        disposable_  = book.disposable_;
-        stackable_   = book.stackable_;
-        ID_          = book.ID_;
-        iconIndex_   = book.iconIndex_;
-        body_        = book.body_;
+        amount_      = copy.amount_;
+        disposable_  = copy.disposable_;
+        stackable_   = copy.stackable_;
+        ID_          = copy.ID_;
+        iconIndex_   = copy.iconIndex_;
+        body_        = copy.body_;
     }
 
     void Book::initialize() {

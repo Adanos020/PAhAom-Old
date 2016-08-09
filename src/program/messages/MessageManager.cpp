@@ -48,25 +48,25 @@ namespace rr {
         switch (event) {
             case ITEM_EQUIP_FAILURE: addMessage(Message(Resources::dictionary["message.item_equip_failure"]
                                                       +" "
-                                                      +((Item*)entity)->getName()
+                                                      +((Item*) entity)->getName()
                                                       +((Settings::game.language != "fc") ? sf::String("!") : sf::String("")), sf::Color::Red));
                                      break;
 
             case ITEM_DISCOVERED   : addMessage(Message(Resources::dictionary["message.item_discovered"]+" "
-                                                      +((Item*)entity)->getName()
+                                                      +((Item*) entity)->getName()
                                                       +((Settings::game.language != "fc") ? sf::String(".") : sf::String("")), sf::Color::Yellow));
                                      break;
 
             case ITEM_PICKED       : addMessage(Message(Resources::dictionary["message.item_picked"]
                                                        +sf::String(" ")
-                                                       +std::to_string((instanceof<Coin, Item>((Item*)entity) && ((Coin*)entity)->size_ == Coin::BIG) ? 5*((Item*)entity)->getAmount() : ((Item*)entity)->getAmount())
+                                                       +std::to_string((instanceof<Coin, Item>((Item*) entity) && ((Coin*) entity)->getSize() == Coin::BIG) ? 5*((Item*) entity)->getAmount() : ((Item*) entity)->getAmount())
                                                        +sf::String("x ")
-                                                       +((Item*)entity)->getName()
+                                                       +((Item*) entity)->getName()
                                                        +((Settings::game.language != "fc") ? sf::String("!") : sf::String(""))));
                                      break;
 
-            case ITEM_USED         : if (instanceof<Book, Item>((Item*)entity)) {
-                                         switch (((Book*)entity)->type_) {
+            case ITEM_USED         : if (instanceof<Book, Item>((Item*) entity)) {
+                                         switch (((Book*) entity)->getType()) {
                                              case Book  ::CRAFTING             : addMessage(Message(Resources::dictionary["message.item_used.book.crafting"             ])); break;
                                              case Book  ::ALCHEMY              : addMessage(Message(Resources::dictionary["message.item_used.book.alchemy"              ])); break;
                                              case Book  ::COLD_WEAPON_MASTERY  : addMessage(Message(Resources::dictionary["message.item_used.book.cold_weapon_mastery"  ])); break;
@@ -78,11 +78,11 @@ namespace rr {
                                              default: break;
                                          }
                                      }
-                                     else if (instanceof<Food, Item>((Item*)entity)) {
+                                     else if (instanceof<Food, Item>((Item*) entity)) {
                                          addMessage(Message(Resources::dictionary["message.item_used.food"]));
                                      }
-                                     else if (instanceof<Potion, Entity>((Item*)entity)) {
-                                         switch (((Potion*)entity)->effect_) {
+                                     else if (instanceof<Potion, Entity>((Item*) entity)) {
+                                         switch (((Potion*) entity)->getType()) {
                                              case Potion::HEALING              : addMessage(Message(Resources::dictionary["message.item_used.potion.healing"            ])); break;
                                              case Potion::MAGIC                : addMessage(Message(Resources::dictionary["message.item_used.potion.magic"              ])); break;
                                              case Potion::STRENGTH             : addMessage(Message(Resources::dictionary["message.item_used.potion.strength"           ])); break;
@@ -94,9 +94,15 @@ namespace rr {
                                              case Potion::WEAKNESS             : addMessage(Message(Resources::dictionary["message.item_used.potion.weakness"           ])); break;
                                          }
                                      }
-                                     else if (instanceof<Rune, Item>((Item*)entity)) {
+                                     else if (instanceof<Rune, Item>((Item*) entity)) {
                                      
                                      }
+                                     break;
+
+            case PLAYER_HUNGRY     : addMessage(Message(Resources::dictionary["message.player_hungry"  ], sf::Color(0xff, 0x88, 0x00)));
+                                     break;
+
+            case PLAYER_STARVING   : addMessage(Message(Resources::dictionary["message.player_starving"], sf::Color::Red));
                                      break;
 
             default                : break;

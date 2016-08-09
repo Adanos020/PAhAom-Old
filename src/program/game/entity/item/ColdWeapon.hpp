@@ -11,16 +11,9 @@
 
 namespace rr {
 
-    class ColdWeapon : public Equipable {
-    private: float strengthRequired_;
-             float damageDealt_;
-             float speed_;
-             float accuracy_;
-             int   level_;
-             bool  identified_;
-         
-             virtual void           initialize    ()                  override;
-    
+    class ColdWeapon : public Weapon {
+    private: virtual void           initialize    ()                  override;
+
     public:  enum Type {
                  HAMMER,
                  DOUBLE_AXE,
@@ -35,33 +28,30 @@ namespace rr {
                  LONG_STICK,
                  DAGGER,
                  KNIFE
-             } type_;
-         
+             };
+
              ColdWeapon(Type = HAMMER, int amount = 1, sf::Vector2u pos = sf::Vector2u(0, 0));
              ColdWeapon(ColdWeapon const&);
-         
-             virtual Entity*        clone              ()            const override { return new ColdWeapon(*this); }
-         
-             virtual sf::String     getName            ()            const override;
-             virtual sf::String     getDescription     ()            const override;
-         
-             virtual void           equip              (bool b)            override { equipped_ = b; }
-             virtual bool           isEquipped         ()            const override { return equipped_; }
-         
-             virtual void           reveal             ()                  override;
-             virtual bool           isDiscovered       ()            const override { return identified_; }
-         
-             void                   enhance            ();
-             void                   enchant            ();
-         
-             float                  getStrengthRequired()            const          { return strengthRequired_; }
-             float                  getDamageDealt     ()            const          { return damageDealt_; }
-             float                  getSpeed           ()            const          { return speed_; }
-             float                  getAccuracy        ()            const          { return accuracy_; }
-             int                    getLevel           ()            const          { return level_; }
-         
-             virtual std::ifstream& operator<<    (std::ifstream&)    override;
-             virtual std::ofstream& operator>>    (std::ofstream&)    override;
+
+             Type                   getType       () const                  { return type_; }
+
+             virtual Entity*        clone         () const         override { return new ColdWeapon(*this); }
+
+             virtual sf::String     getName       () const         override;
+             virtual sf::String     getDescription() const         override;
+
+             virtual void           equip         (bool b)         override { equipped_ = b; }
+             virtual bool           isEquipped    () const         override { return equipped_; }
+
+             virtual void           reveal        ()               override { identified_ = true; }
+
+             virtual void           enhance       ()               override;
+             virtual void           enchant       ()               override;
+
+             virtual std::ifstream& operator<<    (std::ifstream&) override;
+             virtual std::ofstream& operator>>    (std::ofstream&) override;
+
+    private: Type type_;
     };
 
 }

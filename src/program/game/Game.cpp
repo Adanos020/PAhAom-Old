@@ -280,7 +280,7 @@ namespace rr {
     }
 
     void Game::controls(sf::Event& event) {
-        if (started_ && !paused_) {
+        if ((!mapOpen_ || Settings::game.debugMode) && started_ && !paused_) {
             bool canUpdateFOV = !player_.isMoving();
             if (isKeyPressed(Settings::keys.move_up)) {
                 player_.move(currentLevel_->getTiles(), Player::UP);
@@ -302,14 +302,9 @@ namespace rr {
                 if (  canUpdateFOV
                     ) currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
             }
-#if 0
-                 if (isKeyPressed(sf::Keyboard::Numpad1)) player_.attrs_.health    --;
-            else if (isKeyPressed(sf::Keyboard::Numpad2)) player_.attrs_.health    ++;
-            else if (isKeyPressed(sf::Keyboard::Numpad3)) player_.attrs_.mana      --;
-            else if (isKeyPressed(sf::Keyboard::Numpad4)) player_.attrs_.mana      ++;
-            else if (isKeyPressed(sf::Keyboard::Numpad5)) player_.attrs_.experience++;
-            else if (isKeyPressed(sf::Keyboard::Numpad6)) player_.attrs_.level     ++;
-#endif
+            
+            if (  Settings::game.debugMode
+                ) player_.cheat();
         }
     }
 

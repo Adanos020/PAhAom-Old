@@ -91,6 +91,26 @@ namespace rr {
                virtual bool isEquipped() const = 0;
     };
 
+    class Weapon : public Equipable {
+    protected: float requirement_;
+               float damageDealt_;
+               float speed_;
+               float accuracy_;
+               int   level_;
+               bool  identified_;
+    
+    public:    float getRequirement() const          { return requirement_; }
+               float getDamageDealt() const          { return damageDealt_; }
+               float getSpeed      () const          { return speed_; }
+               float getAccuracy   () const          { return accuracy_; }
+               int   getLevel      () const          { return level_; }
+
+       virtual bool  isDiscovered  () const override { return identified_; }
+
+       virtual void  enhance       () = 0;
+       virtual void  enchant       () = 0;
+    };
+
 }
 
 #endif // ITEM_HPP

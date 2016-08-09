@@ -22,10 +22,10 @@ namespace rr {
         initialize();
     }
 
-    Chest::Chest(Chest const& chest) :
-      body_ (chest.body_),
-      item_ (chest.item_),
-      type_ (chest.type_) {}
+    Chest::Chest(Chest const& copy) :
+      body_(copy.body_),
+      item_(copy.item_),
+      type_(copy.type_) {}
 
     Chest::~Chest() {
         delete item_;

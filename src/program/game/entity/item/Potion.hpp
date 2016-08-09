@@ -12,9 +12,9 @@
 namespace rr {
 
     class Potion : public Discoverable {
-    private: virtual void           initialize     ()                  override;
+    private: virtual void   initialize     ()               override;
     
-    public:  enum Effect {
+    public:  enum Type {
                  HEALING,
                  MAGIC,
                  STRENGTH,
@@ -24,31 +24,37 @@ namespace rr {
                  POISON,
                  SLOWNESS,
                  WEAKNESS
-             } effect_;
+             };
              enum Size {
                  BIG,
                  MEDIUM,
                  SMALL
-             } size_;
-             
-             static bool identified_[9];
-         
-             Potion(Effect = HEALING, Size = BIG, int am = 1, sf::Vector2u pos = sf::Vector2u(0, 0));
+             };
+
+      static bool identified_[9];
+
+             Potion(Type = HEALING, Size = BIG, int am = 1, sf::Vector2u pos = sf::Vector2u(0, 0));
              Potion(Potion const&);
-         
-             virtual Entity*        clone          ()            const override { return new Potion(*this); }
-         
-             virtual void           reveal         ()                  override { identified_[effect_] = true; }
-             virtual bool           isDiscovered   ()            const override { return identified_[effect_]; }
-         
-             virtual sf::String     getName        ()            const override;
-             virtual sf::String     getDescription ()            const override;
-         
-             void                   setPosition    (sf::Vector2f)      override;
-             void                   setGridPosition(sf::Vector2u)      override;
-         
-             virtual std::ifstream& operator<<     (std::ifstream&)    override;
-             virtual std::ofstream& operator>>     (std::ofstream&)    override;
+
+             Type           getType        () const                  { return type_; }
+             Size           getSize        () const                  { return size_; }
+
+     virtual Entity*        clone          () const         override { return new Potion(*this); }
+
+     virtual void           reveal         ()               override { identified_[type_] = true; }
+     virtual bool           isDiscovered   () const         override { return identified_[type_]; }
+
+     virtual sf::String     getName        () const         override;
+     virtual sf::String     getDescription () const         override;
+
+             void           setPosition    (sf::Vector2f)   override;
+             void           setGridPosition(sf::Vector2u)   override;
+
+     virtual std::ifstream& operator<<     (std::ifstream&) override;
+     virtual std::ofstream& operator>>     (std::ofstream&) override;
+
+    private: Type type_;
+             Size size_;
     };
 
 }

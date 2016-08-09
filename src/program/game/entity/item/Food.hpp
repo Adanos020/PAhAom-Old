@@ -12,7 +12,7 @@
 namespace rr {
 
     class Food : public Item {
-    private: virtual void           initialize    ()                  override;
+    private: virtual void           initialize    ()           override;
     
     public:  enum Type {
                  MEAT,
@@ -26,12 +26,12 @@ namespace rr {
     
              Food(Type = MEAT, int amount = 1, sf::Vector2u position = sf::Vector2u(0, 0));
              Food(Food const&);
+
+             virtual Entity*        clone         () const     override { return new Food(*this); }
          
-             virtual Entity*        clone         () const            override { return new Food(*this); }
-         
-             virtual sf::String     getName       () const            override;
-             virtual sf::String     getDescription() const            override;
-         
+             virtual sf::String     getName       () const     override;
+             virtual sf::String     getDescription() const     override;
+
              virtual std::ifstream& operator<<(std::ifstream&) override;
              virtual std::ofstream& operator>>(std::ofstream&) override;
     };

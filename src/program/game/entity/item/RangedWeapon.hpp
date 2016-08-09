@@ -11,17 +11,37 @@
 
 namespace rr {
 
-    class RangedWeapon : public Equipable {
-    public: RangedWeapon();
-            RangedWeapon(RangedWeapon const&);
-/*
-            virtual Entity*        clone     ()            const override { return new RangedWeapon(*this); }
-*/    
-            virtual sf::String     getName        ()            const override;
-            virtual sf::String     getDescription ()            const override;
-    
-            virtual std::ifstream& operator<<(std::ifstream&)    override;
-            virtual std::ofstream& operator>>(std::ofstream&)    override;
+    class RangedWeapon : public Weapon {
+    private: virtual void           initialize    ()               override;
+
+    public:  enum Type {
+                 BOW,
+                 CROSSBOW,
+                 SLINGSHOT
+             };
+
+             RangedWeapon(Type = BOW, int amount = 1, sf::Vector2u position = sf::Vector2u(0, 0));
+             RangedWeapon(RangedWeapon const&);
+
+             Type                   getType       () const                  { return type_; }
+
+             virtual Entity*        clone         () const         override { return new RangedWeapon(*this); }
+
+             virtual sf::String     getName       () const         override;
+             virtual sf::String     getDescription() const         override;
+
+             virtual void           equip         (bool b)         override { equipped_ = b; }
+             virtual bool           isEquipped    () const         override { return equipped_; }
+
+             virtual void           reveal        ()               override { identified_ = true; }
+
+             virtual void           enhance       ()               override;
+             virtual void           enchant       ()               override;
+
+             virtual std::ifstream& operator<<    (std::ifstream&) override;
+             virtual std::ofstream& operator>>    (std::ofstream&) override;
+
+    private: Type type_;
     };
 
 }

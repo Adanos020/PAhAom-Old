@@ -19,7 +19,9 @@ namespace rr {
                 ITEM_DROPPED,
                 ITEM_PICKED,
                 ITEM_USED,
-                INVENTORY_FULL
+                INVENTORY_FULL,
+                PLAYER_HUNGRY,
+                PLAYER_STARVING
             };
 
             virtual ~Observer() {}

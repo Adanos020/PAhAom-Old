@@ -26,13 +26,13 @@ namespace rr {
         body_.scale      (sf::Vector2f(5, 5));
     }
 
-    Bandit::Bandit(Bandit const& bandit) :
-      attrs_ (bandit.attrs_ ),
-      asleep_(bandit.asleep_),
-      weapon_(bandit.weapon_)
+    Bandit::Bandit(Bandit const& copy) :
+      attrs_ (copy.attrs_ ),
+      asleep_(copy.asleep_),
+      weapon_(copy.weapon_)
     {
-        body_             = bandit.body_;
-        currentAnimation_ = bandit.currentAnimation_;
+        body_             = copy.body_;
+        currentAnimation_ = copy.currentAnimation_;
     }
 
     void Bandit::initialize() {

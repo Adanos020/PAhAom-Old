@@ -29,15 +29,15 @@ namespace rr {
         setGridPosition(pos);
     }
 
-    Rune::Rune(Rune const& rune) :
-      type_ (rune.type_)
+    Rune::Rune(Rune const& copy) :
+      type_ (copy.type_)
     {
-        amount_                = rune.amount_;
-        disposable_            = rune.disposable_;
-        stackable_             = rune.stackable_;
-        ID_                    = rune.ID_;
-        iconIndex_             = rune.iconIndex_;
-        body_                  = rune.body_;
+        amount_     = copy.amount_;
+        disposable_ = copy.disposable_;
+        stackable_  = copy.stackable_;
+        ID_         = copy.ID_;
+        iconIndex_  = copy.iconIndex_;
+        body_       = copy.body_;
     }
 
     void Rune::initialize() {
@@ -49,7 +49,7 @@ namespace rr {
 
         int icons[] = { (int)iconIndex_, 64+(int)spellSymbols[type_] };
 
-        setIcon    (body_, 2, icons);
+        setIcon(body_, 2, icons);
     }
 
     sf::String Rune::getName() const {

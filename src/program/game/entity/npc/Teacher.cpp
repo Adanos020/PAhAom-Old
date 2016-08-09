@@ -21,11 +21,11 @@ namespace rr {
         body_.scale(sf::Vector2f(5, 5));
     }
 
-    Teacher::Teacher(Teacher const& teacher) :
-      type_(teacher.type_)
+    Teacher::Teacher(Teacher const& copy) :
+      type_(copy.type_)
     {
-        body_             = teacher.body_;
-        currentAnimation_ = teacher.currentAnimation_;
+        body_             = copy.body_;
+        currentAnimation_ = copy.currentAnimation_;
     }
 
     void Teacher::initialize() {

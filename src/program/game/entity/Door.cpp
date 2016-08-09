@@ -22,11 +22,11 @@ namespace rr {
         initialize();
     }
 
-    Door::Door(Door const& door) :
-      body_          (door.body_         ),
-      locked_        (door.locked_       ),
-      open_          (door.open_         ),
-      withoutWindow_ (door.withoutWindow_) {}
+    Door::Door(Door const& copy) :
+      body_         (copy.body_         ),
+      locked_       (copy.locked_       ),
+      open_         (copy.open_         ),
+      withoutWindow_(copy.withoutWindow_) {}
 
     void Door::initialize() {
         body_.setTexture    (Resources::texture.objects);

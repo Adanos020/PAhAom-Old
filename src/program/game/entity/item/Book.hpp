@@ -24,22 +24,26 @@ namespace rr {
                  HEALTH_REGEN,
                  FASTER_LEARNING,
                  SPELLS_BOOK
-             } type_;
-         
+             };
+
              Book(Type = CRAFTING, int am = 1, sf::Vector2u pos = sf::Vector2u(0, 0));
              Book(Book const&);
+
+             Type                   getType        () const                  { return type_; }
          
              virtual Entity*        clone          () const         override { return new Book(*this); }
 
 
              void                   setGridPosition(sf::Vector2u)   override;
              void                   setPosition    (sf::Vector2f)   override;
-             
+
              virtual sf::String     getName        () const         override;
              virtual sf::String     getDescription () const         override;
-         
+
              virtual std::ifstream& operator<<     (std::ifstream&) override;
              virtual std::ofstream& operator>>     (std::ofstream&) override;
+
+    private: Type type_;
     };
 
 }

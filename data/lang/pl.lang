@@ -77,6 +77,9 @@ PROGRAMOWANIE
 gui.text.literary_support
 OPISY, DIALOGI, ITP.
 
+gui.text.testers
+TESTOWANIE
+
 gui.text.usedlib
 UŻYTA BIBLIOTEKA
 
@@ -662,4 +665,10 @@ Teraz uczysz się szybciej!
 
 message.item_used.food
 To smakowało świetnie! No i teraz czujesz się mniej głodny.
+
+message.player_hungry
+Jesteś głodny.
+
+message.player_starving
+Umierasz z głodu!
 

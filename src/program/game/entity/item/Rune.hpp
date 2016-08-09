@@ -12,7 +12,7 @@
 namespace rr {
 
     class Rune : public Discoverable {
-    private: virtual void           initialize     ()                  override;
+    private: virtual void   initialize     ()                  override;
 
     public:  enum Type {
                  HEAL,
@@ -27,26 +27,30 @@ namespace rr {
                  IDENTIFY,
                  UNCURSE,
                  TELEKINESIS
-             } type_;
+             };
 
-             static bool identified_[12];
+      static bool identified_[12];
 
              Rune(Type = HEAL, int am = 1, sf::Vector2u pos = sf::Vector2u(0, 0));
              Rune(Rune const&);
 
-             virtual Entity*        clone          ()            const override { return new Rune(*this); }
+             Type           getType        () const                     { return type_; }
 
-             virtual void           reveal         ()                  override { identified_[type_] = true; }
-             virtual bool           isDiscovered   ()            const override { return identified_[type_]; }
+     virtual Entity*        clone          () const            override { return new Rune(*this); }
 
-             virtual sf::String     getName        ()            const override;
-             virtual sf::String     getDescription ()            const override;
+     virtual void           reveal         ()                  override { identified_[type_] = true; }
+     virtual bool           isDiscovered   () const            override { return identified_[type_]; }
 
-             void                   setGridPosition(sf::Vector2u)      override;
-             void                   setPosition    (sf::Vector2f)      override;
+     virtual sf::String     getName        () const            override;
+     virtual sf::String     getDescription () const            override;
 
-             virtual std::ifstream& operator<<     (std::ifstream&)    override;
-             virtual std::ofstream& operator>>     (std::ofstream&)    override;
+             void           setGridPosition(sf::Vector2u)      override;
+             void           setPosition    (sf::Vector2f)      override;
+
+     virtual std::ifstream& operator<<     (std::ifstream&)    override;
+     virtual std::ofstream& operator>>     (std::ofstream&)    override;
+
+    private: Type type_;
     };
 
 }
