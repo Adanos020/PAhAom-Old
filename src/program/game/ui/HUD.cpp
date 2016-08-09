@@ -20,15 +20,25 @@ namespace rr {
                              sf::Vector2f(Settings::graphics.resolution.x/2 - (Settings::graphics.resolution.x-400)/2,
                                           Settings::graphics.resolution.y-20)                                       )),
 
-      tXPlevel_    (Text(sf::Vector2f(0, 0), ""  , Resources::font.Pixel, 40, sf::Color::Yellow                     )),
-      tLevelNumber_(Text(sf::Vector2f(0, 0), "L0", Resources::font.Pixel, 30, sf::Color::Green                      ))
+      tXPlevel_    (Text(sf::Vector2f(0, 0), ""  , Resources::font.Pixel  , 40, sf::Color::Yellow                   )),
+      tLevelNumber_(Text(sf::Vector2f(0, 0), "L0", Resources::font.Pixel  , 30, sf::Color::Green                    )),
+      tFPS_        (Text(sf::Vector2f(0, 0), "0" , Resources::font.Unifont, 20, sf::Color::Yellow                   ))
     {
         tXPlevel_.setPosition(sf::Vector2f(bXP_.getPosition().x + bXP_.getSize().x/2 - tXPlevel_.getSize().x/2,
                                            bXP_.getPosition().y - tXPlevel_.getSize().y));
         tLevelNumber_.setPosition(sf::Vector2f(Settings::graphics.resolution.x - tLevelNumber_.getSize().x-10, 10));
+        tFPS_.setPosition(sf::Vector2f(5, 5));
+
+        tXPlevel_    .setOutlineColor(sf::Color::Black);
+        tLevelNumber_.setOutlineColor(sf::Color::Black);
+        tFPS_        .setOutlineColor(sf::Color::Black);
+
+        tXPlevel_    .setOutlineThickness(1.f);
+        tLevelNumber_.setOutlineThickness(1.f);
+        tFPS_        .setOutlineThickness(1.f);
     }
 
-    void HUD::update(Player* p, int lvl) {
+    void HUD::update(Player* p, int lvl, sf::Time timeStep) {
         bHP_.setValue(sf::Vector2f(p->getAttributes().health     / p->getAttributes().maxHealth, 1));
         bMP_.setValue(sf::Vector2f(p->getAttributes().mana       / p->getAttributes().maxMana  , 1));
         bXP_.setValue(sf::Vector2f(p->getAttributes().experience / p->getAttributes().nextLevel, 1));
@@ -39,6 +49,10 @@ namespace rr {
 
         tLevelNumber_.setString  ("L"+std::to_string(lvl));
         tLevelNumber_.setPosition(sf::Vector2f(Settings::graphics.resolution.x - tLevelNumber_.getSize().x-10, 10));
+
+        char buf[64];
+        snprintf(buf, 64, "%.1f", float(1.f/timeStep.asSeconds()));
+        tFPS_.setString("FPS: "+sf::String(buf));
     }
 
     void HUD::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -47,6 +61,9 @@ namespace rr {
         target.draw(bXP_         , states);
         target.draw(tXPlevel_    , states);
         target.draw(tLevelNumber_, states);
+        
+        if (  Settings::game.debugMode
+            ) target.draw(tFPS_        , states);
     }
 
 }

@@ -7,18 +7,22 @@
 #ifndef SHADOWMAP_HPP
 #define SHADOWMAP_HPP
 
+#include <vector>
+
 #include <SFML/Graphics.hpp>
 
 namespace rr {
 
     class ShadowMap : public sf::Drawable {
-    private: bool               discovered_[77*43];
-             unsigned char      cellIDs_ [9*77*43];
+    private: bool                      discovered_[77*43];
+             unsigned char             cellIDs_ [9*77*43];
 
-             sf::Vector2u       size_;
-             sf::RectangleShape shadowSprite_;
-             sf::Texture        shadowTexture_;
-             sf::Image          shadowImage_;
+             sf::Vector2u              size_;
+             sf::VertexArray           shadowSprite_;
+             sf::Texture               shadowTexture_;
+             sf::Image                 shadowImage_;
+
+             std::vector<sf::Vector2u> lastlyLit_;
 
              bool isFilled            (unsigned x, unsigned y, unsigned char id) const;
 

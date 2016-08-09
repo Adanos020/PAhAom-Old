@@ -67,6 +67,7 @@ namespace rr {
         oconfig << ";---------------;\n";
         oconfig << ";-game settings-;\n";
         oconfig << "lang:\t\t"           + game.language                                       +"\n";
+        oconfig << "debug:\t\t"          + std::to_string(game.debugMode                      )+"\n";
         oconfig << ";---------------;\n";
         oconfig << ";video  settings;\n";
         oconfig << ";----screen-----;\n";
@@ -76,7 +77,7 @@ namespace rr {
         oconfig << "vsync:\t\t"          + std::to_string(graphics.vsync                      )+"\n";
         oconfig << ";---graphics----;\n";
         oconfig << "antialiasing:\t"     + std::to_string(graphics.csettings.antialiasingLevel)+"\n";
-        oconfig << "depth_bits:\t"       + std::to_string(graphics.csettings.depthBits        )+"\n";
+        oconfig << "depth_bits:\t\t"     + std::to_string(graphics.csettings.depthBits        )+"\n";
         oconfig << "stencil_bits:\t"     + std::to_string(graphics.csettings.stencilBits      )+"\n";
         oconfig << ";---------------;\n";
         oconfig << ";audio  settings;\n";
@@ -95,10 +96,10 @@ namespace rr {
         oconfig << "interact:\t"         + std::to_string(keys.interact                       )+"\n";
         oconfig << "attack:\t\t"         + std::to_string(keys.attack                         )+"\n";
         oconfig << ";---open menus--;\n";
-        oconfig << "open_inventory:\t"   + std::to_string(keys.open_inventory                 )+"\n";
-        oconfig << "open_attributes: "   + std::to_string(keys.open_attributes                )+"\n";
-        oconfig << "open_journal:\t"     + std::to_string(keys.open_journal                   )+"\n";
-        oconfig << "open_map:\t"         + std::to_string(keys.open_map                       )+"\n";
+        oconfig << "open_inventory:\t\t" + std::to_string(keys.open_inventory                 )+"\n";
+        oconfig << "open_attributes:\t"  + std::to_string(keys.open_attributes                )+"\n";
+        oconfig << "open_journal:\t\t"   + std::to_string(keys.open_journal                   )+"\n";
+        oconfig << "open_map:\t\t\t"     + std::to_string(keys.open_map                       )+"\n";
         oconfig << "open_bookOfSpells:\t"+ std::to_string(keys.open_bookOfSpells              )+"\n";
         oconfig << ";---use slots---;\n";
         oconfig << "useslot_1:\t"        + std::to_string(keys.useslot_1                      )+"\n";
@@ -128,7 +129,8 @@ namespace rr {
                     continue;
                 }
                 else {
-                    if      (param == "lang:"             )   iconfig >>                             game.language               ;
+                    if      (param == "lang:"             )   iconfig >>                    game.language                        ;
+                    else if (param == "debug:"            )   readFile <  bool  > (iconfig, game.debugMode                      );
                     else if (param == "width:"            )   readFile <unsigned> (iconfig, graphics.resolution.x               );
                     else if (param == "height:"           )   readFile <unsigned> (iconfig, graphics.resolution.y               );
                     else if (param == "fullscreen:"       )   readFile   <bool>   (iconfig, graphics.fullscreen                 );
@@ -140,22 +142,22 @@ namespace rr {
                     else if (param == "effects_volume:"   )   readFile   <float>  (iconfig, sound.effects_volume                );
                     else if (param == "music_muted:"      )   readFile   <bool>   (iconfig, sound.music_muted                   );
                     else if (param == "effects_muted:"    )   readFile   <bool>   (iconfig, sound.effects_muted                 );
-                    else if (param == "move_up:"          ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_up           = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "move_down:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_down         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "move_left:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_left         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "move_right:"       ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_right        = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "interact:"         ) { readFile    <int>   (iconfig, keyCode                             ); keys.interact          = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "attack:"           ) { readFile    <int>   (iconfig, keyCode                             ); keys.attack            = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "open_inventory:"   ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_inventory    = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "open_attributes:"  ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_attributes   = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "open_journal:"     ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_journal      = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "open_map:"         ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_map          = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "open_bookOfSpells:") { readFile    <int>   (iconfig, keyCode                             ); keys.open_bookOfSpells = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "useslot_1:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_1         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "useslot_2:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_2         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "useslot_3:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_3         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "useslot_4:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_4         = (sf::Keyboard::Key)keyCode; }
-                    else if (param == "useslot_5:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_5         = (sf::Keyboard::Key)keyCode; }
+                    else if (param == "move_up:"          ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_up           = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "move_down:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_down         = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "move_left:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_left         = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "move_right:"       ) { readFile    <int>   (iconfig, keyCode                             ); keys.move_right        = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "interact:"         ) { readFile    <int>   (iconfig, keyCode                             ); keys.interact          = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "attack:"           ) { readFile    <int>   (iconfig, keyCode                             ); keys.attack            = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "open_inventory:"   ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_inventory    = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "open_attributes:"  ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_attributes   = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "open_journal:"     ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_journal      = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "open_map:"         ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_map          = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "open_bookOfSpells:") { readFile    <int>   (iconfig, keyCode                             ); keys.open_bookOfSpells = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "useslot_1:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_1         = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "useslot_2:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_2         = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "useslot_3:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_3         = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "useslot_4:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_4         = (sf::Keyboard::Key) keyCode; }
+                    else if (param == "useslot_5:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_5         = (sf::Keyboard::Key) keyCode; }
                     else                                  throw std::invalid_argument("Wrong parameter: "+param);
                 }
             }
@@ -171,7 +173,7 @@ namespace rr {
             sound    = Settings::Sound();
             keys     = Settings::Keys();
 
-            save ();
+            save();
         }
         return true;
     }

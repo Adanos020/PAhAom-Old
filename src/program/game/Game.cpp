@@ -152,6 +152,8 @@ namespace rr {
         start(true);
         pause(false);
 
+        currentLevel_->calculateFOV((sf::Vector2u)player_.getGridPosition(), player_.getSightRange());
+
         return true;
     }
 
@@ -205,6 +207,8 @@ namespace rr {
 
         start(true);
         pause(false);
+
+        currentLevel_->calculateFOV((sf::Vector2u)player_.getGridPosition(), player_.getSightRange());
 
         return true;
     }
@@ -265,23 +269,39 @@ namespace rr {
         controls(event);
 
         player_        .update(time);
-        hud_           .update(&player_, levelNumber_+1);
+        hud_           .update(&player_, levelNumber_+1, time);
         messageManager_.update(time);
 
         gameView_.setCenter(sf::Vector2f(player_.getBounds().left+40, player_.getBounds().top+40));
 
         if (started_ && !paused_) {
             currentLevel_->update(this, time);
-            currentLevel_->calculateFOV((sf::Vector2u)player_.getGridPosition(), player_.getSightRange());
         }
     }
 
     void Game::controls(sf::Event& event) {
         if (started_ && !paused_) {
-            if (isKeyPressed(Settings::keys.move_up))    player_.move(currentLevel_->getTiles(), Player::UP);
-            if (isKeyPressed(Settings::keys.move_down))  player_.move(currentLevel_->getTiles(), Player::DOWN);
-            if (isKeyPressed(Settings::keys.move_left))  player_.move(currentLevel_->getTiles(), Player::LEFT);
-            if (isKeyPressed(Settings::keys.move_right)) player_.move(currentLevel_->getTiles(), Player::RIGHT);
+            bool canUpdateFOV = !player_.isMoving();
+            if (isKeyPressed(Settings::keys.move_up)) {
+                player_.move(currentLevel_->getTiles(), Player::UP);
+                if (  canUpdateFOV
+                    ) currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
+            }
+            if (isKeyPressed(Settings::keys.move_down)) {
+                player_.move(currentLevel_->getTiles(), Player::DOWN);
+                if (  canUpdateFOV
+                    ) currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
+            }
+            if (isKeyPressed(Settings::keys.move_left)) {
+                player_.move(currentLevel_->getTiles(), Player::LEFT);
+                if (  canUpdateFOV
+                    ) currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
+            }
+            if (isKeyPressed(Settings::keys.move_right)) {
+                player_.move(currentLevel_->getTiles(), Player::RIGHT);
+                if (  canUpdateFOV
+                    ) currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
+            }
 #if 0
                  if (isKeyPressed(sf::Keyboard::Numpad1)) player_.attrs_.health    --;
             else if (isKeyPressed(sf::Keyboard::Numpad2)) player_.attrs_.health    ++;
