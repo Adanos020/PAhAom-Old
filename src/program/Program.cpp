@@ -40,6 +40,8 @@ namespace rr {
         while (window_.pollEvent(event_)) {
             if (  event_.type == sf::Event::Closed
                 ) window_.close();
+            if (  event_.type == sf::Event::LostFocus
+                ) game_->pause(true);
 
             game_->buttonEvents(window_, event_);
         }

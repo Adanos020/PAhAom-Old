@@ -66,7 +66,7 @@ namespace rr {
 
         oconfig << ";---------------;\n";
         oconfig << ";-game settings-;\n";
-        oconfig << "lang:\t\t"           + game.language                                       +"\n";
+        oconfig << "lang:\t\t"           +                game.language                        +"\n";
         oconfig << "debug:\t\t"          + std::to_string(game.debugMode                      )+"\n";
         oconfig << ";---------------;\n";
         oconfig << ";video  settings;\n";
