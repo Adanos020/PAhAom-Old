@@ -111,6 +111,8 @@ namespace rr {
 
         player_.setGridPosition((ascending) ? currentLevel_->getStartingPoint() : currentLevel_->getEndingPoint());
 
+        currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
+
         messageManager_.addMessage(Message(Resources::dictionary["message.welcome_to_level"]
                                           +" "
                                           +std::to_string(levelNumber_+1)
@@ -152,7 +154,7 @@ namespace rr {
         start(true);
         pause(false);
 
-        currentLevel_->calculateFOV((sf::Vector2u)player_.getGridPosition(), player_.getSightRange());
+        currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
 
         return true;
     }

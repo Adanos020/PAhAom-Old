@@ -54,7 +54,7 @@ namespace rr {
     }
 
     std::ofstream& Stairs::operator>>(std::ofstream& file) {
-        file << 10                                   << ' '
+        file << 42                                   << ' '
              << (unsigned) body_.getPosition().x/80u << ' '
              << (unsigned) body_.getPosition().y/80u << ' '
              << upwards_;

@@ -7,6 +7,7 @@
 #ifndef ITEM_ALL_HPP
 #define ITEM_ALL_HPP
 
+#include "Ammunition.hpp"
 #include "Book.hpp"
 #include "Coin.hpp"
 #include "ColdWeapon.hpp"

@@ -14,12 +14,14 @@
 #include "Entity.hpp"
 #include "npc/NPC.hpp"
 #include "item/ColdWeapon.hpp"
+#include "item/RangedWeapon.hpp"
 #include "item/Item.hpp"
 
 namespace rr {
 
     class Level;
     class ColdWeapon;
+    class RangedWeapon;
     class Equipable;
 
 /// Class for the player
@@ -58,6 +60,7 @@ namespace rr {
              } buffs_;
 
              ColdWeapon*        coldWeapon_;
+             RangedWeapon*      rangedWeapon_;
 
              sf::Vector2u       position_;
              sf::AnimatedSprite body_;

@@ -150,7 +150,7 @@ namespace rr {
     }
 
     std::ofstream& Potion::operator>>(std::ofstream& file) {
-        file << 6                                  << ' '
+        file << 5                                  << ' '
              << (unsigned) body_[0].position.x/80u << ' '
              << (unsigned) body_[0].position.y/80u << ' '
              << amount_                            << ' '

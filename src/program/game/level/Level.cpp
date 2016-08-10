@@ -22,7 +22,7 @@ namespace rr {
 
     Level::Level(int number) :
       size_         (sf::Vector2u(77, 43)),
-      shadowMap_    (new ShadowMap(size_)),
+      shadowMap_    (ShadowMap(size_)    ),
       region_count_ (0                   ),
       levelNumber_  (number              )
     {
@@ -37,7 +37,6 @@ namespace rr {
     }
 
     Level::~Level() {
-        delete shadowMap_;
         for (auto entity : entities_) {
             delete entity;
         }
@@ -54,7 +53,7 @@ namespace rr {
         for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
             target.draw(**it);
         }
-        target.draw(*shadowMap_, states);
+        target.draw(shadowMap_, states);
     }
 
     void Level::addEntity(Entity* e, sf::Vector2u position) {
@@ -120,7 +119,7 @@ namespace rr {
     }
 
     void Level::calculateFOV(sf::Vector2u origin, int range) {
-        FOV::compute(shadowMap_, tilesAsInts_, origin, range);
+        FOV::compute(&shadowMap_, tilesAsInts_, origin, range);
     }
 
     void Level::generateWorld() {
@@ -592,11 +591,11 @@ namespace rr {
                    ) break;
            }
            switch (levelNumber_) {
-               case 5 : addEntity(new Teacher(Teacher::SWORDSMAN     ), pos); break;
-               case 10: addEntity(new Teacher(Teacher::SHARPSHOOTER  ), pos); break;
-               case 15: addEntity(new Teacher(Teacher::CARPENTER     ), pos); break;
-               case 20: addEntity(new Teacher(Teacher::MAGE          ), pos); break;
-               case 25: addEntity(new Teacher(Teacher::KUNG_FU_MASTER), pos); break;
+               case 5 : addEntity(new Teacher(Teacher::SWORDSMAN     ), pos); tiles_[pos.x + pos.y*size_.x] = OCCUPIED; break;
+               case 10: addEntity(new Teacher(Teacher::SHARPSHOOTER  ), pos); tiles_[pos.x + pos.y*size_.x] = OCCUPIED; break;
+               case 15: addEntity(new Teacher(Teacher::CARPENTER     ), pos); tiles_[pos.x + pos.y*size_.x] = OCCUPIED; break;
+               case 20: addEntity(new Teacher(Teacher::MAGE          ), pos); tiles_[pos.x + pos.y*size_.x] = OCCUPIED; break;
+               case 25: addEntity(new Teacher(Teacher::KUNG_FU_MASTER), pos); tiles_[pos.x + pos.y*size_.x] = OCCUPIED; break;
            }
         }
      // here we put some enemies
@@ -656,22 +655,23 @@ namespace rr {
                 Entity* entity;
 
                 switch (identificator) {
-                    case  0: entity = new Chest       (); readEntity(file, entity); addEntity(entity); break;
-                    case  1: entity = new Door        (); readEntity(file, entity); addEntity(entity); break;
-                    case  2: entity = new Book        (); readEntity(file, entity); addEntity(entity); break;
-                    case  3: entity = new Coin        (); readEntity(file, entity); addEntity(entity); break;
-                    case  4: entity = new ColdWeapon  (); readEntity(file, entity); addEntity(entity); break;
-                    case  5: entity = new Food        (); readEntity(file, entity); addEntity(entity); break;
-                    case  6: entity = new Potion      (); readEntity(file, entity); addEntity(entity); break;
-                    case  7: /*entity = new RangedWeapon(); readEntity(file, entity); addEntity(entity);*/ break;
-                    case  8: entity = new Rune        (); readEntity(file, entity); addEntity(entity); break;
-                    case  9: entity = new Teacher     (); readEntity(file, entity); addEntity(entity); break;
-                    case 10: entity = new Stairs      (); readEntity(file, entity); addEntity(entity); break;
-                    case 11: entity = new Bandit      (); readEntity(file, entity); addEntity(entity); break;
+                    case  0: entity = new Ammunition  (); readEntity(file, entity); addEntity(entity); break;
+                    case  1: entity = new Book        (); readEntity(file, entity); addEntity(entity); break;
+                    case  2: entity = new Coin        (); readEntity(file, entity); addEntity(entity); break;
+                    case  3: entity = new ColdWeapon  (); readEntity(file, entity); addEntity(entity); break;
+                    case  4: entity = new Food        (); readEntity(file, entity); addEntity(entity); break;
+                    case  5: entity = new Potion      (); readEntity(file, entity); addEntity(entity); break;
+                    case  6: entity = new RangedWeapon(); readEntity(file, entity); addEntity(entity); break;
+                    case  7: entity = new Rune        (); readEntity(file, entity); addEntity(entity); break;
+                    case 20: entity = new Bandit      (); readEntity(file, entity); addEntity(entity); break;
+                    case 21: entity = new Teacher     (); readEntity(file, entity); addEntity(entity); break;
+                    case 40: entity = new Chest       (); readEntity(file, entity); addEntity(entity); break;
+                    case 41: entity = new Door        (); readEntity(file, entity); addEntity(entity); break;
+                    case 42: entity = new Stairs      (); readEntity(file, entity); addEntity(entity); break;
                 }
             }
 
-            *shadowMap_ << file;
+            shadowMap_ << file;
 
             for (int i=0; i<77*43; ++i) { // load the tiles
                 file >> tilesAsInts_[i];
@@ -697,7 +697,7 @@ namespace rr {
             **entity >> file << '\n';
         }
         
-        *shadowMap_ >> file;
+        shadowMap_ >> file;
         
         for (int i=0; i<77*43; ++i) {                 // save the tiles
             file << tiles_[i] << (((i+1)%77 == 0) ? '\n' : ' ');

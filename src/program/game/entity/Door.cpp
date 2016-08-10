@@ -67,7 +67,7 @@ namespace rr {
     }
 
     std::ofstream& Door::operator>>(std::ofstream& file) {
-        file << 1                                    << ' '
+        file << 41                                   << ' '
              << (unsigned) body_.getPosition().x/80u << ' '
              << (unsigned) body_.getPosition().y/80u << ' '
              << locked_                              << ' '

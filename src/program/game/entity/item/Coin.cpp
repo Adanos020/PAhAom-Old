@@ -83,11 +83,11 @@ namespace rr {
     }
 
     std::ofstream& Coin::operator>>(std::ofstream& file) {
-        file << 3                             << ' '
-             << (int) body_[0].position.x/80u << ' '
-             << (int) body_[0].position.y/80u << ' '
-             << amount_                       << ' '
-             << type_                         << ' '
+        file << 2                                  << ' '
+             << (unsigned) body_[0].position.x/80u << ' '
+             << (unsigned) body_[0].position.y/80u << ' '
+             << amount_                            << ' '
+             << type_                              << ' '
              << size_;
 
         return file;

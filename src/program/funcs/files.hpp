@@ -8,6 +8,7 @@
 #define FUNCS_FILES_HPP
 
 #include <fstream>
+#include <string>
 
 #include "../game/entity/Entity.hpp"
 
@@ -21,8 +22,9 @@ namespace rr {
             std::string param;
             f.clear();
             f.sync ();
+            int pos = f.tellg();
             f >> param;
-            throw std::invalid_argument("Wrong data: " + param);
+            throw std::invalid_argument("Wrong data: " + param + ", position: " + std::to_string(pos));
         }
     }
 
@@ -34,7 +36,8 @@ namespace rr {
             f.clear();
             f.sync();
             f >> param;
-            throw std::invalid_argument("Wrong data: " + param);
+            int pos = f.tellg();
+            throw std::invalid_argument("Wrong data: " + param + ", position: " + std::to_string(pos));
         }
     }
 

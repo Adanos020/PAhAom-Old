@@ -19,6 +19,8 @@ namespace rr {
     RangedWeapon::RangedWeapon(Type type, int amount, sf::Vector2u position) :
       type_(type)
     {
+        level_      = 0;
+        identified_ = false;
         amount_ = amount;
 
         initialize();
@@ -37,9 +39,9 @@ namespace rr {
     }
 
     void RangedWeapon::initialize() {
-        disposable_ = true;
-        stackable_  = true;
-        cursed_     = false;
+        disposable_ = false;
+        stackable_  = false;
+        cursed_     = chance(1, 4);
         ID_         = type_ + 23;
         iconIndex_  = type_ + 52;
 
@@ -105,12 +107,12 @@ namespace rr {
         requirement_ -= level_*3;
 
         setGridPosition(position);
-        
+
         return file;
     }
 
     std::ofstream& RangedWeapon::operator>>(std::ofstream& file) {
-        file << 7                                  << ' '
+        file << 6                                  << ' '
              << (unsigned) body_[0].position.x/80u << ' '
              << (unsigned) body_[0].position.y/80u << ' '
              << amount_                            << ' '

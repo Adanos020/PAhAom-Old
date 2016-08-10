@@ -168,6 +168,27 @@ cursed
 item.enchantment.description.cursed
 This item is cursed.
 
+item.ammunition.name.arrow
+Arrow
+
+item.ammunition.name.bolt
+Bolt
+
+item.ammunition.name.rocks
+Rocks
+
+item.ammunition.name.shuriken
+Shuriken
+
+item.ranged_weapon.name.bow
+Bow
+
+item.ranged_weapon.name.crossbow
+Crossbow
+
+item.ranged_weapon.name.slingshot
+Slingshot
+
 item.book.type.crafting
 "Crafting basics"
 

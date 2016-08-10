@@ -96,7 +96,7 @@ namespace rr {
     }
 
     std::ofstream& Food::operator>>(std::ofstream& file) {
-        file << 5                                  << ' '
+        file << 4                                  << ' '
              << (unsigned) body_[0].position.x/80u << ' '
              << (unsigned) body_[0].position.y/80u << ' '
              << amount_                            << ' '

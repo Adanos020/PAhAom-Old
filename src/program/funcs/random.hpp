@@ -12,6 +12,10 @@
 
 namespace rr {
 
+    inline int range(int a, int b) {
+        return rand()%(b-a+1)+a;
+    }
+
 /// There is a chance equal to (numerator/denominator) that this function will return true.
     inline bool chance(int numerator, int denominator) {
         return rand()%denominator < numerator;

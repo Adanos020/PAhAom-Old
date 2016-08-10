@@ -235,7 +235,7 @@ namespace rr {
     }
 
     std::ofstream& ColdWeapon::operator>>(std::ofstream& file) {
-        file << 4                                  << ' '
+        file << 3                                  << ' '
              << (unsigned) body_[0].position.x/80u << ' '
              << (unsigned) body_[0].position.y/80u << ' '
              << amount_                            << ' '

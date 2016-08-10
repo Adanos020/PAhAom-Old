@@ -15,9 +15,9 @@
 
 namespace rr {
 
-    Chest::Chest(Type t) :
-      item_ (getRandomItem()),
-      type_ (t              )
+    Chest::Chest(Type type) :
+      item_ (getRandomItemBalanced()),
+      type_ (type                   )
     {
         initialize();
     }
@@ -75,7 +75,7 @@ namespace rr {
     }
 
     std::ofstream& Chest::operator>>(std::ofstream& file) {
-            file << 0                                    << ' '
+            file << 40                                   << ' '
                  << (unsigned) body_.getPosition().x/80u << ' '
                  << (unsigned) body_.getPosition().y/80u << ' '
                  << type_                                << ' ';

@@ -17,9 +17,9 @@ namespace rr {
     public:  enum Type {
                  ARROW,
                  BOLT,
-                 STONE,
+                 ROCKS,
                  SHURIKEN
-             }
+             };
 
              Ammunition(Type = ARROW, int amount = 1, sf::Vector2u position = sf::Vector2u(0, 0));
              Ammunition(Ammunition const&);

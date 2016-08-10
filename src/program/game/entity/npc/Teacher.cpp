@@ -83,7 +83,7 @@ namespace rr {
     }
 
     std::ofstream& Teacher::operator>>(std::ofstream& file) {
-        file << 9                                    << ' '
+        file << 21                                   << ' '
              << (unsigned) body_.getPosition().x/80u << ' '
              << (unsigned) body_.getPosition().y/80u << ' '
              << type_;

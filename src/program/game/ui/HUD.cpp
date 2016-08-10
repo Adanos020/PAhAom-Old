@@ -43,7 +43,7 @@ namespace rr {
         bMP_.setValue(sf::Vector2f(p->getAttributes().mana       / p->getAttributes().maxMana  , 1));
         bXP_.setValue(sf::Vector2f(p->getAttributes().experience / p->getAttributes().nextLevel, 1));
 
-        tXPlevel_.setString  (std::to_wstring((int)p->getAttributes().level));
+        tXPlevel_.setString  (std::to_wstring((int) p->getAttributes().level));
         tXPlevel_.setPosition(sf::Vector2f(bXP_.getPosition().x + bXP_.getSize().x/2 - tXPlevel_.getSize().x/2,
                                            bXP_.getPosition().y - tXPlevel_.getSize().y));
 

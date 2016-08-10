@@ -50,7 +50,6 @@ namespace rr {
     void Program::update(sf::Clock& timer) {
         if (  game_->isStarted()
             ) game_->update(event_, timer.getElapsedTime());
-        timer.restart();
     }
 
     void Program::draw() {
@@ -62,9 +61,11 @@ namespace rr {
     void Program::mainLoop() {
         sf::Clock timer;
         while (window_.isOpen()) {
-            handleEvents();
-            update      (timer);
-            draw        ();
+            update       (timer);
+            timer.restart();
+            
+            draw         ();
+            handleEvents ();
         }
     }
 

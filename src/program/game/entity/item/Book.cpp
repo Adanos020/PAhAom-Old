@@ -129,7 +129,7 @@ namespace rr {
     }
 
     std::ofstream& Book::operator>>(std::ofstream& file) {
-        file << 2                                  << ' '
+        file << 1                                  << ' '
              << (unsigned) body_[0].position.x/80u << ' '
              << (unsigned) body_[0].position.y/80u << ' '
              << amount_                            << ' '

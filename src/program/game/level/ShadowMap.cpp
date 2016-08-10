@@ -182,7 +182,7 @@ namespace rr {
 
         if (  isFilled(x, y, 2)
             ) return;
-/*
+
         if (  isFilled(x-1, y-1, 2)
            && isFilled( x , y-1, 2)
            && isFilled(x+1, y-1, 2)
@@ -192,7 +192,7 @@ namespace rr {
            && isFilled(x-1, y+1, 2)
            && isFilled(x-1,  y , 2)
             ) return;
-*/
+
         std::vector<unsigned char> neighbors;
         if (x > 0) {
             if (  y > 0

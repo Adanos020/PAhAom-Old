@@ -128,7 +128,7 @@ namespace rr {
     }
 
     std::ofstream& Bandit::operator>>(std::ofstream& file) {
-        file << 11                                   << ' '
+        file << 20                                   << ' '
              << (unsigned) body_.getPosition().x/80u << ' '
              << (unsigned) body_.getPosition().y/80u << ' '
              << asleep_                              << ' '

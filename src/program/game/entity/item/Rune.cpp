@@ -157,7 +157,7 @@ namespace rr {
     }
 
     std::ofstream& Rune::operator>>(std::ofstream& file) {
-        file << 8                                  << ' '
+        file << 7                                  << ' '
              << (unsigned) body_[0].position.x/80u << ' '
              << (unsigned) body_[0].position.y/80u << ' '
              << amount_                            << ' '

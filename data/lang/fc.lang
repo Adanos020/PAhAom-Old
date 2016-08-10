@@ -168,6 +168,27 @@ txieqlehtébi
 item.enchantment.description.cursed
 .teh txieamjet txieqlehtéhbi ject
 
+item.ammunition.name.arrow
+cétéxiala
+
+item.ammunition.name.bolt
+belt
+
+item.ammunition.name.rocks
+qamjehje
+
+item.ammunition.name.shuriken
+šuriqen
+
+item.ranged_weapon.name.bow
+lyq
+
+item.ranged_weapon.name.crossbow
+qywa
+
+item.ranged_weapon.name.slingshot
+tépoua
+
 item.book.type.crafting
 «toactavbi vbitbaxiahjér»
 

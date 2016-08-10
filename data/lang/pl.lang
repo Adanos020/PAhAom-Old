@@ -168,6 +168,27 @@ przeklęty
 item.enchantment.description.cursed
 Ten przedmiot jest przeklęty.
 
+item.ammunition.name.arrow
+Strzała
+
+item.ammunition.name.bolt
+Bełt
+
+item.ammunition.name.rocks
+Kamienie
+
+item.ammunition.name.shuriken
+Shuriken
+
+item.ranged_weapon.name.bow
+Łuk
+
+item.ranged_weapon.name.crossbow
+Kusza
+
+item.ranged_weapon.name.slingshot
+Proca
+
 item.book.type.crafting
 „Podstawy wytwarzania”
 

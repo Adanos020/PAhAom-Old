@@ -21,10 +21,12 @@ extern rr::Subject subject;
 namespace rr {
 
     Player::Player() :
+      coldWeapon_                  (nullptr           ),
+      rangedWeapon_                (nullptr           ),
       position_                    (sf::Vector2u(0, 0)),
       currentAnimation_            (&walkingRight_    ),
       moving_                      (false             ),
-      velocity_                    (1000.f            ),
+      velocity_                    (1100.f            ),
       sightRange_                  (5                 )
     {
         attrs_.health = attrs_.maxHealth =  30.f;
@@ -60,6 +62,9 @@ namespace rr {
 
     Player::Player(Player const& copy) :
       attrs_           (copy.attrs_           ),
+      buffs_           (copy.buffs_           ),
+      coldWeapon_      (copy.coldWeapon_      ),
+      rangedWeapon_    (copy.rangedWeapon_    ),
       position_        (copy.position_        ),
       body_            (copy.body_            ),
       walkingLeft_     (copy.walkingLeft_     ),
@@ -123,19 +128,19 @@ namespace rr {
                 buffs_.weakness     -= (buffs_.weakness     == 0 ? 0 : 1);
                 buffs_.hunger       ++;
 
-                if (  buffs_.hunger == 250
-                    ) subject.notify(Observer::PLAYER_HUNGRY  , nullptr);
                 if (  buffs_.hunger == 500
+                    ) subject.notify(Observer::PLAYER_HUNGRY  , nullptr);
+                if (  buffs_.hunger == 1000
                     ) subject.notify(Observer::PLAYER_STARVING, nullptr);
 
-                if (  buffs_.hunger >= 500
-                    ) attrs_.health -= 0.5f;
+                if (  buffs_.hunger >= 1000
+                    ) attrs_.health -= 0.05f;
 
                 moving_ = false;
             }
 
-            if (  (abs(offset.x) < velocity_/256 && abs(offset.x) > 0) // preventing the player from wobbling
-               || (abs(offset.y) < velocity_/256 && abs(offset.y) > 0) // in between of two cells
+            if (  (abs(offset.x) < velocity_/128 && abs(offset.x) > 0) // preventing the player from wobbling
+               || (abs(offset.y) < velocity_/128 && abs(offset.y) > 0) // in between of two cells
                 )  body_.setPosition((sf::Vector2f) position_*80.f);
         }
 
@@ -232,8 +237,8 @@ namespace rr {
             }
         }
         else if (instanceof<Food, Item>(item)) {
-            if (  buffs_.hunger >= 500
-                ) buffs_.hunger  = 250;
+            if (  buffs_.hunger >= 1000
+                ) buffs_.hunger  = 500;
             else  buffs_.hunger  =   0;
 
             attrs_.health += 10;
@@ -310,6 +315,16 @@ namespace rr {
             else if (((ColdWeapon*) item)->getRequirement() <= attrs_.strength) {
                 coldWeapon_ = (ColdWeapon*) item;
                 success     = true;
+            }
+        }
+        else if (instanceof <RangedWeapon, Equipable> (item)) {
+            if (!equip) {
+                rangedWeapon_ = nullptr;
+                success       = true;
+            }
+            else if (((RangedWeapon*) item)->getRequirement() <= attrs_.dexterity) {
+                rangedWeapon_ = (RangedWeapon*) item;
+                success       = true;
             }
         }
 
