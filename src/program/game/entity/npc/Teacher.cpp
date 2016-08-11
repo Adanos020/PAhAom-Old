@@ -17,6 +17,10 @@ namespace rr {
     Teacher::Teacher(Type type) :
       type_(type)
     {
+        attrs_.health   = attrs_.maxHealth = 100.f;
+        attrs_.armor                       =  50.f;
+        attrs_.level                       =  30  ;
+
         initialize();
         body_.scale(sf::Vector2f(5, 5));
     }

@@ -113,7 +113,7 @@ namespace rr {
              /// \brief Returns the player's position relatively to the grid marked
              /// out by the level's tile map.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) body_.getPosition()/80; }
+     virtual sf::Vector2i getGridPosition() const override { return position_; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the player's position relatively to the graphics card's

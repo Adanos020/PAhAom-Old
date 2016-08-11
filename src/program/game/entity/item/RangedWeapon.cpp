@@ -45,6 +45,26 @@ namespace rr {
         ID_         = type_ + 23;
         iconIndex_  = type_ + 52;
 
+        switch (type_) {
+            case BOW      : damageDealt_ = 40;
+                            requirement_ = 25;
+                            speed_       =  7;
+                            accuracy_    =  9;
+                            break;
+
+            case CROSSBOW : damageDealt_ = 50;
+                            requirement_ = 40;
+                            speed_       =  6;
+                            accuracy_    =  8;
+                            break;
+
+            case SLINGSHOT: damageDealt_ = 30;
+                            requirement_ = 15;
+                            speed_       =  8;
+                            accuracy_    =  5;
+                            break;
+        }
+
         setIcon(body_, iconIndex_);
     }
 
