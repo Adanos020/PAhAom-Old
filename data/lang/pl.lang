@@ -574,6 +574,30 @@ neutralny
 npc.attitude.passive
 pasywny
 
+npc.bandit.name.bully
+Awanturnik
+
+npc.bandit.name.crossbowman
+Kusznik
+
+npc.bandit.name.rogue
+Rzezimieszek
+
+npc.teacher.name.swordsman
+Fechmistrz
+
+npc.teacher.name.sharpshooter
+Strzelec wyborowy
+
+npc.teacher.name.carpenter
+Rzemieślnik
+
+npc.teacher.name.mage
+Mag
+
+npc.teacher.name.kung_fu_master
+Mistrz kung-fu
+
 ;-----------PLAYER-----------;
 player.attributes.health
 ZDROWIE
@@ -692,4 +716,13 @@ Jesteś głodny.
 
 message.player_starving
 Umierasz z głodu!
+
+message.player_attack_success
+Gracz trafia
+
+message.player_attack_failure
+unika atak gracza.
+
+message.npc_dies
+umiera.
 

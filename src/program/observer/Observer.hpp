@@ -21,7 +21,10 @@ namespace rr {
                 ITEM_USED,
                 INVENTORY_FULL,
                 PLAYER_HUNGRY,
-                PLAYER_STARVING
+                PLAYER_STARVING,
+                PLAYER_ATTACK_SUCCESS,
+                PLAYER_ATTACK_FAILURE,
+                NPC_DIES
             };
 
             ////////////////////////////////////////////////////////////////////////

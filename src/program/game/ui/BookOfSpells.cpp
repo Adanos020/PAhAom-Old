@@ -17,9 +17,6 @@ namespace rr {
     BookOfSpells::BookOfSpells() :
       wBofs_(Window(Resources::dictionary["gui.window.bookOfSpells"], sf::Vector2f(765, 470), (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(382.5f, 235)))
     {
-
-#define component(w, c, i) w.getComponent<c>(i)
-
         shadow_.setSize     ((sf::Vector2f) Settings::graphics.resolution);
         shadow_.setPosition (sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
@@ -39,18 +36,15 @@ namespace rr {
 
     void BookOfSpells::buttonEvents(sf::RenderWindow& rw, sf::Event& ev, Game* g) {
         if (isOpen()) {
-            if (  component(wBofs_, Button, 0)->isPressed(rw, ev)
+            if (  wBofs_.getComponent<Button>(0)->isPressed(rw, ev)
                 ) g->pause(false);
 
             for (int i=0; i<12; i++) {
-                if (component(wBofs_, Slot, i)->isPressed(rw, ev)) {
+                if (wBofs_.getComponent<Slot>(i)->isPressed(rw, ev)) {
 
                 }
             }
         }
-
-#undef component
-
     }
 
     void BookOfSpells::draw(sf::RenderTarget& target, sf::RenderStates states) const {

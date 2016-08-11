@@ -105,6 +105,38 @@ namespace rr {
     }
 
     void Level::playerAttack(Player* player) {
+        auto it=entities_.begin();
+        while (it!=entities_.end()) {
+            // the entity is an NPC
+            if (instanceof<NPC, Entity>(*it)) {
+                auto npc = (NPC*) *it;
+                // the npc detects the player
+                if ((npc)->detects(player) != -1) {
+                    // the player has a weapon
+                    if (player->getColdWeapon() != nullptr && chance(player->getColdWeapon()->getAccuracy()*2, 21)) {
+                        player->attack(npc);
+                        subject.notify(Observer::PLAYER_ATTACK_SUCCESS, npc);
+                    }
+                    // the player has no weapon
+                    else if (player->getColdWeapon() == nullptr && chance(10, 21)) {
+                        player->attack(npc);
+                        subject.notify(Observer::PLAYER_ATTACK_SUCCESS, npc);
+                    }
+                    // the probability didn't let the player attack
+                    else {
+                        subject.notify(Observer::PLAYER_ATTACK_FAILURE, npc);
+                    }
+
+                    // the npc dies
+                    if (npc->getAttributes().health <= 0) {
+
+                        subject.notify(Observer::NPC_DIES, npc);
+                    }
+                    break;
+                }
+            }
+            ++it;
+        }
 
         makeOrdersToNPCs(player);
     }
@@ -639,9 +671,15 @@ namespace rr {
 
     void Level::onNotify(Observer::Event event, Entity* entity) {
         switch (event) {
-            case Observer::ITEM_DROPPED: addEntity(entity);
+            case ITEM_DROPPED: addEntity(entity);
                                          break;
-            default                    : break;
+            
+            case NPC_DIES    : tiles_[entity->getGridPosition().x + entity->getGridPosition().y*size_.x] = ROOM;
+                               tilesAsInts_[entity->getGridPosition().x + entity->getGridPosition().y*size_.x] = 2;
+                               entities_.remove(entity);
+                               break;
+
+            default          : break;
         }
     }
 

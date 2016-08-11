@@ -14,14 +14,7 @@
 namespace rr {
 
     class Bandit : public NPC {
-    private: struct Attrs {
-                 float health;
-                 float maxHealth;
-                 int   level;
-                 float armor;
-             }             attrs_;
-
-             sf::Animation standingLeft_;
+    private: sf::Animation standingLeft_;
              sf::Animation standingRight_;
              sf::Animation walkingLeft_;
              sf::Animation walkingRight_;
@@ -88,6 +81,11 @@ namespace rr {
              /// specific order.
              ////////////////////////////////////////////////////////////////////////
      virtual void setPath(std::vector<sf::Vector2i>) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the bandit's name.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::String getName() const override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Makes the bandit attack an NPC.

@@ -154,6 +154,16 @@ namespace rr {
              bool equipItem(Equipable*, bool);
 
              ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the player's cold weapon that he equipped.
+             ////////////////////////////////////////////////////////////////////////
+             ColdWeapon* getColdWeapon() const { return coldWeapon_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the player's ranged weapon that he equipped.
+             ////////////////////////////////////////////////////////////////////////
+             RangedWeapon* getRangedWeapon() const { return rangedWeapon_; }
+
+             ////////////////////////////////////////////////////////////////////////
              /// \brief Updates the player's state.
              ///
              /// \param timeStep the time duration of a single frame

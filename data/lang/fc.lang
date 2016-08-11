@@ -574,6 +574,30 @@ heytpalhbi
 npc.attitude.passive
 tacbibéhbi
 
+npc.bandit.name.bully
+abahtyphjũq
+
+npc.bandit.name.crossbowman
+qywhjũq
+
+npc.bandit.name.rogue
+xiečjũmjeweq
+
+npc.teacher.name.swordsman
+dexmũcétxi
+
+npc.teacher.name.sharpshooter
+cétxieleú vbibopovbi
+
+npc.teacher.name.carpenter
+xiemjewjélũq
+
+npc.teacher.name.mage
+mat
+
+npc.teacher.name.kung_fu_master
+mũcétxi kung-fu
+
 ;-------------PLAYER--------------;
 player.attributes.health
 ČAPOBJE
@@ -692,4 +716,13 @@ message.player_hungry
 
 message.player_starving
 !čé tloay ymjepaw
+
+message.player_attack_success
+.tpay tpadjér
+
+message.player_attack_failure
+ataq tpaya yhjũqa
+
+message.npc_dies
+ymjepa
 

@@ -59,6 +59,18 @@ namespace rr {
         
     }
 
+    sf::String Teacher::getName() const {
+        switch (type_) {
+            case SWORDSMAN     : return Resources::dictionary["npc.teacher.name.swordsman"     ]; break;
+            case SHARPSHOOTER  : return Resources::dictionary["npc.teacher.name.sharpshooter"  ]; break;
+            case CARPENTER     : return Resources::dictionary["npc.teacher.name.carpenter"     ]; break;
+            case MAGE          : return Resources::dictionary["npc.teacher.name.mage"          ]; break;
+            case KUNG_FU_MASTER: return Resources::dictionary["npc.teacher.name.kung_fu_master"]; break;
+        }
+
+        return "";
+    }
+
     std::ifstream& Teacher::operator<<(std::ifstream& file) {
         currentAnimation_->clearFrames();
         

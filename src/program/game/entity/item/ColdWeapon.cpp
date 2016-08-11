@@ -56,7 +56,7 @@ namespace rr {
                                  requirement_ = 100;
                                  speed_       =   5;
                                  accuracy_    =   7;
-                                 iconIndex_   = 21;
+                                 iconIndex_   =  21;
                                  break;
 
             case HALBERD:        damageDealt_ = 60;

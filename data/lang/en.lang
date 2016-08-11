@@ -617,6 +617,30 @@ neutral
 npc.attitude.passive
 passive
 
+npc.bandit.name.bully
+Bully
+
+npc.bandit.name.crossbowman
+Crossbowman
+
+npc.bandit.name.rogue
+Rogue
+
+npc.teacher.name.swordsman
+Swordsman
+
+npc.teacher.name.sharpshooter
+Sharpshooter
+
+npc.teacher.name.carpenter
+Carpenter
+
+npc.teacher.name.mage
+Mage
+
+npc.teacher.name.kung_fu_master
+Kung-fu master
+
 ;------------MESSAGES-------------;
 message.welcome_to_level
 Welcome to level
@@ -692,4 +716,13 @@ You are hungry.
 
 message.player_starving
 You are starving!
+
+message.player_attack_success
+Player hits
+
+message.player_attack_failure
+dodges player's attack.
+
+message.npc_dies
+dies.
 

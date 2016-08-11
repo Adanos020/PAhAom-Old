@@ -19,17 +19,17 @@ namespace rr {
       type_(type)
     {
         attrs_.health   = attrs_.maxHealth = 20.f;
-        attrs_.armor                       = 10.f;
-        attrs_.level                       =  1  ;
+        attrs_.armor                       =  5.f;
+        attrs_.level                       =  5  ;
 
         initialize();
-        body_.scale      (sf::Vector2f(5, 5));
+        body_.scale(sf::Vector2f(5, 5));
     }
 
     Bandit::Bandit(Bandit const& copy) :
-      attrs_ (copy.attrs_ ),
       type_(copy.type_)
     {
+        attrs_            = copy.attrs_;
         body_             = copy.body_;
         currentAnimation_ = copy.currentAnimation_;
     }
@@ -72,6 +72,8 @@ namespace rr {
             
             case EXPLORING: if (!path_.empty()) {
 
+                            } else {
+                                
                             }
                             break;
             
@@ -90,6 +92,17 @@ namespace rr {
         for (int i=path.size()-1; i>=0; --i) {
             path_.push(path[i]);
         }
+        state_ = EXPLORING;
+    }
+
+    sf::String Bandit::getName() const {
+        switch (type_) {
+            case CLUB    : return Resources::dictionary["npc.bandit.name.bully"      ]; break;
+            case CROSSBOW: return Resources::dictionary["npc.bandit.name.crossbowman"]; break;
+            case DAGGER  : return Resources::dictionary["npc.bandit.name.rogue"      ]; break;
+        }
+
+        return "";
     }
 
     void Bandit::attack(NPC* npc) {

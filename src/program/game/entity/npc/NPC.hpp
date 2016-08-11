@@ -21,7 +21,13 @@ namespace rr {
     class Player;
 
     class NPC : public Entity {
-    protected: sf::AnimatedSprite        body_;
+    protected: struct Attrs {
+                 float health;
+                 float maxHealth;
+                 int   level;
+                 float armor;
+               }                         attrs_;
+               sf::AnimatedSprite        body_;
                sf::Animation*            currentAnimation_;
 
                std::stack<sf::Vector2i> path_;
@@ -77,6 +83,11 @@ namespace rr {
                /// order.
                ////////////////////////////////////////////////////////////////////////
        virtual void setPath(std::vector<sf::Vector2i>) = 0;
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Returns the NPC's name.
+               ////////////////////////////////////////////////////////////////////////
+       virtual sf::String getName() const = 0;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets the NPC's position relatively to the grid marked out by
@@ -162,6 +173,17 @@ namespace rr {
                /// get as far as he cannot se it)
                ////////////////////////////////////////////////////////////////////////
                State getState() const;
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Gives a read-only access to the NPC's attributes.
+               ///
+               /// The attributes you can access are:
+               /// - health
+               /// - maxHealth
+               /// - level
+               /// - armor
+               ////////////////////////////////////////////////////////////////////////
+               Attrs getAttributes() const;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief This function returns an index of a detector which intersects
