@@ -17,26 +17,51 @@ namespace rr {
     private: bool                      discovered_[77*43];
              unsigned char             cellIDs_ [9*77*43];
 
-             sf::Vector2u              size_;
+             sf::Vector2i              size_;
              sf::VertexArray           shadowSprite_;
              sf::Texture               shadowTexture_;
              sf::Image                 shadowImage_;
 
-             std::vector<sf::Vector2u> lastlyLit_;
+             std::vector<sf::Vector2i> lastlyLit_;
 
-             bool isFilled            (unsigned x, unsigned y, unsigned char id) const;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if a 3x3 cell is filled with one color.
+             ////////////////////////////////////////////////////////////////////////
+             bool isFilled(int x, int y, unsigned char id) const;
 
-     virtual void draw                (sf::RenderTarget&, sf::RenderStates)      const;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the entire shadow map upon the map.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 
-    public:  void setLit              (unsigned x, unsigned y);
-             void darken              ();
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             ShadowMap(sf::Vector2i size);
 
-             void update              ();
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the chosen cell lit.
+             ////////////////////////////////////////////////////////////////////////
+             void setLit(int x, int y);
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Darkens the recently lit cells.
+             ////////////////////////////////////////////////////////////////////////
+             void darken();
 
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Updates the texture of whole shadow map.
+             ////////////////////////////////////////////////////////////////////////
+             void update();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reads the shadow map from a file.
+             ////////////////////////////////////////////////////////////////////////
              std::ifstream& operator<<(std::ifstream&);
-             std::ofstream& operator>>(std::ofstream&);
 
-             ShadowMap(sf::Vector2u size);
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Saves the shadow map to a file.
+             ////////////////////////////////////////////////////////////////////////
+             std::ofstream& operator>>(std::ofstream&);
     };
 
 }

@@ -23,7 +23,7 @@ namespace rr {
     Player::Player() :
       coldWeapon_                  (nullptr           ),
       rangedWeapon_                (nullptr           ),
-      position_                    (sf::Vector2u(0, 0)),
+      position_                    (sf::Vector2i(0, 0)),
       currentAnimation_            (&walkingRight_    ),
       moving_                      (false             ),
       velocity_                    (1100.f            ),
@@ -87,23 +87,23 @@ namespace rr {
     void Player::move(int tiles[], Direction di) {
         if (!moving_) {
             if (di == UP    && (tiles[position_.x   + (position_.y-1)*77] != 1 && tiles[position_.x   + (position_.y-1)*77] != 5)) {
-                position_ = sf::Vector2u(position_.x, position_.y-1);
+                position_ = sf::Vector2i(position_.x, position_.y-1);
                 moving_ = true;
             }
             if (di == DOWN  && (tiles[position_.x   + (position_.y+1)*77] != 1 && tiles[position_.x   + (position_.y+1)*77] != 5)) {
-                position_ = sf::Vector2u(position_.x, position_.y+1);
+                position_ = sf::Vector2i(position_.x, position_.y+1);
                 moving_ = true;
             }
             if (di == LEFT) {
                 if (tiles[position_.x-1 + position_.y*77] != 1 && tiles[position_.x-1 + position_.y*77] != 5) {
-                    position_ = sf::Vector2u(position_.x-1, position_.y);
+                    position_ = sf::Vector2i(position_.x-1, position_.y);
                     moving_ = true;
                 }
                 currentAnimation_ = &walkingLeft_;
             }
             if (di == RIGHT) {
                 if (tiles[position_.x+1 + position_.y*77] != 1 && tiles[position_.x+1 + position_.y*77] != 5) {
-                    position_ = sf::Vector2u(position_.x+1, position_.y);
+                    position_ = sf::Vector2i(position_.x+1, position_.y);
                     moving_ = true;
                 }
                 currentAnimation_ = &walkingRight_;
@@ -352,35 +352,35 @@ namespace rr {
         currentAnimation_->clearFrames();
 
         try {
-            readFile <  float > (file, attrs_.health);
-            readFile <  float > (file, attrs_.mana);
-            readFile <  float > (file, attrs_.maxHealth);
-            readFile <  float > (file, attrs_.maxMana);
-            readFile <  float > (file, attrs_.strength);
-            readFile <  float > (file, attrs_.dexterity);
-            readFile <  float > (file, attrs_.experience);
-            readFile <  float > (file, attrs_.nextLevel);
-            readFile <   int  > (file, attrs_.level);
-            readFile <  float > (file, attrs_.skillPoints);
+            readFile <float> (file, attrs_.health);
+            readFile <float> (file, attrs_.mana);
+            readFile <float> (file, attrs_.maxHealth);
+            readFile <float> (file, attrs_.maxMana);
+            readFile <float> (file, attrs_.strength);
+            readFile <float> (file, attrs_.dexterity);
+            readFile <float> (file, attrs_.experience);
+            readFile <float> (file, attrs_.nextLevel);
+            readFile < int > (file, attrs_.level);
+            readFile <float> (file, attrs_.skillPoints);
 
-            readFile <   int  > (file, buffs_.speed);
-            readFile <   int  > (file, buffs_.regeneration);
-            readFile <   int  > (file, buffs_.poison);
-            readFile <   int  > (file, buffs_.slowness);
-            readFile <   int  > (file, buffs_.weakness);
-            readFile <   int  > (file, buffs_.hunger);
+            readFile < int > (file, buffs_.speed);
+            readFile < int > (file, buffs_.regeneration);
+            readFile < int > (file, buffs_.poison);
+            readFile < int > (file, buffs_.slowness);
+            readFile < int > (file, buffs_.weakness);
+            readFile < int > (file, buffs_.hunger);
 
-            readFile <  bool  > (file, attrs_.crafting);
-            readFile <  bool  > (file, attrs_.alchemy);
-            readFile <  bool  > (file, attrs_.cold_weapon_mastery);
-            readFile <  bool  > (file, attrs_.ranged_weapon_mastery);
-            readFile <  bool  > (file, attrs_.eagle_eye);
-            readFile <  bool  > (file, attrs_.mana_regeneration);
-            readFile <  bool  > (file, attrs_.health_regeneration);
-            readFile <  bool  > (file, attrs_.faster_learning);
+            readFile < bool> (file, attrs_.crafting);
+            readFile < bool> (file, attrs_.alchemy);
+            readFile < bool> (file, attrs_.cold_weapon_mastery);
+            readFile < bool> (file, attrs_.ranged_weapon_mastery);
+            readFile < bool> (file, attrs_.eagle_eye);
+            readFile < bool> (file, attrs_.mana_regeneration);
+            readFile < bool> (file, attrs_.health_regeneration);
+            readFile < bool> (file, attrs_.faster_learning);
 
-            readFile <unsigned> (file, position_.x);
-            readFile <unsigned> (file, position_.y);
+            readFile < int > (file, position_.x);
+            readFile < int > (file, position_.y);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';

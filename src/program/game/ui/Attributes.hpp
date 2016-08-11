@@ -17,25 +17,44 @@ namespace rr {
 
     class Game;
 
-/// Class for the player attributes window
     class Attributes : public sf::Drawable {
     private: sf::RectangleShape shadow_;
              Window             wAttr_;
 
-             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the window on the screen.
+             ////////////////////////////////////////////////////////////////////////
+             virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    public:  Attributes();
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Attributes();
 
-         /// Updates the info about the player attributes
-             void update      (Player*);
-         /// Handles the button events
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Updates the info about the player attributes.
+             ////////////////////////////////////////////////////////////////////////
+             void update(Player*);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Handles the button events.
+             ////////////////////////////////////////////////////////////////////////
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-         /// Opens the player attributes window
-             void open        ()       { wAttr_.setVisible(true); }
-         /// Closes the player attributes window
-             void close       ()       { wAttr_.setVisible(false); }
-         /// Tells if the player attributes is open
-             bool isOpen      () const { return wAttr_.isVisible(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Opens the player attributes window.
+             ////////////////////////////////////////////////////////////////////////
+             void open() { wAttr_.setVisible(true); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Closes the player attributes window.
+             ////////////////////////////////////////////////////////////////////////
+             void close() { wAttr_.setVisible(false); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the player attributes is open.
+             ////////////////////////////////////////////////////////////////////////
+             bool isOpen() const { return wAttr_.isVisible(); }
     };
 
 }

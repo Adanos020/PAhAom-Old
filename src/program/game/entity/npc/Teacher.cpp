@@ -37,17 +37,13 @@ namespace rr {
 
         currentAnimation_ = &standingStill_;
 
-        attitude_ = Resources::dictionary["npc.attitude.passive"];
+        attitude_ = NEUTRAL;
 
         body_.setAnimation      (*currentAnimation_);
         body_.setLooped         (true);
         if (  type_ == MAGE
             ) body_.setFrameTime(sf::seconds(.4f));
         else  body_.setFrameTime(sf::seconds(.2f));
-    }
-
-    void Teacher::talk() {
-
     }
 
     void Teacher::update(sf::Time timeStep) {
@@ -59,16 +55,20 @@ namespace rr {
         
     }
 
+    void Teacher::setPath(std::vector<sf::Vector2i> path) {
+        
+    }
+
     std::ifstream& Teacher::operator<<(std::ifstream& file) {
         currentAnimation_->clearFrames();
         
-        sf::Vector2u position;
+        sf::Vector2i position;
         int type;
 
         try {
-            readFile <unsigned> (file, position.x);
-            readFile <unsigned> (file, position.y);
-            readFile <   int  > (file, type);
+            readFile <int> (file, position.x);
+            readFile <int> (file, position.y);
+            readFile <int> (file, type);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -83,9 +83,9 @@ namespace rr {
     }
 
     std::ofstream& Teacher::operator>>(std::ofstream& file) {
-        file << 21                                   << ' '
-             << (unsigned) body_.getPosition().x/80u << ' '
-             << (unsigned) body_.getPosition().y/80u << ' '
+        file << 21                             << ' '
+             << (int) body_.getPosition().x/80 << ' '
+             << (int) body_.getPosition().y/80 << ' '
              << type_;
 
         return file;

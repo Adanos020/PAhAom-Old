@@ -16,7 +16,7 @@
 
 namespace rr {
 
-    RangedWeapon::RangedWeapon(Type type, int amount, sf::Vector2u position) :
+    RangedWeapon::RangedWeapon(Type type, int amount, sf::Vector2i position) :
       type_(type)
     {
         level_      = 0;
@@ -59,13 +59,14 @@ namespace rr {
     }
 
     sf::String RangedWeapon::getDescription() const {
+        sf::String description = "";
         switch (type_) {
-            case BOW      : return Resources::dictionary["item.ranged_weapon.description.bow"      ];
-            case CROSSBOW : return Resources::dictionary["item.ranged_weapon.description.crossbow" ];
-            case SLINGSHOT: return Resources::dictionary["item.ranged_weapon.description.slingshot"];
+            case BOW      : description += Resources::dictionary["item.ranged_weapon.description.bow"      ]; break;
+            case CROSSBOW : description += Resources::dictionary["item.ranged_weapon.description.crossbow" ]; break;
+            case SLINGSHOT: description += Resources::dictionary["item.ranged_weapon.description.slingshot"]; break;
         }
 
-        return "";
+        return description;
     }
 
     void RangedWeapon::enhance() {
@@ -81,17 +82,17 @@ namespace rr {
     }
 
     std::ifstream& RangedWeapon::operator<<(std::ifstream& file) {
-        sf::Vector2u position;
+        sf::Vector2i position;
         int type;
 
         try {
-            readFile <unsigned> (file, position.x);
-            readFile <unsigned> (file, position.y);
-            readFile <  int   > (file, amount_);
-            readFile <  bool  > (file, identified_);
-            readFile <  bool  > (file, equipped_);
-            readFile <  int   > (file, level_);
-            readFile <  int   > (file, type);
+            readFile <int > (file, position.x);
+            readFile <int > (file, position.y);
+            readFile <int > (file, amount_);
+            readFile <bool> (file, identified_);
+            readFile <bool> (file, equipped_);
+            readFile <int > (file, level_);
+            readFile <int > (file, type);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -112,13 +113,13 @@ namespace rr {
     }
 
     std::ofstream& RangedWeapon::operator>>(std::ofstream& file) {
-        file << 6                                  << ' '
-             << (unsigned) body_[0].position.x/80u << ' '
-             << (unsigned) body_[0].position.y/80u << ' '
-             << amount_                            << ' '
-             << identified_                        << ' '
-             << equipped_                          << ' '
-             << level_                             << ' '
+        file << 6                            << ' '
+             << (int) body_[0].position.x/80 << ' '
+             << (int) body_[0].position.y/80 << ' '
+             << amount_                      << ' '
+             << identified_                  << ' '
+             << equipped_                    << ' '
+             << level_                       << ' '
              << type_;
 
         return file;

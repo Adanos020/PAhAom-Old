@@ -12,7 +12,6 @@
 
 namespace rr {
 
-/// Class for the HUD
     class HUD : public sf::Drawable {
     private: Bar  bHP_;
              Bar  bMP_;
@@ -21,12 +20,20 @@ namespace rr {
              Text tLevelNumber_;
              Text tFPS_;
 
-             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the HUD on the screen.
+             ////////////////////////////////////////////////////////////////////////
+             virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
     
-    public:  HUD();
-        
-         /// Updates the HUD state
-             void update      (Player*, int lvl, sf::Time);
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             HUD();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Updates the HUD's state.
+             ////////////////////////////////////////////////////////////////////////
+             void update(Player*, int lvl, sf::Time);
     };
 
 }

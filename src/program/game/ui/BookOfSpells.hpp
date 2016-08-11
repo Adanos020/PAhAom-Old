@@ -15,23 +15,39 @@ namespace rr {
 
     class Game;
 
-/// Class for the book of Runes
     class BookOfSpells : public sf::Drawable {
     private: sf::RectangleShape shadow_;
              Window             wBofs_;
 
-             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-   
-    public:  BookOfSpells();
-         
-         /// Handles the button events
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the window on the screen.
+             ////////////////////////////////////////////////////////////////////////
+             virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
+
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             BookOfSpells();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Handles the button events.
+             ////////////////////////////////////////////////////////////////////////
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-         /// Opens the window of the book of Runes
-             void open        ()       { wBofs_.setVisible(true); }
-         /// Closes the window of the book of Runes
-             void close       ()       { wBofs_.setVisible(false); }
-         /// Tells if the window of the book of Runes is open
-             bool isOpen      () const { return wBofs_.isVisible(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Opens the window of the book of Runes.
+             ////////////////////////////////////////////////////////////////////////
+             void open() { wBofs_.setVisible(true); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Closes the window of the book of Runes.
+             ////////////////////////////////////////////////////////////////////////
+             void close() { wBofs_.setVisible(false); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the window of the book of Runes is open.
+             ////////////////////////////////////////////////////////////////////////
+             bool isOpen() const { return wBofs_.isVisible(); }
     };
 
 }

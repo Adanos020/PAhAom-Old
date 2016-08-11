@@ -11,33 +11,65 @@
 
 namespace rr {
 
-/// Class for an image component which can be loaded from a file
     class Image : public Component {
     private: sf::Sprite body_;
              int        icon_;
 
-             virtual void draw        (sf::RenderTarget&,
-                                       sf::RenderStates) const override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the image on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    public:  Image(sf::Vector2f position, sf::Texture&, int iconSize, unsigned index);
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Image(sf::Vector2f position, sf::Texture&, int iconSize, unsigned index);
 
-             void         setPosition (sf::Vector2f)           override;
-             void         setSize     (sf::Vector2f)           override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the image's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setPosition(sf::Vector2f) override;
 
-         /// Changes the icon index
-             void         setIconIndex(unsigned index);
-         /// Changes the texture
-             void         setTexture  (sf::Texture&);
-         /// Method scaling the body's size
-             void         scale       (sf::Vector2f);
-         /// Method painting the body to a given color
-             void         paint       (sf::Color);
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the image's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
 
-         /// Returns the image's body
-             sf::Sprite   getBody     ()                 const          { return body_; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the image's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setSize(sf::Vector2f) override;
 
-             sf::Vector2f getPosition ()                 const override { return body_.getPosition(); }
-             sf::Vector2f getSize     ()                 const override { return sf::Vector2f(body_.getGlobalBounds().width, body_.getGlobalBounds().height); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the image's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getSize() const override { return sf::Vector2f(body_.getGlobalBounds().width,
+                                                                         body_.getGlobalBounds().height); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Changes the icon index.
+             ////////////////////////////////////////////////////////////////////////
+             void setIconIndex(unsigned index);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Changes the texture.
+             ////////////////////////////////////////////////////////////////////////
+             void setTexture(sf::Texture&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Method scaling the body's size.
+             ////////////////////////////////////////////////////////////////////////
+             void scale(sf::Vector2f);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Method painting the body to a given color.
+             ////////////////////////////////////////////////////////////////////////
+             void paint(sf::Color);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the image's body.
+             ////////////////////////////////////////////////////////////////////////
+             sf::Sprite getBody() const { return body_; }
     };
 
 }

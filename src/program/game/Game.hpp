@@ -34,70 +34,128 @@ namespace rr {
     class Slot;
     class Text;
 
-/// Class for the game
     class Game {
-    private: sf::View            gameView_;
-             sf::View            mapView_;
-             
-             Level*              currentLevel_;
-         
-             MessageManager      messageManager_;
-         
-             Player              player_;
-         
-             MainMenu            mainMenu_;
-             PauseMenu           pauseMenu_;
-             Attributes          attributes_;
-             Inventory           inventory_;
-             Journal             journal_;
-             BookOfSpells        bookOfSpells_;
-             HUD                 hud_;
-         
-             bool                started_;
-             bool                paused_;
-             bool                mapOpen_;
-             unsigned            levelNumber_;
-             unsigned            seed_;
-         
-         /// Keyboard controls
+    private: sf::View       gameView_;
+             sf::View       mapView_;
+
+             Level*         currentLevel_;
+
+             MessageManager messageManager_;
+
+             Player         player_;
+
+             MainMenu       mainMenu_;
+             PauseMenu      pauseMenu_;
+             Attributes     attributes_;
+             Inventory      inventory_;
+             Journal        journal_;
+             BookOfSpells   bookOfSpells_;
+             HUD            hud_;
+
+             bool           started_;
+             bool           paused_;
+             bool           mapOpen_;
+             unsigned       levelNumber_;
+             unsigned       seed_;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Keyboard controls.
+             ////////////////////////////////////////////////////////////////////////
              void controls      (sf::Event&);
-         /// Randomizes the disposable items' colors/symbols
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Randomizes the disposable items' colors/symbols.
+             ////////////////////////////////////////////////////////////////////////
              void randomizeItems();
-    
-    public:  Game();
+
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Game();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Destructor.
+             ////////////////////////////////////////////////////////////////////////
             ~Game();
-        
-         /// Method drawing the game components
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the game components.
+             ////////////////////////////////////////////////////////////////////////
              void                draw             (sf::RenderWindow&);
-         /// Method for handling the button events
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Handles the button events.
+             ////////////////////////////////////////////////////////////////////////
              void                buttonEvents     (sf::RenderWindow&, sf::Event&);
-         /// Method drawing the game components
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the game components.
+             ////////////////////////////////////////////////////////////////////////
              void                update           (sf::Event&       , sf::Time);
-         /// Switches to the level of a given index
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Switches to the level of a given index.
+             ////////////////////////////////////////////////////////////////////////
              void                switchLevel   (int index);
-         /// Method starting the game or not, depending on the argument's value
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Starts the game or not, depending on the argument's value.
+             ////////////////////////////////////////////////////////////////////////
              void                start            (bool);
-         /// Method pause the game or not, depending on the argument's value
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Pauses the game or not, depending on the argument's value.
+             ////////////////////////////////////////////////////////////////////////
              void                pause            (bool);
-         /// Method saving the game progress
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Saves the game progress.
+             ////////////////////////////////////////////////////////////////////////
              void                save             ();
-         /// Method loading the game progress
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Loads the game progress.
+             ////////////////////////////////////////////////////////////////////////
              bool                load             ();
-         /// Method the new game
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Starts the new game.
+             ////////////////////////////////////////////////////////////////////////
              bool                loadNewGame      ();
-         /// Method telling if the game is started
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the game is started.
+             ////////////////////////////////////////////////////////////////////////
              bool                isStarted        () { return started_; }
-         /// Method telling if the game is paused
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the game is paused.
+             ////////////////////////////////////////////////////////////////////////
              bool                isPaused         () { return paused_; }
-         /// Returns the pointer to the player
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the pointer to the player.
+             ////////////////////////////////////////////////////////////////////////
              Player*             getPlayer        () { return &player_; }
-         /// Returns the inventory
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the inventory.
+             ////////////////////////////////////////////////////////////////////////
              Inventory*          getInventory     () { return &inventory_; }
-         /// Returns the vector of game levels
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the vector of game levels.
+             ////////////////////////////////////////////////////////////////////////
              Level*              getCurrentLevel  () { return currentLevel_; }
-         /// Returns the vector of game levels
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the vector of game levels.
+             ////////////////////////////////////////////////////////////////////////
              MessageManager*     getMessageManager() { return &messageManager_; }
-         /// Resets the game state
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Resets the game state.
+             ////////////////////////////////////////////////////////////////////////
              void                reset            ();
     };
 

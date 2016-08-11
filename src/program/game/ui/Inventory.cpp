@@ -210,7 +210,7 @@ namespace rr {
                                          ) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.read"]);
                                 else       component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.use"]);
 
-                                wOpts.setTitle(item->getName());
+                                wOpts.setHeader(item->getName());
                                 if (  wOpts.getHeader().getSize().x+10 >= 142
                                     ) wOpts.setSize(sf::Vector2f(wOpts.getHeader().getSize().x+10, 143));
 
@@ -254,7 +254,7 @@ namespace rr {
                     component(wInfo, Text, 0)->setString(((Slot*)wInfo.getParentComponent())->getItem()->getDescription());
                     component(wInfo, Text, 0)->wrap     ((wInfo.getHeader().getSize().x>=300.f) ? wInfo.getHeader().getSize().x+10 : 300.f);
 
-                    wInfo.setTitle   (((Slot*)wInfo.getParentComponent())->getItem()->getName());
+                    wInfo.setHeader  (((Slot*)wInfo.getParentComponent())->getItem()->getName());
                     wInfo.setSize    (component(wInfo, Text, 0)->getSize() + sf::Vector2f(10, 30));
                     wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw) + sf::Vector2f(5, 5));
 

@@ -21,7 +21,7 @@ extern rr::Subject subject;
 namespace rr {
 
     Level::Level(int number) :
-      size_         (sf::Vector2u(77, 43)),
+      size_         (sf::Vector2i(77, 43)),
       shadowMap_    (ShadowMap(size_)    ),
       region_count_ (0                   ),
       levelNumber_  (number              )
@@ -29,8 +29,8 @@ namespace rr {
         tilemap_.setPrimitiveType(sf::Quads);
         tilemap_.resize(size_.x*size_.y*4);
 
-        for (unsigned i=0; i<size_.x; ++i) {
-            for (unsigned j=0; j<size_.y; ++j) {
+        for (int i=0; i<size_.x; ++i) {
+            for (int j=0; j<size_.y; ++j) {
                 regions_[i + j*size_.x] = -1;
             }
         }
@@ -56,7 +56,7 @@ namespace rr {
         target.draw(shadowMap_, states);
     }
 
-    void Level::addEntity(Entity* e, sf::Vector2u position) {
+    void Level::addEntity(Entity* e, sf::Vector2i position) {
         if (e != nullptr) {
             entities_.push_back(e);
             entities_.back()->setGridPosition(position);
@@ -100,10 +100,13 @@ namespace rr {
             }
             ++it;
         }
+
+        makeOrdersToNPCs(game->getPlayer());
     }
 
     void Level::playerAttack(Player* player) {
 
+        makeOrdersToNPCs(player);
     }
 
     void Level::update(Game* game, sf::Time time) {
@@ -118,14 +121,27 @@ namespace rr {
         }
     }
 
-    void Level::calculateFOV(sf::Vector2u origin, int range) {
+    void Level::makeOrdersToNPCs(Player* player) {
+        for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
+            if (instanceof<NPC, Entity>(*it)) {
+                auto npc = (NPC*) *it;
+
+                int detector = npc->detects(player);
+                if (detector != -1) {
+
+                }
+            }
+        }
+    }
+
+    void Level::calculateFOV(sf::Vector2i origin, int range) {
         FOV::compute(&shadowMap_, tilesAsInts_, origin, range);
     }
 
     void Level::generateWorld() {
      // first we create an 2-dimensional array filled with 1's representing a wall
-        for (unsigned i=0; i<size_.x; ++i) {
-            for (unsigned j=0; j<size_.y; ++j) {
+        for (int i=0; i<size_.x; ++i) {
+            for (int j=0; j<size_.y; ++j) {
                 tiles_[i+j*size_.x] = WALL;
             }
         }
@@ -134,8 +150,8 @@ namespace rr {
         digRooms();
 
      // then we pick the entrance cells to be our starting points and start digging corridors among the rooms
-        for (unsigned i=1; i<size_.x; i+=2) {
-            for (unsigned j=1; j<size_.y; j+=2) {
+        for (int i=1; i<size_.x; i+=2) {
+            for (int j=1; j<size_.y; j+=2) {
                 if (tiles_[i + j*size_.x] == WALL) {
                     fillWithMaze(i, j);
                 }
@@ -149,9 +165,9 @@ namespace rr {
         removeDeadEnds();
 
      // here we place the starting point
-        for (unsigned x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
+        for (int x=rand()%size_.x, y=size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
             if (tiles_[x+y*size_.x] == ROOM) {
-                startingPoint_ = sf::Vector2u(x, y);
+                startingPoint_ = sf::Vector2i(x, y);
                 tiles_[x+y*size_.x] = EXIT;
                 
                 if (  levelNumber_ >= 1
@@ -162,9 +178,9 @@ namespace rr {
 
      // here we place the ending point
         if (levelNumber_ < 29)
-        for (unsigned x=rand()%size_.x, y=rand()%size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
+        for (int x=rand()%size_.x, y=rand()%size_.y; ; x=rand()%size_.x, y=rand()%size_.y) {
             if (tiles_[x+y*size_.x] == ROOM && (levelNumber_ == 1 || (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 30))) {
-                endingPoint_ = sf::Vector2u(x, y);
+                endingPoint_ = sf::Vector2i(x, y);
                 tiles_[x+y*size_.x] = EXIT;
                 addEntity(new Stairs(true), endingPoint_);
                 break;
@@ -178,8 +194,8 @@ namespace rr {
         generateTileMap();
 
      // and just transform the table of cells to a table of ints
-        for (unsigned i=0; i<size_.x; ++i) {
-            for (unsigned j=0; j<size_.y; ++j) {
+        for (int i=0; i<size_.x; ++i) {
+            for (int j=0; j<size_.y; ++j) {
                 tilesAsInts_[i + j*size_.x] = tiles_[i + j*size_.x];
             }
         }
@@ -187,17 +203,17 @@ namespace rr {
 
     void Level::digRooms() {
         for (int i=0; i<100; ++i) {
-            sf::Vector2u rsize((rand()%4+1)*2+1, (rand()%4+1)*2+1);
-            sf::Vector2u rpos(rand()%((size_.x-rsize.x)/2)*2+1, rand()%((size_.y-rsize.y)/2)*2+1);
+            sf::Vector2i rsize((rand()%4+1)*2+1, (rand()%4+1)*2+1);
+            sf::Vector2i rpos(rand()%((size_.x-rsize.x)/2)*2+1, rand()%((size_.y-rsize.y)/2)*2+1);
 
             bool intersects = false;
-            for (unsigned i=rpos.x; i<rpos.x+rsize.x; ++i) {
+            for (int i=rpos.x; i<rpos.x+rsize.x; ++i) {
                 if (tiles_[i+(rpos.y-1)*size_.x] == ROOM || tiles_[i+(rpos.y+rsize.y+1)*size_.x] == ROOM) {
                     intersects = true;
                     break;
                 }
             }
-            for (unsigned i=rpos.y; i<rpos.y+rsize.y && !intersects; ++i) {
+            for (int i=rpos.y; i<rpos.y+rsize.y && !intersects; ++i) {
                 if (tiles_[rpos.x-1+i*size_.x] == ROOM || tiles_[rpos.x+rsize.x+i*size_.x] == ROOM) {
                     intersects = true;
                     break;
@@ -205,48 +221,48 @@ namespace rr {
             }
 
             if (!intersects) {
-                for (unsigned i=rpos.x; i<rpos.x+rsize.x; ++i) {
-                    for (unsigned j=rpos.y; j<rpos.y+rsize.y; ++j) {
+                for (int i=rpos.x; i<rpos.x+rsize.x; ++i) {
+                    for (int j=rpos.y; j<rpos.y+rsize.y; ++j) {
                         tiles_  [i+j*size_.x] = ROOM;
                         regions_[i+j*size_.x] = region_count_;
                     }
                 }
 
-                rooms_.push_back(sf::UintRect(rpos, rsize));
+                rooms_.push_back(sf::IntRect(rpos, rsize));
                 region_count_++;
             }
         }
     }
 
-    void Level::fillWithMaze(unsigned r, unsigned c) {
+    void Level::fillWithMaze(int r, int c) {
         region_count_++;
 
         tiles_  [r+c*size_.x] = CORRIDOR;
         regions_[r+c*size_.x] = region_count_;
 
-        std::vector<sf::Vector2u> cells;
-        cells.push_back(sf::Vector2u(r, c));
+        std::vector<sf::Vector2i> cells;
+        cells.push_back(sf::Vector2i(r, c));
 
-        sf::Vector2u lastDir = sf::Vector2u(0, 0);
+        sf::Vector2i lastDir = sf::Vector2i(0, 0);
 
-        std::vector<sf::Vector2u> directions;
-        directions.push_back(sf::Vector2u(-1,  0));
-        directions.push_back(sf::Vector2u( 0, -1));
-        directions.push_back(sf::Vector2u( 1,  0));
-        directions.push_back(sf::Vector2u( 0,  1));
+        std::vector<sf::Vector2i> directions;
+        directions.push_back(sf::Vector2i(-1,  0));
+        directions.push_back(sf::Vector2i( 0, -1));
+        directions.push_back(sf::Vector2i( 1,  0));
+        directions.push_back(sf::Vector2i( 0,  1));
 
         while (!cells.empty()) {
-            sf::Vector2u cell = cells.back();
+            sf::Vector2i cell = cells.back();
 
-            std::vector<sf::Vector2u> unmadeCells;
+            std::vector<sf::Vector2i> unmadeCells;
 
             for (auto dir : directions) {
-                if (  !isOnBorder(cell.x+dir.x*3u, cell.y+dir.y*3u) && tiles_[cell.x+dir.x*2u+(cell.y+dir.y*2u)*size_.x] == WALL
+                if (  !isOnBorder(cell.x+dir.x*3, cell.y+dir.y*3) && tiles_[cell.x+dir.x*2+(cell.y+dir.y*2)*size_.x] == WALL
                     ) unmadeCells.push_back(dir);
             }
 
             if (!unmadeCells.empty()) {
-                sf::Vector2u dir;
+                sf::Vector2i dir;
 
                 bool found = false;
                 for (auto x : unmadeCells) {
@@ -259,28 +275,28 @@ namespace rr {
                     ) dir = lastDir;
                 else  dir = unmadeCells[rand()%unmadeCells.size()];
 
-                tiles_  [cell.x+dir.x    + (cell.y+dir.y   )*size_.x] = CORRIDOR;
-                tiles_  [cell.x+dir.x*2u + (cell.y+dir.y*2u)*size_.x] = CORRIDOR;
+                tiles_  [cell.x+dir.x   + (cell.y+dir.y  )*size_.x] = CORRIDOR;
+                tiles_  [cell.x+dir.x*2 + (cell.y+dir.y*2)*size_.x] = CORRIDOR;
 
-                regions_[cell.x+dir.x    + (cell.y+dir.y   )*size_.x] = region_count_;
-                regions_[cell.x+dir.x*2u + (cell.y+dir.y*2u)*size_.x] = region_count_;
+                regions_[cell.x+dir.x   + (cell.y+dir.y  )*size_.x] = region_count_;
+                regions_[cell.x+dir.x*2 + (cell.y+dir.y*2)*size_.x] = region_count_;
 
-                cells.push_back(cell+dir*2u);
+                cells.push_back(cell+dir*2);
                 lastDir = dir;
             }
             else {
                 cells.pop_back();
-                lastDir = sf::Vector2u(0, 0);
+                lastDir = sf::Vector2i(0, 0);
             }
         }
     }
 
     void Level::connectRooms() {
      // a container of tiles_ which can connect two regions_
-        std::vector<sf::Vector2u> connectors;
+        std::vector<sf::Vector2i> connectors;
 
      // we have to place the conectors on every tile on whose two opposite sides is no wall
-        for (sf::Vector2u pos(1, 1); pos.x<size_.x-1 && pos.y<size_.y-1; pos += ((pos.x >= size_.x-2)?(sf::Vector2u(-(size_.x-3), 1)):(sf::Vector2u(1, 0)))) {
+        for (sf::Vector2i pos(1, 1); pos.x<size_.x-1 && pos.y<size_.y-1; pos += ((pos.x >= size_.x-2)?(sf::Vector2i(-(size_.x-3), 1)):(sf::Vector2i(1, 0)))) {
 
          // we cannot place a connector on a tile which is not a wall
             if (tiles_[pos.x+pos.y*size_.x] == WALL) {
@@ -312,18 +328,18 @@ namespace rr {
      // then we iterate on each room and give it a random numbers of entrances
         for (auto room=rooms_.begin(); room!=rooms_.end(); ++room) {
             for (int entrances = rand()%2+2; entrances>0; --entrances) {
-                sf::Vector2u position;
+                sf::Vector2i position;
                 bool found = false;
 
                 int tries = 1000;
                 while (!found && tries > 0) {
                     switch (rand()%2) {
                         // LEFT OR RIGHT
-                        case 0: position = (rand()%2) ? sf::Vector2u(room->left - 1          , room->top + rand()%room->height)
-                                                      : sf::Vector2u(room->left + room->width, room->top + rand()%room->height); break;
+                        case 0: position = (rand()%2) ? sf::Vector2i(room->left - 1          , room->top + rand()%room->height)
+                                                      : sf::Vector2i(room->left + room->width, room->top + rand()%room->height); break;
                         // UP OR DOWN
-                        case 1: position = (rand()%2) ? sf::Vector2u(room->left + rand()%room->width, room->top - 1)
-                                                      : sf::Vector2u(room->left + rand()%room->width, room->top + room->height); break;
+                        case 1: position = (rand()%2) ? sf::Vector2i(room->left + rand()%room->width, room->top - 1)
+                                                      : sf::Vector2i(room->left + rand()%room->width, room->top + room->height); break;
                     }
 
                     for (auto x : connectors) {
@@ -340,7 +356,7 @@ namespace rr {
 
      // after that we check if there appear any doors placed next to each other
      // if so-then we delete one of them
-        for (sf::Vector2u pos(1, 1); pos.x<size_.x-1 && pos.y<size_.y-1; pos += ((pos.x >= size_.x-2)?(sf::Vector2u(-(size_.x-3), 1)):(sf::Vector2u(1, 0)))) {
+        for (sf::Vector2i pos(1, 1); pos.x<size_.x-1 && pos.y<size_.y-1; pos += ((pos.x >= size_.x-2)?(sf::Vector2i(-(size_.x-3), 1)):(sf::Vector2i(1, 0)))) {
             if (tiles_[pos.x+pos.y*size_.x] == ENTRANCE) {
                 if (tiles_[pos.x-1 + pos.y*size_.x] == ENTRANCE) {
                     if (  rand()%2
@@ -371,8 +387,8 @@ namespace rr {
 
         while (!done) {
             done = true;
-            for (unsigned i=1; i<size_.x-1; ++i) {
-                for (unsigned j=1; j<size_.y-1; ++j) {
+            for (int i=1; i<size_.x-1; ++i) {
+                for (int j=1; j<size_.y-1; ++j) {
                     if (  tiles_[i+j*size_.x] == WALL
                         ) continue;
 
@@ -398,8 +414,8 @@ namespace rr {
     }
 
     void Level::generateTileMap() {
-        for (unsigned i=0; i<size_.x; ++i) {
-            for (unsigned j=0; j<size_.y; ++j) {
+        for (int i=0; i<size_.x; ++i) {
+            for (int j=0; j<size_.y; ++j) {
                 int tileNumber;
                 switch (tiles_[i + j*size_.x]) { // assigning an appropriate tile number to a given cell
                     case CHASM: tileNumber = 0;
@@ -544,23 +560,23 @@ namespace rr {
     void Level::placeEntities() {
      /* OBJECTS */
      // here we place the doors
-        for (unsigned x=1; x<size_.x-1; ++x) {
-            for (unsigned y=1; y<size_.y-1; ++y) {
+        for (int x=1; x<size_.x-1; ++x) {
+            for (int y=1; y<size_.y-1; ++y) {
                 if (  tiles_[x+y*size_.x] == ENTRANCE
-                    ) addEntity(new Door(false), sf::Vector2u(x, y));
+                    ) addEntity(new Door(false), sf::Vector2i(x, y));
             }
         }
 
-        std::stack<sf::Vector2u> toUnOccupy;
+        std::stack<sf::Vector2i> toUnOccupy;
 
      // here we generate the chests
         for (int i=0; i<rand()%5; ++i) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
-                    addEntity(new Chest((rand()%20) ? Chest::REGULAR : Chest::SPECIAL), sf::Vector2u(x, y)); // here we choose randomly whether the chest
+                    addEntity(new Chest((rand()%20) ? Chest::REGULAR : Chest::SPECIAL), sf::Vector2i(x, y)); // here we choose randomly whether the chest
                     tiles_[x+y*size_.x] = OCCUPIED;                                                          // has to be the special (probability = 5%)
-                    toUnOccupy.push(sf::Vector2u(x, y));                                                     // or the regular one (p = 95%)
+                    toUnOccupy.push(sf::Vector2i(x, y));                                                     // or the regular one (p = 95%)
                     break;
                 }
             }
@@ -570,11 +586,11 @@ namespace rr {
      // at this moment all we need is just to place random items in random places, we'll deal with the balance later
         for (int i=0; i<rand()%15+15; ++i) {
             while (true) {
-                unsigned x=rand()%size_.x, y=rand()%size_.y;
+                int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
-                    addEntity(getRandomItemBalanced(), sf::Vector2u(x, y));
+                    addEntity(getRandomItemBalanced(), sf::Vector2i(x, y));
                     tiles_[x+y*size_.x] = OCCUPIED;
-                    toUnOccupy.push(sf::Vector2u(x, y));
+                    toUnOccupy.push(sf::Vector2i(x, y));
                     break;
                 }
             }
@@ -583,9 +599,9 @@ namespace rr {
      /* NPCs */
      // here we place the teachers every 5th level
         if (levelNumber_%5 == 0) {
-           sf::Vector2u pos;
+           sf::Vector2i pos;
            while (true) {
-               pos = sf::Vector2u(rand()%10-5, rand()%10-5)+startingPoint_;
+               pos = sf::Vector2i(rand()%10-5, rand()%10-5)+startingPoint_;
                if ( !isOnBorder(pos.x, pos.y) && tiles_[pos.x+pos.y*size_.x] == ROOM
                   && startingPoint_+pos != startingPoint_
                    ) break;
@@ -599,15 +615,15 @@ namespace rr {
            }
         }
      // here we put some enemies
-        for (unsigned i=0; i<(unsigned) rand()%15+15; ++i) {
+        for (int i=0; i<(int) rand()%15+15; ++i) {
             while (true) {
-                unsigned x=rand()%size_.x, y=rand()%size_.y;
+                int x=rand()%size_.x, y=rand()%size_.y;
                 if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
-                    unsigned weapon = rand()%3;
+                    int weapon = rand()%3;
                     switch (weapon) {
-                        case 0: addEntity(new Bandit(Bandit::CLUB    ), sf::Vector2u(x, y)); break;
-                        case 1: addEntity(new Bandit(Bandit::CROSSBOW), sf::Vector2u(x, y)); break;
-                        case 2: addEntity(new Bandit(Bandit::DAGGER  ), sf::Vector2u(x, y)); break;
+                        case 0: addEntity(new Bandit(Bandit::CLUB    ), sf::Vector2i(x, y)); break;
+                        case 1: addEntity(new Bandit(Bandit::CROSSBOW), sf::Vector2i(x, y)); break;
+                        case 2: addEntity(new Bandit(Bandit::DAGGER  ), sf::Vector2i(x, y)); break;
                     }
                     tiles_[x+y*size_.x] = OCCUPIED;
                     break;
@@ -629,7 +645,7 @@ namespace rr {
         }
     }
 
-    bool Level::isOnBorder(unsigned x, unsigned y) {
+    bool Level::isOnBorder(int x, int y) {
         return x <= 0 || y <= 0 || x >= size_.x-1 || y >= size_.y-1;
     }
 
@@ -640,10 +656,10 @@ namespace rr {
         entities_.clear();
 
         try {
-            readFile <unsigned> (file, startingPoint_.x);
-            readFile <unsigned> (file, startingPoint_.y);
-            readFile <unsigned> (file, endingPoint_  .x);
-            readFile <unsigned> (file, endingPoint_  .y);
+            readFile <int> (file, startingPoint_.x);
+            readFile <int> (file, startingPoint_.y);
+            readFile <int> (file, endingPoint_  .x);
+            readFile <int> (file, endingPoint_  .y);
 
             int number;
             readFile <int> (file, number);

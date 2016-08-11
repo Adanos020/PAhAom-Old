@@ -17,7 +17,10 @@
 
 namespace rr {
 
-/// Returns an instance of the Item class depending on the given ID and amount
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief Returns an instance of the Item class depending on the given
+    /// ID and amount.
+    ////////////////////////////////////////////////////////////////////////
     inline Item* getItemFromID(int ID, int amount) {
         switch (ID) {
             /* COIN */
@@ -131,6 +134,9 @@ namespace rr {
 
     }
 
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief Returns a random instance of the Item class.
+    ////////////////////////////////////////////////////////////////////////
     inline Item* getRandomItem(int amount = 1) {
         int IDs[] = {
               1,   2,   3,   4,   5,   6,                                    // COINS
@@ -147,6 +153,9 @@ namespace rr {
         return getItemFromID(elementOf(IDs, sizeof(IDs)/sizeof(*IDs)), amount);
     }
 
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief Balances a randomly created instance of the Item class.
+    ////////////////////////////////////////////////////////////////////////
     inline Item* getRandomItemBalanced() {
         auto item = getRandomItem();
 

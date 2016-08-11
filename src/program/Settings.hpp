@@ -34,6 +34,9 @@ namespace rr {
                     sf::Keyboard::Key useslot_4;
                     sf::Keyboard::Key useslot_5;
 
+                    ////////////////////////////////////////////////////////////////////////
+                    /// \brief Regular constructor.
+                    ////////////////////////////////////////////////////////////////////////
                     Keys() {
                         move_up           = sf::Keyboard::W;
                         move_down         = sf::Keyboard::S;
@@ -60,6 +63,9 @@ namespace rr {
                     bool  music_muted;
                     bool  effects_muted;
 
+                    ////////////////////////////////////////////////////////////////////////
+                    /// \brief Regular constructor.
+                    ////////////////////////////////////////////////////////////////////////
                     Sound() {
                         music_volume   = 50.f;
                         effects_volume = 50.f;
@@ -74,6 +80,9 @@ namespace rr {
                     bool                vsync;
                     bool                fullscreen;
 
+                    ////////////////////////////////////////////////////////////////////////
+                    /// \brief Regular constructor.
+                    ////////////////////////////////////////////////////////////////////////
                     Graphics() {
                         resolution.x                = 1280;
                         resolution.y                = 720;
@@ -89,17 +98,28 @@ namespace rr {
             public: std::string language;
                     bool        debugMode;
 
+                    ////////////////////////////////////////////////////////////////////////
+                    /// \brief Regular constructor.
+                    ////////////////////////////////////////////////////////////////////////
                     Game() {
                         language  = "en";
                         debugMode = false;
                     }
             } game;
 
-        /// Method printing the current settings
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief Method printing the current settings.
+            ////////////////////////////////////////////////////////////////////////
             static void print();
-        /// Method overwriting the current settings
+
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief Method overwriting the current settings.
+            ////////////////////////////////////////////////////////////////////////
             static void save ();
-        /// Method loading the current settings
+
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief Method loading the current settings.
+            ////////////////////////////////////////////////////////////////////////
             static bool load ();
     };
 

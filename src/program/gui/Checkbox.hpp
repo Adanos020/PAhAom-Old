@@ -13,7 +13,6 @@
 
 namespace rr {
 
-/// Class for a checkbox component which can be checked or unchecked, depending on the parity of the number of clicks performed on it
     class Checkbox : public Component {
     private: sf::RectangleShape body_;
              Image              image_;
@@ -21,26 +20,66 @@ namespace rr {
              bool               checked_;
              bool               held_;
 
-             virtual void draw               (sf::RenderTarget&,
-                                              sf::RenderStates) const override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the ckeckbox on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    public:  Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color = sf::Color(110, 110, 110, 128));
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color = sf::Color(110, 110, 110, 128));
 
-         /// Sets the checkbox checked or not, depending on the value of the given argument
-             void         check              (bool b);
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the checkbox checked or not, depending on the value of
+             /// the given argument.
+             ////////////////////////////////////////////////////////////////////////
+             void check(bool b);
 
-             void         setPosition        (sf::Vector2f)           override;
-             void         setText            (sf::String s)                    { text_.setString(s); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the checkbox's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setPosition(sf::Vector2f) override;
 
-             bool         containsMouseCursor(sf::RenderWindow&);
-             bool         isPressed          (sf::RenderWindow&, sf::Event&);
-             sf::Vector2f getPosition        ()                 const override { return body_.getPosition(); }
-             sf::Vector2f getSize            ()                 const override { return body_.getSize(); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the checkbox's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
 
-         /// Method telling if the checkbox is checked
-             bool         isChecked          ()                 const          { return checked_; }
-             Text         getText            ()                 const          { return text_; }
-             void         setSize            (sf::Vector2f)           override {}
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the checkbox's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setSize(sf::Vector2f) override {}
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the checkbox's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getSize() const override { return body_.getSize(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the string of the text displayed next to the checkbox.
+             ////////////////////////////////////////////////////////////////////////
+             void setText(sf::String s) { text_.setString(s); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the text displayed next to the checkbox.
+             ////////////////////////////////////////////////////////////////////////
+             Text getText() const { return text_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the checkbox is touched by a mouse cursor.
+             ////////////////////////////////////////////////////////////////////////
+             bool containsMouseCursor(sf::RenderWindow&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the checkbox is clicked.
+             ////////////////////////////////////////////////////////////////////////
+             bool isPressed(sf::RenderWindow&, sf::Event&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Method telling if the checkbox is checked.
+             ////////////////////////////////////////////////////////////////////////
+             bool isChecked() const { return checked_; }
     };
 
 }

@@ -21,44 +21,87 @@ namespace rr {
 
     class Game;
 
-/// Class for the player inventory
     class Inventory : public Observer, public sf::Drawable {
     private: sf::RectangleShape shadow_;
-     
+
              Window             wInve_;
              Slot*              sCarryOn_[5];
              Player*            player_;
-         
+
              short              bronze_;
              short              silver_;
              short              gold_;
-         
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sorts the items in the backpack.
+             ////////////////////////////////////////////////////////////////////////
              void sort();
 
-             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    
-    public:  Inventory(Player*);
-            ~Inventory();
-         
-         /// Adds an item to the inventory
-             bool addItem     (Item*);
-         /// Tells if there is such an item in the inventory
-             bool contains    (Item*);
-         /// Clears the inventory
-             void clear       ();
-         /// Handles the button events
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the window on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
+
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Inventory(Player*);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Destructor.
+             ////////////////////////////////////////////////////////////////////////
+             ~Inventory();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reacts to a specific event. It can either do something with
+             /// a given entity or just ignore it.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void onNotify(Event, Entity*) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Adds an item to the inventory.
+             ////////////////////////////////////////////////////////////////////////
+             bool addItem(Item*);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if there is such an item in the inventory.
+             ////////////////////////////////////////////////////////////////////////
+             bool contains(Item*);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Clears the inventory.
+             ////////////////////////////////////////////////////////////////////////
+             void clear();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Handles the button events.
+             ////////////////////////////////////////////////////////////////////////
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-         /// Opens the inventory window
-             void open        ();
-         /// Closes the inventory window
-             void close       ();
-         /// Tells if the inventory is open
-             bool isOpen      () const { return wInve_.isVisible(); }
-         
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Opens the inventory window.
+             ////////////////////////////////////////////////////////////////////////
+             void open();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Closes the inventory window.
+             ////////////////////////////////////////////////////////////////////////
+             void close();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the inventory is open.
+             ////////////////////////////////////////////////////////////////////////
+             bool isOpen() const { return wInve_.isVisible(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reads the inventory from a file.
+             ////////////////////////////////////////////////////////////////////////
              std::ifstream& operator<<(std::ifstream&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Saves the inventory to a file.
+             ////////////////////////////////////////////////////////////////////////
              std::ofstream& operator>>(std::ofstream&);
-         
-             virtual void onNotify(Event, Entity*) override;
     };
 
 }

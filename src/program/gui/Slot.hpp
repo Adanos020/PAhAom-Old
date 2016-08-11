@@ -15,7 +15,6 @@
 
 namespace rr {
 
-/// Class for a slot component which can contain any instance of the class Item
     class Slot : public Component {
     private: sf::RectangleShape body_;
              Image              image_;
@@ -24,40 +23,100 @@ namespace rr {
              bool               hollow_;
              bool               held_;
 
-             virtual void draw        (sf::RenderTarget&,
-                                       sf::RenderStates) const override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the slot on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    public:  Slot(sf::Vector2f size, sf::Vector2f pos, int icon = 0);
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Slot(sf::Vector2f size, sf::Vector2f pos, int icon = 0);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Destructor.
+             ////////////////////////////////////////////////////////////////////////
             ~Slot();
 
-         /// Adds an item to the slot
-             bool         addItem            (Item*);
-         /// Removes the item from the slot
-             void         removeItem         (int, bool deleteFromMemory = true);
-             void         removeItem         (bool deleteFromMemory = true);
-         /// Swaps the items between the slots
-             void         swapItems          (Slot*);
-         /// Clears the slot
-             void         clear              ();
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Adds an item to the slot.
+             ////////////////////////////////////////////////////////////////////////
+             bool addItem(Item*);
 
-             void         setText            (sf::String s)               { text_.setString(s); }
-             void         setPosition        (sf::Vector2f)      override;
-             void         setSize            (sf::Vector2f size) override { body_.setSize(size); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Removes a given amount of the item from the slot.
+             ////////////////////////////////////////////////////////////////////////
+             void removeItem(int, bool deleteFromMemory = true);
 
-             bool         containsMouseCursor(sf::RenderWindow&);
-             bool         isPressed          (sf::RenderWindow&, sf::Event&, sf::Mouse::Button = sf::Mouse::Left);
-             bool         isHeld             () const                     { return held_; }
-             Text         getText            () const                     { return text_; }
-             sf::Vector2f getPosition        () const            override { return body_.getPosition(); }
-             sf::Vector2f getSize            () const            override { return body_.getSize(); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Removes the item from the slot.
+             ////////////////////////////////////////////////////////////////////////
+             void removeItem(bool deleteFromMemory = true);
+             
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Swaps the items between the slots.
+             ////////////////////////////////////////////////////////////////////////
+             void swapItems(Slot*);
 
-         /// Returns the item contained in the slot
-             Item*        getItem            () const                     { if ( !hollow_
-                                                                                ) return item_;
-                                                                            return nullptr;
-                                                                          }
-         /// Method telling if the slot is empty
-             bool         isEmpty            () const                     { return hollow_; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Clears the slot.
+             ////////////////////////////////////////////////////////////////////////
+             void clear();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the slot's body's position.
+             ////////////////////////////////////////////////////////////////////////
+             void setPosition(sf::Vector2f) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the slot's body's position.
+             ////////////////////////////////////////////////////////////////////////
+             sf::Vector2f getPosition() const override { return body_.getPosition(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the slot's body's size.
+             ////////////////////////////////////////////////////////////////////////
+             void setSize(sf::Vector2f size) override { body_.setSize(size); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the slot's body's size.
+             ////////////////////////////////////////////////////////////////////////
+             sf::Vector2f getSize() const override { return body_.getSize(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the string of the text displayed on the scroll bar.
+             ////////////////////////////////////////////////////////////////////////
+             void setText(sf::String s) { text_.setString(s); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the text displayed on the scroll bar.
+             ////////////////////////////////////////////////////////////////////////
+             Text getText() const { return text_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the slot is touched by a mouse cursor.
+             ////////////////////////////////////////////////////////////////////////
+             bool containsMouseCursor(sf::RenderWindow&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the slot is clicked.
+             ////////////////////////////////////////////////////////////////////////
+             bool isPressed(sf::RenderWindow&, sf::Event&, sf::Mouse::Button = sf::Mouse::Left);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the slot is being held.
+             ////////////////////////////////////////////////////////////////////////
+             bool isHeld() const { return held_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the item contained in the slot.
+             ////////////////////////////////////////////////////////////////////////
+             Item* getItem() const;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Method telling if the slot is empty.
+             ////////////////////////////////////////////////////////////////////////
+             bool isEmpty() const { return hollow_; }
     };
 
 }

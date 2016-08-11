@@ -14,7 +14,9 @@
 
 namespace rr {
 
-/// Reads a variable data from file
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief Reads a variable data from file.
+    ////////////////////////////////////////////////////////////////////////
     template <typename T>
     inline void readFile(std::ifstream& f, T& x) {
         f >> x;
@@ -28,7 +30,9 @@ namespace rr {
         }
     }
 
-/// Reads an entity's data from file
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief Reads an entity's data from file.
+    ////////////////////////////////////////////////////////////////////////
     inline void readEntity(std::ifstream& f, Entity* x) {
         *x << f;
         if (f.fail()) {

@@ -13,7 +13,6 @@
 
 namespace rr {
 
-/// Class for a ScrollBar component
     class ScrollBar : public Component {
     private: sf::RectangleShape border_;
              sf::Vector2f       valueLimit_;
@@ -23,30 +22,70 @@ namespace rr {
              Text               label_;
              float              value_;
 
-             virtual void draw        (sf::RenderTarget&,
-                                       sf::RenderStates) const override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the scroll bar on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
     public:  enum Plain {
                  HORIZONTAL,
                  VERTICAL
              } plain_;
 
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ///
+             /// \param plain the plain in which the scroll bar is situated; the
+             /// possible values are:
+             /// - HORIZONTAL
+             /// - VERTICAL
+             ////////////////////////////////////////////////////////////////////////
              ScrollBar(Plain, sf::Vector2f position, float length, sf::Vector2f min_max = sf::Vector2f(0, 100));
-             
-             void         setPosition (sf::Vector2f)           override;
-             void         setSize     (sf::Vector2f)           override;
-             void         setText     (sf::String s)                    { label_.setString(s); }
 
-         /// Sets the actual value of the scroll bar
-             void         setValue    (int);
-             void         buttonEvents(sf::RenderWindow&, sf::Event&);
-         
-             sf::Vector2f getPosition ()                 const override { return bLeft_.getPosition(); }
-             sf::Vector2f getSize     ()                 const override { return border_.getSize(); }
-             Text         getText     ()                 const          { return label_; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the scroll bar's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setPosition(sf::Vector2f) override;
 
-         /// Returns the actual value of the scroll bar
-             int          getValue    ()                 const          { return value_; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the scroll bar's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getPosition () const override { return bLeft_.getPosition(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the scroll bar's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setSize(sf::Vector2f) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the scroll bar's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getSize() const override { return border_.getSize(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the string of the text displayed on the scroll bar.
+             ////////////////////////////////////////////////////////////////////////
+             void setText(sf::String s) { label_.setString(s); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the text displayed on the scroll bar.
+             ////////////////////////////////////////////////////////////////////////
+             Text getText() const { return label_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the actual value of the scroll bar.
+             ////////////////////////////////////////////////////////////////////////
+             void setValue(int);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Handles the button events.
+             ////////////////////////////////////////////////////////////////////////
+             void buttonEvents(sf::RenderWindow&, sf::Event&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the actual value of the scroll bar.
+             ////////////////////////////////////////////////////////////////////////
+             int getValue() const { return value_; }
     };
 
 }

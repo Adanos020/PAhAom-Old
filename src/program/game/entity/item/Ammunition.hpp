@@ -12,7 +12,10 @@
 namespace rr {
 
     class Ammunition : public Item {
-    private: virtual void           initialize    ()           override;
+    private: ////////////////////////////////////////////////////////////////////////
+             /// \brief Initializes the ammunition.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void           initialize    ()           override;
 
     public:  enum Type {
                  ARROW,
@@ -21,18 +24,51 @@ namespace rr {
                  SHURIKEN
              };
 
-             Ammunition(Type = ARROW, int amount = 1, sf::Vector2u position = sf::Vector2u(0, 0));
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Ammunition(Type = ARROW, int amount = 1, sf::Vector2i position = sf::Vector2i(0, 0));
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Copy constructor.
+             ////////////////////////////////////////////////////////////////////////
              Ammunition(Ammunition const&);
 
-             Type                   getType       () const              { return type_; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Creates an exact copy of the ammunition.
+             ////////////////////////////////////////////////////////////////////////
+     virtual Entity* clone() const override { return new Ammunition(*this); }
 
-             virtual Entity*        clone         () const     override { return new Ammunition(*this); }
-         
-             virtual sf::String     getName       () const     override;
-             virtual sf::String     getDescription() const     override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the ammunition's type.
+             ///
+             /// The possible values are:
+             /// - ARROW (required by a bow)
+             /// - BOLT (required by a crossbow)
+             /// - ROCKS (required by a splingshot)
+             /// - SHURIKEN (thrown ammunition)
+             ////////////////////////////////////////////////////////////////////////
+             Type getType() const { return type_; }
 
-             virtual std::ifstream& operator<<(std::ifstream&) override;
-             virtual std::ofstream& operator>>(std::ofstream&) override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the ammunition's name.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::String getName() const override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the ammunition's description.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::String getDescription() const override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reads the ammunition from the file.
+             ////////////////////////////////////////////////////////////////////////
+     virtual std::ifstream& operator<<(std::ifstream&) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Saves the ammunition to the file.
+             ////////////////////////////////////////////////////////////////////////
+     virtual std::ofstream& operator>>(std::ofstream&) override;
 
     private: Type type_;
     };

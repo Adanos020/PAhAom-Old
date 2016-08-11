@@ -22,9 +22,9 @@ namespace rr {
          
              QuestGiver(Type = NONE_YET);
              QuestGiver(QuestGiver const&);
-         
+/*
              virtual Entity*        clone       () const            override { return new QuestGiver(*this); }
-         
+*/
              virtual void           talk        ();
              virtual void           update      (sf::Time timeStep) override;
              virtual void           handleDamage(int damage)        override;

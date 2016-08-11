@@ -36,12 +36,12 @@ namespace rr {
     }
 
     std::ifstream& Stairs::operator<<(std::ifstream& file) {
-        sf::Vector2u position;
+        sf::Vector2i position;
 
         try {
-            readFile <unsigned> (file, position.x);
-            readFile <unsigned> (file, position.y);
-            readFile <  bool  > (file, upwards_);
+            readFile < int> (file, position.x);
+            readFile < int> (file, position.y);
+            readFile <bool> (file, upwards_);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -54,9 +54,9 @@ namespace rr {
     }
 
     std::ofstream& Stairs::operator>>(std::ofstream& file) {
-        file << 42                                   << ' '
-             << (unsigned) body_.getPosition().x/80u << ' '
-             << (unsigned) body_.getPosition().y/80u << ' '
+        file << 42                             << ' '
+             << (int) body_.getPosition().x/80 << ' '
+             << (int) body_.getPosition().y/80 << ' '
              << upwards_;
 
         return file;

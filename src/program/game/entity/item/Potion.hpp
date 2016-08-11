@@ -12,7 +12,10 @@
 namespace rr {
 
     class Potion : public Discoverable {
-    private: virtual void   initialize     ()               override;
+    private: ////////////////////////////////////////////////////////////////////////
+             /// \brief Initializes the potion.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void initialize() override;
     
     public:  enum Type {
                  HEALING,
@@ -33,25 +36,88 @@ namespace rr {
 
       static bool identified_[9];
 
-             Potion(Type = HEALING, Size = BIG, int am = 1, sf::Vector2u pos = sf::Vector2u(0, 0));
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Potion(Type = HEALING, Size = BIG, int am = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Copy constructor.
+             ////////////////////////////////////////////////////////////////////////
              Potion(Potion const&);
 
-             Type           getType        () const                  { return type_; }
-             Size           getSize        () const                  { return size_; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Creates an exact copy of the item.
+             ////////////////////////////////////////////////////////////////////////
+     virtual Entity* clone() const override { return new Potion(*this); }
 
-     virtual Entity*        clone          () const         override { return new Potion(*this); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the potion's type.
+             ///
+             /// The possible values are:
+             /// - HEALING
+             /// - MAGIC
+             /// - STRENGTH
+             /// - DEXTERITY
+             /// - SPEED
+             /// - REGENERATION
+             /// - POISON
+             /// - SLOWNESS
+             /// - WEAKNESS
+             ////////////////////////////////////////////////////////////////////////
+             Type getType() const { return type_; }
 
-     virtual void           reveal         ()               override { identified_[type_] = true; }
-     virtual bool           isDiscovered   () const         override { return identified_[type_]; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the potion's size.
+             ///
+             /// The possible values are:
+             /// - BIG
+             /// - MEDIUM
+             /// - SMALL
+             ////////////////////////////////////////////////////////////////////////
+             Size getSize() const { return size_; }
 
-     virtual sf::String     getName        () const         override;
-     virtual sf::String     getDescription () const         override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reveals the potion's properties.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void reveal() override { identified_[type_] = true; }
 
-             void           setPosition    (sf::Vector2f)   override;
-             void           setGridPosition(sf::Vector2u)   override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the potion is discovered.
+             ////////////////////////////////////////////////////////////////////////
+     virtual bool isDiscovered() const override { return identified_[type_]; }
 
-     virtual std::ifstream& operator<<     (std::ifstream&) override;
-     virtual std::ofstream& operator>>     (std::ofstream&) override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the potion's name.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::String getName() const override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the potion's description.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::String getDescription() const override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the potion's position relatively to the grid marked out
+             /// by the level's tile map.
+             ////////////////////////////////////////////////////////////////////////
+             void setPosition(sf::Vector2f) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the potion's position relatively to the graphics card's
+             /// coordinate system.
+             ////////////////////////////////////////////////////////////////////////
+             void setGridPosition(sf::Vector2i) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reads the book from the file.
+             ////////////////////////////////////////////////////////////////////////
+     virtual std::ifstream& operator<<(std::ifstream&) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Saves the book to the file.
+             ////////////////////////////////////////////////////////////////////////
+     virtual std::ofstream& operator>>(std::ofstream&) override;
 
     private: Type type_;
              Size size_;

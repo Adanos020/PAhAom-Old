@@ -18,24 +18,70 @@ namespace rr {
     private: std::vector<Button> options_;
              sf::Vector2f        position_;
 
-             virtual void         draw           (sf::RenderTarget&,
-                                                  sf::RenderStates) const override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the menu on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    public:  void                 addOption      (sf::String);
-             void                 setOption      (unsigned index, sf::String);
-             void                 removeOption   (unsigned index);
-             void                 clear          ()                                { options_.clear(); }
-
-             sf::String           getChosenOption(sf::RenderWindow&, sf::Event&);
-             int                  getOptionCount ()                 const          { return options_.size(); }
-             
-             virtual void         setPosition    (sf::Vector2f)           override;
-             virtual void         setSize        (sf::Vector2f)           override {}
-             virtual sf::Vector2f getPosition    ()                 const          { return position_; }
-             virtual sf::Vector2f getSize        ()                 const          { return sf::Vector2f(0, options_.size()*40); }
-
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
              Menu(sf::Vector2f position = sf::Vector2f(0, 0));
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Destructor.
+             ////////////////////////////////////////////////////////////////////////
             ~Menu();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Adds a new option to the list.
+             ////////////////////////////////////////////////////////////////////////
+             void addOption(sf::String);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets a chosen option's string.
+             ////////////////////////////////////////////////////////////////////////
+             void setOption(unsigned index, sf::String);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Removes an option from the list.
+             ////////////////////////////////////////////////////////////////////////
+             void removeOption(unsigned index);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Clears the list of options.
+             ////////////////////////////////////////////////////////////////////////
+             void clear() { options_.clear(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the string of a chosen option.
+             ////////////////////////////////////////////////////////////////////////
+             sf::String getChosenOption(sf::RenderWindow&, sf::Event&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the number of options stored in the list.
+             ////////////////////////////////////////////////////////////////////////
+             int getOptionCount() const { return options_.size(); }
+             
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the menu's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setPosition(sf::Vector2f) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the menu's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getPosition() const { return position_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the menu's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setSize(sf::Vector2f) override {}
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the menu's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getSize() const { return sf::Vector2f(0, options_.size()*40); }
     };
 
 }

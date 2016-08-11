@@ -16,30 +16,96 @@ namespace rr {
              bool       locked_;
              bool       open_;
              bool       withoutWindow_;
-             
-             virtual void           initialize     ()                       override;
-             virtual void           draw           (sf::RenderTarget&,
-                                                    sf::RenderStates) const override;
-    
-    public:  Door(bool lock = false);
-             Door(Door const&);
-         
-             void                   setOpen        (bool);
-             bool                   isOpen         ()                 const          { return open_; }
-             bool                   isLocked       ()                 const          { return locked_; }
-             bool                   isWithoutWindow()                 const          { return withoutWindow_; }
-         
-             virtual Entity*        clone          ()                 const override { return new Door(*this); }
 
-             virtual void           setGridPosition(sf::Vector2u pos)       override { body_.setPosition((sf::Vector2f)pos*80.f); }
-             virtual void           setPosition    (sf::Vector2f pos)       override { body_.setPosition(pos); }
-             virtual bool           collides       (Entity* e)        const override { return e->getBounds().intersects(getBounds()); }
-             virtual sf::Vector2u   getGridPosition()                 const override { return (sf::Vector2u) body_.getPosition()/80u; }
-             virtual sf::Vector2f   getPosition    ()                 const override { return body_.getPosition(); }
-             virtual sf::FloatRect  getBounds      ()                 const override { return body_.getGlobalBounds(); }
-         
-             virtual std::ifstream& operator<<     (std::ifstream&)         override;
-             virtual std::ofstream& operator>>     (std::ofstream&)         override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Initializes the door.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void initialize() override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the door's body and texture on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
+
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Door(bool lock = false);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Copy constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Door(Door const&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Creates an exact copy of the door.
+             ////////////////////////////////////////////////////////////////////////
+     virtual Entity* clone() const override { return new Door(*this); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Makes the door open.
+             ////////////////////////////////////////////////////////////////////////
+             void setOpen(bool);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the door is open.
+             ////////////////////////////////////////////////////////////////////////
+             bool isOpen() const { return open_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the door is locked.
+             ////////////////////////////////////////////////////////////////////////
+             bool isLocked() const { return locked_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the door has no window.
+             ////////////////////////////////////////////////////////////////////////
+             bool isWithoutWindow() const { return withoutWindow_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the door's position relatively to the grid marked out
+             /// by the level's tile map.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setGridPosition(sf::Vector2i pos) override { body_.setPosition((sf::Vector2f)pos*80.f); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the door's position relatively to the grid marked
+             /// out by the level's tile map.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) body_.getPosition()/80; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the door's position relatively to the graphics card's
+             /// coordinate system.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setPosition(sf::Vector2f pos) override { body_.setPosition(pos); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the door's position relatively to the graphics
+             /// card's coordinate system.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if another entity's bound box intersects with the
+             /// door's bound box.
+             ////////////////////////////////////////////////////////////////////////
+     virtual bool collides(Entity* e) const override { return e->getBounds().intersects(getBounds()); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the door's bound box.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::FloatRect getBounds() const override { return body_.getGlobalBounds(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reads the door from the file.
+             ////////////////////////////////////////////////////////////////////////
+     virtual std::ifstream& operator<<(std::ifstream&) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Saves the door to the file.
+             ////////////////////////////////////////////////////////////////////////
+     virtual std::ofstream& operator>>(std::ofstream&) override;
     };
 
 }

@@ -13,29 +13,83 @@ namespace rr {
 
     class Stairs : public Entity {
     private: sf::Sprite   body_;
-             sf::Vector2u position_;
+             sf::Vector2i position_;
              bool         upwards_;
              
-             virtual void           initialize     ()                       override;
-             virtual void           draw           (sf::RenderTarget&,
-                                                    sf::RenderStates) const override;
-    
-    public:  Stairs(bool upwards = true);
-             Stairs(Stairs const&);
-         
-             bool                   isUpwards      ()                 const          { return upwards_; }
-         
-             virtual Entity*        clone          ()                 const override { return new Stairs(*this); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Initializes the stairs.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void initialize() override;
 
-             virtual void           setGridPosition(sf::Vector2u pos)       override { body_.setPosition((sf::Vector2f)pos*80.f); }
-             virtual void           setPosition    (sf::Vector2f pos)       override { body_.setPosition(pos); }
-             virtual bool           collides       (Entity* e)        const override { return e->getBounds().intersects(getBounds()); }
-             virtual sf::Vector2u   getGridPosition()                 const override { return (sf::Vector2u)body_.getPosition()/80u; }
-             virtual sf::Vector2f   getPosition    ()                 const override { return body_.getPosition(); }
-             virtual sf::FloatRect  getBounds      ()                 const override { return body_.getGlobalBounds(); }
-         
-             virtual std::ifstream& operator<<     (std::ifstream&)         override;
-             virtual std::ofstream& operator>>     (std::ofstream&)         override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the starirs' body and texture on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
+    
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Stairs(bool upwards = true);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Copy constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Stairs(Stairs const&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Creates an exact copy of the stairs.
+             ////////////////////////////////////////////////////////////////////////
+     virtual Entity* clone() const override { return new Stairs(*this); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the stairs are upwards.
+             ////////////////////////////////////////////////////////////////////////
+             bool isUpwards() const { return upwards_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the stairs' position relatively to the grid marked out
+             /// by the level's tile map.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setGridPosition(sf::Vector2i pos) override { body_.setPosition((sf::Vector2f) pos*80.f); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the stairs' position relatively to the grid marked
+             /// out by the level's tile map.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) body_.getPosition()/80; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the stairs' position relatively to the graphics card's
+             /// coordinate system.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setPosition(sf::Vector2f pos) override { body_.setPosition(pos); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the stairs' position relatively to the graphics
+             /// card's coordinate system.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if another entity's bound box intersects with the
+             /// stairs' bound box.
+             ////////////////////////////////////////////////////////////////////////
+     virtual bool collides(Entity* e) const override { return e->getBounds().intersects(getBounds()); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the stairs' bound box.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::FloatRect getBounds() const override { return body_.getGlobalBounds(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reads the stairs from the file.
+             ////////////////////////////////////////////////////////////////////////
+     virtual std::ifstream& operator<<(std::ifstream&) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Saves the stairs to the file.
+             ////////////////////////////////////////////////////////////////////////
+     virtual std::ofstream& operator>>(std::ofstream&) override;
     };
 
 }

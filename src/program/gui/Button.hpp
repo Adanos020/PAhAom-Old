@@ -13,29 +13,68 @@
 
 namespace rr {
 
-/// Class for a button component which by being clicked can cause any action you assign to it
     class Button : public Component {
     private: sf::RectangleShape body_;
              Image              image_;
              Text               text_;
              bool               held_;
-             
-             virtual void         draw               (sf::RenderTarget&,
-                                                      sf::RenderStates) const override;
 
-    public:  Button(sf::Vector2f position, sf::String, unsigned chsize, sf::Color = sf::Color::White);
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the button on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-             void                 setText            (sf::String);
-        
-             bool                 containsMouseCursor(sf::RenderWindow&);
-             bool                 isPressed          (sf::RenderWindow&, sf::Event&);
-             bool                 isHeld             ()                 const          { return held_; }
-             Text                 getText            ()                 const          { return text_; }
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ///
+             /// \param color the color of the text displayed on the button
+             ////////////////////////////////////////////////////////////////////////
+             Button(sf::Vector2f position, sf::String, unsigned chsize, sf::Color = sf::Color::White);
 
-             virtual sf::Vector2f getPosition        ()                 const override { return body_.getPosition(); }
-             virtual sf::Vector2f getSize            ()                 const override { return body_.getSize(); }
-             virtual void         setPosition        (sf::Vector2f)           override;
-             virtual void         setSize            (sf::Vector2f size)      override { body_.setSize(size); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the string of the text displayed on the button.
+             ////////////////////////////////////////////////////////////////////////
+             void setText(sf::String);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the text displayed on the button.
+             ////////////////////////////////////////////////////////////////////////
+             Text getText() const { return text_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the button is touched by a mouse cursor.
+             ////////////////////////////////////////////////////////////////////////
+             bool containsMouseCursor(sf::RenderWindow&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the button is clicked.
+             ////////////////////////////////////////////////////////////////////////
+             bool isPressed(sf::RenderWindow&, sf::Event&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the button is being held.
+             ////////////////////////////////////////////////////////////////////////
+             bool isHeld() const { return held_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the button's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setPosition(sf::Vector2f) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the button's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the button's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setSize(sf::Vector2f size) override { body_.setSize(size); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the button's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getSize() const override { return body_.getSize(); }
     };
 
 }

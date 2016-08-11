@@ -16,17 +16,24 @@ namespace rr {
 
     class Game;
 
-/// Class for the main menu
     class MainMenu : public sf::Drawable {
-    private: Text    title_;
-             Text    version_;
-             Window  wMenu_;
+    private: Text   title_;
+             Text   version_;
+             Window wMenu_;
 
-             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    
-    public:  MainMenu();
-         
-         /// Handles the button events
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the window on the screen.
+             ////////////////////////////////////////////////////////////////////////
+             virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
+
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             MainMenu();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// Handles the button events.
+             ////////////////////////////////////////////////////////////////////////
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
     };
 

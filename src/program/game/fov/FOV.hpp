@@ -21,13 +21,33 @@ namespace rr {
                      bool operator>=(Slope slope) { return y_*slope.x_ >= x_*slope.y_; }
                      bool operator<=(Slope slope) { return y_*slope.x_ <= x_*slope.y_; }
              };
-         
-             static void compute    (ShadowMap* shadows, int tiles[], unsigned octant    , sf::Vector2u origin, int range          , unsigned x, Slope top, Slope bottom);
-             static bool blocksLight(int tiles[]       , unsigned x , unsigned y         , unsigned octant    , sf::Vector2u origin);
-             static void setVisible (ShadowMap* shadows, unsigned x , unsigned y         , unsigned octant    , sf::Vector2u origin);
-             static int  getDistance(int x             , int y);
 
-    public:  static void compute    (ShadowMap* shadows, int tiles[], sf::Vector2u origin, int range);
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Calculates the possible field of vision from a given point on the
+             /// tile map.
+             ////////////////////////////////////////////////////////////////////////
+      static void compute(ShadowMap* shadows, int tiles[], unsigned octant, sf::Vector2i origin, int range, unsigned x, Slope top, Slope bottom);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if a block in a given position blocks light.
+             ////////////////////////////////////////////////////////////////////////
+      static bool blocksLight(int tiles[], int x, int y, unsigned octant, sf::Vector2i origin);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the selected tile visible.
+             ////////////////////////////////////////////////////////////////////////
+      static void setVisible(ShadowMap* shadows, int x, int y, unsigned octant, sf::Vector2i origin);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Calculates the actual distance between point (0, 0) and point (x, y).
+             ////////////////////////////////////////////////////////////////////////
+      static int getDistance(int x, int y);
+
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Calculates the possible field of vision from a given point on the
+             /// tile map.
+             ////////////////////////////////////////////////////////////////////////
+      static void compute(ShadowMap* shadows, int tiles[], sf::Vector2i origin, int range);
     };
 
 }

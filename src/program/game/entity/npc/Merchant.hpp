@@ -23,12 +23,12 @@ namespace rr {
                  ARMOR_SELLER,
                  ARTIFACT_SELLER
              } type_;
-             
+
              Merchant(Type = POTION_SELLER);
              Merchant(Merchant const&);
-         
+/*
              virtual Entity*        clone       () const            override { return new Merchant(*this); }
-         
+*/
              virtual void           talk        ();
              virtual void           update      (sf::Time timeStep) override;
              virtual void           handleDamage(int damage)        override;

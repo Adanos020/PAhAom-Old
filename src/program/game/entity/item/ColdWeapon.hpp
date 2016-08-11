@@ -12,7 +12,10 @@
 namespace rr {
 
     class ColdWeapon : public Weapon {
-    private: virtual void           initialize    ()                  override;
+    private: ////////////////////////////////////////////////////////////////////////
+             /// \brief Initializes the cold weapon.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void initialize() override;
 
     public:  enum Type {
                  HAMMER,
@@ -30,26 +33,71 @@ namespace rr {
                  KNIFE
              };
 
-             ColdWeapon(Type = HAMMER, int amount = 1, sf::Vector2u pos = sf::Vector2u(0, 0));
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             ColdWeapon(Type = HAMMER, int amount = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Copy constructor.
+             ////////////////////////////////////////////////////////////////////////
              ColdWeapon(ColdWeapon const&);
 
-             Type                   getType       () const                  { return type_; }
-
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Creates an exact copy of the cold weapon.
+             ////////////////////////////////////////////////////////////////////////
              virtual Entity*        clone         () const         override { return new ColdWeapon(*this); }
 
-             virtual sf::String     getName       () const         override;
-             virtual sf::String     getDescription() const         override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the cold weapon's type.
+             ///
+             /// The possible values are:
+             /// - HAMMER
+             /// - DOUBLE_AXE
+             /// - HALBERD
+             /// - AXE
+             /// - SERRATED_SWORD
+             /// - LANCE
+             /// - CLUB
+             /// - SWORD
+             /// - SPEAR
+             /// - PIQUE
+             /// - LONG_STICK
+             /// - DAGGER
+             /// - KNIFE
+             ////////////////////////////////////////////////////////////////////////
+             Type getType() const { return type_; }
 
-             virtual void           equip         (bool b)         override { equipped_ = b; }
-             virtual bool           isEquipped    () const         override { return equipped_; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the cold weapon's name.
+             ////////////////////////////////////////////////////////////////////////
+             virtual sf::String getName() const override;
 
-             virtual void           reveal        ()               override { identified_ = true; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the cold weapon's description.
+             ////////////////////////////////////////////////////////////////////////
+             virtual sf::String getDescription() const override;
 
-             virtual void           enhance       ()               override;
-             virtual void           enchant       ()               override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Increases the cold weapon's level and maximum damage dealt by
+             /// it and reduces its requirement.
+             ////////////////////////////////////////////////////////////////////////
+             virtual void enhance() override;
 
-             virtual std::ifstream& operator<<    (std::ifstream&) override;
-             virtual std::ofstream& operator>>    (std::ofstream&) override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Puts an enchantment on the cold weapon.
+             ////////////////////////////////////////////////////////////////////////
+             virtual void enchant() override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reads the cold weapon from the file.
+             ////////////////////////////////////////////////////////////////////////
+             virtual std::ifstream& operator<< (std::ifstream&) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Saves the cold weapon to the file.
+             ////////////////////////////////////////////////////////////////////////
+             virtual std::ofstream& operator>> (std::ofstream&) override;
 
     private: Type type_;
     };

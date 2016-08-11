@@ -12,7 +12,10 @@
 namespace rr {
 
     class RangedWeapon : public Weapon {
-    private: virtual void           initialize    ()               override;
+    private: ////////////////////////////////////////////////////////////////////////
+             /// \brief Initializes the ranged weapon.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void initialize() override;
 
     public:  enum Type {
                  BOW,
@@ -20,26 +23,54 @@ namespace rr {
                  SLINGSHOT
              };
 
-             RangedWeapon(Type = BOW, int amount = 1, sf::Vector2u position = sf::Vector2u(0, 0));
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             RangedWeapon(Type = BOW, int amount = 1, sf::Vector2i position = sf::Vector2i(0, 0));
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Copy constructor.
+             ////////////////////////////////////////////////////////////////////////
              RangedWeapon(RangedWeapon const&);
 
-             Type                   getType       () const                  { return type_; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Creates an exact copy of the ranged weapon.
+             ////////////////////////////////////////////////////////////////////////
+             virtual Entity* clone() const override { return new RangedWeapon(*this); }
 
-             virtual Entity*        clone         () const         override { return new RangedWeapon(*this); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the ranged weapon's type.
+             ///
+             /// The possible values are:
+             /// - BOW
+             /// - CROSSBOW
+             /// - SLINGSHOT
+             ////////////////////////////////////////////////////////////////////////
+             Type getType() const { return type_; }
 
-             virtual sf::String     getName       () const         override;
-             virtual sf::String     getDescription() const         override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the ranged weapon's name.
+             ////////////////////////////////////////////////////////////////////////
+             virtual sf::String getName() const override;
 
-             virtual void           equip         (bool b)         override { equipped_ = b; }
-             virtual bool           isEquipped    () const         override { return equipped_; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the ranged weapon's description.
+             ////////////////////////////////////////////////////////////////////////
+             virtual sf::String getDescription() const override;
 
-             virtual void           reveal        ()               override { identified_ = true; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Increases the ranged weapon's level and maximum damage dealt
+             /// by it and reduces its requirement.
+             ////////////////////////////////////////////////////////////////////////
+             virtual void enhance() override;
 
-             virtual void           enhance       ()               override;
-             virtual void           enchant       ()               override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Puts an enchantment on the ranged weapon.
+             ////////////////////////////////////////////////////////////////////////
+             virtual void enchant() override;
 
-             virtual std::ifstream& operator<<    (std::ifstream&) override;
-             virtual std::ofstream& operator>>    (std::ofstream&) override;
+             virtual std::ifstream& operator<<(std::ifstream&) override;
+             virtual std::ofstream& operator>>(std::ofstream&) override;
 
     private: Type type_;
     };

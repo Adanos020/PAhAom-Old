@@ -19,9 +19,9 @@ namespace rr {
         /// Virtual constructor: cloning
             virtual Entity*        clone          ()        const     = 0;
         /// Sets the entity's position in relation to the actual coordinate system
-            virtual void           setGridPosition(sf::Vector2u pos)  = 0;
+            virtual void           setGridPosition(sf::Vector2i pos)  = 0;
         /// Returns the entity's position in relation to the actual coordinate system
-            virtual sf::Vector2u   getGridPosition()        const     = 0;
+            virtual sf::Vector2i   getGridPosition()        const     = 0;
         /// Sets the entity's position in relation to the grid
             virtual void           setPosition    (sf::Vector2f pos)  = 0;
         /// Returns the entity's position in relation to the grid

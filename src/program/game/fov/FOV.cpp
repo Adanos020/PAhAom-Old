@@ -11,7 +11,7 @@
 
 namespace rr {
     
-    void FOV::compute(ShadowMap* shadows, int tiles[], sf::Vector2u origin, int range) {
+    void FOV::compute(ShadowMap* shadows, int tiles[], sf::Vector2i origin, int range) {
         shadows->darken();
         shadows->setLit(origin.x, origin.y);
         for (unsigned octant = 0; octant < 8; octant++) {
@@ -20,7 +20,7 @@ namespace rr {
         shadows->update();
     }
 
-    void FOV::compute(ShadowMap* shadows, int tiles[], unsigned octant, sf::Vector2u origin, int range, unsigned x, Slope top, Slope bottom) {
+    void FOV::compute(ShadowMap* shadows, int tiles[], unsigned octant, sf::Vector2i origin, int range, unsigned x, Slope top, Slope bottom) {
         for (; x <= (unsigned)range; x++) {
             unsigned topY;
             if (  top.x_ == 1
@@ -104,8 +104,8 @@ namespace rr {
         }
     }
 
-    bool FOV::blocksLight(int tiles[], unsigned x, unsigned y, unsigned octant, sf::Vector2u origin) {
-        unsigned nx = origin.x, ny = origin.y;
+    bool FOV::blocksLight(int tiles[], int x, int y, unsigned octant, sf::Vector2i origin) {
+        int nx = origin.x, ny = origin.y;
         switch (octant) {
             case 0: nx += x; ny -= y; break;
             case 1: nx += y; ny -= x; break;
@@ -119,7 +119,7 @@ namespace rr {
         return ((nx < 77 && ny < 43) && (tiles[nx+ny*77] == 1 || tiles[nx+ny*77] == 4));
     }
 
-    void FOV::setVisible(ShadowMap* shadows, unsigned x, unsigned y, unsigned octant, sf::Vector2u origin) {
+    void FOV::setVisible(ShadowMap* shadows, int x, int y, unsigned octant, sf::Vector2i origin) {
         int nx = origin.x, ny = origin.y;
         switch (octant) {
             case 0: nx += x; ny -= y; break;

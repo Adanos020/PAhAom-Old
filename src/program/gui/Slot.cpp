@@ -164,4 +164,10 @@ namespace rr {
         return false;
     }
 
+    Item* Slot::getItem() const {
+        if ( !hollow_
+            ) return item_;
+        return nullptr;
+    }
+
 }

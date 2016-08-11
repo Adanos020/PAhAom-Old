@@ -15,7 +15,7 @@
 
 namespace rr {
 
-    Ammunition::Ammunition(Type type, int amount, sf::Vector2u position) :
+    Ammunition::Ammunition(Type type, int amount, sf::Vector2i position) :
       type_(type)
     {
         amount_ = amount;
@@ -68,14 +68,14 @@ namespace rr {
     }
 
     std::ifstream& Ammunition::operator<<(std::ifstream& file) {
-        sf::Vector2u position;
+        sf::Vector2i position;
         int type;
 
         try {
-            readFile <unsigned> (file, position.x);
-            readFile <unsigned> (file, position.y);
-            readFile <  int   > (file, amount_);
-            readFile <  int   > (file, type);
+            readFile <int> (file, position.x);
+            readFile <int> (file, position.y);
+            readFile <int> (file, amount_);
+            readFile <int> (file, type);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -91,10 +91,10 @@ namespace rr {
     }
 
     std::ofstream& Ammunition::operator>>(std::ofstream& file) {
-        file << 0                                  << ' '
-             << (unsigned) body_[0].position.x/80u << ' '
-             << (unsigned) body_[0].position.y/80u << ' '
-             << amount_                            << ' '
+        file << 0                            << ' '
+             << (int) body_[0].position.x/80 << ' '
+             << (int) body_[0].position.y/80 << ' '
+             << amount_                      << ' '
              << type_;
 
         return file;

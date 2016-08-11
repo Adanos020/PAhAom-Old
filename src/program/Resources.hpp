@@ -12,7 +12,6 @@
 
 namespace rr {
 
-/// Structure for the resources
     struct Resources {
     public: static struct Font {
             public: sf::Font Unifont;
@@ -37,9 +36,14 @@ namespace rr {
 
             static std::map<sf::String, sf::String> dictionary;
 
-        /// Separate method loading the dictionary
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief Separate method loading the dictionary.
+            ////////////////////////////////////////////////////////////////////////
             static bool loadDict();
-        /// Method loading the resources
+
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief Method loading the resources.
+            ////////////////////////////////////////////////////////////////////////
             static bool load    ();
     };
 

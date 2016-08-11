@@ -37,8 +37,11 @@ namespace rr {
     void Door::setOpen(bool b) {
         open_ = b;
         if (  open_
-            ) body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80, 16)                 , sf::Vector2i(16, 16)));
-        else  body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80+80*withoutWindow_, 0), sf::Vector2i(16, 16)));
+            ) body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80                  , 16), sf::Vector2i(16, 16)));
+        else  body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80+80*withoutWindow_,  0), sf::Vector2i(16, 16)));
+
+        if (  open_
+            ) locked_ = false;
     }
 
     void Door::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -47,14 +50,14 @@ namespace rr {
     }
 
     std::ifstream& Door::operator<<(std::ifstream& file) {
-        sf::Vector2u position;
+        sf::Vector2i position;
 
         try {
-            readFile <unsigned> (file, position.x);
-            readFile <unsigned> (file, position.y);
-            readFile <  bool  > (file, locked_);
-            readFile <  bool  > (file, open_);
-            readFile <  bool  > (file, withoutWindow_);
+            readFile <int > (file, position.x);
+            readFile <int > (file, position.y);
+            readFile <bool> (file, locked_);
+            readFile <bool> (file, open_);
+            readFile <bool> (file, withoutWindow_);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -67,11 +70,11 @@ namespace rr {
     }
 
     std::ofstream& Door::operator>>(std::ofstream& file) {
-        file << 41                                   << ' '
-             << (unsigned) body_.getPosition().x/80u << ' '
-             << (unsigned) body_.getPosition().y/80u << ' '
-             << locked_                              << ' '
-             << open_                                << ' '
+        file << 41                             << ' '
+             << (int) body_.getPosition().x/80 << ' '
+             << (int) body_.getPosition().y/80 << ' '
+             << locked_                        << ' '
+             << open_                          << ' '
              << withoutWindow_;
 
         return file;

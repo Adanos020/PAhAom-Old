@@ -15,7 +15,7 @@
 
 namespace rr {
 
-    Coin::Coin(Type t, Size s, int am, sf::Vector2u pos) {
+    Coin::Coin(Type t, Size s, int am, sf::Vector2i pos) {
         amount_ = am;
         type_   = t;
         size_   = s;
@@ -59,15 +59,15 @@ namespace rr {
     }
 
     std::ifstream& Coin::operator<<(std::ifstream& file) {
-        sf::Vector2u position;
+        sf::Vector2i position;
         int type, size;
 
         try {
-            readFile <unsigned> (file, position.x);
-            readFile <unsigned> (file, position.y);
-            readFile <   int  > (file, amount_);
-            readFile <   int  > (file, type);
-            readFile <   int  > (file, size);
+            readFile <int> (file, position.x);
+            readFile <int> (file, position.y);
+            readFile <int> (file, amount_);
+            readFile <int> (file, type);
+            readFile <int> (file, size);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -83,11 +83,11 @@ namespace rr {
     }
 
     std::ofstream& Coin::operator>>(std::ofstream& file) {
-        file << 2                                  << ' '
-             << (unsigned) body_[0].position.x/80u << ' '
-             << (unsigned) body_[0].position.y/80u << ' '
-             << amount_                            << ' '
-             << type_                              << ' '
+        file << 2                            << ' '
+             << (int) body_[0].position.x/80 << ' '
+             << (int) body_[0].position.y/80 << ' '
+             << amount_                      << ' '
+             << type_                        << ' '
              << size_;
 
         return file;

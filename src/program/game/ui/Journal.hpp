@@ -15,23 +15,39 @@ namespace rr {
 
     class Game;
 
-/// Class for the task list
     class Journal : public sf::Drawable {
     private: sf::RectangleShape shadow_;
              Window             wJour_;
 
-             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    
-    public:  Journal();
-        
-         /// Handles the button events
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the window on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
+
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Journal();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Handles the button events.
+             ////////////////////////////////////////////////////////////////////////
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-         /// Opens the task list window
-             void open        ()       { wJour_.setVisible(true); }
-         /// Closes the task list window
-             void close       ()       { wJour_.setVisible(false); }
-         /// Tells if the task list is open
-             bool isOpen      () const { return wJour_.isVisible(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Opens the task list window.
+             ////////////////////////////////////////////////////////////////////////
+             void open() { wJour_.setVisible(true); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Closes the task list window.
+             ////////////////////////////////////////////////////////////////////////
+             void close() { wJour_.setVisible(false); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the task list is open.
+             ////////////////////////////////////////////////////////////////////////
+             bool isOpen() const { return wJour_.isVisible(); }
     };
 
 }

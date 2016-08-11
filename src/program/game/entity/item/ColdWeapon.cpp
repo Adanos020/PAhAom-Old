@@ -16,7 +16,7 @@
 
 namespace rr {
 
-    ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2u pos) :
+    ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos) :
       type_      (type )
     {
         level_      = 0;
@@ -204,17 +204,17 @@ namespace rr {
     }
 
     std::ifstream& ColdWeapon::operator<<(std::ifstream& file) {
-        sf::Vector2u position;
+        sf::Vector2i position;
         int type;
 
         try {
-            readFile <unsigned> (file, position.x);
-            readFile <unsigned> (file, position.y);
-            readFile <  int   > (file, amount_);
-            readFile <  bool  > (file, identified_);
-            readFile <  bool  > (file, equipped_);
-            readFile <  int   > (file, level_);
-            readFile <  int   > (file, type);
+            readFile <int > (file, position.x);
+            readFile <int > (file, position.y);
+            readFile <int > (file, amount_);
+            readFile <bool> (file, identified_);
+            readFile <bool> (file, equipped_);
+            readFile <int > (file, level_);
+            readFile <int > (file, type);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -235,13 +235,13 @@ namespace rr {
     }
 
     std::ofstream& ColdWeapon::operator>>(std::ofstream& file) {
-        file << 3                                  << ' '
-             << (unsigned) body_[0].position.x/80u << ' '
-             << (unsigned) body_[0].position.y/80u << ' '
-             << amount_                            << ' '
-             << identified_                        << ' '
-             << equipped_                          << ' '
-             << level_                             << ' '
+        file << 3                            << ' '
+             << (int) body_[0].position.x/80 << ' '
+             << (int) body_[0].position.y/80 << ' '
+             << amount_                      << ' '
+             << identified_                  << ' '
+             << equipped_                    << ' '
+             << level_                       << ' '
              << type_;
 
         return file;

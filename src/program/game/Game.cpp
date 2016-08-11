@@ -111,7 +111,7 @@ namespace rr {
 
         player_.setGridPosition((ascending) ? currentLevel_->getStartingPoint() : currentLevel_->getEndingPoint());
 
-        currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
+        currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
 
         messageManager_.addMessage(Message(Resources::dictionary["message.welcome_to_level"]
                                           +" "
@@ -154,7 +154,7 @@ namespace rr {
         start(true);
         pause(false);
 
-        currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
+        currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
 
         return true;
     }
@@ -210,7 +210,7 @@ namespace rr {
         start(true);
         pause(false);
 
-        currentLevel_->calculateFOV((sf::Vector2u)player_.getGridPosition(), player_.getSightRange());
+        currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
 
         return true;
     }
@@ -286,23 +286,31 @@ namespace rr {
             bool canUpdateFOV = !player_.isMoving();
             if (isKeyPressed(Settings::keys.move_up)) {
                 player_.move(currentLevel_->getTiles(), Player::UP);
-                if (  canUpdateFOV
-                    ) currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
+                if (canUpdateFOV && player_.isMoving()) {
+                    currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
+                    currentLevel_->makeOrdersToNPCs(&player_);
+                }
             }
             if (isKeyPressed(Settings::keys.move_down)) {
                 player_.move(currentLevel_->getTiles(), Player::DOWN);
-                if (  canUpdateFOV
-                    ) currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
+                if (canUpdateFOV && player_.isMoving()) {
+                    currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
+                    currentLevel_->makeOrdersToNPCs(&player_);
+                }
             }
             if (isKeyPressed(Settings::keys.move_left)) {
                 player_.move(currentLevel_->getTiles(), Player::LEFT);
-                if (  canUpdateFOV
-                    ) currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
+                if (canUpdateFOV && player_.isMoving()) {
+                    currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
+                    currentLevel_->makeOrdersToNPCs(&player_);
+                }
             }
             if (isKeyPressed(Settings::keys.move_right)) {
                 player_.move(currentLevel_->getTiles(), Player::RIGHT);
-                if (  canUpdateFOV
-                    ) currentLevel_->calculateFOV((sf::Vector2u) player_.getGridPosition(), player_.getSightRange());
+                if (canUpdateFOV && player_.isMoving()) {
+                    currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
+                    currentLevel_->makeOrdersToNPCs(&player_);
+                }
             }
             
             if (  Settings::game.debugMode
@@ -319,10 +327,12 @@ namespace rr {
         if (bookOfSpells_.isOpen()) bookOfSpells_.buttonEvents(rw, event, this);
 
         if (started_) {
-            if      (  event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add
-                     ) switchLevel(levelNumber_+1);
-            else if (  event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract
-                     ) switchLevel(levelNumber_-1);
+            if (Settings::game.debugMode) {
+                if      (  event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add
+                         ) switchLevel(levelNumber_+1);
+                else if (  event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract
+                         ) switchLevel(levelNumber_-1);
+            }
 
             if (  wasKeyPressed(event, sf::Keyboard::Escape)
                 ) pause(!isPaused());

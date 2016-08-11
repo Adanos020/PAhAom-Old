@@ -13,38 +13,73 @@
 
 namespace rr {
 
-/// Class for a switch component which can contain as many options you add to it and switch between them
     class Switch : public Component {
     private: sf::RectangleShape      body_;
              std::vector<sf::String> options_;
              Button                  left_;
              Button                  right_;
              Text                    text_;
-             mutable unsigned        counter_;
+             unsigned                counter_;
 
-             virtual void draw        (sf::RenderTarget&,
-                                       sf::RenderStates) const override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the switch on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    public:  Switch(sf::Vector2f size, sf::Vector2f position);
-        
-             void                 setPosition        (sf::Vector2f) override;
-             void                 setSize            (sf::Vector2f) override;
-             void                 setText            (sf::String s)          { text_.setString(s); }
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Switch(sf::Vector2f size, sf::Vector2f position);
 
-         /// Method for handling the button events
-             void                 buttonEvents       (sf::RenderWindow&, sf::Event&);
-         /// Adds an option to the switch
-             void                 addOption          (sf::String);
-         /// Sets the current option
-             void                 setCurrentOption   (sf::String);
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the switch's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setPosition(sf::Vector2f) override;
 
-         /// Returns the current option
-             sf::String           getCurrentOption   () const                { return options_[counter_]; }
-             
-             virtual sf::Vector2f getPosition        () const       override { return left_.getPosition(); }
-             virtual sf::Vector2f getSize            () const       override { return body_.getSize(); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the switch's body's position.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getPosition() const override { return left_.getPosition(); }
+     
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the switch's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setSize(sf::Vector2f) override;
 
-             Text                 getText            () const                { return text_; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the switch's body's size.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getSize() const override { return body_.getSize(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the string of the text displayed on the switch.
+             ////////////////////////////////////////////////////////////////////////
+             void setText(sf::String s) { text_.setString(s); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the text displayed on the switch.
+             ////////////////////////////////////////////////////////////////////////
+             Text getText() const { return text_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Method for handling the button events.
+             ////////////////////////////////////////////////////////////////////////
+             void buttonEvents(sf::RenderWindow&, sf::Event&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Adds an option to the switch.
+             ////////////////////////////////////////////////////////////////////////
+             void addOption(sf::String);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the current option.
+             ////////////////////////////////////////////////////////////////////////
+             void setCurrentOption(sf::String);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the current option.
+             ////////////////////////////////////////////////////////////////////////
+             sf::String getCurrentOption() const { return options_[counter_]; }
     };
 
 }

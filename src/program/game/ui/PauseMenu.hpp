@@ -16,25 +16,41 @@ namespace rr {
 
     class Game;
 
-/// Class for the pause menu
     class PauseMenu : public sf::Drawable {
     private: sf::RectangleShape shadow_;
              Text               title_;
              Text               version_;
              Window             wMenu_;
 
-             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the window on the screen.
+             ////////////////////////////////////////////////////////////////////////
+             virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
     
-    public:  PauseMenu();
-         
-         /// Handles the button events
+    public:  ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             PauseMenu();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// Handles the button events.
+             ////////////////////////////////////////////////////////////////////////
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
-         /// Opens the pause menu
-             void open        ()       { wMenu_.setVisible(true); }
-         /// Closes the pause menu window
-             void close       ();
-         /// Tells if the pause menu is open
-             bool isOpen      () const { return wMenu_.isVisible();}
+
+             ////////////////////////////////////////////////////////////////////////
+             /// Opens the pause menu.
+             ////////////////////////////////////////////////////////////////////////
+             void open() { wMenu_.setVisible(true); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// Closes the pause menu window.
+             ////////////////////////////////////////////////////////////////////////
+             void close();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// Tells if the pause menu is open.
+             ////////////////////////////////////////////////////////////////////////
+             bool isOpen() const { return wMenu_.isVisible();}
     };
 
 }

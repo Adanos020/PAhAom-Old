@@ -19,7 +19,7 @@ namespace rr {
 
     bool Potion::identified_[9] = { false, false, false, false, false, false, false, false, false };
 
-    Potion::Potion(Type e, Size s, int am, sf::Vector2u pos) :
+    Potion::Potion(Type e, Size s, int am, sf::Vector2i pos) :
       type_(e),
       size_(s)
     {
@@ -101,7 +101,7 @@ namespace rr {
         return "";
     }
 
-    void Potion::setGridPosition(sf::Vector2u pos) {
+    void Potion::setGridPosition(sf::Vector2i pos) {
         body_[0].position = (sf::Vector2f)pos*80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
@@ -126,15 +126,15 @@ namespace rr {
     }
 
     std::ifstream& Potion::operator<<(std::ifstream& file) {
-        sf::Vector2u position;
+        sf::Vector2i position;
         int type, size;
 
         try {
-            readFile <unsigned> (file, position.x);
-            readFile <unsigned> (file, position.y);
-            readFile <   int  > (file, amount_);
-            readFile <   int  > (file, type);
-            readFile <   int  > (file, size);
+            readFile <int> (file, position.x);
+            readFile <int> (file, position.y);
+            readFile <int> (file, amount_);
+            readFile <int> (file, type);
+            readFile <int> (file, size);
         }
         catch (std::invalid_argument ex) {
             std::cerr << ex.what() << '\n';
@@ -150,11 +150,11 @@ namespace rr {
     }
 
     std::ofstream& Potion::operator>>(std::ofstream& file) {
-        file << 5                                  << ' '
-             << (unsigned) body_[0].position.x/80u << ' '
-             << (unsigned) body_[0].position.y/80u << ' '
-             << amount_                            << ' '
-             << type_                              << ' '
+        file << 5                            << ' '
+             << (int) body_[0].position.x/80 << ' '
+             << (int) body_[0].position.y/80 << ' '
+             << amount_                      << ' '
+             << type_                        << ' '
              << size_;
 
         return file;

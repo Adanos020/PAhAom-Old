@@ -11,17 +11,23 @@
 
 namespace rr {
 
-/// Tells if a key is pressed or not
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief Tells if a key is pressed or not.
+    ////////////////////////////////////////////////////////////////////////
     inline bool isKeyPressed(sf::Keyboard::Key key) {
         return sf::Keyboard::isKeyPressed(key);
     }
 
-/// Tells if a key was pressed once
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief Tells if a key was pressed once.
+    ////////////////////////////////////////////////////////////////////////
     inline bool wasKeyPressed(sf::Event& event, sf::Keyboard::Key key) {
         return event.type == sf::Event::KeyPressed && event.key.code == key;
     }
 
-/// Returns a key name from a key code
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief Returns a key name from a key code.
+    ////////////////////////////////////////////////////////////////////////
     inline sf::String getKeyName(sf::Keyboard::Key keyCode) {
         switch (keyCode) {
         case sf::Keyboard::A:         return "A";
@@ -126,8 +132,10 @@ namespace rr {
         }
     }
 
-/// Returns a key code from a key name
-inline sf::Keyboard::Key getKeyCode(sf::String keyName) { // I would use a switch here if C++ allowed me to switch the sf::String objects
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief Returns a key code from a key name.
+    ////////////////////////////////////////////////////////////////////////
+    inline sf::Keyboard::Key getKeyCode(sf::String keyName) { // I would use a switch here if C++ allowed me to switch the sf::String objects
         if (keyName == sf::String("A"))         return sf::Keyboard::A;
         if (keyName == sf::String("B"))         return sf::Keyboard::B;
         if (keyName == sf::String("C"))         return sf::Keyboard::C;

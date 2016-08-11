@@ -12,7 +12,6 @@
 #include "../../../../lib/AnimatedSprite.hpp"
 
 #include "Entity.hpp"
-#include "npc/NPC.hpp"
 #include "item/ColdWeapon.hpp"
 #include "item/RangedWeapon.hpp"
 #include "item/Item.hpp"
@@ -23,10 +22,10 @@ namespace rr {
     class ColdWeapon;
     class RangedWeapon;
     class Equipable;
+    class NPC;
 
-/// Class for the player
     class Player : public Entity {
-    private: struct Attrs { /// Structure for the player attributes
+    private: struct Attrs { // Structure for the player attributes.
              public: float health;
                      float maxHealth;
                      float mana;
@@ -49,8 +48,8 @@ namespace rr {
                      bool  faster_learning;
              } attrs_;
 
-             struct {   /// Structure for buffs - each buff is represented by an integer
-                        /// which tells for how many turns is it going to be valid 
+             struct {   // Structure for buffs - each buff is represented by an integer
+                        // which tells for how many turns is it going to be valid.
              public: int speed;
                      int regeneration;
                      int poison;
@@ -62,7 +61,7 @@ namespace rr {
              ColdWeapon*        coldWeapon_;
              RangedWeapon*      rangedWeapon_;
 
-             sf::Vector2u       position_;
+             sf::Vector2i       position_;
              sf::AnimatedSprite body_;
              sf::Animation      walkingLeft_;
              sf::Animation      walkingRight_;
@@ -71,58 +70,147 @@ namespace rr {
              bool               moving_;
              float              velocity_;
              int                sightRange_;
-     
-             virtual void          initialize     ()                       override;
-             virtual void          draw           (sf::RenderTarget&,
-                                                   sf::RenderStates) const override;
 
-    public:  Player();
-             Player(Player const&);
-    
-             enum Direction {
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Initializes the player.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void initialize() override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the player's body and texture on the screen.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
+
+    public:  enum Direction {
                  UP,
                  DOWN,
                  LEFT,
                  RIGHT
              };
+             
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Player();
 
-             virtual Entity*       clone          ()                 const override { return new Player(*this); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Copy constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Player(Player const&);
 
-             virtual void          setGridPosition(sf::Vector2u pos)       override { position_ = pos; body_.setPosition((sf::Vector2f)pos*80.f); }
-             virtual void          setPosition    (sf::Vector2f pos)       override { position_ = (sf::Vector2u) pos/80u; body_.setPosition(pos); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Creates an exact copy of the player.
+             ////////////////////////////////////////////////////////////////////////
+     virtual Entity* clone() const override { return new Player(*this); }
 
-             virtual bool          collides       (Entity* e)        const override { return e->getBounds().intersects(getBounds()); }
-             virtual sf::FloatRect getBounds      ()                 const override { return body_.getGlobalBounds(); }
-             virtual sf::Vector2u  getGridPosition()                 const override { return position_; }
-             virtual sf::Vector2f  getPosition    ()                 const override { return body_.getPosition(); }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the player's position relatively to the grid marked out
+             /// by the level's tile map.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setGridPosition(sf::Vector2i pos) override { position_ = pos; body_.setPosition((sf::Vector2f) pos*80.f); }
 
-         /// Moves the player's character's to a cell in a given direction
-             void                  move           (int[], Direction);
-         /// Makes the player use a given item
-             void                  useItem        (Item*);
-         /// Makes the player equip a given item
-             bool                  equipItem      (Equipable*, bool);
-         /// Updates the state of the player character
-             void                  update         (sf::Time);
-         /// Makes the player attack an NPC
-             void                  attack         (NPC*);
-         /// Makes the player handle the damage dealt by an NPC
-             void                  handleDamage   (int damage);
-         /// Returns the player's attributes
-             Attrs                 getAttributes  ()                 const          { return attrs_; }
-         /// Returns the player's sight range
-             int                   getSightRange  ()                 const          { return sightRange_; }
-         /// Tells if the player is moving
-             bool                  isMoving       ()                 const          { return moving_; }
-         /// Resets the player's atributes
-             void                  reset          ();
-         /// Handles the game cheats if the debug mode is enabled
-             void                  cheat          ();
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the player's position relatively to the grid marked
+             /// out by the level's tile map.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) body_.getPosition()/80; }
 
-             virtual std::ifstream& operator<<    (std::ifstream&)         override;
-             virtual std::ofstream& operator>>    (std::ofstream&)         override;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the player's position relatively to the graphics card's
+             /// coordinate system.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void setPosition(sf::Vector2f pos) override { position_ = (sf::Vector2i) pos/80; body_.setPosition(pos); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the player's position relatively to the graphics
+             /// card's coordinate system.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if another entity's bound box intersects with the
+             /// player's bound box.
+             ////////////////////////////////////////////////////////////////////////
+     virtual bool collides(Entity* e) const override { return e->getBounds().intersects(getBounds()); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the player's bound box.
+             ////////////////////////////////////////////////////////////////////////
+     virtual sf::FloatRect getBounds() const override { return body_.getGlobalBounds(); }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Moves the player's character's to a cell in a given direction
+             ////////////////////////////////////////////////////////////////////////
+             void move(int[], Direction);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Makes the player use a given item.
+             ////////////////////////////////////////////////////////////////////////
+             void useItem(Item*);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Makes the player equip a given item.
+             ////////////////////////////////////////////////////////////////////////
+             bool equipItem(Equipable*, bool);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Updates the player's state.
+             ///
+             /// \param timeStep the time duration of a single frame
+             ///
+             /// The things updated in this function are the animations, states of
+             /// the seeked path, moving the player, etc.
+             ////////////////////////////////////////////////////////////////////////
+             void update(sf::Time);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Makes the player attack an NPC.
+             ////////////////////////////////////////////////////////////////////////
+             void attack(NPC*);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Makes the player handle the damage dealt by an NPC.
+             ////////////////////////////////////////////////////////////////////////
+             void handleDamage(int damage);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the player's attributes.
+             ////////////////////////////////////////////////////////////////////////
+             Attrs getAttributes() const { return attrs_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the player's sight range.
+             ////////////////////////////////////////////////////////////////////////
+             int getSightRange() const { return sightRange_; }
+             
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the player is moving.
+             ////////////////////////////////////////////////////////////////////////
+             bool isMoving() const { return moving_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Resets the player's atributes.
+             ////////////////////////////////////////////////////////////////////////
+             void reset();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Handles the game cheats if the debug mode is enabled.
+             ////////////////////////////////////////////////////////////////////////
+             void cheat();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reads the player from the file.
+             ////////////////////////////////////////////////////////////////////////
+     virtual std::ifstream& operator<<(std::ifstream&) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Saves the player to the file.
+             ////////////////////////////////////////////////////////////////////////
+     virtual std::ofstream& operator>>(std::ofstream&) override;
     };
 
 }
+
+#include "npc/NPC.hpp"
 
 #endif // ENTITY_PLAYER_HPP

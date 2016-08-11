@@ -16,18 +16,11 @@
 #include "ShadowMap.hpp"
 #include "../entity/Player.hpp"
 
-namespace sf {
-    typedef Rect<unsigned> UintRect;
-}
-
 namespace rr {
 
 /// Class for the level
     class Level : public Observer, public sf::Drawable, public sf::Transformable {
-    public:  Level(int number);
-            ~Level();
- 
-             enum Cell {
+    public:  enum Cell {
                  CHASM,
                  WALL,
                  ROOM,
@@ -36,48 +29,158 @@ namespace rr {
                  OCCUPIED,
                  EXIT
              };
- 
-             virtual void         onNotify        (Event         , Entity*) override;
- 
-             void                 generateWorld   ();
 
-             void                 addEntity       (Entity*       , sf::Vector2u position);
-             void                 addEntity       (Entity*);
-             void                 playerInteract  (Game*);
-             void                 playerAttack    (Player*);
-             void                 update          (Game*, sf::Time);
- 
-             void                 calculateFOV    (sf::Vector2u origin, int range);
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Regular constructor.
+             ////////////////////////////////////////////////////////////////////////
+             Level(int number);
 
-             sf::Vector2u         getStartingPoint()                  const { return startingPoint_; }
-             sf::Vector2u         getEndingPoint  ()                  const { return endingPoint_  ; }
-             int*                 getTiles        ()                        { return tilesAsInts_  ; }
-             Cell*                getTilesAsCells ()                        { return tiles_        ; }
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Destructor.
+             ////////////////////////////////////////////////////////////////////////
+            ~Level();
 
-             std::ifstream&       operator<<      (std::ifstream&);
-             std::ofstream&       operator>>      (std::ofstream&);
-    
-    private: virtual void         draw            (sf::RenderTarget& target, sf::RenderStates states) const;
-     
-             void                 digRooms        ();
-             void                 fillWithMaze    (unsigned, unsigned);
-             void                 connectRooms    ();
-             void                 removeDeadEnds  ();
-             void                 placeEntities   ();
-             void                 generateTileMap ();
-             bool                 isOnBorder      (unsigned, unsigned);
-         
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reacts to a specific event. It can either do something with
+             /// a given entity or just ignore it.
+             ////////////////////////////////////////////////////////////////////////
+             virtual void onNotify(Event, Entity*) override;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Generates procedurally the whole level.
+             ///
+             /// This is done by:
+             /// 1. Filling the map with wall blocks
+             /// 2. Spreading randomly placed and sized rooms that don't intersect
+             /// with each other
+             /// 3. Carving a labirynth between the rooms
+             /// 4. Connecting each room to the rooms or corridors placed next to it
+             /// by placing an entrance on the wall dividing them
+             /// 5. Generating a tile map from the matrix created in the previous
+             /// steps
+             /// 6. Spreading some entities in random places and placing the doors
+             /// in the entrances
+             ////////////////////////////////////////////////////////////////////////
+             void generateWorld();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Adds an entity to the list and sets its position initial.
+             ////////////////////////////////////////////////////////////////////////
+             void addEntity(Entity*, sf::Vector2i position);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Adds an entity to the list.
+             ////////////////////////////////////////////////////////////////////////
+             void addEntity(Entity*);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Handles the player's interactions between the other entities.
+             ////////////////////////////////////////////////////////////////////////
+             void playerInteract(Game*);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Handles the player's attacks on the NPCs.
+             ////////////////////////////////////////////////////////////////////////
+             void playerAttack(Player*);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Updates the state of each entity in the list.
+             ////////////////////////////////////////////////////////////////////////
+             void update(Game*, sf::Time);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Gives orders to the NPCs if they are waiting for any.
+             ////////////////////////////////////////////////////////////////////////
+             void makeOrdersToNPCs(Player*);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Calculates the FOV of the player.
+             ////////////////////////////////////////////////////////////////////////
+             void calculateFOV(sf::Vector2i origin, int range);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the level's starting point.
+             ////////////////////////////////////////////////////////////////////////
+             sf::Vector2i getStartingPoint() const { return startingPoint_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the level's ending point.
+             ////////////////////////////////////////////////////////////////////////
+             sf::Vector2i getEndingPoint() const { return endingPoint_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the level's list of tiles converted into integers.
+             ////////////////////////////////////////////////////////////////////////
+             int* getTiles() { return tilesAsInts_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the level's list of tiles.
+             ////////////////////////////////////////////////////////////////////////
+             Cell* getTilesAsCells() { return tiles_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reads the level from a file.
+             ////////////////////////////////////////////////////////////////////////
+             std::ifstream& operator<<(std::ifstream&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Saves the level to a file.
+             ////////////////////////////////////////////////////////////////////////
+             std::ofstream& operator>>(std::ofstream&);
+
+    private: ////////////////////////////////////////////////////////////////////////
+             /// \brief Draws the tile map and the entities in the level's list.
+             ////////////////////////////////////////////////////////////////////////
+             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Spreads the randomly placed and sized rooms in the level.
+             ////////////////////////////////////////////////////////////////////////
+             void digRooms();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Carves a maze between the rooms in the level.
+             ////////////////////////////////////////////////////////////////////////
+             void fillWithMaze(int, int);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Connects all the rooms with other rooms or corridors placed
+             /// next to them.
+             ////////////////////////////////////////////////////////////////////////
+             void connectRooms();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Removes the dead ends in the generated corridors.
+             ////////////////////////////////////////////////////////////////////////
+             void removeDeadEnds();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Spreads the randomly placed and chosen entities.
+             ////////////////////////////////////////////////////////////////////////
+             void placeEntities();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Generates the tile map.
+             ////////////////////////////////////////////////////////////////////////
+             void generateTileMap();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if the given position is out of or on the border of the
+             /// level.
+             ////////////////////////////////////////////////////////////////////////
+             bool isOnBorder(int, int);
+
              sf::VertexArray          tilemap_;
-             sf::Vector2u             size_;
-             sf::Vector2u             startingPoint_;
-             sf::Vector2u             endingPoint_;
-         
+             sf::Vector2i             size_;
+             sf::Vector2i             startingPoint_;
+             sf::Vector2i             endingPoint_;
+
              int                      regions_    [77*43];
              int                      tilesAsInts_[77*43];
              Cell                     tiles_      [77*43];
              ShadowMap                shadowMap_;
              std::list<Entity*>       entities_;
-             std::vector<sf::UintRect>rooms_;
+             std::vector<sf::IntRect> rooms_;
              int                      region_count_;
              int                      levelNumber_;
     };
