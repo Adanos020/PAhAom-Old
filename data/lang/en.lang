@@ -146,6 +146,9 @@ Use slot 5
 gui.text.press_a_key
 Press a key...
 
+gui.text.you_died
+YOU DIED.
+
 gui.window.attributes
 ATTRIBUTES
 
@@ -721,7 +724,16 @@ message.player_attack_success
 Player hits
 
 message.player_attack_failure
-dodges player's attack.
+dodges player's attack
+
+message.player_dies
+You died!
+
+message.npc_attack_success
+hits you
+
+message.npc_attack_failure
+doesn't hit you
 
 message.npc_dies
 dies.

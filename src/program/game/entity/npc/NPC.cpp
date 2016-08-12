@@ -9,14 +9,14 @@
 namespace rr {
 
     void NPC::placeDetectors() {
-        playerDetectors_[0] = getGridPosition() + sf::Vector2i(-1, -1); // TOP LEFT
-        playerDetectors_[1] = getGridPosition() + sf::Vector2i( 0, -1); // TOP
-        playerDetectors_[2] = getGridPosition() + sf::Vector2i(+1, -1); // TOP RIGHT
-        playerDetectors_[3] = getGridPosition() + sf::Vector2i(+1,  0); // RIGHT
-        playerDetectors_[4] = getGridPosition() + sf::Vector2i(+1, +1); // BOTTOM RIGHT
-        playerDetectors_[5] = getGridPosition() + sf::Vector2i( 0, +1); // BOTTOM
-        playerDetectors_[6] = getGridPosition() + sf::Vector2i(-1, +1); // BOTTOM LEFT
-        playerDetectors_[7] = getGridPosition() + sf::Vector2i(-1,  0); // LEFT
+        entityDetector_[0] = getGridPosition() + sf::Vector2i(-1, -1); // TOP LEFT
+        entityDetector_[1] = getGridPosition() + sf::Vector2i( 0, -1); // TOP
+        entityDetector_[2] = getGridPosition() + sf::Vector2i(+1, -1); // TOP RIGHT
+        entityDetector_[3] = getGridPosition() + sf::Vector2i(+1,  0); // RIGHT
+        entityDetector_[4] = getGridPosition() + sf::Vector2i(+1, +1); // BOTTOM RIGHT
+        entityDetector_[5] = getGridPosition() + sf::Vector2i( 0, +1); // BOTTOM
+        entityDetector_[6] = getGridPosition() + sf::Vector2i(-1, +1); // BOTTOM LEFT
+        entityDetector_[7] = getGridPosition() + sf::Vector2i(-1,  0); // LEFT
     }
 
     void NPC::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -70,9 +70,9 @@ namespace rr {
         return attrs_;
     }
 
-    int NPC::detects(Player* p) const {
+    int NPC::detects(Entity* e) const {
         for (int i=0; i<8; ++i) {
-            if (  p->getGridPosition() == playerDetectors_[i]
+            if (  e->getGridPosition() == entityDetector_[i]
                 ) return i;
         }
         return -1;

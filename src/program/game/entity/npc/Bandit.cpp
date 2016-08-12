@@ -86,6 +86,9 @@ namespace rr {
     void Bandit::handleDamage(int damage) {
         if (  damage >= attrs_.armor
             ) attrs_.health -= (damage - attrs_.armor);
+        
+        if (  state_ == STANDING
+            ) state_ =  HUNTING;
     }
 
     void Bandit::setPath(std::vector<sf::Vector2i> path) {

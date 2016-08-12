@@ -1,23 +1,28 @@
 /**
- * @file src/program/game/ui/BookOfSpells.hpp
+ * @file src/program/game/ui/DeathScreen.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
-#ifndef UI_BOOKOFSPELLS_HPP
-#define UI_BOOKOFSPELLS_HPP
+#ifndef UI_DEATHSCREEN_HPP
+#define UI_DEATHSCREEN_HPP
 
-#include <SFML/Graphics.hpp>
-
-#include "../../gui/Window.hpp"
+#include "../../gui/Text.hpp"
+#include "../../gui/Button.hpp"
 
 namespace rr {
 
     class Game;
 
-    class BookOfSpells : public sf::Drawable {
+    class DeathScreen : public sf::Drawable {
     private: sf::RectangleShape shadow_;
-             Window             wBofs_;
+             sf::Time           endAnimation_;
+
+             Text               tYouDied_;
+             Button             bNewGame_;
+             Button             bQuit_;
+
+             bool               visible_;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.
@@ -27,7 +32,7 @@ namespace rr {
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
              ////////////////////////////////////////////////////////////////////////
-             BookOfSpells();
+             DeathScreen();
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Handles the button events.
@@ -35,23 +40,28 @@ namespace rr {
              void buttonEvents(sf::RenderWindow&, sf::Event&, Game*);
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Opens the window of the book of Runes.
+             /// \brief Opens the screen of death.
              ////////////////////////////////////////////////////////////////////////
-             void open() { wBofs_.setVisible(true); }
+             void open() { visible_ = true; }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Closes the window of the book of Runes.
+             /// \brief Opens the screen of death.
              ////////////////////////////////////////////////////////////////////////
-             void close() { wBofs_.setVisible(false); }
+             bool isOpen() { return visible_; }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Tells if the window of the book of Runes is open.
+             /// \brief Updates the screen of death's state.
              ////////////////////////////////////////////////////////////////////////
-             bool isOpen() const { return wBofs_.isVisible(); }
+             void update(sf::Time);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Resets the screen of death's components.
+             ////////////////////////////////////////////////////////////////////////
+             void reset();
     };
 
 }
 
 #include "../Game.hpp"
 
-#endif // UI_BOOKOFSPELLS_HPP
+#endif // UI_DEATHSCREEN_HPP

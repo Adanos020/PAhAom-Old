@@ -74,7 +74,7 @@ namespace rr {
             if (game->getPlayer()->getGridPosition() == (*it)->getGridPosition()) {
                 if (instanceof<Item, Entity>(*it)) {
                     if (game->getInventory()->addItem((Item*) *it)) {
-                        subject.notify(Observer::ITEM_PICKED, *it);
+                        subject.notify(ITEM_PICKED, *it);
                         entities_.erase(it++);
                     }
                     else game->getMessageManager()->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
@@ -115,23 +115,20 @@ namespace rr {
                     // the player has a weapon
                     if (player->getColdWeapon() != nullptr && chance(player->getColdWeapon()->getAccuracy()*2, 21)) {
                         player->attack(npc);
-                        subject.notify(Observer::PLAYER_ATTACK_SUCCESS, npc);
+                        subject.notify(PLAYER_ATTACK_SUCCESS, npc);
                     }
                     // the player has no weapon
                     else if (player->getColdWeapon() == nullptr && chance(10, 21)) {
                         player->attack(npc);
-                        subject.notify(Observer::PLAYER_ATTACK_SUCCESS, npc);
+                        subject.notify(PLAYER_ATTACK_SUCCESS, npc);
                     }
                     // the probability didn't let the player attack
-                    else {
-                        subject.notify(Observer::PLAYER_ATTACK_FAILURE, npc);
-                    }
+                    else subject.notify(PLAYER_ATTACK_FAILURE, npc);
 
                     // the npc dies
-                    if (npc->getAttributes().health <= 0) {
+                    if (  npc->getAttributes().health <= 0
+                        ) subject.notify(NPC_DIES, npc);
 
-                        subject.notify(Observer::NPC_DIES, npc);
-                    }
                     break;
                 }
             }
@@ -158,9 +155,33 @@ namespace rr {
             if (instanceof<NPC, Entity>(*it)) {
                 auto npc = (NPC*) *it;
 
-                int detector = npc->detects(player);
-                if (detector != -1) {
-
+                if (npc->getAttitude() == NPC::AGGRESSIVE && npc->getState() == NPC::HUNTING) { // the npc is either aggressive and hunting
+                    int detector = npc->detects(player);
+                    if (detector != -1) { // the npc detects player
+                        if (instanceof<Bandit, NPC>(npc)) { // the npc is a bandit
+                            bool hit = false;
+                            switch (((Bandit*) npc)->getType()) {
+                                case Bandit::CLUB    : if (chance(ColdWeapon  (ColdWeapon  ::CLUB    ).getAccuracy()*2, 21)) {
+                                                           ((Bandit*) npc)->attack(player);
+                                                           hit = true;
+                                                       }
+                                                       break;
+                                case Bandit::CROSSBOW: if (chance(RangedWeapon(RangedWeapon::CROSSBOW).getAccuracy()*2, 21)) {
+                                                           ((Bandit*) npc)->attack(player);
+                                                           hit = true;
+                                                       }
+                                                       break;
+                                case Bandit::DAGGER  : if (chance(ColdWeapon  (ColdWeapon  ::DAGGER  ).getAccuracy()*2, 21)) {
+                                                           ((Bandit*) npc)->attack(player);
+                                                           hit = true;
+                                                       }
+                                                       break;
+                            }
+                            if (  hit
+                                ) subject.notify(NPC_ATTACK_SUCCESS, npc); // the npc hit the player
+                            else  subject.notify(NPC_ATTACK_FAILURE, npc); // the player dodged the attack
+                        }
+                    }
                 }
             }
         }
@@ -673,6 +694,8 @@ namespace rr {
         switch (event) {
             case ITEM_DROPPED: addEntity(entity);
                                          break;
+
+            case PLAYER_DIES : break;
             
             case NPC_DIES    : tiles_[entity->getGridPosition().x + entity->getGridPosition().y*size_.x] = ROOM;
                                tilesAsInts_[entity->getGridPosition().x + entity->getGridPosition().y*size_.x] = 2;

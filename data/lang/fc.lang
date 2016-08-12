@@ -146,6 +146,9 @@ céxobqa 5 yxjbinj
 gui.text.press_a_key
 .qlabũw hayjnwjéhjũnj
 
+gui.text.you_died
+.TOLETLEWJÉ
+
 gui.window.attributes
 ATVBIBYTBI
 
@@ -722,6 +725,15 @@ message.player_attack_success
 
 message.player_attack_failure
 ataq tpaya yhjũqa
+
+message.player_dies
+!ymaplewjé
+
+message.npc_attack_success
+yjeh tépadjér
+
+message.npc_attack_failure
+yjeh hje tépadjér
 
 message.npc_dies
 ymjepa

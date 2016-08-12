@@ -44,24 +44,28 @@ namespace rr {
 
              Player         player_;
 
-             MainMenu       mainMenu_;
-             PauseMenu      pauseMenu_;
              Attributes     attributes_;
+             BookOfSpells   bookOfSpells_;
+             DeathScreen    deathScreen_;
              Inventory      inventory_;
              Journal        journal_;
-             BookOfSpells   bookOfSpells_;
              HUD            hud_;
+             MainMenu       mainMenu_;
+             PauseMenu      pauseMenu_;
 
              bool           started_;
              bool           paused_;
              bool           mapOpen_;
+
+             bool           lost_;
+
              unsigned       levelNumber_;
              unsigned       seed_;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Keyboard controls.
              ////////////////////////////////////////////////////////////////////////
-             void controls      (sf::Event&);
+             void controls(sf::Event&);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Randomizes the disposable items' colors/symbols.
@@ -81,82 +85,82 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the game components.
              ////////////////////////////////////////////////////////////////////////
-             void                draw             (sf::RenderWindow&);
+             void draw(sf::RenderWindow&);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Handles the button events.
              ////////////////////////////////////////////////////////////////////////
-             void                buttonEvents     (sf::RenderWindow&, sf::Event&);
+             void buttonEvents(sf::RenderWindow&, sf::Event&);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the game components.
              ////////////////////////////////////////////////////////////////////////
-             void                update           (sf::Event&       , sf::Time);
+             void update(sf::Event&, sf::Time);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Switches to the level of a given index.
              ////////////////////////////////////////////////////////////////////////
-             void                switchLevel   (int index);
+             void switchLevel(int index);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Starts the game or not, depending on the argument's value.
              ////////////////////////////////////////////////////////////////////////
-             void                start            (bool);
+             void start(bool);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Pauses the game or not, depending on the argument's value.
              ////////////////////////////////////////////////////////////////////////
-             void                pause            (bool);
+             void pause(bool);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Saves the game progress.
              ////////////////////////////////////////////////////////////////////////
-             void                save             ();
+             void save();
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Loads the game progress.
              ////////////////////////////////////////////////////////////////////////
-             bool                load             ();
+             bool load();
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Starts the new game.
              ////////////////////////////////////////////////////////////////////////
-             bool                loadNewGame      ();
+             bool loadNewGame();
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the game is started.
              ////////////////////////////////////////////////////////////////////////
-             bool                isStarted        () { return started_; }
+             bool isStarted() { return started_; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the game is paused.
              ////////////////////////////////////////////////////////////////////////
-             bool                isPaused         () { return paused_; }
+             bool isPaused() { return paused_; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the pointer to the player.
              ////////////////////////////////////////////////////////////////////////
-             Player*             getPlayer        () { return &player_; }
+             Player* getPlayer() { return &player_; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the inventory.
              ////////////////////////////////////////////////////////////////////////
-             Inventory*          getInventory     () { return &inventory_; }
+             Inventory* getInventory() { return &inventory_; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the vector of game levels.
              ////////////////////////////////////////////////////////////////////////
-             Level*              getCurrentLevel  () { return currentLevel_; }
+             Level* getCurrentLevel() { return currentLevel_; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the vector of game levels.
              ////////////////////////////////////////////////////////////////////////
-             MessageManager*     getMessageManager() { return &messageManager_; }
+             MessageManager* getMessageManager() { return &messageManager_; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Resets the game state.
              ////////////////////////////////////////////////////////////////////////
-             void                reset            ();
+             void reset();
     };
 
 }

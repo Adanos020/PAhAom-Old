@@ -9,6 +9,7 @@
 
 #include "Attributes.hpp"
 #include "BookOfSpells.hpp"
+#include "DeathScreen.hpp"
 #include "Inventory.hpp"
 #include "Journal.hpp"
 #include "HUD.hpp"

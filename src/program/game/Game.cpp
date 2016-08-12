@@ -31,6 +31,8 @@ namespace rr {
       inventory_     (Inventory(&player_)),
       started_       (false              ),
       paused_        (false              ),
+      mapOpen_       (false              ),
+      lost_          (false              ),
       levelNumber_   (0                  )
     {
         gameView_.setSize  ((sf::Vector2f) Settings::graphics.resolution);
@@ -259,11 +261,12 @@ namespace rr {
             messageManager_.draw(rw);
 
             rw.draw(hud_);
-            rw.draw(inventory_);
-            rw.draw(pauseMenu_);
             rw.draw(attributes_);
-            rw.draw(journal_);
             rw.draw(bookOfSpells_);
+            rw.draw(deathScreen_);
+            rw.draw(inventory_);
+            rw.draw(journal_);
+            rw.draw(pauseMenu_);
         }
     }
 
@@ -273,6 +276,17 @@ namespace rr {
         player_        .update(time);
         hud_           .update(&player_, levelNumber_+1, time);
         messageManager_.update(time);
+        deathScreen_   .update(time);
+
+        // the player dies
+        if (!lost_ && player_.getAttributes().health == 0) {
+            subject.notify(Observer::PLAYER_DIES, nullptr);
+            
+            paused_ = true;
+            lost_   = true;
+            
+            deathScreen_.open();
+        }
 
         gameView_.setCenter(sf::Vector2f(player_.getBounds().left+40, player_.getBounds().top+40));
 
@@ -320,11 +334,12 @@ namespace rr {
 
     void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& event) {
         if (      !started_       ) mainMenu_    .buttonEvents(rw, event, this);
-        if (pauseMenu_   .isOpen()) pauseMenu_   .buttonEvents(rw, event, this);
-        if (inventory_   .isOpen()) inventory_   .buttonEvents(rw, event, this);
         if (attributes_  .isOpen()) attributes_  .buttonEvents(rw, event, this);
-        if (journal_     .isOpen()) journal_     .buttonEvents(rw, event, this);
         if (bookOfSpells_.isOpen()) bookOfSpells_.buttonEvents(rw, event, this);
+        if (deathScreen_ .isOpen()) deathScreen_ .buttonEvents(rw, event, this);
+        if (inventory_   .isOpen()) inventory_   .buttonEvents(rw, event, this);
+        if (journal_     .isOpen()) journal_     .buttonEvents(rw, event, this);
+        if (pauseMenu_   .isOpen()) pauseMenu_   .buttonEvents(rw, event, this);
 
         if (started_) {
             if (Settings::game.debugMode) {
@@ -402,15 +417,18 @@ namespace rr {
             Rune  ::identified_[i] = false;
         }
 
-        inventory_.clear();
-        player_   .reset();
+        inventory_  .clear();
+        player_     .reset();
+        deathScreen_.reset();
 
         subject.clear();
         subject.addObserver(&inventory_);
         subject.addObserver(&messageManager_);
 
         levelNumber_ = 0;
-        mapOpen_     = false;
+
+        mapOpen_ = false;
+        lost_    = false;
     }
 
 }

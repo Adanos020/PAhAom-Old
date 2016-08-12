@@ -29,7 +29,7 @@ namespace rr {
              ///
              /// \param color the color of the text displayed on the button
              ////////////////////////////////////////////////////////////////////////
-             Button(sf::Vector2f position, sf::String, unsigned chsize, sf::Color = sf::Color::White);
+             Button(sf::Vector2f position = sf::Vector2f(0, 0), sf::String = "", unsigned chsize = 30, sf::Color = sf::Color::White);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the string of the text displayed on the button.

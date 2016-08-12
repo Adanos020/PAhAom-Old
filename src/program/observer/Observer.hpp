@@ -24,6 +24,9 @@ namespace rr {
                 PLAYER_STARVING,
                 PLAYER_ATTACK_SUCCESS,
                 PLAYER_ATTACK_FAILURE,
+                PLAYER_DIES,
+                NPC_ATTACK_SUCCESS,
+                NPC_ATTACK_FAILURE,
                 NPC_DIES
             };
 

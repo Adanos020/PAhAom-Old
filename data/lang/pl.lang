@@ -146,6 +146,9 @@ Użyj schowka nr 5
 gui.text.press_a_key
 Naciśnij klawisz...
 
+gui.text.you_died
+POLEGŁES.
+
 gui.window.attributes
 ATRYBUTY
 
@@ -722,6 +725,15 @@ Gracz trafia
 
 message.player_attack_failure
 unika atak gracza.
+
+message.player_dies
+Umarłeś!
+
+message.npc_attack_success
+trafia cię.
+
+message.npc_attack_failure
+nie trafia cię.
 
 message.npc_dies
 umiera.

@@ -32,7 +32,7 @@ namespace rr {
 
                std::stack<sf::Vector2i> path_;
 
-               sf::Vector2i playerDetectors_[8];
+               sf::Vector2i entityDetector_[8];
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets all the player detectors' positions.
@@ -187,19 +187,19 @@ namespace rr {
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief This function returns an index of a detector which intersects
-               /// the Player's bound box. It returns -1 if none of the detectors
-               /// intersect with the Player's bound box.
+               /// the Entity's bound box. It returns -1 if none of the detectors
+               /// intersect with the Entity's bound box.
                ///
                /// This function returns an index of a detector which intersects the
-               /// Player's bound box. It returns -1 if none of the detectors intersect
-               /// with the Player's bound box. The indices of the detectors are placed
+               /// Entity's bound box. It returns -1 if none of the detectors intersect
+               /// with the Entity's bound box. The indices of the detectors are placed
                /// in such way:
                /// 0 1 2
                /// 3 x 4
                /// 5 6 7
                /// and -1 is anywhere else.
                ////////////////////////////////////////////////////////////////////////
-               int detects(Player*) const;
+               int detects(Entity*) const;
 
     protected: Attitude attitude_;
                State    state_;
