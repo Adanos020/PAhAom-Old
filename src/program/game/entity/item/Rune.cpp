@@ -44,7 +44,7 @@ namespace rr {
         disposable_ = true;
         stackable_  = true;
         cursed_     = chance(2, 5);
-        ID_         = 39+type_;
+        ID_         = 49+type_;
         iconIndex_  = 48;
 
         int icons[] = { (int)iconIndex_, 64+(int)spellSymbols[type_] };

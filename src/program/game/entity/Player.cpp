@@ -21,20 +21,20 @@ extern rr::Subject subject;
 namespace rr {
 
     Player::Player() :
-      coldWeapon_                  (nullptr           ),
-      rangedWeapon_                (nullptr           ),
-      position_                    (sf::Vector2i(0, 0)),
-      currentAnimation_            (&walkingRight_    ),
-      moving_                      (false             ),
-      velocity_                    (1100.f            ),
-      sightRange_                  (5                 )
+      coldWeapon_      (nullptr           ),
+      rangedWeapon_    (nullptr           ),
+      position_        (sf::Vector2i(0, 0)),
+      currentAnimation_(&walkingRight_    ),
+      moving_          (false             ),
+      velocity_        (1100.f            ),
+      sightRange_      (5                 )
     {
-        attrs_.health = attrs_.maxHealth =  30.f;
+        attrs_.health = attrs_.maxHealth =  50.f;
         attrs_.mana   = attrs_.maxMana   =   5.f;
         attrs_.strength                  =  10.f;
         attrs_.dexterity                 =  10.f;
         attrs_.experience                =   0.f;
-        attrs_.nextLevel                 = 100.f;
+        attrs_.nextLevel                 = 500.f;
         attrs_.level                     =   0  ;
         attrs_.skillPoints               =   0.f;
         attrs_.armor                     =   0.f;
@@ -133,8 +133,21 @@ namespace rr {
                 if (  buffs_.hunger == 1000
                     ) subject.notify(Observer::PLAYER_STARVING, nullptr);
 
-                if (  buffs_.hunger >= 1000
-                    ) attrs_.health -= 0.05f;
+                if (  attrs_.mana_regeneration
+                    ) attrs_.mana += 0.1;
+
+                if      (  buffs_.hunger < 500
+                         ) attrs_.health += (attrs_.health_regeneration ? 0.1f : 0.05f);
+                else if (  buffs_.hunger < 500
+                         ) attrs_.health += (attrs_.health_regeneration ? 0.05f : 0.f);
+                else if (  buffs_.hunger >= 1000
+                         ) attrs_.health -= (attrs_.health_regeneration ? 0.f : 0.05f);
+
+                if (  buffs_.poison > 0
+                    ) attrs_.health -= 0.1f;
+
+                if (  buffs_.regeneration > 0
+                    ) attrs_.health += 0.15f;
 
                 moving_ = false;
             }
@@ -161,6 +174,8 @@ namespace rr {
                                                    temp                = attrs_.mana/attrs_.maxMana;
                                                    attrs_.maxMana     += 1;
                                                    attrs_.mana         = temp*attrs_.maxMana;
+
+            subject.notify(Observer::PLAYER_LEVELUP, this);
         }
 
         body_.update(timeStep);
@@ -181,14 +196,14 @@ namespace rr {
     }
 
     void Player::reset() {
-        attrs_.health                =  30.f;
+        attrs_.health                =  50.f;
         attrs_.mana                  =   5.f;
-        attrs_.maxHealth             =  30.f;
+        attrs_.maxHealth             =  50.f;
         attrs_.maxMana               =   5.f;
         attrs_.strength              =  10.f;
         attrs_.dexterity             =  10.f;
         attrs_.experience            =   0.f;
-        attrs_.nextLevel             = 100.f;
+        attrs_.nextLevel             = 500.f;
         attrs_.level                 =   0  ;
         attrs_.skillPoints           =   0.f;
         attrs_.armor                 =   0.f;

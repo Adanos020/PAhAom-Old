@@ -112,6 +112,8 @@ namespace rr {
                 auto npc = (NPC*) *it;
                 // the npc detects the player
                 if ((npc)->detects(player) != -1) {
+                    npc->setState(NPC::HUNTING);
+
                     // the player has a weapon
                     if (player->getColdWeapon() != nullptr && chance(player->getColdWeapon()->getAccuracy()*2, 21)) {
                         player->attack(npc);
@@ -126,8 +128,10 @@ namespace rr {
                     else subject.notify(PLAYER_ATTACK_FAILURE, npc);
 
                     // the npc dies
-                    if (  npc->getAttributes().health <= 0
-                        ) subject.notify(NPC_DIES, npc);
+                    if (npc->getAttributes().health <= 0) {
+                        subject.notify(NPC_DIES, npc);
+                        player->addExperience(npc->getAttributes().level*10);
+                    }
 
                     break;
                 }
@@ -765,9 +769,9 @@ namespace rr {
 
     std::ofstream& Level::operator>>(std::ofstream& file) {
         file << startingPoint_.x << ' '
-             << startingPoint_.y << '\n'              // save the starting point
+             << startingPoint_.y << '\n'  // save the starting point
              << endingPoint_  .x << ' '
-             << endingPoint_  .y << '\n';             // save the ending point
+             << endingPoint_  .y << '\n'; // save the ending point
 
         file << entities_.size() << '\n';
         for (auto entity=entities_.begin(); entity!=entities_.end(); ++entity) { // save the entities
@@ -776,7 +780,7 @@ namespace rr {
         
         shadowMap_ >> file;
         
-        for (int i=0; i<77*43; ++i) {                 // save the tiles
+        for (int i=0; i<77*43; ++i) { // save the tiles
             file << tiles_[i] << (((i+1)%77 == 0) ? '\n' : ' ');
         }
 

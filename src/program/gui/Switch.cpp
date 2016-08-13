@@ -13,7 +13,7 @@ namespace rr {
     Switch::Switch(sf::Vector2f size, sf::Vector2f pos) :
       left_    (Button(pos, "<", 30)                                                              ),
       right_   (Button(sf::Vector2f(body_.getPosition().x + body_.getSize().x+24, pos.y), ">", 30)),
-      text_    (Text  (sf::Vector2f(0, 0), L"QYTA CLOHJER", Resources::font.Unifont, size.y)      )
+      text_    (Text  (sf::Vector2f(0, 0), L"QYTA CLOHJÉR", Resources::font.Unifont, size.y)      )
     {
         body_ .setSize            (size);
         body_ .setPosition        (sf::Vector2f(pos.x+44, pos.y+5));
@@ -25,6 +25,8 @@ namespace rr {
         right_.setParentComponent (this);
         text_ .setParentComponent (this);
 
+        setPosition(pos);
+
         counter_ = 0;
     }
 
@@ -32,7 +34,7 @@ namespace rr {
         left_ .setPosition(pos);
         body_ .setPosition(sf::Vector2f(pos.x+44, pos.y+5));
         text_ .setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
-        right_.setPosition(sf::Vector2f(pos.x+body_.getSize().x + body_.getSize().y+24, pos.y));
+        right_.setPosition(sf::Vector2f(pos.x+body_.getSize().x + body_.getSize().y+21, pos.y));
     }
 
     void Switch::setSize(sf::Vector2f s) {

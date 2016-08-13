@@ -158,28 +158,35 @@ namespace rr {
 
         currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
 
+        inventory_.addItem(new ColdWeapon(ColdWeapon::KNIFE));
+        inventory_.addItem(new Food(Food::BAGUETTE));
+        inventory_.addItem(new Potion(Potion::HEALING));
+
         return true;
     }
 
     bool Game::load() {
+        reset();
+
         std::ifstream file("save/save.pah");
 
         if ( !file.good()
             ) return false;
 
-        reset();
-
         try {
             readFile <unsigned> (file, seed_       );
             readFile <unsigned> (file, levelNumber_);
 
+            std::cout << "Reading potion identifications:\n";
             for (int i=0; i<9; ++i) {
                 readFile <bool> (file, Potion::identified_[i]);
             }
+            std::cout << "Reading rune identifications:\n";
             for (int i=0; i<12; ++i) {
                 readFile <bool> (file, Rune  ::identified_[i]);
             }
 
+            std::cout << "Reading player:\n";
             readEntity(file, &player_);
 
             srand(seed_);
@@ -191,8 +198,9 @@ namespace rr {
                 file.close();
                 file.clear();
                 file.sync ();
+                int pos = file.tellg();
                 file >> wtf;
-                throw std::invalid_argument("Wrong data: " + wtf);
+                throw std::invalid_argument("Wrong data in inventory: " + wtf + ", position: " + std::to_string(pos));
             }
 
             file.close();

@@ -10,17 +10,18 @@
 
 #include "../../Settings.hpp"
 #include "../../Resources.hpp"
+#include "../../Program.hpp"
 
 #include "../../funcs/strings.hpp"
 
 namespace rr {
 
     PauseMenu::PauseMenu() :
-      title_  (Text  (sf::Vector2f(0, 0), "PAhAom"         , Resources::font.Pixel, 100, sf::Color::Yellow )),
-      version_(Text  (sf::Vector2f(0, 0), "pre-alpha 0.6.5", Resources::font.Pixel,  50, sf::Color::Yellow) ),
-      wMenu_  (Window("", sf::Vector2f(244, 230), sf::Vector2f(25, Settings::graphics.resolution.y/2-153))  )
+      title_  (Text  (sf::Vector2f(0, 0), "PAhAom"             , Resources::font.Pixel       , 100, sf::Color::Yellow)),
+      version_(Text  (sf::Vector2f(0, 0), Program::getVersion(), Resources::font.FinalFantasy,  50, sf::Color::Yellow)),
+      wMenu_  (Window("", sf::Vector2f(244, 230), sf::Vector2f(25, Settings::graphics.resolution.y/2-153))            )
     {
-        shadow_.setSize((sf::Vector2f)Settings::graphics.resolution);
+        shadow_.setSize((sf::Vector2f) Settings::graphics.resolution);
         shadow_.setPosition(sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
@@ -59,10 +60,10 @@ namespace rr {
                 if (  wMenu_.getComponent<Button>(1)->isPressed(rw, e)
                     ) wHelp->setVisible(true);
                 if (  wMenu_.getComponent<Button>(2)->isPressed(rw, e)) {
+                    g->save();
                     g->pause(false);
                     g->start(false);
                     close();
-                    g->save();
                 }
             }
 

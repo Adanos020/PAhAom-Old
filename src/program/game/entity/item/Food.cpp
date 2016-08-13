@@ -39,7 +39,7 @@ namespace rr {
         disposable_ = true;
         stackable_  = true;
         cursed_     = false;
-        ID_         = type_ + 51;
+        ID_         = type_ + 61;
         iconIndex_  = type_ + 80;
 
         setIcon(body_, iconIndex_);

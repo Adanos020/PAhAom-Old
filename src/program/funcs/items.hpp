@@ -50,46 +50,48 @@ namespace rr {
             case  23: return new RangedWeapon(RangedWeapon::BOW                                 , amount);
             case  24: return new RangedWeapon(RangedWeapon::CROSSBOW                            , amount);
             case  25: return new RangedWeapon(RangedWeapon::SLINGSHOT                           , amount);
+            case  26: return new RangedWeapon(RangedWeapon::BELLOWS                             , amount);
 
             /* AMMUNITION */
-            case  26: return new Ammunition  (Ammunition::ARROW                                 , amount);
-            case  27: return new Ammunition  (Ammunition::BOLT                                  , amount);
-            case  28: return new Ammunition  (Ammunition::ROCKS                                 , amount);
-            case  29: return new Ammunition  (Ammunition::SHURIKEN                              , amount);
+            case  27: return new Ammunition  (Ammunition::ARROW                                 , amount);
+            case  28: return new Ammunition  (Ammunition::BOLT                                  , amount);
+            case  29: return new Ammunition  (Ammunition::ROCKS                                 , amount);
+            case  30: return new Ammunition  (Ammunition::DART                                  , amount);
+            case  31: return new Ammunition  (Ammunition::SHURIKEN                              , amount);
 
             /* BOOKS */
-            case  30: return new Book        (Book::CRAFTING                                    , amount);
-            case  31: return new Book        (Book::ALCHEMY                                     , amount);
-            case  32: return new Book        (Book::COLD_WEAPON_MASTERY                         , amount);
-            case  33: return new Book        (Book::RANGED_WEAPON_MASTERY                       , amount);
-            case  34: return new Book        (Book::EAGLE_EYE                                   , amount);
-            case  35: return new Book        (Book::MANA_REGEN                                  , amount);
-            case  36: return new Book        (Book::HEALTH_REGEN                                , amount);
-            case  37: return new Book        (Book::FASTER_LEARNING                             , amount);
-            case  38: return new Book        (Book::SPELLS_BOOK                                 , amount);
+            case  40: return new Book        (Book::CRAFTING                                    , amount);
+            case  41: return new Book        (Book::ALCHEMY                                     , amount);
+            case  42: return new Book        (Book::COLD_WEAPON_MASTERY                         , amount);
+            case  43: return new Book        (Book::RANGED_WEAPON_MASTERY                       , amount);
+            case  44: return new Book        (Book::EAGLE_EYE                                   , amount);
+            case  45: return new Book        (Book::MANA_REGEN                                  , amount);
+            case  46: return new Book        (Book::HEALTH_REGEN                                , amount);
+            case  47: return new Book        (Book::FASTER_LEARNING                             , amount);
+            case  48: return new Book        (Book::SPELLS_BOOK                                 , amount);
 
             /* RUNES */
-            case  39: return new Rune        (Rune::HEAL                                        , amount);
-            case  40: return new Rune        (Rune::FIREBOLT                                    , amount);
-            case  41: return new Rune        (Rune::LIGHTNING                                   , amount);
-            case  42: return new Rune        (Rune::ICE_BULLET                                  , amount);
-            case  43: return new Rune        (Rune::TELEPORT                                    , amount);
-            case  44: return new Rune        (Rune::FIRE_RAIN                                   , amount);
-            case  45: return new Rune        (Rune::STORM                                       , amount);
-            case  46: return new Rune        (Rune::ICE_WAVE                                    , amount);
-            case  47: return new Rune        (Rune::TIME_FREEZING                               , amount);
-            case  48: return new Rune        (Rune::IDENTIFY                                    , amount);
-            case  49: return new Rune        (Rune::UNCURSE                                     , amount);
-            case  50: return new Rune        (Rune::TELEKINESIS                                 , amount);
+            case  49: return new Rune        (Rune::HEAL                                        , amount);
+            case  50: return new Rune        (Rune::FIREBOLT                                    , amount);
+            case  51: return new Rune        (Rune::LIGHTNING                                   , amount);
+            case  52: return new Rune        (Rune::ICE_BULLET                                  , amount);
+            case  53: return new Rune        (Rune::TELEPORT                                    , amount);
+            case  54: return new Rune        (Rune::FIRE_RAIN                                   , amount);
+            case  55: return new Rune        (Rune::STORM                                       , amount);
+            case  56: return new Rune        (Rune::ICE_WAVE                                    , amount);
+            case  57: return new Rune        (Rune::TIME_FREEZING                               , amount);
+            case  58: return new Rune        (Rune::IDENTIFY                                    , amount);
+            case  59: return new Rune        (Rune::UNCURSE                                     , amount);
+            case  60: return new Rune        (Rune::TELEKINESIS                                 , amount);
 
             /* FOOD */
-            case  51: return new Food        (Food::MEAT                                        , amount);
-            case  52: return new Food        (Food::SANDVICH                                    , amount);
-            case  53: return new Food        (Food::APPLE                                       , amount);
-            case  54: return new Food        (Food::BEER                                        , amount);
-            case  55: return new Food        (Food::HOT_DOG                                     , amount);
-            case  56: return new Food        (Food::HAMBURGER                                   , amount);
-            case  57: return new Food        (Food::BAGUETTE                                    , amount);
+            case  61: return new Food        (Food::MEAT                                        , amount);
+            case  62: return new Food        (Food::SANDVICH                                    , amount);
+            case  63: return new Food        (Food::APPLE                                       , amount);
+            case  64: return new Food        (Food::BEER                                        , amount);
+            case  65: return new Food        (Food::HOT_DOG                                     , amount);
+            case  66: return new Food        (Food::HAMBURGER                                   , amount);
+            case  67: return new Food        (Food::BAGUETTE                                    , amount);
 
             /* POTIONS */
             case 100: return new Potion      (Potion::HEALING             , Potion::BIG         , amount);
@@ -141,11 +143,11 @@ namespace rr {
         int IDs[] = {
               1,   2,   3,   4,   5,   6,                                    // COINS
              10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22, // COLD WEAPON
-             23,  24,  25,                                                   // RANGED WEAPON
-             26,  27,  28,  29,                                              // AMMUNITION
-             30,  31,  32,  33,  34,  35,  36,  37,  38,                     // BOOKS
-             39,  40,  41,  42,  43,  44,  45,  46,  47,  48,  49,  50,      // RUNES
-             51,  52,  53,  54,  55,  56,  57,                               // FOOD
+             23,  24,  25,  26,                                              // RANGED WEAPON
+             27,  28,  29,  30,  31,                                         // AMMUNITION
+             40,  41,  42,  43,  44,  45,  46,  47,  48,                     // BOOKS
+             49,  50,  51,  52,  53,  54,  55,  56,  57,  58,  59,  60,      // RUNES
+             61,  62,  63,  64,  65,  66,  67,                               // FOOD
             100, 101, 102, 110, 111, 112, 120, 121, 122, 130, 131, 132,      // POTIONS
             140, 141, 142, 150, 151, 152, 160, 161, 162, 170, 171, 172,
             180, 181, 182 

@@ -105,13 +105,14 @@ namespace rr {
             case PLAYER_STARVING      : addMessage(Message(Resources::dictionary["message.player_starving"], sf::Color::Red));
                                         break;
 
-            case PLAYER_ATTACK_SUCCESS: addMessage(Message( Resources::dictionary["message.player_attack_success"]
+            case PLAYER_ATTACK_SUCCESS: addMessage(Message(((Settings::game.language == "fc") ? sf::String(".") : sf::String(""))
+                                                          +((NPC*) entity)->getName()
                                                           + " "
-                                                          + ((NPC*) entity)->getName()
-                                                          + ((Settings::game.language != "fc") ? sf::String(".") : sf::String("")), sf::Color::Magenta));
+                                                          + Resources::dictionary["message.player_attack_success"], sf::Color::Magenta));
                                         break;
 
-            case PLAYER_ATTACK_FAILURE: addMessage(Message(((NPC*) entity)->getName()
+            case PLAYER_ATTACK_FAILURE: addMessage(Message(((Settings::game.language == "fc") ? sf::String(".") : sf::String(""))
+                                                          +((NPC*) entity)->getName()
                                                           + " "
                                                           + Resources::dictionary["message.player_attack_failure"], sf::Color::Magenta));
                                         break;
@@ -119,13 +120,17 @@ namespace rr {
             case PLAYER_DIES          : addMessage(Message(Resources::dictionary["message.player_dies"], sf::Color::Red));
                                         break;
 
-            case NPC_ATTACK_SUCCESS   : addMessage(Message( ((NPC*) entity)->getName()
-                                                          + " "
-                                                          + Resources::dictionary["message.npc_attack_success"]
-                                                          + ((Settings::game.language != "fc") ? sf::String(".") : sf::String("")), sf::Color(0xff, 0x88, 0x00)));
+            case PLAYER_LEVELUP       : addMessage(Message(Resources::dictionary["message.player_levelup"], sf::Color::Yellow));
                                         break;
 
-            case NPC_ATTACK_FAILURE   : addMessage(Message(((NPC*) entity)->getName()
+            case NPC_ATTACK_SUCCESS   : addMessage(Message(((Settings::game.language == "fc") ? sf::String(".") : sf::String(""))
+                                                          +((NPC*) entity)->getName()
+                                                          + " "
+                                                          + Resources::dictionary["message.npc_attack_success"], sf::Color(0xff, 0x88, 0x00)));
+                                        break;
+
+            case NPC_ATTACK_FAILURE   : addMessage(Message(((Settings::game.language == "fc") ? sf::String(".") : sf::String(""))
+                                                          +((NPC*) entity)->getName()
                                                           + " "
                                                           + Resources::dictionary["message.npc_attack_failure"], sf::Color(0xff, 0x88, 0x00)));
                                         break;

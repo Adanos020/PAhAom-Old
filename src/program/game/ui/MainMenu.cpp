@@ -14,6 +14,7 @@
 
 #include "../../Settings.hpp"
 #include "../../Resources.hpp"
+#include "../../Program.hpp"
 
 #include "../../funcs/strings.hpp"
 #include "../../funcs/keys.hpp"
@@ -21,9 +22,9 @@
 namespace rr {
 
     MainMenu::MainMenu() :
-      title_  (Text  (sf::Vector2f(0, 0), "PAhAom"         , Resources::font.Pixel, 100, sf::Color::Yellow) ),
-      version_(Text  (sf::Vector2f(0, 0), "pre-alpha 0.6.5", Resources::font.Pixel,  50, sf::Color::Yellow) ),
-      wMenu_  (Window("", sf::Vector2f(248, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225))  )
+      title_  (Text  (sf::Vector2f(0, 0), "PAhAom"             , Resources::font.Pixel       , 100, sf::Color::Yellow)),
+      version_(Text  (sf::Vector2f(0, 0), Program::getVersion(), Resources::font.FinalFantasy,  50, sf::Color::Yellow)),
+      wMenu_  (Window("", sf::Vector2f(248, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225))            )
     {
 
         title_  .setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-title_  .getSize().x/2,  10));
@@ -65,13 +66,13 @@ namespace rr {
                  auto swLanguage = new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60));
                       swLanguage->addOption("ENGLISH");
                       swLanguage->addOption("POLSKI");
-                      swLanguage->addOption(L"DNQUBINJHBI");
+                      swLanguage->addOption(L"ÅMCÉQŨ");
                       if      (  Settings::game.language == "en"
                                ) swLanguage->setCurrentOption("ENGLISH");
                       else if (  Settings::game.language == "pl"
                                ) swLanguage->setCurrentOption("POLSKI");
                       else if (  Settings::game.language == "fc"
-                               ) swLanguage->setCurrentOption(L"DNQUBINJHBI");
+                               ) swLanguage->setCurrentOption(L"ÅMCÉQŨ");
 
                 auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
                      bQuit->setPosition(sf::Vector2f(wGame->getSize().x/2 - bQuit->getSize().x/2,
@@ -275,7 +276,7 @@ namespace rr {
                                  ) Settings::game.language = "en";
                         else if (  wGame->getComponent<Switch>(0)->getCurrentOption() == "POLSKI"
                                  ) Settings::game.language = "pl";
-                        else if (  wGame->getComponent<Switch>(0)->getCurrentOption() == L"DNQUBINJHBI"
+                        else if (  wGame->getComponent<Switch>(0)->getCurrentOption() == L"ÅMCÉQŨ"
                                  ) Settings::game.language = "fc";
 
                         std::vector<std::string> splitted = split(wtoa(wGrap->getComponent<Switch>(0)->getCurrentOption()), 'x');
@@ -325,7 +326,7 @@ namespace rr {
                         else if (  Settings::game.language == "pl"
                                  ) wGame->getComponent<Switch>(0)->setCurrentOption("POLSKI");
                         else if (  Settings::game.language == "fc"
-                                 ) wGame->getComponent<Switch>(0)->setCurrentOption(L"DNQUBINJHBI");
+                                 ) wGame->getComponent<Switch>(0)->setCurrentOption(L"ÅMCÉQŨ");
 
                         wGrap->getComponent<Switch>(0)->setCurrentOption(std::to_string(Settings::graphics.resolution.x)+"x"+std::to_string(Settings::graphics.resolution.y));
                         wGrap->getComponent<Checkbox>(0)->check(Settings::graphics.fullscreen);

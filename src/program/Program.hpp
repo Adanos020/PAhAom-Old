@@ -23,6 +23,8 @@ namespace rr {
     private: sf::Event        event_;
              sf::RenderWindow window_;
 
+      static sf::String       version_;
+
              Game*            game_;
 
              ////////////////////////////////////////////////////////////////////////
@@ -62,8 +64,17 @@ namespace rr {
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the pointer to the game object.
+             ///
+             /// \return an instance of Game class
              ////////////////////////////////////////////////////////////////////////
              Game* getGame() const { return game_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the program version.
+             ///
+             /// \return the program version as a string
+             ////////////////////////////////////////////////////////////////////////
+      static sf::String getVersion() { return version_; }
     };
 
 }

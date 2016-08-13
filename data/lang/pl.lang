@@ -180,6 +180,9 @@ Bełt
 item.ammunition.name.rocks
 Kamienie
 
+item.ammunition.name.dart
+Strzałka z kurarą
+
 item.ammunition.name.shuriken
 Shuriken
 
@@ -191,6 +194,9 @@ Kusza
 
 item.ranged_weapon.name.slingshot
 Proca
+
+item.ranged_weapon.name.bellows
+Dmuchawka
 
 item.book.type.crafting
 „Podstawy wytwarzania”
@@ -721,13 +727,16 @@ message.player_starving
 Umierasz z głodu!
 
 message.player_attack_success
-Gracz trafia
+obrywa.
 
 message.player_attack_failure
 unika atak gracza.
 
 message.player_dies
 Umarłeś!
+
+message.player_levelup
+Osiągnąłeś kolejny poziom doświadczenia! Możesz myśleć, że jesteś mądrzejszy, a twoje maksymalne punkty życia i many wzrosły. Możesz również, jeśli znajdziesz nauczyciela (i pieniądze), nauczyć się czegoś nowego lub zwiększyć swoje atrybuty.
 
 message.npc_attack_success
 trafia cię.

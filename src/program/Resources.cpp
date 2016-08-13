@@ -20,15 +20,16 @@ namespace rr {
 
     bool Resources::load() {
         return (loadDict()
-             && font   .Unifont         .loadFromFile("data/font/unifont-8.0.01.ttf")
-             && font   .Pixel           .loadFromFile("data/font/I-pixel-u-mod.ttf")
-             && texture.gui             .loadFromFile("data/graphics/gui.png")
-             && texture.player          .loadFromFile("data/graphics/player.png")
-             && texture.items           .loadFromFile("data/graphics/items.png")
-             && texture.tileset         .loadFromFile("data/graphics/tileset.png")
-             && texture.objects         .loadFromFile("data/graphics/objects.png")
-             && texture.npc             .loadFromFile("data/graphics/npc.png")
-             && texture.enemies         .loadFromFile("data/graphics/enemies.png"));
+             && font   .Unifont     .loadFromFile("data/font/unifont-8.0.01.ttf")
+             && font   .Pixel       .loadFromFile("data/font/I-pixel-u-mod.ttf")
+             && font   .FinalFantasy.loadFromFile("data/font/final_fantasy_36_font.ttf")
+             && texture.gui         .loadFromFile("data/graphics/gui.png")
+             && texture.player      .loadFromFile("data/graphics/player.png")
+             && texture.items       .loadFromFile("data/graphics/items.png")
+             && texture.tileset     .loadFromFile("data/graphics/tileset.png")
+             && texture.objects     .loadFromFile("data/graphics/objects.png")
+             && texture.npc         .loadFromFile("data/graphics/npc.png")
+             && texture.enemies     .loadFromFile("data/graphics/enemies.png"));
     }
 
     bool Resources::loadDict() {

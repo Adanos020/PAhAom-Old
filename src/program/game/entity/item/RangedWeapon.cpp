@@ -63,6 +63,12 @@ namespace rr {
                             speed_       =  8;
                             accuracy_    =  5;
                             break;
+
+            case BELLOWS  : damageDealt_ = 35;
+                            requirement_ = 17;
+                            speed_       =  7;
+                            accuracy_    =  7;
+                            break;
         }
 
         setIcon(body_, iconIndex_);
@@ -73,6 +79,7 @@ namespace rr {
             case BOW      : return Resources::dictionary["item.ranged_weapon.name.bow"      ];
             case CROSSBOW : return Resources::dictionary["item.ranged_weapon.name.crossbow" ];
             case SLINGSHOT: return Resources::dictionary["item.ranged_weapon.name.slingshot"];
+            case BELLOWS  : return Resources::dictionary["item.ranged_weapon.name.bellows"  ];
         }
 
         return "";
@@ -84,6 +91,7 @@ namespace rr {
             case BOW      : description += Resources::dictionary["item.ranged_weapon.description.bow"      ]; break;
             case CROSSBOW : description += Resources::dictionary["item.ranged_weapon.description.crossbow" ]; break;
             case SLINGSHOT: description += Resources::dictionary["item.ranged_weapon.description.slingshot"]; break;
+            case BELLOWS  : description += Resources::dictionary["item.ranged_weapon.description.bellows"  ]; break;
         }
 
         return description;

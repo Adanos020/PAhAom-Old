@@ -184,6 +184,11 @@ namespace rr {
              void handleDamage(int damage);
 
              ////////////////////////////////////////////////////////////////////////
+             /// \brief Gives a specific amount of experience to the player.
+             ////////////////////////////////////////////////////////////////////////
+             void addExperience(int exp) { attrs_.experience += exp; }
+
+             ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's attributes.
              ////////////////////////////////////////////////////////////////////////
              Attrs getAttributes() const { return attrs_; }
@@ -191,7 +196,7 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's sight range.
              ////////////////////////////////////////////////////////////////////////
-             int getSightRange() const { return sightRange_; }
+             int getSightRange() const { return sightRange_ + (attrs_.eagle_eye ? 2 : 0); }
              
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the player is moving.

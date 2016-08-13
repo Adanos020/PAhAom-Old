@@ -37,7 +37,7 @@ namespace rr {
     }
 
     void Book::initialize() {
-        ID_         = type_+30;
+        ID_         = type_+40;
         stackable_  = false;
         cursed_     = false;
         iconIndex_  = 16;

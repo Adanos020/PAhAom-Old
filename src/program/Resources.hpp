@@ -16,6 +16,7 @@ namespace rr {
     public: static struct Font {
             public: sf::Font Unifont;
                     sf::Font Pixel;
+                    sf::Font FinalFantasy;
             } font;
         
             static struct Texture {

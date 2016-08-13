@@ -180,6 +180,9 @@ Bolt
 item.ammunition.name.rocks
 Rocks
 
+item.ammunition.name.dart
+Curare dart
+
 item.ammunition.name.shuriken
 Shuriken
 
@@ -191,6 +194,9 @@ Crossbow
 
 item.ranged_weapon.name.slingshot
 Slingshot
+
+item.ranged_weapon.name.bellows
+Bellows
 
 item.book.type.crafting
 "Crafting basics"
@@ -721,19 +727,22 @@ message.player_starving
 You are starving!
 
 message.player_attack_success
-Player hits
+gets hit.
 
 message.player_attack_failure
-dodges player's attack
+dodges player's attack.
 
 message.player_dies
 You died!
 
+message.player_levelup
+You've reached the next experience level! You can think that you are more smart now, your maximum health and mana have increased. Also you can now learn some new skills and increase some attributes, if you find a teacher (and money).
+
 message.npc_attack_success
-hits you
+hits you.
 
 message.npc_attack_failure
-doesn't hit you
+doesn't hit you.
 
 message.npc_dies
 dies.

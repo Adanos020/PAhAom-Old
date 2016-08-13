@@ -12,20 +12,20 @@
 namespace rr {
 
     DeathScreen::DeathScreen() :
-      endAnimation_(sf::Time::Zero                                                                                 ),
-      tYouDied_    (Resources::dictionary["gui.text.you_died"], Resources::font.Pixel, 150, sf::Color(255, 0, 0, 0)),
-      bNewGame_    (sf::Vector2f(0, 0), Resources::dictionary["gui.button.newgame"], 52                            ),
-      bQuit_       (sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52                            ),
-      visible_     (false                                                                                          )
+      endAnimation_(sf::Time::Zero                                                                                        ),
+      tYouDied_    (Resources::dictionary["gui.text.you_died"], Resources::font.FinalFantasy, 200, sf::Color(255, 0, 0, 0)),
+      bNewGame_    (sf::Vector2f(0, 0), Resources::dictionary["gui.button.newgame"], 52                                   ),
+      bQuit_       (sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52                                   ),
+      visible_     (false                                                                                                 )
     {
         shadow_.setSize((sf::Vector2f) Settings::graphics.resolution);
         shadow_.setPosition (sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(255, 0, 0, 0));
 
-        tYouDied_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2 - tYouDied_.getSize().x/2,
+        tYouDied_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2 - tYouDied_.getSize().x/2 - 2.5f,
                                            Settings::graphics.resolution.y/2 - tYouDied_.getSize().y/0.5));
 
-        bNewGame_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2 - (bNewGame_.getSize().x + bQuit_.getSize().x+5)/2,
+        bNewGame_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2 - (bNewGame_.getSize().x + bQuit_.getSize().x+7.5f)/2,
                                            Settings::graphics.resolution.y/2 + bNewGame_.getSize().y*0.25f));
         bQuit_.setPosition(sf::Vector2f(bNewGame_.getSize().x+5, 0) + bNewGame_.getPosition());
     }

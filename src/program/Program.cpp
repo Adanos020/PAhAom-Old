@@ -15,6 +15,8 @@
 
 namespace rr {
 
+    sf::String Program::version_("pre-alpha 0.6.6");
+
     Program::Program() {
         if (  loadResources()
             ) runGame();

@@ -180,6 +180,9 @@ belt
 item.ammunition.name.rocks
 qamjehje
 
+item.ammunition.name.dart
+cétéxialqa čé qypapoh
+
 item.ammunition.name.shuriken
 šuriqen
 
@@ -191,6 +194,9 @@ qywa
 
 item.ranged_weapon.name.slingshot
 tépoúa
+
+item.ranged_weapon.name.bellows
+amyxabqa
 
 item.book.type.crafting
 «toactavbi vbitbaxiahjér»
@@ -721,13 +727,16 @@ message.player_starving
 !čé tloay ymjepaw
 
 message.player_attack_success
-.tpay tpadjér
+oavbiba
 
 message.player_attack_failure
 ataq tpaya yhjũqa
 
 message.player_dies
 !ymaplewjé
+
+message.player_levelup
+!qolenjhbi točjem aowjebjéryehjér owjehthohlewjé .xje mohaxienjwbi jectewjé mbiwjéleyj moxjew, a tboje maqécbimalhe tyhqétbi xjbiyjér ũ mahbi béčpocélbi .pybhjexj [jewjéln haybiyjela ũ tjehjehue čhanjyjew] yetowjé hobeto wjeh haÿbiyj lyb céboje atvbibytbi čbjehqéwbiyj moxjew
 
 message.npc_attack_success
 yjeh tépadjér

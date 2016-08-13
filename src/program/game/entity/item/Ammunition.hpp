@@ -21,6 +21,7 @@ namespace rr {
                  ARROW,
                  BOLT,
                  ROCKS,
+                 DART,
                  SHURIKEN
              };
 

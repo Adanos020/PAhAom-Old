@@ -20,6 +20,7 @@ namespace rr {
     public:  enum Type {
                  BOW,
                  CROSSBOW,
+                 BELLOWS,
                  SLINGSHOT
              };
 

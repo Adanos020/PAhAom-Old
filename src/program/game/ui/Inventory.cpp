@@ -401,13 +401,14 @@ namespace rr {
                 
                 Item* item = nullptr;
                 switch (itemType) {
-                    case 2: item = new Book        (); readEntity(file, item); break;
-                    case 3: item = new Coin        (); readEntity(file, item); break;
-                    case 4: item = new ColdWeapon  (); readEntity(file, item); break;
-                    case 5: item = new Food        (); readEntity(file, item); break;
-                    case 6: item = new Potion      (); readEntity(file, item); break;
-                    case 7: item = new RangedWeapon(); readEntity(file, item); break;
-                    case 8: item = new Rune        (); readEntity(file, item); break;
+                    case 0: item = new Ammunition  (); readEntity(file, item); break;
+                    case 1: item = new Book        (); readEntity(file, item); break;
+                    case 2: item = new Coin        (); readEntity(file, item); break;
+                    case 3: item = new ColdWeapon  (); readEntity(file, item); break;
+                    case 4: item = new Food        (); readEntity(file, item); break;
+                    case 5: item = new Potion      (); readEntity(file, item); break;
+                    case 6: item = new RangedWeapon(); readEntity(file, item); break;
+                    case 7: item = new Rune        (); readEntity(file, item); break;
                 }
                 addItem(item);
             }

@@ -26,7 +26,7 @@ namespace rr {
             f.sync ();
             int pos = f.tellg();
             f >> param;
-            throw std::invalid_argument("Wrong data: " + param + ", position: " + std::to_string(pos));
+            throw std::invalid_argument("Wrong data in some type: " + param + ", position: " + std::to_string(pos));
         }
     }
 
@@ -41,7 +41,7 @@ namespace rr {
             f.sync();
             f >> param;
             int pos = f.tellg();
-            throw std::invalid_argument("Wrong data: " + param + ", position: " + std::to_string(pos));
+            throw std::invalid_argument("Wrong data in entity: " + param + ", position: " + std::to_string(pos));
         }
     }
 

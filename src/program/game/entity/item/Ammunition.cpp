@@ -39,8 +39,8 @@ namespace rr {
         disposable_ = true;
         stackable_  = true;
         cursed_     = false;
-        ID_         = type_ + 26;
-        iconIndex_  = type_ + 55;
+        ID_         = type_ + 27;
+        iconIndex_  = type_ + 56;
 
         setIcon(body_, iconIndex_);
     }
@@ -50,6 +50,7 @@ namespace rr {
             case ARROW   : return Resources::dictionary["item.ammunition.name.arrow"   ];
             case BOLT    : return Resources::dictionary["item.ammunition.name.bolt"    ];
             case ROCKS   : return Resources::dictionary["item.ammunition.name.rocks"   ];
+            case DART    : return Resources::dictionary["item.ammunition.name.dart"    ];
             case SHURIKEN: return Resources::dictionary["item.ammunition.name.shuriken"];
         }
 
@@ -61,6 +62,7 @@ namespace rr {
             case ARROW   : return Resources::dictionary["item.ammunition.description.arrow"   ];
             case BOLT    : return Resources::dictionary["item.ammunition.description.bolt"    ];
             case ROCKS   : return Resources::dictionary["item.ammunition.description.rocks"   ];
+            case DART    : return Resources::dictionary["item.ammunition.description.dart"    ];
             case SHURIKEN: return Resources::dictionary["item.ammunition.description.shuriken"];
         }
 
