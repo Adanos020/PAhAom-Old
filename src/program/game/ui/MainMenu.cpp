@@ -66,13 +66,13 @@ namespace rr {
                  auto swLanguage = new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60));
                       swLanguage->addOption("ENGLISH");
                       swLanguage->addOption("POLSKI");
-                      swLanguage->addOption(L"ÅMCÉQŨ");
+                      swLanguage->addOption(L"PAHAOMCÉQŨ");
                       if      (  Settings::game.language == "en"
                                ) swLanguage->setCurrentOption("ENGLISH");
                       else if (  Settings::game.language == "pl"
                                ) swLanguage->setCurrentOption("POLSKI");
                       else if (  Settings::game.language == "fc"
-                               ) swLanguage->setCurrentOption(L"ÅMCÉQŨ");
+                               ) swLanguage->setCurrentOption(L"PAHAOMCÉQŨ");
 
                 auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
                      bQuit->setPosition(sf::Vector2f(wGame->getSize().x/2 - bQuit->getSize().x/2,
@@ -276,7 +276,7 @@ namespace rr {
                                  ) Settings::game.language = "en";
                         else if (  wGame->getComponent<Switch>(0)->getCurrentOption() == "POLSKI"
                                  ) Settings::game.language = "pl";
-                        else if (  wGame->getComponent<Switch>(0)->getCurrentOption() == L"ÅMCÉQŨ"
+                        else if (  wGame->getComponent<Switch>(0)->getCurrentOption() == L"PAHAOMCÉQŨ"
                                  ) Settings::game.language = "fc";
 
                         std::vector<std::string> splitted = split(wtoa(wGrap->getComponent<Switch>(0)->getCurrentOption()), 'x');
@@ -293,10 +293,10 @@ namespace rr {
                                  ) Settings::graphics.csettings.antialiasingLevel = 8;
                         else       Settings::graphics.csettings.antialiasingLevel = 0;
 
-                        Settings::sound.music_muted      = wSoun->getComponent<Checkbox >(0)->isChecked();
-                        Settings::sound.music_volume     = wSoun->getComponent<ScrollBar>(0)->getValue();
-                        Settings::sound.effects_muted    = wSoun->getComponent<Checkbox >(1)->isChecked();
-                        Settings::sound.effects_volume   = wSoun->getComponent<ScrollBar>(1)->getValue();
+                        Settings::sound.music_muted    = wSoun->getComponent<Checkbox >(0)->isChecked();
+                        Settings::sound.music_volume   = wSoun->getComponent<ScrollBar>(0)->getValue();
+                        Settings::sound.effects_muted  = wSoun->getComponent<Checkbox >(1)->isChecked();
+                        Settings::sound.effects_volume = wSoun->getComponent<ScrollBar>(1)->getValue();
 
                         Settings::keys.move_up           = getKeyCode(wCont->getComponent<Button>( 0)->getText().getString());
                         Settings::keys.move_down         = getKeyCode(wCont->getComponent<Button>( 1)->getText().getString());
@@ -326,7 +326,7 @@ namespace rr {
                         else if (  Settings::game.language == "pl"
                                  ) wGame->getComponent<Switch>(0)->setCurrentOption("POLSKI");
                         else if (  Settings::game.language == "fc"
-                                 ) wGame->getComponent<Switch>(0)->setCurrentOption(L"ÅMCÉQŨ");
+                                 ) wGame->getComponent<Switch>(0)->setCurrentOption(L"PAHAOMCÉQŨ");
 
                         wGrap->getComponent<Switch>(0)->setCurrentOption(std::to_string(Settings::graphics.resolution.x)+"x"+std::to_string(Settings::graphics.resolution.y));
                         wGrap->getComponent<Checkbox>(0)->check(Settings::graphics.fullscreen);

@@ -177,16 +177,13 @@ namespace rr {
             readFile <unsigned> (file, seed_       );
             readFile <unsigned> (file, levelNumber_);
 
-            std::cout << "Reading potion identifications:\n";
             for (int i=0; i<9; ++i) {
                 readFile <bool> (file, Potion::identified_[i]);
             }
-            std::cout << "Reading rune identifications:\n";
             for (int i=0; i<12; ++i) {
                 readFile <bool> (file, Rune  ::identified_[i]);
             }
 
-            std::cout << "Reading player:\n";
             readEntity(file, &player_);
 
             srand(seed_);
@@ -253,6 +250,16 @@ namespace rr {
         file.close();
     }
 
+    void Game::lose() {
+        lost_ = true;
+
+#if defined (__WINDOWS__) || defined (__TOS_WIN__) || defined (__WIN32__) || defined (_WIN64) || defined (_WIN32)
+        system("del save/*pah");
+#else
+        system("rm -rf save/*.pah");
+#endif
+    }
+
     void Game::draw(sf::RenderWindow& rw) {
         if (!started_) {
             rw.setView(sf::View((sf::Vector2f) rw.getSize()/2.f, (sf::Vector2f) rw.getSize()));
@@ -291,7 +298,7 @@ namespace rr {
             subject.notify(Observer::PLAYER_DIES, nullptr);
             
             paused_ = true;
-            lost_   = true;
+            lose();
             
             deathScreen_.open();
         }
@@ -415,8 +422,10 @@ namespace rr {
     }
 
     void Game::reset() {
-        if (  currentLevel_ != nullptr
-            ) delete currentLevel_;
+        if (currentLevel_ != nullptr) {
+            delete currentLevel_;
+            currentLevel_ = nullptr;
+        }
 
         for (int i=0; i<9; ++i) {
             Potion::identified_[i] = false;

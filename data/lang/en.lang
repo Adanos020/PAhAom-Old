@@ -171,6 +171,21 @@ cursed
 item.enchantment.description.cursed
 This item is cursed.
 
+item.requirement.item
+Item required:
+
+item.requirement.strength
+Strength required:
+
+item.requirement.dexterity
+Dexterity required:
+
+item.weapon.damage_dealt
+Maximum damage dealt:
+
+item.weapon.level
+Upgrade level:
+
 item.ammunition.name.arrow
 Arrow
 
@@ -428,15 +443,6 @@ Stone is heavy, as well as the hammer. That means a stone hammer must be a curse
 
 item.magicweapon.description.runic_sword
 This perfectly forged and balanced sword has a slot for a magical rune that will provide it some additional, special properties. Even without it it's a fast and valued weapon.
-
-item.coldweapon.strength_required
-Strength required:
-
-item.coldweapon.damage_dealt
-Maximum damage dealt:
-
-item.coldweapon.level
-Upgrade level:
 
 item.food.name.meat
 Piece of ham

@@ -32,8 +32,8 @@ namespace rr {
             case   6: return new Coin        (Coin::BRONZE                , Coin::BIG           , amount);
 
             /* COLD WEAPON */
-            case  10: return new ColdWeapon  (ColdWeapon::HAMMER                                , amount);
-            case  11: return new ColdWeapon  (ColdWeapon::DOUBLE_AXE                            , amount);
+            case  10: return new ColdWeapon  (ColdWeapon::DOUBLE_AXE                            , amount);
+            case  11: return new ColdWeapon  (ColdWeapon::HAMMER                                , amount);
             case  12: return new ColdWeapon  (ColdWeapon::HALBERD                               , amount);
             case  13: return new ColdWeapon  (ColdWeapon::AXE                                   , amount);
             case  14: return new ColdWeapon  (ColdWeapon::SERRATED_SWORD                        , amount);
@@ -49,8 +49,8 @@ namespace rr {
             /* RANGED WEAPON */
             case  23: return new RangedWeapon(RangedWeapon::BOW                                 , amount);
             case  24: return new RangedWeapon(RangedWeapon::CROSSBOW                            , amount);
-            case  25: return new RangedWeapon(RangedWeapon::SLINGSHOT                           , amount);
-            case  26: return new RangedWeapon(RangedWeapon::BELLOWS                             , amount);
+            case  25: return new RangedWeapon(RangedWeapon::BELLOWS                             , amount);
+            case  26: return new RangedWeapon(RangedWeapon::SLINGSHOT                           , amount);
 
             /* AMMUNITION */
             case  27: return new Ammunition  (Ammunition::ARROW                                 , amount);
@@ -176,13 +176,16 @@ namespace rr {
             }
             else if (coin->getSize() == Coin::BIG) {
                 switch (coin->getType()) {
-                    case Coin::BRONZE: coin->setAmount(rand() % 10 + 1); break;
-                    case Coin::SILVER: coin->setAmount(rand() %  2 + 1); break;
-                    case Coin::GOLDEN: if (chance(0.75)) {
-                                           *coin = Coin(chance(1, 3) ? Coin::BRONZE : Coin::SILVER,
-                                                        coin->getSize(),
-                                                        coin->getAmount());
-                                       } else coin->setAmount(1);        break;
+                    case Coin::BRONZE: coin->setAmount(rand() % 10 + 1);
+                                       break;
+
+                    case Coin::SILVER: coin->setAmount(rand() %  2 + 1);
+                                       break;
+                    
+                    case Coin::GOLDEN: if (  chance(9, 10)
+                                           ) *coin = Coin(chance(1, 3) ? Coin::BRONZE : Coin::SILVER, coin->getSize(), coin->getAmount());
+                                       else   coin->setAmount(1);
+                                       break;
                 }
             }
         }

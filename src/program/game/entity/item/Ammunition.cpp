@@ -36,7 +36,7 @@ namespace rr {
     }
 
     void Ammunition::initialize() {
-        disposable_ = true;
+        disposable_ = false;
         stackable_  = true;
         cursed_     = false;
         ID_         = type_ + 27;

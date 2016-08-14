@@ -171,6 +171,21 @@ txieqlehtébi
 item.enchantment.description.cursed
 .teh txieamjet txieqlehtéhbi ject
 
+item.requirement.item
+vbimatahbi txieamjet:
+
+item.requirement.strength
+vbimataha wjũla:
+
+item.requirement.dexterity
+vbimataha čpehyhowjyjn:
+
+item.weapon.damage_dealt
+maqécbimalhe ovpaxjehjér:
+
+item.weapon.level
+točjem yletwehjér:
+
 item.ammunition.name.arrow
 cétéxiala
 
@@ -428,15 +443,6 @@ item.coldweapon.description.hammer
 
 item.coldweapon.description.runic_sword
 .teh aocqohale vbiqytbi ũ vbibaxjehbi mjey mjenjcúe ha matnyhoh pyheh [qtypa my aoätqobe, cteújérélhe blawjyjnbowjyn čatebhjũ] towjérå
-
-item.coldweapon.strength_required
-vbimataha wjũla:
-
-item.coldweapon.damage_dealt
-maqécbimalhe ovpaxjehjér:
-
-item.coldweapon.level
-točjem yletwehjér:
 
 item.food.name.meat
 qabaleq wbihqũ

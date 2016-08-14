@@ -144,7 +144,7 @@ namespace rr {
                          ) attrs_.health -= (attrs_.health_regeneration ? 0.f : 0.05f);
 
                 if (  buffs_.poison > 0
-                    ) attrs_.health -= 0.1f;
+                    ) attrs_.health -= 1.f;
 
                 if (  buffs_.regeneration > 0
                     ) attrs_.health += 0.15f;
@@ -183,7 +183,7 @@ namespace rr {
     }
 
     void Player::attack(NPC* npc) {
-        int maxDamage = attrs_.strength;
+        int maxDamage = attrs_.strength/3.f;
         if (  coldWeapon_ != nullptr
             ) maxDamage = coldWeapon_->getDamageDealt() - (coldWeapon_->getRequirement() - attrs_.strength);
 
@@ -253,8 +253,8 @@ namespace rr {
         }
         else if (instanceof<Food, Item>(item)) {
             if (  buffs_.hunger >= 1000
-                ) buffs_.hunger  = 500;
-            else  buffs_.hunger  =   0;
+                ) buffs_.hunger  =  500;
+            else  buffs_.hunger  =    0;
 
             attrs_.health += 10;
         }
@@ -355,12 +355,15 @@ namespace rr {
     }
 
     void Player::cheat() {
-             if (isKeyPressed(sf::Keyboard::Numpad1)) attrs_.health    --;
-        else if (isKeyPressed(sf::Keyboard::Numpad2)) attrs_.health    ++;
-        else if (isKeyPressed(sf::Keyboard::Numpad3)) attrs_.mana      --;
-        else if (isKeyPressed(sf::Keyboard::Numpad4)) attrs_.mana      ++;
-        else if (isKeyPressed(sf::Keyboard::Numpad5)) attrs_.experience++;
-        else if (isKeyPressed(sf::Keyboard::Numpad6)) attrs_.level     ++;
+             if (isKeyPressed(sf::Keyboard::Numpad1)) attrs_.health     --;
+        else if (isKeyPressed(sf::Keyboard::Numpad2)) attrs_.health     ++;
+        else if (isKeyPressed(sf::Keyboard::Numpad3)) attrs_.mana       --;
+        else if (isKeyPressed(sf::Keyboard::Numpad4)) attrs_.mana       ++;
+        else if (isKeyPressed(sf::Keyboard::Numpad5)) attrs_.experience ++;
+        else if (isKeyPressed(sf::Keyboard::Numpad6)) attrs_.level      ++;
+        else if (isKeyPressed(sf::Keyboard::Numpad7)) attrs_.skillPoints++;
+        else if (isKeyPressed(sf::Keyboard::Numpad8)) attrs_.strength   ++;
+        else if (isKeyPressed(sf::Keyboard::Numpad9)) attrs_.dexterity  ++;
     }
 
     std::ifstream& Player::operator<<(std::ifstream& file) {

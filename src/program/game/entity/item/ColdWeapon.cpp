@@ -184,9 +184,9 @@ namespace rr {
         }
 
         description += "\n" + ((identified_ && cursed_  ) ? "\n"+Resources::dictionary["item.enchantment.description.cursed"]                                 : "")
-                            +                               "\n"+Resources::dictionary["item.coldweapon.strength_required"  ]+" "+std::to_string((int)requirement_)
-                            +                               "\n"+Resources::dictionary["item.coldweapon.damage_dealt"       ]+" "+std::to_string((int)damageDealt_)
-                            + ((identified_ && level_!=0) ? "\n"+Resources::dictionary["item.coldweapon.level"              ]+" "+std::to_string((int)level_) : "");
+                            +                               "\n"+Resources::dictionary["item.requirement.strength"          ]+" "+std::to_string((int)requirement_)
+                            +                               "\n"+Resources::dictionary["item.weapon.damage_dealt"           ]+" "+std::to_string((int)damageDealt_)
+                            + ((identified_ && level_!=0) ? "\n"+Resources::dictionary["item.weapon.level"                  ]+" "+std::to_string((int)level_) : "");
 
         return description;
     }

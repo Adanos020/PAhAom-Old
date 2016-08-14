@@ -94,6 +94,11 @@ namespace rr {
             case BELLOWS  : description += Resources::dictionary["item.ranged_weapon.description.bellows"  ]; break;
         }
 
+        description += "\n" + ((identified_ && cursed_  ) ? "\n"+Resources::dictionary["item.enchantment.description.cursed"]                                  : "")
+                            +                               "\n"+Resources::dictionary["item.requirement.dexterity"         ]+" "+std::to_string((int) requirement_)
+                            +                               "\n"+Resources::dictionary["item.weapon.damage_dealt"           ]+" "+std::to_string((int) damageDealt_)
+                            + ((identified_ && level_!=0) ? "\n"+Resources::dictionary["item.weapon.level"                  ]+" "+std::to_string((int) level_) : "");
+
         return description;
     }
 

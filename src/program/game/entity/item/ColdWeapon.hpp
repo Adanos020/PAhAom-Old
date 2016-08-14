@@ -18,8 +18,8 @@ namespace rr {
      virtual void initialize() override;
 
     public:  enum Type {
-                 HAMMER,
                  DOUBLE_AXE,
+                 HAMMER,
                  HALBERD,
                  AXE,
                  SERRATED_SWORD,

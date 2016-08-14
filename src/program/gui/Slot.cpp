@@ -63,11 +63,11 @@ namespace rr {
         }
         item_ = getItemFromID(item->getID(), item->getAmount());
 
-        if (  instanceof<Discoverable, Item>(item) && ((Discoverable*)item)->isDiscovered()
-            ) ((Discoverable*)item_)->reveal();
+        if (  instanceof<Discoverable, Item>(item) && ((Discoverable*) item)->isDiscovered()
+            ) ((Discoverable*) item_)->reveal();
 
-        if (  instanceof<Equipable, Item>(item) && ((Equipable*)item)->isEquipped()
-            ) ((Equipable*)item_)->equip(true);
+        if (  instanceof<Equipable, Item>(item)
+            ) ((Equipable*) item_)->equip(((Equipable*) item)->isEquipped());
 
         item_->setPosition(body_.getPosition());
         text_.setString(std::to_string(item_->getAmount()));
@@ -141,7 +141,7 @@ namespace rr {
     bool Slot::containsMouseCursor(sf::RenderWindow& rw) {
         if (  !hollow_
            && instanceof<Equipable, Item>(item_)
-           && ((Equipable*)item_)->isEquipped()
+           && ((Equipable*) item_)->isEquipped()
             ) body_.setOutlineColor(sf::Color(128, 128, 180));
         else  body_.setOutlineColor(sf::Color(130, 130, 130));
 

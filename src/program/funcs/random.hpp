@@ -37,11 +37,13 @@ namespace rr {
     ///
     /// There is a chance equal to the percentage that this function will
     /// return true. To make it work you need to pass the percentage as a
-    /// number in range between 0 and 1, eg. 15.27% = 0.1527.
+    /// number in range between 0 and 1, eg. 15.27% = 0.1527. Note: the
+    /// maximal handled accuracy is to 0.001 so if you use any bigger
+    /// accuracy then it just will be rounded, eg. 0.12345 will become 0.123
     ////////////////////////////////////////////////////////////////////////
     inline bool chance(double percentage) {
-        percentage *= 100000000;
-        return rand()%100000000 < (int)percentage;
+        percentage *= 1000;
+        return rand()%1000 < (int) percentage;
     }
 
     ////////////////////////////////////////////////////////////////////////

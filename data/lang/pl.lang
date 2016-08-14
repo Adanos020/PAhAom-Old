@@ -171,6 +171,21 @@ przeklęty
 item.enchantment.description.cursed
 Ten przedmiot jest przeklęty.
 
+item.requirement.item
+Wymagany przedmiot:
+
+item.requirement.strength
+Wymagana siła:
+
+item.requirement.dexterity
+Wymagana zręczność:
+
+item.weapon.damage_dealt
+Maksymalne obrażenia:
+
+item.weapon.level
+Poziom ulepszenia:
+
 item.ammunition.name.arrow
 Strzała
 
@@ -428,15 +443,6 @@ Kamień jest ciężki, młot też. Kamienny młot musi być wobec tego diabelnie
 
 item.coldweapon.description.runic_sword
 Ten doskonale wykuty i wyważony miecz posiada miejsce na magiczną runę, która zapewni mu dodatkowe, specjalne właściwości. Nawet bez niej jest szybką i cenioną bronią.
-
-item.coldweapon.strength_required
-Wymagana siła:
-
-item.coldweapon.damage_dealt
-Maksymalne obrażenia:
-
-item.coldweapon.level
-Poziom ulepszenia:
 
 item.food.name.meat
 Kawałek szynki
