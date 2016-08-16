@@ -88,10 +88,25 @@ namespace rr {
     sf::String RangedWeapon::getDescription() const {
         sf::String description = "";
         switch (type_) {
-            case BOW      : description += Resources::dictionary["item.ranged_weapon.description.bow"      ]; break;
-            case CROSSBOW : description += Resources::dictionary["item.ranged_weapon.description.crossbow" ]; break;
-            case SLINGSHOT: description += Resources::dictionary["item.ranged_weapon.description.slingshot"]; break;
-            case BELLOWS  : description += Resources::dictionary["item.ranged_weapon.description.bellows"  ]; break;
+            case BOW      : description += Resources::dictionary["item.ranged_weapon.description.bow"]
+                                         + Resources::dictionary["item.requirement.item"] + " "
+                                         + Resources::dictionary["item.ammunition.name.arrow"];
+                            break;
+
+            case CROSSBOW : description += Resources::dictionary["item.ranged_weapon.description.crossbow"]
+                                         + Resources::dictionary["item.requirement.item"] + " "
+                                         + Resources::dictionary["item.ammunition.name.bolt"];
+                            break;
+
+            case SLINGSHOT: description += Resources::dictionary["item.ranged_weapon.description.slingshot"]
+                                         + Resources::dictionary["item.requirement.item"] + " "
+                                         + Resources::dictionary["item.ammunition.name.rocks"];
+                            break;
+
+            case BELLOWS  : description += Resources::dictionary["item.ranged_weapon.description.bellows"]
+                                         + Resources::dictionary["item.requirement.item"] + " "
+                                         + Resources::dictionary["item.ammunition.name.dart"];
+                            break;
         }
 
         description += "\n" + ((identified_ && cursed_  ) ? "\n"+Resources::dictionary["item.enchantment.description.cursed"]                                  : "")

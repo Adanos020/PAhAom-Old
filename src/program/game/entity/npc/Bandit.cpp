@@ -56,7 +56,7 @@ namespace rr {
 
         attackingRight_.addFrame(sf::IntRect(0, type_*32     , 16, 16));
 
-        currentAnimation_ = (chance(1, 2)) ? &standingLeft_ : &standingRight_;
+        currentAnimation_ = chance(1, 2) ? &standingLeft_ : &standingRight_;
 
         attitude_ = AGGRESSIVE;
         state_    = chance(1, 3) ? STANDING : WAITING;
@@ -136,12 +136,6 @@ namespace rr {
         body_.play(*currentAnimation_);
     }
 
-    void Bandit::handleDamage(int damage) {
-        if (  damage >= attrs_.armor
-            ) attrs_.health -= (damage - attrs_.armor);
-        state_ = HUNTING;
-    }
-
     sf::String Bandit::getName() const {
         switch (type_) {
             case CLUB    : return Resources::dictionary["npc.bandit.name.bully"      ]; break;
@@ -152,6 +146,12 @@ namespace rr {
         return "";
     }
 
+    void Bandit::handleDamage(int damage) {
+        if (  damage >= attrs_.armor
+            ) attrs_.health -= (damage - attrs_.armor);
+        state_ = HUNTING;
+    }
+
     void Bandit::attack(NPC* npc) {
         if      (  direction_ == LEFT
                  ) currentAnimation_ = &attackingLeft_;
@@ -159,14 +159,14 @@ namespace rr {
                  ) currentAnimation_ = &attackingRight_;
         body_.setLooped(false);
 
-        int maxDamage;
+        int maxDamage = 0;
         switch (type_) {
-            case CLUB    : maxDamage = 10;
-            case CROSSBOW: maxDamage =  5;
-            case DAGGER  : maxDamage =  8;
+            case CLUB    : maxDamage = 10; break;
+            case CROSSBOW: maxDamage =  5; break;
+            case DAGGER  : maxDamage =  8; break;
         }
 
-        npc->handleDamage(rand()%maxDamage);
+        npc->handleDamage(range(0, maxDamage));
     }
 
     void Bandit::attack(Player* player) {
@@ -176,14 +176,14 @@ namespace rr {
                  ) currentAnimation_ = &attackingRight_;
         body_.setLooped(false);
 
-        int maxDamage;
+        int maxDamage = 0;
         switch (type_) {
-            case CLUB    : maxDamage = 10;
-            case CROSSBOW: maxDamage =  5;
-            case DAGGER  : maxDamage =  8;
+            case CLUB    : maxDamage = 10; break;
+            case CROSSBOW: maxDamage =  5; break;
+            case DAGGER  : maxDamage =  8; break;
         }
 
-        player->handleDamage(rand()%maxDamage);
+        player->handleDamage(range(0, maxDamage));
     }
 
     std::ifstream& Bandit::operator<<(std::ifstream& file) {

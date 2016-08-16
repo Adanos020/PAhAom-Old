@@ -735,9 +735,7 @@ namespace rr {
 
             case PLAYER_DIES : break;
             
-            case NPC_DIES    : tiles_[entity->getGridPosition().x + entity->getGridPosition().y*size_.x] = ROOM;
-                               tilesAsInts_[entity->getGridPosition().x + entity->getGridPosition().y*size_.x] = 2;
-                               entities_.remove(entity);
+            case NPC_DIES    : entities_.remove(entity);
                                break;
 
             default          : break;

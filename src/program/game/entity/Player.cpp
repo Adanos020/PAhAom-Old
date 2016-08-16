@@ -164,7 +164,7 @@ namespace rr {
         if (attrs_.mana       >= attrs_.maxMana)   attrs_.mana         = attrs_.maxMana;
         if (attrs_.experience >= attrs_.nextLevel) {
                                                    attrs_.experience   = 0;
-                                                   attrs_.nextLevel   *= 1.25f;
+                                                   attrs_.nextLevel   *= 1.15f;
                                                    attrs_.level       ++;
                                                    attrs_.skillPoints += (attrs_.faster_learning) ? 15 : 10;
 

@@ -49,8 +49,8 @@ namespace rr {
             /* RANGED WEAPON */
             case  23: return new RangedWeapon(RangedWeapon::BOW                                 , amount);
             case  24: return new RangedWeapon(RangedWeapon::CROSSBOW                            , amount);
-            case  25: return new RangedWeapon(RangedWeapon::BELLOWS                             , amount);
-            case  26: return new RangedWeapon(RangedWeapon::SLINGSHOT                           , amount);
+            case  25: return new RangedWeapon(RangedWeapon::SLINGSHOT                           , amount);
+            case  26: return new RangedWeapon(RangedWeapon::BELLOWS                             , amount);
 
             /* AMMUNITION */
             case  27: return new Ammunition  (Ammunition::ARROW                                 , amount);

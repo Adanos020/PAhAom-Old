@@ -12,10 +12,8 @@
 namespace rr {
 
     class Merchant : public NPC {
-    private: sf::Animation standingStill_;
-    
-             virtual void           initialize()                  override;
-    
+    private: virtual void           initialize()                  override;
+
     public:  enum Type {
                  POTION_SELLER,
                  BOOK_SELLER,

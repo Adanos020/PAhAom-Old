@@ -12,9 +12,7 @@
 namespace rr {
 
     class QuestGiver : public NPC {
-    private: sf::Animation standingStill_;
-    
-             virtual void           initialize()                  override;
+    private: virtual void           initialize()                  override;
     
     public:  enum Type {
                  NONE_YET
