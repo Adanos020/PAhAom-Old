@@ -26,7 +26,7 @@ namespace rr {
       position_        (sf::Vector2i(0, 0)),
       currentAnimation_(&walkingRight_    ),
       moving_          (false             ),
-      velocity_        (1100.f            ),
+      velocity_        (900.f             ),
       sightRange_      (5                 )
     {
         attrs_.health = attrs_.maxHealth =  50.f;
@@ -111,7 +111,8 @@ namespace rr {
         }
     }
 
-    void Player::update(sf::Time timeStep) {
+    void Player::update(sf::Clock& timer) {
+        auto timeStep = timer.getElapsedTime();
         if (moving_) {
             sf::Vector2f offset = body_.getPosition()-(sf::Vector2f) position_*80.f;
             if (offset != sf::Vector2f(0, 0)) {

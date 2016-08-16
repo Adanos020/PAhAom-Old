@@ -38,7 +38,7 @@ namespace rr {
         tFPS_        .setOutlineThickness(1.f);
     }
 
-    void HUD::update(Player* p, int lvl, sf::Time timeStep) {
+    void HUD::update(Player* p, int lvl, sf::Clock& timer) {
         bHP_.setValue(sf::Vector2f(p->getAttributes().health     / p->getAttributes().maxHealth, 1));
         bMP_.setValue(sf::Vector2f(p->getAttributes().mana       / p->getAttributes().maxMana  , 1));
         bXP_.setValue(sf::Vector2f(p->getAttributes().experience / p->getAttributes().nextLevel, 1));
@@ -51,7 +51,7 @@ namespace rr {
         tLevelNumber_.setPosition(sf::Vector2f(Settings::graphics.resolution.x - tLevelNumber_.getSize().x-10, 10));
 
         char buf[64];
-        snprintf(buf, 64, "%.1f", float(1.f/timeStep.asSeconds()));
+        snprintf(buf, 64, "%.1f", 1.f/timer.getElapsedTime().asSeconds());
         tFPS_.setString("FPS: "+sf::String(buf));
     }
 

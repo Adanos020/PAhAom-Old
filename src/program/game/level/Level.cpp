@@ -142,45 +142,79 @@ namespace rr {
         makeOrdersToNPCs(player);
     }
 
-    void Level::update(Game* game, sf::Time time) {
+    void Level::update(Game* game, sf::Clock& timer) {
         for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
             if (instanceof<Door, Entity>(*it)) {
                 if (  game->getPlayer()->collides(*it)
                     ) ((Door*) *it)->setOpen(true);
                 else  ((Door*) *it)->setOpen(false);
             }
-            else if (  instanceof<NPC, Entity>(*it)
-                     ) ((NPC*) *it)->update(time);
+            else if (instanceof<NPC, Entity>(*it)) {
+                auto npc = (NPC*) *it;
+                npc->update(tilesAsInts_, timer.getElapsedTime());
+            }
         }
     }
 
     void Level::makeOrdersToNPCs(Player* player) {
+        // clearing all the previously occupied tiles
+        for (int i=0; i<77*43; ++i) {
+            if (tiles_[i] == OCCUPIED) {
+                tiles_      [i] = ROOM;
+                tilesAsInts_[i] = 2;
+            }
+        }
+
         for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
             if (instanceof<NPC, Entity>(*it)) {
                 auto npc = (NPC*) *it;
 
+                {   auto pos = npc->getGridPosition();
+                    tiles_      [pos.x + pos.y*size_.x] = OCCUPIED;
+                    tilesAsInts_[pos.x + pos.y*size_.x] = 5;    }
+
+                if (npc->getState() == NPC::STANDING) {
+                    while (true) {
+                        int x=rand()%size_.x, y=rand()%size_.y;
+                        if (tiles_[x + y*size_.x] == ROOM && tiles_[x + y*size_.x] != OCCUPIED) {
+                            npc->setDestination(sf::Vector2i(x, y));
+                            npc->setState(NPC::EXPLORING);
+                            break;
+                        }
+                    }
+                }
+
                 if (npc->getAttitude() == NPC::AGGRESSIVE && npc->getState() == NPC::HUNTING) { // the npc is either aggressive and hunting
                     int detector = npc->detects(player);
                     if (detector != -1) { // the npc detects player
+
+                        if      ( (detector == 0 || detector == 3 || detector == 5) && npc->getDirection() != NPC::LEFT
+                                 ) npc->setDirection(NPC::LEFT);
+                        else if ( (detector == 2 || detector == 4 || detector == 7) && npc->getDirection() != NPC::RIGHT
+                                 ) npc->setDirection(NPC::RIGHT);
+
                         if (instanceof<Bandit, NPC>(npc)) { // the npc is a bandit
                             bool hit = false;
                             switch (((Bandit*) npc)->getType()) {
-                                case Bandit::CLUB    : if (chance(ColdWeapon  (ColdWeapon  ::CLUB    ).getAccuracy()*2, 21)) {
+                                case Bandit::CLUB    : if (chance(ColdWeapon(ColdWeapon::CLUB).getAccuracy()*2, 21)) {
                                                            ((Bandit*) npc)->attack(player);
                                                            hit = true;
                                                        }
                                                        break;
+
                                 case Bandit::CROSSBOW: if (chance(RangedWeapon(RangedWeapon::CROSSBOW).getAccuracy()*2, 21)) {
                                                            ((Bandit*) npc)->attack(player);
                                                            hit = true;
                                                        }
                                                        break;
-                                case Bandit::DAGGER  : if (chance(ColdWeapon  (ColdWeapon  ::DAGGER  ).getAccuracy()*2, 21)) {
+
+                                case Bandit::DAGGER  : if (chance(ColdWeapon(ColdWeapon::DAGGER).getAccuracy()*2, 21)) {
                                                            ((Bandit*) npc)->attack(player);
                                                            hit = true;
                                                        }
                                                        break;
                             }
+
                             if (  hit
                                 ) subject.notify(NPC_ATTACK_SUCCESS, npc); // the npc hit the player
                             else  subject.notify(NPC_ATTACK_FAILURE, npc); // the player dodged the attack
@@ -675,14 +709,14 @@ namespace rr {
         for (int i=0; i<(int) rand()%15+15; ++i) {
             while (true) {
                 int x=rand()%size_.x, y=rand()%size_.y;
-                if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED) {
+                if (tiles_[x + y*size_.x] == ROOM && tiles_[x + y*size_.x] != OCCUPIED) {
                     int weapon = rand()%3;
                     switch (weapon) {
                         case 0: addEntity(new Bandit(Bandit::CLUB    ), sf::Vector2i(x, y)); break;
                         case 1: addEntity(new Bandit(Bandit::CROSSBOW), sf::Vector2i(x, y)); break;
                         case 2: addEntity(new Bandit(Bandit::DAGGER  ), sf::Vector2i(x, y)); break;
                     }
-                    tiles_[x+y*size_.x] = OCCUPIED;
+                    tiles_[x + y*size_.x] = OCCUPIED;
                     break;
                 }
             }

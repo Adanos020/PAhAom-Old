@@ -28,9 +28,9 @@ namespace rr {
         }
     }
 
-    void MessageManager::update(sf::Time timeStep) {
+    void MessageManager::update(sf::Clock& timer) {
         for (auto i=messages_.begin(); i!=messages_.end(); ++i) {
-            i->update(timeStep);
+            i->update(timer.getElapsedTime());
             if (i->getColor().a < 10) {
                 messages_.erase(i);
                 break;

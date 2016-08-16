@@ -22,17 +22,26 @@ namespace rr {
 
     class NPC : public Entity {
     protected: struct Attrs {
-                 float health;
-                 float maxHealth;
-                 int   level;
-                 float armor;
-               }                         attrs_;
-               sf::AnimatedSprite        body_;
-               sf::Animation*            currentAnimation_;
+                   float health;
+                   float maxHealth;
+                   int   level;
+                   float armor;
+               }                        attrs_;
+               sf::AnimatedSprite       body_;
+               sf::Animation*           currentAnimation_;
+               sf::Animation            standingLeft_;
+               sf::Animation            standingRight_;
+               sf::Animation            walkingLeft_;
+               sf::Animation            walkingRight_;
+               sf::Animation            attackingLeft_;
+               sf::Animation            attackingRight_;
 
-               std::stack<sf::Vector2i> path_;
+               sf::Vector2i             entityDetector_[8];
+               sf::Vector2i             position_;
+               sf::Vector2i             destination_;
 
-               sf::Vector2i entityDetector_[8];
+               bool                     moving_;
+               float                    velocity_;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets all the player detectors' positions.
@@ -51,9 +60,16 @@ namespace rr {
                };
                enum State {
                    STANDING,
+                   WAITING,
                    EXPLORING,
                    HUNTING,
                    ESCAPING
+               };
+               enum Direction {
+                   UP,
+                   DOWN,
+                   LEFT,
+                   RIGHT
                };
 
                ////////////////////////////////////////////////////////////////////////
@@ -69,20 +85,12 @@ namespace rr {
                /// The things updated in this function are the animations, states of
                /// the seeked path, moving the NPC, etc.
                ////////////////////////////////////////////////////////////////////////
-       virtual void update(sf::Time timeStep) = 0;
+       virtual void update(int tiles[], sf::Time timeStep) = 0;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Handles the damage that the NPC got.
                ////////////////////////////////////////////////////////////////////////
        virtual void handleDamage(int damage) = 0;
-
-               ////////////////////////////////////////////////////////////////////////
-               /// \brief Sets the path that the NPC has to follow.
-               ///
-               /// \param path a vector of positions the NPC has to visit in a specific
-               /// order.
-               ////////////////////////////////////////////////////////////////////////
-       virtual void setPath(std::vector<sf::Vector2i>) = 0;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the NPC's name.
@@ -93,7 +101,7 @@ namespace rr {
                /// \brief Sets the NPC's position relatively to the grid marked out by
                /// the level's tile map.
                ////////////////////////////////////////////////////////////////////////
-       virtual void setGridPosition (sf::Vector2i pos) override;
+       virtual void setGridPosition(sf::Vector2i) override;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the NPC's position relatively to the grid marked out
@@ -105,7 +113,7 @@ namespace rr {
                /// \brief Sets the NPC's position relatively to the graphics card's
                /// coordinate system.
                ////////////////////////////////////////////////////////////////////////
-       virtual void setPosition(sf::Vector2f pos) override;
+       virtual void setPosition(sf::Vector2f) override;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the NPC's position relatively to the graphics card's
@@ -117,12 +125,22 @@ namespace rr {
                /// \brief Tells if another entity's bound box intersects with the NPC's
                /// bound box.
                ////////////////////////////////////////////////////////////////////////
-       virtual bool collides(Entity* e) const override;
+       virtual bool collides(Entity*) const override;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the NPC's bound box.
                ////////////////////////////////////////////////////////////////////////
        virtual sf::FloatRect getBounds() const override;
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Sets the destination the NPC has to find a path to.
+               ////////////////////////////////////////////////////////////////////////
+               void setDestination(sf::Vector2i);
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Returns the destination the NPC has to find a path to.
+               ////////////////////////////////////////////////////////////////////////
+               sf::Vector2i getDestination() const;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets the NPC's attitude to the Player.
@@ -135,19 +153,7 @@ namespace rr {
                /// - AGGRESSIVE (the NPC starts chasing the Player if he sees him and
                /// tries to attack)
                ////////////////////////////////////////////////////////////////////////
-               void setAttitude(Attitude attitude);
-
-               ////////////////////////////////////////////////////////////////////////
-               /// \brief Sets the NPC's state moving.
-               ///
-               /// The possible values are:
-               /// - STANDING (just stands in one place)
-               /// - EXPLORING (picks random points on the map and goes towards them)
-               /// - HUNTING (chases the Player and tries to attack him)
-               /// - ESCAPING (is frightened of something and tries to find a way to
-               /// get as far as he cannot se it)
-               ////////////////////////////////////////////////////////////////////////
-               void setState(State state);
+               void setAttitude(Attitude);
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the NPC's attitude to the Player.
@@ -163,7 +169,19 @@ namespace rr {
                Attitude getAttitude() const;
 
                ////////////////////////////////////////////////////////////////////////
-               /// \brief Returns the NPC's state moving.
+               /// \brief Sets the NPC's moving state.
+               ///
+               /// The possible values are:
+               /// - STANDING (just stands in one place)
+               /// - EXPLORING (picks random points on the map and goes towards them)
+               /// - HUNTING (chases the Player and tries to attack him)
+               /// - ESCAPING (is frightened of something and tries to find a way to
+               /// get as far as he cannot se it)
+               ////////////////////////////////////////////////////////////////////////
+               void setState(State);
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Returns the NPC's moving state.
                ///
                /// The possible values are:
                /// - STANDING (just stands in one place)
@@ -173,6 +191,35 @@ namespace rr {
                /// get as far as he cannot se it)
                ////////////////////////////////////////////////////////////////////////
                State getState() const;
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Sets the NPC's facing direction.
+               ///
+               /// The possible values are:
+               /// - UP
+               /// - DOWN
+               /// - LEFT
+               /// - RIGHT
+               ////////////////////////////////////////////////////////////////////////
+               void setDirection(Direction);
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Returns the NPC's facing direction.
+               ///
+               /// The possible values are:
+               /// - UP
+               /// - DOWN
+               /// - LEFT
+               /// - RIGHT
+               ////////////////////////////////////////////////////////////////////////
+               Direction getDirection() const;
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Moves the NPC to a cell in a given direction.
+               ///
+               /// \param tiles the set of tiles of the level in which the NPC moves
+               ////////////////////////////////////////////////////////////////////////
+               void move(int[], Direction);
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Gives a read-only access to the NPC's attributes.
@@ -201,8 +248,9 @@ namespace rr {
                ////////////////////////////////////////////////////////////////////////
                int detects(Entity*) const;
 
-    protected: Attitude attitude_;
-               State    state_;
+    protected: Attitude  attitude_;
+               State     state_;
+               Direction direction_;
     };
 
 }

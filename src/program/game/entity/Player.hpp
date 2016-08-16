@@ -139,7 +139,9 @@ namespace rr {
      virtual sf::FloatRect getBounds() const override { return body_.getGlobalBounds(); }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Moves the player's character's to a cell in a given direction
+             /// \brief Moves the player's character to a cell in a given direction.
+             ///
+             /// \param tiles the set of tiles of the level in which the player moves
              ////////////////////////////////////////////////////////////////////////
              void move(int[], Direction);
 
@@ -171,7 +173,7 @@ namespace rr {
              /// The things updated in this function are the animations, states of
              /// the seeked path, moving the player, etc.
              ////////////////////////////////////////////////////////////////////////
-             void update(sf::Time);
+             void update(sf::Clock&);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Makes the player attack an NPC.

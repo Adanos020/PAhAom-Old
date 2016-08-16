@@ -25,15 +25,17 @@ namespace rr {
     }
 
     void NPC::setGridPosition(sf::Vector2i pos) {
+        position_ = pos;
         body_.setPosition((sf::Vector2f) pos*80.f);
         placeDetectors();
     }
 
     sf::Vector2i NPC::getGridPosition() const {
-        return (sf::Vector2i) body_.getPosition()/80;
+        return position_;
     }
 
     void NPC::setPosition(sf::Vector2f pos) {
+        position_ = (sf::Vector2i) pos/80;
         body_.setPosition(pos);
         placeDetectors();
     }
@@ -50,20 +52,63 @@ namespace rr {
         return body_.getGlobalBounds();
     }
 
-    void NPC::setAttitude(Attitude attitude) {
-        attitude_ = attitude;
+    void NPC::setDestination(sf::Vector2i dest) {
+        destination_ = dest;
     }
 
-    void NPC::setState(State state) {
-        state_ = state;
+    sf::Vector2i NPC::getDestination() const {
+        return destination_;
+    }
+
+    void NPC::setAttitude(Attitude attitude) {
+        attitude_ = attitude;
     }
 
     NPC::Attitude NPC::getAttitude() const {
         return attitude_;
     }
 
+    void NPC::setState(State state) {
+        state_ = state;
+    }
+
     NPC::State NPC::getState() const {
         return state_;
+    }
+
+    void NPC::setDirection(Direction direction) {
+        direction_ = direction;
+    }
+
+    NPC::Direction NPC::getDirection() const {
+        return direction_;
+    }
+
+    void NPC::move(int tiles[], Direction di) {
+        if (!moving_) {
+            if (di == UP    && (tiles[position_.x   + (position_.y-1)*77] != 1 && tiles[position_.x   + (position_.y-1)*77] != 5)) {
+                position_ = sf::Vector2i(position_.x, position_.y-1);
+                moving_ = true;
+            }
+            if (di == DOWN  && (tiles[position_.x   + (position_.y+1)*77] != 1 && tiles[position_.x   + (position_.y+1)*77] != 5)) {
+                position_ = sf::Vector2i(position_.x, position_.y+1);
+                moving_ = true;
+            }
+            if (di == LEFT) {
+                if (tiles[position_.x-1 + position_.y*77] != 1 && tiles[position_.x-1 + position_.y*77] != 5) {
+                    position_ = sf::Vector2i(position_.x-1, position_.y);
+                    moving_ = true;
+                }
+                currentAnimation_ = &walkingLeft_;
+            }
+            if (di == RIGHT) {
+                if (tiles[position_.x+1 + position_.y*77] != 1 && tiles[position_.x+1 + position_.y*77] != 5) {
+                    position_ = sf::Vector2i(position_.x+1, position_.y);
+                    moving_ = true;
+                }
+                currentAnimation_ = &walkingRight_;
+            }
+        }
     }
 
     NPC::Attrs NPC::getAttributes() const {

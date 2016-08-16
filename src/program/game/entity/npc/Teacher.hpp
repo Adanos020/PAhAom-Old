@@ -12,12 +12,20 @@
 namespace rr {
 
     class Teacher : public NPC {
-    private: sf::Animation standingStill_;
-
+    private: struct {   // Structure for buffs - each buff is represented by an integer
+                        // which tells for how many turns is it going to be valid.
+             public: int speed;
+                     int regeneration;
+                     int poison;
+                     int slowness;
+                     int weakness;
+                     int hunger;
+             } buffs_;
+             
              ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the teacher.
              ////////////////////////////////////////////////////////////////////////
-             virtual void           initialize()                             override;
+     virtual void initialize() override;
 
     public:  enum Type {
                  SWORDSMAN,
@@ -50,7 +58,7 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
              /// \brief Creates an exact copy of the teacher.
              ////////////////////////////////////////////////////////////////////////
-             virtual Entity* clone() const override { return new Teacher(*this); }
+     virtual Entity* clone() const override { return new Teacher(*this); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Updates the teacher's state.
@@ -60,20 +68,12 @@ namespace rr {
              /// The things updated in this function are the animations, states of
              /// the seeked path, moving the teacher, etc.
              ////////////////////////////////////////////////////////////////////////
-             virtual void update(sf::Time timeStep) override;
+     virtual void update(int tiles[], sf::Time timeStep) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Handles the damage that the teacher got.
              ////////////////////////////////////////////////////////////////////////
-             virtual void handleDamage(int damage) override;
-
-             ////////////////////////////////////////////////////////////////////////
-             /// \brief Sets the path that the teacher has to follow.
-             ///
-             /// \param path a vector of positions the teacher has to visit in a
-             /// specific order.
-             ////////////////////////////////////////////////////////////////////////
-             virtual void setPath(std::vector<sf::Vector2i>) override;
+     virtual void handleDamage(int damage) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the bandit's name.
@@ -83,12 +83,12 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reads the teacher from the file.
              ////////////////////////////////////////////////////////////////////////
-             virtual std::ifstream& operator<<(std::ifstream&) override;
+     virtual std::ifstream& operator<<(std::ifstream&) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Saves the teacher to the file.
              ////////////////////////////////////////////////////////////////////////
-             virtual std::ofstream& operator>>(std::ofstream&) override;
+     virtual std::ofstream& operator>>(std::ofstream&) override;
 
     private: Type type_;
     };

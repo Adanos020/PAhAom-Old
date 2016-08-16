@@ -32,14 +32,21 @@ namespace sf {
 
     class Animation {
     public:  Animation();
- 
-             void               addFrame      (sf::IntRect rect);
+
+             void               addFrame      (sf::IntRect);
              void               clearFrames   ();
-             void               setSpriteSheet(const sf::Texture& texture);
-             const sf::Texture* getSpriteSheet()              const;
-             std::size_t        getSize       ()              const;
-             const sf::IntRect& getFrame      (std::size_t n) const;
-    
+             void               setSpriteSheet(const sf::Texture&);
+             const sf::Texture* getSpriteSheet()                 const;
+             std::size_t        getSize       ()                 const;
+             const sf::IntRect& getFrame      (std::size_t n)    const;
+
+             // These operator overloads were not added by the author of this class.
+             // I've added them to make the work with animations easier for me.
+             // But still this doesn't remove the credit from the author of this software
+             // mentioned in the notice above.
+             bool               operator==    (const Animation&) const;
+             bool               operator!=    (const Animation&) const;
+
     private: std::vector<sf::IntRect> m_frames;
              const sf::Texture*       m_texture;
     };

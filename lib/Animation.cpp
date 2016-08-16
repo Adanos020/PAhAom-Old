@@ -59,4 +59,14 @@ namespace sf {
         return m_frames[n];
     }
 
+    bool Animation::operator==(const Animation& right) const {
+        return m_frames  == right.m_frames
+            && m_texture == right.m_texture;
+    }
+
+    bool Animation::operator!=(const Animation& right) const {
+        return m_frames  != right.m_frames
+            || m_texture != right.m_texture;
+    }
+
 }

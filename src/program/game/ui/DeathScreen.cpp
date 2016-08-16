@@ -53,7 +53,7 @@ namespace rr {
         }
     }
 
-    void DeathScreen::update(sf::Time timeStep) {
+    void DeathScreen::update(sf::Clock& timer) {
         if (visible_) {
             if (endAnimation_.asSeconds() <= 1.f) {
                 sf::Color shadow  = shadow_  .getFillColor();
@@ -65,7 +65,7 @@ namespace rr {
                 shadow_  .setFillColor(shadow);
                 tYouDied_.setFillColor(youdied);
 
-                endAnimation_ += timeStep;
+                endAnimation_ += timer.getElapsedTime();
             }
         }
     }

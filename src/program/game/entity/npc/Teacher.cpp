@@ -7,8 +7,8 @@
 #include <iostream>
 
 #include "../../../Resources.hpp"
-
 #include "../../../funcs/files.hpp"
+#include "../../../path_finder/PathFinder.hpp"
 
 #include "Teacher.hpp"
 
@@ -17,9 +17,10 @@ namespace rr {
     Teacher::Teacher(Type type) :
       type_(type)
     {
-        attrs_.health   = attrs_.maxHealth = 100.f;
-        attrs_.armor                       =  50.f;
-        attrs_.level                       =  30  ;
+        velocity_                        = 900.f;
+        attrs_.health = attrs_.maxHealth = 100.f;
+        attrs_.armor                     =  50.f;
+        attrs_.level                     =  30  ;
 
         initialize();
         body_.scale(sf::Vector2f(5, 5));
@@ -28,38 +29,93 @@ namespace rr {
     Teacher::Teacher(Teacher const& copy) :
       type_(copy.type_)
     {
+        velocity_         = copy.velocity_;
         body_             = copy.body_;
         currentAnimation_ = copy.currentAnimation_;
     }
 
     void Teacher::initialize() {
-        standingStill_.setSpriteSheet(Resources::texture.npc);
+        standingLeft_.setSpriteSheet(Resources::texture.npc);
 
-        for (int i=0; i<((type_ == KUNG_FU_MASTER)?20:10); i++) {
-            standingStill_.addFrame(sf::IntRect(i*16, type_*16, 16, 16));
+        for (int i=0; i<(type_ == KUNG_FU_MASTER ? 20 : 10); i++) {
+            standingLeft_.addFrame(sf::IntRect(i*16, type_*16, 16, 16));
         }
 
-        currentAnimation_ = &standingStill_;
+        currentAnimation_ = &standingLeft_;
 
         attitude_ = NEUTRAL;
 
-        body_.setAnimation      (*currentAnimation_);
-        body_.setLooped         (true);
+        body_.setAnimation(*currentAnimation_);
+        body_.setLooped   (true);
+        
         if (  type_ == MAGE
             ) body_.setFrameTime(sf::seconds(.4f));
         else  body_.setFrameTime(sf::seconds(.2f));
     }
 
-    void Teacher::update(sf::Time timeStep) {
+    void Teacher::update(int tiles[], sf::Time timeStep) {
+        if (moving_) {
+            sf::Vector2f offset = body_.getPosition()-(sf::Vector2f) position_*80.f;
+            if (offset != sf::Vector2f(0, 0)) {
+                if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep.asSeconds(),  0));
+                if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep.asSeconds(),  0));
+                if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep.asSeconds()));
+                if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep.asSeconds()));
+            }
+            else {
+                buffs_.speed        -= (buffs_.speed        == 0 ? 0 : 1);
+                buffs_.regeneration -= (buffs_.regeneration == 0 ? 0 : 1);
+                buffs_.poison       -= (buffs_.poison       == 0 ? 0 : 1);
+                buffs_.slowness     -= (buffs_.slowness     == 0 ? 0 : 1);
+                buffs_.weakness     -= (buffs_.weakness     == 0 ? 0 : 1);
+
+                if (  buffs_.poison > 0
+                    ) attrs_.health -= 1.f;
+
+                if (  buffs_.regeneration > 0
+                    ) attrs_.health += 0.15f;
+
+                moving_ = false;
+            }
+
+            if (  (abs(offset.x) < velocity_/128 && abs(offset.x) > 0) // preventing the teacher from wobbling
+               || (abs(offset.y) < velocity_/128 && abs(offset.y) > 0) // in between of two cells
+                )  body_.setPosition((sf::Vector2f) position_*80.f);
+        }
+
         body_.update(timeStep);
+
+        switch (state_) {
+            case STANDING : if      (   direction_        == LEFT
+                                    && *currentAnimation_ != standingLeft_
+                                     )  currentAnimation_ = &standingLeft_;
+
+                            else if (   direction_        == RIGHT
+                                    && *currentAnimation_ != standingRight_
+                                     )  currentAnimation_ = &standingRight_;
+                            break;
+
+            case WAITING  : break;
+
+            case EXPLORING: if (!moving_) {
+                                if (position_ == destination_) {/*
+                                    position_ = PathFinder::aStar(position_, destination_, tiles)[0] - position_;
+                                    moving_ = true;*/
+                                } else {
+                                    state_ = STANDING;
+                                }
+                            }
+                            break;
+            
+            case HUNTING  : break;
+            
+            case ESCAPING : break;
+        }
+
         body_.play(*currentAnimation_);
     }
 
     void Teacher::handleDamage(int damage) {
-        
-    }
-
-    void Teacher::setPath(std::vector<sf::Vector2i> path) {
         
     }
 

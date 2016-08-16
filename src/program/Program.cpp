@@ -49,15 +49,15 @@ namespace rr {
         }
     }
 
-    void Program::update(sf::Clock& timer) {
-        if (  game_->isStarted()
-            ) game_->update(event_, timer.getElapsedTime());
-    }
-
     void Program::draw() {
         window_.clear  ();
         game_ ->draw   (window_);
         window_.display();
+    }
+
+    void Program::update(sf::Clock& timer) {
+        if (  game_->isStarted()
+            ) game_->update(event_, timer);
     }
 
     void Program::mainLoop() {

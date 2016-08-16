@@ -72,7 +72,7 @@ namespace rr {
              ///
              /// If a message's life time expires, then it is deleted.
              ////////////////////////////////////////////////////////////////////////
-             void update(sf::Time);
+             void update(sf::Clock&);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the messages on the screen.

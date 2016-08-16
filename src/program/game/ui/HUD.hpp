@@ -33,7 +33,7 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
              /// \brief Updates the HUD's state.
              ////////////////////////////////////////////////////////////////////////
-             void update(Player*, int lvl, sf::Time);
+             void update(Player*, int lvl, sf::Clock&);
     };
 
 }

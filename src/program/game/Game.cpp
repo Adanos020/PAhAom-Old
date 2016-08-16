@@ -27,13 +27,13 @@ extern int         spellSymbols[12];
 namespace rr {
 
     Game::Game() :
-      currentLevel_  (nullptr            ),
-      inventory_     (Inventory(&player_)),
-      started_       (false              ),
-      paused_        (false              ),
-      mapOpen_       (false              ),
-      lost_          (false              ),
-      levelNumber_   (0                  )
+      currentLevel_(nullptr            ),
+      inventory_   (Inventory(&player_)),
+      started_     (false              ),
+      paused_      (false              ),
+      mapOpen_     (false              ),
+      lost_        (false              ),
+      levelNumber_ (0                  )
     {
         gameView_.setSize  ((sf::Vector2f) Settings::graphics.resolution);
 
@@ -88,13 +88,13 @@ namespace rr {
             file.close();   }
 
         bool ascending = false;
-        if (index > (int)levelNumber_) {
+        if (index > (int) levelNumber_) {
             if (  levelNumber_ < 29
                 ) levelNumber_++;
             else return;
             ascending = true;
         }
-        else if (index < (int)levelNumber_) {
+        else if (index < (int) levelNumber_) {
             if (  levelNumber_ > 0
                 ) levelNumber_--;
             else return;
@@ -285,13 +285,12 @@ namespace rr {
         }
     }
 
-    void Game::update(sf::Event& event, sf::Time time) {
+    void Game::update(sf::Event& event, sf::Clock& timer) {
         controls(event);
 
-        player_        .update(time);
-        hud_           .update(&player_, levelNumber_+1, time);
-        messageManager_.update(time);
-        deathScreen_   .update(time);
+        player_        .update(timer);
+        messageManager_.update(timer);
+        deathScreen_   .update(timer);
 
         // the player dies
         if (!lost_ && player_.getAttributes().health == 0) {
@@ -306,8 +305,10 @@ namespace rr {
         gameView_.setCenter(sf::Vector2f(player_.getBounds().left+40, player_.getBounds().top+40));
 
         if (started_ && !paused_) {
-            currentLevel_->update(this, time);
+            currentLevel_->update(this, timer);
         }
+
+        hud_.update(&player_, levelNumber_+1, timer);
     }
 
     void Game::controls(sf::Event& event) {

@@ -20,12 +20,12 @@ namespace rr {
         Node* current;
         Node* child;
 
-        unsigned n = 0;
+        unsigned n = 0, tries = 0;
 
         start->setOpened(true);
         opened.push_back(start);
 
-        while (n == 0 || (current != end)) {
+        while ((n == 0 || (current != end)) && tries < 10000) {
             for (auto it=opened.begin(); it!=opened.end(); ++it) {
                 if (  it == opened.begin() || (*it)->getF() <= current->getF()
                     ) current = *it;
@@ -74,6 +74,7 @@ namespace rr {
             }
 
             ++n;
+            ++tries;
         }
 
         for (auto it=opened.begin(); it!=opened.end(); ++it) {

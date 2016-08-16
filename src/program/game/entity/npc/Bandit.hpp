@@ -14,14 +14,17 @@
 namespace rr {
 
     class Bandit : public NPC {
-    private: sf::Animation standingLeft_;
-             sf::Animation standingRight_;
-             sf::Animation walkingLeft_;
-             sf::Animation walkingRight_;
-             sf::Animation attackingLeft_;
-             sf::Animation attackingRight_;
+    private: bool          moving_;
 
-             bool          moving_;
+             struct {   // Structure for buffs - each buff is represented by an integer
+                        // which tells for how many turns is it going to be valid.
+             public: int speed;
+                     int regeneration;
+                     int poison;
+                     int slowness;
+                     int weakness;
+                     int hunger;
+             } buffs_;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the bandit.
@@ -67,20 +70,12 @@ namespace rr {
              /// The things updated in this function are the animations, states of
              /// the seeked path, moving the bandit, etc.
              ////////////////////////////////////////////////////////////////////////
-     virtual void update(sf::Time timeStep) override;
+     virtual void update(int tiles[], sf::Time timeStep) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Handles the damage that the bandit got.
              ////////////////////////////////////////////////////////////////////////
      virtual void handleDamage(int damage) override;
-
-             ////////////////////////////////////////////////////////////////////////
-             /// \brief Sets the path that the bandit has to follow.
-             ///
-             /// \param path a vector of positions the bandit has to visit in a
-             /// specific order.
-             ////////////////////////////////////////////////////////////////////////
-     virtual void setPath(std::vector<sf::Vector2i>) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the bandit's name.
