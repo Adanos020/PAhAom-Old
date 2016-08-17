@@ -116,7 +116,7 @@ namespace rr {
         try {
             std::ifstream iconfig("config.cfg");
             if ( !iconfig.good()
-                ) throw "File not found";
+                ) throw std::runtime_error("File not found");
             std::cout << ">Loading a config file...\n";
 
             while (!iconfig.eof()) {
@@ -165,6 +165,17 @@ namespace rr {
             std::cout << ">Done.\n";
         } 
         catch (std::invalid_argument ex) {
+            std::cerr << ex.what() << '\n';
+            std::cout << ">Creating a new config file...\n";
+
+            game     = Settings::Game();
+            graphics = Settings::Graphics();
+            sound    = Settings::Sound();
+            keys     = Settings::Keys();
+
+            save();
+        }
+        catch (std::runtime_error ex) {
             std::cerr << ex.what() << '\n';
             std::cout << ">Creating a new config file...\n";
 

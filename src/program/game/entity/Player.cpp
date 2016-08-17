@@ -139,7 +139,7 @@ namespace rr {
 
                 if      (  buffs_.hunger < 500
                          ) attrs_.health += (attrs_.health_regeneration ? 0.1f : 0.05f);
-                else if (  buffs_.hunger < 500
+                else if (  buffs_.hunger < 1000
                          ) attrs_.health += (attrs_.health_regeneration ? 0.05f : 0.f);
                 else if (  buffs_.hunger >= 1000
                          ) attrs_.health -= (attrs_.health_regeneration ? 0.f : 0.05f);

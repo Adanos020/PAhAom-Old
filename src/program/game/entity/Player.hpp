@@ -48,8 +48,8 @@ namespace rr {
                      bool  faster_learning;
              } attrs_;
 
-             struct {   // Structure for buffs - each buff is represented by an integer
-                        // which tells for how many turns is it going to be valid.
+             struct Buffs {   // Structure for buffs - each buff is represented by an integer
+                              // which tells for how many turns is it going to be valid.
              public: int speed;
                      int regeneration;
                      int poison;
@@ -194,6 +194,11 @@ namespace rr {
              /// \brief Returns the player's attributes.
              ////////////////////////////////////////////////////////////////////////
              Attrs getAttributes() const { return attrs_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the player's attributes.
+             ////////////////////////////////////////////////////////////////////////
+             Buffs getBuffs() const { return buffs_; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's sight range.

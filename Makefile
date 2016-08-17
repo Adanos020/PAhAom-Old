@@ -1,3 +1,4 @@
+
 #    ==========================================================
 #     PAhAom makefile by Artem G (2016)
 #    =========================================================
@@ -6,18 +7,19 @@
 
 #Global definitions
 INC = 
-CFLAGS = -Wall -std=c++14
+CFLAGS = -Wall -std=c++14 -DSFML_STATIC
 RESINC = 
 LIBDIR = 
-LIB = 
-LDFLAGS = 
+#napraw to gasiorex dodaj liby dla linuxa najlepiej tez static ale w tym ifie koniecznie!! LIB = 
+LDFLAGS = -static-libgcc -static-libstdc++
 
 INC_DEBUG = $(INC)
 CFLAGS_DEBUG = $(CFLAGS) -g
 RESINC_DEBUG = $(RESINC)
 RCFLAGS_DEBUG = $(RCFLAGS)
 LIBDIR_DEBUG = $(LIBDIR)
-LIB_DEBUG = $(LIB)-lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
+LIB_DEBUG = $(LIB)
+
 LDFLAGS_DEBUG = $(LDFLAGS)
 
 INC_RELEASE = $(INC)
@@ -25,7 +27,7 @@ CFLAGS_RELEASE = $(CFLAGS) -O2
 RESINC_RELEASE = $(RESINC)
 RCFLAGS_RELEASE = $(RCFLAGS)
 LIBDIR_RELEASE = $(LIBDIR)
-LIB_RELEASE = $(LIB)-lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
+LIB_RELEASE = $(LIB)
 LDFLAGS_RELEASE = $(LDFLAGS) -s
 
 #OS-like definitions
@@ -36,28 +38,30 @@ ifeq ($(OS),Windows_NT)
 	AR = ar
 	LD = g++
 	WINDRES = windres
-	INC += 
-	CFLAGS += 
-	RESINC += 
-	LIBDIR += 
-	LIB += 
-	LDFLAGS += 
-	INC_DEBUG += 
-	CFLAGS_DEBUG += 
-	RESINC_DEBUG += 
-	RCFLAGS_DEBUG += 
-	LIBDIR_DEBUG += 
-	LIB_DEBUG ++= 
-	LDFLAGS_DEBUG += 
-	DEP_DEBUG += 
+	INC +=
+	CFLAGS +=
+	RESINC +=
+	LIBDIR +=
+	LIB =\
+-lsfml-audio-s -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lsfml-main \
+-lopengl32 -lfreetype -ljpeg -lwinmm -lgdi32 -lopenal32 -lflac -lvorbisenc -lvorbisfile -lvorbis -logg
+	LDFLAGS +=
+	INC_DEBUG +=
+	CFLAGS_DEBUG +=
+	RESINC_DEBUG +=
+	RCFLAGS_DEBUG +=
+	LIBDIR_DEBUG +=
+	LIB_DEBUG +=
+	LDFLAGS_DEBUG +=
+	DEP_DEBUG +=
 	OUT_DEBUG = bin/Debug/pahaom.exe
-	INC_RELEASE += 
-	CFLAGS_RELEASE += 
-	RESINC_RELEASE += 
-	RCFLAGS_RELEASE += 
-	LIBDIR_RELEASE += 
-	LIB_RELEASE += 
-	LDFLAGS_RELEASE += 
+	INC_RELEASE +=
+	CFLAGS_RELEASE +=
+	RESINC_RELEASE +=
+	RCFLAGS_RELEASE +=
+	LIBDIR_RELEASE +=
+	LIB_RELEASE +=
+	LDFLAGS_RELEASE +=
 	OUT_RELEASE = bin/Release/pahaom.exe
 else
 	WORKDIR = $(shell pwd)
@@ -70,26 +74,27 @@ else
 	CFLAGS += 
 	RESINC += 
 	LIBDIR += 
-	LIB += 
+	LIB +=\
+-lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 	LDFLAGS += 
-	INC_DEBUG += 
-	CFLAGS_DEBUG += 
-	RESINC_DEBUG += 
-	RCFLAGS_DEBUG += 
+	INC_DEBUG +=  
+	CFLAGS_DEBUG +=  
+	RESINC_DEBUG +=  
+	RCFLAGS_DEBUG +=  
 	LIBDIR_DEBUG += 
-	LIB_DEBUG += 
-	LDFLAGS_DEBUG += 
-	DEP_DEBUG += 
+	LIB_DEBUG +=  
+	LDFLAGS_DEBUG +=  
+	DEP_DEBUG +=  
 	OUT_DEBUG = bin/Debug/pahaom
-	INC_RELEASE += 
-	CFLAGS_RELEASE += 
-	RESINC_RELEASE += 
-	RCFLAGS_RELEASE += 
+	INC_RELEASE +=  
+	CFLAGS_RELEASE +=  
+	RESINC_RELEASE +=  
+	RCFLAGS_RELEASE +=  
 	LIBDIR_RELEASE += 
-	LIB_RELEASE += 
-	LDFLAGS_RELEASE += 
+	LIB_RELEASE +=  
+	LDFLAGS_RELEASE +=  
 	OUT_RELEASE = bin/Release/pahaom
-endif
+endif  
 
 #Objects list
 OBJ_DEBUG =\
@@ -211,10 +216,10 @@ debug: debug_before debug_link debug_after
 
 debug_before: 
 ifeq ($(OS),Windows_NT)
-	mkdir bin\Debug
+	-mkdir bin\Debug
+	-mkdir obj
 else
-	mkdir -p bin
-	mkdir -p bin/Debug
+
 endif
 	
 debug_link: $(OBJ_DEBUG)
@@ -231,10 +236,9 @@ release: release_before release_link release_after
 
 release_before: 
 ifeq ($(OS),Windows_NT)
-	mkdir bin\Release
+	-mkdir bin\Release
 else
-	mkdir -p bin
-	mkdir -p bin/Release
+	
 endif
 	
 release_link: $(OBJ_RELEASE)

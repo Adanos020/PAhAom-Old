@@ -161,6 +161,7 @@ namespace rr {
         inventory_.addItem(new ColdWeapon(ColdWeapon::KNIFE));
         inventory_.addItem(new Food(Food::BAGUETTE));
         inventory_.addItem(new Potion(Potion::HEALING));
+        inventory_.addItem(new Potion(Potion::POISON));
 
         return true;
     }
@@ -254,7 +255,7 @@ namespace rr {
         lost_ = true;
 
 #if defined (__WINDOWS__) || defined (__TOS_WIN__) || defined (__WIN32__) || defined (_WIN64) || defined (_WIN32)
-        system("del save/*pah");
+        system("del save/*.pah");
 #else
         system("rm -rf save/*.pah");
 #endif

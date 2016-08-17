@@ -39,6 +39,16 @@ namespace rr {
     }
 
     void HUD::update(Player* p, int lvl, sf::Clock& timer) {
+        if (  p->getBuffs().poison > 0
+            ) bHP_.setFillColor(sf::Color(0x80, 0xff, 0x80));
+        else {
+            if      (  p->getBuffs().hunger >= 500 && p->getBuffs().hunger < 1000
+                     ) bHP_.setFillColor(sf::Color(0xff, 0x40, 0x40));
+            else if (  p->getBuffs().hunger >= 1000
+                     ) bHP_.setFillColor(sf::Color(0xff, 0xaa, 0xaa));
+            else       bHP_.setFillColor(sf::Color::Red);
+        }
+
         bHP_.setValue(sf::Vector2f(p->getAttributes().health     / p->getAttributes().maxHealth, 1));
         bMP_.setValue(sf::Vector2f(p->getAttributes().mana       / p->getAttributes().maxMana  , 1));
         bXP_.setValue(sf::Vector2f(p->getAttributes().experience / p->getAttributes().nextLevel, 1));
