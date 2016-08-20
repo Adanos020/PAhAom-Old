@@ -27,6 +27,7 @@ namespace rr {
                     sf::Texture objects;
                     sf::Texture npc;
                     sf::Texture enemies;
+                    sf::Texture book_of_spells;
             } texture;
 
             static struct Music {

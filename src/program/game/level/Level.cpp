@@ -98,6 +98,12 @@ namespace rr {
                     }
                 }
             }
+            else if (instanceof<NPC, Entity>(*it)) {
+                auto npc = (NPC*) *it;
+                if (npc->getAttitude() != NPC::AGGRESSIVE) {
+                    
+                }
+            }
             ++it;
         }
 

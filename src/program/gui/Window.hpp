@@ -30,8 +30,9 @@ namespace rr {
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
              ////////////////////////////////////////////////////////////////////////
-             Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color = sf::Color(128, 128, 128));
-             
+             Window(sf::String head = "", sf::Vector2f size = sf::Vector2f(0, 0),
+                    sf::Vector2f position = sf::Vector2f(0, 0), sf::Color = sf::Color(128, 128, 128));
+
              ////////////////////////////////////////////////////////////////////////
              /// \brief Destructor.
              ////////////////////////////////////////////////////////////////////////

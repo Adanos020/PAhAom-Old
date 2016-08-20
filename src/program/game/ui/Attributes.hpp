@@ -52,7 +52,7 @@ namespace rr {
              void close() { wAttr_.setVisible(false); }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Tells if the player attributes is open.
+             /// \brief Tells if the player attributes window is open.
              ////////////////////////////////////////////////////////////////////////
              bool isOpen() const { return wAttr_.isVisible(); }
     };

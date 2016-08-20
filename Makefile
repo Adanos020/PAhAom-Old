@@ -105,6 +105,7 @@ src/program/game/ui/Inventory.debug.o \
 src/program/game/ui/BookOfSpells.debug.o \
 src/program/gui/Bar.debug.o \
 src/program/game/ui/DeathScreen.debug.o \
+src/program/game/ui/Conversation.debug.o \
 src/program/game/ui/Attributes.debug.o \
 src/program/game/fov/FOV.debug.o \
 src/program/game/entity/npc/NPC.debug.o \
@@ -115,6 +116,7 @@ src/program/path_finder/PathFinder_Node.debug.o \
 src/program/observer/Observer.debug.o \
 src/program/messages/MessageManager.debug.o \
 src/program/messages/Message.debug.o \
+src/program/game/dialogue/Dialogue.debug.o \
 src/program/gui/Window.debug.o \
 src/program/gui/Text.debug.o \
 src/program/gui/Switch.debug.o \
@@ -155,6 +157,7 @@ src/program/game/ui/Inventory.o \
 src/program/game/ui/BookOfSpells.o \
 src/program/gui/Bar.o \
 src/program/game/ui/DeathScreen.o \
+src/program/game/ui/Conversation.o \
 src/program/game/ui/Attributes.o \
 src/program/game/fov/FOV.o \
 src/program/game/entity/npc/NPC.o \
@@ -165,6 +168,7 @@ src/program/path_finder/PathFinder_Node.o \
 src/program/observer/Observer.o \
 src/program/messages/MessageManager.o \
 src/program/messages/Message.o \
+src/program/game/dialogue/Dialogue.o \
 src/program/gui/Window.o \
 src/program/gui/Text.o \
 src/program/gui/Switch.o \

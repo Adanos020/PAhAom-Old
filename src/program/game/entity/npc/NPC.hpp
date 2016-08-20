@@ -16,6 +16,8 @@
 #include "../Entity.hpp"
 #include "../Player.hpp"
 
+#include "../../dialogue/Dialogue.hpp"
+
 namespace rr {
 
     class Player;
@@ -42,6 +44,8 @@ namespace rr {
 
                bool                     moving_;
                float                    velocity_;
+
+               DialogueTree             dialogue_;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets all the player detectors' positions.
@@ -131,6 +135,11 @@ namespace rr {
                /// \brief Returns the NPC's bound box.
                ////////////////////////////////////////////////////////////////////////
        virtual sf::FloatRect getBounds() const override;
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Returns the NPC's dialogue tree.
+               ////////////////////////////////////////////////////////////////////////
+               const DialogueTree* getDialogue() const;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets the destination the NPC has to find a path to.

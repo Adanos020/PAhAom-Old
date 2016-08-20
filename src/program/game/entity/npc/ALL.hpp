@@ -9,7 +9,6 @@
 
 #include "Bandit.hpp"
 #include "Merchant.hpp"
-#include "QuestGiver.hpp"
 #include "Teacher.hpp"
 
 #endif // NPC_ALL_HPP

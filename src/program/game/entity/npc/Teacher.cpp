@@ -51,6 +51,70 @@ namespace rr {
         if (  type_ == MAGE
             ) body_.setFrameTime(sf::seconds(.4f));
         else  body_.setFrameTime(sf::seconds(.2f));
+
+        // building dialogue trees
+        switch (type_) {
+            case SWORDSMAN: {
+                auto root = new Answers();
+                
+                auto sup = new Sentence(Sentence::PLAYER, "Sup nigga.");
+                    auto sup2 = new Sentence(Sentence::_NPC, "Sup. I can teach u magic with weapon but u first pay me lol.");
+                        auto sup3 = new Sentence(Sentence::PLAYER, "K lmao.");
+                        sup3->setLeft(root);
+                    sup2->setLeft(sup3);
+                sup->setLeft(sup2);
+                root->addAnswer(sup);
+
+                auto teachme = new Sentence(Sentence::PLAYER, "Show me how to kick asses.");
+                    auto teaching = new Answers();
+                        auto gz = new Sentence(Sentence::_NPC, "Gz.");
+                        gz->setLeft(teachme);
+                        
+                        auto later = new Sentence(Sentence::_NPC, "Come later noob.");
+                        later->setLeft(teachme);
+
+                        auto cwm = new Sentence(Sentence::PLAYER, "Cold Weapon Mastery (10SP, 10 silver)");
+                        cwm->setLeft(gz);
+                        cwm->setRight(later);
+
+                        auto str5 = new Sentence(Sentence::PLAYER, "+5STR (5SP, 5 silver)");
+                        str5->setLeft(gz);
+                        str5->setRight(later);
+
+                        auto str1 = new Sentence(Sentence::PLAYER, "+1STR (1SP, 1 silver)");
+                        str1->setLeft(gz);
+                        str1->setRight(later);
+
+                        auto back = new Sentence(Sentence::PLAYER, "Maybe later kek.");
+                        back->setLeft(root);
+                    teaching->addAnswer(cwm);
+                    teaching->addAnswer(str5);
+                    teaching->addAnswer(str1);
+                    teaching->addAnswer(back);
+                root->addAnswer(teachme);
+
+                auto bye = new Sentence(Sentence::PLAYER, "K bye."); // end
+                root->addAnswer(bye);
+
+                dialogue_.setTree(root);
+            } break;
+            
+            case SHARPSHOOTER: {
+                
+            } break;
+
+            case CARPENTER: {
+                
+            } break;
+            
+            case MAGE: {
+                
+            } break;
+            
+            case KUNG_FU_MASTER: {
+                
+            } break;
+        }
     }
 
     void Teacher::update(int tiles[], sf::Time timeStep) {

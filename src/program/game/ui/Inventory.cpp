@@ -171,10 +171,18 @@ namespace rr {
                                 
                                 if (  player_->equipItem((Equipable*) component(wInve_, Slot, i)->getItem(), equip)
                                     ) ((Equipable*)component(wInve_, Slot, i)->getItem())->equip(equip);
-                                
+
                                 if (instanceof<ColdWeapon, Item>(component(wInve_, Slot, i)->getItem())) {
                                     for (int j=0; j<32; ++j) {
                                         if (j != i && instanceof <ColdWeapon, Item> (component(wInve_, Slot, j)->getItem())) {
+                                            ((Equipable*) component(wInve_, Slot, j)->getItem())->equip(false);
+                                        }
+                                    }
+                                }
+
+                                if (instanceof<RangedWeapon, Item>(component(wInve_, Slot, i)->getItem())) {
+                                    for (int j=0; j<32; ++j) {
+                                        if (j != i && instanceof <RangedWeapon, Item> (component(wInve_, Slot, j)->getItem())) {
                                             ((Equipable*) component(wInve_, Slot, j)->getItem())->equip(false);
                                         }
                                     }

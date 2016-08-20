@@ -23,7 +23,7 @@ namespace rr {
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
              ////////////////////////////////////////////////////////////////////////
-             Image(sf::Vector2f position, sf::Texture&, int iconSize, unsigned index);
+             Image(sf::Vector2f position, sf::Texture&, int iconSize = -1, unsigned index = 0);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the image's body's position.

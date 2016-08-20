@@ -69,12 +69,12 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the bar's fill color.
              ////////////////////////////////////////////////////////////////////////
-             void setOutlineColor(sf::Color c) { bar_.setOutlineColor(c); }
+             void setOutlineColor(sf::Color c) { border_.setOutlineColor(c); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the bar's fill color.
              ////////////////////////////////////////////////////////////////////////
-             sf::Color getOutlineColor() const { return bar_.getOutlineColor(); }
+             sf::Color getOutlineColor() const { return border_.getOutlineColor(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the bar's display value.

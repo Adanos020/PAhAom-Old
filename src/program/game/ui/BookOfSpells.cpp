@@ -15,17 +15,19 @@
 namespace rr {
 
     BookOfSpells::BookOfSpells() :
-      wBofs_(Window(Resources::dictionary["gui.window.bookOfSpells"], sf::Vector2f(765, 470), (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(382.5f, 235)))
+      wBofs_(Window(Resources::dictionary["gui.window.bookOfSpells"], sf::Vector2f(935, 650), (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(467.5f, 325)))
     {
         shadow_.setSize     ((sf::Vector2f) Settings::graphics.resolution);
         shadow_.setPosition (sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
+        wBofs_ += new Image(sf::Vector2f(0, 0), Resources::texture.book_of_spells);
+
         for (int i=0; i<3; i++) {
-            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(145, 100+100*i));
-            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(245, 100+100*i));
-            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(450, 100+100*i));
-            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(550, 100+100*i));
+            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(175, 150+120*i));
+            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(295, 150+120*i));
+            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(560, 150+120*i));
+            wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(680, 150+120*i));
         }
         auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
              bQuit->setPosition(sf::Vector2f(wBofs_.getSize().x - bQuit->getSize().x - 15,

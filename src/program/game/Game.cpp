@@ -161,7 +161,8 @@ namespace rr {
         inventory_.addItem(new ColdWeapon(ColdWeapon::KNIFE));
         inventory_.addItem(new Food(Food::BAGUETTE));
         inventory_.addItem(new Potion(Potion::HEALING));
-        inventory_.addItem(new Potion(Potion::POISON));
+
+        //inventory_.addItem(new Book(Book::SPELLS_BOOK));
 
         return true;
     }
@@ -368,6 +369,7 @@ namespace rr {
 
             if (  wasKeyPressed(event, sf::Keyboard::Escape)
                 ) pause(!isPaused());
+                
             if (!paused_) {
                 if (wasKeyPressed(event, Settings::keys.open_attributes)) {
                     attributes_.update(&player_);

@@ -55,7 +55,7 @@ namespace rr {
 
         tXPlevel_.setString  (std::to_wstring((int) p->getAttributes().level));
         tXPlevel_.setPosition(sf::Vector2f(bXP_.getPosition().x + bXP_.getSize().x/2 - tXPlevel_.getSize().x/2,
-                                           bXP_.getPosition().y - tXPlevel_.getSize().y));
+                                           bXP_.getPosition().y                      - tXPlevel_.getSize().y));
 
         tLevelNumber_.setString  ("L"+std::to_string(lvl));
         tLevelNumber_.setPosition(sf::Vector2f(Settings::graphics.resolution.x - tLevelNumber_.getSize().x-10, 10));
