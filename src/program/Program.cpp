@@ -15,7 +15,7 @@
 
 namespace rr {
 
-    sf::String Program::version_("pre-alpha 0.6.6");
+    sf::String Program::version_("pre-alpha 0.7");
 
     Program::Program() {
         if (  loadResources()

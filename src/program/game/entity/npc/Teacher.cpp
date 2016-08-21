@@ -61,7 +61,9 @@ namespace rr {
                     auto sup2 = new Sentence(Sentence::_NPC, "Sup. I can teach u magic with weapon but u first pay me lol.");
                         auto sup3 = new Sentence(Sentence::PLAYER, "K lmao.");
                         sup3->setLeft(root);
+                    
                     sup2->setLeft(sup3);
+                
                 sup->setLeft(sup2);
                 root->addAnswer(sup);
 
@@ -73,24 +75,27 @@ namespace rr {
                         auto later = new Sentence(Sentence::_NPC, "Come later noob.");
                         later->setLeft(teachme);
 
-                        auto cwm = new Sentence(Sentence::PLAYER, "Cold Weapon Mastery (10SP, 10 silver)");
+                        auto cwm = new Sentence(Sentence::PLAYER, "Cold Weapon Mastery (10SP, 2 gold)");
                         cwm->setLeft(gz);
                         cwm->setRight(later);
 
-                        auto str5 = new Sentence(Sentence::PLAYER, "+5STR (5SP, 5 silver)");
+                        auto str5 = new Sentence(Sentence::PLAYER, "+5STR (5SP, 1 gold)");
                         str5->setLeft(gz);
                         str5->setRight(later);
 
-                        auto str1 = new Sentence(Sentence::PLAYER, "+1STR (1SP, 1 silver)");
+                        auto str1 = new Sentence(Sentence::PLAYER, "+1STR (1SP, 10 silver)");
                         str1->setLeft(gz);
                         str1->setRight(later);
 
                         auto back = new Sentence(Sentence::PLAYER, "Maybe later kek.");
                         back->setLeft(root);
+
                     teaching->addAnswer(cwm);
                     teaching->addAnswer(str5);
                     teaching->addAnswer(str1);
                     teaching->addAnswer(back);
+
+                teachme->setLeft(teaching);
                 root->addAnswer(teachme);
 
                 auto bye = new Sentence(Sentence::PLAYER, "K bye."); // end

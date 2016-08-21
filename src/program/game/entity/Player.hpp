@@ -15,6 +15,7 @@
 #include "item/ColdWeapon.hpp"
 #include "item/RangedWeapon.hpp"
 #include "item/Item.hpp"
+#include "item/Book.hpp"
 
 namespace rr {
 
@@ -86,6 +87,13 @@ namespace rr {
                  DOWN,
                  LEFT,
                  RIGHT
+             };
+
+             enum Attribute {
+                 HEALTH,
+                 MANA,
+                 STRENGTH,
+                 DEXTERITY
              };
              
              ////////////////////////////////////////////////////////////////////////
@@ -189,6 +197,35 @@ namespace rr {
              /// \brief Gives a specific amount of experience to the player.
              ////////////////////////////////////////////////////////////////////////
              void addExperience(int exp) { attrs_.experience += exp; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Makes the player learn the skill given as a type of book he
+             /// can read.
+             ///
+             /// The possible values are:
+             /// - CRAFTING
+             /// - ALCHEMY
+             /// - COLD_WEAPON_MASTERY
+             /// - RANGED_WEAPON_MASTERY
+             /// - EAGLE_EYE
+             /// - MANA_REGEN
+             /// - HEALTH_REGEN
+             /// - FASTER_LEARNING
+             /// SPELLS_BOOK is not handled because it would make no sense.
+             ////////////////////////////////////////////////////////////////////////
+             void learnSkill(Book::Type);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Makes the player increase the chosen attribute by a given
+             /// value.
+             ///
+             /// The possible values are:
+             /// - HEALTH
+             /// - MANA
+             /// - STRENGTH
+             /// - DEXTERITY
+             ////////////////////////////////////////////////////////////////////////
+             void increaseAttribute(Attribute, float);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's attributes.

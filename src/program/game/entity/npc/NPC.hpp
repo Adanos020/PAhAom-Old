@@ -139,7 +139,7 @@ namespace rr {
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the NPC's dialogue tree.
                ////////////////////////////////////////////////////////////////////////
-               const DialogueTree* getDialogue() const;
+               DialogueTree* getDialogue() const;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets the destination the NPC has to find a path to.

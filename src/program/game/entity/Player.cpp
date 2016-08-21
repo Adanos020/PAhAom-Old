@@ -171,18 +171,18 @@ namespace rr {
             ) attrs_.mana  = attrs_.maxMana;
 
         if (attrs_.experience >= attrs_.nextLevel) {
-            attrs_.experience   = 0;
+            attrs_.experience  -= attrs_.nextLevel;
             attrs_.nextLevel   *= 1.15f;
             attrs_.level       ++;
             attrs_.skillPoints += (attrs_.faster_learning) ? 15 : 10;
 
-            float temp        = attrs_.health/attrs_.maxHealth;
+            float proportion  = attrs_.health/attrs_.maxHealth;
             attrs_.maxHealth += 10;
-            attrs_.health     = temp*attrs_.maxHealth;
+            attrs_.health     = proportion*attrs_.maxHealth;
 
-            temp            = attrs_.mana/attrs_.maxMana;
+            proportion      = attrs_.mana/attrs_.maxMana;
             attrs_.maxMana += 1;
-            attrs_.mana     = temp*attrs_.maxMana;
+            attrs_.mana     = proportion*attrs_.maxMana;
 
             subject.notify(Observer::PLAYER_LEVELUP, this);
         }
@@ -202,6 +202,43 @@ namespace rr {
     void Player::handleDamage(int damage) {
         if (  damage >= attrs_.armor
             ) attrs_.health -= (damage - attrs_.armor);
+    }
+
+    void Player::learnSkill(Book::Type skill) {
+        switch (skill) {
+            case Book::CRAFTING             : attrs_.crafting              = true; break;
+            case Book::ALCHEMY              : attrs_.alchemy               = true; break;
+            case Book::COLD_WEAPON_MASTERY  : attrs_.cold_weapon_mastery   = true; break;
+            case Book::RANGED_WEAPON_MASTERY: attrs_.ranged_weapon_mastery = true; break;
+            case Book::EAGLE_EYE            : attrs_.eagle_eye             = true; break;
+            case Book::MANA_REGEN           : attrs_.mana_regeneration     = true; break;
+            case Book::HEALTH_REGEN         : attrs_.health_regeneration   = true; break;
+            case Book::FASTER_LEARNING      : attrs_.faster_learning       = true; break;
+            
+            default: break; // any other is ignored
+        }
+    }
+
+    void Player::increaseAttribute(Attribute attribute, float difference) {
+        switch (attribute) {
+            case HEALTH: {
+                float proportion  = attrs_.health/attrs_.maxHealth;
+                attrs_.maxHealth += difference;
+                attrs_.health     = proportion*attrs_.maxHealth;
+            } break;
+
+            case MANA: {
+                float proportion = attrs_.mana/attrs_.maxMana;
+                attrs_.maxMana  += difference;
+                attrs_.mana      = proportion*attrs_.maxMana;
+            } break;
+
+            case STRENGTH : attrs_.strength += difference;
+                            break;
+                            
+            case DEXTERITY: attrs_.dexterity += difference;
+                            break;
+        }
     }
 
     void Player::reset() {

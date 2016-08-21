@@ -277,11 +277,14 @@ namespace rr {
 
             messageManager_.draw(rw);
 
-            rw.draw(hud_);
+            if (!conversation_.isOpen()) {
+                rw.draw(hud_);
+                rw.draw(inventory_);
+            }
             rw.draw(attributes_);
             rw.draw(bookOfSpells_);
+            rw.draw(conversation_);
             rw.draw(deathScreen_);
-            rw.draw(inventory_);
             rw.draw(journal_);
             rw.draw(pauseMenu_);
         }
@@ -354,6 +357,7 @@ namespace rr {
         if (      !started_       ) mainMenu_    .buttonEvents(rw, event, this);
         if (attributes_  .isOpen()) attributes_  .buttonEvents(rw, event, this);
         if (bookOfSpells_.isOpen()) bookOfSpells_.buttonEvents(rw, event, this);
+        if (conversation_.isOpen()) conversation_.buttonEvents(rw, event, this);
         if (deathScreen_ .isOpen()) deathScreen_ .buttonEvents(rw, event, this);
         if (inventory_   .isOpen()) inventory_   .buttonEvents(rw, event, this);
         if (journal_     .isOpen()) journal_     .buttonEvents(rw, event, this);
@@ -414,8 +418,9 @@ namespace rr {
 
     void Game::pause(bool b) {
         paused_ = b;
-        if (  paused_
-            ) pauseMenu_.open();
+        if (   paused_
+           && !conversation_.isOpen()
+            )  pauseMenu_.open();
         else {
             pauseMenu_   .close();
             inventory_   .close();

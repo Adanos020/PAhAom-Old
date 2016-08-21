@@ -46,6 +46,7 @@ namespace rr {
 
              Attributes     attributes_;
              BookOfSpells   bookOfSpells_;
+             Conversation   conversation_;
              DeathScreen    deathScreen_;
              Inventory      inventory_;
              Journal        journal_;
@@ -156,6 +157,11 @@ namespace rr {
              /// \brief Returns the inventory.
              ////////////////////////////////////////////////////////////////////////
              Inventory* getInventory() { return &inventory_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the conversation UI.
+             ////////////////////////////////////////////////////////////////////////
+             Conversation* getConversationUI() { return &conversation_; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the vector of game levels.

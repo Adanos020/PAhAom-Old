@@ -60,8 +60,8 @@ namespace rr {
         return destination_;
     }
 
-    const DialogueTree* NPC::getDialogue() const {
-        return &dialogue_;
+    DialogueTree* NPC::getDialogue() const {
+        return (DialogueTree*) &dialogue_;
     }
 
     void NPC::setAttitude(Attitude attitude) {

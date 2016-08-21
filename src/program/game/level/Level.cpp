@@ -101,7 +101,8 @@ namespace rr {
             else if (instanceof<NPC, Entity>(*it)) {
                 auto npc = (NPC*) *it;
                 if (npc->getAttitude() != NPC::AGGRESSIVE) {
-                    
+                    game->getConversationUI()->open(npc);
+                    game->pause(true);
                 }
             }
             ++it;
@@ -737,7 +738,7 @@ namespace rr {
     void Level::onNotify(Observer::Event event, Entity* entity) {
         switch (event) {
             case ITEM_DROPPED: addEntity(entity);
-                                         break;
+                               break;
 
             case PLAYER_DIES : break;
             
