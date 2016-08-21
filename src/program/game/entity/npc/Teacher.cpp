@@ -56,14 +56,14 @@ namespace rr {
         switch (type_) {
             case SWORDSMAN: {
                 auto root = new Answers();
-                
+
                 auto sup = new Sentence(Sentence::PLAYER, "Sup nigga.");
                     auto sup2 = new Sentence(Sentence::_NPC, "Sup. I can teach u magic with weapon but u first pay me lol.");
                         auto sup3 = new Sentence(Sentence::PLAYER, "K lmao.");
                         sup3->setLeft(root);
-                    
+
                     sup2->setLeft(sup3);
-                
+
                 sup->setLeft(sup2);
                 root->addAnswer(sup);
 
@@ -101,7 +101,7 @@ namespace rr {
                 auto bye = new Sentence(Sentence::PLAYER, "K bye."); // end
                 root->addAnswer(bye);
 
-                dialogue_.setTree(root);
+                dialogue_.setTree(root, true);
             } break;
             
             case SHARPSHOOTER: {

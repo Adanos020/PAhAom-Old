@@ -100,7 +100,7 @@ namespace rr {
             }
             else if (instanceof<NPC, Entity>(*it)) {
                 auto npc = (NPC*) *it;
-                if (npc->getAttitude() != NPC::AGGRESSIVE) {
+                if (npc->detects(game->getPlayer()) != -1 && npc->getAttitude() != NPC::AGGRESSIVE) {
                     game->getConversationUI()->open(npc);
                     game->pause(true);
                 }
