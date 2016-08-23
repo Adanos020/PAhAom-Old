@@ -28,7 +28,8 @@ namespace rr {
     {
         backTexture_.loadFromFile("data/graphics/menubkg.png");
         background_.setTexture(&backTexture_);
-        background_.setSize(sf::Vector2f(Settings::graphics.resolution.x, Settings::graphics.resolution.y));
+        background_.setSize(sf::Vector2f(Settings::graphics.resolution.y*(16.f/9.f),
+                                         Settings::graphics.resolution.y));
 
         title_  .setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-title_  .getSize().x/2,  10));
         version_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-version_.getSize().x/2, 100));
