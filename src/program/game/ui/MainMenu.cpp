@@ -26,6 +26,9 @@ namespace rr {
       version_(Text  (sf::Vector2f(0, 0), Program::getVersion(), Resources::font.FinalFantasy,  50, sf::Color::Yellow)),
       wMenu_  (Window("", sf::Vector2f(248, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225))            )
     {
+        backTexture_.loadFromFile("data/graphics/menubkg.png");
+        background_.setTexture(&backTexture_);
+        background_.setSize(sf::Vector2f(Settings::graphics.resolution.x, Settings::graphics.resolution.y));
 
         title_  .setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-title_  .getSize().x/2,  10));
         version_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-version_.getSize().x/2, 100));
@@ -205,7 +208,7 @@ namespace rr {
         }
 
         auto wCred = new Window(Resources::dictionary["gui.button.credits"], sf::Vector2f(485, 405), sf::Vector2f(Settings::graphics.resolution.x-510,
-                                                                                                                  Settings::graphics.resolution.y/2-165));
+                                                                                                                  Settings::graphics.resolution.y/2-202.5f));
         {
             *wCred += new Text(sf::Vector2f(20,  20), Resources::dictionary["gui.text.programming"], Resources::font.Unifont, 30);
             *wCred += new Text(sf::Vector2f( 0,  50),  L"\tAdam 'Adanos' Gąsior", Resources::font.Unifont, 25, sf::Color::Yellow);
@@ -428,9 +431,10 @@ namespace rr {
     }
 
     void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        target.draw(title_  , states);
-        target.draw(version_, states);
-        target.draw(wMenu_  , states);
+        target.draw(background_, states);
+        target.draw(title_     , states);
+        target.draw(version_   , states);
+        target.draw(wMenu_     , states);
     }
 
 }

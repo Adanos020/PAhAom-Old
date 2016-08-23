@@ -213,7 +213,7 @@ namespace rr {
              /// - FASTER_LEARNING
              /// SPELLS_BOOK is not handled because it would make no sense.
              ////////////////////////////////////////////////////////////////////////
-             void learnSkill(Book::Type);
+             void learnSkill(Book::Type, int sp);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Makes the player increase the chosen attribute by a given
@@ -225,7 +225,7 @@ namespace rr {
              /// - STRENGTH
              /// - DEXTERITY
              ////////////////////////////////////////////////////////////////////////
-             void increaseAttribute(Attribute, float);
+             void increaseAttribute(Attribute, float, int sp);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's attributes.

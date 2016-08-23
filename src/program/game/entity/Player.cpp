@@ -204,7 +204,7 @@ namespace rr {
             ) attrs_.health -= (damage - attrs_.armor);
     }
 
-    void Player::learnSkill(Book::Type skill) {
+    void Player::learnSkill(Book::Type skill, int sp) {
         switch (skill) {
             case Book::CRAFTING             : attrs_.crafting              = true; break;
             case Book::ALCHEMY              : attrs_.alchemy               = true; break;
@@ -217,9 +217,10 @@ namespace rr {
             
             default: break; // any other is ignored
         }
+        attrs_.skillPoints -= sp;
     }
 
-    void Player::increaseAttribute(Attribute attribute, float difference) {
+    void Player::increaseAttribute(Attribute attribute, float difference, int sp) {
         switch (attribute) {
             case HEALTH: {
                 float proportion  = attrs_.health/attrs_.maxHealth;
@@ -239,6 +240,7 @@ namespace rr {
             case DEXTERITY: attrs_.dexterity += difference;
                             break;
         }
+        attrs_.skillPoints -= sp;
     }
 
     void Player::reset() {

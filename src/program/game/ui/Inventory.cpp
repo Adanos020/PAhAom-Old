@@ -55,7 +55,7 @@ namespace rr {
 
             auto wInfo = new Window("", sf::Vector2f(410, 40), sf::Vector2f(0, 0)); {
                 auto tDescription = new Text(sf::Vector2f(5, 20), "", Resources::font.Unifont, 20);
-                	 tDescription->setStyle(sf::Text::Regular);
+                     tDescription->setStyle(sf::Text::Regular);
                      tDescription->setOutlineColor(sf::Color(0x40, 0x40, 0x40));
                 *wInfo += tDescription;
             }
@@ -349,7 +349,40 @@ namespace rr {
         return false;
     }
 
+    void Inventory::removeItem(Item* item, int amount) {
+        if (instanceof <Coin, Item> (item)) {
+            auto coin = (Coin*) item;
+            switch (coin->getType()) {
+                case Coin::GOLDEN: if (  amount == 0
+                                       ) gold_   = 0;
+                                   else  gold_  -= amount;
+                                   break;
+
+                case Coin::SILVER: if (  amount  == 0
+                                       ) silver_  = 0;
+                                   else  silver_ -= amount;
+                                   break;
+
+                case Coin::BRONZE: if (  amount  == 0
+                                       ) bronze_  = 0;
+                                   else  bronze_ -= amount;
+                                   break;
+            }
+        }
+        else {
+            for (int i=0; i<32; ++i) {
+                if (!slot(i)->isEmpty() && slot(i)->getItem()->getID() == item->getID()) {
+                    if (  amount == 0
+                        ) slot(i)->removeItem();
+                    else  slot(i)->removeItem(amount);
+                }
+            }
+        }
+    }
+
     void Inventory::sort() {
+        // just a simple bubble sort algorithm, there is no need for something
+        // complex while there are so few elements to sort
         for (int i=0; i<31; ++i) {
             for (int j=1; j<32; ++j) {
                 if ( (!slot(j-1)->isEmpty() && slot(j)->isEmpty())
@@ -364,7 +397,7 @@ namespace rr {
 
     bool Inventory::contains(Item* sought) {
         for (int i=0; i<32; ++i) {
-	        if ( !slot(i)->isEmpty() && slot(i)->getItem()->getID() == sought->getID()
+            if ( !slot(i)->isEmpty() && slot(i)->getItem()->getID() == sought->getID()
                 ) return true;
         }
         return false;

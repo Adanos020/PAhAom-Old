@@ -28,6 +28,7 @@ namespace rr {
 
     Game::Game() :
       currentLevel_(nullptr            ),
+      conversation_(&player_           ),
       inventory_   (Inventory(&player_)),
       started_     (false              ),
       paused_      (false              ),
@@ -163,6 +164,7 @@ namespace rr {
         inventory_.addItem(new Potion(Potion::HEALING));
 
         //inventory_.addItem(new Book(Book::SPELLS_BOOK));
+        inventory_.addItem(new Coin(Coin::GOLDEN, Coin::SMALL, 3));
 
         return true;
     }
@@ -354,15 +356,6 @@ namespace rr {
     }
 
     void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& event) {
-        if (      !started_       ) mainMenu_    .buttonEvents(rw, event, this);
-        if (attributes_  .isOpen()) attributes_  .buttonEvents(rw, event, this);
-        if (bookOfSpells_.isOpen()) bookOfSpells_.buttonEvents(rw, event, this);
-        if (conversation_.isOpen()) conversation_.buttonEvents(rw, event, this);
-        if (deathScreen_ .isOpen()) deathScreen_ .buttonEvents(rw, event, this);
-        if (inventory_   .isOpen()) inventory_   .buttonEvents(rw, event, this);
-        if (journal_     .isOpen()) journal_     .buttonEvents(rw, event, this);
-        if (pauseMenu_   .isOpen()) pauseMenu_   .buttonEvents(rw, event, this);
-
         if (started_) {
             if (Settings::game.debugMode) {
                 if      (  event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add
@@ -371,7 +364,7 @@ namespace rr {
                          ) switchLevel(levelNumber_-1);
             }
 
-            if (  wasKeyPressed(event, sf::Keyboard::Escape)
+            if (  wasKeyPressed(event, sf::Keyboard::Escape) && !conversation_.isOpen()
                 ) pause(!isPaused());
                 
             if (!paused_) {
@@ -410,6 +403,15 @@ namespace rr {
                 else if (wasKeyPressed(event, Settings::keys.useslot_5)) {}
             }
         }
+        
+        if (      !started_       ) mainMenu_    .buttonEvents(rw, event, this);
+        if (attributes_  .isOpen()) attributes_  .buttonEvents(rw, event, this);
+        if (bookOfSpells_.isOpen()) bookOfSpells_.buttonEvents(rw, event, this);
+        if (conversation_.isOpen()) conversation_.buttonEvents(rw, event, this);
+        if (deathScreen_ .isOpen()) deathScreen_ .buttonEvents(rw, event, this);
+        if (inventory_   .isOpen()) inventory_   .buttonEvents(rw, event, this);
+        if (journal_     .isOpen()) journal_     .buttonEvents(rw, event, this);
+        if (pauseMenu_   .isOpen()) pauseMenu_   .buttonEvents(rw, event, this);
     }
 
     void Game::start(bool b) {

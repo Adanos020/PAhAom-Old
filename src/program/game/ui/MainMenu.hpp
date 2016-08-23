@@ -17,9 +17,11 @@ namespace rr {
     class Game;
 
     class MainMenu : public sf::Drawable {
-    private: Text   title_;
-             Text   version_;
-             Window wMenu_;
+    private: sf::RectangleShape background_;
+             sf::Texture        backTexture_;
+             Text               title_;
+             Text               version_;
+             Window             wMenu_;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.

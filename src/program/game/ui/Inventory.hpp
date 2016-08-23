@@ -64,6 +64,14 @@ namespace rr {
              bool addItem(Item*);
 
              ////////////////////////////////////////////////////////////////////////
+             /// \brief Removes an item from the inventory.
+             ///
+             /// If the amount is equal to 0 then all units of the item will be
+             /// removed.
+             ////////////////////////////////////////////////////////////////////////
+             void removeItem(Item*, int amount = 0);
+
+             ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if there is such an item in the inventory.
              ////////////////////////////////////////////////////////////////////////
              bool contains(Item*);

@@ -72,14 +72,14 @@ namespace rr {
         auto it=entities_.begin();
         while (it != entities_.end()) {
             if (game->getPlayer()->getGridPosition() == (*it)->getGridPosition()) {
-                if (instanceof<Item, Entity>(*it)) {
+                if (instanceof <Item, Entity> (*it)) {
                     if (game->getInventory()->addItem((Item*) *it)) {
                         subject.notify(ITEM_PICKED, *it);
                         entities_.erase(it++);
                     }
                     else game->getMessageManager()->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
                 }
-                else if (instanceof<Chest, Entity>(*it)) {
+                else if (instanceof <Chest, Entity> (*it)) {
                     Entity* temp  = ((Chest*) *it)->getItem()->clone();
                     auto position = (*it)->getGridPosition();
                     
@@ -87,7 +87,7 @@ namespace rr {
                     *it = temp;
                     (*it++)->setGridPosition(position);
                 }
-                else if (instanceof<Stairs, Entity>(*it)) {
+                else if (instanceof <Stairs, Entity> (*it)) {
                     if (((Stairs*) *it)->isUpwards()) {
                         game->switchLevel(levelNumber_+1);
                         break;
@@ -98,7 +98,7 @@ namespace rr {
                     }
                 }
             }
-            else if (instanceof<NPC, Entity>(*it)) {
+            else if (instanceof <NPC, Entity> (*it)) {
                 auto npc = (NPC*) *it;
                 if (npc->detects(game->getPlayer()) != -1 && npc->getAttitude() != NPC::AGGRESSIVE) {
                     game->getConversationUI()->open(npc);
@@ -115,7 +115,7 @@ namespace rr {
         auto it=entities_.begin();
         while (it!=entities_.end()) {
             // the entity is an NPC
-            if (instanceof<NPC, Entity>(*it)) {
+            if (instanceof <NPC, Entity> (*it)) {
                 auto npc = (NPC*) *it;
                 // the npc detects the player
                 if ((npc)->detects(player) != -1) {
@@ -151,12 +151,12 @@ namespace rr {
 
     void Level::update(Game* game, sf::Clock& timer) {
         for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
-            if (instanceof<Door, Entity>(*it)) {
+            if (instanceof <Door, Entity> (*it)) {
                 if (  game->getPlayer()->collides(*it)
                     ) ((Door*) *it)->setOpen(true);
                 else  ((Door*) *it)->setOpen(false);
             }
-            else if (instanceof<NPC, Entity>(*it)) {
+            else if (instanceof <NPC, Entity> (*it)) {
                 auto npc = (NPC*) *it;
                 npc->update(tilesAsInts_, timer.getElapsedTime());
             }
@@ -173,7 +173,7 @@ namespace rr {
         }
 
         for (auto it=entities_.begin(); it!=entities_.end(); ++it) {
-            if (instanceof<NPC, Entity>(*it)) {
+            if (instanceof <NPC, Entity> (*it)) {
                 auto npc = (NPC*) *it;
 
                 {   auto pos = npc->getGridPosition();
@@ -200,7 +200,7 @@ namespace rr {
                         else if ( (detector == 2 || detector == 4 || detector == 7) && npc->getDirection() != NPC::RIGHT
                                  ) npc->setDirection(NPC::RIGHT);
 
-                        if (instanceof<Bandit, NPC>(npc)) { // the npc is a bandit
+                        if (instanceof <Bandit, NPC> (npc)) { // the npc is a bandit
                             bool hit = false;
                             switch (((Bandit*) npc)->getType()) {
                                 case Bandit::CLUB    : if (chance(ColdWeapon(ColdWeapon::CLUB).getAccuracy()*2, 21)) {
@@ -795,7 +795,7 @@ namespace rr {
 
             for (int i=0; i<77*43; ++i) { // load the tiles
                 file >> tilesAsInts_[i];
-                tiles_[i] = (Cell)tilesAsInts_[i];
+                tiles_[i] = (Cell) tilesAsInts_[i];
             }
             generateTileMap();
         }
@@ -820,7 +820,7 @@ namespace rr {
         shadowMap_ >> file;
         
         for (int i=0; i<77*43; ++i) { // save the tiles
-            file << tiles_[i] << (((i+1)%77 == 0) ? '\n' : ' ');
+            file << tilesAsInts_[i] << (((i+1)%77 == 0) ? '\n' : ' ');
         }
 
         return file;

@@ -70,10 +70,10 @@ namespace rr {
                 auto teachme = new Sentence(Sentence::PLAYER, "Show me how to kick asses.");
                     auto teaching = new Answers();
                         auto gz = new Sentence(Sentence::_NPC, "Gz.");
-                        gz->setLeft(teachme);
+                        gz->setLeft(teaching);
                         
                         auto later = new Sentence(Sentence::_NPC, "Come later noob.");
-                        later->setLeft(teachme);
+                        later->setLeft(teaching);
 
                         auto cwm = new Sentence(Sentence::PLAYER, "Cold Weapon Mastery (10SP, 2 gold)");
                         cwm->setLeft(gz);
