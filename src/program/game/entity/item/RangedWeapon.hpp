@@ -46,6 +46,7 @@ namespace rr {
              /// - BOW
              /// - CROSSBOW
              /// - SLINGSHOT
+             /// - BELLOWS
              ////////////////////////////////////////////////////////////////////////
              Type getType() const { return type_; }
 

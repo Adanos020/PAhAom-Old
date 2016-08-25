@@ -45,52 +45,38 @@ namespace rr {
 
             auto answers = (Answers*) dialogue_->getCurrentBranch();
 
-            {   // removing the skill teaching answers if player already has learnt the skills
-                auto temp = ((Answers*) dialogue_->getCurrentBranch())->find("Crafting (10SP, 2 gold)");
-                if (  temp != nullptr
-                   && player_->getAttributes().crafting
-                    ) answers->removeAnswer(temp);
+            // removing the skill teaching answers if player already has learnt the skills
+            if (  player_->getAttributes().crafting
+                ) answers->removeAnswer("Crafting (10SP, 2 gold)");
 
-                temp = ((Answers*) dialogue_->getCurrentBranch())->find("Alchemy (10SP, 2 gold)");
-                if (  temp != nullptr
-                   && player_->getAttributes().alchemy
-                    ) answers->removeAnswer(temp);
+            if (  player_->getAttributes().alchemy
+                ) answers->removeAnswer("Alchemy (10SP, 2 gold)");
 
-                temp = ((Answers*) dialogue_->getCurrentBranch())->find("Cold Weapon Mastery (10SP, 2 gold)");
-                if (  temp != nullptr
-                   && player_->getAttributes().cold_weapon_mastery
-                    ) answers->removeAnswer(temp);
+            if (  player_->getAttributes().cold_weapon_mastery
+                ) answers->removeAnswer("Cold Weapon Mastery (10SP, 2 gold)");
 
-                temp = ((Answers*) dialogue_->getCurrentBranch())->find("Ranged Weapon Mastery (10SP, 2 gold)");
-                if (  temp != nullptr
-                   && player_->getAttributes().ranged_weapon_mastery
-                    ) answers->removeAnswer(temp);
+            if (  player_->getAttributes().ranged_weapon_mastery
+                ) answers->removeAnswer("Ranged Weapon Mastery (10SP, 2 gold)");
 
-                temp = ((Answers*) dialogue_->getCurrentBranch())->find("Enhanced Sight (10SP, 2 gold)");
-                if (  temp != nullptr
-                   && player_->getAttributes().eagle_eye
-                    ) answers->removeAnswer(temp);
+            if (  player_->getAttributes().eagle_eye
+                ) answers->removeAnswer("Enhanced Sight (10SP, 2 gold)");
 
-                temp = ((Answers*) dialogue_->getCurrentBranch())->find("Mana Regeneration (10SP, 2 gold)");
-                if (  temp != nullptr
-                   && player_->getAttributes().mana_regeneration
-                    ) answers->removeAnswer(temp);
+            if (  player_->getAttributes().mana_regeneration
+                ) answers->removeAnswer("Mana Regeneration (10SP, 2 gold)");
 
-                temp = ((Answers*) dialogue_->getCurrentBranch())->find("Health Regeneration (10SP, 2 gold)");
-                if (  temp != nullptr
-                   && player_->getAttributes().health_regeneration
-                    ) answers->removeAnswer(temp);
+            if (  player_->getAttributes().health_regeneration
+                ) answers->removeAnswer("Health Regeneration (10SP, 2 gold)");
 
-                temp = ((Answers*) dialogue_->getCurrentBranch())->find("Faster Learning (10SP, 2 gold)");
-                if (  temp != nullptr
-                   && player_->getAttributes().faster_learning
-                    ) answers->removeAnswer(temp);
-            }
-            
+            if (  player_->getAttributes().faster_learning
+                ) answers->removeAnswer("Faster Learning (10SP, 2 gold)");
+
+            // recognizing the choice
             auto chosen = ((Answers*) dialogue_->getCurrentBranch())->find(action);
             if (  chosen != nullptr
                 ) dialogue_->setTree(chosen);
 
+            // recognizing if the choice is a request for learning
+            // a skill or increasing some attributes
             if (action == "Cold Weapon Mastery (10SP, 2 gold)") {
                 if (g->getPlayer()->getAttributes().skillPoints >= 10 && g->getInventory()->getGold() >= 2) {
                     g->getPlayer()->learnSkill(Book::COLD_WEAPON_MASTERY, 10);
@@ -123,6 +109,10 @@ namespace rr {
                 }
             }
 
+            // recognizing the type of the next branch of the dialogue tree
+
+            // if the next branch is a nullptr then it means that this is the end
+            // of the dialogue
             if (chosen != nullptr) {
                 wOpts_.getComponent<Menu>(0)->clear();
                 if (instanceof <Answers, Branch> (dialogue_->getCurrentBranch())) {

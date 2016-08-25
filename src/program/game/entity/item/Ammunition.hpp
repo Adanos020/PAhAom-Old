@@ -47,6 +47,7 @@ namespace rr {
              /// - ARROW (required by a bow)
              /// - BOLT (required by a crossbow)
              /// - ROCKS (required by a splingshot)
+             /// - DART (required by bellows)
              /// - SHURIKEN (thrown ammunition)
              ////////////////////////////////////////////////////////////////////////
              Type getType() const { return type_; }

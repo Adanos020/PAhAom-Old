@@ -39,6 +39,17 @@ namespace rr {
         }
     }
 
+    void Answers::removeAnswer(sf::String s) {
+        unsigned i=0;
+        while (i<answers_.size()) {
+            if (answers_[i]->getSentence() == s) {
+                answers_.erase(answers_.begin()+i);
+                break;
+            }
+            ++i;
+        }
+    }
+
     Sentence* Answers::find(sf::String sought) const {
         for (unsigned i=0; i<answers_.size(); ++i) {
             if (  answers_[i]->getSentence() == sought

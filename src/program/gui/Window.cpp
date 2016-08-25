@@ -12,13 +12,13 @@ namespace rr {
 
     Window::Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c) :
       header_  (Text(sf::Vector2f(0, 0), head, Resources::font.Unifont, 20, sf::Color::Yellow)),
-      visible_ (false                                                                         )
+      visible_ (false)
     {
-        body_.setSize              (size);
-        body_.setPosition          (position);
-        body_.setFillColor         (sf::Color(c.r, c.g, c.b, 128));
-        body_.setOutlineColor      (c);
-        body_.setOutlineThickness  (5);
+        body_.setSize            (size);
+        body_.setPosition        (position);
+        body_.setFillColor       (sf::Color(c.r, c.g, c.b, 128));
+        body_.setOutlineColor    (c);
+        body_.setOutlineThickness(5);
 
         header_.setPosition       (sf::Vector2f(position.x+5, position.y));
         header_.setParentComponent(this);

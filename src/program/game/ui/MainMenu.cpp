@@ -41,13 +41,12 @@ namespace rr {
         wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.credits"], 52);
         wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52);
         for (int i=0; i<6; i++) {
-            wMenu_.getComponent<Button>(i)->setPosition(wMenu_.getPosition()+sf::Vector2f(wMenu_.getSize().x/2-wMenu_.getComponent<Button>(i)->getSize().x/2, 5+i*75));
+            wMenu_.getComponent<Button>(i)->setPosition(wMenu_.getPosition() + sf::Vector2f(wMenu_.getSize().x/2 - wMenu_.getComponent<Button>(i)->getSize().x/2, 5+i*75));
         }
 
         auto wOpts = new Window(Resources::dictionary["gui.button.options"], sf::Vector2f(330, 405), sf::Vector2f(Settings::graphics.resolution.x/2-165,
                                                                                                                   Settings::graphics.resolution.y/2-202.5));
         {
-
             *wOpts += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.game"     ], 52);
             *wOpts += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.graphical"], 52);
             *wOpts += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.sound"    ], 52);
@@ -64,7 +63,6 @@ namespace rr {
             auto wGame = new Window(Resources::dictionary["gui.button.game"], sf::Vector2f(340, 354),
                                     sf::Vector2f(Settings::graphics.resolution.x-365, Settings::graphics.resolution.y/2-177));
             {
-
                  *wGame += new Text(sf::Vector2f(10, 30), Resources::dictionary["gui.text.language"], Resources::font.Unifont, 20);
 
                  auto swLanguage = new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60));
@@ -88,7 +86,6 @@ namespace rr {
             auto wGrap = new Window(Resources::dictionary["gui.button.graphical"], sf::Vector2f(340, 434), sf::Vector2f(Settings::graphics.resolution.x   - 365,
                                                                                                                         Settings::graphics.resolution.y/2 - 217));
             {
-
                 *wGrap += new Text(sf::Vector2f(20, 30), Resources::dictionary["gui.text.resolution"], Resources::font.Unifont, 20);
 
                 auto swResolution = new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60));
@@ -339,9 +336,9 @@ namespace rr {
                             ) wGrap->getComponent<Switch>(1)->setCurrentOption("NONE");
                         else  wGrap->getComponent<Switch>(1)->setCurrentOption("x"+std::to_string(Settings::graphics.csettings.antialiasingLevel));
 
-                        wSoun->getComponent<Checkbox>(0)->check   (Settings::sound.music_muted);
+                        wSoun->getComponent<Checkbox >(0)->check   (Settings::sound.music_muted);
                         wSoun->getComponent<ScrollBar>(0)->setValue(Settings::sound.music_volume);
-                        wSoun->getComponent<Checkbox>(1)->check   (Settings::sound.effects_muted);
+                        wSoun->getComponent<Checkbox >(1)->check   (Settings::sound.effects_muted);
                         wSoun->getComponent<ScrollBar>(1)->setValue(Settings::sound.effects_volume);
 
                         wCont->getComponent<Button>( 0)->getText().setString(getKeyName(Settings::keys.move_up));
