@@ -74,13 +74,17 @@ namespace rr {
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Removes an answer from the list.
+             ///
+             /// \return true if an answer was removed, otherwise false
              ////////////////////////////////////////////////////////////////////////
-             void removeAnswer(Sentence*);
+             bool removeAnswer(Sentence*);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Removes an answer from the list.
+             ///
+             /// \return true if an answer was removed, otherwise false
              ////////////////////////////////////////////////////////////////////////
-             void removeAnswer(sf::String);
+             bool removeAnswer(sf::String);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the list of answers.

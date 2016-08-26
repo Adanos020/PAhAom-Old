@@ -46,29 +46,60 @@ namespace rr {
             auto answers = (Answers*) dialogue_->getCurrentBranch();
 
             // removing the skill teaching answers if player already has learnt the skills
-            if (  player_->getAttributes().crafting
-                ) answers->removeAnswer("Crafting (10SP, 2 gold)");
+            {
+                bool update = false;
+                if (player_->getAttributes().crafting) {
+                    if (  answers->removeAnswer("Crafting (10SP, 2 gold)")
+                        ) update = true;
+                }
 
-            if (  player_->getAttributes().alchemy
-                ) answers->removeAnswer("Alchemy (10SP, 2 gold)");
+                if (player_->getAttributes().alchemy) {
+                    if (  answers->removeAnswer("Alchemy (10SP, 2 gold)")
+                        ) update = true;
+                }
 
-            if (  player_->getAttributes().cold_weapon_mastery
-                ) answers->removeAnswer("Cold Weapon Mastery (10SP, 2 gold)");
+                if (player_->getAttributes().cold_weapon_mastery) {
+                    if (  answers->removeAnswer("Cold Weapon Mastery (10SP, 2 gold)")
+                        ) update = true;
+                }
 
-            if (  player_->getAttributes().ranged_weapon_mastery
-                ) answers->removeAnswer("Ranged Weapon Mastery (10SP, 2 gold)");
+                if (player_->getAttributes().ranged_weapon_mastery) {
+                    if (  answers->removeAnswer("Ranged Weapon Mastery (10SP, 2 gold)")
+                        ) update = true;
+                }
 
-            if (  player_->getAttributes().eagle_eye
-                ) answers->removeAnswer("Enhanced Sight (10SP, 2 gold)");
+                if (player_->getAttributes().eagle_eye) {
+                    if (  answers->removeAnswer("Enhanced Sight (10SP, 2 gold)")
+                        ) update = true;
+                }
 
-            if (  player_->getAttributes().mana_regeneration
-                ) answers->removeAnswer("Mana Regeneration (10SP, 2 gold)");
+                if (player_->getAttributes().mana_regeneration) {
+                    if (  answers->removeAnswer("Mana Regeneration (10SP, 2 gold)")
+                        ) update = true;
+                }
 
-            if (  player_->getAttributes().health_regeneration
-                ) answers->removeAnswer("Health Regeneration (10SP, 2 gold)");
+                if (player_->getAttributes().health_regeneration) {
+                    if (  answers->removeAnswer("Health Regeneration (10SP, 2 gold)")
+                        ) update = true;
+                }
 
-            if (  player_->getAttributes().faster_learning
-                ) answers->removeAnswer("Faster Learning (10SP, 2 gold)");
+                if (player_->getAttributes().faster_learning) {
+                    if (  answers->removeAnswer("Faster Learning (10SP, 2 gold)")
+                        ) update = true;
+                }
+
+                // after removing any option the choice menu must be updated
+                // unless you still want to see this option
+                if (update) {
+                    auto menu = wOpts_.getComponent <Menu> (0);
+                    auto answers = (Answers*) dialogue_->getCurrentBranch();
+
+                    menu->clear();
+                    for (unsigned i=0; i<answers->getAnswers().size(); ++i) {
+                        menu->addOption(answers->getAnswers()[i]->getSentence());
+                    }
+                }
+            }
 
             // recognizing the choice
             auto chosen = ((Answers*) dialogue_->getCurrentBranch())->find(action);

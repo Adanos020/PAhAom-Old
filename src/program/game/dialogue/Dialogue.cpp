@@ -28,26 +28,28 @@ namespace rr {
         current_ = tree;
     }
 
-    void Answers::removeAnswer(Sentence* s) {
+    bool Answers::removeAnswer(Sentence* s) {
         unsigned i=0;
         while (i<answers_.size()) {
             if (answers_[i] == s) {
                 answers_.erase(answers_.begin()+i);
-                break;
+                return true;
             }
             ++i;
         }
+        return false;
     }
 
-    void Answers::removeAnswer(sf::String s) {
+    bool Answers::removeAnswer(sf::String s) {
         unsigned i=0;
         while (i<answers_.size()) {
             if (answers_[i]->getSentence() == s) {
                 answers_.erase(answers_.begin()+i);
-                break;
+                return true;
             }
             ++i;
         }
+        return false;
     }
 
     Sentence* Answers::find(sf::String sought) const {
