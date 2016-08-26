@@ -40,7 +40,7 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
              /// \brief Creates an exact copy of the food.
              ////////////////////////////////////////////////////////////////////////
-             virtual Entity*        clone         () const     override { return new Food(*this); }
+             virtual Entity* clone() const override { return new Food(*this); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the food's type.

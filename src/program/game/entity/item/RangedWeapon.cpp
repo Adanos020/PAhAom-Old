@@ -88,22 +88,22 @@ namespace rr {
     sf::String RangedWeapon::getDescription() const {
         sf::String description = "";
         switch (type_) {
-            case BOW      : description += Resources::dictionary["item.ranged_weapon.description.bow"]
+            case BOW      : description += Resources::dictionary["item.ranged_weapon.description.bow"] + "\n\n"
                                          + Resources::dictionary["item.requirement.item"] + " "
                                          + Resources::dictionary["item.ammunition.name.arrow"];
                             break;
 
-            case CROSSBOW : description += Resources::dictionary["item.ranged_weapon.description.crossbow"]
+            case CROSSBOW : description += Resources::dictionary["item.ranged_weapon.description.crossbow"] + "\n\n"
                                          + Resources::dictionary["item.requirement.item"] + " "
                                          + Resources::dictionary["item.ammunition.name.bolt"];
                             break;
 
-            case SLINGSHOT: description += Resources::dictionary["item.ranged_weapon.description.slingshot"]
+            case SLINGSHOT: description += Resources::dictionary["item.ranged_weapon.description.slingshot"] + "\n\n"
                                          + Resources::dictionary["item.requirement.item"] + " "
                                          + Resources::dictionary["item.ammunition.name.rocks"];
                             break;
 
-            case BELLOWS  : description += Resources::dictionary["item.ranged_weapon.description.bellows"]
+            case BELLOWS  : description += Resources::dictionary["item.ranged_weapon.description.bellows"] + "\n\n"
                                          + Resources::dictionary["item.requirement.item"] + " "
                                          + Resources::dictionary["item.ammunition.name.dart"];
                             break;

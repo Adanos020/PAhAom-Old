@@ -201,6 +201,21 @@ Strzałka z kurarą
 item.ammunition.name.shuriken
 Shuriken
 
+item.ammunition.description.arrow
+Amunicja do łuku. Z pozoru prosty kawałek drewna zakończony grotem, jednak produkcja dobrych strzał wcale nie jest taka prosta.
+
+item.ammunition.description.bolt
+Amunicja do kuszy. Z pewnością kompletni laicy mogliby pomylić bełt ze strzałą.
+
+item.ammunition.description.rocks
+Otoczaki i rzeczne kamyki w odpowiednim kształcie, wykorzystywane jako amunicja do procy.
+
+item.ammunition.description.dart
+Nasączone trucizną strzałki do rzucania we wroga. Broń może i niepozorna, ale w odpowiednich rękach może być bardzo użyteczna.
+
+item.ammunition.description.shuriken
+Broń miotająca pochodząca ze wschodu. Szczególnie ceniona przez skrytobójców czy agentów od cichej roboty.
+
 item.ranged_weapon.name.bow
 Łuk
 
@@ -212,6 +227,18 @@ Proca
 
 item.ranged_weapon.name.bellows
 Dmuchawka
+
+item.ranged_weapon.description.bow
+Broń niemal tak stara jak ludzkość, towarzyszy naszemu gatunkowi od zarania dziejów, z początku tylko na polowaniach, potem także na wojnie. Konsekwencją tego faktu jest istnienie wielu typów łuków, np. refleksyjnych czy kompozytowych.
+
+item.ranged_weapon.description.crossbow
+Broń strzelnicza często używana przez miejskie milicje, potrafi być bardzo groźna. Bełt z dobrej kuszy może przebić zbroję płytową.
+
+item.ranged_weapon.description.slingshot
+Kolejna broń, której początki giną w pomroce dziejów. Proca pozwala wystrzeliwać w stronę wroga kamienie i podobne pociski.
+
+item.ranged_weapon.description.bellows
+Służy do wypuszczania zatrutych strzałek. Broń idealna do szykowania zasadzek w lesie!
 
 item.book.type.crafting
 „Podstawy wytwarzania”
@@ -465,8 +492,26 @@ Hamburger
 item.food.name.baguette
 Bagietka
 
-item.food.name.dumpling
-Pieróg
+item.food.description.meat
+Dla wygłodniałego poszukiwacza przygód musi to być prawdziwy rarytas. Jest nawet lekko podwędzona!
+
+item.food.description.sandvich
+Dwie pajdy chleba i składniki dowolnego rodzaju pomiędzy nimi. Kanapki różnią się od siebie w równym stopniu, co ludzie.
+
+item.food.description.apple
+Niech to, jabłoń która zrodziła ten owoc musiały hodować olbrzymy! Ten owoc wielkości dyni zawiera oczywiście wszystkie wartości odżywcze jabłka.
+
+item.food.description.beer
+Istnieją setki gatunków piw, chociaż nikt nie jest do końca pewny, co warzą w tych lochach. A może to z importu? Pozostaje spróbować tego popularnego trunku.
+
+item.food.description.hot_dog
+Parówka w bułce, do tego bukiet surówek. Oczywiście najlepsze na ciepło.
+
+item.food.description.hamburger
+Kotlet z dwóch stron otoczony bułką, do tego bardzo okazały. Mnogość dodatków raduje twoje serce i żołądek.
+
+item.food.description.baguette
+Swego czasu popularny posiłek żołnierzy w armii napoleońskiej, która zaniosła go w świat. To leży u źródeł popularności tej długiej, cienkiej bułki.
 
 item.spell.symbol.shcha
 Runa „ścia”

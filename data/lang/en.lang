@@ -172,16 +172,16 @@ item.enchantment.description.cursed
 This item is cursed.
 
 item.requirement.item
-Item required:
+Required item:
 
 item.requirement.strength
-Strength required:
+Required strength:
 
 item.requirement.dexterity
-Dexterity required:
+Required dexterity:
 
 item.weapon.damage_dealt
-Maximum damage dealt:
+Maximum damage:
 
 item.weapon.level
 Upgrade level:
@@ -201,6 +201,21 @@ Curare dart
 item.ammunition.name.shuriken
 Shuriken
 
+item.ammunition.description.arrow
+Ammunition for bows. Seems to look like just a piece of wood with an arrowhead in the end, even though producing a good arrow is not an easy job.
+
+item.ammunition.description.bolt
+Ammunition for crossbows. Surely the total newbies could confuse a bolt with an arrow.
+
+item.ammunition.description.rocks
+Pebbles and river stones of a proper shape, used as an ammunition for a slingshot.
+
+item.ammunition.description.dart
+Soaked with poison arrows to throw them at the opponent. Maybe it's inconspicious but it might be very useful in good hands.
+
+item.ammunition.description.shuriken
+Thrown weapon from the east. Especially appreciated by assasins or secret agents.
+
 item.ranged_weapon.name.bow
 Bow
 
@@ -212,6 +227,18 @@ Slingshot
 
 item.ranged_weapon.name.bellows
 Bellows
+
+item.ranged_weapon.description.bow
+This weapon is almost as old as humanity, accompanies to our species since the dawn of history, firstly only for hunting, then also during battles. The consequence of this fact is the existence of many different types of bows e.g. reflex arc or composite bow.
+
+item.ranged_weapon.description.crossbow
+A shooting weapon often used by militias, can be very dangerous. A bolt from a high quality crossbow can pierce a plate armor.
+
+item.ranged_weapon.description.slingshot
+Another weapon whose origins vanish in the mists of time. A slingshot allows to shoot rocks and any similar projectiles towards the enemy.
+
+item.ranged_weapon.description.bellows
+Used to throw the poisonous darts. It's perfect for preparing traps in the forest!
 
 item.book.type.crafting
 "Crafting basics"
@@ -465,8 +492,26 @@ Hamburger
 item.food.name.baguette
 Baguette
 
-item.food.name.dumpling
-Dumpling
+item.food.description.meat
+For a starving adventurer it must be a real rarity. It's even smoked a little!
+
+item.food.description.sandvich
+Two slices of bread and ingredients of different type between them. The sandviches differ from each other as much as people.
+
+item.food.description.apple
+Dang it, the apple-tree which gave birth to this fruit must have been bred by giants! This fruit sized as a pumpkin obviously contains all the nutritional values of an apple.
+
+item.food.description.beer
+There are hundreads of beer genres, even though nobody is sure what is brewed in this dungeon. Or maybe it's imported? All you need to do is to try this popular intoxicant.
+
+item.food.description.hot_dog
+A wiener on a bun with a salad. Of course it is the best if it's warm.
+
+item.food.description.hamburger
+A cutlet surrounded with a roll from both sides, very magnificient. Multiplicity of supplements makes yor heart and stomach happier.
+
+item.food.description.baguette
+Some time ago it was a popular dish of the Napoleon's Army's soldiers which brought it to the world. This is the reason of the popularity of this long, thin roll.
 
 item.spell.symbol.shcha
 "Shcha" rune
@@ -724,7 +769,7 @@ message.item_used.book.faster_learning
 Now you know how to learn faster!
 
 message.item_used.food
-The food tasted amazing! Also you feel less hungry now.
+This tasted amazing! Also you feel less hungry now.
 
 message.player_hungry
 You are hungry.
@@ -736,7 +781,7 @@ message.player_attack_success
 gets hit.
 
 message.player_attack_failure
-dodges player's attack.
+dodges your attack.
 
 message.player_dies
 You died!
