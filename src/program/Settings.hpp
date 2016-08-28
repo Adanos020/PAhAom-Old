@@ -9,11 +9,14 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace rr {
+namespace rr
+{
 
 /// Structure for the game settings
-    struct Settings {
-    public: static struct Keys {
+    struct Settings
+    {
+    public: static struct Keys
+            {
             public: sf::Keyboard::Key move_up;
                     sf::Keyboard::Key move_down;
                     sf::Keyboard::Key move_left;
@@ -37,7 +40,8 @@ namespace rr {
                     ////////////////////////////////////////////////////////////////////////
                     /// \brief Regular constructor.
                     ////////////////////////////////////////////////////////////////////////
-                    Keys() {
+                    Keys()
+                    {
                         move_up           = sf::Keyboard::W;
                         move_down         = sf::Keyboard::S;
                         move_left         = sf::Keyboard::A;
@@ -56,8 +60,9 @@ namespace rr {
                         useslot_5         = sf::Keyboard::Num5;
                     }
             } keys;
-            
-            static struct Sound {
+
+            static struct Sound
+            {
             public: float music_volume;
                     float effects_volume;
                     bool  music_muted;
@@ -66,7 +71,8 @@ namespace rr {
                     ////////////////////////////////////////////////////////////////////////
                     /// \brief Regular constructor.
                     ////////////////////////////////////////////////////////////////////////
-                    Sound() {
+                    Sound()
+                    {
                         music_volume   = 50.f;
                         effects_volume = 50.f;
                         music_muted    = false;
@@ -74,7 +80,8 @@ namespace rr {
                     }
             } sound;
             
-            static struct Graphics {
+            static struct Graphics
+            {
             public: sf::ContextSettings csettings;
                     sf::Vector2u        resolution;
                     bool                vsync;
@@ -83,7 +90,8 @@ namespace rr {
                     ////////////////////////////////////////////////////////////////////////
                     /// \brief Regular constructor.
                     ////////////////////////////////////////////////////////////////////////
-                    Graphics() {
+                    Graphics()
+                    {
                         resolution.x                = 1280;
                         resolution.y                = 720;
                         fullscreen                  = false;
@@ -94,14 +102,16 @@ namespace rr {
                     }
             } graphics;
             
-            static struct Game {
+            static struct Game
+            {
             public: std::string language;
                     bool        debugMode;
 
                     ////////////////////////////////////////////////////////////////////////
                     /// \brief Regular constructor.
                     ////////////////////////////////////////////////////////////////////////
-                    Game() {
+                    Game()
+                    {
                         language  = "en";
                         debugMode = false;
                     }

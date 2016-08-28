@@ -9,11 +9,13 @@
 
 #include "NPC.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Teacher : public NPC {
-    private: struct {   // Structure for buffs - each buff is represented by an integer
-                        // which tells for how many turns is it going to be valid.
+    class Teacher : public NPC
+    {
+    private: struct // Structure for buffs - each buff is represented by an integer
+             {      // which tells for how many turns is it going to be valid.
              public: int speed;
                      int regeneration;
                      int poison;
@@ -27,7 +29,8 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
      virtual void initialize() override;
 
-    public:  enum Type {
+    public:  enum Type
+             {
                  SWORDSMAN,
                  SHARPSHOOTER,
                  CARPENTER,

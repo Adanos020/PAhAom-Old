@@ -8,11 +8,12 @@
 
 #include "../Resources.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Checkbox::Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color c) :
-      image_   (Image(pos, Resources::texture.gui, 14, 1)                      ),
-      text_    (Text (sf::Vector2f(0, 0), txt, Resources::font.Unifont, chsize))
+      image_(Image(pos, Resources::texture.gui, 14, 1)),
+      text_ (Text (sf::Vector2f(0, 0), txt, Resources::font.Unifont, chsize))
     {
         body_ .setSize            (sf::Vector2f(35, 35));
         body_ .setPosition        (pos);
@@ -26,26 +27,35 @@ namespace rr {
         text_ .setParentComponent (this);
     }
 
-    void Checkbox::check(bool b) {
+    void
+    Checkbox::check(bool b)
+    {
         checked_ = b;
     }
 
-    void Checkbox::setPosition(sf::Vector2f pos) {
+    void
+    Checkbox::setPosition(sf::Vector2f pos)
+    {
         body_ .setPosition(pos);
         text_ .setPosition(sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_.getSize().y));
         image_.setPosition(pos);
     }
 
 
-    void Checkbox::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    Checkbox::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         target.draw(body_ , states);
         if (  checked_
             ) target.draw(image_, states);
         target.draw(text_ , states);
     }
 
-    bool Checkbox::containsMouseCursor(sf::RenderWindow& rw) {
-        if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
+    bool
+    Checkbox::containsMouseCursor(sf::RenderWindow& rw)
+    {
+        if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw)))
+        {
             body_.setFillColor(sf::Color(128, 128, 128, 255));
             return true;
         }
@@ -53,8 +63,11 @@ namespace rr {
         return false;
     }
 
-    bool Checkbox::isPressed(sf::RenderWindow& rw, sf::Event& e) {
-        if (containsMouseCursor(rw) && e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left) {
+    bool
+    Checkbox::isPressed(sf::RenderWindow& rw, sf::Event& e)
+    {
+        if (containsMouseCursor(rw) && e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left)
+        {
             held_ = true;
             return true;
         }

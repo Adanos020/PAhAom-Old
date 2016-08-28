@@ -14,11 +14,13 @@
 
 #include "../dialogue/Dialogue.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class Game;
 
-    class Conversation : public sf::Drawable {
+    class Conversation : public sf::Drawable
+    {
     private: sf::RectangleShape shadow_;
              sf::String         npcName_;
              Window             wConv_;

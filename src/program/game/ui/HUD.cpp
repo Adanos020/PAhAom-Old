@@ -9,7 +9,8 @@
 #include "../../Settings.hpp"
 #include "../../Resources.hpp"
 
-namespace rr {
+namespace rr
+{
 
     HUD::HUD() :
       bHP_         (Bar (Bar::HORIZONTAL, 150, sf::Color::Red , sf::Vector2f(15, Settings::graphics.resolution.y-20))),
@@ -38,10 +39,13 @@ namespace rr {
         tFPS_        .setOutlineThickness(1.f);
     }
 
-    void HUD::update(Player* p, int lvl, sf::Clock& timer) {
+    void
+    HUD::update(Player* p, int lvl, sf::Clock& timer)
+    {
         if (  p->getBuffs().poison > 0
             ) bHP_.setFillColor(sf::Color(0x80, 0xff, 0x80));
-        else {
+        else
+        {
             if      (  p->getBuffs().hunger >= 500 && p->getBuffs().hunger < 1000
                      ) bHP_.setFillColor(sf::Color(0xff, 0x40, 0x40));
             else if (  p->getBuffs().hunger >= 1000
@@ -65,7 +69,9 @@ namespace rr {
         tFPS_.setString("FPS: "+sf::String(buf));
     }
 
-    void HUD::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    HUD::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         target.draw(bHP_         , states);
         target.draw(bMP_         , states);
         target.draw(bXP_         , states);

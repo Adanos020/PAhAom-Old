@@ -9,7 +9,8 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace rr {
+namespace rr
+{
 
     ////////////////////////////////////////////////////////////////////////
     /// \brief Sets the icons for each layer of a custom sprite's texture.
@@ -22,11 +23,14 @@ namespace rr {
     /// It works in such a way that it just gives the indices relevant
     /// texture coordinates.
     ////////////////////////////////////////////////////////////////////////
-    inline void setIcon(sf::VertexArray& body, int layers, int icons[]) {
+    inline void
+    setIcon(sf::VertexArray& body, int layers, int icons[])
+    {
         body.resize(4*layers);
         body.setPrimitiveType(sf::Quads);
 
-        for (int i=0; i<layers; i++) {
+        for (int i=0; i<layers; i++)
+        {
             int tu = icons[i]%16;
             int tv = icons[i]/16;
 
@@ -46,7 +50,9 @@ namespace rr {
     /// It works in such a way that it just gives the indices relevant
     /// texture coordinates.
     ////////////////////////////////////////////////////////////////////////
-    inline void setIcon(sf::VertexArray& body, int icon) {
+    inline void
+    setIcon(sf::VertexArray& body, int icon)
+    {
         body.resize(4);
         body.setPrimitiveType(sf::Quads);
 
@@ -63,8 +69,11 @@ namespace rr {
     /// \brief Sets the color of a given layer of the custom sprite's
     /// texture.
     ////////////////////////////////////////////////////////////////////////
-    inline void setColor(sf::VertexArray& body, int layer, sf::Color color) {
-        for (int i=0; i<4; i++) {
+    inline void
+    setColor(sf::VertexArray& body, int layer, sf::Color color)
+    {
+        for (int i=0; i<4; i++)
+        {
             body[4*layer+i].color = color;
         }
     }
@@ -72,8 +81,11 @@ namespace rr {
     ////////////////////////////////////////////////////////////////////////
     /// \brief Sets the color of all layers of the custom sprite's texture.
     ////////////////////////////////////////////////////////////////////////
-    inline void setColor(sf::VertexArray& body, sf::Color color) {
-        for (unsigned i=0; i<body.getVertexCount(); i++) {
+    inline void
+    setColor(sf::VertexArray& body, sf::Color color)
+    {
+        for (unsigned i=0; i<body.getVertexCount(); i++)
+        {
             body[i].color = color;
         }
     }
@@ -81,7 +93,9 @@ namespace rr {
     ////////////////////////////////////////////////////////////////////////
     /// \brief Makes a gradient from the color array on a given layer. 
     ////////////////////////////////////////////////////////////////////////
-    inline void setGradient(sf::VertexArray& body, int layer, sf::Color colors[]) {
+    inline void
+    setGradient(sf::VertexArray& body, int layer, sf::Color colors[])
+    {
         body[4*layer+0].color = colors[0];
         body[4*layer+1].color = colors[1];
         body[4*layer+2].color = colors[2];
@@ -91,14 +105,18 @@ namespace rr {
     ////////////////////////////////////////////////////////////////////////
     /// \brief Sets the custom sprite's position.
     ////////////////////////////////////////////////////////////////////////
-    inline void setPosition(sf::VertexArray& body, sf::Vector2f pos) {
+    inline void
+    setPosition(sf::VertexArray& body, sf::Vector2f pos)
+    {
         body[1].position = pos+(body[1].position-body[0].position);
         body[2].position = pos+(body[2].position-body[0].position);
         body[3].position = pos+(body[3].position-body[0].position);
         body[0].position = pos;
 
-        if (body.getVertexCount() > 4) {
-            for (unsigned i=4; i<body.getVertexCount(); i++) {
+        if (body.getVertexCount() > 4)
+        {
+            for (unsigned i=4; i<body.getVertexCount(); i++)
+            {
                 body[i].position = body[i%4].position;
             }
         }
@@ -107,7 +125,9 @@ namespace rr {
     ////////////////////////////////////////////////////////////////////////
     /// \brief Sets the custom sprite's size.
     ////////////////////////////////////////////////////////////////////////
-    inline void setSize(sf::VertexArray& body, sf::Vector2f siz) {
+    inline void
+    setSize(sf::VertexArray& body, sf::Vector2f siz)
+    {
         body[1].position = body[0].position+sf::Vector2f(siz.x,     0);
         body[2].position = body[0].position+sf::Vector2f(siz.x, siz.y);
         body[3].position = body[0].position+sf::Vector2f(0    , siz.y);
@@ -116,7 +136,9 @@ namespace rr {
     ////////////////////////////////////////////////////////////////////////
     /// \brief Flips the custom sprite vertically.
     ////////////////////////////////////////////////////////////////////////
-    inline void flipVertically(sf::VertexArray& body) {
+    inline void
+    flipVertically(sf::VertexArray& body)
+    {
         sf::Vector2f position_0 = body[0].position,
                      position_1 = body[1].position,
                      position_2 = body[2].position,
@@ -131,7 +153,9 @@ namespace rr {
     ////////////////////////////////////////////////////////////////////////
     /// \brief Flips the custom sprite horizontally.
     ////////////////////////////////////////////////////////////////////////
-    inline void flipHorizontally(sf::VertexArray& body) {
+    inline void
+    flipHorizontally(sf::VertexArray& body)
+    {
         sf::Vector2f position_0 = body[0].position,
                      position_1 = body[1].position,
                      position_2 = body[2].position,

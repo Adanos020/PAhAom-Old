@@ -16,7 +16,8 @@
 
 extern int spellSymbols[12];
 
-namespace rr {
+namespace rr
+{
 
     bool Rune::identified_[12] = { false, false, false, false, false, false, false, false, false, false, false, false };
 
@@ -40,7 +41,9 @@ namespace rr {
         body_       = copy.body_;
     }
 
-    void Rune::initialize() {
+    void
+    Rune::initialize()
+    {
         disposable_ = true;
         stackable_  = true;
         cursed_     = chance(2, 5);
@@ -52,9 +55,13 @@ namespace rr {
         setIcon(body_, 2, icons);
     }
 
-    sf::String Rune::getName() const {
-        if (!identified_[type_]) {
-            switch (spellSymbols[type_]) {
+    sf::String
+    Rune::getName() const
+    {
+        if (!identified_[type_])
+        {
+            switch (spellSymbols[type_])
+            {
                 case  0: return Resources::dictionary["item.spell.symbol.shcha"  ];
                 case  1: return Resources::dictionary["item.spell.symbol.jus"    ];
                 case  2: return Resources::dictionary["item.spell.symbol.jes"    ];
@@ -69,8 +76,10 @@ namespace rr {
                 case 11: return Resources::dictionary["item.spell.symbol.izhitsa"];
             }
         }
-        else {
-            switch (type_) {
+        else
+        {
+            switch (type_)
+            {
                 case HEAL         : return Resources::dictionary["item.spell.type.heal"        ];
                 case FIREBOLT     : return Resources::dictionary["item.spell.type.firebolt"    ];
                 case LIGHTNING    : return Resources::dictionary["item.spell.type.lightning"   ];
@@ -88,11 +97,15 @@ namespace rr {
         return "";
     }
 
-    sf::String Rune::getDescription() const {
+    sf::String
+    Rune::getDescription() const
+    {
         if ( !identified_[type_]
             ) return Resources::dictionary["item.spell.description.unknown"];
-        else {
-            switch (type_) {
+        else
+        {
+            switch (type_)
+            {
                 case HEAL         : return Resources::dictionary["item.spell.description.heal"        ];
                 case FIREBOLT     : return Resources::dictionary["item.spell.description.firebolt"    ];
                 case LIGHTNING    : return Resources::dictionary["item.spell.description.lightning"   ];
@@ -110,7 +123,9 @@ namespace rr {
         return "";
     }
 
-    void Rune::setGridPosition(sf::Vector2i pos) {
+    void
+    Rune::setGridPosition(sf::Vector2i pos)
+    {
         body_[0].position = (sf::Vector2f)pos*80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
@@ -122,7 +137,9 @@ namespace rr {
         body_[7].position = body_[3].position;
     }
 
-    void Rune::setPosition(sf::Vector2f pos) {
+    void
+    Rune::setPosition(sf::Vector2f pos)
+    {
         body_[0].position = pos;
         body_[1].position = sf::Vector2f(pos.x+80, pos.y   );
         body_[2].position = sf::Vector2f(pos.x+80, pos.y+80);
@@ -134,17 +151,21 @@ namespace rr {
         body_[7].position = body_[3].position;
     }
 
-    std::ifstream& Rune::operator<<(std::ifstream& file) {
+    std::ifstream&
+    Rune::operator<<(std::ifstream& file)
+    {
         sf::Vector2i position;
         int type;
 
-        try {
+        try
+        {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
-            readFile <int> (file, amount_);                 
+            readFile <int> (file, amount_);
             readFile <int> (file, type);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -156,7 +177,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& Rune::operator>>(std::ofstream& file) {
+    std::ofstream&
+    Rune::operator>>(std::ofstream& file)
+    {
         file << 7                            << ' '
              << (int) body_[0].position.x/80 << ' '
              << (int) body_[0].position.y/80 << ' '

@@ -15,11 +15,13 @@
 #include "Resources.hpp"
 #include "game/Game.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class Game;
 
-    class Program {
+    class Program
+    {
     private: sf::Event        event_;
              sf::RenderWindow window_;
 

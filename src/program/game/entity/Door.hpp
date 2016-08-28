@@ -9,9 +9,11 @@
 
 #include "Entity.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Door : public Entity {
+    class Door : public Entity
+    {
     private: sf::Sprite body_;
              bool       locked_;
              bool       open_;

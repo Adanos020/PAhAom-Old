@@ -15,7 +15,8 @@
 
 extern sf::Color itemColors[9];
 
-namespace rr {
+namespace rr
+{
 
     bool Potion::identified_[9] = { false, false, false, false, false, false, false, false, false };
 
@@ -41,7 +42,9 @@ namespace rr {
         body_       = copy.body_;
     }
 
-    void Potion::initialize() {
+    void
+    Potion::initialize()
+    {
         disposable_ = true;
         stackable_  = true;
         cursed_     = false;
@@ -54,8 +57,11 @@ namespace rr {
         setColor(body_, 1, itemColors[type_]);
     }
 
-    sf::String Potion::getName() const {
-        if (!identified_[type_]) {
+    sf::String
+    Potion::getName() const
+    {
+        if (!identified_[type_])
+        {
                  if (itemColors[type_] == sf::Color::Red          ) return Resources::dictionary["item.potion.color.red"    ];
             else if (itemColors[type_] == sf::Color::Blue         ) return Resources::dictionary["item.potion.color.blue"   ];
             else if (itemColors[type_] == sf::Color(32, 32, 0)    ) return Resources::dictionary["item.potion.color.brown"  ];
@@ -66,8 +72,10 @@ namespace rr {
             else if (itemColors[type_] == sf::Color::Yellow       ) return Resources::dictionary["item.potion.color.yellow" ];
             else if (itemColors[type_] == sf::Color::White        ) return Resources::dictionary["item.potion.color.white"  ];
         }
-        else {
-            switch (type_) {
+        else
+        {
+            switch (type_)
+            {
                 case HEALING:      return Resources::dictionary["item.potion.effect.healing"     ];
                 case MAGIC:        return Resources::dictionary["item.potion.effect.magic"       ];
                 case STRENGTH:     return Resources::dictionary["item.potion.effect.strength"    ];
@@ -82,11 +90,15 @@ namespace rr {
         return "";
     }
 
-    sf::String Potion::getDescription() const {
+    sf::String
+    Potion::getDescription() const
+    {
         if ( !identified_[type_]
             ) return Resources::dictionary["item.potion.description.unknown"];
-        else {
-            switch (type_) {
+        else
+        {
+            switch (type_)
+            {
                 case HEALING     : return Resources::dictionary["item.potion.description.healing"     ];
                 case MAGIC       : return Resources::dictionary["item.potion.description.magic"       ];
                 case STRENGTH    : return Resources::dictionary["item.potion.description.strength"    ];
@@ -101,7 +113,9 @@ namespace rr {
         return "";
     }
 
-    void Potion::setGridPosition(sf::Vector2i pos) {
+    void
+    Potion::setGridPosition(sf::Vector2i pos)
+    {
         body_[0].position = (sf::Vector2f)pos*80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
@@ -113,7 +127,9 @@ namespace rr {
         body_[7].position = body_[3].position;
     }
 
-    void Potion::setPosition(sf::Vector2f pos) {
+    void
+    Potion::setPosition(sf::Vector2f pos)
+    {
         body_[0].position = pos;
         body_[1].position = sf::Vector2f(pos.x+80, pos.y   );
         body_[2].position = sf::Vector2f(pos.x+80, pos.y+80);
@@ -125,18 +141,22 @@ namespace rr {
         body_[7].position = body_[3].position;
     }
 
-    std::ifstream& Potion::operator<<(std::ifstream& file) {
+    std::ifstream&
+    Potion::operator<<(std::ifstream& file)
+    {
         sf::Vector2i position;
         int type, size;
 
-        try {
+        try
+        {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
             readFile <int> (file, amount_);
             readFile <int> (file, type);
             readFile <int> (file, size);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -149,7 +169,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& Potion::operator>>(std::ofstream& file) {
+    std::ofstream&
+    Potion::operator>>(std::ofstream& file)
+    {
         file << 5                            << ' '
              << (int) body_[0].position.x/80 << ' '
              << (int) body_[0].position.y/80 << ' '

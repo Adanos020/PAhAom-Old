@@ -9,15 +9,18 @@
 
 #include "Item.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Book : public Item {
+    class Book : public Item
+    {
     private: ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the book.
              ////////////////////////////////////////////////////////////////////////
      virtual void initialize() override;
 
-    public:  enum Type {
+    public:  enum Type
+             {
                  CRAFTING,
                  ALCHEMY,
                  COLD_WEAPON_MASTERY,

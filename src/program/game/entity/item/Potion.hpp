@@ -9,15 +9,18 @@
 
 #include "Item.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Potion : public Discoverable {
+    class Potion : public Discoverable
+    {
     private: ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the potion.
              ////////////////////////////////////////////////////////////////////////
      virtual void initialize() override;
     
-    public:  enum Type {
+    public:  enum Type
+             {
                  HEALING,
                  MAGIC,
                  STRENGTH,
@@ -28,7 +31,8 @@ namespace rr {
                  SLOWNESS,
                  WEAKNESS
              };
-             enum Size {
+             enum Size
+             {
                  BIG,
                  MEDIUM,
                  SMALL

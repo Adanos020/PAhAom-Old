@@ -7,9 +7,11 @@
 #ifndef DIALOGUE_HPP
 #define DIALOGUE_HPP
 
-namespace rr {
+namespace rr
+{
     
-    class Branch {
+    class Branch
+    {
     private: Branch* left_  = nullptr;
              Branch* right_ = nullptr;
     
@@ -39,8 +41,10 @@ namespace rr {
              Branch* getRight() const { return right_; }
     };
 
-    class Sentence : public Branch {
-    public:  enum Speaker {
+    class Sentence : public Branch
+    {
+    public:  enum Speaker
+             {
                  PLAYER,
                  _NPC
              };
@@ -64,7 +68,8 @@ namespace rr {
              sf::String sentence_;
     };
 
-    class Answers : public Branch {
+    class Answers : public Branch
+    {
     private: std::vector<Sentence*> answers_;
 
     public:  ////////////////////////////////////////////////////////////////////////
@@ -99,7 +104,8 @@ namespace rr {
              Sentence* find(sf::String) const;
     };
 
-    class DialogueTree {
+    class DialogueTree
+    {
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
              ////////////////////////////////////////////////////////////////////////

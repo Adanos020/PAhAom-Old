@@ -13,11 +13,13 @@
 
 #include "../entity/Player.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class Game;
 
-    class Attributes : public sf::Drawable {
+    class Attributes : public sf::Drawable
+    {
     private: sf::RectangleShape shadow_;
              Window             wAttr_;
 

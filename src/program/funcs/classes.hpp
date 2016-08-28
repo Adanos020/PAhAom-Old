@@ -7,7 +7,8 @@
 #ifndef FUNCS_CLASSES_HPP
 #define FUNCS_CLASSES_HPP
 
-namespace rr {
+namespace rr
+{
 
     ////////////////////////////////////////////////////////////////////////
     /// \brief Tells if a given pointer points an object which has a base of
@@ -19,8 +20,9 @@ namespace rr {
     /// instance
     /// \param ptr the pointer to the object we want to check.
     ////////////////////////////////////////////////////////////////////////
-    template <class Base, class T>
-    inline bool instanceof(const T* ptr) {
+    template <class Base, class T> inline bool
+    instanceof(const T* ptr)
+    {
         return dynamic_cast<const Base*>(ptr) != nullptr;
     }
 

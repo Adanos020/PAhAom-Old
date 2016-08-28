@@ -10,11 +10,13 @@
 #include "../../gui/Text.hpp"
 #include "../../gui/Button.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class Game;
 
-    class DeathScreen : public sf::Drawable {
+    class DeathScreen : public sf::Drawable
+    {
     private: sf::RectangleShape shadow_;
              sf::Time           endAnimation_;
 

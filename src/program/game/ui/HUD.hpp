@@ -10,9 +10,11 @@
 #include "../../gui/Bar.hpp"
 #include "../../gui/Text.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class HUD : public sf::Drawable {
+    class HUD : public sf::Drawable
+    {
     private: Bar  bHP_;
              Bar  bMP_;
              Bar  bXP_;

@@ -8,12 +8,13 @@
 
 #include "../Program.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Switch::Switch(sf::Vector2f size, sf::Vector2f pos) :
-      left_    (Button(pos, "<", 30)                                                              ),
-      right_   (Button(sf::Vector2f(body_.getPosition().x + body_.getSize().x+24, pos.y), ">", 30)),
-      text_    (Text  (sf::Vector2f(0, 0), L"QYTA CLOHJÉR", Resources::font.Unifont, size.y)      )
+      left_ (Button(pos, "<", 30)),
+      right_(Button(sf::Vector2f(body_.getPosition().x + body_.getSize().x+24, pos.y), ">", 30)),
+      text_ (Text  (sf::Vector2f(0, 0), L"QYTA CLOHJÉR", Resources::font.Unifont, size.y))
     {
         body_ .setSize            (size);
         body_ .setPosition        (sf::Vector2f(pos.x+44, pos.y+5));
@@ -30,27 +31,36 @@ namespace rr {
         counter_ = 0;
     }
 
-    void Switch::setPosition(sf::Vector2f pos) {
+    void
+    Switch::setPosition(sf::Vector2f pos)
+    {
         left_ .setPosition(pos);
         body_ .setPosition(sf::Vector2f(pos.x+44, pos.y+5));
         text_ .setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
         right_.setPosition(sf::Vector2f(pos.x+body_.getSize().x + body_.getSize().y+21, pos.y));
     }
 
-    void Switch::setSize(sf::Vector2f s) {
+    void
+    Switch::setSize(sf::Vector2f s)
+    {
         body_ .setSize(s);
         right_.setPosition(sf::Vector2f(s.x+s.x+s.y+11, s.y));
     }
 
-    void Switch::buttonEvents(sf::RenderWindow& rw, sf::Event& e) {
-        if (left_.isPressed(rw, e)) {
+    void
+    Switch::buttonEvents(sf::RenderWindow& rw, sf::Event& e)
+    {
+        if (left_.isPressed(rw, e))
+        {
             if (  counter_ > 0
                 ) counter_--;
             else  counter_ = options_.size()-1;
             
             text_.setString  (options_[counter_]);
             text_.setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
-        } else if (right_.isPressed(rw, e)) {
+        }
+        else if (right_.isPressed(rw, e))
+        {
             if (  counter_<options_.size()-1
                 ) counter_++;
             else  counter_ = 0;
@@ -60,17 +70,23 @@ namespace rr {
         }
     }
 
-    void Switch::addOption(sf::String opt) {
+    void
+    Switch::addOption(sf::String opt)
+    {
         options_.push_back(opt);
-        if (options_.size() == 1) {
+        if (options_.size() == 1)
+        {
             text_.setString  (options_[counter_]);
             text_.setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
         }
     }
 
-    void Switch::setCurrentOption(sf::String o) {
+    void
+    Switch::setCurrentOption(sf::String o)
+    {
         int i = 0;
-        for (auto x : options_) {
+        for (auto x : options_)
+        {
             if (  x == o
                 ) break;
             ++i;
@@ -80,7 +96,9 @@ namespace rr {
         text_.setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
     }
 
-    void Switch::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    Switch::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         target.draw(body_ , states);
         target.draw(left_ , states);
         target.draw(right_, states);

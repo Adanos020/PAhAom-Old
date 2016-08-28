@@ -9,9 +9,11 @@
 
 #include "Component.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Bar : public Component {
+    class Bar : public Component
+    {
     private: sf::RectangleShape border_;
              sf::RectangleShape bar_;
 
@@ -20,7 +22,8 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
      virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
     
-    public:  enum Plain {
+    public:  enum Plain
+             {
                  HORIZONTAL,
                  VERTICAL
              };

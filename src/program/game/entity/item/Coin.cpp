@@ -13,19 +13,20 @@
 #include "../../../funcs/images.hpp"
 #include "../../../funcs/files.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    Coin::Coin(Type t, Size s, int am, sf::Vector2i pos) {
+    Coin::Coin(Type t, Size s, int am, sf::Vector2i pos) :
+      type_(t),
+      size_(s)
+    {
         amount_ = am;
-        type_   = t;
-        size_   = s;
 
         initialize();
         setGridPosition(pos);
     }
 
     Coin::Coin(Coin const& copy) :
-      type_(copy.type_)
     {
         amount_     = copy.amount_;
         disposable_ = copy.disposable_;
@@ -35,7 +36,9 @@ namespace rr {
         body_       = copy.body_;
     }
 
-    void Coin::initialize() {
+    void
+    Coin::initialize()
+    {
         disposable_ = false;
         stackable_  = true;
         cursed_     = false;
@@ -45,8 +48,11 @@ namespace rr {
         setIcon(body_, iconIndex_);
     }
     
-    sf::String Coin::getName() const {
-        switch (type_) {
+    sf::String
+    Coin::getName() const
+    {
+        switch (type_)
+        {
             case BRONZE: return Resources::dictionary["item.coin.bronze"];
             case SILVER: return Resources::dictionary["item.coin.silver"];
             case GOLDEN: return Resources::dictionary["item.coin.gold"  ];
@@ -54,22 +60,28 @@ namespace rr {
         return "";
     }
 
-    sf::String Coin::getDescription() const {
+    sf::String
+    Coin::getDescription() const
+    {
         return "";
     }
 
-    std::ifstream& Coin::operator<<(std::ifstream& file) {
+    std::ifstream&
+    Coin::operator<<(std::ifstream& file)
+    {
         sf::Vector2i position;
         int type, size;
 
-        try {
+        try
+        {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
             readFile <int> (file, amount_);
             readFile <int> (file, type);
             readFile <int> (file, size);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -82,7 +94,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& Coin::operator>>(std::ofstream& file) {
+    std::ofstream&
+    Coin::operator>>(std::ofstream& file)
+    {
         file << 2                            << ' '
              << (int) body_[0].position.x/80 << ' '
              << (int) body_[0].position.y/80 << ' '

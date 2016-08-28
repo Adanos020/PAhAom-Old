@@ -8,12 +8,13 @@
 
 #include "../Resources.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Button::Button(sf::Vector2f position, sf::String str, unsigned chsize, sf::Color c) :
-      image_   (Image(position, Resources::texture.gui, 14, 0)                    ),
-      text_    (Text (sf::Vector2f(0, 0), str, Resources::font.Unifont, chsize, c)),
-      held_    (false                                                             )
+      image_(Image(position, Resources::texture.gui, 14, 0)),
+      text_ (Text (sf::Vector2f(0, 0), str, Resources::font.Unifont, chsize, c)),
+      held_ (false)
     {
         text_ .setParentComponent(this);
 
@@ -29,7 +30,9 @@ namespace rr {
                                                 position.y-0.5));
     }
 
-    void Button::setText(sf::String s) {
+    void
+    Button::setText(sf::String s)
+    {
         text_.setString(s);
         body_.setSize     (sf::Vector2f(text_.getSize().x+25, text_.getCharacterSize()*1.3425));
         body_.setFillColor(sf::Color(0, 0, 0));
@@ -38,8 +41,11 @@ namespace rr {
                                         body_.getPosition().y-0.5));
     }
 
-    bool Button::containsMouseCursor(sf::RenderWindow& rw) {
-        if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw))) {
+    bool
+    Button::containsMouseCursor(sf::RenderWindow& rw)
+    {
+        if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw)))
+        {
             body_.setFillColor(sf::Color(128, 128, 128, 255));
             return true;
         }
@@ -47,8 +53,11 @@ namespace rr {
         return false;
     }
 
-    bool Button::isPressed(sf::RenderWindow& rw, sf::Event& e) {
-        if (containsMouseCursor(rw) && e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left) {
+    bool
+    Button::isPressed(sf::RenderWindow& rw, sf::Event& e)
+    {
+        if (containsMouseCursor(rw) && e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left)
+        {
             held_ = true;
             return true;
         }
@@ -57,13 +66,17 @@ namespace rr {
         return false;
     }
 
-    void Button::setPosition(sf::Vector2f position) {
+    void
+    Button::setPosition(sf::Vector2f position)
+    {
         body_ .setPosition(position);
         text_ .setPosition(sf::Vector2f(position.x+body_.getSize().x/2-text_.getSize().x/2-text_.getCharacterSize()/20, position.y-0.5));
         image_.setPosition(position);
     }
 
-    void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         target.draw(body_ , states);
         target.draw(text_ , states);
         target.draw(image_, states);

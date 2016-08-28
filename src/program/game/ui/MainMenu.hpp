@@ -12,11 +12,13 @@
 #include "../../gui/Window.hpp"
 #include "../../gui/Text.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class Game;
 
-    class MainMenu : public sf::Drawable {
+    class MainMenu : public sf::Drawable
+    {
     private: sf::RectangleShape background_;
              sf::Texture        backTexture_;
              Text               title_;

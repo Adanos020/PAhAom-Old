@@ -11,11 +11,13 @@
 
 #include "../../gui/Window.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class Game;
 
-    class BookOfSpells : public sf::Drawable {
+    class BookOfSpells : public sf::Drawable
+    {
     private: sf::RectangleShape shadow_;
              Window             wBofs_;
 

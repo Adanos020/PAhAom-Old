@@ -11,13 +11,15 @@
 
 #include "../Player.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Bandit : public NPC {
-    private: bool          moving_;
+    class Bandit : public NPC
+    {
+    private: bool moving_;
 
-             struct {   // Structure for buffs - each buff is represented by an integer
-                        // which tells for how many turns is it going to be valid.
+             struct // Structure for buffs - each buff is represented by an integer
+             {      // which tells for how many turns is it going to be valid.
              public: int speed;
                      int regeneration;
                      int poison;
@@ -31,7 +33,8 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
      virtual void initialize() override;
 
-    public:  enum Type {
+    public:  enum Type
+             {
                  CLUB,
                  CROSSBOW,
                  DAGGER

@@ -12,11 +12,13 @@
 #include "Entity.hpp"
 #include "item/Item.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class Item;
 
-    class Chest : public Entity {
+    class Chest : public Entity
+    {
     private: sf::Sprite body_;
              Item*      item_;
 
@@ -30,7 +32,8 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
      virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    public:  enum Type {
+    public:  enum Type
+             {
                  REGULAR,
                  SPECIAL
              };

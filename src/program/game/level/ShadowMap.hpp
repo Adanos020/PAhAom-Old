@@ -11,9 +11,11 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace rr {
+namespace rr
+{
 
-    class ShadowMap : public sf::Drawable {
+    class ShadowMap : public sf::Drawable
+    {
     private: bool                      discovered_[77*43];
              unsigned char             cellIDs_ [9*77*43];
 

@@ -18,7 +18,8 @@
 
 extern rr::Subject subject;
 
-namespace rr {
+namespace rr
+{
 
     Player::Player() :
       coldWeapon_      (nullptr           ),
@@ -74,7 +75,9 @@ namespace rr {
       velocity_        (copy.velocity_        ),
       sightRange_      (copy.sightRange_      ) {}
 
-    void Player::initialize() {
+    void
+    Player::initialize()
+    {
         walkingLeft_ .setSpriteSheet(Resources::texture.player );
         walkingRight_.setSpriteSheet(Resources::texture.player );
         walkingLeft_ .addFrame      (sf::IntRect(0, 16, 16, 16));
@@ -84,25 +87,34 @@ namespace rr {
         body_.pause();
     }
 
-    void Player::move(int tiles[], Direction di) {
-        if (!moving_) {
-            if (di == UP && (tiles[position_.x + (position_.y-1)*77] != 1 && tiles[position_.x + (position_.y-1)*77] != 5)) {
+    void
+    Player::move(int tiles[], Direction di)
+    {
+        if (!moving_)
+        {
+            if (di == UP && (tiles[position_.x + (position_.y-1)*77] != 1 && tiles[position_.x + (position_.y-1)*77] != 5))
+            {
                 position_ = sf::Vector2i(position_.x, position_.y-1);
                 moving_ = true;
             }
-            if (di == DOWN && (tiles[position_.x + (position_.y+1)*77] != 1 && tiles[position_.x + (position_.y+1)*77] != 5)) {
+            if (di == DOWN && (tiles[position_.x + (position_.y+1)*77] != 1 && tiles[position_.x + (position_.y+1)*77] != 5))
+            {
                 position_ = sf::Vector2i(position_.x, position_.y+1);
                 moving_ = true;
             }
-            if (di == LEFT) {
-                if (tiles[position_.x-1 + position_.y*77] != 1 && tiles[position_.x-1 + position_.y*77] != 5) {
+            if (di == LEFT)
+            {
+                if (tiles[position_.x-1 + position_.y*77] != 1 && tiles[position_.x-1 + position_.y*77] != 5)
+                {
                     position_ = sf::Vector2i(position_.x-1, position_.y);
                     moving_ = true;
                 }
                 currentAnimation_ = &walkingLeft_;
             }
-            if (di == RIGHT) {
-                if (tiles[position_.x+1 + position_.y*77] != 1 && tiles[position_.x+1 + position_.y*77] != 5) {
+            if (di == RIGHT)
+            {
+                if (tiles[position_.x+1 + position_.y*77] != 1 && tiles[position_.x+1 + position_.y*77] != 5)
+                {
                     position_ = sf::Vector2i(position_.x+1, position_.y);
                     moving_ = true;
                 }
@@ -111,17 +123,22 @@ namespace rr {
         }
     }
 
-    void Player::update(sf::Clock& timer) {
+    void
+    Player::update(sf::Clock& timer)
+    {
         auto timeStep = timer.getElapsedTime();
-        if (moving_) {
+        if (moving_)
+        {
             sf::Vector2f offset = body_.getPosition() - (sf::Vector2f) position_*80.f;
-            if (offset != sf::Vector2f(0, 0)) {
+            if (offset != sf::Vector2f(0, 0))
+            {
                 if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep.asSeconds(),  0));
                 if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep.asSeconds(),  0));
                 if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep.asSeconds()));
                 if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep.asSeconds()));
             }
-            else {
+            else
+            {
                 buffs_.speed        -= (buffs_.speed        == 0 ? 0 : 1);
                 buffs_.regeneration -= (buffs_.regeneration == 0 ? 0 : 1);
                 buffs_.poison       -= (buffs_.poison       == 0 ? 0 : 1);
@@ -170,7 +187,8 @@ namespace rr {
         if (  attrs_.mana >= attrs_.maxMana
             ) attrs_.mana  = attrs_.maxMana;
 
-        if (attrs_.experience >= attrs_.nextLevel) {
+        if (attrs_.experience >= attrs_.nextLevel)
+        {
             attrs_.experience  -= attrs_.nextLevel;
             attrs_.nextLevel   *= 1.15f;
             attrs_.level       ++;
@@ -191,7 +209,9 @@ namespace rr {
         body_.play  (*currentAnimation_);
     }
 
-    void Player::attack(NPC* npc) {
+    void
+    Player::attack(NPC* npc)
+    {
         int maxDamage = attrs_.strength/3.f;
         if (  coldWeapon_ != nullptr
             ) maxDamage = coldWeapon_->getDamageDealt() - (coldWeapon_->getRequirement() - attrs_.strength);
@@ -199,13 +219,18 @@ namespace rr {
         npc->handleDamage(rand()%maxDamage);
     }
 
-    void Player::handleDamage(int damage) {
+    void
+    Player::handleDamage(int damage)
+    {
         if (  damage >= attrs_.armor
             ) attrs_.health -= (damage - attrs_.armor);
     }
 
-    void Player::learnSkill(Book::Type skill, int sp) {
-        switch (skill) {
+    void
+    Player::learnSkill(Book::Type skill, int sp)
+    {
+        switch (skill)
+        {
             case Book::CRAFTING             : attrs_.crafting              = true; break;
             case Book::ALCHEMY              : attrs_.alchemy               = true; break;
             case Book::COLD_WEAPON_MASTERY  : attrs_.cold_weapon_mastery   = true; break;
@@ -220,15 +245,20 @@ namespace rr {
         attrs_.skillPoints -= sp;
     }
 
-    void Player::increaseAttribute(Attribute attribute, float difference, int sp) {
-        switch (attribute) {
-            case HEALTH: {
+    void
+    Player::increaseAttribute(Attribute attribute, float difference, int sp)
+    {
+        switch (attribute)
+        {
+            case HEALTH:
+            {
                 float proportion  = attrs_.health/attrs_.maxHealth;
                 attrs_.maxHealth += difference;
                 attrs_.health     = proportion*attrs_.maxHealth;
             } break;
 
-            case MANA: {
+            case MANA:
+            {
                 float proportion = attrs_.mana/attrs_.maxMana;
                 attrs_.maxMana  += difference;
                 attrs_.mana      = proportion*attrs_.maxMana;
@@ -243,7 +273,9 @@ namespace rr {
         attrs_.skillPoints -= sp;
     }
 
-    void Player::reset() {
+    void
+    Player::reset()
+    {
         attrs_.health      =  50.f;
         attrs_.mana        =   5.f;
         attrs_.maxHealth   =  50.f;
@@ -273,21 +305,28 @@ namespace rr {
         attrs_.faster_learning       = false;
     }
 
-    void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         states.texture = &Resources::texture.player;
         target.draw(body_, states);
     }
 
-    void Player::useItem(Item* item) {
-        if (instanceof<Discoverable, Item>(item) && !((Discoverable*) item)->isDiscovered()) {
+    void
+    Player::useItem(Item* item)
+    {
+        if (instanceof<Discoverable, Item>(item) && !((Discoverable*) item)->isDiscovered())
+        {
             ((Discoverable*) item)->reveal();
             subject.notify(Observer::ITEM_DISCOVERED, item);
         }
 
         subject.notify(Observer::ITEM_USED, item);
 
-        if (instanceof<Book, Item>(item)) {
-            switch (((Book*) item)->getType()) {
+        if (instanceof<Book, Item>(item))
+        {
+            switch (((Book*) item)->getType())
+            {
                 case Book::CRAFTING             : attrs_.crafting              = true; break;
                 case Book::ALCHEMY              : attrs_.alchemy               = true; break;
                 case Book::COLD_WEAPON_MASTERY  : attrs_.cold_weapon_mastery   = true; break;
@@ -299,16 +338,20 @@ namespace rr {
                 default                         :                                      break;
             }
         }
-        else if (instanceof<Food, Item>(item)) {
+        else if (instanceof<Food, Item>(item))
+        {
             if (  buffs_.hunger >= 1000
                 ) buffs_.hunger  =  500;
             else  buffs_.hunger  =    0;
 
             attrs_.health += 10;
         }
-        else if (instanceof<Potion, Item>(item)) {
-            switch (((Potion*) item)->getType()) {
-                case Potion::HEALING     : switch (((Potion*) item)->getSize()) {
+        else if (instanceof<Potion, Item>(item))
+        {
+            switch (((Potion*) item)->getType())
+            {
+                case Potion::HEALING     : switch (((Potion*) item)->getSize())
+                                           {
                                                case Potion::SMALL : attrs_.health += attrs_.maxHealth*0.25; break;
                                                case Potion::MEDIUM: attrs_.health += attrs_.maxHealth*0.50; break;
                                                case Potion::BIG   : attrs_.health += attrs_.maxHealth*0.75; break;
@@ -316,85 +359,104 @@ namespace rr {
                                            buffs_.poison = 0;
                                            break;
 
-                case Potion::MAGIC       : switch (((Potion*) item)->getSize()) {
+                case Potion::MAGIC       : switch (((Potion*) item)->getSize())
+                                           {
                                                case Potion::SMALL : attrs_.mana += attrs_.maxMana * 0.25; break;
                                                case Potion::MEDIUM: attrs_.mana += attrs_.maxMana * 0.50; break;
                                                case Potion::BIG   : attrs_.mana += attrs_.maxMana * 0.75; break;
                                            } break;
 
-                case Potion::STRENGTH    : switch (((Potion*) item)->getSize()) {
+                case Potion::STRENGTH    : switch (((Potion*) item)->getSize())
+                                           {
                                                case Potion::SMALL : attrs_.strength += 1; break;
                                                case Potion::MEDIUM: attrs_.strength += 3; break;
                                                case Potion::BIG   : attrs_.strength += 5; break;
                                            } break;
 
-                case Potion::DEXTERITY   : switch (((Potion*) item)->getSize()) {
+                case Potion::DEXTERITY   : switch (((Potion*) item)->getSize())
+                                           {
                                                case Potion::SMALL : attrs_.dexterity += 1; break;
                                                case Potion::MEDIUM: attrs_.dexterity += 3; break;
                                                case Potion::BIG   : attrs_.dexterity += 5; break;
                                            } break;
 
-                case Potion::SPEED       : switch (((Potion*) item)->getSize()) {
+                case Potion::SPEED       : switch (((Potion*) item)->getSize())
+                                           {
                                                case Potion::SMALL : buffs_.speed += 10; break;
                                                case Potion::MEDIUM: buffs_.speed += 30; break;
                                                case Potion::BIG   : buffs_.speed += 50; break;
                                            } break;
 
-                case Potion::REGENERATION: switch (((Potion*) item)->getSize()) {
+                case Potion::REGENERATION: switch (((Potion*) item)->getSize())
+                                           {
                                                case Potion::SMALL : buffs_.regeneration += 10; break;
                                                case Potion::MEDIUM: buffs_.regeneration += 30; break;
                                                case Potion::BIG   : buffs_.regeneration += 50; break;
                                            } break;
 
-                case Potion::POISON      : switch (((Potion*) item)->getSize()) {
+                case Potion::POISON      : switch (((Potion*) item)->getSize())
+                                           {
                                                case Potion::SMALL : buffs_.poison += 10; break;
                                                case Potion::MEDIUM: buffs_.poison += 30; break;
                                                case Potion::BIG   : buffs_.poison += 50; break;
                                            } break;
 
-                case Potion::SLOWNESS    : switch (((Potion*) item)->getSize()) {
+                case Potion::SLOWNESS    : switch (((Potion*) item)->getSize())
+                                           {
                                                case Potion::SMALL : buffs_.slowness += 10; break;
                                                case Potion::MEDIUM: buffs_.slowness += 30; break;
                                                case Potion::BIG   : buffs_.slowness += 50; break;
                                            } break;
 
-                case Potion::WEAKNESS    : switch (((Potion*) item)->getSize()) {
+                case Potion::WEAKNESS    : switch (((Potion*) item)->getSize())
+                                           {
                                                case Potion::SMALL : buffs_.weakness += 10; break;
                                                case Potion::MEDIUM: buffs_.weakness += 30; break;
                                                case Potion::BIG   : buffs_.weakness += 50; break;
                                            } break;
             }
         }
-        else if (instanceof<Rune, Item>(item)) {
+        else if (instanceof<Rune, Item>(item))
+        {
 
         }
     }
 
-    bool Player::equipItem(Equipable* item, bool equip) {
+    bool
+    Player::equipItem(Equipable* item, bool equip)
+    {
         bool success = false;
-        if (instanceof <ColdWeapon, Equipable> (item)) {
-            if (!equip) {
+        if (instanceof <ColdWeapon, Equipable> (item))
+        {
+            if (!equip)
+            {
                 coldWeapon_ = nullptr;
                 success     = true;
             }
-            else if (((ColdWeapon*) item)->getRequirement() <= attrs_.strength) {
+            else if (((ColdWeapon*) item)->getRequirement() <= attrs_.strength)
+            {
                 coldWeapon_ = (ColdWeapon*) item;
                 success     = true;
             }
         }
-        else if (instanceof <RangedWeapon, Equipable> (item)) {
-            if (!equip) {
+        else if (instanceof <RangedWeapon, Equipable> (item))
+        {
+            if (!equip)
+            {
                 rangedWeapon_ = nullptr;
                 success       = true;
             }
-            else if (((RangedWeapon*) item)->getRequirement() <= attrs_.dexterity) {
+            else if (((RangedWeapon*) item)->getRequirement() <= attrs_.dexterity)
+            {
                 rangedWeapon_ = (RangedWeapon*) item;
                 success       = true;
             }
         }
 
-        if (success) {
-            if (!item->isDiscovered()) {
+        if (success)
+        {
+            if (!item->isDiscovered())
+            {
                 item->reveal();
                 subject.notify(Observer::ITEM_DISCOVERED, item);
             }
@@ -404,7 +466,9 @@ namespace rr {
         return success;
     }
 
-    void Player::cheat() {
+    void
+    Player::cheat()
+    {
              if (isKeyPressed(sf::Keyboard::Numpad1)) attrs_.health     --;
         else if (isKeyPressed(sf::Keyboard::Numpad2)) attrs_.health     ++;
         else if (isKeyPressed(sf::Keyboard::Numpad3)) attrs_.mana       --;
@@ -416,10 +480,13 @@ namespace rr {
         else if (isKeyPressed(sf::Keyboard::Numpad9)) attrs_.dexterity  ++;
     }
 
-    std::ifstream& Player::operator<<(std::ifstream& file) {
+    std::ifstream&
+    Player::operator<<(std::ifstream& file)
+    {
         currentAnimation_->clearFrames();
 
-        try {
+        try
+        {
             readFile <float> (file, attrs_.health);
             readFile <float> (file, attrs_.mana);
             readFile <float> (file, attrs_.maxHealth);
@@ -450,7 +517,8 @@ namespace rr {
             readFile < int > (file, position_.x);
             readFile < int > (file, position_.y);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -460,7 +528,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& Player::operator>>(std::ofstream& file) {
+    std::ofstream&
+    Player::operator>>(std::ofstream& file)
+    {
         file << attrs_.health                << ' '
              << attrs_.mana                  << ' '
              << attrs_.maxHealth             << ' '

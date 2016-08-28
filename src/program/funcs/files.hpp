@@ -12,15 +12,18 @@
 
 #include "../game/entity/Entity.hpp"
 
-namespace rr {
+namespace rr
+{
 
     ////////////////////////////////////////////////////////////////////////
     /// \brief Reads a variable data from file.
     ////////////////////////////////////////////////////////////////////////
-    template <typename T>
-    inline void readFile(std::ifstream& f, T& x) {
+    template <typename T> inline void
+    readFile(std::ifstream& f, T& x)
+    {
         f >> x;
-        if (f.fail()) {
+        if (f.fail())
+        {
             std::string param;
             f.clear();
             f.sync ();
@@ -33,9 +36,12 @@ namespace rr {
     ////////////////////////////////////////////////////////////////////////
     /// \brief Reads an entity's data from file.
     ////////////////////////////////////////////////////////////////////////
-    inline void readEntity(std::ifstream& f, Entity* x) {
+    inline void
+    readEntity(std::ifstream& f, Entity* x)
+    {
         *x << f;
-        if (f.fail()) {
+        if (f.fail())
+        {
             std::string param;
             f.clear();
             f.sync();

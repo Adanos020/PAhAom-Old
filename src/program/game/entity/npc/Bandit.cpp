@@ -13,7 +13,8 @@
 
 #include "Bandit.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Bandit::Bandit(Type type) :
       type_    (type  )
@@ -36,7 +37,9 @@ namespace rr {
         currentAnimation_ = copy.currentAnimation_;
     }
 
-    void Bandit::initialize() {
+    void
+    Bandit::initialize()
+    {
         standingLeft_  .setSpriteSheet(Resources::texture.enemies);
         standingRight_ .setSpriteSheet(Resources::texture.enemies);
         walkingLeft_   .setSpriteSheet(Resources::texture.enemies);
@@ -66,16 +69,21 @@ namespace rr {
         body_.setFrameTime(sf::seconds(.2f));
     }
 
-    void Bandit::update(int tiles[], sf::Time timeStep) {
-        if (moving_) {
+    void
+    Bandit::update(int tiles[], sf::Time timeStep)
+    {
+        if (moving_)
+        {
             sf::Vector2f offset = body_.getPosition() - (sf::Vector2f) position_*80.f;
-            if (offset != sf::Vector2f(0, 0)) {
+            if (offset != sf::Vector2f(0, 0))
+            {
                 if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep.asSeconds(),  0));
                 if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep.asSeconds(),  0));
                 if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep.asSeconds()));
                 if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep.asSeconds()));
             }
-            else {
+            else
+            {
                 buffs_.speed        -= (buffs_.speed        == 0 ? 0 : 1);
                 buffs_.regeneration -= (buffs_.regeneration == 0 ? 0 : 1);
                 buffs_.poison       -= (buffs_.poison       == 0 ? 0 : 1);
@@ -91,14 +99,15 @@ namespace rr {
                 moving_ = false;
             }
 
-            if (  (abs(offset.x) < velocity_/128 && abs(offset.x) > 0) // preventing the teacher from wobbling
+            if (  (abs(offset.x) < velocity_/128 && abs(offset.x) > 0) // preventing the bandit from wobbling
                || (abs(offset.y) < velocity_/128 && abs(offset.y) > 0) // in between of two cells
                 )  body_.setPosition((sf::Vector2f) position_*80.f);
         }
 
         body_.update(timeStep);
 
-        if (!body_.isPlaying()) {
+        if (!body_.isPlaying())
+        {
             if      (  direction_ == LEFT
                      ) currentAnimation_ = &standingLeft_;
             else if (  direction_ == RIGHT
@@ -106,7 +115,8 @@ namespace rr {
             body_.setLooped(true);
         }
 
-        switch (state_) {
+        switch (state_)
+        {
             case STANDING : if      (   direction_        == LEFT
                                     && *currentAnimation_ != standingLeft_
                                      )  currentAnimation_ = &standingLeft_;
@@ -118,11 +128,15 @@ namespace rr {
 
             case WAITING  : break;
 
-            case EXPLORING: if (!moving_) {
-                                if (position_ != destination_) {
+            case EXPLORING: if (!moving_)
+                            {
+                                if (position_ != destination_)
+                                {
                                     /*position_ = PathFinder::aStar(position_, destination_, tiles)[0] - position_;
                                     moving_ = true;*/
-                                } else {
+                                }
+                                else
+                                {
                                     state_ = STANDING;
                                 }
                             }
@@ -136,8 +150,11 @@ namespace rr {
         body_.play(*currentAnimation_);
     }
 
-    sf::String Bandit::getName() const {
-        switch (type_) {
+    sf::String
+    Bandit::getName() const
+    {
+        switch (type_)
+        {
             case CLUB    : return Resources::dictionary["npc.bandit.name.bully"      ]; break;
             case CROSSBOW: return Resources::dictionary["npc.bandit.name.crossbowman"]; break;
             case DAGGER  : return Resources::dictionary["npc.bandit.name.rogue"      ]; break;
@@ -146,13 +163,17 @@ namespace rr {
         return "";
     }
 
-    void Bandit::handleDamage(int damage) {
+    void
+    Bandit::handleDamage(int damage)
+    {
         if (  damage >= attrs_.armor
             ) attrs_.health -= (damage - attrs_.armor);
         state_ = HUNTING;
     }
 
-    void Bandit::attack(NPC* npc) {
+    void
+    Bandit::attack(NPC* npc)
+    {
         if      (  direction_ == LEFT
                  ) currentAnimation_ = &attackingLeft_;
         else if (  direction_ == RIGHT
@@ -160,7 +181,8 @@ namespace rr {
         body_.setLooped(false);
 
         int maxDamage = 0;
-        switch (type_) {
+        switch (type_)
+        {
             case CLUB    : maxDamage = 10; break;
             case CROSSBOW: maxDamage =  5; break;
             case DAGGER  : maxDamage =  8; break;
@@ -169,7 +191,9 @@ namespace rr {
         npc->handleDamage(range(0, maxDamage));
     }
 
-    void Bandit::attack(Player* player) {
+    void
+    Bandit::attack(Player* player)
+    {
         if      (  direction_ == LEFT
                  ) currentAnimation_ = &attackingLeft_;
         else if (  direction_ == RIGHT
@@ -177,7 +201,8 @@ namespace rr {
         body_.setLooped(false);
 
         int maxDamage = 0;
-        switch (type_) {
+        switch (type_)
+        {
             case CLUB    : maxDamage = 10; break;
             case CROSSBOW: maxDamage =  5; break;
             case DAGGER  : maxDamage =  8; break;
@@ -186,7 +211,9 @@ namespace rr {
         player->handleDamage(range(0, maxDamage));
     }
 
-    std::ifstream& Bandit::operator<<(std::ifstream& file) {
+    std::ifstream&
+    Bandit::operator<<(std::ifstream& file)
+    {
         standingLeft_  .clearFrames();
         standingRight_ .clearFrames();
         walkingLeft_   .clearFrames();
@@ -197,14 +224,16 @@ namespace rr {
         sf::Vector2i position;
         int state, direction, type;
 
-        try {
+        try
+        {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
             readFile <int> (file, state);
             readFile <int> (file, direction);
             readFile <int> (file, type);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -218,7 +247,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& Bandit::operator>>(std::ofstream& file) {
+    std::ofstream&
+    Bandit::operator>>(std::ofstream& file)
+    {
         file << 20                             << ' '
              << (int) body_.getPosition().x/80 << ' '
              << (int) body_.getPosition().y/80 << ' '

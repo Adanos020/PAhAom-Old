@@ -13,10 +13,12 @@
 
 #include "../Entity.hpp"
 
-namespace rr {
+namespace rr
+{
 
 /// Class for an item
-    class Item : public Entity {
+    class Item : public Entity
+    {
     protected: sf::VertexArray body_;
                bool            disposable_;
                bool            stackable_;
@@ -28,7 +30,8 @@ namespace rr {
                ////////////////////////////////////////////////////////////////////////
                /// \brief Draws the item's body and texture on the screen.
                ////////////////////////////////////////////////////////////////////////
-       virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
+       virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+               {
                    states.texture = &Resources::texture.items;
                    target.draw(body_, states);
                }
@@ -92,7 +95,8 @@ namespace rr {
                /// \brief Sets the item's position relatively to the grid marked out by
                /// the level's tile map.
                ////////////////////////////////////////////////////////////////////////
-       virtual void setGridPosition(sf::Vector2i pos) override {
+       virtual void setGridPosition(sf::Vector2i pos) override
+               {
                    body_[0].position = (sf::Vector2f)pos*80.f;
                    body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
                    body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
@@ -109,7 +113,8 @@ namespace rr {
                /// \brief Sets the item's position relatively to the graphics card's
                /// coordinate system.
                ////////////////////////////////////////////////////////////////////////
-       virtual void setPosition(sf::Vector2f pos) override {
+       virtual void setPosition(sf::Vector2f pos) override
+               {
                    body_[0].position =               pos;
                    body_[1].position =  sf::Vector2f(pos.x+80, pos.y);
                    body_[2].position =  sf::Vector2f(pos.x+80, pos.y+80);
@@ -134,7 +139,8 @@ namespace rr {
        virtual sf::FloatRect getBounds() const override { return sf::FloatRect(body_[0].position, body_[2].position-body_[0].position); }
     };
 
-    class Discoverable : public Item {
+    class Discoverable : public Item
+    {
     public: ////////////////////////////////////////////////////////////////////////
             /// \brief Virtual destructor.
             ////////////////////////////////////////////////////////////////////////
@@ -151,7 +157,8 @@ namespace rr {
     virtual bool isDiscovered() const = 0;
     };
 
-    class Equipable : public Discoverable {
+    class Equipable : public Discoverable
+    {
     protected: bool equipped_ = false;
     
     public:    ////////////////////////////////////////////////////////////////////////
@@ -170,7 +177,8 @@ namespace rr {
        virtual bool isEquipped() const = 0;
     };
 
-    class Weapon : public Equipable {
+    class Weapon : public Equipable
+    {
     protected: float requirement_;
                float damageDealt_;
                float speed_;

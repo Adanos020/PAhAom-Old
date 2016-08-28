@@ -9,9 +9,11 @@
 
 #include "Component.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Image : public Component {
+    class Image : public Component
+    {
     private: sf::Sprite body_;
              int        icon_;
 

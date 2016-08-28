@@ -14,14 +14,15 @@
 #include "../../../funcs/files.hpp"
 #include "../../../funcs/random.hpp"
 
-namespace rr {
+namespace rr
+{
 
     RangedWeapon::RangedWeapon(Type type, int amount, sf::Vector2i position) :
       type_(type)
     {
         level_      = 0;
         identified_ = false;
-        amount_ = amount;
+        amount_     = amount;
 
         initialize();
         setGridPosition(position);
@@ -38,14 +39,17 @@ namespace rr {
         body_       = copy.body_;
     }
 
-    void RangedWeapon::initialize() {
+    void
+    RangedWeapon::initialize()
+    {
         disposable_ = false;
         stackable_  = false;
         cursed_     = chance(1, 4);
         ID_         = type_ + 23;
         iconIndex_  = type_ + 52;
 
-        switch (type_) {
+        switch (type_)
+        {
             case BOW      : damageDealt_ = 40;
                             requirement_ = 25;
                             speed_       =  7;
@@ -74,8 +78,11 @@ namespace rr {
         setIcon(body_, iconIndex_);
     }
 
-    sf::String RangedWeapon::getName() const {
-        switch (type_) {
+    sf::String
+    RangedWeapon::getName() const
+    {
+        switch (type_)
+        {
             case BOW      : return Resources::dictionary["item.ranged_weapon.name.bow"      ];
             case CROSSBOW : return Resources::dictionary["item.ranged_weapon.name.crossbow" ];
             case SLINGSHOT: return Resources::dictionary["item.ranged_weapon.name.slingshot"];
@@ -85,27 +92,30 @@ namespace rr {
         return "";
     }
 
-    sf::String RangedWeapon::getDescription() const {
+    sf::String
+    RangedWeapon::getDescription() const
+    {
         sf::String description = "";
-        switch (type_) {
-            case BOW      : description += Resources::dictionary["item.ranged_weapon.description.bow"] + "\n\n"
-                                         + Resources::dictionary["item.requirement.item"] + " "
-                                         + Resources::dictionary["item.ammunition.name.arrow"];
+        switch (type_)
+        {
+            case BOW      : description += Resources::dictionary["item.ranged_weapon.description.bow"      ] + "\n\n"
+                                         + Resources::dictionary["item.requirement.item"                   ] + " "
+                                         + Resources::dictionary["item.ammunition.name.arrow"              ];
                             break;
 
-            case CROSSBOW : description += Resources::dictionary["item.ranged_weapon.description.crossbow"] + "\n\n"
-                                         + Resources::dictionary["item.requirement.item"] + " "
-                                         + Resources::dictionary["item.ammunition.name.bolt"];
+            case CROSSBOW : description += Resources::dictionary["item.ranged_weapon.description.crossbow" ] + "\n\n"
+                                         + Resources::dictionary["item.requirement.item"                   ] + " "
+                                         + Resources::dictionary["item.ammunition.name.bolt"               ];
                             break;
 
             case SLINGSHOT: description += Resources::dictionary["item.ranged_weapon.description.slingshot"] + "\n\n"
-                                         + Resources::dictionary["item.requirement.item"] + " "
-                                         + Resources::dictionary["item.ammunition.name.rocks"];
+                                         + Resources::dictionary["item.requirement.item"                   ] + " "
+                                         + Resources::dictionary["item.ammunition.name.rocks"              ];
                             break;
 
-            case BELLOWS  : description += Resources::dictionary["item.ranged_weapon.description.bellows"] + "\n\n"
-                                         + Resources::dictionary["item.requirement.item"] + " "
-                                         + Resources::dictionary["item.ammunition.name.dart"];
+            case BELLOWS  : description += Resources::dictionary["item.ranged_weapon.description.bellows"  ] + "\n\n"
+                                         + Resources::dictionary["item.requirement.item"                   ] + " "
+                                         + Resources::dictionary["item.ammunition.name.dart"               ];
                             break;
         }
 
@@ -117,7 +127,9 @@ namespace rr {
         return description;
     }
 
-    void RangedWeapon::enhance() {
+    void
+    RangedWeapon::enhance()
+    {
         level_       ++;
         speed_       ++;
         accuracy_    ++;
@@ -125,15 +137,20 @@ namespace rr {
         requirement_ -= 3;
     }
 
-    void RangedWeapon::enchant() {
+    void
+    RangedWeapon::enchant()
+    {
 
     }
 
-    std::ifstream& RangedWeapon::operator<<(std::ifstream& file) {
+    std::ifstream&
+    RangedWeapon::operator<<(std::ifstream& file)
+    {
         sf::Vector2i position;
         int type;
 
-        try {
+        try
+        {
             readFile <int > (file, position.x);
             readFile <int > (file, position.y);
             readFile <int > (file, amount_);
@@ -142,7 +159,8 @@ namespace rr {
             readFile <int > (file, level_);
             readFile <int > (file, type);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -160,7 +178,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& RangedWeapon::operator>>(std::ofstream& file) {
+    std::ofstream&
+    RangedWeapon::operator>>(std::ofstream& file)
+    {
         file << 6                            << ' '
              << (int) body_[0].position.x/80 << ' '
              << (int) body_[0].position.y/80 << ' '

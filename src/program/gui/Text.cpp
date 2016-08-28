@@ -6,9 +6,11 @@
 
 #include "Text.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    Text::Text(sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style) {
+    Text::Text(sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style)
+    {
         text_.setFont            (font);
         text_.setCharacterSize   (chsize);
         text_.setString          (str);
@@ -18,7 +20,8 @@ namespace rr {
         text_.setOutlineThickness((float) chsize/20.f);
     }
 
-    Text::Text(sf::Vector2f pos, sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style) {
+    Text::Text(sf::Vector2f pos, sf::String str, sf::Font& font, unsigned chsize, sf::Color color, sf::Text::Style style)
+    {
         text_.setFont            (font);
         text_.setPosition        (pos);
         text_.setCharacterSize   (chsize);
@@ -29,30 +32,38 @@ namespace rr {
         text_.setOutlineThickness((float) chsize/20.f);
     }
 
-    void Text::setPosition(sf::Vector2f pos) {
+    void
+    Text::setPosition(sf::Vector2f pos)
+    {
         text_.setPosition(pos);
     }
 
-    void Text::wrap(float width) {
+    void
+    Text::wrap(float width)
+    {
         sf::String text         = text_.getString();
         unsigned   offset       = 0;
         bool       first        = true;
         unsigned   wordBegining = 0;
 
-        for (unsigned pos=0; pos<text.getSize(); pos++) {
-            if      (text[pos] == '\n') {
+        for (unsigned pos=0; pos<text.getSize(); pos++)
+        {
+            if (text[pos] == '\n')
+            {
                 offset = 0;
                 first  = true;
                 continue;
             }
-            else if (text[pos] == ' ') {
+            else if (text[pos] == ' ')
+            {
                 wordBegining = pos;
                 first        = false;
             }
 
             offset += text_.getFont()->getGlyph(text[pos], text_.getCharacterSize(), text_.getStyle() == sf::Text::Bold).advance;
 
-            if (!first && offset > width) {
+            if (!first && offset > width)
+            {
                 pos       = wordBegining;
                 text[pos] = '\n';
                 first     = true;
@@ -63,7 +74,9 @@ namespace rr {
         text_.setString(text);
     }
 
-    void Text::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    Text::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         target.draw(text_, states);
     }
 

@@ -16,11 +16,14 @@
 #include "ShadowMap.hpp"
 #include "../entity/Player.hpp"
 
-namespace rr {
+namespace rr
+{
 
 /// Class for the level
-    class Level : public Observer, public sf::Drawable, public sf::Transformable {
-    public:  enum Cell {
+    class Level : public Observer, public sf::Drawable, public sf::Transformable
+    {
+    public:  enum Cell
+             {
                  CHASM,
                  WALL,
                  ROOM,

@@ -12,7 +12,8 @@
 
 #include "Door.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Door::Door(bool lock) :
       locked_        (lock    ),
@@ -28,13 +29,17 @@ namespace rr {
       open_         (copy.open_         ),
       withoutWindow_(copy.withoutWindow_) {}
 
-    void Door::initialize() {
+    void
+    Door::initialize()
+    {
         body_.setTexture    (Resources::texture.objects);
         body_.setScale      (sf::Vector2f(5, 5));
         body_.setTextureRect(sf::IntRect(sf::Vector2i(rand()%5*16*(withoutWindow_+1), 0), sf::Vector2i(16, 16)));
     }
 
-    void Door::setOpen(bool b) {
+    void
+    Door::setOpen(bool b)
+    {
         open_ = b;
         if (  open_
             ) body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80                  , 16), sf::Vector2i(16, 16)));
@@ -44,22 +49,27 @@ namespace rr {
             ) locked_ = false;
     }
 
-    void Door::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    Door::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         states.texture = &Resources::texture.objects;
         target.draw(body_, states);
     }
 
-    std::ifstream& Door::operator<<(std::ifstream& file) {
+    std::ifstream&
+    Door::operator<<(std::ifstream& file) {
         sf::Vector2i position;
 
-        try {
+        try
+        {
             readFile <int > (file, position.x);
             readFile <int > (file, position.y);
             readFile <bool> (file, locked_);
             readFile <bool> (file, open_);
             readFile <bool> (file, withoutWindow_);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -69,7 +79,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& Door::operator>>(std::ofstream& file) {
+    std::ofstream&
+    Door::operator>>(std::ofstream& file)
+    {
         file << 41                             << ' '
              << (int) body_.getPosition().x/80 << ' '
              << (int) body_.getPosition().y/80 << ' '

@@ -9,10 +9,13 @@
 
 #include "../level/ShadowMap.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class FOV final {
-    private: struct Slope {
+    class FOV final
+    {
+    private: struct Slope
+             {
              public: unsigned x_, y_;
                      Slope(unsigned y, unsigned x) { y_ = y; x_ = x; }
 

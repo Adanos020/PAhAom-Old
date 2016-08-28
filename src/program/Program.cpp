@@ -13,32 +13,41 @@
 
 #include <SFML/System/String.hpp>
 
-namespace rr {
+namespace rr
+{
 
     sf::String Program::version_("pre-alpha 0.7");
 
-    Program::Program() {
+    Program::Program()
+    {
         if (  loadResources()
             ) runGame();
     }
 
-    bool Program::loadResources() {
+    bool
+    Program::loadResources()
+    {
         return Settings ::load()
             && Resources::load();
     }
 
-    void Program::runGame() {
+    void
+    Program::runGame()
+    {
         window_.setVerticalSyncEnabled(Settings::graphics.vsync);
         window_.setKeyRepeatEnabled   (false);
         window_.create                (sf::VideoMode(Settings::graphics.resolution.x, Settings::graphics.resolution.y, 32), "PAhAom",
                                                      Settings::graphics.fullscreen ? (sf::Style::Fullscreen) : (sf::Style::Close), Settings::graphics.csettings);
-        
+
         game_ = new Game();
         mainLoop();
     }
 
-    void Program::handleEvents() {
-        while (window_.pollEvent(event_)) {
+    void
+    Program::handleEvents()
+    {
+        while (window_.pollEvent(event_))
+        {
             if (  event_.type == sf::Event::Closed
                 ) window_.close();
             if (   event_.type == sf::Event::LostFocus
@@ -49,20 +58,27 @@ namespace rr {
         }
     }
 
-    void Program::draw() {
+    void
+    Program::draw()
+    {
         window_.clear  ();
         game_ ->draw   (window_);
         window_.display();
     }
 
-    void Program::update(sf::Clock& timer) {
+    void
+    Program::update(sf::Clock& timer)
+    {
         if (  game_->isStarted()
             ) game_->update(event_, timer);
     }
 
-    void Program::mainLoop() {
+    void
+    Program::mainLoop()
+    {
         sf::Clock timer;
-        while (window_.isOpen()) {
+        while (window_.isOpen())
+        {
             update       (timer);
             timer.restart();
             

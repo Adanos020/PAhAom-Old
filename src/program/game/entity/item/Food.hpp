@@ -9,15 +9,18 @@
 
 #include "Item.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Food : public Item {
+    class Food : public Item
+    {
     private: ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the food.
              ////////////////////////////////////////////////////////////////////////
      virtual void initialize() override;
     
-    public:  enum Type {
+    public:  enum Type
+             {
                  MEAT,
                  SANDVICH,
                  APPLE,

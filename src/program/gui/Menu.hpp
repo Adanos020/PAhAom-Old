@@ -12,9 +12,11 @@
 #include "Component.hpp"
 #include "Button.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Menu : public Component {
+    class Menu : public Component
+    {
     private: std::vector<Button> options_;
              sf::Vector2f        position_;
 

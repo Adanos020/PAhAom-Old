@@ -9,9 +9,11 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace rr {
+namespace rr
+{
 
-    class Component : public sf::Drawable {
+    class Component : public sf::Drawable
+    {
     private: Component* parentComponent_;
     
     public:  ////////////////////////////////////////////////////////////////////////

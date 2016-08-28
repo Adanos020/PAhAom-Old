@@ -11,9 +11,11 @@
 #include "Image.hpp"
 #include "Text.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Button : public Component {
+    class Button : public Component
+    {
     private: sf::RectangleShape body_;
              Image              image_;
              Text               text_;

@@ -13,9 +13,11 @@
 
 #include "../game/entity/item/Item.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Slot : public Component {
+    class Slot : public Component
+    {
     private: sf::RectangleShape body_;
              Image              image_;
              Text               text_;

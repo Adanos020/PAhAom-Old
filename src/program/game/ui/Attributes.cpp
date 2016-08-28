@@ -12,7 +12,8 @@
 #include "../../Settings.hpp"
 #include "../../Resources.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Attributes::Attributes() :
       wAttr_ (Window(Resources::dictionary["gui.window.attributes"], sf::Vector2f(900, 310), (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(450, 155)))
@@ -38,7 +39,9 @@ namespace rr {
         wAttr_ += bQuit;
     }
 
-    void Attributes::update(Player* p) {
+    void
+    Attributes::update(Player* p)
+    {
         wAttr_.getComponent<Text>(1)->setString(std::to_string((int)p->getAttributes().health     )+"/"+std::to_string((int)p->getAttributes().maxHealth)+"\n"
                                                +std::to_string((int)p->getAttributes().mana       )+"/"+std::to_string((int)p->getAttributes().maxMana  )+"\n"
                                                +std::to_string((int)p->getAttributes().strength   )                                                      +"\n"
@@ -57,15 +60,21 @@ namespace rr {
                                           +"\n"+(p->getAttributes().faster_learning        ? Resources::dictionary["player.skills.faster_learn"         ] : sf::String("-")));
     }
 
-    void Attributes::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
-        if (wAttr_.isVisible()) {
+    void
+    Attributes::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g)
+    {
+        if (wAttr_.isVisible())
+        {
             if (  wAttr_.getComponent<Button>(0)->isPressed(rw, e)
                 ) g->pause(false);
         }
     }
 
-    void Attributes::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        if (isOpen()) {
+    void
+    Attributes::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
+        if (isOpen())
+        {
             target.draw(shadow_, states);
             target.draw(wAttr_ , states);
         }

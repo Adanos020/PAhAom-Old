@@ -9,20 +9,24 @@
 
 #include "Item.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Coin : public Item {
+    class Coin : public Item
+    {
     private: ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the coin.
              ////////////////////////////////////////////////////////////////////////
      virtual void initialize() override;
 
-    public:  enum Type {
+    public:  enum Type
+             {
                  GOLDEN,
                  SILVER,
                  BRONZE
              };
-             enum Size {
+             enum Size
+             {
                  SMALL,
                  BIG
              };

@@ -11,9 +11,11 @@
 #include "../observer/Observer.hpp"
 #include "../game/entity/Entity.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Message : public sf::Drawable {
+    class Message : public sf::Drawable
+    {
     private: Text     message_;
              sf::Time timeElapsed_;
              sf::Time lifeTime_;
@@ -59,7 +61,8 @@ namespace rr {
              sf::String getString() const { return message_.getString(); }
     };
 
-    class MessageManager : public Observer {
+    class MessageManager : public Observer
+    {
     private: std::vector<Message> messages_;
 
     public:  ////////////////////////////////////////////////////////////////////////

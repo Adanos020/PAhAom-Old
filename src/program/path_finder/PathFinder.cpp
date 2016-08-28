@@ -8,9 +8,12 @@
 
 #include "PathFinder.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    std::vector<sf::Vector2i> PathFinder::aStar(sf::Vector2i from, sf::Vector2i to, int tiles[]) {
+    std::vector<sf::Vector2i>
+    PathFinder::aStar(sf::Vector2i from, sf::Vector2i to, int tiles[])
+    {
         std::vector<sf::Vector2i> path;
         std::list  <    Node*   > opened;
         std::list  <    Node*   > closed;
@@ -25,8 +28,10 @@ namespace rr {
         start->setOpened(true);
         opened.push_back(start);
 
-        while ((n == 0 || (current != end))) {
-            for (auto it=opened.begin(); it!=opened.end(); ++it) {
+        while ((n == 0 || (current != end)))
+        {
+            for (auto it=opened.begin(); it!=opened.end(); ++it)
+            {
                 if (  it == opened.begin() || (*it)->getF() <= current->getF()
                     ) current = *it;
             }
@@ -40,8 +45,10 @@ namespace rr {
             closed.push_back(current);
             current->setClosed(true);
 
-            for (int x=-1; x<2; ++x) {
-                for (int y=-1; y<2; ++y) {
+            for (int x=-1; x<2; ++x)
+            {
+                for (int y=-1; y<2; ++y)
+                {
                     if (  x == 0
                        && y == 0
                         ) continue;
@@ -51,19 +58,23 @@ namespace rr {
                        || !child->isWalkable()
                         ) continue;
 
-                    if (x != 0 && y != 0) {
+                    if (x != 0 && y != 0)
+                    {
                         if (  !getNode(tiles, sf::Vector2i(current->getPosition().x, current->getPosition().y + y))->isWalkable()
                            || !getNode(tiles, sf::Vector2i(current->getPosition().x + x, current->getPosition().y))->isWalkable()
                             ) continue;
                     }
 
-                    if (child->isOpened()) {
-                        if (child->getG() > child->getG(current)) {
+                    if (child->isOpened())
+                    {
+                        if (child->getG() > child->getG(current))
+                        {
                             child->setParent(current);
                             child->calculateScores(end);
                         }
                     }
-                    else {
+                    else
+                    {
                         child->setOpened(true);
                         opened.push_back(child);
                         
@@ -76,14 +87,17 @@ namespace rr {
             ++n;
         }
 
-        for (auto it=opened.begin(); it!=opened.end(); ++it) {
+        for (auto it=opened.begin(); it!=opened.end(); ++it)
+        {
             (*it)->setOpened(false);
         }
-        for (auto it=closed.begin(); it!=closed.end(); ++it) {
+        for (auto it=closed.begin(); it!=closed.end(); ++it)
+        {
             (*it)->setClosed(false);
         }
 
-        while (current->getParent() != nullptr && current != start) {
+        while (current->getParent() != nullptr && current != start)
+        {
             path.push_back((sf::Vector2i) current->getPosition());
             current = current->getParent();
             ++n;

@@ -11,9 +11,11 @@
 #include "Button.hpp"
 #include "Text.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class ScrollBar : public Component {
+    class ScrollBar : public Component
+    {
     private: sf::RectangleShape border_;
              sf::Vector2f       valueLimit_;
              Button             indicator_;
@@ -27,7 +29,8 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
      virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    public:  enum Plain {
+    public:  enum Plain
+             {
                  HORIZONTAL,
                  VERTICAL
              } plain_;

@@ -11,7 +11,8 @@
 
 #include "ShadowMap.hpp"
 
-namespace rr {
+namespace rr
+{
 
     ShadowMap::ShadowMap(sf::Vector2i size) :
       size_(size)
@@ -34,16 +35,20 @@ namespace rr {
         shadowSprite_[2].texCoords = sf::Vector2f(3*size.x, 3*size.y);
         shadowSprite_[3].texCoords = sf::Vector2f(0       , 3*size.y);
 
-        for (int i=0; i<size_.x*size_.y; ++i) {
+        for (int i=0; i<size_.x*size_.y; ++i)
+        {
             discovered_[i] = false;
         }
 
-        for (int i=0; i<size_.x*size_.y*9; ++i) {
+        for (int i=0; i<size_.x*size_.y*9; ++i)
+        {
             cellIDs_[i] = 0;
         }
     }
 
-    bool ShadowMap::isFilled(int x, int y, unsigned char id) const {
+    bool
+    ShadowMap::isFilled(int x, int y, unsigned char id) const
+    {
         if (  x < 0 || x > size_.x-1
            || y < 0 || y > size_.y-1
             ) return false;
@@ -52,9 +57,12 @@ namespace rr {
 
         bool filled = true;
 
-        for (int i=0; i<3; ++i) {
-            for (int j=0; j<3; ++j) {
-                if (cellIDs_[tx+i + (ty+j)*size_.x*3] == id) {
+        for (int i=0; i<3; ++i)
+        {
+            for (int j=0; j<3; ++j)
+            {
+                if (cellIDs_[tx+i + (ty+j)*size_.x*3] == id)
+                {
                     filled = false;
                     break;
                 } 
@@ -65,12 +73,16 @@ namespace rr {
         return filled;
     }
 
-    void ShadowMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    ShadowMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         states.texture = &shadowTexture_;
         target.draw(shadowSprite_, states);
     }
 
-    void ShadowMap::setLit(int x, int y) {
+    void
+    ShadowMap::setLit(int x, int y)
+    {
         discovered_[x + y*size_.x] = true;
 
         int tx = 3*x + 1, ty = 3*y + 1;
@@ -78,9 +90,12 @@ namespace rr {
         cellIDs_[tx + ty*size_.x*3] = 2;
         lastlyLit_.push_back(sf::Vector2i(tx, ty));
 
-        if (x < size_.x-1) {
-            if (y > 0) {
-                if (cellIDs_[tx+3 + (ty-3)*size_.x*3] == 2) {  // TOP RIGHT
+        if (x < size_.x-1)
+        {
+            if (y > 0)
+            {
+                if (cellIDs_[tx+3 + (ty-3)*size_.x*3] == 2) // TOP RIGHT
+                {
                     cellIDs_[tx+1 + (ty-1)*size_.x*3] =  2;
                     cellIDs_[tx+1 + ( ty )*size_.x*3] =  2;
                     cellIDs_[ tx  + (ty-1)*size_.x*3] =  2;
@@ -94,8 +109,10 @@ namespace rr {
                 }
             }
 
-            if (y < size_.y-1) {
-                if (cellIDs_[tx+3 + (ty+3)*size_.x*3] == 2) {  // BOTTOM RIGHT
+            if (y < size_.y-1)
+            {
+                if (cellIDs_[tx+3 + (ty+3)*size_.x*3] == 2) // BOTTOM RIGHT
+                {
                     cellIDs_[tx+1 + (ty+1)*size_.x*3] =  2;
                     cellIDs_[tx+1 + ( ty )*size_.x*3] =  2;
                     cellIDs_[ tx  + (ty+1)*size_.x*3] =  2;
@@ -109,7 +126,8 @@ namespace rr {
                 }
             }
 
-            if (cellIDs_[tx+3 + ty*size_.x*3] == 2) {        // RIGHT
+            if (cellIDs_[tx+3 + ty*size_.x*3] == 2) // RIGHT
+            {
                 cellIDs_[tx+1 + ty*size_.x*3] =  2;
                 cellIDs_[tx+2 + ty*size_.x*3] =  2;
 
@@ -118,9 +136,12 @@ namespace rr {
             }
         }
 
-        if (x > 0) {
-            if (y > 0) {
-                if (cellIDs_[tx-3 + (ty-3)*size_.x*3] == 2) {  // TOP LEFT
+        if (x > 0)
+        {
+            if (y > 0)
+            {
+                if (cellIDs_[tx-3 + (ty-3)*size_.x*3] == 2) // TOP LEFT
+                {
                     cellIDs_[tx-1 + (ty-1)*size_.x*3] =  2;
                     cellIDs_[tx-1 + ( ty )*size_.x*3] =  2;
                     cellIDs_[ tx  + (ty-1)*size_.x*3] =  2;
@@ -134,8 +155,10 @@ namespace rr {
                 }
             }
 
-            if (y < size_.y-1) {
-                if (cellIDs_[tx-3 + (ty+3)*size_.x*3] == 2) {  // BOTTOM LEFT
+            if (y < size_.y-1)
+            {
+                if (cellIDs_[tx-3 + (ty+3)*size_.x*3] == 2) // BOTTOM LEFT
+                {
                     cellIDs_[tx-1 + (ty+1)*size_.x*3] =  2;
                     cellIDs_[tx-1 + ( ty )*size_.x*3] =  2;
                     cellIDs_[ tx  + (ty+1)*size_.x*3] =  2;
@@ -149,7 +172,8 @@ namespace rr {
                 }
             }
 
-            if (cellIDs_[tx-3 + ty*size_.x*3] == 2) {        // LEFT
+            if (cellIDs_[tx-3 + ty*size_.x*3] == 2) // LEFT
+            {
                 cellIDs_[tx-1 + ty*size_.x*3] =  2;
                 cellIDs_[tx-2 + ty*size_.x*3] =  2;
 
@@ -158,8 +182,10 @@ namespace rr {
             }
         }
 
-        if (y > 0) {
-            if (cellIDs_[tx + (ty-3)*size_.x*3] == 2) {      // TOP
+        if (y > 0)
+        {
+            if (cellIDs_[tx + (ty-3)*size_.x*3] == 2) // TOP
+            {
                 cellIDs_[tx + (ty-1)*size_.x*3] =  2;
                 cellIDs_[tx + (ty-2)*size_.x*3] =  2;
 
@@ -168,8 +194,10 @@ namespace rr {
             }
         }
 
-        if (y < size_.y-1) {
-            if (cellIDs_[tx + (ty+3)*size_.x*3] == 2) {      // BOTTOM
+        if (y < size_.y-1)
+        {
+            if (cellIDs_[tx + (ty+3)*size_.x*3] == 2) // BOTTOM
+            {
                 cellIDs_[tx + (ty+1)*size_.x*3] =  2;
                 cellIDs_[tx + (ty+2)*size_.x*3] =  2;
 
@@ -194,7 +222,8 @@ namespace rr {
             ) return;
 
         std::vector<unsigned char> neighbors;
-        if (x > 0) {
+        if (x > 0)
+        {
             if (  y > 0
                 ) neighbors.push_back(1);
 
@@ -204,7 +233,8 @@ namespace rr {
             neighbors.push_back(8);
         }
 
-        if (x < size_.x-1) {
+        if (x < size_.x-1)
+        {
             if (  y > 0
                 ) neighbors.push_back(3);
 
@@ -220,8 +250,10 @@ namespace rr {
         if (  y < size_.y-1
             ) neighbors.push_back(6);
 
-        for (unsigned i=0; i<neighbors.size(); ++i) {
-            switch (neighbors[i]) {    // here we switch between the central cell and the cells next to it
+        for (unsigned i=0; i<neighbors.size(); ++i)
+        {
+            switch (neighbors[i])
+            { // here we switch between the central cell and the cells next to it
                 case 0: tx = 3*( x ) + 1; ty = 3*( y ) + 1; break;  // CENTER
                 case 1: tx = 3*(x-1) + 1; ty = 3*(y-1) + 1; break;  // TOP LEFT
                 case 2: tx = 3*( x ) + 1; ty = 3*(y-1) + 1; break;  // TOP
@@ -234,65 +266,80 @@ namespace rr {
             }
 
             if (  cellIDs_[tx-1 + ( ty )*size_.x*3] == 2            // IF LEFT
-               && cellIDs_[ tx  + (ty-1)*size_.x*3] == 2) {         // AND TOP ARE TRANSPARENT
+               && cellIDs_[ tx  + (ty-1)*size_.x*3] == 2)           // AND TOP ARE TRANSPARENT
+            {
                   cellIDs_[tx-1 + (ty-1)*size_.x*3] =  2;           // THEN SET TOP LEFT TO TRANSPARENT
                   lastlyLit_.push_back(sf::Vector2i(tx-1, ty-1));
             }
 
             if (  cellIDs_[tx-1 + ( ty )*size_.x*3] == 2            // IF LEFT
-               && cellIDs_[ tx  + (ty+1)*size_.x*3] == 2) {         // AND BOTTOM ARE TRANSPARENT
+               && cellIDs_[ tx  + (ty+1)*size_.x*3] == 2)           // AND BOTTOM ARE TRANSPARENT
+            {
                   cellIDs_[tx-1 + (ty+1)*size_.x*3] =  2;           // THEN SET BOTTOM LEFT TO TRANSPARENT
                   lastlyLit_.push_back(sf::Vector2i(tx-1, ty+1));
             }
 
             if (  cellIDs_[tx+1 + ( ty )*size_.x*3] == 2            // IF RIGHT
-               && cellIDs_[ tx  + (ty-1)*size_.x*3] == 2) {         // AND TOP ARE TRANSPARENT
+               && cellIDs_[ tx  + (ty-1)*size_.x*3] == 2)           // AND TOP ARE TRANSPARENT
+            {
                   cellIDs_[tx+1 + (ty-1)*size_.x*3] =  2;           // THEN SET TOP RIGHT TO TRANSPARENT
                   lastlyLit_.push_back(sf::Vector2i(tx+1, ty-1));
             }
 
             if (  cellIDs_[tx+1 + ( ty )*size_.x*3] == 2            // IF RIGHT
-               && cellIDs_[ tx  + (ty+1)*size_.x*3] == 2) {         // AND BOTTOM ARE TRANSPARENT
+               && cellIDs_[ tx  + (ty+1)*size_.x*3] == 2)           // AND BOTTOM ARE TRANSPARENT
+            {
                   cellIDs_[tx+1 + (ty+1)*size_.x*3] =  2;           // THEN SET BOTTOM RIGHT TO TRANSPARENT
                   lastlyLit_.push_back(sf::Vector2i(tx+1, ty+1));
             }
 
             if (  cellIDs_[tx-1 + (ty-1)*size_.x*3] == 2            // IF TOP LEFT
-               && cellIDs_[tx-1 + (ty+1)*size_.x*3] == 2) {         // AND BOTTOM LEFT ARE TRANSPARENT
+               && cellIDs_[tx-1 + (ty+1)*size_.x*3] == 2)           // AND BOTTOM LEFT ARE TRANSPARENT
+            {
                   cellIDs_[tx-1 + ( ty )*size_.x*3] =  2;           // THEN SET LEFT TO TRANSPARENT
                   lastlyLit_.push_back(sf::Vector2i(tx-1, ty));
             }
 
             if (  cellIDs_[tx-1 + (ty-1)*size_.x*3] == 2            // IF TOP LEFT
-               && cellIDs_[tx+1 + (ty-1)*size_.x*3] == 2) {         // AND TOP RIGHT ARE TRANSPARENT
+               && cellIDs_[tx+1 + (ty-1)*size_.x*3] == 2)           // AND TOP RIGHT ARE TRANSPARENT
+            {
                   cellIDs_[ tx  + (ty-1)*size_.x*3] =  2;           // THEN SET TOP TO TRANSPARENT
                   lastlyLit_.push_back(sf::Vector2i(tx, ty-1));
             }
 
             if (  cellIDs_[tx+1 + (ty+1)*size_.x*3] == 2            // IF BOTTOM RIGHT
-               && cellIDs_[tx+1 + (ty-1)*size_.x*3] == 2) {         // AND TOP RIGHT ARE TRANSPARENT
+               && cellIDs_[tx+1 + (ty-1)*size_.x*3] == 2)           // AND TOP RIGHT ARE TRANSPARENT
+            {
                   cellIDs_[tx+1 + ( ty )*size_.x*3] =  2;           // THEN SET RIGHT TO TRANSPARENT
                   lastlyLit_.push_back(sf::Vector2i(tx+1, ty));
             }
 
             if (  cellIDs_[tx+1 + (ty+1)*size_.x*3] == 2            // IF BOTTOM RIGHT
-               && cellIDs_[tx-1 + (ty+1)*size_.x*3] == 2) {         // AND BOTTOM LEFT ARE TRANSPARENT
+               && cellIDs_[tx-1 + (ty+1)*size_.x*3] == 2)           // AND BOTTOM LEFT ARE TRANSPARENT
+            {
                   cellIDs_[ tx  + (ty+1)*size_.x*3] =  2;           // THEN SET BOTTOM TO TRANSPARENT
                   lastlyLit_.push_back(sf::Vector2i(tx, ty+1));
             }
         }
     }
 
-    void ShadowMap::darken() {
-        for (unsigned i=0; i<lastlyLit_.size(); ++i) {
+    void
+    ShadowMap::darken()
+    {
+        for (unsigned i=0; i<lastlyLit_.size(); ++i)
+        {
             cellIDs_[lastlyLit_[i].x + lastlyLit_[i].y*size_.x*3] = 1;
         }
         lastlyLit_.clear();
     }
 
-    void ShadowMap::update() {
-        for (int x=0; x<3*size_.x; ++x) {
-            for (int y=0; y<3*size_.y; ++y) {
+    void
+    ShadowMap::update()
+    {
+        for (int x=0; x<3*size_.x; ++x)
+        {
+            for (int y=0; y<3*size_.y; ++y)
+            {
                 if      (  cellIDs_[x + y*3*size_.x] == 1
                          ) shadowImage_.setPixel(x, y, sf::Color(0, 0, 0, 200));
                 else if (  cellIDs_[x + y*3*size_.x] == 2
@@ -303,26 +350,36 @@ namespace rr {
         shadowTexture_.update(shadowImage_);
     }
 
-    std::ifstream& ShadowMap::operator<<(std::ifstream& file) {
-        try {
-            for (int x=0; x<size_.x; ++x) {
-                for (int y=0; y<size_.y; ++y) {
+    std::ifstream&
+    ShadowMap::operator<<(std::ifstream& file)
+    {
+        try
+        {
+            for (int x=0; x<size_.x; ++x)
+            {
+                for (int y=0; y<size_.y; ++y)
+                {
                     readFile <bool> (file, discovered_[x + y*size_.x]);
                     if (  discovered_[x + y*size_.x]
                         ) setLit(x, y);
                 }
             }
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
         return file;
     }
 
-    std::ofstream& ShadowMap::operator>>(std::ofstream& file) {
-        for (int x=0; x<size_.x; ++x) {
-            for (int y=0; y<size_.y; ++y) {
+    std::ofstream&
+    ShadowMap::operator>>(std::ofstream& file)
+    {
+        for (int x=0; x<size_.x; ++x)
+        {
+            for (int y=0; y<size_.y; ++y)
+            {
                 file << discovered_[x + y*size_.x] << ' ';
             }
             file << '\n';

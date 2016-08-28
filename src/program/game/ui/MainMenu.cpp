@@ -19,12 +19,13 @@
 #include "../../funcs/strings.hpp"
 #include "../../funcs/keys.hpp"
 
-namespace rr {
+namespace rr
+{
 
     MainMenu::MainMenu() :
       title_  (Text  (sf::Vector2f(0, 0), "PAhAom"             , Resources::font.Pixel       , 100, sf::Color::Yellow)),
       version_(Text  (sf::Vector2f(0, 0), Program::getVersion(), Resources::font.FinalFantasy,  50, sf::Color::Yellow)),
-      wMenu_  (Window("", sf::Vector2f(248, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225))            )
+      wMenu_  (Window("", sf::Vector2f(248, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225)))
     {
         backTexture_.loadFromFile("data/graphics/menubkg.png");
         background_.setTexture(&backTexture_);
@@ -40,7 +41,8 @@ namespace rr {
         wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.help"   ], 52);
         wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.credits"], 52);
         wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52);
-        for (int i=0; i<6; i++) {
+        for (int i=0; i<6; i++)
+        {
             wMenu_.getComponent<Button>(i)->setPosition(wMenu_.getPosition() + sf::Vector2f(wMenu_.getSize().x/2 - wMenu_.getComponent<Button>(i)->getSize().x/2, 5+i*75));
         }
 
@@ -235,7 +237,9 @@ namespace rr {
         wMenu_.setVisible(true);
     }
 
-    void MainMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
+    void
+    MainMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g)
+    {
         auto wOpts = wMenu_.getComponent<Window>(0);
         auto wGame = wOpts->getComponent<Window>(0);
         auto wGrap = wOpts->getComponent<Window>(1);
@@ -245,8 +249,10 @@ namespace rr {
         auto wHelp = wMenu_.getComponent<Window>(1);
         auto wCred = wMenu_.getComponent<Window>(2);
 
-        if (wMenu_.isVisible()) {
-            if (!wOpts->isVisible() && !wHelp->isVisible() && !wCred->isVisible()) {
+        if (wMenu_.isVisible())
+        {
+            if (!wOpts->isVisible() && !wHelp->isVisible() && !wCred->isVisible())
+            {
                 if (  wMenu_.getComponent<Button>(0)->isPressed(rw, e)
                     ) g->loadNewGame();
                 if (  wMenu_.getComponent<Button>(1)->isPressed(rw, e)
@@ -261,8 +267,10 @@ namespace rr {
                     ) rw.close();
             }
 
-            else if (wOpts->isVisible()) {
-                if (!wGame->isVisible() && !wGrap->isVisible() && !wSoun->isVisible() && !wCont->isVisible()) {
+            else if (wOpts->isVisible())
+            {
+                if (!wGame->isVisible() && !wGrap->isVisible() && !wSoun->isVisible() && !wCont->isVisible())
+                {
                     if (  wOpts->getComponent<Button>(0)->isPressed(rw, e)
                         ) wGame->setVisible(true);
                     if (  wOpts->getComponent<Button>(1)->isPressed(rw, e)
@@ -271,7 +279,8 @@ namespace rr {
                         ) wSoun->setVisible(true);
                     if (  wOpts->getComponent<Button>(3)->isPressed(rw, e)
                         ) wCont->setVisible(true);
-                    if (wOpts->getComponent<Button>(4)->isPressed(rw, e)) {
+                    if (wOpts->getComponent<Button>(4)->isPressed(rw, e))
+                    {
                         puts(">Saving the settings...");
                         if      (  wGame->getComponent<Switch>(0)->getCurrentOption() == "ENGLISH"
                                  ) Settings::game.language = "en";
@@ -321,7 +330,9 @@ namespace rr {
                         puts(">Done.");
                         wOpts->setVisible(false);
                     }
-                    if (wOpts->getComponent<Button>(5)->isPressed(rw, e)) {
+
+                    if (wOpts->getComponent<Button>(5)->isPressed(rw, e))
+                    {
                         if      (  Settings::game.language == "en"
                                  ) wGame->getComponent<Switch>(0)->setCurrentOption("ENGLISH");
                         else if (  Settings::game.language == "pl"
@@ -362,15 +373,19 @@ namespace rr {
                     }
                 }
 
-                else if (wGame->isVisible()) {
+                else if (wGame->isVisible())
+                {
                     wGame->getComponent<Switch>(0)->buttonEvents(rw, e);
                     if (  wGame->getComponent<Button>(0)->isPressed(rw, e)
                         ) wGame->setVisible(false);
                 }
 
-                else if (wGrap->isVisible()) {
-                    for (unsigned i=0; i<2; i++) {
-                        if (wGrap->getComponent<Checkbox>(i)->isPressed(rw, e)) {
+                else if (wGrap->isVisible())
+                {
+                    for (unsigned i=0; i<2; i++)
+                    {
+                        if (wGrap->getComponent<Checkbox>(i)->isPressed(rw, e))
+                        {
                             if ( !wGrap->getComponent<Checkbox>(i)->isChecked()
                                 ) wGrap->getComponent<Checkbox>(i)->check(true);
                             else  wGrap->getComponent<Checkbox>(i)->check(false);
@@ -382,9 +397,12 @@ namespace rr {
                         ) wGrap->setVisible(false);
                 }
 
-                else if (wSoun->isVisible()) {
-                    for (int i=0; i<2; i++) {
-                        if (wSoun->getComponent<Checkbox>(i)->isPressed(rw, e)) {
+                else if (wSoun->isVisible())
+                {
+                    for (int i=0; i<2; i++)
+                    {
+                        if (wSoun->getComponent<Checkbox>(i)->isPressed(rw, e))
+                        {
                             if ( !wSoun->getComponent<Checkbox>(i)->isChecked()
                                 ) wSoun->getComponent<Checkbox>(i)->check(true);
                             else  wSoun->getComponent<Checkbox>(i)->check(false);
@@ -396,13 +414,17 @@ namespace rr {
                         ) wSoun->setVisible(false);
                 }
 
-                else if (wCont->isVisible()) {
-                    for (int i=0; i<16; i++) {
-                        if (!wWait->isVisible() && wCont->getComponent<Button>(i)->isPressed(rw, e)) {
+                else if (wCont->isVisible())
+                {
+                    for (int i=0; i<16; i++)
+                    {
+                        if (!wWait->isVisible() && wCont->getComponent<Button>(i)->isPressed(rw, e))
+                        {
                             wWait->setVisible(true);
                             wWait->setParentComponent(wCont->getComponent<Button>(i));
                         }
-                        else if (wWait->isVisible() && e.type == sf::Event::KeyPressed) {
+                        else if (wWait->isVisible() && e.type == sf::Event::KeyPressed)
+                        {
                             if (  e.key.code != sf::Keyboard::Escape
                                 ) ((Button*) wWait->getParentComponent())->setText(getKeyName(e.key.code));
                             wWait->setParentComponent(wCont);
@@ -415,12 +437,14 @@ namespace rr {
 
             }
 
-            else if (wHelp->isVisible()) {
+            else if (wHelp->isVisible())
+            {
                 if (  wHelp->getComponent<Button>(0)->isPressed(rw, e)
                     ) wHelp->setVisible(false);
             }
 
-            else if (wCred->isVisible()) {
+            else if (wCred->isVisible())
+            {
                 if (  wCred->getComponent<Button>(0)->isPressed(rw, e)
                     ) wCred->setVisible(false);
             }
@@ -428,7 +452,8 @@ namespace rr {
 
     }
 
-    void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         target.draw(background_, states);
         target.draw(title_     , states);
         target.draw(version_   , states);

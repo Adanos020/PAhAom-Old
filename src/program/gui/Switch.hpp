@@ -11,9 +11,11 @@
 #include "Button.hpp"
 #include "Text.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Switch : public Component {
+    class Switch : public Component
+    {
     private: sf::RectangleShape      body_;
              std::vector<sf::String> options_;
              Button                  left_;

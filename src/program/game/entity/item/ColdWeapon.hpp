@@ -9,15 +9,18 @@
 
 #include "Item.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class ColdWeapon : public Weapon {
+    class ColdWeapon : public Weapon
+    {
     private: ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the cold weapon.
              ////////////////////////////////////////////////////////////////////////
      virtual void initialize() override;
 
-    public:  enum Type {
+    public:  enum Type
+             {
                  DOUBLE_AXE,
                  HAMMER,
                  HALBERD,

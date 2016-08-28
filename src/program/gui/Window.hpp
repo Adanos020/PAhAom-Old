@@ -14,9 +14,11 @@
 
 #include "../funcs/classes.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Window : public Component {
+    class Window : public Component
+    {
     private: sf::RectangleShape      body_;
              Text                    header_;
              std::vector<Component*> components_;
@@ -75,16 +77,21 @@ namespace rr {
              /// index.
              ////////////////////////////////////////////////////////////////////////
              template<typename T>
-             T* getComponent(unsigned index) const {
-                 if (std::is_base_of<Component, T>::value) {
-                     for (unsigned i=0; i<components_.size(); i++) {
-                         if (instanceof<T, Component>(components_[i])) {
+             T* getComponent(unsigned index) const
+             {
+                 if (std::is_base_of<Component, T>::value)
+                 {
+                     for (unsigned i=0; i<components_.size(); i++)
+                     {
+                         if (instanceof<T, Component>(components_[i]))
+                         {
                              if (  index-- == 0
                                  ) return (T*)components_[i];
                          }
                      }
                  }
-                 else {
+                 else
+                 {
                      puts("element of given type not found");
                      return nullptr;
                  }
@@ -101,7 +108,8 @@ namespace rr {
              /// ((((window += comp_1) += comp_2) += comp_3) ...) += comp_n;
              /// \endcode
              ////////////////////////////////////////////////////////////////////////
-             Window& operator+= (Component* c) {
+             Window& operator+= (Component* c)
+             {
                  addComponent(c, true);
                  return *this;
              }
@@ -115,7 +123,8 @@ namespace rr {
              /// ((((window |= comp_1) |= comp_2) |= comp_3) ...) |= comp_n;
              /// \endcode
              ////////////////////////////////////////////////////////////////////////
-             Window& operator|= (Component* c) {
+             Window& operator|= (Component* c)
+             {
                  addComponent(c, false);
                  return *this;
              }

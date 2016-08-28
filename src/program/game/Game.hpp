@@ -14,7 +14,8 @@
 #include "level/Level.hpp"
 #include "../messages/MessageManager.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class MainMenu;
     class PauseMenu;
@@ -34,7 +35,8 @@ namespace rr {
     class Slot;
     class Text;
 
-    class Game {
+    class Game
+    {
     private: sf::View       gameView_;
              sf::View       mapView_;
 

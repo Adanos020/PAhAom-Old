@@ -9,15 +9,18 @@
 
 #include "Item.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class RangedWeapon : public Weapon {
+    class RangedWeapon : public Weapon
+    {
     private: ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the ranged weapon.
              ////////////////////////////////////////////////////////////////////////
      virtual void initialize() override;
 
-    public:  enum Type {
+    public:  enum Type
+             {
                  BOW,
                  CROSSBOW,
                  SLINGSHOT,

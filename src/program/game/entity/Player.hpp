@@ -17,7 +17,8 @@
 #include "item/Item.hpp"
 #include "item/Book.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class Level;
     class ColdWeapon;
@@ -25,8 +26,10 @@ namespace rr {
     class Equipable;
     class NPC;
 
-    class Player : public Entity {
-    private: struct Attrs { // Structure for the player attributes.
+    class Player : public Entity
+    {
+    private: struct Attrs // Structure for the player attributes.
+             {
              public: float health;
                      float maxHealth;
                      float mana;
@@ -49,8 +52,8 @@ namespace rr {
                      bool  faster_learning;
              } attrs_;
 
-             struct Buffs {   // Structure for buffs - each buff is represented by an integer
-                              // which tells for how many turns is it going to be valid.
+             struct Buffs   // Structure for buffs - each buff is represented by an integer
+             {              // which tells for how many turns is it going to be valid.
              public: int speed;
                      int regeneration;
                      int poison;
@@ -82,14 +85,16 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
      virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    public:  enum Direction {
+    public:  enum Direction
+             {
                  UP,
                  DOWN,
                  LEFT,
                  RIGHT
              };
 
-             enum Attribute {
+             enum Attribute
+             {
                  HEALTH,
                  MANA,
                  STRENGTH,

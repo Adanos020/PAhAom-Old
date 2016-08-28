@@ -13,7 +13,8 @@
 #include "../../../funcs/images.hpp"
 #include "../../../funcs/files.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Ammunition::Ammunition(Type type, int amount, sf::Vector2i position) :
       type_(type)
@@ -35,7 +36,9 @@ namespace rr {
         body_       = copy.body_;
     }
 
-    void Ammunition::initialize() {
+    void
+    Ammunition::initialize()
+    {
         disposable_ = false;
         stackable_  = true;
         cursed_     = false;
@@ -45,8 +48,11 @@ namespace rr {
         setIcon(body_, iconIndex_);
     }
 
-    sf::String Ammunition::getName() const {
-        switch (type_) {
+    sf::String
+    Ammunition::getName() const
+    {
+        switch (type_)
+        {
             case ARROW   : return Resources::dictionary["item.ammunition.name.arrow"   ];
             case BOLT    : return Resources::dictionary["item.ammunition.name.bolt"    ];
             case ROCKS   : return Resources::dictionary["item.ammunition.name.rocks"   ];
@@ -57,8 +63,11 @@ namespace rr {
         return "";
     }
 
-    sf::String Ammunition::getDescription() const {
-        switch (type_) {
+    sf::String
+    Ammunition::getDescription() const
+    {
+        switch (type_)
+        {
             case ARROW   : return Resources::dictionary["item.ammunition.description.arrow"   ];
             case BOLT    : return Resources::dictionary["item.ammunition.description.bolt"    ];
             case ROCKS   : return Resources::dictionary["item.ammunition.description.rocks"   ];
@@ -69,17 +78,21 @@ namespace rr {
         return "";
     }
 
-    std::ifstream& Ammunition::operator<<(std::ifstream& file) {
+    std::ifstream&
+    Ammunition::operator<<(std::ifstream& file)
+    {
         sf::Vector2i position;
         int type;
 
-        try {
+        try
+        {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
             readFile <int> (file, amount_);
             readFile <int> (file, type);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -92,7 +105,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& Ammunition::operator>>(std::ofstream& file) {
+    std::ofstream&
+    Ammunition::operator>>(std::ofstream& file)
+    {
         file << 0                            << ' '
              << (int) body_[0].position.x/80 << ' '
              << (int) body_[0].position.y/80 << ' '

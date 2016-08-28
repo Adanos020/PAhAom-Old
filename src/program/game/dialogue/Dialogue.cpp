@@ -12,7 +12,8 @@
 
 #include "Dialogue.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Sentence::Sentence(Sentence::Speaker s, sf::String sn) :
       speaker_ (s),
@@ -22,16 +23,22 @@ namespace rr {
       current_(nullptr),
       root_   (nullptr) {}
 
-    void DialogueTree::setTree(Branch* tree, bool permanent) {
+    void
+    DialogueTree::setTree(Branch* tree, bool permanent)
+    {
         if (  permanent
             ) root_ = tree;
         current_ = tree;
     }
 
-    bool Answers::removeAnswer(Sentence* s) {
+    bool
+    Answers::removeAnswer(Sentence* s)
+    {
         unsigned i=0;
-        while (i<answers_.size()) {
-            if (answers_[i] == s) {
+        while (i<answers_.size())
+        {
+            if (answers_[i] == s)
+            {
                 answers_.erase(answers_.begin()+i);
                 return true;
             }
@@ -40,10 +47,14 @@ namespace rr {
         return false;
     }
 
-    bool Answers::removeAnswer(sf::String s) {
+    bool
+    Answers::removeAnswer(sf::String s)
+    {
         unsigned i=0;
-        while (i<answers_.size()) {
-            if (answers_[i]->getSentence() == s) {
+        while (i<answers_.size())
+        {
+            if (answers_[i]->getSentence() == s)
+            {
                 answers_.erase(answers_.begin()+i);
                 return true;
             }
@@ -52,8 +63,11 @@ namespace rr {
         return false;
     }
 
-    Sentence* Answers::find(sf::String sought) const {
-        for (unsigned i=0; i<answers_.size(); ++i) {
+    Sentence*
+    Answers::find(sf::String sought) const
+    {
+        for (unsigned i=0; i<answers_.size(); ++i)
+        {
             if (  answers_[i]->getSentence() == sought
                 ) return answers_[i];
         }

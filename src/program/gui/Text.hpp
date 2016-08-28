@@ -9,9 +9,11 @@
 
 #include "Component.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Text : public Component {
+    class Text : public Component
+    {
     private: sf::Text text_;
 
              ////////////////////////////////////////////////////////////////////////

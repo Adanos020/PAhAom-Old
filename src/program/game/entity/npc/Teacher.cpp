@@ -12,7 +12,8 @@
 
 #include "Teacher.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Teacher::Teacher(Type type) :
       type_(type)
@@ -34,10 +35,12 @@ namespace rr {
         currentAnimation_ = copy.currentAnimation_;
     }
 
-    void Teacher::initialize() {
+    void Teacher::initialize()
+    {
         standingLeft_.setSpriteSheet(Resources::texture.npc);
 
-        for (int i=0; i<(type_ == KUNG_FU_MASTER ? 20 : 10); i++) {
+        for (int i=0; i<(type_ == KUNG_FU_MASTER ? 20 : 10); i++)
+        {
             standingLeft_.addFrame(sf::IntRect(i*16, type_*16, 16, 16));
         }
 
@@ -53,8 +56,10 @@ namespace rr {
         else  body_.setFrameTime(sf::seconds(.2f));
 
         // building dialogue trees
-        switch (type_) {
-            case SWORDSMAN: {
+        switch (type_)
+        {
+            case SWORDSMAN:
+            {
                 auto root = new Answers();
 
                 auto sup = new Sentence(Sentence::PLAYER, "Sup nigga.");
@@ -104,34 +109,43 @@ namespace rr {
                 dialogue_.setTree(root, true);
             } break;
             
-            case SHARPSHOOTER: {
+            case SHARPSHOOTER:
+            {
                 
             } break;
 
-            case CARPENTER: {
+            case CARPENTER:
+            {
                 
             } break;
             
-            case MAGE: {
+            case MAGE:
+            {
                 
             } break;
             
-            case KUNG_FU_MASTER: {
+            case KUNG_FU_MASTER:
+            {
                 
             } break;
         }
     }
 
-    void Teacher::update(int tiles[], sf::Time timeStep) {
-        if (moving_) {
+    void
+    Teacher::update(int tiles[], sf::Time timeStep)
+    {
+        if (moving_)
+        {
             sf::Vector2f offset = body_.getPosition()-(sf::Vector2f) position_*80.f;
-            if (offset != sf::Vector2f(0, 0)) {
+            if (offset != sf::Vector2f(0, 0))
+            {
                 if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep.asSeconds(),  0));
                 if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep.asSeconds(),  0));
                 if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep.asSeconds()));
                 if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep.asSeconds()));
             }
-            else {
+            else
+            {
                 buffs_.speed        -= (buffs_.speed        == 0 ? 0 : 1);
                 buffs_.regeneration -= (buffs_.regeneration == 0 ? 0 : 1);
                 buffs_.poison       -= (buffs_.poison       == 0 ? 0 : 1);
@@ -154,7 +168,8 @@ namespace rr {
 
         body_.update(timeStep);
 
-        switch (state_) {
+        switch (state_)
+        {
             case STANDING : if      (   direction_        == LEFT
                                     && *currentAnimation_ != standingLeft_
                                      )  currentAnimation_ = &standingLeft_;
@@ -166,11 +181,15 @@ namespace rr {
 
             case WAITING  : break;
 
-            case EXPLORING: if (!moving_) {
-                                if (position_ == destination_) {/*
+            case EXPLORING: if (!moving_)
+                            {
+                                if (position_ == destination_)
+                                {/*
                                     position_ = PathFinder::aStar(position_, destination_, tiles)[0] - position_;
                                     moving_ = true;*/
-                                } else {
+                                }
+                                else
+                                {
                                     state_ = STANDING;
                                 }
                             }
@@ -184,12 +203,17 @@ namespace rr {
         body_.play(*currentAnimation_);
     }
 
-    void Teacher::handleDamage(int damage) {
+    void
+    Teacher::handleDamage(int damage)
+    {
         
     }
 
-    sf::String Teacher::getName() const {
-        switch (type_) {
+    sf::String
+    Teacher::getName() const
+    {
+        switch (type_)
+        {
             case SWORDSMAN     : return Resources::dictionary["npc.teacher.name.swordsman"     ];
             case SHARPSHOOTER  : return Resources::dictionary["npc.teacher.name.sharpshooter"  ];
             case CARPENTER     : return Resources::dictionary["npc.teacher.name.carpenter"     ];
@@ -200,18 +224,22 @@ namespace rr {
         return "";
     }
 
-    std::ifstream& Teacher::operator<<(std::ifstream& file) {
+    std::ifstream&
+    Teacher::operator<<(std::ifstream& file)
+    {
         currentAnimation_->clearFrames();
         
         sf::Vector2i position;
         int type;
 
-        try {
+        try
+        {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
             readFile <int> (file, type);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -223,7 +251,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& Teacher::operator>>(std::ofstream& file) {
+    std::ofstream&
+    Teacher::operator>>(std::ofstream& file)
+    {
         file << 21                             << ' '
              << (int) body_.getPosition().x/80 << ' '
              << (int) body_.getPosition().y/80 << ' '

@@ -12,11 +12,13 @@
 #include "../../gui/Window.hpp"
 #include "../../gui/Text.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class Game;
 
-    class PauseMenu : public sf::Drawable {
+    class PauseMenu : public sf::Drawable
+    {
     private: sf::RectangleShape shadow_;
              Text               title_;
              Text               version_;

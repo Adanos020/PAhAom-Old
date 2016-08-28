@@ -13,7 +13,8 @@
 #include "../../funcs/items.hpp"
 #include "../../funcs/files.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Chest::Chest(Type type) :
       item_ (getRandomItemBalanced()),
@@ -27,17 +28,22 @@ namespace rr {
       item_(copy.item_),
       type_(copy.type_) {}
 
-    Chest::~Chest() {
+    Chest::~Chest()
+    {
         delete item_;
     }
 
-    void Chest::initialize() {
+    void
+    Chest::initialize()
+    {
         int tu, tv;
-        if (type_ == SPECIAL) {
+        if (type_ == SPECIAL)
+        {
             tu = (rand()%2+18)%(Resources::texture.objects.getSize().x/16);
             tv = (rand()%2+18)/(Resources::texture.objects.getSize().y/16);
         }
-        else {
+        else
+        {
             tu = (rand()%3+15)%(Resources::texture.objects.getSize().x/16);
             tv = (rand()%3+15)/(Resources::texture.objects.getSize().y/16);
         }
@@ -47,21 +53,27 @@ namespace rr {
         body_.setScale      (sf::Vector2f(5.f, 5.f));
     }
 
-    void Chest::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    Chest::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         states.texture = &Resources::texture.objects;
         target.draw(body_, states);
     }
 
-    std::ifstream& Chest::operator<<(std::ifstream& file) {
+    std::ifstream&
+    Chest::operator<<(std::ifstream& file)
+    {
         sf::Vector2i position;
         int type;
 
-        try {
+        try
+        {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
             readFile <int> (file, type);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -74,11 +86,13 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& Chest::operator>>(std::ofstream& file) {
-            file << 40                             << ' '
-                 << (int) body_.getPosition().x/80 << ' '
-                 << (int) body_.getPosition().y/80 << ' '
-                 << type_                          << ' ';
+    std::ofstream&
+    Chest::operator>>(std::ofstream& file)
+    {
+        file << 40                             << ' '
+             << (int) body_.getPosition().x/80 << ' '
+             << (int) body_.getPosition().y/80 << ' '
+             << type_                          << ' ';
 
         return file;
     }

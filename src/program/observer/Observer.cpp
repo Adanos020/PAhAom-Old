@@ -6,35 +6,49 @@
 
 #include "Observer.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    Subject::~Subject() {
+    Subject::~Subject()
+    {
         clear();
     }
 
-    void Subject::addObserver(Observer* observer) {
-        for (auto obs : observers_) {
+    void
+    Subject::addObserver(Observer* observer)
+    {
+        for (auto obs : observers_)
+        {
             if (  obs == observer
                 ) return;
         }
         observers_.push_back(observer);
     }
 
-    void Subject::removeObserver(Observer* observer) {
-        for (unsigned i=0; i<observers_.size(); i++) {
-            if (observer == observers_[i]) {
+    void
+    Subject::removeObserver(Observer* observer)
+    {
+        for (unsigned i=0; i<observers_.size(); i++)
+        {
+            if (observer == observers_[i])
+            {
                 observers_.erase(observers_.begin()+i);
                 return;
             }
         }
     }
 
-    void Subject::clear() {
+    void
+    Subject::clear()
+    {
         observers_.clear();
     }
 
-    void Subject::notify(Observer::Event event, Entity* entity) {
-        for (auto observer : observers_) {
+    void
+    Subject::notify(Observer::Event event, Entity* entity)
+    {
+        for (auto observer : observers_)
+        {
             observer->onNotify(event, entity);
         }
     }

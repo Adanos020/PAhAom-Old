@@ -6,14 +6,18 @@
 
 #include "Bar.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    Bar::Bar(Plain plain, int max_length, sf::Color c, sf::Vector2f pos) {
-        if      (plain == HORIZONTAL) {
+    Bar::Bar(Plain plain, int max_length, sf::Color c, sf::Vector2f pos)
+    {
+        if (plain == HORIZONTAL)
+        {
             border_.setSize(sf::Vector2f(max_length, 5));
             bar_   .setSize(sf::Vector2f(max_length, 5));
         }
-        else if (plain == VERTICAL) {
+        else if (plain == VERTICAL)
+        {
             border_.setSize(sf::Vector2f(5, max_length));
             bar_   .setSize(sf::Vector2f(5, max_length));
         }
@@ -23,28 +27,36 @@ namespace rr {
         border_.setOutlineThickness(5);
         border_.setPosition        (pos);
 
-        bar_.setFillColor          (c);
-        bar_.setPosition           (pos);
+        bar_.setFillColor(c);
+        bar_.setPosition (pos);
     }
 
-    void Bar::setPosition(sf::Vector2f pos) {
+    void
+    Bar::setPosition(sf::Vector2f pos)
+    {
         border_.setPosition(pos);
         bar_   .setPosition(pos);
     }
 
-    void Bar::setSize(sf::Vector2f size) {
+    void
+    Bar::setSize(sf::Vector2f size)
+    {
         //bar_.setSize(sf::Vector2f(border_.getSize().x/size.x * bar_.getSize().x));
         border_.setSize(size);
     }
 
-    void Bar::setValue(sf::Vector2f scale) {
+    void
+    Bar::setValue(sf::Vector2f scale)
+    {
         if      (  bar_.getSize().x == 5
                  ) bar_.setScale(1, scale.y);
         else if (  bar_.getSize().y == 5
                  ) bar_.setScale(scale.x, 1);
     }
 
-    void Bar::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    Bar::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         target.draw(bar_   , states);
         target.draw(border_, states);
     }

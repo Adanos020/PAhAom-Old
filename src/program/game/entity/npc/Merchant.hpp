@@ -9,12 +9,15 @@
 
 #include "NPC.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Merchant : public NPC {
+    class Merchant : public NPC
+    {
     private: virtual void           initialize()                  override;
 
-    public:  enum Type {
+    public:  enum Type
+             {
                  POTION_SELLER,
                  BOOK_SELLER,
                  WEAPON_SELLER,

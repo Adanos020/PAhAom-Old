@@ -14,14 +14,17 @@
 #include "funcs/files.hpp"
 #include "funcs/keys.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Settings::Keys     Settings::keys     = Settings::Keys    ();
     Settings::Sound    Settings::sound    = Settings::Sound   ();
     Settings::Graphics Settings::graphics = Settings::Graphics();
     Settings::Game     Settings::game     = Settings::Game    ();
 
-    void Settings::print() {
+    void
+    Settings::print()
+    {
         std::cout << "+========PARAMETER========|===========VALUE===========+\n";
         std::cout << "+-------------------Game settings---------------------+\n";
         std::cout << "|lang                     |" << game.language                                     << std::setw(29-game.language                                         .size()) << "|\n";
@@ -58,7 +61,9 @@ namespace rr {
         std::cout << "+-----------------------------------------------------+\n";
     }
 
-    void Settings::save() {
+    void
+    Settings::save()
+    {
         std::cout << ">Saving the settings...\n";
 
         std::ofstream oconfig("config.cfg");
@@ -112,23 +117,29 @@ namespace rr {
         oconfig.close();
     }
 
-    bool Settings::load() {
-        try {
+    bool
+    Settings::load()
+    {
+        try
+        {
             std::ifstream iconfig("config.cfg");
             if ( !iconfig.good()
                 ) throw std::runtime_error("File not found");
             std::cout << ">Loading a config file...\n";
 
-            while (!iconfig.eof()) {
+            while (!iconfig.eof())
+            {
                 std::string param;
                 int keyCode;
                 iconfig >> param;
 
-                if (param[0] == ';' || param == "") {
+                if (param[0] == ';' || param == "")
+                {
                     std::getline(iconfig, param);
                     continue;
                 }
-                else {
+                else
+                {
                     if      (param == "lang:"             )   iconfig >>                    game.language                        ;
                     else if (param == "debug:"            )   readFile <  bool  > (iconfig, game.debugMode                      );
                     else if (param == "width:"            )   readFile <unsigned> (iconfig, graphics.resolution.x               );
@@ -164,7 +175,8 @@ namespace rr {
             iconfig.close();
             std::cout << ">Done.\n";
         } 
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
             std::cout << ">Creating a new config file...\n";
 
@@ -175,7 +187,8 @@ namespace rr {
 
             save();
         }
-        catch (std::runtime_error ex) {
+        catch (std::runtime_error ex)
+        {
             std::cerr << ex.what() << '\n';
             std::cout << ">Creating a new config file...\n";
 

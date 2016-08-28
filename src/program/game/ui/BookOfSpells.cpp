@@ -12,7 +12,8 @@
 #include "../../Settings.hpp"
 #include "../../Resources.hpp"
 
-namespace rr {
+namespace rr
+{
 
     BookOfSpells::BookOfSpells() :
       wBofs_(Window(Resources::dictionary["gui.window.bookOfSpells"], sf::Vector2f(935, 650), (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(467.5f, 325)))
@@ -23,7 +24,8 @@ namespace rr {
 
         wBofs_ += new Image(sf::Vector2f(0, 0), Resources::texture.book_of_spells);
 
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<3; i++)
+        {
             wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(175, 150+120*i));
             wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(295, 150+120*i));
             wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(560, 150+120*i));
@@ -36,21 +38,28 @@ namespace rr {
         wBofs_ += bQuit;
     }
 
-    void BookOfSpells::buttonEvents(sf::RenderWindow& rw, sf::Event& ev, Game* g) {
-        if (isOpen()) {
+    void BookOfSpells::buttonEvents(sf::RenderWindow& rw, sf::Event& ev, Game* g)
+    {
+        if (isOpen())
+        {
             if (  wBofs_.getComponent<Button>(0)->isPressed(rw, ev)
                 ) g->pause(false);
 
-            for (int i=0; i<12; i++) {
-                if (wBofs_.getComponent<Slot>(i)->isPressed(rw, ev)) {
+            for (int i=0; i<12; i++)
+            {
+                if (wBofs_.getComponent<Slot>(i)->isPressed(rw, ev))
+                {
 
                 }
             }
         }
     }
 
-    void BookOfSpells::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        if (isOpen()) {
+    void
+    BookOfSpells::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
+        if (isOpen())
+        {
             target.draw(shadow_, states);
             target.draw(wBofs_ , states);
         }

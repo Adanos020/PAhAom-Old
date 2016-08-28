@@ -9,15 +9,18 @@
 
 #include "Item.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Rune : public Discoverable {
+    class Rune : public Discoverable
+    {
     private: ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the rune.
              ////////////////////////////////////////////////////////////////////////
      virtual void initialize() override;
 
-    public:  enum Type {
+    public:  enum Type
+             {
                  HEAL,
                  FIREBOLT,
                  LIGHTNING,

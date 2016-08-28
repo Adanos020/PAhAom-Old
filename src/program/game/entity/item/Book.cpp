@@ -15,7 +15,8 @@
 
 extern sf::Color itemColors[9];
 
-namespace rr {
+namespace rr
+{
 
     Book::Book(Type type, int am, sf::Vector2i pos) {
         type_       = type;
@@ -36,7 +37,9 @@ namespace rr {
         body_        = copy.body_;
     }
 
-    void Book::initialize() {
+    void
+    Book::initialize()
+    {
         ID_         = type_+40;
         stackable_  = false;
         cursed_     = false;
@@ -52,23 +55,29 @@ namespace rr {
                                      itemColors[type_].b + (255-itemColors[type_].b)/2));
     }
 
-    sf::String Book::getName() const {
-        switch (type_) {
-            case CRAFTING:              return Resources::dictionary["item.book.type.crafting"                    ];
-            case ALCHEMY:               return Resources::dictionary["item.book.type.alchemy"                     ];
-            case COLD_WEAPON_MASTERY:   return Resources::dictionary["item.book.type.cold_weapon_mastery"         ];
-            case RANGED_WEAPON_MASTERY: return Resources::dictionary["item.book.type.ranged_weapon_mastery"       ];
-            case EAGLE_EYE:             return Resources::dictionary["item.book.type.eagle_eye"                   ];
-            case MANA_REGEN:            return Resources::dictionary["item.book.type.mana_regen"                  ];
-            case HEALTH_REGEN:          return Resources::dictionary["item.book.type.health_regen"                ];
-            case FASTER_LEARNING:       return Resources::dictionary["item.book.type.faster_learning"             ];
-            case SPELLS_BOOK:           return Resources::dictionary["item.book.type.spells_book"                 ];          
+    sf::String
+    Book::getName() const
+    {
+        switch (type_)
+        {
+            case CRAFTING:              return Resources::dictionary["item.book.type.crafting"             ];
+            case ALCHEMY:               return Resources::dictionary["item.book.type.alchemy"              ];
+            case COLD_WEAPON_MASTERY:   return Resources::dictionary["item.book.type.cold_weapon_mastery"  ];
+            case RANGED_WEAPON_MASTERY: return Resources::dictionary["item.book.type.ranged_weapon_mastery"];
+            case EAGLE_EYE:             return Resources::dictionary["item.book.type.eagle_eye"            ];
+            case MANA_REGEN:            return Resources::dictionary["item.book.type.mana_regen"           ];
+            case HEALTH_REGEN:          return Resources::dictionary["item.book.type.health_regen"         ];
+            case FASTER_LEARNING:       return Resources::dictionary["item.book.type.faster_learning"      ];
+            case SPELLS_BOOK:           return Resources::dictionary["item.book.type.spells_book"          ];
         }
         return "";
     }
 
-    sf::String Book::getDescription() const {
-        switch (type_) {
+    sf::String
+    Book::getDescription() const
+    {
+        switch (type_)
+        {
             case CRAFTING:              return Resources::dictionary["item.book.description.crafting"             ];
             case ALCHEMY:               return Resources::dictionary["item.book.description.alchemy"              ];
             case COLD_WEAPON_MASTERY:   return Resources::dictionary["item.book.description.cold_weapon_mastery"  ];
@@ -77,12 +86,14 @@ namespace rr {
             case MANA_REGEN:            return Resources::dictionary["item.book.description.mana_regen"           ];
             case HEALTH_REGEN:          return Resources::dictionary["item.book.description.health_regen"         ];
             case FASTER_LEARNING:       return Resources::dictionary["item.book.description.faster_learning"      ];
-            case SPELLS_BOOK:           return Resources::dictionary["item.book.description.spells_book"          ];          
+            case SPELLS_BOOK:           return Resources::dictionary["item.book.description.spells_book"          ];
         }
         return "";
     }
 
-    void Book::setGridPosition(sf::Vector2i pos) {
+    void
+    Book::setGridPosition(sf::Vector2i pos)
+    {
         body_[0].position = (sf::Vector2f)pos*80.f;
         body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
         body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
@@ -94,7 +105,9 @@ namespace rr {
         body_[7].position = body_[3].position;
     }
 
-    void Book::setPosition(sf::Vector2f pos) {
+    void
+    Book::setPosition(sf::Vector2f pos)
+    {
         body_[0].position = pos;
         body_[1].position = sf::Vector2f(pos.x+80, pos.y   );
         body_[2].position = sf::Vector2f(pos.x+80, pos.y+80);
@@ -106,17 +119,21 @@ namespace rr {
         body_[7].position = body_[3].position;
     }
 
-    std::ifstream& Book::operator<<(std::ifstream& file) {
+    std::ifstream&
+    Book::operator<<(std::ifstream& file)
+    {
         sf::Vector2i position;
         int type;
 
-        try {
+        try
+        {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
             readFile <int> (file, amount_);
             readFile <int> (file, type);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -128,7 +145,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& Book::operator>>(std::ofstream& file) {
+    std::ofstream&
+    Book::operator>>(std::ofstream& file)
+    {
         file << 1                            << ' '
              << (int) body_[0].position.x/80 << ' '
              << (int) body_[0].position.y/80 << ' '

@@ -17,11 +17,13 @@
 #include "../entity/Entity.hpp"
 #include "../entity/Player.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class Game;
 
-    class Inventory : public Observer, public sf::Drawable {
+    class Inventory : public Observer, public sf::Drawable
+    {
     private: sf::RectangleShape shadow_;
 
              Window             wInve_;

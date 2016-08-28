@@ -9,11 +9,14 @@
 
 #include "../game/entity/Entity.hpp"
 
-namespace rr {
+namespace rr
+{
 
 /// Class for the observer
-    class Observer {
-    public: enum Event {
+    class Observer
+    {
+    public: enum Event
+            {
                 ITEM_EQUIP_FAILURE,
                 ITEM_DISCOVERED,
                 ITEM_DROPPED,
@@ -44,7 +47,8 @@ namespace rr {
     };
 
 /// Class for the subject
-    class Subject {
+    class Subject
+    {
     private: std::vector<Observer*> observers_;
     
     public:  ////////////////////////////////////////////////////////////////////////

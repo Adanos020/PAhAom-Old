@@ -11,10 +11,13 @@
 #include <cmath>
 #include <vector>
 
-namespace rr {
+namespace rr
+{
 
-    class PathFinder {
-    private: class Node {
+    class PathFinder
+    {
+    private: class Node
+             {
              private: Node*        parent_;
 
                       bool         closed_;
@@ -122,7 +125,8 @@ namespace rr {
              ////////////////////////////////////////////////////////////////////////
              /// \brief Creates and returns a new node.
              ////////////////////////////////////////////////////////////////////////
-             static Node* getNode (int tiles[], sf::Vector2i position) {
+             static Node* getNode (int tiles[], sf::Vector2i position)
+             {
                  bool walkable = true;
                  if (  tiles[position.x + 77*position.y] == 0
                     || tiles[position.x + 77*position.y] == 1

@@ -13,23 +13,30 @@
 
 #include "../game/entity/ALL.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    void MessageManager::addMessage(Message message) {
+    void
+    MessageManager::addMessage(Message message)
+    {
         messages_.push_back(message);
         std::wcout << message.getString().toWideString() << '\n';
 
         float mHeight = messages_.back().getSize().y;
         messages_.back().setPosition(sf::Vector2f(0, Settings::graphics.resolution.y-40-mHeight));
 
-        for (int i=messages_.size()-2; i>=0; i--) {
+        for (int i=messages_.size()-2; i>=0; i--)
+        {
             mHeight = messages_[i].getSize().y;
             messages_[i].setPosition(messages_[i+1].getPosition() - sf::Vector2f(0, mHeight+3));
         }
     }
 
-    void MessageManager::update(sf::Clock& timer) {
-        for (auto i=messages_.begin(); i!=messages_.end(); ++i) {
+    void
+    MessageManager::update(sf::Clock& timer)
+    {
+        for (auto i=messages_.begin(); i!=messages_.end(); ++i)
+        {
             i->update(timer.getElapsedTime());
             if (i->getColor().a < 10) {
                 messages_.erase(i);
@@ -38,14 +45,20 @@ namespace rr {
         }
     }
 
-    void MessageManager::draw(sf::RenderWindow& rw) {
-        for (auto message : messages_) {
+    void
+    MessageManager::draw(sf::RenderWindow& rw)
+    {
+        for (auto message : messages_)
+        {
             rw.draw(message);
         }
     }
 
-    void MessageManager::onNotify(Event event, Entity* entity) {
-        switch (event) {
+    void
+    MessageManager::onNotify(Event event, Entity* entity)
+    {
+        switch (event)
+        {
             case ITEM_EQUIP_FAILURE   : addMessage(Message(Resources::dictionary["message.item_equip_failure"]
                                                          +" "
                                                          +((Item*) entity)->getName()
@@ -65,8 +78,10 @@ namespace rr {
                                                           +((Settings::game.language != "fc") ? sf::String("!") : sf::String(""))));
                                         break;
 
-            case ITEM_USED            : if (instanceof<Book, Item>((Item*) entity)) {
-                                            switch (((Book*) entity)->getType()) {
+            case ITEM_USED            : if (instanceof<Book, Item>((Item*) entity))
+                                        {
+                                            switch (((Book*) entity)->getType())
+                                            {
                                                 case Book  ::CRAFTING             : addMessage(Message(Resources::dictionary["message.item_used.book.crafting"             ])); break;
                                                 case Book  ::ALCHEMY              : addMessage(Message(Resources::dictionary["message.item_used.book.alchemy"              ])); break;
                                                 case Book  ::COLD_WEAPON_MASTERY  : addMessage(Message(Resources::dictionary["message.item_used.book.cold_weapon_mastery"  ])); break;
@@ -78,11 +93,14 @@ namespace rr {
                                                 default: break;
                                             }
                                         }
-                                        else if (instanceof<Food, Item>((Item*) entity)) {
+                                        else if (instanceof<Food, Item>((Item*) entity))
+                                        {
                                             addMessage(Message(Resources::dictionary["message.item_used.food"]));
                                         }
-                                        else if (instanceof<Potion, Entity>((Item*) entity)) {
-                                            switch (((Potion*) entity)->getType()) {
+                                        else if (instanceof<Potion, Entity>((Item*) entity))
+                                        {
+                                            switch (((Potion*) entity)->getType())
+                                            {
                                                 case Potion::HEALING              : addMessage(Message(Resources::dictionary["message.item_used.potion.healing"            ])); break;
                                                 case Potion::MAGIC                : addMessage(Message(Resources::dictionary["message.item_used.potion.magic"              ])); break;
                                                 case Potion::STRENGTH             : addMessage(Message(Resources::dictionary["message.item_used.potion.strength"           ])); break;
@@ -94,7 +112,8 @@ namespace rr {
                                                 case Potion::WEAKNESS             : addMessage(Message(Resources::dictionary["message.item_used.potion.weakness"           ])); break;
                                             }
                                         }
-                                        else if (instanceof<Rune, Item>((Item*) entity)) {
+                                        else if (instanceof<Rune, Item>((Item*) entity))
+                                        {
                                         
                                         }
                                         break;

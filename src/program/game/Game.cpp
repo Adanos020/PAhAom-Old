@@ -24,7 +24,8 @@ extern rr::Subject subject;
 extern sf::Color   itemColors  [ 9];
 extern int         spellSymbols[12];
 
-namespace rr {
+namespace rr
+{
 
     Game::Game() :
       currentLevel_(nullptr            ),
@@ -45,20 +46,27 @@ namespace rr {
         subject.addObserver(&messageManager_);
     }
 
-    Game::~Game() {
+    Game::~Game()
+    {
         delete currentLevel_;
     }
 
-    void Game::randomizeItems() {
-        /* colors */ {
+    void
+    Game::randomizeItems()
+    {
+        /* colors */
+        {
             int pot[9];
-            for (int i=0; i<9; ++i) {
+            for (int i=0; i<9; ++i)
+            {
                 hell: pot[i] = rand()%9;
-                for (int j=0; j<i; ++j) {
+                for (int j=0; j<i; ++j)
+                {
                     if (  pot[j] == pot[i]
                         ) goto hell;
                 }
-                switch (pot[i]) {
+                switch (pot[i])
+                {
                     case 0: itemColors[i] = sf::Color::Red          ; break;
                     case 1: itemColors[i] = sf::Color::Blue         ; break;
                     case 2: itemColors[i] = sf::Color(32, 32, 0)    ; break;
@@ -71,31 +79,38 @@ namespace rr {
                 }
             }
         }
-        /* Rune symbols */ {
-            for (int i=0; i<12; ++i) {
-                topkek: spellSymbols[i] = rand()%12;
-                for (int j=0; j<i; ++j) {
-                    if (  spellSymbols[j] == spellSymbols[i]
-                        ) goto topkek;
-                }
+        /* Rune symbols */
+        for (int i=0; i<12; ++i)
+        {
+            topkek: spellSymbols[i] = rand()%12;
+            for (int j=0; j<i; ++j)
+            {
+                if (  spellSymbols[j] == spellSymbols[i]
+                    ) goto topkek;
             }
         }
     }
 
-    void Game::switchLevel(int index) {
-        {   std::ofstream file("save/level"+std::to_string(levelNumber_)+".pah");
+    void
+    Game::switchLevel(int index)
+    {
+        {
+            std::ofstream file("save/level"+std::to_string(levelNumber_)+".pah");
             file.clear();
             *currentLevel_ >> file;
-            file.close();   }
+            file.close();
+        }
 
         bool ascending = false;
-        if (index > (int) levelNumber_) {
+        if (index > (int) levelNumber_)
+        {
             if (  levelNumber_ < 29
                 ) levelNumber_++;
             else return;
             ascending = true;
         }
-        else if (index < (int) levelNumber_) {
+        else if (index < (int) levelNumber_)
+        {
             if (  levelNumber_ > 0
                 ) levelNumber_--;
             else return;
@@ -124,7 +139,8 @@ namespace rr {
         save();
     }
 
-    bool Game::loadNewGame() {
+    bool Game::loadNewGame()
+    {
         reset();
 
         seed_ = time(0);
@@ -133,7 +149,8 @@ namespace rr {
 
         std::ofstream file;
 
-        for (int i=29; i>=0; --i) {
+        for (int i=29; i>=0; --i)
+        {
             currentLevel_ = new Level(i);
             currentLevel_->generateWorld();
             
@@ -169,7 +186,9 @@ namespace rr {
         return true;
     }
 
-    bool Game::load() {
+    bool
+    Game::load()
+    {
         reset();
 
         std::ifstream file("save/save.pah");
@@ -177,14 +196,17 @@ namespace rr {
         if ( !file.good()
             ) return false;
 
-        try {
+        try
+        {
             readFile <unsigned> (file, seed_       );
             readFile <unsigned> (file, levelNumber_);
 
-            for (int i=0; i<9; ++i) {
+            for (int i=0; i<9; ++i)
+            {
                 readFile <bool> (file, Potion::identified_[i]);
             }
-            for (int i=0; i<12; ++i) {
+            for (int i=0; i<12; ++i)
+            {
                 readFile <bool> (file, Rune  ::identified_[i]);
             }
 
@@ -194,7 +216,8 @@ namespace rr {
             randomizeItems();
 
             inventory_ << file;
-            if (file.fail()) {
+            if (file.fail())
+            {
                 std::string wtf;
                 file.close();
                 file.clear();
@@ -214,7 +237,8 @@ namespace rr {
 
             subject.addObserver(currentLevel_);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -226,17 +250,21 @@ namespace rr {
         return true;
     }
 
-    void Game::save() {
+    void
+    Game::save()
+    {
         std::ofstream file("save/save.pah");
         file.clear();
         
         file        << seed_        << '\n' 
                     << levelNumber_ << '\n';
         
-        for (int i=0; i<9; ++i) {
+        for (int i=0; i<9; ++i)
+        {
             file << Potion::identified_[i] << ' ';
         }
-        for (int i=0; i<12; ++i) {
+        for (int i=0; i<12; ++i)
+        {
             file << Rune  ::identified_[i] << ' ';
         }
         file << '\n';
@@ -254,7 +282,9 @@ namespace rr {
         file.close();
     }
 
-    void Game::lose() {
+    void
+    Game::lose()
+    {
         lost_ = true;
 
 #if defined (__WINDOWS__) || defined (__TOS_WIN__) || defined (__WIN32__) || defined (_WIN64) || defined (_WIN32)
@@ -262,15 +292,20 @@ namespace rr {
 #else
         system("rm -rf save/*.pah");
 #endif
+
     }
 
-    void Game::draw(sf::RenderWindow& rw) {
-        if (!started_) {
+    void
+    Game::draw(sf::RenderWindow& rw)
+    {
+        if (!started_)
+        {
             rw.setView(sf::View((sf::Vector2f) rw.getSize()/2.f, (sf::Vector2f) rw.getSize()));
             rw.draw(mainMenu_);
             rw.setView((mapOpen_) ? mapView_ : gameView_);
         }
-        else {
+        else
+        {
             rw.setView((mapOpen_) ? mapView_ : gameView_);
             rw.draw(*currentLevel_);
             rw.draw(player_);
@@ -279,7 +314,8 @@ namespace rr {
 
             messageManager_.draw(rw);
 
-            if (!conversation_.isOpen()) {
+            if (!conversation_.isOpen())
+            {
                 rw.draw(hud_);
                 rw.draw(inventory_);
             }
@@ -292,7 +328,9 @@ namespace rr {
         }
     }
 
-    void Game::update(sf::Event& event, sf::Clock& timer) {
+    void
+    Game::update(sf::Event& event, sf::Clock& timer)
+    {
         controls(event);
 
         player_        .update(timer);
@@ -300,7 +338,8 @@ namespace rr {
         deathScreen_   .update(timer);
 
         // the player dies
-        if (!lost_ && player_.getAttributes().health == 0) {
+        if (!lost_ && player_.getAttributes().health == 0)
+        {
             subject.notify(Observer::PLAYER_DIES, nullptr);
             
             paused_ = true;
@@ -311,53 +350,69 @@ namespace rr {
 
         gameView_.setCenter(sf::Vector2f(player_.getBounds().left+40, player_.getBounds().top+40));
 
-        if (started_ && !paused_) {
+        if (started_ && !paused_)
+        {
             currentLevel_->update(this, timer);
         }
 
         hud_.update(&player_, levelNumber_+1, timer);
     }
 
-    void Game::controls(sf::Event& event) {
-        if ((!mapOpen_ || Settings::game.debugMode) && started_ && !paused_) {
+    void
+    Game::controls(sf::Event& event)
+    {
+        if ((!mapOpen_ || Settings::game.debugMode) && started_ && !paused_)
+        {
             bool canUpdateFOV = !player_.isMoving();
-            if (isKeyPressed(Settings::keys.move_up)) {
+            if (isKeyPressed(Settings::keys.move_up))
+            {
                 player_.move(currentLevel_->getTiles(), Player::UP);
-                if (canUpdateFOV && player_.isMoving()) {
+                if (canUpdateFOV && player_.isMoving())
+                {
                     currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
                     currentLevel_->makeOrdersToNPCs(&player_);
                 }
             }
-            if (isKeyPressed(Settings::keys.move_down)) {
+            if (isKeyPressed(Settings::keys.move_down))
+            {
                 player_.move(currentLevel_->getTiles(), Player::DOWN);
-                if (canUpdateFOV && player_.isMoving()) {
+                if (canUpdateFOV && player_.isMoving())
+                {
                     currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
                     currentLevel_->makeOrdersToNPCs(&player_);
                 }
             }
-            if (isKeyPressed(Settings::keys.move_left)) {
+            if (isKeyPressed(Settings::keys.move_left))
+            {
                 player_.move(currentLevel_->getTiles(), Player::LEFT);
-                if (canUpdateFOV && player_.isMoving()) {
+                if (canUpdateFOV && player_.isMoving())
+                {
                     currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
                     currentLevel_->makeOrdersToNPCs(&player_);
                 }
             }
-            if (isKeyPressed(Settings::keys.move_right)) {
+            if (isKeyPressed(Settings::keys.move_right))
+            {
                 player_.move(currentLevel_->getTiles(), Player::RIGHT);
-                if (canUpdateFOV && player_.isMoving()) {
+                if (canUpdateFOV && player_.isMoving())
+                {
                     currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
                     currentLevel_->makeOrdersToNPCs(&player_);
                 }
             }
-            
+
             if (  Settings::game.debugMode
                 ) player_.cheat();
         }
     }
 
-    void Game::buttonEvents(sf::RenderWindow& rw, sf::Event& event) {
-        if (started_) {
-            if (Settings::game.debugMode) {
+    void
+    Game::buttonEvents(sf::RenderWindow& rw, sf::Event& event)
+    {
+        if (started_)
+        {
+            if (Settings::game.debugMode)
+            {
                 if      (  event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add
                          ) switchLevel(levelNumber_+1);
                 else if (  event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract
@@ -367,32 +422,40 @@ namespace rr {
             if (  wasKeyPressed(event, sf::Keyboard::Escape) && !conversation_.isOpen()
                 ) pause(!isPaused());
                 
-            if (!paused_) {
-                if (wasKeyPressed(event, Settings::keys.open_attributes)) {
+            if (!paused_)
+            {
+                if (wasKeyPressed(event, Settings::keys.open_attributes))
+                {
                     attributes_.update(&player_);
                     attributes_.open();
                     paused_ = true;
                 }
-                else if (wasKeyPressed(event, Settings::keys.open_inventory)) {
+                else if (wasKeyPressed(event, Settings::keys.open_inventory))
+                {
                     inventory_.open();
                     paused_ = true;
                 }
-                else if (wasKeyPressed(event, Settings::keys.open_map)) {
+                else if (wasKeyPressed(event, Settings::keys.open_map))
+                {
                     mapOpen_ = !mapOpen_;
                 }
-                else if (wasKeyPressed(event, Settings::keys.open_journal)) {
+                else if (wasKeyPressed(event, Settings::keys.open_journal))
+                {
                     journal_.open();
                     paused_ = true;
                 }
-                else if (wasKeyPressed(event, Settings::keys.open_bookOfSpells) && inventory_.contains(new Book(Book::SPELLS_BOOK, 0))) {
+                else if (wasKeyPressed(event, Settings::keys.open_bookOfSpells) && inventory_.contains(new Book(Book::SPELLS_BOOK, 0)))
+                {
                     bookOfSpells_.open();
                     paused_ = true;
                 }
 
-                else if (wasKeyPressed(event, Settings::keys.attack)) {
+                else if (wasKeyPressed(event, Settings::keys.attack))
+                {
                     currentLevel_->playerAttack(&player_);
                 }
-                else if (wasKeyPressed(event, Settings::keys.interact)) {
+                else if (wasKeyPressed(event, Settings::keys.interact))
+                {
                     currentLevel_->playerInteract(this);
                 }
 
@@ -414,16 +477,20 @@ namespace rr {
         if (pauseMenu_   .isOpen()) pauseMenu_   .buttonEvents(rw, event, this);
     }
 
-    void Game::start(bool b) {
+    void
+    Game::start(bool b)
+    {
         started_ = b;
     }
 
-    void Game::pause(bool b) {
+    void
+    Game::pause(bool b)
+    {
         paused_ = b;
-        if (   paused_
-           && !conversation_.isOpen()
-            )  pauseMenu_.open();
-        else {
+        if (  paused_ && !conversation_.isOpen()
+            ) pauseMenu_.open();
+        else
+        {
             pauseMenu_   .close();
             inventory_   .close();
             attributes_  .close();
@@ -432,16 +499,21 @@ namespace rr {
         }
     }
 
-    void Game::reset() {
-        if (currentLevel_ != nullptr) {
+    void
+    Game::reset()
+    {
+        if (currentLevel_ != nullptr)
+        {
             delete currentLevel_;
             currentLevel_ = nullptr;
         }
 
-        for (int i=0; i<9; ++i) {
+        for (int i=0; i<9; ++i)
+        {
             Potion::identified_[i] = false;
         }
-        for (int i=0; i<12; ++i) {
+        for (int i=0; i<12; ++i)
+        {
             Rune  ::identified_[i] = false;
         }
 

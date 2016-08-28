@@ -9,29 +9,38 @@
 
 #include "FOV.hpp"
 
-namespace rr {
+namespace rr
+{
     
-    void FOV::compute(ShadowMap* shadows, int tiles[], sf::Vector2i origin, int range) {
+    void
+    FOV::compute(ShadowMap* shadows, int tiles[], sf::Vector2i origin, int range)
+    {
         shadows->darken();
         shadows->setLit(origin.x, origin.y);
-        for (unsigned octant = 0; octant < 8; octant++) {
+        for (unsigned octant = 0; octant < 8; octant++)
+        {
             compute(shadows, tiles, octant, origin, 2*range, 1, Slope(1, 1), Slope(0, 1));
         }
         shadows->update();
     }
 
-    void FOV::compute(ShadowMap* shadows, int tiles[], unsigned octant, sf::Vector2i origin, int range, unsigned x, Slope top, Slope bottom) {
-        for (; x <= (unsigned)range; x++) {
+    void
+    FOV::compute(ShadowMap* shadows, int tiles[], unsigned octant, sf::Vector2i origin, int range, unsigned x, Slope top, Slope bottom)
+    {
+        for (; x <= (unsigned)range; x++)
+        {
             unsigned topY;
             if (  top.x_ == 1
                 ) topY = x;
-            else {
+            else
+            {
                 topY = ((x*2-1)*top.y_+top.x_) / (top.x_*2);
                 if (  blocksLight(tiles, x, topY, octant, origin)
                    && top >= Slope(topY*2+1, x*2)
                    && !blocksLight(tiles, x, topY+1, octant, origin)
                     ) topY++;
-                else {
+                else
+                {
                     unsigned ax = x*2;
                     if (  blocksLight(tiles, x+1, topY+1, octant, origin)
                         ) ax++;
@@ -43,17 +52,20 @@ namespace rr {
             unsigned bottomY;
             if (  bottom.y_ == 0
                 ) bottomY = 0;
-            else {
+            else
+            {
                 bottomY = ((x*2-1)*bottom.y_+bottom.x_)/(bottom.x_*2);
-                if (  bottom >= Slope(bottomY*2+1, x*2)
-                   && blocksLight(tiles, x, bottomY, octant, origin) 
-                   &&!blocksLight(tiles, x, bottomY+1, octant, origin)
-                    ) bottomY++;
+                if (   bottom >= Slope(bottomY*2+1, x*2)
+                   &&  blocksLight(tiles, x, bottomY, octant, origin) 
+                   && !blocksLight(tiles, x, bottomY+1, octant, origin)
+                    )  bottomY++;
             }
 
             int wasOpaque = -1;
-            for (unsigned y = topY; (int)y >= (int)bottomY; y--) {
-                if (range < 0 || getDistance((int)x, (int)y) <= range) {
+            for (unsigned y = topY; (int)y >= (int)bottomY; y--)
+            {
+                if (range < 0 || getDistance((int)x, (int)y) <= range)
+                {
                     bool isOpaque = blocksLight(tiles, x, y, octant, origin);
                     
                     if (  isOpaque 
@@ -66,14 +78,19 @@ namespace rr {
                            )
                         ) setVisible(shadows, x, y, octant, origin);
 
-                    if ((int)x != range) {
-                        if (isOpaque) {
-                            if (wasOpaque == 0) {
+                    if ((int)x != range)
+                    {
+                        if (isOpaque)
+                        {
+                            if (wasOpaque == 0)
+                            {
                                 unsigned nx = x*2, ny = y*2+1;
                                 if (  blocksLight(tiles, x, y+1, octant, origin)
                                     ) nx--;
-                                if (top > Slope(ny, nx)) {
-                                    if (y == bottomY) {
+                                if (top > Slope(ny, nx))
+                                {
+                                    if (y == bottomY)
+                                    {
                                         bottom = Slope(ny, nx);
                                         break;
                                     }
@@ -84,8 +101,10 @@ namespace rr {
                             }
                             wasOpaque = 1;
                         }
-                        else {
-                            if (wasOpaque > 0) {
+                        else
+                        {
+                            if (wasOpaque > 0)
+                            {
                                 unsigned nx = x*2, ny = y*2+1;
 
                                 if (  blocksLight(tiles, x+1, y+1, octant, origin)
@@ -104,9 +123,12 @@ namespace rr {
         }
     }
 
-    bool FOV::blocksLight(int tiles[], int x, int y, unsigned octant, sf::Vector2i origin) {
+    bool
+    FOV::blocksLight(int tiles[], int x, int y, unsigned octant, sf::Vector2i origin)
+    {
         int nx = origin.x, ny = origin.y;
-        switch (octant) {
+        switch (octant)
+        {
             case 0: nx += x; ny -= y; break;
             case 1: nx += y; ny -= x; break;
             case 2: nx -= y; ny -= x; break;
@@ -119,7 +141,9 @@ namespace rr {
         return ((nx < 77 && ny < 43) && (tiles[nx+ny*77] == 1 || tiles[nx+ny*77] == 4));
     }
 
-    void FOV::setVisible(ShadowMap* shadows, int x, int y, unsigned octant, sf::Vector2i origin) {
+    void
+    FOV::setVisible(ShadowMap* shadows, int x, int y, unsigned octant, sf::Vector2i origin)
+    {
         int nx = origin.x, ny = origin.y;
         switch (octant) {
             case 0: nx += x; ny -= y; break;
@@ -134,7 +158,9 @@ namespace rr {
         shadows->setLit(nx, ny);
     }
 
-    int FOV::getDistance(int x, int y) {
+    int
+    FOV::getDistance(int x, int y)
+    {
         if (  x == 0
             ) return y;
         if (  y == 0

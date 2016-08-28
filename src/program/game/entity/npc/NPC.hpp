@@ -7,8 +7,6 @@
 #ifndef NPC_HPP
 #define NPC_HPP
 
-#include <stack>
-
 #include "../../../../../lib/AnimatedSprite.hpp"
 #include "../../../gui/ALL.hpp"
 #include "../../../Resources.hpp"
@@ -18,34 +16,37 @@
 
 #include "../../dialogue/Dialogue.hpp"
 
-namespace rr {
+namespace rr
+{
 
     class Player;
 
-    class NPC : public Entity {
-    protected: struct Attrs {
+    class NPC : public Entity
+    {
+    protected: struct Attrs
+               {
                    float health;
                    float maxHealth;
                    int   level;
                    float armor;
-               }                        attrs_;
-               sf::AnimatedSprite       body_;
-               sf::Animation*           currentAnimation_;
-               sf::Animation            standingLeft_;
-               sf::Animation            standingRight_;
-               sf::Animation            walkingLeft_;
-               sf::Animation            walkingRight_;
-               sf::Animation            attackingLeft_;
-               sf::Animation            attackingRight_;
+               }                  attrs_;
+               sf::AnimatedSprite body_;
+               sf::Animation*     currentAnimation_;
+               sf::Animation      standingLeft_;
+               sf::Animation      standingRight_;
+               sf::Animation      walkingLeft_;
+               sf::Animation      walkingRight_;
+               sf::Animation      attackingLeft_;
+               sf::Animation      attackingRight_;
 
-               sf::Vector2i             entityDetector_[8];
-               sf::Vector2i             position_;
-               sf::Vector2i             destination_;
+               sf::Vector2i       entityDetector_[8];
+               sf::Vector2i       position_;
+               sf::Vector2i       destination_;
 
-               bool                     moving_;
-               float                    velocity_;
+               bool               moving_;
+               float              velocity_;
 
-               DialogueTree             dialogue_;
+               DialogueTree       dialogue_;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets all the player detectors' positions.
@@ -57,19 +58,22 @@ namespace rr {
                ////////////////////////////////////////////////////////////////////////
        virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    public:    enum Attitude {
+    public:    enum Attitude
+               {
                    PASSIVE,
                    NEUTRAL,
                    AGGRESSIVE
                };
-               enum State {
+               enum State
+               {
                    STANDING,
                    WAITING,
                    EXPLORING,
                    HUNTING,
                    ESCAPING
                };
-               enum Direction {
+               enum Direction
+               {
                    UP,
                    DOWN,
                    LEFT,
@@ -181,7 +185,8 @@ namespace rr {
                /// \brief Sets the NPC's moving state.
                ///
                /// The possible values are:
-               /// - STANDING (just stands in one place)
+               /// - STANDING (just stands in one place but seeks track to some place)
+               /// - WAITING (just stands in one place)
                /// - EXPLORING (picks random points on the map and goes towards them)
                /// - HUNTING (chases the Player and tries to attack him)
                /// - ESCAPING (is frightened of something and tries to find a way to
@@ -193,7 +198,8 @@ namespace rr {
                /// \brief Returns the NPC's moving state.
                ///
                /// The possible values are:
-               /// - STANDING (just stands in one place)
+               /// - STANDING (just stands in one place but seeks track to some place)
+               /// - WAITING (just stands in one place)
                /// - EXPLORING (picks random points on the map and goes towards them)
                /// - HUNTING (chases the Player and tries to attack him)
                /// - ESCAPING (is frightened of something and tries to find a way to

@@ -14,7 +14,8 @@
 #include "../../../funcs/files.hpp"
 #include "../../../funcs/random.hpp"
 
-namespace rr {
+namespace rr
+{
 
     ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos) :
       type_      (type )
@@ -38,13 +39,16 @@ namespace rr {
         body_       = copy.body_;
     }
 
-    void ColdWeapon::initialize() {
+    void
+    ColdWeapon::initialize()
+    {
         disposable_ = false;
         stackable_  = false;
         cursed_     = chance(1, 4);
         ID_         = 10+type_;
 
-        switch (type_) {
+        switch (type_)
+        {
             case HAMMER:         damageDealt_ = 70;
                                  requirement_ = 80;
                                  speed_       =  4;
@@ -137,13 +141,16 @@ namespace rr {
                                  break;
         }
 
-        setIcon    (body_, iconIndex_);
+        setIcon(body_, iconIndex_);
     }
     
-    sf::String ColdWeapon::getName() const {
+    sf::String
+    ColdWeapon::getName() const
+    {
         sf::String name = "";
 
-        switch (type_) {
+        switch (type_)
+        {
             case HAMMER        : name += Resources::dictionary["item.coldweapon.name.hammer"        ]; break;
             case DOUBLE_AXE    : name += Resources::dictionary["item.coldweapon.name.double_axe"    ]; break;
             case HALBERD       : name += Resources::dictionary["item.coldweapon.name.halberd"       ]; break;
@@ -164,10 +171,13 @@ namespace rr {
         return name;
     }
 
-    sf::String ColdWeapon::getDescription() const {
+    sf::String
+    ColdWeapon::getDescription() const
+    {
         sf::String description = "";
 
-        switch (type_) {
+        switch (type_)
+        {
             case HAMMER        : description += Resources::dictionary["item.coldweapon.description.hammer"        ]; break;
             case DOUBLE_AXE    : description += Resources::dictionary["item.coldweapon.description.double_axe"    ]; break;
             case HALBERD       : description += Resources::dictionary["item.coldweapon.description.halberd"       ]; break;
@@ -191,7 +201,9 @@ namespace rr {
         return description;
     }
 
-    void ColdWeapon::enhance() {
+    void
+    ColdWeapon::enhance()
+    {
         level_       ++;
         speed_       ++;
         accuracy_    ++;
@@ -199,15 +211,20 @@ namespace rr {
         requirement_ -= 3;
     }
 
-    void ColdWeapon::enchant() {
+    void
+    ColdWeapon::enchant() 
+    {
 
     }
 
-    std::ifstream& ColdWeapon::operator<<(std::ifstream& file) {
+    std::ifstream&
+    ColdWeapon::operator<<(std::ifstream& file)
+    {
         sf::Vector2i position;
         int type;
 
-        try {
+        try
+        {
             readFile <int > (file, position.x);
             readFile <int > (file, position.y);
             readFile <int > (file, amount_);
@@ -216,7 +233,8 @@ namespace rr {
             readFile <int > (file, level_);
             readFile <int > (file, type);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -234,7 +252,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& ColdWeapon::operator>>(std::ofstream& file) {
+    std::ofstream&
+    ColdWeapon::operator>>(std::ofstream& file)
+    {
         file << 3                            << ' '
              << (int) body_[0].position.x/80 << ' '
              << (int) body_[0].position.y/80 << ' '

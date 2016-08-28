@@ -8,7 +8,8 @@
 
 #include "../Resources.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Message::Message(sf::String text, sf::Color color, sf::Text::Style textStyle) :
       message_    (Text(text, Resources::font.Unifont, 16, color, textStyle)),
@@ -20,21 +21,28 @@ namespace rr {
         message_.wrap(400);
     }
 
-    void Message::setPosition(sf::Vector2f position) {
+    void
+    Message::setPosition(sf::Vector2f position)
+    {
         message_.setPosition(position);
     }
 
-    void Message::update(sf::Time timeStep) {
+    void
+    Message::update(sf::Time timeStep)
+    {
         timeElapsed_ += timeStep;
 
-        if (timeElapsed_ >= lifeTime_) {
+        if (timeElapsed_ >= lifeTime_)
+        {
             sf::Color newColor = message_.getFillColor();
             newColor.a -= 5;
             message_.setFillColor(newColor);
         }
     }
 
-    void Message::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    Message::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         target.draw(message_);
     }
 

@@ -9,9 +9,11 @@
 
 #include "Entity.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Stairs : public Entity {
+    class Stairs : public Entity
+    {
     private: sf::Sprite   body_;
              sf::Vector2i position_;
              bool         upwards_;

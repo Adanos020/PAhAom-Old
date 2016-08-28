@@ -12,7 +12,8 @@
 
 #include "Stairs.hpp"
 
-namespace rr {
+namespace rr
+{
 
     Stairs::Stairs(bool upwards) :
       upwards_ (upwards)
@@ -24,26 +25,34 @@ namespace rr {
       body_   (copy.body_   ),
       upwards_(copy.upwards_) {}
 
-    void Stairs::initialize() {
+    void
+    Stairs::initialize()
+    {
         body_.setTexture    (Resources::texture.objects);
         body_.setScale      (sf::Vector2f(5, 5));
         body_.setTextureRect(sf::IntRect(upwards_ ? 16 : 0, 64, 16, 16));
     }
 
-    void Stairs::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void
+    Stairs::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
         states.texture = &Resources::texture.objects;
         target.draw(body_, states);
     }
 
-    std::ifstream& Stairs::operator<<(std::ifstream& file) {
+    std::ifstream&
+    Stairs::operator<<(std::ifstream& file)
+    {
         sf::Vector2i position;
 
-        try {
+        try
+        {
             readFile < int> (file, position.x);
             readFile < int> (file, position.y);
             readFile <bool> (file, upwards_);
         }
-        catch (std::invalid_argument ex) {
+        catch (std::invalid_argument ex)
+        {
             std::cerr << ex.what() << '\n';
         }
 
@@ -53,7 +62,9 @@ namespace rr {
         return file;
     }
 
-    std::ofstream& Stairs::operator>>(std::ofstream& file) {
+    std::ofstream&
+    Stairs::operator>>(std::ofstream& file)
+    {
         file << 42                             << ' '
              << (int) body_.getPosition().x/80 << ' '
              << (int) body_.getPosition().y/80 << ' '

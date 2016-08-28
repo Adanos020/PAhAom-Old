@@ -14,7 +14,8 @@
 
 #include "../../funcs/strings.hpp"
 
-namespace rr {
+namespace rr
+{
 
     PauseMenu::PauseMenu() :
       title_  (Text  (sf::Vector2f(0, 0), "PAhAom"             , Resources::font.Pixel       , 100, sf::Color::Yellow)),
@@ -31,7 +32,8 @@ namespace rr {
         wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.resume" ], 52);
         wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.help"   ], 52);
         wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52);
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<3; i++)
+        {
             wMenu_.getComponent<Button>(i)->setPosition(wMenu_.getPosition() + sf::Vector2f(wMenu_.getSize().x/2 - wMenu_.getComponent<Button>(i)->getSize().x/2, 5+i*75));
         }
 
@@ -50,16 +52,21 @@ namespace rr {
         wMenu_ |= wHelp;
     }
 
-    void PauseMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g) {
+    void
+    PauseMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g)
+    {
         auto wHelp = wMenu_.getComponent<Window>(0);
 
-        if (wMenu_.isVisible()) {
-            if (!wHelp->isVisible()) {
+        if (wMenu_.isVisible())
+        {
+            if (!wHelp->isVisible())
+            {
                 if (  wMenu_.getComponent<Button>(0)->isPressed(rw, e)
                     ) g->pause(false);
                 if (  wMenu_.getComponent<Button>(1)->isPressed(rw, e)
                     ) wHelp->setVisible(true);
-                if (  wMenu_.getComponent<Button>(2)->isPressed(rw, e)) {
+                if (  wMenu_.getComponent<Button>(2)->isPressed(rw, e))
+                {
                     g->save();
                     g->pause(false);
                     g->start(false);
@@ -67,15 +74,19 @@ namespace rr {
                 }
             }
 
-            else if (wHelp->isVisible()) {
+            else if (wHelp->isVisible())
+            {
                 if (  wHelp->getComponent<Button>(0)->isPressed(rw, e)
                     ) wHelp->setVisible(false);
             }
         }
     }
 
-    void PauseMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        if (isOpen()) {
+    void
+    PauseMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
+        if (isOpen())
+        {
             target.draw(shadow_ , states);
             target.draw(title_  , states);
             target.draw(version_, states);
@@ -83,7 +94,9 @@ namespace rr {
         }
     }
 
-    void PauseMenu::close() {
+    void
+    PauseMenu::close()
+    {
         auto wHelp = wMenu_.getComponent<Window>(0);
         wMenu_.setVisible(false);
         wHelp->setVisible(false);

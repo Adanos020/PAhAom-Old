@@ -15,14 +15,18 @@
 #include "../game/entity/item/Item.hpp"
 #include "../game/entity/item/ALL.hpp"
 
-namespace rr {
+namespace rr
+{
 
     ////////////////////////////////////////////////////////////////////////
     /// \brief Returns an instance of the Item class depending on the given
     /// ID and amount.
     ////////////////////////////////////////////////////////////////////////
-    inline Item* getItemFromID(int ID, int amount) {
-        switch (ID) {
+    inline Item*
+    getItemFromID(int ID, int amount)
+    {
+        switch (ID)
+        {
             /* COIN */
             case   1: return new Coin        (Coin::GOLDEN                , Coin::SMALL         , amount);
             case   2: return new Coin        (Coin::SILVER                , Coin::SMALL         , amount);
@@ -139,8 +143,11 @@ namespace rr {
     ////////////////////////////////////////////////////////////////////////
     /// \brief Returns a random instance of the Item class.
     ////////////////////////////////////////////////////////////////////////
-    inline Item* getRandomItem(int amount = 1) {
-        int IDs[] = {
+    inline Item*
+    getRandomItem(int amount = 1)
+    {
+        int IDs[] =
+        {
               1,   2,   3,   4,   5,   6,                                    // COINS
              10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22, // COLD WEAPON
              23,  24,  25,  26,                                              // RANGED WEAPON
@@ -158,24 +165,32 @@ namespace rr {
     ////////////////////////////////////////////////////////////////////////
     /// \brief Balances a randomly created instance of the Item class.
     ////////////////////////////////////////////////////////////////////////
-    inline Item* getRandomItemBalanced() {
+    inline Item*
+    getRandomItemBalanced()
+    {
         auto item = getRandomItem();
 
-        if (instanceof<Ammunition, Item>(item)) {
+        if (instanceof<Ammunition, Item>(item))
+        {
             ((Ammunition*) item)->setAmount(range(1, 30));
         }
-        else if (instanceof<Coin, Item>(item)) {
+        else if (instanceof<Coin, Item>(item))
+        {
             auto coin = (Coin*) item;
 
-            if (coin->getSize() == Coin::SMALL) {
-                switch (coin->getType()) {
+            if (coin->getSize() == Coin::SMALL)
+            {
+                switch (coin->getType())
+                {
                     case Coin::BRONZE: coin->setAmount(rand() % 50 + 1); break;
                     case Coin::SILVER: coin->setAmount(rand() % 10 + 1); break;
                     case Coin::GOLDEN: coin->setAmount(rand() %  3 + 1); break;
                 }
             }
-            else if (coin->getSize() == Coin::BIG) {
-                switch (coin->getType()) {
+            else if (coin->getSize() == Coin::BIG)
+            {
+                switch (coin->getType())
+                {
                     case Coin::BRONZE: coin->setAmount(rand() % 10 + 1);
                                        break;
 
@@ -189,12 +204,15 @@ namespace rr {
                 }
             }
         }
-        else if (instanceof<Potion, Item>(item)) {
+        else if (instanceof<Potion, Item>(item))
+        {
             auto potion = (Potion*) item;
 
-            if (potion->getType() == Potion::STRENGTH || Potion::DEXTERITY) {
+            if (potion->getType() == Potion::STRENGTH || Potion::DEXTERITY)
+            {
                 int eff = rand() % 6;
-                switch (eff) {
+                switch (eff)
+                {
                     case 0: potion = new Potion(Potion::HEALING     , potion->getSize()); break;
                     case 1: potion = new Potion(Potion::MAGIC       , potion->getSize()); break;
                     case 2: potion = new Potion(Potion::SPEED       , potion->getSize()); break;

@@ -10,16 +10,20 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-namespace rr {
+namespace rr
+{
 
-    struct Resources {
-    public: static struct Font {
+    struct Resources
+    {
+    public: static struct Font
+            {
             public: sf::Font Unifont;
                     sf::Font Pixel;
                     sf::Font FinalFantasy;
             } font;
         
-            static struct Texture {
+            static struct Texture
+            {
             public: sf::Texture gui;
                     sf::Texture player;
                     sf::Texture items;
@@ -30,10 +34,9 @@ namespace rr {
                     sf::Texture book_of_spells;
             } texture;
 
-            static struct Music {
+            static struct Music
+            {
             public: sf::Music menu;
-                    sf::Music level;
-                    sf::Music boss;
             } music;
 
             static std::map<sf::String, sf::String> dictionary;

@@ -9,15 +9,18 @@
 
 #include "Item.hpp"
 
-namespace rr {
+namespace rr
+{
 
-    class Ammunition : public Item {
+    class Ammunition : public Item
+    {
     private: ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the ammunition.
              ////////////////////////////////////////////////////////////////////////
-     virtual void           initialize    ()           override;
+     virtual void initialize() override;
 
-    public:  enum Type {
+    public:  enum Type
+             {
                  ARROW,
                  BOLT,
                  ROCKS,
