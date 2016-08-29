@@ -44,12 +44,6 @@ namespace rr
             ~Level();
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Reacts to a specific event. It can either do something with
-             /// a given entity or just ignore it.
-             ////////////////////////////////////////////////////////////////////////
-             virtual void onNotify(Event, Entity*) override;
-
-             ////////////////////////////////////////////////////////////////////////
              /// \brief Generates procedurally the whole level.
              ///
              /// This is done by:
@@ -134,7 +128,13 @@ namespace rr
     private: ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the tile map and the entities in the level's list.
              ////////////////////////////////////////////////////////////////////////
-             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reacts to a specific event. It can either do something with
+             /// a given entity or just ignore it.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void onNotify(Event, Entity*) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Spreads the randomly placed and sized rooms in the level.

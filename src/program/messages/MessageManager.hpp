@@ -65,6 +65,12 @@ namespace rr
     {
     private: std::vector<Message> messages_;
 
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reacts to a specific event. It can either do something with
+             /// a given entity or just ignore it.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void onNotify(Event, Entity*) override;
+
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Adds the message to the list.
              ////////////////////////////////////////////////////////////////////////
@@ -81,12 +87,6 @@ namespace rr
              /// \brief Draws the messages on the screen.
              ////////////////////////////////////////////////////////////////////////
              void draw(sf::RenderWindow&);
-
-             ////////////////////////////////////////////////////////////////////////
-             /// \brief Reacts to a specific event. It can either do something with
-             /// a given entity or just ignore it.
-             ////////////////////////////////////////////////////////////////////////
-             virtual void onNotify(Event, Entity*) override;
     };
 
 }

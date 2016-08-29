@@ -12,41 +12,41 @@
 namespace rr
 {
 
-/// Class for the observer
     class Observer
     {
-    public: enum Event
-            {
-                ITEM_EQUIP_FAILURE,
-                ITEM_DISCOVERED,
-                ITEM_DROPPED,
-                ITEM_PICKED,
-                ITEM_USED,
-                INVENTORY_FULL,
-                PLAYER_HUNGRY,
-                PLAYER_STARVING,
-                PLAYER_ATTACK_SUCCESS,
-                PLAYER_ATTACK_FAILURE,
-                PLAYER_LEVELUP,
-                PLAYER_DIES,
-                NPC_ATTACK_SUCCESS,
-                NPC_ATTACK_FAILURE,
-                NPC_DIES
-            };
+        friend class Subject;
 
-            ////////////////////////////////////////////////////////////////////////
-            /// \brief Virtual destructor.
-            ////////////////////////////////////////////////////////////////////////
-            virtual ~Observer() {}
+    public:  enum Event
+             {
+                 ITEM_EQUIP_FAILURE,
+                 ITEM_DISCOVERED,
+                 ITEM_DROPPED,
+                 ITEM_PICKED,
+                 ITEM_USED,
+                 INVENTORY_FULL,
+                 PLAYER_HUNGRY,
+                 PLAYER_STARVING,
+                 PLAYER_ATTACK_SUCCESS,
+                 PLAYER_ATTACK_FAILURE,
+                 PLAYER_LEVELUP,
+                 PLAYER_DIES,
+                 NPC_ATTACK_SUCCESS,
+                 NPC_ATTACK_FAILURE,
+                 NPC_DIES
+             };
 
-            ////////////////////////////////////////////////////////////////////////
-            /// \brief Reacts to a specific event. It can either do something with
-            /// a given entity or just ignore it.
-            ////////////////////////////////////////////////////////////////////////
-            virtual void onNotify(Event, Entity*) = 0;
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Virtual destructor.
+             ////////////////////////////////////////////////////////////////////////
+     virtual ~Observer() {}
+
+    private: ////////////////////////////////////////////////////////////////////////
+             /// \brief Reacts to a specific event. It can either do something with
+             /// a given entity or just ignore it.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void onNotify(Event, Entity*) = 0;
     };
 
-/// Class for the subject
     class Subject
     {
     private: std::vector<Observer*> observers_;

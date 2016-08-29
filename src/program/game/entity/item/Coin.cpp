@@ -27,6 +27,8 @@ namespace rr
     }
 
     Coin::Coin(Coin const& copy) :
+      type_(copy.type_),
+      size_(copy.size_)
     {
         amount_     = copy.amount_;
         disposable_ = copy.disposable_;

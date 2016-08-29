@@ -1,4 +1,3 @@
-
 #    ==========================================================
 #     PAhAom makefile by Artem G (2016)
 #    =========================================================
@@ -10,7 +9,6 @@ INC =
 CFLAGS = -Wall -std=c++14 -DSFML_STATIC
 RESINC = 
 LIBDIR = 
-#napraw to gasiorex dodaj liby dla linuxa najlepiej tez static ale w tym ifie koniecznie!! LIB = 
 LDFLAGS = -static-libgcc -static-libstdc++
 
 INC_DEBUG = $(INC)
@@ -98,6 +96,7 @@ endif
 
 #Objects list
 OBJ_DEBUG =\
+src/program/audio/AudioManager.debug.o \
 src/program/game/ui/PauseMenu.debug.o \
 src/program/game/ui/MainMenu.debug.o \
 src/program/game/ui/Journal.debug.o \
@@ -150,6 +149,7 @@ src/program/game/entity/Door.debug.o \
 src/program/game/entity/Chest.debug.o
 
 OBJ_RELEASE =\
+src/program/audio/AudioManager.o \
 src/program/game/ui/PauseMenu.o \
 src/program/game/ui/MainMenu.o \
 src/program/game/ui/Journal.o \
@@ -225,7 +225,7 @@ ifeq ($(OS),Windows_NT)
 else
 
 endif
-	
+
 debug_link: $(OBJ_DEBUG)
 	$(LD) $(LIBDIR_DEBUG) -o $(OUT_DEBUG) $(OBJ_DEBUG) $(LDFLAGS_DEBUG) $(LIB_DEBUG)
 
@@ -235,7 +235,7 @@ debug_after:
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c $< -o $@
 
 # ======= Release ==============================
-	
+
 release: release_before release_link release_after
 
 release_before: 

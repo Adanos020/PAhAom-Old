@@ -16,7 +16,7 @@ namespace rr
 
     Resources::Font                  Resources::font;
     Resources::Texture               Resources::texture;
-    Resources::Music                 Resources::music;
+    //Resources::Sound                 Resources::sound;
     std::map<sf::String, sf::String> Resources::dictionary;
 
     bool Resources::load()
@@ -32,8 +32,7 @@ namespace rr
             && texture.objects       .loadFromFile("data/graphics/objects.png")
             && texture.npc           .loadFromFile("data/graphics/npc.png")
             && texture.enemies       .loadFromFile("data/graphics/enemies.png")
-            && texture.book_of_spells.loadFromFile("data/graphics/book_of_spells.png")
-            && music  .menu          .loadFromFile("data/music/menu.ogg");
+            && texture.book_of_spells.loadFromFile("data/graphics/book_of_spells.png");
     }
 
     bool Resources::loadDict()

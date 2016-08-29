@@ -33,12 +33,12 @@ namespace rr
                     sf::Texture enemies;
                     sf::Texture book_of_spells;
             } texture;
-
-            static struct Music
+/*
+            static struct Sound
             {
-            public: sf::Music menu;
-            } music;
-
+            public:
+            } sound;
+*/
             static std::map<sf::String, sf::String> dictionary;
 
             ////////////////////////////////////////////////////////////////////////

@@ -13,20 +13,20 @@ namespace rr
       parent_  (nullptr),
       closed_  (false),
       opened_  (false),
+      position_(sf::Vector2i(0, 0)),
       f_       (0),
       g_       (0),
-      h_       (0),
-      position_(sf::Vector2i(0, 0)) {}
+      h_       (0) {}
 
     PathFinder::Node::Node(sf::Vector2i position, bool walkable) :
       parent_  (nullptr),
       closed_  (false),
       opened_  (false),
+      walkable_(walkable),
+      position_(position),
       f_       (0),
       g_       (0),
-      h_       (0),
-      walkable_(walkable),
-      position_(position) {}
+      h_       (0) {}
 
     void
     PathFinder::Node::calculateScores(PathFinder::Node* goal)

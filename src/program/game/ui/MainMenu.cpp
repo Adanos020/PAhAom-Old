@@ -207,8 +207,8 @@ namespace rr
             *wHelp += bQuit;
         }
 
-        auto wCred = new Window(Resources::dictionary["gui.button.credits"], sf::Vector2f(485, 405), sf::Vector2f(Settings::graphics.resolution.x-510,
-                                                                                                                  Settings::graphics.resolution.y/2-202.5f));
+        auto wCred = new Window(Resources::dictionary["gui.button.credits"], sf::Vector2f(485, 465), sf::Vector2f(Settings::graphics.resolution.x-510,
+                                                                                                                  Settings::graphics.resolution.y/2-232.5f));
         {
             *wCred += new Text(sf::Vector2f(20,  20), Resources::dictionary["gui.text.programming"], Resources::font.Unifont, 30);
             *wCred += new Text(sf::Vector2f( 0,  50),  L"\tAdam 'Adanos' Gąsior", Resources::font.Unifont, 25, sf::Color::Yellow);
@@ -217,14 +217,17 @@ namespace rr
             *wCred += new Text(sf::Vector2f( 0, 110), "\tJan Lewandowski", Resources::font.Unifont, 25, sf::Color::Yellow);
             *wCred += new Text(sf::Vector2f( 0, 135), L"\tKamil 'Kwasior' Kwaśnik", Resources::font.Unifont, 25, sf::Color::Yellow);
 
-            *wCred += new Text(sf::Vector2f(20, 165), Resources::dictionary["gui.text.literary_support"], Resources::font.Unifont, 30);
-            *wCred += new Text(sf::Vector2f( 0, 195), "\tDominik 'Marco' Otmianowski", Resources::font.Unifont, 25, sf::Color::Yellow);
+            *wCred += new Text(sf::Vector2f(20, 165), Resources::dictionary["gui.text.soundtrack"], Resources::font.Unifont, 30);
+            *wCred += new Text(sf::Vector2f( 0, 195), L"\tKacper 'Kacepru' Smoleń", Resources::font.Unifont, 25, sf::Color::Yellow);
 
-            *wCred += new Text(sf::Vector2f(20, 225), Resources::dictionary["gui.text.testers"], Resources::font.Unifont, 30);
-            *wCred += new Text(sf::Vector2f( 0, 255), "\tJakub Szewczyk", Resources::font.Unifont, 25, sf::Color::Yellow);
+            *wCred += new Text(sf::Vector2f(20, 225), Resources::dictionary["gui.text.literary_support"], Resources::font.Unifont, 30);
+            *wCred += new Text(sf::Vector2f( 0, 255), "\tDominik 'Marco' Otmianowski", Resources::font.Unifont, 25, sf::Color::Yellow);
 
-            *wCred += new Text(sf::Vector2f(20, 285), Resources::dictionary["gui.text.usedlib"], Resources::font.Unifont, 30);
-            *wCred += new Text(sf::Vector2f( 0, 315), "\tSFML 2.3.2", Resources::font.Unifont, 25, sf::Color::Yellow);
+            *wCred += new Text(sf::Vector2f(20, 285), Resources::dictionary["gui.text.testers"], Resources::font.Unifont, 30);
+            *wCred += new Text(sf::Vector2f( 0, 315), "\tJakub Szewczyk", Resources::font.Unifont, 25, sf::Color::Yellow);
+
+            *wCred += new Text(sf::Vector2f(20, 345), Resources::dictionary["gui.text.usedlib"], Resources::font.Unifont, 30);
+            *wCred += new Text(sf::Vector2f( 0, 375), "\tSFML 2.3.2", Resources::font.Unifont, 25, sf::Color::Yellow);
 
             auto wQuit = new Button(sf::Vector2f(5, 255), Resources::dictionary["gui.button.quit"], 30);
                  wQuit->setPosition(sf::Vector2f(wCred->getSize().x/2 - wQuit->getSize().x/2,

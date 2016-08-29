@@ -43,7 +43,10 @@ namespace rr
         mapView_ .setCenter(mapView_.getSize()/2.f);
 
         subject.addObserver(&inventory_);
+        subject.addObserver(&audioManager_);
         subject.addObserver(&messageManager_);
+
+        audioManager_.playMusic(AudioManager::MENU);
     }
 
     Game::~Game()
@@ -481,6 +484,9 @@ namespace rr
     Game::start(bool b)
     {
         started_ = b;
+
+        if ( !started_
+            ) audioManager_.playMusic(AudioManager::MENU);
     }
 
     void
@@ -523,6 +529,7 @@ namespace rr
 
         subject.clear();
         subject.addObserver(&inventory_);
+        subject.addObserver(&audioManager_);
         subject.addObserver(&messageManager_);
 
         levelNumber_ = 0;

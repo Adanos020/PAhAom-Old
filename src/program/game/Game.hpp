@@ -12,7 +12,9 @@
 #include "ui/ALL.hpp"
 #include "entity/ALL.hpp"
 #include "level/Level.hpp"
+
 #include "../messages/MessageManager.hpp"
+#include "../audio/AudioManager.hpp"
 
 namespace rr
 {
@@ -42,6 +44,7 @@ namespace rr
 
              Level*         currentLevel_;
 
+             AudioManager   audioManager_;
              MessageManager messageManager_;
 
              Player         player_;
