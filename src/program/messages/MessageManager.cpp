@@ -38,7 +38,8 @@ namespace rr
         for (auto i=messages_.begin(); i!=messages_.end(); ++i)
         {
             i->update(timer.getElapsedTime());
-            if (i->getColor().a < 10) {
+            if (i->getColor().a < 10)
+            {
                 messages_.erase(i);
                 break;
             }

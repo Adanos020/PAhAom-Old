@@ -14,9 +14,9 @@ namespace rr
     std::vector<sf::Vector2i>
     PathFinder::aStar(sf::Vector2i from, sf::Vector2i to, int tiles[])
     {
-        std::vector<sf::Vector2i> path;
-        std::list  <    Node*   > opened;
-        std::list  <    Node*   > closed;
+        std::vector <sf::Vector2i> path;
+        std::list   <    Node*   > opened;
+        std::list   <    Node*   > closed;
 
         Node* start = getNode(tiles, from);
         Node* end   = getNode(tiles, to);
@@ -49,13 +49,11 @@ namespace rr
             {
                 for (int y=-1; y<2; ++y)
                 {
-                    if (  x == 0
-                       && y == 0
+                    if (  x == 0 && y == 0
                         ) continue;
                     
                     child = getNode(tiles, sf::Vector2i(current->getPosition().x+x, current->getPosition().y+y));
-                    if (   child->isClosed()
-                       || !child->isWalkable()
+                    if (  child->isClosed() || !child->isWalkable()
                         ) continue;
 
                     if (x != 0 && y != 0)

@@ -9,6 +9,9 @@
 
 #include "../level/ShadowMap.hpp"
 
+#include "../entity/Entity.hpp"
+#include "../entity/npc/NPC.hpp"
+
 namespace rr
 {
 
@@ -26,10 +29,18 @@ namespace rr
              };
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Calculates the possible field of vision from a given point on the
-             /// tile map.
+             /// \brief Calculates the possible field of vision from a given point on
+             /// the tile map.
              ////////////////////////////////////////////////////////////////////////
       static void compute(ShadowMap* shadows, int tiles[], unsigned octant, sf::Vector2i origin, int range, unsigned x, Slope top, Slope bottom);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if an entity is in the NPC's field of vision.
+             ///
+             /// \param npc the npc whose field of vision is calculated
+             /// \param entity the entity which may be detected by the NPC
+             ////////////////////////////////////////////////////////////////////////
+      static bool seesEntity(int tiles[], unsigned octant, sf::Vector2i origin, sf::Vector2i dest, int range, unsigned x, Slope top, Slope bottom);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if a block in a given position blocks light.
@@ -42,15 +53,29 @@ namespace rr
       static void setVisible(ShadowMap* shadows, int x, int y, unsigned octant, sf::Vector2i origin);
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Calculates the actual distance between point (0, 0) and point (x, y).
+             /// \brief Returns the visible tile's position.
+             ////////////////////////////////////////////////////////////////////////
+      static sf::Vector2i getVisible(int x, int y, unsigned octant, sf::Vector2i origin);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Calculates the actual distance between point (0, 0) and point
+             /// (x, y).
              ////////////////////////////////////////////////////////////////////////
       static int getDistance(int x, int y);
 
     public:  ////////////////////////////////////////////////////////////////////////
-             /// \brief Calculates the possible field of vision from a given point on the
-             /// tile map.
+             /// \brief Calculates the possible field of vision from a given point on
+             /// the tile map.
              ////////////////////////////////////////////////////////////////////////
       static void compute(ShadowMap* shadows, int tiles[], sf::Vector2i origin, int range);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells if an entity is in the NPC's field of vision.
+             ///
+             /// \param npc the npc whose field of vision is calculated
+             /// \param entity the entity which may be detected by the NPC
+             ////////////////////////////////////////////////////////////////////////
+      static bool seesEntity(int tiles[], NPC* npc, Entity* entity);
     };
 
 }

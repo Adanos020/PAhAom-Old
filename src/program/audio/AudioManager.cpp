@@ -39,6 +39,8 @@ namespace rr
     AudioManager::AudioManager()
     {
         music_.setLoop(true);
+        music_.setVolume(Settings::sound.music_muted ? 0
+                                                     : Settings::sound.music_volume);
     }
 
     void

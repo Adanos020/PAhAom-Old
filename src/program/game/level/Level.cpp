@@ -282,6 +282,10 @@ namespace rr
                             else  subject.notify(NPC_ATTACK_FAILURE, npc); // the player dodged the attack
                         }
                     }
+                    else if (FOV::seesEntity(tilesAsInts_, npc, player))
+                    {
+                        npc->setDestination(player->getGridPosition());
+                    }
                 }
             }
         }

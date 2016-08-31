@@ -174,7 +174,12 @@ namespace rr
              Level* getCurrentLevel() { return currentLevel_; }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Returns the vector of game levels.
+             /// \brief Returns the audio manager.
+             ////////////////////////////////////////////////////////////////////////
+             AudioManager* getAudioManager() { return &audioManager_; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the message manager.
              ////////////////////////////////////////////////////////////////////////
              MessageManager* getMessageManager() { return &messageManager_; }
 

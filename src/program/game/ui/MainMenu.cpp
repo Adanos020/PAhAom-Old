@@ -311,6 +311,9 @@ namespace rr
                         Settings::sound.effects_muted  = wSoun->getComponent<Checkbox >(1)->isChecked();
                         Settings::sound.effects_volume = wSoun->getComponent<ScrollBar>(1)->getValue();
 
+                        g->getAudioManager()->setMusicVolume(Settings::sound.music_muted ? 0
+                                                                                         : Settings::sound.music_volume);
+
                         Settings::keys.move_up           = getKeyCode(wCont->getComponent<Button>( 0)->getText().getString());
                         Settings::keys.move_down         = getKeyCode(wCont->getComponent<Button>( 1)->getText().getString());
                         Settings::keys.move_left         = getKeyCode(wCont->getComponent<Button>( 2)->getText().getString());
@@ -354,6 +357,9 @@ namespace rr
                         wSoun->getComponent<ScrollBar>(0)->setValue(Settings::sound.music_volume);
                         wSoun->getComponent<Checkbox >(1)->check   (Settings::sound.effects_muted);
                         wSoun->getComponent<ScrollBar>(1)->setValue(Settings::sound.effects_volume);
+
+                        g->getAudioManager()->setMusicVolume(Settings::sound.music_muted ? 0
+                                                                                         : Settings::sound.music_volume);
 
                         wCont->getComponent<Button>( 0)->getText().setString(getKeyName(Settings::keys.move_up));
                         wCont->getComponent<Button>( 1)->getText().setString(getKeyName(Settings::keys.move_down));
@@ -412,6 +418,9 @@ namespace rr
                         }
                         wSoun->getComponent<ScrollBar>(0)->buttonEvents(rw, e);
                         wSoun->getComponent<ScrollBar>(1)->buttonEvents(rw, e);
+
+                        g->getAudioManager()->setMusicVolume(wSoun->getComponent<Checkbox>(0)->isChecked() ? 0
+                                                                                                           : (float) wSoun->getComponent<ScrollBar>(0)->getValue());
                     }
                     if (  wSoun->getComponent<Button>(0)->isPressed(rw, e)
                         ) wSoun->setVisible(false);
