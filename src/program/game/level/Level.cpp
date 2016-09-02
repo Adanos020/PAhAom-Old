@@ -54,7 +54,7 @@ namespace rr
         states.transform *= getTransform();
         states.texture = &Resources::texture.tileset;
         target.draw(tilemap_, states);
-        
+
         states = sf::RenderStates::Default;
 
         for (auto it=entities_.begin(); it!=entities_.end(); ++it)
@@ -102,7 +102,7 @@ namespace rr
                 {
                     Entity* temp  = ((Chest*) *it)->getItem()->clone();
                     auto position = (*it)->getGridPosition();
-                    
+
                     delete *it;
                     *it = temp;
                     (*it++)->setGridPosition(position);
@@ -112,12 +112,12 @@ namespace rr
                     if (((Stairs*) *it)->isUpwards())
                     {
                         game->switchLevel(levelNumber_+1);
-                        break;
+                        return;
                     }
                     else
                     {
                         game->switchLevel(levelNumber_-1);
-                        break;
+                        return;
                     }
                 }
             }
@@ -337,7 +337,7 @@ namespace rr
             {
                 startingPoint_ = sf::Vector2i(x, y);
                 tiles_[x+y*size_.x] = EXIT;
-                
+
                 if (  levelNumber_ >= 1
                     ) addEntity(new Stairs(false), startingPoint_);
                 break;
@@ -384,7 +384,7 @@ namespace rr
             bool intersects = false;
             for (int i=rpos.x; i<rpos.x+rsize.x; ++i)
             {
-                if (tiles_[i+(rpos.y-1)*size_.x] == ROOM || tiles_[i+(rpos.y+rsize.y+1)*size_.x] == ROOM) 
+                if (tiles_[i+(rpos.y-1)*size_.x] == ROOM || tiles_[i+(rpos.y+rsize.y+1)*size_.x] == ROOM)
                 {
                     intersects = true;
                     break;
@@ -655,7 +655,7 @@ namespace rr
                                             && (tiles_[i-1 +   j*size_.x  ] != WALL)
                                             && (tiles_[i+1 +   j*size_.x  ] != WALL)
                                              )                                      tileNumber += ALL         *16;
-        
+
                                     else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
                                             && (tiles_[ i  + (j+1)*size_.x] != WALL)
                                             && (tiles_[i-1 +   j*size_.x  ] != WALL)
@@ -676,7 +676,7 @@ namespace rr
                                             && (tiles_[i-1 +   j*size_.x  ] != WALL)
                                             && (tiles_[i+1 +   j*size_.x  ] == WALL)
                                              )                                      tileNumber += NO_RIGHT    *16;
-        
+
                                     else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
                                             && (tiles_[ i  + (j+1)*size_.x] == WALL)
                                             && (tiles_[i-1 +   j*size_.x  ] != WALL)
@@ -707,7 +707,7 @@ namespace rr
                                             && (tiles_[i-1 +   j*size_.x  ] != WALL)
                                             && (tiles_[i+1 +   j*size_.x  ] == WALL)
                                              )                                      tileNumber += TOP_LEFT    *16;
-        
+
                                     else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
                                             && (tiles_[ i  + (j+1)*size_.x] == WALL)
                                             && (tiles_[i-1 +   j*size_.x  ] == WALL)
@@ -760,7 +760,7 @@ namespace rr
                                     else if ((tiles_[i+(j-1)*size_.x] == WALL))     tileNumber += BOTTOM      *16;
                                 }
                                 break;
-                    
+
                     default   : tileNumber = 17;
                                 break;
                 }
@@ -978,9 +978,9 @@ namespace rr
         {
             **entity >> file << '\n';
         }
-        
+
         shadowMap_ >> file;
-        
+
         for (int i=0; i<77*43; ++i) // save the tiles
         {
             file << tilesAsInts_[i] << (((i+1)%77 == 0) ? '\n' : ' ');

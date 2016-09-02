@@ -1,5 +1,8 @@
 # exclude all object files
 *.o
+*.dll
+*.cbp
+*.depend
 # exclude the save and bin folders
 save
 bin
