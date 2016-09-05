@@ -156,7 +156,7 @@ namespace rr
         {
             currentLevel_ = new Level(i);
             currentLevel_->generateWorld();
-            
+
             file.open("save/level"+std::to_string(i)+".pah");
             if (!file.good()) {
                 system("mkdir save");
@@ -233,7 +233,7 @@ namespace rr
             file.close();
 
             currentLevel_ = new Level(levelNumber_);
-            
+
             file.open("save/level"+std::to_string(levelNumber_)+".pah");
             *currentLevel_ << file;
             file.close();
@@ -258,10 +258,10 @@ namespace rr
     {
         std::ofstream file("save/save.pah");
         file.clear();
-        
-        file        << seed_        << '\n' 
+
+        file        << seed_        << '\n'
                     << levelNumber_ << '\n';
-        
+
         for (int i=0; i<9; ++i)
         {
             file << Potion::identified_[i] << ' ';
@@ -344,10 +344,10 @@ namespace rr
         if (!lost_ && player_.getAttributes().health == 0)
         {
             subject.notify(Observer::PLAYER_DIES, nullptr);
-            
+
             paused_ = true;
             lose();
-            
+
             deathScreen_.open();
         }
 
@@ -424,14 +424,15 @@ namespace rr
 
             if (  wasKeyPressed(event, sf::Keyboard::Escape) && !conversation_.isOpen()
                 ) pause(!isPaused());
-                
+
             if (!paused_)
             {
                 if (wasKeyPressed(event, Settings::keys.open_attributes))
                 {
                     attributes_.update(&player_);
                     attributes_.open();
-                    paused_ = true;
+                    if ( !Settings::game.debugMode
+                        ) paused_ = true;
                 }
                 else if (wasKeyPressed(event, Settings::keys.open_inventory))
                 {
@@ -441,6 +442,7 @@ namespace rr
                 else if (wasKeyPressed(event, Settings::keys.open_map))
                 {
                     mapOpen_ = !mapOpen_;
+                    paused_ = true;
                 }
                 else if (wasKeyPressed(event, Settings::keys.open_journal))
                 {
@@ -469,7 +471,7 @@ namespace rr
                 else if (wasKeyPressed(event, Settings::keys.useslot_5)) {}
             }
         }
-        
+
         if (      !started_       ) mainMenu_    .buttonEvents(rw, event, this);
         if (attributes_  .isOpen()) attributes_  .buttonEvents(rw, event, this);
         if (bookOfSpells_.isOpen()) bookOfSpells_.buttonEvents(rw, event, this);
@@ -502,6 +504,9 @@ namespace rr
             attributes_  .close();
             journal_     .close();
             bookOfSpells_.close();
+
+            if ( !Settings::game.debugMode
+                ) mapOpen_ = false;
         }
     }
 
