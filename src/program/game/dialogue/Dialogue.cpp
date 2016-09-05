@@ -26,8 +26,8 @@ namespace rr
     void
     DialogueTree::setTree(Branch* tree, bool permanent)
     {
-        if (  permanent
-            ) root_ = tree;
+        if (permanent)
+            root_ = tree;
         current_ = tree;
     }
 
@@ -35,7 +35,7 @@ namespace rr
     Answers::removeAnswer(Sentence* s)
     {
         unsigned i=0;
-        while (i<answers_.size())
+        while (i < answers_.size())
         {
             if (answers_[i] == s)
             {
@@ -68,8 +68,8 @@ namespace rr
     {
         for (unsigned i=0; i<answers_.size(); ++i)
         {
-            if (  answers_[i]->getSentence() == sought
-                ) return answers_[i];
+            if (answers_[i]->getSentence() == sought)
+                return answers_[i];
         }
         return nullptr;
     }

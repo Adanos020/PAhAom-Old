@@ -35,12 +35,12 @@ namespace rr
         shadowSprite_[2].texCoords = sf::Vector2f(3*size.x, 3*size.y);
         shadowSprite_[3].texCoords = sf::Vector2f(0       , 3*size.y);
 
-        for (int i=0; i<size_.x*size_.y; ++i)
+        for (int i = 0; i < size_.x*size_.y; ++i)
         {
             discovered_[i] = false;
         }
 
-        for (int i=0; i<size_.x*size_.y*9; ++i)
+        for (int i = 0; i < size_.x*size_.y*9; ++i)
         {
             cellIDs_[i] = 0;
         }
@@ -57,9 +57,9 @@ namespace rr
 
         bool filled = true;
 
-        for (int i=0; i<3; ++i)
+        for (int i = 0; i < 3; ++i)
         {
-            for (int j=0; j<3; ++j)
+            for (int j = 0; j < 3; ++j)
             {
                 if (cellIDs_[tx+i + (ty+j)*size_.x*3] == id)
                 {
@@ -67,8 +67,8 @@ namespace rr
                     break;
                 } 
             }
-            if ( !filled
-                ) break;
+            if (!filled)
+                break;
         }
         return filled;
     }
@@ -208,8 +208,8 @@ namespace rr
 
 // CORRECTING THE FINAL SHAPE OF THE SHADOWS
 
-        if (  isFilled(x, y, 2)
-            ) return;
+        if (isFilled(x, y, 2))
+            return;
 
         if (  isFilled(x-1, y-1, 2)
            && isFilled( x , y-1, 2)
@@ -224,33 +224,26 @@ namespace rr
         std::vector<unsigned char> neighbors;
         if (x > 0)
         {
-            if (  y > 0
-                ) neighbors.push_back(1);
-
-            if (  y < size_.y-1
-                ) neighbors.push_back(7);
+            if (y > 0)         neighbors.push_back(1);
+            if (y < size_.y-1) neighbors.push_back(7);
 
             neighbors.push_back(8);
         }
 
         if (x < size_.x-1)
         {
-            if (  y > 0
-                ) neighbors.push_back(3);
+            if (y > 0)         neighbors.push_back(3);
 
-            if (  y < size_.y-1
-                ) neighbors.push_back(5);
+            if (y < size_.y-1) neighbors.push_back(5);
 
             neighbors.push_back(4);
         }
         
-        if (  y > 0
-            ) neighbors.push_back(2);
+        if (y > 0)         neighbors.push_back(2);
 
-        if (  y < size_.y-1
-            ) neighbors.push_back(6);
+        if (y < size_.y-1) neighbors.push_back(6);
 
-        for (unsigned i=0; i<neighbors.size(); ++i)
+        for (unsigned i = 0; i < neighbors.size(); ++i)
         {
             switch (neighbors[i])
             { // here we switch between the central cell and the cells next to it
@@ -326,7 +319,7 @@ namespace rr
     void
     ShadowMap::darken()
     {
-        for (unsigned i=0; i<lastlyLit_.size(); ++i)
+        for (unsigned i = 0; i < lastlyLit_.size(); ++i)
         {
             cellIDs_[lastlyLit_[i].x + lastlyLit_[i].y*size_.x*3] = 1;
         }
@@ -340,10 +333,8 @@ namespace rr
         {
             for (int y=0; y<3*size_.y; ++y)
             {
-                if      (  cellIDs_[x + y*3*size_.x] == 1
-                         ) shadowImage_.setPixel(x, y, sf::Color(0, 0, 0, 200));
-                else if (  cellIDs_[x + y*3*size_.x] == 2
-                         ) shadowImage_.setPixel(x, y, sf::Color(0, 0, 0,   0));
+                if      (cellIDs_[x + y*3*size_.x] == 1) shadowImage_.setPixel(x, y, sf::Color(0, 0, 0, 200));
+                else if (cellIDs_[x + y*3*size_.x] == 2) shadowImage_.setPixel(x, y, sf::Color(0, 0, 0,   0));
             }
         }
 
@@ -355,13 +346,13 @@ namespace rr
     {
         try
         {
-            for (int x=0; x<size_.x; ++x)
+            for (int x = 0; x < size_.x; ++x)
             {
-                for (int y=0; y<size_.y; ++y)
+                for (int y = 0; y < size_.y; ++y)
                 {
                     readFile <bool> (file, discovered_[x + y*size_.x]);
-                    if (  discovered_[x + y*size_.x]
-                        ) setLit(x, y);
+                    if (discovered_[x + y*size_.x])
+                        setLit(x, y);
                 }
             }
         }
@@ -376,9 +367,9 @@ namespace rr
     std::ofstream&
     ShadowMap::operator>>(std::ofstream& file)
     {
-        for (int x=0; x<size_.x; ++x)
+        for (int x = 0; x < size_.x; ++x)
         {
-            for (int y=0; y<size_.y; ++y)
+            for (int y = 0; y < size_.y; ++y)
             {
                 file << discovered_[x + y*size_.x] << ' ';
             }

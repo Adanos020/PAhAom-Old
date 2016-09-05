@@ -13,8 +13,8 @@ namespace rr
 
     Message::Message(sf::String text, sf::Color color, sf::Text::Style textStyle) :
       message_    (Text(text, Resources::font.Unifont, 16, color, textStyle)),
-      timeElapsed_(sf::Time::Zero                                           ),
-      lifeTime_   (sf::seconds(5)                                           )
+      timeElapsed_(sf::Time::Zero),
+      lifeTime_   (sf::seconds(5))
     {
         message_.setOutlineColor(sf::Color::Black);
         message_.setOutlineThickness(1);

@@ -37,10 +37,10 @@ namespace rr
       lost_        (false              ),
       levelNumber_ (0                  )
     {
-        gameView_.setSize  ((sf::Vector2f) Settings::graphics.resolution);
+        gameView_.setSize((sf::Vector2f) Settings::graphics.resolution);
 
-        mapView_ .setSize  (6160.f, 3440.f);
-        mapView_ .setCenter(mapView_.getSize()/2.f);
+        mapView_.setSize  (6160.f, 3440.f);
+        mapView_.setCenter(mapView_.getSize()/2.f);
 
         subject.addObserver(&inventory_);
         subject.addObserver(&audioManager_);
@@ -60,13 +60,13 @@ namespace rr
         /* colors */
         {
             int pot[9];
-            for (int i=0; i<9; ++i)
+            for (int i = 0; i < 9; ++i)
             {
                 hell: pot[i] = rand()%9;
-                for (int j=0; j<i; ++j)
+                for (int j = 0; j < i; ++j)
                 {
-                    if (  pot[j] == pot[i]
-                        ) goto hell;
+                    if (pot[j] == pot[i])
+                        goto hell;
                 }
                 switch (pot[i])
                 {
@@ -83,13 +83,13 @@ namespace rr
             }
         }
         /* Rune symbols */
-        for (int i=0; i<12; ++i)
+        for (int i = 0; i < 12; ++i)
         {
             topkek: spellSymbols[i] = rand()%12;
-            for (int j=0; j<i; ++j)
+            for (int j = 0; j < i; ++j)
             {
-                if (  spellSymbols[j] == spellSymbols[i]
-                    ) goto topkek;
+                if (spellSymbols[j] == spellSymbols[i])
+                    goto topkek;
             }
         }
     }
@@ -107,15 +107,15 @@ namespace rr
         bool ascending = false;
         if (index > (int) levelNumber_)
         {
-            if (  levelNumber_ < 29
-                ) levelNumber_++;
+            if (levelNumber_ < 29)
+                levelNumber_++;
             else return;
             ascending = true;
         }
         else if (index < (int) levelNumber_)
         {
-            if (  levelNumber_ > 0
-                ) levelNumber_--;
+            if (levelNumber_ > 0)
+                levelNumber_--;
             else return;
         }
 
@@ -137,7 +137,7 @@ namespace rr
         messageManager_.addMessage(Message(Resources::dictionary["message.welcome_to_level"]
                                           +" "
                                           +std::to_string(levelNumber_+1)
-                                          +((Settings::game.language=="fc") ? "" : "!"), sf::Color::Green));
+                                          +((Settings::game.language == "fc") ? "" : "!"), sf::Color::Green));
 
         save();
     }
@@ -152,7 +152,7 @@ namespace rr
 
         std::ofstream file;
 
-        for (int i=29; i>=0; --i)
+        for (int i = 29; i >= 0; --i)
         {
             currentLevel_ = new Level(i);
             currentLevel_->generateWorld();
@@ -167,8 +167,8 @@ namespace rr
             *currentLevel_ >> file;
             file.close();
 
-            if (  i!=0
-                ) delete currentLevel_;
+            if (i != 0)
+                delete currentLevel_;
         }
         subject.addObserver(currentLevel_);
 
@@ -184,7 +184,7 @@ namespace rr
         inventory_.addItem(new Potion(Potion::HEALING));
 
         //inventory_.addItem(new Book(Book::SPELLS_BOOK));
-        inventory_.addItem(new Coin(Coin::GOLDEN, Coin::SMALL, 3));
+        //inventory_.addItem(new Coin(Coin::GOLDEN, Coin::SMALL, 3));
 
         return true;
     }
@@ -196,19 +196,19 @@ namespace rr
 
         std::ifstream file("save/save.pah");
 
-        if ( !file.good()
-            ) return false;
+        if (!file.good())
+            return false;
 
         try
         {
             readFile <unsigned> (file, seed_       );
             readFile <unsigned> (file, levelNumber_);
 
-            for (int i=0; i<9; ++i)
+            for (int i = 0; i < 9; ++i)
             {
                 readFile <bool> (file, Potion::identified_[i]);
             }
-            for (int i=0; i<12; ++i)
+            for (int i = 0; i < 12; ++i)
             {
                 readFile <bool> (file, Rune  ::identified_[i]);
             }
@@ -262,17 +262,17 @@ namespace rr
         file        << seed_        << '\n'
                     << levelNumber_ << '\n';
 
-        for (int i=0; i<9; ++i)
+        for (int i = 0; i < 9; ++i)
         {
             file << Potion::identified_[i] << ' ';
         }
-        for (int i=0; i<12; ++i)
+        for (int i = 0; i < 12; ++i)
         {
             file << Rune  ::identified_[i] << ' ';
         }
         file << '\n';
 
-        player_    >> file         << '\n';
+        player_    >> file << '\n';
         inventory_ >> file;
 
         file.close();
@@ -354,9 +354,7 @@ namespace rr
         gameView_.setCenter(sf::Vector2f(player_.getBounds().left+40, player_.getBounds().top+40));
 
         if (started_ && !paused_)
-        {
             currentLevel_->update(this, timer);
-        }
 
         hud_.update(&player_, levelNumber_+1, timer);
     }
@@ -404,8 +402,8 @@ namespace rr
                 }
             }
 
-            if (  Settings::game.debugMode
-                ) player_.cheat();
+            if (Settings::game.debugMode)
+                player_.cheat();
         }
     }
 
@@ -416,14 +414,14 @@ namespace rr
         {
             if (Settings::game.debugMode)
             {
-                if      (  event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add
-                         ) switchLevel(levelNumber_+1);
-                else if (  event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract
-                         ) switchLevel(levelNumber_-1);
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add)
+                    switchLevel(levelNumber_+1);
+                else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract)
+                    switchLevel(levelNumber_-1);
             }
 
-            if (  wasKeyPressed(event, sf::Keyboard::Escape) && !conversation_.isOpen()
-                ) pause(!isPaused());
+            if (wasKeyPressed(event, sf::Keyboard::Escape) && !conversation_.isOpen())
+                pause(!isPaused());
 
             if (!paused_)
             {
@@ -431,8 +429,8 @@ namespace rr
                 {
                     attributes_.update(&player_);
                     attributes_.open();
-                    if ( !Settings::game.debugMode
-                        ) paused_ = true;
+                    if (!Settings::game.debugMode)
+                        paused_ = true;
                 }
                 else if (wasKeyPressed(event, Settings::keys.open_inventory))
                 {
@@ -442,7 +440,8 @@ namespace rr
                 else if (wasKeyPressed(event, Settings::keys.open_map))
                 {
                     mapOpen_ = !mapOpen_;
-                    paused_ = true;
+
+                    if (!Settings::game.debugMode) paused_ = true;
                 }
                 else if (wasKeyPressed(event, Settings::keys.open_journal))
                 {
@@ -487,16 +486,16 @@ namespace rr
     {
         started_ = b;
 
-        if ( !started_
-            ) audioManager_.playMusic(AudioManager::MENU);
+        if (!started_)
+            audioManager_.playMusic(AudioManager::MENU);
     }
 
     void
     Game::pause(bool b)
     {
         paused_ = b;
-        if (  paused_ && !conversation_.isOpen()
-            ) pauseMenu_.open();
+        if (paused_ && !conversation_.isOpen())
+            pauseMenu_.open();
         else
         {
             pauseMenu_   .close();
@@ -505,8 +504,8 @@ namespace rr
             journal_     .close();
             bookOfSpells_.close();
 
-            if ( !Settings::game.debugMode
-                ) mapOpen_ = false;
+            if (!Settings::game.debugMode)
+                mapOpen_ = false;
         }
     }
 
@@ -519,11 +518,11 @@ namespace rr
             currentLevel_ = nullptr;
         }
 
-        for (int i=0; i<9; ++i)
+        for (int i = 0; i < 9; ++i)
         {
             Potion::identified_[i] = false;
         }
-        for (int i=0; i<12; ++i)
+        for (int i = 0; i < 12; ++i)
         {
             Rune  ::identified_[i] = false;
         }

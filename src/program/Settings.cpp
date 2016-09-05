@@ -123,8 +123,8 @@ namespace rr
         try
         {
             std::ifstream iconfig("config.cfg");
-            if ( !iconfig.good()
-                ) throw std::runtime_error("File not found");
+            if (!iconfig.good())
+                throw std::runtime_error("File not found");
             std::cout << ">Loading a config file...\n";
 
             while (!iconfig.eof())

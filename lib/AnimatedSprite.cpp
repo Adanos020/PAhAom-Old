@@ -56,8 +56,8 @@ namespace sf {
     }
 
     void AnimatedSprite::play(const Animation& animation) {
-        if (  getAnimation() != &animation
-            ) setAnimation(animation);
+        if (getAnimation() != &animation)
+            setAnimation(animation);
         play();
     }
 
@@ -133,8 +133,8 @@ namespace sf {
             m_vertices[3].texCoords = sf::Vector2f(right, top);
         }
 
-        if (  resetTime
-            ) m_currentTime = sf::Time::Zero;
+        if (resetTime)
+            m_currentTime = sf::Time::Zero;
     }
 
     void AnimatedSprite::update(sf::Time deltaTime) {
@@ -149,15 +149,14 @@ namespace sf {
                 m_currentTime = sf::microseconds(m_currentTime.asMicroseconds() % m_frameTime.asMicroseconds());
 
                 // get next Frame index
-                if (  m_currentFrame + 1 < m_animation->getSize()
-                    ) m_currentFrame++;
+                if (m_currentFrame + 1 < m_animation->getSize())
+                    m_currentFrame++;
                 else {
                     // animation has ended
                     m_currentFrame = 0; // reset to start
 
-                    if ( !m_isLooped
-                        ) m_isPaused = true;
-
+                    if (!m_isLooped)
+                        m_isPaused = true;
                 }
 
                 // set the current frame, not reseting the time

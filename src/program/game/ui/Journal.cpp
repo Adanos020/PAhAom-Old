@@ -34,8 +34,8 @@ namespace rr
     {
         if (wJour_.isVisible())
         {
-            if (  wJour_.getComponent<Button>(0)->isPressed(rw, e)
-                ) g->pause(false);
+            if (wJour_.getComponent <Button> (0)->isPressed(rw, e))
+                g->pause(false);
         }
     }
 

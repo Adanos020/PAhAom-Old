@@ -15,10 +15,10 @@ namespace rr
 {
 
     Slot::Slot(sf::Vector2f size, sf::Vector2f pos, int icon) :
-      image_   (Image(pos, Resources::texture.gui, 14, icon)                         ),
-      text_    (Text (sf::Vector2f(pos.x+5, pos.y+55), "", Resources::font.Pixel, 20)),
-      item_    (nullptr                                                              ),
-      hollow_  (true                                                                 )
+      image_ (Image(pos, Resources::texture.gui, 14, icon)),
+      text_  (Text (sf::Vector2f(pos.x+5, pos.y+55), "", Resources::font.Pixel, 20)),
+      item_  (nullptr),
+      hollow_(true)
     {
         body_ .setSize            (size);
         body_ .setPosition        (pos);
@@ -32,8 +32,7 @@ namespace rr
 
     Slot::~Slot()
     {
-        if ( !hollow_
-            ) delete item_;
+        if (!hollow_) delete item_;
     }
 
     void
@@ -49,13 +48,13 @@ namespace rr
     {
         target.draw(body_, states);
 
-        if (  hollow_
-            ) target.draw(image_, states);
+        if (hollow_)
+            target.draw(image_, states);
         else
         {
             target.draw(*item_, states);
-            if (  item_->getAmount() > 1
-                ) target.draw(text_, states);
+            if (item_->getAmount() > 1)
+                target.draw(text_, states);
         }
     }
 
@@ -74,11 +73,11 @@ namespace rr
         }
         item_ = getItemFromID(item->getID(), item->getAmount());
 
-        if (  instanceof<Discoverable, Item>(item) && ((Discoverable*) item)->isDiscovered()
-            ) ((Discoverable*) item_)->reveal();
+        if (instanceof<Discoverable, Item>(item) && ((Discoverable*) item)->isDiscovered())
+            ((Discoverable*) item_)->reveal();
 
-        if (  instanceof<Equipable, Item>(item)
-            ) ((Equipable*) item_)->equip(((Equipable*) item)->isEquipped());
+        if (instanceof<Equipable, Item>(item))
+            ((Equipable*) item_)->equip(((Equipable*) item)->isEquipped());
 
         item_->setPosition(body_.getPosition());
         text_.setString(std::to_string(item_->getAmount()));
@@ -99,8 +98,8 @@ namespace rr
             if (item_->getAmount() == 0)
             {
                 hollow_ = true;
-                if (  deleteFromMemory
-                    ) delete item_;
+                if (deleteFromMemory)
+                    delete item_;
                 else  item_ = nullptr;
             }
         }
@@ -110,8 +109,8 @@ namespace rr
     Slot::removeItem(bool deleteFromMemory)
     {
         hollow_ = true;
-        if (  deleteFromMemory
-            ) delete item_;
+        if (deleteFromMemory)
+            delete item_;
         else  item_ = nullptr;
     }
 
@@ -191,16 +190,16 @@ namespace rr
             held_ = true;
             return true;
         }
-        if (  e.type == sf::Event::MouseButtonReleased
-            ) held_ = false;
+        if (e.type == sf::Event::MouseButtonReleased)
+            held_ = false;
         return false;
     }
 
     Item*
     Slot::getItem() const
     {
-        if ( !hollow_
-            ) return item_;
+        if (!hollow_)
+            return item_;
         return nullptr;
     }
 

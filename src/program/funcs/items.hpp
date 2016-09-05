@@ -197,9 +197,10 @@ namespace rr
                     case Coin::SILVER: coin->setAmount(rand() %  2 + 1);
                                        break;
                     
-                    case Coin::GOLDEN: if (  chance(9, 10)
-                                           ) *coin = Coin(chance(1, 3) ? Coin::BRONZE : Coin::SILVER, coin->getSize(), coin->getAmount());
-                                       else   coin->setAmount(1);
+                    case Coin::GOLDEN: if (chance(9, 10))
+                                           *coin = Coin(chance(1, 3) ? Coin::BRONZE : Coin::SILVER, coin->getSize(), coin->getAmount());
+                                       else
+                                           coin->setAmount(1);
                                        break;
                 }
             }

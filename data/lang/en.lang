@@ -149,6 +149,9 @@ Use slot 5
 gui.text.press_a_key
 Press a key...
 
+gui.text.generating_world
+Generating new world...
+
 gui.text.you_died
 YOU DIED.
 

@@ -20,8 +20,8 @@ namespace rr
 
     Program::Program()
     {
-        if (  loadResources()
-            ) runGame();
+        if (loadResources())
+            runGame();
     }
 
     bool
@@ -37,7 +37,8 @@ namespace rr
         window_.setVerticalSyncEnabled(Settings::graphics.vsync);
         window_.setKeyRepeatEnabled   (false);
         window_.create                (sf::VideoMode(Settings::graphics.resolution.x, Settings::graphics.resolution.y, 32), "PAhAom",
-                                                     Settings::graphics.fullscreen ? (sf::Style::Fullscreen) : (sf::Style::Close), Settings::graphics.csettings);
+                                                     Settings::graphics.fullscreen ? sf::Style::Fullscreen
+                                                                                   : sf::Style::Close     , Settings::graphics.csettings);
 
         game_ = new Game();
         mainLoop();
@@ -48,11 +49,10 @@ namespace rr
     {
         while (window_.pollEvent(event_))
         {
-            if (  event_.type == sf::Event::Closed
-                ) window_.close();
-            if (   event_.type == sf::Event::LostFocus
-               &&! game_->isPaused()
-                )  game_->pause(true);
+            if (event_.type == sf::Event::Closed)
+                window_.close();
+            if (event_.type == sf::Event::LostFocus && !game_->isPaused())
+                game_->pause(true);
 
             game_->buttonEvents(window_, event_);
         }
@@ -69,8 +69,8 @@ namespace rr
     void
     Program::update(sf::Clock& timer)
     {
-        if (  game_->isStarted()
-            ) game_->update(event_, timer);
+        if (game_->isStarted())
+            game_->update(event_, timer);
     }
 
     void

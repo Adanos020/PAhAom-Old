@@ -46,7 +46,7 @@ namespace rr
         bool       first        = true;
         unsigned   wordBegining = 0;
 
-        for (unsigned pos=0; pos<text.getSize(); pos++)
+        for (unsigned pos = 0; pos < text.getSize(); pos++)
         {
             if (text[pos] == '\n')
             {

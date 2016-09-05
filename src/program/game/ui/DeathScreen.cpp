@@ -13,11 +13,11 @@ namespace rr
 {
 
     DeathScreen::DeathScreen() :
-      endAnimation_(sf::Time::Zero                                                                                        ),
+      endAnimation_(sf::Time::Zero),
       tYouDied_    (Resources::dictionary["gui.text.you_died"], Resources::font.FinalFantasy, 200, sf::Color(255, 0, 0, 0)),
-      bNewGame_    (sf::Vector2f(0, 0), Resources::dictionary["gui.button.newgame"], 52                                   ),
-      bQuit_       (sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52                                   ),
-      visible_     (false                                                                                                 )
+      bNewGame_    (sf::Vector2f(0, 0), Resources::dictionary["gui.button.newgame"], 52),
+      bQuit_       (sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52),
+      visible_     (false)
     {
         shadow_.setSize((sf::Vector2f) Settings::graphics.resolution);
         shadow_.setPosition (sf::Vector2f(0, 0));
@@ -51,6 +51,19 @@ namespace rr
             if (bNewGame_.isPressed(rw, event))
             {
                 visible_ = false;
+
+                auto generatingWorld = Text(Resources::dictionary["gui.text.generating_world"], Resources::font.Unifont);
+                generatingWorld.setPosition((sf::Vector2f) Settings::graphics.resolution/2.f - generatingWorld.getSize()/2.f);
+
+                auto currView = rw.getView();
+                rw.setView(rw.getDefaultView());
+
+                rw.clear();
+                rw.draw(generatingWorld);
+                rw.display();
+
+                rw.setView(currView);
+                    
                 g->loadNewGame();
             }
             if (bQuit_.isPressed(rw, event))

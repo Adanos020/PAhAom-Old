@@ -19,8 +19,8 @@ namespace rr
     {
         for (auto obs : observers_)
         {
-            if (  obs == observer
-                ) return;
+            if (obs == observer)
+                return;
         }
         observers_.push_back(observer);
     }
@@ -28,7 +28,7 @@ namespace rr
     void
     Subject::removeObserver(Observer* observer)
     {
-        for (unsigned i=0; i<observers_.size(); i++)
+        for (unsigned i = 0; i < observers_.size(); i++)
         {
             if (observer == observers_[i])
             {

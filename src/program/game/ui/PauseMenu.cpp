@@ -32,9 +32,10 @@ namespace rr
         wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.resume" ], 52);
         wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.help"   ], 52);
         wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52);
-        for (int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            wMenu_.getComponent<Button>(i)->setPosition(wMenu_.getPosition() + sf::Vector2f(wMenu_.getSize().x/2 - wMenu_.getComponent<Button>(i)->getSize().x/2, 5+i*75));
+            wMenu_.getComponent <Button> (i)->setPosition(wMenu_.getPosition() + sf::Vector2f(wMenu_.getSize().x/2 - wMenu_.getComponent <Button> (i)->getSize().x/2,
+                                                        5 + i*75));
         }
 
         auto wHelp = new Window(Resources::dictionary["gui.button.help"], sf::Vector2f(325, 454), sf::Vector2f(Settings::graphics.resolution.x   - 350,
@@ -55,17 +56,15 @@ namespace rr
     void
     PauseMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g)
     {
-        auto wHelp = wMenu_.getComponent<Window>(0);
+        auto wHelp = wMenu_.getComponent <Window> (0);
 
         if (wMenu_.isVisible())
         {
             if (!wHelp->isVisible())
             {
-                if (  wMenu_.getComponent<Button>(0)->isPressed(rw, e)
-                    ) g->pause(false);
-                if (  wMenu_.getComponent<Button>(1)->isPressed(rw, e)
-                    ) wHelp->setVisible(true);
-                if (  wMenu_.getComponent<Button>(2)->isPressed(rw, e))
+                if (wMenu_.getComponent <Button> (0)->isPressed(rw, e)) g->pause(false);
+                if (wMenu_.getComponent <Button> (1)->isPressed(rw, e)) wHelp->setVisible(true);
+                if (wMenu_.getComponent <Button> (2)->isPressed(rw, e))
                 {
                     g->save();
                     g->pause(false);
@@ -76,8 +75,8 @@ namespace rr
 
             else if (wHelp->isVisible())
             {
-                if (  wHelp->getComponent<Button>(0)->isPressed(rw, e)
-                    ) wHelp->setVisible(false);
+                if (wHelp->getComponent <Button> (0)->isPressed(rw, e))
+                    wHelp->setVisible(false);
             }
         }
     }
@@ -97,7 +96,7 @@ namespace rr
     void
     PauseMenu::close()
     {
-        auto wHelp = wMenu_.getComponent<Window>(0);
+        auto wHelp = wMenu_.getComponent <Window> (0);
         wMenu_.setVisible(false);
         wHelp->setVisible(false);
     }

@@ -149,8 +149,11 @@ Użyj schowka nr 5
 gui.text.press_a_key
 Naciśnij klawisz...
 
+gui.text.generating_world
+Generowanie nowego świata...
+
 gui.text.you_died
-POLEGŁES.
+POLEGŁEŚ.
 
 gui.window.attributes
 ATRYBUTY

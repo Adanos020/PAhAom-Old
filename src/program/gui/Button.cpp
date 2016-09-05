@@ -26,8 +26,8 @@ namespace rr
         body_ .setOutlineColor    (sf::Color::Black);
         body_ .setOutlineThickness((float) chsize/20.f);
 
-        text_ .setPosition        (sf::Vector2f(position.x + body_.getSize().x/2 - text_.getSize().x/2 - chsize/20,
-                                                position.y-0.5));
+        text_ .setPosition(sf::Vector2f(position.x + body_.getSize().x/2 - text_.getSize().x/2 - chsize/20,
+                                        position.y - 0.5));
     }
 
     void
@@ -61,8 +61,8 @@ namespace rr
             held_ = true;
             return true;
         }
-        if (  e.type == sf::Event::MouseButtonReleased
-            ) held_ = false;
+        if (e.type == sf::Event::MouseButtonReleased)
+            held_ = false;
         return false;
     }
 

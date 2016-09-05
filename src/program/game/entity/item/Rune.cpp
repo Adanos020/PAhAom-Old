@@ -100,8 +100,8 @@ namespace rr
     sf::String
     Rune::getDescription() const
     {
-        if ( !identified_[type_]
-            ) return Resources::dictionary["item.spell.description.unknown"];
+        if (!identified_[type_])
+            return Resources::dictionary["item.spell.description.unknown"];
         else
         {
             switch (type_)

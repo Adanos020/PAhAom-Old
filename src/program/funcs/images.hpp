@@ -29,15 +29,15 @@ namespace rr
         body.resize(4*layers);
         body.setPrimitiveType(sf::Quads);
 
-        for (int i=0; i<layers; i++)
+        for (int i = 0; i < layers; i++)
         {
             int tu = icons[i]%16;
             int tv = icons[i]/16;
 
-            body[4*i+0].texCoords =  sf::Vector2f(  tu  *16+0.03125f,   tv  *16+0.03125f);
-            body[4*i+1].texCoords =  sf::Vector2f((tu+1)*16-0.03125f,   tv  *16+0.03125f);
-            body[4*i+2].texCoords =  sf::Vector2f((tu+1)*16-0.03125f, (tv+1)*16-0.03125f);
-            body[4*i+3].texCoords =  sf::Vector2f(  tu  *16+0.03125f, (tv+1)*16-0.03125f);
+            body[4*i+0].texCoords =  sf::Vector2f(  tu  *16+0.0001f,   tv  *16+0.0001f);
+            body[4*i+1].texCoords =  sf::Vector2f((tu+1)*16-0.0001f,   tv  *16+0.0001f);
+            body[4*i+2].texCoords =  sf::Vector2f((tu+1)*16-0.0001f, (tv+1)*16-0.0001f);
+            body[4*i+3].texCoords =  sf::Vector2f(  tu  *16+0.0001f, (tv+1)*16-0.0001f);
         }
     }
 
@@ -59,10 +59,10 @@ namespace rr
         int hor = icon%16;
         int ver = icon/16;
 
-        body[0].texCoords =  sf::Vector2f(  hor  *16+0.03125f,   ver  *16+0.03125f);
-        body[1].texCoords =  sf::Vector2f((hor+1)*16-0.03125f,   ver  *16+0.03125f);
-        body[2].texCoords =  sf::Vector2f((hor+1)*16-0.03125f, (ver+1)*16-0.03125f);
-        body[3].texCoords =  sf::Vector2f(  hor  *16+0.03125f, (ver+1)*16-0.03125f);
+        body[0].texCoords =  sf::Vector2f(  hor  *16+0.0001f,   ver  *16+0.0001f);
+        body[1].texCoords =  sf::Vector2f((hor+1)*16-0.0001f,   ver  *16+0.0001f);
+        body[2].texCoords =  sf::Vector2f((hor+1)*16-0.0001f, (ver+1)*16-0.0001f);
+        body[3].texCoords =  sf::Vector2f(  hor  *16+0.0001f, (ver+1)*16-0.0001f);
     }
 
     ////////////////////////////////////////////////////////////////////////
@@ -72,7 +72,7 @@ namespace rr
     inline void
     setColor(sf::VertexArray& body, int layer, sf::Color color)
     {
-        for (int i=0; i<4; i++)
+        for (int i = 0; i < 4; i++)
         {
             body[4*layer+i].color = color;
         }
@@ -84,7 +84,7 @@ namespace rr
     inline void
     setColor(sf::VertexArray& body, sf::Color color)
     {
-        for (unsigned i=0; i<body.getVertexCount(); i++)
+        for (unsigned i = 0; i < body.getVertexCount(); i++)
         {
             body[i].color = color;
         }
@@ -115,7 +115,7 @@ namespace rr
 
         if (body.getVertexCount() > 4)
         {
-            for (unsigned i=4; i<body.getVertexCount(); i++)
+            for (unsigned i = 4; i < body.getVertexCount(); i++)
             {
                 body[i].position = body[i%4].position;
             }

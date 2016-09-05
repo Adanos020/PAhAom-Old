@@ -19,11 +19,11 @@ namespace rr
 
       bXP_         (Bar (Bar::HORIZONTAL, Settings::graphics.resolution.x-400, sf::Color(128, 128, 255),
                              sf::Vector2f(Settings::graphics.resolution.x/2 - (Settings::graphics.resolution.x-400)/2,
-                                          Settings::graphics.resolution.y-20)                                       )),
+                                          Settings::graphics.resolution.y-20))),
 
-      tXPlevel_    (Text(sf::Vector2f(0, 0), ""  , Resources::font.Pixel  , 40, sf::Color::Yellow                   )),
-      tLevelNumber_(Text(sf::Vector2f(0, 0), "L0", Resources::font.Pixel  , 30, sf::Color::Green                    )),
-      tFPS_        (Text(sf::Vector2f(0, 0), "0" , Resources::font.Unifont, 20, sf::Color::Yellow                   ))
+      tXPlevel_    (Text(sf::Vector2f(0, 0), ""  , Resources::font.Pixel  , 40, sf::Color::Yellow)),
+      tLevelNumber_(Text(sf::Vector2f(0, 0), "L0", Resources::font.Pixel  , 30, sf::Color::Green)),
+      tFPS_        (Text(sf::Vector2f(0, 0), "0" , Resources::font.Unifont, 20, sf::Color::Yellow))
     {
         tXPlevel_.setPosition(sf::Vector2f(bXP_.getPosition().x + bXP_.getSize().x/2 - tXPlevel_.getSize().x/2,
                                            bXP_.getPosition().y - tXPlevel_.getSize().y));
@@ -42,15 +42,13 @@ namespace rr
     void
     HUD::update(Player* p, int lvl, sf::Clock& timer)
     {
-        if (  p->getBuffs().poison > 0
-            ) bHP_.setFillColor(sf::Color(0x80, 0xff, 0x80));
+        if (p->getBuffs().poison > 0)
+            bHP_.setFillColor(sf::Color(0x80, 0xff, 0x80));
         else
         {
-            if      (  p->getBuffs().hunger >= 500 && p->getBuffs().hunger < 1000
-                     ) bHP_.setFillColor(sf::Color(0xff, 0x40, 0x40));
-            else if (  p->getBuffs().hunger >= 1000
-                     ) bHP_.setFillColor(sf::Color(0xff, 0xaa, 0xaa));
-            else       bHP_.setFillColor(sf::Color::Red);
+            if      (p->getBuffs().hunger >= 500 && p->getBuffs().hunger < 1000) bHP_.setFillColor(sf::Color(0xff, 0x40, 0x40));
+            else if (p->getBuffs().hunger >= 1000)                               bHP_.setFillColor(sf::Color(0xff, 0xaa, 0xaa));
+            else                                                                 bHP_.setFillColor(sf::Color::Red);
         }
 
         bHP_.setValue(sf::Vector2f(p->getAttributes().health     / p->getAttributes().maxHealth, 1));
@@ -62,7 +60,7 @@ namespace rr
                                            bXP_.getPosition().y                      - tXPlevel_.getSize().y));
 
         tLevelNumber_.setString  ("L"+std::to_string(lvl));
-        tLevelNumber_.setPosition(sf::Vector2f(Settings::graphics.resolution.x - tLevelNumber_.getSize().x-10, 10));
+        tLevelNumber_.setPosition(sf::Vector2f(Settings::graphics.resolution.x - tLevelNumber_.getSize().x - 10, 10));
 
         char buf[64];
         snprintf(buf, 64, "%.1f", 1.f/timer.getElapsedTime().asSeconds());
@@ -78,8 +76,8 @@ namespace rr
         target.draw(tXPlevel_    , states);
         target.draw(tLevelNumber_, states);
         
-        if (  Settings::game.debugMode
-            ) target.draw(tFPS_        , states);
+        if (Settings::game.debugMode)
+            target.draw(tFPS_, states);
     }
 
 }

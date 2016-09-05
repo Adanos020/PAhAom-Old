@@ -11,6 +11,15 @@
 namespace rr
 {
 
+    PathFinder::Node* PathFinder::getNode(int tiles[], sf::Vector2i position)
+    {
+        bool walkable = true;
+        if (  tiles[position.x + 77*position.y] == 0
+           || tiles[position.x + 77*position.y] == 1
+            ) walkable = false;
+        return new Node(position, walkable);
+    }
+
     std::vector<sf::Vector2i>
     PathFinder::aStar(sf::Vector2i from, sf::Vector2i to, int tiles[])
     {
@@ -30,14 +39,14 @@ namespace rr
 
         while ((n == 0 || (current != end)))
         {
-            for (auto it=opened.begin(); it!=opened.end(); ++it)
+            for (auto it = opened.begin(); it != opened.end(); ++it)
             {
-                if (  it == opened.begin() || (*it)->getF() <= current->getF()
-                    ) current = *it;
+                if (it == opened.begin() || (*it)->getF() <= current->getF())
+                    current = *it;
             }
 
-            if (  current == end
-                ) break;
+            if (current == end)
+                break;
 
             opened.remove(current);
             current->setOpened(false);
@@ -45,16 +54,16 @@ namespace rr
             closed.push_back(current);
             current->setClosed(true);
 
-            for (int x=-1; x<2; ++x)
+            for (int x = -1; x <= 1; ++x)
             {
-                for (int y=-1; y<2; ++y)
+                for (int y = -1; y <= 1; ++y)
                 {
-                    if (  x == 0 && y == 0
-                        ) continue;
-                    
+                    if (x == 0 && y == 0)
+                        continue;
+
                     child = getNode(tiles, sf::Vector2i(current->getPosition().x+x, current->getPosition().y+y));
-                    if (  child->isClosed() || !child->isWalkable()
-                        ) continue;
+                    if (child->isClosed() || !child->isWalkable())
+                        continue;
 
                     if (x != 0 && y != 0)
                     {

@@ -48,7 +48,7 @@ namespace rr
     {
         if (wOpts_.isVisible())
         {
-            sf::String action = wOpts_.getComponent<Menu>(0)->getChosenOption(rw, event);
+            sf::String action = wOpts_.getComponent <Menu> (0)->getChosenOption(rw, event);
 
             auto answers = (Answers*) dialogue_->getCurrentBranch();
 
@@ -57,50 +57,50 @@ namespace rr
                 bool update = false;
                 if (player_->getAttributes().crafting)
                 {
-                    if (  answers->removeAnswer("Crafting (10SP, 2 gold)")
-                        ) update = true;
+                    if (answers->removeAnswer("Crafting (10SP, 2 gold)"))
+                        update = true;
                 }
 
                 if (player_->getAttributes().alchemy)
                 {
-                    if (  answers->removeAnswer("Alchemy (10SP, 2 gold)")
-                        ) update = true;
+                    if (answers->removeAnswer("Alchemy (10SP, 2 gold)"))
+                        update = true;
                 }
 
                 if (player_->getAttributes().cold_weapon_mastery)
                 {
-                    if (  answers->removeAnswer("Cold Weapon Mastery (10SP, 2 gold)")
-                        ) update = true;
+                    if (answers->removeAnswer("Cold Weapon Mastery (10SP, 2 gold)"))
+                        update = true;
                 }
 
                 if (player_->getAttributes().ranged_weapon_mastery)
                 {
-                    if (  answers->removeAnswer("Ranged Weapon Mastery (10SP, 2 gold)")
-                        ) update = true;
+                    if (answers->removeAnswer("Ranged Weapon Mastery (10SP, 2 gold)"))
+                        update = true;
                 }
 
                 if (player_->getAttributes().eagle_eye)
                 {
-                    if (  answers->removeAnswer("Enhanced Sight (10SP, 2 gold)")
-                        ) update = true;
+                    if (answers->removeAnswer("Enhanced Sight (10SP, 2 gold)"))
+                        update = true;
                 }
 
                 if (player_->getAttributes().mana_regeneration)
                 {
-                    if (  answers->removeAnswer("Mana Regeneration (10SP, 2 gold)")
-                        ) update = true;
+                    if (answers->removeAnswer("Mana Regeneration (10SP, 2 gold)"))
+                        update = true;
                 }
 
                 if (player_->getAttributes().health_regeneration)
                 {
-                    if (  answers->removeAnswer("Health Regeneration (10SP, 2 gold)")
-                        ) update = true;
+                    if (answers->removeAnswer("Health Regeneration (10SP, 2 gold)"))
+                        update = true;
                 }
 
                 if (player_->getAttributes().faster_learning)
                 {
-                    if (  answers->removeAnswer("Faster Learning (10SP, 2 gold)")
-                        ) update = true;
+                    if (answers->removeAnswer("Faster Learning (10SP, 2 gold)"))
+                        update = true;
                 }
 
                 // after removing any option the choice menu must be updated
@@ -111,7 +111,7 @@ namespace rr
                     auto answers = (Answers*) dialogue_->getCurrentBranch();
 
                     menu->clear();
-                    for (unsigned i=0; i<answers->getAnswers().size(); ++i)
+                    for (unsigned i = 0; i < answers->getAnswers().size(); ++i)
                     {
                         menu->addOption(answers->getAnswers()[i]->getSentence());
                     }
@@ -120,8 +120,8 @@ namespace rr
 
             // recognizing the choice
             auto chosen = ((Answers*) dialogue_->getCurrentBranch())->find(action);
-            if (  chosen != nullptr
-                ) dialogue_->setTree(chosen);
+            if (chosen != nullptr)
+                dialogue_->setTree(chosen);
 
             // recognizing if the choice is a request for learning
             // a skill or increasing some attributes
@@ -171,13 +171,13 @@ namespace rr
             // of the dialogue
             if (chosen != nullptr)
             {
-                wOpts_.getComponent<Menu>(0)->clear();
+                wOpts_.getComponent <Menu> (0)->clear();
                 if (instanceof <Answers, Branch> (dialogue_->getCurrentBranch()))
                 {
                     auto menu = wOpts_.getComponent <Menu> (0);
                     auto answers = (Answers*) dialogue_->getCurrentBranch();
 
-                    for (unsigned i=0; i<answers->getAnswers().size(); ++i)
+                    for (unsigned i = 0; i < answers->getAnswers().size(); ++i)
                     {
                         menu->addOption(answers->getAnswers()[i]->getSentence());
                     }
@@ -198,11 +198,11 @@ namespace rr
         }
         else if (wConv_.isVisible())
         {
-            if (  event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Escape)
-                ) dialogue_->goLeft();
+            if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Escape))
+                dialogue_->goLeft();
 
-            if (  dialogue_->getCurrentBranch() == nullptr
-                ) close(g);
+            if (dialogue_->getCurrentBranch() == nullptr)
+                close(g);
             else
             {
                 if (instanceof <Answers, Branch> (dialogue_->getCurrentBranch()))
@@ -210,7 +210,7 @@ namespace rr
                     auto menu = wOpts_.getComponent <Menu> (0);
                     auto answers = (Answers*) dialogue_->getCurrentBranch();
 
-                    for (unsigned i=0; i<answers->getAnswers().size(); ++i)
+                    for (unsigned i = 0; i < answers->getAnswers().size(); ++i)
                     {
                         menu->addOption(answers->getAnswers()[i]->getSentence());
                     }
@@ -220,11 +220,12 @@ namespace rr
                 else if (instanceof <Sentence, Branch> (dialogue_->getCurrentBranch()))
                 {
                     wConv_.getComponent <Text> (0)->setString(((Sentence*) dialogue_->getCurrentBranch())->getSentence());
-                    
-                    if ( ((Sentence*) dialogue_->getCurrentBranch())->getSpeaker() == Sentence::_NPC
-                        ) wConv_.setHeader(npcName_);
-                    else  wConv_.setHeader("");
-                    
+
+                    if (((Sentence*) dialogue_->getCurrentBranch())->getSpeaker() == Sentence::_NPC)
+                        wConv_.setHeader(npcName_);
+                    else
+                        wConv_.setHeader("");
+
                     wOpts_.setVisible(false);
                     wConv_.setVisible(true);
                 }
@@ -243,7 +244,7 @@ namespace rr
             auto menu = wOpts_.getComponent <Menu> (0);
             auto answers = (Answers*) dialogue_->getCurrentBranch();
 
-            for (unsigned i=0; i<answers->getAnswers().size(); ++i)
+            for (unsigned i = 0; i < answers->getAnswers().size(); ++i)
             {
                 menu->addOption(answers->getAnswers()[i]->getSentence());
             }
@@ -253,11 +254,12 @@ namespace rr
         else if (instanceof <Sentence, Branch> (dialogue_->getCurrentBranch()))
         {
             wConv_.getComponent <Text> (0)->setString(((Sentence*) dialogue_->getCurrentBranch())->getSentence());
-            
-            if ( ((Sentence*) dialogue_->getCurrentBranch())->getSpeaker() == Sentence::_NPC
-                ) wConv_.setHeader(npcName_);
-            else  wConv_.setHeader("");
-            
+
+            if (((Sentence*) dialogue_->getCurrentBranch())->getSpeaker() == Sentence::_NPC)
+                wConv_.setHeader(npcName_);
+            else
+                wConv_.setHeader("");
+
             wConv_.setVisible(true);
         }
     }
@@ -268,7 +270,7 @@ namespace rr
         dialogue_->reset();
         dialogue_ = nullptr;
 
-        wOpts_.getComponent<Menu>(0)->clear();
+        wOpts_.getComponent <Menu> (0)->clear();
 
         wOpts_.setVisible(false);
         wConv_.setVisible(false);

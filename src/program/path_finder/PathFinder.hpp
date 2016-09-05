@@ -49,17 +49,17 @@ namespace rr
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Sets the node's parent node.
                       ////////////////////////////////////////////////////////////////////////
-                      void setParent(Node* n) { parent_   = n; }
+                      void setParent(Node* n) { parent_ = n; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Sets the node closed.
                       ////////////////////////////////////////////////////////////////////////
-                      void setClosed(bool closed) { closed_   = closed; }
+                      void setClosed(bool closed) { closed_ = closed; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Sets the node opened.
                       ////////////////////////////////////////////////////////////////////////
-                      void setOpened(bool opened) { opened_   = opened; }
+                      void setOpened(bool opened) { opened_ = opened; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Sets the node walkable.
@@ -109,7 +109,7 @@ namespace rr
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Calculates and returns the node's F score.
                       ////////////////////////////////////////////////////////////////////////
-                      int getG(Node* n) const { return n->g_+((position_.x == n->position_.x || position_.y == n->position_.y) ? 10 : 14); }
+                      int getG(Node* n) const { return n->g_ + ((position_.x == n->position_.x || position_.y == n->position_.y) ? 10 : 14); }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Returns the node's H score.
@@ -125,14 +125,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Creates and returns a new node.
              ////////////////////////////////////////////////////////////////////////
-             static Node* getNode (int tiles[], sf::Vector2i position)
-             {
-                 bool walkable = true;
-                 if (  tiles[position.x + 77*position.y] == 0
-                    || tiles[position.x + 77*position.y] == 1
-                     ) walkable = false;
-                 return new Node(position, walkable);
-             }
+             static Node* getNode(int tiles[], sf::Vector2i position);
     
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Creates and returns a new node.

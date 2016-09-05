@@ -37,8 +37,8 @@ namespace rr
     void
     Window::addComponent(Component* c, bool attached)
     {
-        if (  attached
-            ) c->setPosition(sf::Vector2f(body_.getPosition().x + c->getPosition().x, body_.getPosition().y + c->getPosition().y));
+        if (attached)
+            c->setPosition(sf::Vector2f(body_.getPosition().x + c->getPosition().x, body_.getPosition().y + c->getPosition().y));
         c->setParentComponent(this);
         components_.push_back(c);
     }

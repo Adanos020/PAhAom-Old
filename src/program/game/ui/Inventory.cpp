@@ -24,33 +24,33 @@ namespace rr
 {
 
     Inventory::Inventory(Player* p) :
-      wInve_  (Window(Resources::dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f) (Settings::graphics.resolution/2u - sf::Vector2u(382, 225)))),
-      player_ (p),
-      bronze_ (0),
-      silver_ (0),
-      gold_   (0)
+      wInve_ (Window(Resources::dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f) (Settings::graphics.resolution/2u - sf::Vector2u(382, 225)))),
+      player_(p),
+      bronze_(0),
+      silver_(0),
+      gold_  (0)
     {
         shadow_.setSize     ((sf::Vector2f) Settings::graphics.resolution);
         shadow_.setPosition (sf::Vector2f(0, 0));
         shadow_.setFillColor(sf::Color(0, 0, 0, 172));
 
-#define component(w, c, i) w.getComponent<c>(i)
+#define component(w, c, i) w.getComponent <c> (i)
 
-            for (int i=0; i<4; ++i)
+            for (int i = 0; i < 4; ++i)
             {
-                for (int j=0; j<8; ++j)
+                for (int j = 0; j < 8; ++j)
                 {
                     wInve_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10 + j*95, 30 + i*95));
                 }
             }
 
-            wInve_ += new Image (sf::Vector2f(0  , 390), Resources::texture.items, 16, 33);
-            wInve_ += new Image (sf::Vector2f(150, 390), Resources::texture.items, 16, 34);
-            wInve_ += new Image (sf::Vector2f(300, 390), Resources::texture.items, 16, 35);
+            wInve_ += new Image(sf::Vector2f(0  , 390), Resources::texture.items, 16, 33);
+            wInve_ += new Image(sf::Vector2f(150, 390), Resources::texture.items, 16, 34);
+            wInve_ += new Image(sf::Vector2f(300, 390), Resources::texture.items, 16, 35);
 
-            wInve_ += new Text  (sf::Vector2f(70 , 415), "GOLD", Resources::font.Pixel, 30);
-            wInve_ += new Text  (sf::Vector2f(220, 415), "SILV", Resources::font.Pixel, 30);
-            wInve_ += new Text  (sf::Vector2f(370, 415), "BRON", Resources::font.Pixel, 30);
+            wInve_ += new Text(sf::Vector2f(70 , 415), "GOLD", Resources::font.Pixel, 30);
+            wInve_ += new Text(sf::Vector2f(220, 415), "SILV", Resources::font.Pixel, 30);
+            wInve_ += new Text(sf::Vector2f(370, 415), "BRON", Resources::font.Pixel, 30);
 
             auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
                  bQuit->setPosition(sf::Vector2f(wInve_.getSize().x - bQuit->getSize().x - 15, 
@@ -74,7 +74,7 @@ namespace rr
 
             ((wInve_ |= wInfo) |= wOpts) += bQuit;
 
-        for (int i=0; i<5; ++i)
+        for (int i = 0; i < 5; ++i)
         {
             sCarryOn_[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(Settings::graphics.resolution.x-90, Settings::graphics.resolution.y/2-250 + i*95));
         }
@@ -94,9 +94,9 @@ namespace rr
     void
     Inventory::clear()
     {
-        for (int i=0; i<32; ++i)
+        for (int i = 0; i < 32; ++i)
         {
-            wInve_.getComponent<Slot>(i)->clear();
+            wInve_.getComponent <Slot> (i)->clear();
         }
         for (auto slot : sCarryOn_)
         {
@@ -111,7 +111,7 @@ namespace rr
     Inventory::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* game)
     {
 
-#define component(w, c, i) w.getComponent<c>(i)
+#define component(w, c, i) w.getComponent <c> (i)
 #define wInfo (*component(wInve_, Window, 0))
 #define wOpts (*component(wInve_, Window, 1))
 ;
@@ -125,16 +125,16 @@ namespace rr
                 {
                     Item* item = ((Slot*)wOpts.getParentComponent())->getItem();
 
-                    if (instanceof<Equipable, Item>(item))
+                    if (instanceof <Equipable, Item> (item))
                     {
                         bool equip = !((Equipable*)item)->isEquipped(); 
-                        
-                        if (  player_->equipItem((Equipable*)item, equip)
-                            ) ((Equipable*)item)->equip(equip);
-                        
-                        if (instanceof<ColdWeapon, Item>(item))
+
+                        if (player_->equipItem((Equipable*)item, equip))
+                            ((Equipable*)item)->equip(equip);
+
+                        if (instanceof <ColdWeapon, Item> (item))
                         {
-                            for (int i=0; i<32; ++i)
+                            for (int i = 0; i < 32; ++i)
                             {
                                 if (instanceof <ColdWeapon, Item> (component(wInve_, Slot, i)->getItem()))
                                 {
@@ -158,7 +158,7 @@ namespace rr
                     Item* item = ((Slot*)wOpts.getParentComponent())->getItem();
                     item->setPosition(player_->getPosition());
 
-                    if (  instanceof<Equipable, Item>(item)
+                    if (  instanceof <Equipable, Item> (item)
                        && ((Equipable*)item)->isEquipped()
                         ) ((Equipable*)item)->equip(false);
 
@@ -180,28 +180,28 @@ namespace rr
             }
             else // ITEM OPTIONS WINDOW IS NOT OPEN
             {
-                if (  component(wInve_, Button, 0)->isPressed(rw, e)
-                    ) game->pause(false);
+                if (component(wInve_, Button, 0)->isPressed(rw, e))
+                    game->pause(false);
 
                 bool slotPointed = false;
                 /* BACKPACK */
-                for (int i=0; i<32; ++i)
+                for (int i = 0; i < 32; ++i)
                 {
                     if (component(wInve_, Slot, i)->containsMouseCursor(rw) && !component(wInve_, Slot, i)->isEmpty())
                     {
                         // SLOT WAS LEFT-CLICKED
                         if (component(wInve_, Slot, i)->isPressed(rw, e) && !component(wInve_, Slot, i)->isEmpty())
                         {
-                            if (instanceof<Equipable, Item>(component(wInve_, Slot, i)->getItem()))
+                            if (instanceof <Equipable, Item> (component(wInve_, Slot, i)->getItem()))
                             {
                                 bool equip = !((Equipable*)component(wInve_, Slot, i)->getItem())->isEquipped(); 
                                 
-                                if (  player_->equipItem((Equipable*) component(wInve_, Slot, i)->getItem(), equip)
-                                    ) ((Equipable*)component(wInve_, Slot, i)->getItem())->equip(equip);
+                                if (player_->equipItem((Equipable*) component(wInve_, Slot, i)->getItem(), equip))
+                                    ((Equipable*)component(wInve_, Slot, i)->getItem())->equip(equip);
 
-                                if (instanceof<ColdWeapon, Item>(component(wInve_, Slot, i)->getItem()))
+                                if (instanceof <ColdWeapon, Item> (component(wInve_, Slot, i)->getItem()))
                                 {
-                                    for (int j=0; j<32; ++j)
+                                    for (int j = 0; j < 32; ++j)
                                     {
                                         if (j != i && instanceof <ColdWeapon, Item> (component(wInve_, Slot, j)->getItem()))
                                         {
@@ -210,9 +210,9 @@ namespace rr
                                     }
                                 }
 
-                                if (instanceof<RangedWeapon, Item>(component(wInve_, Slot, i)->getItem()))
+                                if (instanceof <RangedWeapon, Item> (component(wInve_, Slot, i)->getItem()))
                                 {
-                                    for (int j=0; j<32; ++j)
+                                    for (int j = 0; j < 32; ++j)
                                     {
                                         if (j != i && instanceof <RangedWeapon, Item> (component(wInve_, Slot, j)->getItem()))
                                         {
@@ -243,21 +243,17 @@ namespace rr
 
                                 Item* item = ((Slot*)wOpts.getParentComponent())->getItem();
 
-                                if      (  instanceof<Equipable, Item>(item)
-                                         ) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.equip"]);
-                                else if (  instanceof<Potion   , Item>(item)
-                                         ) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.drink"]);
-                                else if (  instanceof<Food     , Item>(item)
-                                         ) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.eat"]);
-                                else if (  instanceof<Book     , Item>(item)
-                                         ) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.read"]);
-                                else       component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.use"]);
+                                if      (instanceof <Equipable, Item> (item)) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.equip"]);
+                                else if (instanceof <Potion   , Item> (item)) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.drink"]);
+                                else if (instanceof <Food     , Item> (item)) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.eat"  ]);
+                                else if (instanceof <Book     , Item> (item)) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.read" ]);
+                                else                                        component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.use"  ]);
 
                                 wOpts.setHeader(item->getName());
-                                if (  wOpts.getHeader().getSize().x+10 >= 142
-                                    ) wOpts.setSize(sf::Vector2f(wOpts.getHeader().getSize().x+10, 143));
-
-                                else wOpts.setSize(sf::Vector2f(142, 143));
+                                if (wOpts.getHeader().getSize().x+10 >= 142)
+                                    wOpts.setSize(sf::Vector2f(wOpts.getHeader().getSize().x+10, 143));
+                                else
+                                    wOpts.setSize(sf::Vector2f(142, 143));
                                 wOpts.setVisible(true);
                             }
                             else
@@ -274,7 +270,7 @@ namespace rr
                     }
                 }
                 /* CARRY-ON */
-                for (int i=0; i<5; ++i)
+                for (int i = 0; i < 5; ++i)
                 {
                     if (sCarryOn_[i]->containsMouseCursor(rw) && !sCarryOn_[i]->isEmpty())
                     {
@@ -305,17 +301,18 @@ namespace rr
                     wInfo.setSize    (component(wInfo, Text, 0)->getSize() + sf::Vector2f(10, 30));
                     wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw) + sf::Vector2f(5, 5));
 
-                    if (  wInfo.getPosition().x+wInfo.getSize().x+5 > (float)rw.getSize().x
-                        ) wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw)
-                                            -sf::Vector2f(wInfo.getPosition().x + wInfo.getSize().x - (float)rw.getSize().x, -5));
+                    if (wInfo.getPosition().x+wInfo.getSize().x+5 > (float) rw.getSize().x)
+                        wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw)
+                                          -sf::Vector2f(wInfo.getPosition().x + wInfo.getSize().x - (float) rw.getSize().x, -5));
                                             
-                    if (  wInfo.getPosition().y+wInfo.getSize().y+5 > (float)rw.getSize().y
-                        ) wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw)
-                                            -sf::Vector2f(-5, wInfo.getPosition().y + wInfo.getSize().y - (float)rw.getSize().y));
+                    if (wInfo.getPosition().y+wInfo.getSize().y+5 > (float) rw.getSize().y)
+                        wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw)
+                                          -sf::Vector2f(-5, wInfo.getPosition().y + wInfo.getSize().y - (float) rw.getSize().y));
 
                     wInfo.setVisible(true);
                 }
-                else wInfo.setVisible(false);
+                else
+                    wInfo.setVisible(false);
             }
         }
 
@@ -328,32 +325,35 @@ namespace rr
     bool
     Inventory::addItem(Item* item)
     {
-        if (  item == nullptr
-            ) return false;
+        if (item == nullptr)
+            return false;
 
-#define slot(i) wInve_.getComponent<Slot>(i)
+#define slot(i) wInve_.getComponent <Slot> (i)
 
      // in the beginning we check if the picked item is a coin
-        if (instanceof<Coin, Item>(item))
+        if (instanceof <Coin, Item> (item))
         {
          // first we recognize the coin type and size
             if (((Coin*)item)->getType() == Coin::BRONZE)
             {
-                if (  ((Coin*)item)->getSize() == Coin::BIG
-                    ) bronze_ += item->getAmount()*5;
-                else  bronze_ += item->getAmount();
+                if (((Coin*)item)->getSize() == Coin::BIG)
+                    bronze_ += item->getAmount()*5;
+                else
+                    bronze_ += item->getAmount();
             }
             else if (((Coin*)item)->getType() == Coin::SILVER)
             {
-                if (  ((Coin*)item)->getSize() == Coin::BIG
-                    ) silver_ += item->getAmount()*5;
-                else  silver_ += item->getAmount();
+                if (((Coin*)item)->getSize() == Coin::BIG)
+                    silver_ += item->getAmount()*5;
+                else
+                    silver_ += item->getAmount();
             }
             else if (((Coin*)item)->getType() == Coin::GOLDEN)
             {
-                if (  ((Coin*)item)->getSize() == Coin::BIG
-                    ) gold_ += item->getAmount()*5;
-                else  gold_ += item->getAmount();
+                if (((Coin*)item)->getSize() == Coin::BIG)
+                    gold_ += item->getAmount()*5;
+                else
+                    gold_ += item->getAmount();
             }
 
          // then we do the simple calculations: 1 gold = 100 silver, 1 silver = 100 bronze
@@ -375,7 +375,7 @@ namespace rr
      // if the item we want to add is stackable then we check if any of the slots already contains it
         if (item->isStackable())
         {
-            for (int i=0; i<32; ++i)
+            for (int i = 0; i < 32; ++i)
             {
                 if (!slot(i)->isEmpty() && slot(i)->getItem()->getID() == item->getID())
                 {
@@ -387,7 +387,7 @@ namespace rr
         }
 
      // if not then we look for the first empty slot and add the item to it
-        for (int i=0; i<32; ++i)
+        for (int i = 0; i < 32; ++i)
         {
             if (slot(i)->isEmpty())
             {
@@ -409,31 +409,35 @@ namespace rr
             auto coin = (Coin*) item;
             switch (coin->getType())
             {
-                case Coin::GOLDEN: if (  amount == 0
-                                       ) gold_   = 0;
-                                   else  gold_  -= amount;
+                case Coin::GOLDEN: if (amount == 0)
+                                       gold_   = 0;
+                                   else
+                                       gold_  -= amount;
                                    break;
 
-                case Coin::SILVER: if (  amount  == 0
-                                       ) silver_  = 0;
-                                   else  silver_ -= amount;
+                case Coin::SILVER: if (amount  == 0)
+                                       silver_  = 0;
+                                   else
+                                       silver_ -= amount;
                                    break;
 
-                case Coin::BRONZE: if (  amount  == 0
-                                       ) bronze_  = 0;
-                                   else  bronze_ -= amount;
+                case Coin::BRONZE: if (amount  == 0)
+                                       bronze_  = 0;
+                                   else
+                                       bronze_ -= amount;
                                    break;
             }
         }
         else
         {
-            for (int i=0; i<32; ++i)
+            for (int i = 0; i < 32; ++i)
             {
                 if (!slot(i)->isEmpty() && slot(i)->getItem()->getID() == item->getID())
                 {
-                    if (  amount == 0
-                        ) slot(i)->removeItem();
-                    else  slot(i)->removeItem(amount);
+                    if (amount == 0)
+                        slot(i)->removeItem();
+                    else
+                        slot(i)->removeItem(amount);
                 }
             }
         }
@@ -444,9 +448,9 @@ namespace rr
     {
         // just a simple bubble sort algorithm, there is no need for something
         // complex while there are so few elements to sort
-        for (int i=0; i<31; ++i)
+        for (int i = 0; i < 31; ++i)
         {
-            for (int j=1; j<32; ++j)
+            for (int j = 1; j < 32; ++j)
             {
                 if ( (!slot(j-1)->isEmpty() && slot(j)->isEmpty())
                    ||( slot(j-1)->isEmpty() && slot(j)->isEmpty())
@@ -461,10 +465,10 @@ namespace rr
     bool
     Inventory::contains(Item* sought)
     {
-        for (int i=0; i<32; ++i)
+        for (int i = 0; i < 32; ++i)
         {
-            if ( !slot(i)->isEmpty() && slot(i)->getItem()->getID() == sought->getID()
-                ) return true;
+            if (!slot(i)->isEmpty() && slot(i)->getItem()->getID() == sought->getID())
+                return true;
         }
         return false;
     }
@@ -485,17 +489,17 @@ namespace rr
 
     void Inventory::open()
     {
-        wInve_.getComponent<Text>(0)->setString(std::to_string((int) gold_));
-        wInve_.getComponent<Text>(1)->setString(std::to_string((int) silver_));
-        wInve_.getComponent<Text>(2)->setString(std::to_string((int) bronze_));
+        wInve_.getComponent <Text> (0)->setString(std::to_string((int) gold_));
+        wInve_.getComponent <Text> (1)->setString(std::to_string((int) silver_));
+        wInve_.getComponent <Text> (2)->setString(std::to_string((int) bronze_));
 
         wInve_.setVisible(true);
     }
 
     void Inventory::close()
     {
-        wInve_.getComponent<Window>(1)->setVisible(false);
-        wInve_.getComponent<Window>(1)->setParentComponent(nullptr);
+        wInve_.getComponent <Window> (1)->setVisible(false);
+        wInve_.getComponent <Window> (1)->setParentComponent(nullptr);
         wInve_.setVisible(false);
     }
 
@@ -511,7 +515,7 @@ namespace rr
             int itemsNumber;
             readFile <int> (file, itemsNumber);
 
-            for (int i=0; i<itemsNumber; ++i)
+            for (int i = 0; i < itemsNumber; ++i)
             {
                 int itemType;
                 readFile <int> (file, itemType);
@@ -546,7 +550,7 @@ namespace rr
              << silver_ << ' '
              << gold_   << '\n';
 
-        for (int i=0; i<32; ++i)
+        for (int i = 0; i < 32; ++i)
         {
             if (slot(i)->isEmpty())
             {
@@ -555,10 +559,10 @@ namespace rr
             }
         }
 
-        for (int i=0; i<32; ++i)
+        for (int i = 0; i < 32; ++i)
         {
-            if (  slot(i)->isEmpty()
-                ) break;
+            if (slot(i)->isEmpty())
+                break;
             *slot(i)->getItem() >> file << '\n';
         }
 

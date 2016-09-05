@@ -35,7 +35,7 @@ namespace rr
     Menu::removeOption(unsigned index)
     {
         options_.erase(options_.begin()+index);
-        for (int i=0; i<(int)options_.size(); ++i)
+        for (int i = 0; i < (int) options_.size(); ++i)
         {
             options_[i].setPosition(position_ + sf::Vector2f(0, i*40));
         }
@@ -44,9 +44,9 @@ namespace rr
     sf::String
     Menu::getChosenOption(sf::RenderWindow& rw, sf::Event& event)
     {
-        for (unsigned i=0; i<options_.size(); ++i) {
-            if (  options_[i].isPressed(rw, event)
-                ) return options_[i].getText().getString();
+        for (unsigned i = 0; i < options_.size(); ++i) {
+            if (options_[i].isPressed(rw, event))
+                return options_[i].getText().getString();
         }
         return "";
     }
@@ -63,7 +63,7 @@ namespace rr
     Menu::setPosition(sf::Vector2f position)
     {
         position_ = position;
-        for (int i=0; i<(int)options_.size(); ++i)
+        for (int i = 0; i < (int) options_.size(); ++i)
         {
             options_[i].setPosition(position + sf::Vector2f(0, i*40));
         }

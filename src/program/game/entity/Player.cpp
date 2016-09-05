@@ -146,26 +146,21 @@ namespace rr
                 buffs_.weakness     -= (buffs_.weakness     == 0 ? 0 : 1);
                 buffs_.hunger       ++;
 
-                if (  buffs_.hunger == 500
-                    ) subject.notify(Observer::PLAYER_HUNGRY  , nullptr);
-                if (  buffs_.hunger == 1000
-                    ) subject.notify(Observer::PLAYER_STARVING, nullptr);
+                if (buffs_.hunger == 500 ) subject.notify(Observer::PLAYER_HUNGRY  , nullptr);
+                if (buffs_.hunger == 1000) subject.notify(Observer::PLAYER_STARVING, nullptr);
 
-                if (  attrs_.mana_regeneration
-                    ) attrs_.mana += 0.1;
+                if (attrs_.mana_regeneration)
+                    attrs_.mana += 0.1;
 
-                if      (  buffs_.hunger < 500
-                         ) attrs_.health += (attrs_.health_regeneration ? 0.1f : 0.05f);
-                else if (  buffs_.hunger < 1000
-                         ) attrs_.health += (attrs_.health_regeneration ? 0.05f : 0.f);
-                else if (  buffs_.hunger >= 1000
-                         ) attrs_.health -= (attrs_.health_regeneration ? 0.f : 0.05f);
+                if      (buffs_.hunger < 500  ) attrs_.health += (attrs_.health_regeneration ? 0.1f : 0.05f);
+                else if (buffs_.hunger < 1000 ) attrs_.health += (attrs_.health_regeneration ? 0.05f : 0.f);
+                else if (buffs_.hunger >= 1000) attrs_.health -= (attrs_.health_regeneration ? 0.f : 0.05f);
 
-                if (  buffs_.poison > 0
-                    ) attrs_.health -= 1.f;
+                if (buffs_.poison > 0)
+                    attrs_.health -= 1.f;
 
-                if (  buffs_.regeneration > 0
-                    ) attrs_.health += 0.15f;
+                if (buffs_.regeneration > 0)
+                    attrs_.health += 0.15f;
 
                 moving_ = false;
             }
@@ -175,17 +170,17 @@ namespace rr
                 )  body_.setPosition((sf::Vector2f) position_*80.f);
         }
 
-        if (  attrs_.health >= attrs_.maxHealth
-            ) attrs_.health  = attrs_.maxHealth;
-        
-        if (  attrs_.health <= 0
-            ) attrs_.health  = 0;
-        
-        if (  attrs_.mana <= 0
-            ) attrs_.mana  = 0;
+        if (attrs_.health >= attrs_.maxHealth)
+            attrs_.health  = attrs_.maxHealth;
 
-        if (  attrs_.mana >= attrs_.maxMana
-            ) attrs_.mana  = attrs_.maxMana;
+        if (attrs_.health <= 0)
+            attrs_.health  = 0;
+
+        if (attrs_.mana <= 0)
+            attrs_.mana  = 0;
+
+        if (attrs_.mana >= attrs_.maxMana)
+            attrs_.mana  = attrs_.maxMana;
 
         if (attrs_.experience >= attrs_.nextLevel)
         {
@@ -213,8 +208,8 @@ namespace rr
     Player::attack(NPC* npc)
     {
         int maxDamage = attrs_.strength/3.f;
-        if (  coldWeapon_ != nullptr
-            ) maxDamage = coldWeapon_->getDamageDealt() - (coldWeapon_->getRequirement() - attrs_.strength);
+        if (coldWeapon_ != nullptr)
+            maxDamage = coldWeapon_->getDamageDealt() - (coldWeapon_->getRequirement() - attrs_.strength);
 
         npc->handleDamage(rand()%maxDamage);
     }
@@ -222,8 +217,8 @@ namespace rr
     void
     Player::handleDamage(int damage)
     {
-        if (  damage >= attrs_.armor
-            ) attrs_.health -= (damage - attrs_.armor);
+        if (damage >= attrs_.armor)
+            attrs_.health -= (damage - attrs_.armor);
     }
 
     void
@@ -340,9 +335,10 @@ namespace rr
         }
         else if (instanceof<Food, Item>(item))
         {
-            if (  buffs_.hunger >= 1000
-                ) buffs_.hunger  =  500;
-            else  buffs_.hunger  =    0;
+            if (buffs_.hunger >= 1000)
+                buffs_.hunger  = 500;
+            else
+                buffs_.hunger  = 0;
 
             attrs_.health += 10;
         }

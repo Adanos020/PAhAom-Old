@@ -24,7 +24,7 @@ namespace rr
 
         wBofs_ += new Image(sf::Vector2f(0, 0), Resources::texture.book_of_spells);
 
-        for (int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
             wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(175, 150+120*i));
             wBofs_ += new Slot(sf::Vector2f(80, 80), sf::Vector2f(295, 150+120*i));
@@ -42,12 +42,12 @@ namespace rr
     {
         if (isOpen())
         {
-            if (  wBofs_.getComponent<Button>(0)->isPressed(rw, ev)
-                ) g->pause(false);
+            if (wBofs_.getComponent <Button> (0)->isPressed(rw, ev))
+                g->pause(false);
 
-            for (int i=0; i<12; i++)
+            for (int i = 0; i < 12; i++)
             {
-                if (wBofs_.getComponent<Slot>(i)->isPressed(rw, ev))
+                if (wBofs_.getComponent <Slot> (i)->isPressed(rw, ev))
                 {
 
                 }

@@ -39,7 +39,7 @@ namespace rr
     {
         standingLeft_.setSpriteSheet(Resources::texture.npc);
 
-        for (int i=0; i<(type_ == KUNG_FU_MASTER ? 20 : 10); i++)
+        for (int i = 0; i < (type_ == KUNG_FU_MASTER ? 20 : 10); i++)
         {
             standingLeft_.addFrame(sf::IntRect(i*16, type_*16, 16, 16));
         }
@@ -51,8 +51,8 @@ namespace rr
         body_.setAnimation(*currentAnimation_);
         body_.setLooped   (true);
         
-        if (  type_ == MAGE
-            ) body_.setFrameTime(sf::seconds(.4f));
+        if (type_ == MAGE)
+            body_.setFrameTime(sf::seconds(.4f));
         else  body_.setFrameTime(sf::seconds(.2f));
 
         // building dialogue trees
@@ -152,11 +152,11 @@ namespace rr
                 buffs_.slowness     -= (buffs_.slowness     == 0 ? 0 : 1);
                 buffs_.weakness     -= (buffs_.weakness     == 0 ? 0 : 1);
 
-                if (  buffs_.poison > 0
-                    ) attrs_.health -= 1.f;
+                if (buffs_.poison > 0)
+                    attrs_.health -= 1.f;
 
-                if (  buffs_.regeneration > 0
-                    ) attrs_.health += 0.15f;
+                if (buffs_.regeneration > 0)
+                    attrs_.health += 0.15f;
 
                 moving_ = false;
             }

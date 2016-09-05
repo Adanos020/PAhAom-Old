@@ -41,12 +41,13 @@ namespace rr
     Door::setOpen(bool b)
     {
         open_ = b;
-        if (  open_
-            ) body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80                  , 16), sf::Vector2i(16, 16)));
-        else  body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80+80*withoutWindow_,  0), sf::Vector2i(16, 16)));
-
-        if (  open_
-            ) locked_ = false;
+        if (open_)
+        {
+            body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80, 16), sf::Vector2i(16, 16)));
+            locked_ = false;
+        }
+        else
+            body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80 + 80*withoutWindow_, 0), sf::Vector2i(16, 16)));
     }
 
     void

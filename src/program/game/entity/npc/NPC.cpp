@@ -168,10 +168,10 @@ namespace rr
     int
     NPC::detects(Entity* e) const
     {
-        for (int i=0; i<8; ++i)
+        for (int i = 0; i < 8; ++i)
         {
-            if (  e->getGridPosition() == entityDetector_[i]
-                ) return i;
+            if (e->getGridPosition() == entityDetector_[i])
+                return i;
         }
         return -1;
     }

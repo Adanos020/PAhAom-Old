@@ -22,10 +22,10 @@ namespace rr
     {
         if (p == VERTICAL)
         {
-            bLeft_      = Button  (position, L"∧", 30);
-            bRight_     = Button  (position+sf::Vector2f(0, length+20), L"∨", 30);
-            indicator_  = Button  (position+sf::Vector2f(0, 10), "_", 30);
-            label_      = Text    (sf::Vector2f(0, 0), "", Resources::font.Unifont);
+            bLeft_     = Button(position, L"∧", 30);
+            bRight_    = Button(position+sf::Vector2f(0, length+20), L"∨", 30);
+            indicator_ = Button(position+sf::Vector2f(0, 10), "_", 30);
+            label_     = Text  (sf::Vector2f(0, 0), "", Resources::font.Unifont);
 
             border_.setPosition        (bLeft_.getPosition() + sf::Vector2f(bLeft_.getSize().x+10, 5));
             border_.setOutlineThickness(1);
@@ -89,10 +89,8 @@ namespace rr
     ScrollBar::setValue(int val)
     {
         value_ = val;
-        if      (  value_ < valueLimit_.x
-                 ) value_ = valueLimit_.x;
-        else if (  value_ > valueLimit_.y
-                 ) value_ = valueLimit_.y;
+        if      (value_ < valueLimit_.x) value_ = valueLimit_.x;
+        else if (value_ > valueLimit_.y) value_ = valueLimit_.y;
 
         label_.setString  (std::to_string((int) value_));
         label_.setPosition(border_.getPosition() + sf::Vector2f(border_.getSize().x/2 - label_.getSize().x/2,
@@ -130,15 +128,13 @@ namespace rr
                 }
             }
         }
-        if (  bLeft_.isPressed(rw, e)
-            ) setValue(getValue()-1);
-        if (  bRight_.isPressed(rw, e)
-            ) setValue(getValue()+1);
+        if (bLeft_ .isPressed(rw, e)) setValue(getValue()-1);
+        if (bRight_.isPressed(rw, e)) setValue(getValue()+1);
 
-        if      (  plain_ == HORIZONTAL
-                 ) indicator_.setPosition(border_.getPosition() + sf::Vector2f(   (border_.getSize().x - indicator_.getSize().x) * (value_-valueLimit_.x)/valueLimit_.y, 0));
-        else if (  plain_ == VERTICAL
-                 ) indicator_.setPosition(border_.getPosition() + sf::Vector2f(0, (border_.getSize().y - indicator_.getSize().y) * (value_-valueLimit_.x)/valueLimit_.y));
+        if (plain_ == HORIZONTAL)
+            indicator_.setPosition(border_.getPosition() + sf::Vector2f((border_.getSize().x - indicator_.getSize().x) * (value_-valueLimit_.x)/valueLimit_.y, 0));
+        else if (plain_ == VERTICAL)
+            indicator_.setPosition(border_.getPosition() + sf::Vector2f(0, (border_.getSize().y - indicator_.getSize().y) * (value_-valueLimit_.x)/valueLimit_.y));
     }
 
 }

@@ -52,18 +52,20 @@ namespace rr
     {
         if (left_.isPressed(rw, e))
         {
-            if (  counter_ > 0
-                ) counter_--;
-            else  counter_ = options_.size()-1;
+            if (counter_ > 0)
+                counter_--;
+            else
+                counter_ = options_.size()-1;
             
             text_.setString  (options_[counter_]);
             text_.setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
         }
         else if (right_.isPressed(rw, e))
         {
-            if (  counter_<options_.size()-1
-                ) counter_++;
-            else  counter_ = 0;
+            if (counter_<options_.size()-1)
+                counter_++;
+            else
+                counter_ = 0;
             
             text_.setString  (options_[counter_]);
             text_.setPosition(sf::Vector2f(body_.getPosition().x + body_.getSize().x/2 - text_.getSize().x/2, body_.getPosition().y-4));
@@ -87,8 +89,8 @@ namespace rr
         int i = 0;
         for (auto x : options_)
         {
-            if (  x == o
-                ) break;
+            if (x == o)
+                break;
             ++i;
         }
         counter_ = i;

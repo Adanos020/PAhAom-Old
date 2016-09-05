@@ -72,7 +72,7 @@ namespace rr
         sf::Uint32 c;
 
         auto it=str.begin();
-        while (it!=str.end())
+        while (it != str.end())
         {
             it = sf::Utf8::decode(it, str.end(), c, 0u);
             if (c!=0u)
@@ -90,7 +90,7 @@ namespace rr
         std::string res;
         char buf[5];
 
-        for (auto it=str.begin(); it!=str.end(); ++it)
+        for (auto it = str.begin(); it != str.end(); ++it)
         {
             auto end = sf::Utf8::encode(*it, buf);
             *end = '\0';

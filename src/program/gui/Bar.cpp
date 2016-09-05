@@ -48,10 +48,8 @@ namespace rr
     void
     Bar::setValue(sf::Vector2f scale)
     {
-        if      (  bar_.getSize().x == 5
-                 ) bar_.setScale(1, scale.y);
-        else if (  bar_.getSize().y == 5
-                 ) bar_.setScale(scale.x, 1);
+        if      (bar_.getSize().x == 5) bar_.setScale(1, scale.y);
+        else if (bar_.getSize().y == 5) bar_.setScale(scale.x, 1);
     }
 
     void

@@ -25,7 +25,7 @@ namespace rr
         float mHeight = messages_.back().getSize().y;
         messages_.back().setPosition(sf::Vector2f(0, Settings::graphics.resolution.y-40-mHeight));
 
-        for (int i=messages_.size()-2; i>=0; i--)
+        for (int i = messages_.size()-2; i >= 0; i--)
         {
             mHeight = messages_[i].getSize().y;
             messages_[i].setPosition(messages_[i+1].getPosition() - sf::Vector2f(0, mHeight+3));
@@ -35,7 +35,7 @@ namespace rr
     void
     MessageManager::update(sf::Clock& timer)
     {
-        for (auto i=messages_.begin(); i!=messages_.end(); ++i)
+        for (auto i = messages_.begin(); i != messages_.end(); ++i)
         {
             i->update(timer.getElapsedTime());
             if (i->getColor().a < 10)

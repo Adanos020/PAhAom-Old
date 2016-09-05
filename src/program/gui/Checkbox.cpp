@@ -15,16 +15,16 @@ namespace rr
       image_(Image(pos, Resources::texture.gui, 14, 1)),
       text_ (Text (sf::Vector2f(0, 0), txt, Resources::font.Unifont, chsize))
     {
-        body_ .setSize            (sf::Vector2f(35, 35));
-        body_ .setPosition        (pos);
-        body_ .setFillColor       (c);
-        body_ .setOutlineColor    (sf::Color(c.r+20, c.g+20, c.b+20));
-        body_ .setOutlineThickness(5);
+        body_.setSize            (sf::Vector2f(35, 35));
+        body_.setPosition        (pos);
+        body_.setFillColor       (c);
+        body_.setOutlineColor    (sf::Color(c.r+20, c.g+20, c.b+20));
+        body_.setOutlineThickness(5);
 
-        text_ .setPosition        (sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_.getSize().y));
+        text_.setPosition(sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_.getSize().y));
 
-        image_.setParentComponent (this);
-        text_ .setParentComponent (this);
+        image_.setParentComponent(this);
+        text_ .setParentComponent(this);
     }
 
     void
@@ -46,8 +46,8 @@ namespace rr
     Checkbox::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         target.draw(body_ , states);
-        if (  checked_
-            ) target.draw(image_, states);
+        if (checked_)
+            target.draw(image_, states);
         target.draw(text_ , states);
     }
 
@@ -71,8 +71,8 @@ namespace rr
             held_ = true;
             return true;
         }
-        if (  e.type == sf::Event::MouseButtonReleased
-            ) held_ = false;
+        if (e.type == sf::Event::MouseButtonReleased)
+            held_ = false;
         return false;
     }
 

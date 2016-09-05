@@ -90,11 +90,11 @@ namespace rr
                 buffs_.slowness     -= (buffs_.slowness     == 0 ? 0 : 1);
                 buffs_.weakness     -= (buffs_.weakness     == 0 ? 0 : 1);
 
-                if (  buffs_.poison > 0
-                    ) attrs_.health -= 1.f;
+                if (buffs_.poison > 0)
+                    attrs_.health -= 1.f;
 
-                if (  buffs_.regeneration > 0
-                    ) attrs_.health += 0.15f;
+                if (buffs_.regeneration > 0)
+                    attrs_.health += 0.15f;
 
                 moving_ = false;
             }
@@ -108,10 +108,8 @@ namespace rr
 
         if (!body_.isPlaying())
         {
-            if      (  direction_ == LEFT
-                     ) currentAnimation_ = &standingLeft_;
-            else if (  direction_ == RIGHT
-                     ) currentAnimation_ = &standingRight_;
+            if      (direction_ == LEFT ) currentAnimation_ = &standingLeft_;
+            else if (direction_ == RIGHT) currentAnimation_ = &standingRight_;
             body_.setLooped(true);
         }
 
@@ -166,18 +164,16 @@ namespace rr
     void
     Bandit::handleDamage(int damage)
     {
-        if (  damage >= attrs_.armor
-            ) attrs_.health -= (damage - attrs_.armor);
+        if (damage >= attrs_.armor)
+            attrs_.health -= (damage - attrs_.armor);
         state_ = HUNTING;
     }
 
     void
     Bandit::attack(NPC* npc)
     {
-        if      (  direction_ == LEFT
-                 ) currentAnimation_ = &attackingLeft_;
-        else if (  direction_ == RIGHT
-                 ) currentAnimation_ = &attackingRight_;
+        if      (direction_ == LEFT ) currentAnimation_ = &attackingLeft_;
+        else if (direction_ == RIGHT) currentAnimation_ = &attackingRight_;
         body_.setLooped(false);
 
         int maxDamage = 0;
@@ -194,10 +190,8 @@ namespace rr
     void
     Bandit::attack(Player* player)
     {
-        if      (  direction_ == LEFT
-                 ) currentAnimation_ = &attackingLeft_;
-        else if (  direction_ == RIGHT
-                 ) currentAnimation_ = &attackingRight_;
+        if      (direction_ == LEFT ) currentAnimation_ = &attackingLeft_;
+        else if (direction_ == RIGHT) currentAnimation_ = &attackingRight_;
         body_.setLooped(false);
 
         int maxDamage = 0;
