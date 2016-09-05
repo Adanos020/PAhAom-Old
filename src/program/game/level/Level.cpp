@@ -69,16 +69,30 @@ namespace rr
     {
         if (e != nullptr)
         {
+            e->setGridPosition(position);
             entities_.push_back(e);
-            entities_.back()->setGridPosition(position);
+
+            if (  instanceof <NPC, Entity> (e)
+                ) npcs_.push_back((NPC*) e);
+
+            if (  instanceof <Item, Entity> (e)
+                ) items_.push_back((Item*) e);
         }
     }
 
     void
     Level::addEntity(Entity* e)
     {
-        if (  e != nullptr
-            ) entities_.push_back(e);
+        if (e != nullptr)
+        {
+            entities_.push_back(e);
+
+            if (  instanceof <NPC, Entity> (e)
+                ) npcs_.push_back((NPC*) e);
+
+            if (  instanceof <Item, Entity> (e)
+                ) items_.push_back((Item*) e);
+        }
     }
 
     void
@@ -139,42 +153,38 @@ namespace rr
     void
     Level::playerAttack(Player* player)
     {
-        auto it=entities_.begin();
-        while (it!=entities_.end())
+        auto it=npcs_.begin();
+        while (it!=npcs_.end())
         {
-            // the entity is an NPC
-            if (instanceof <NPC, Entity> (*it))
+            auto npc = *it;
+            // the npc detects the player
+            if ((npc)->detects(player) != -1)
             {
-                auto npc = (NPC*) *it;
-                // the npc detects the player
-                if ((npc)->detects(player) != -1)
+                npc->setState(NPC::HUNTING);
+
+                // the player has a weapon
+                if (player->getColdWeapon() != nullptr && chance(player->getColdWeapon()->getAccuracy()*2, 21))
                 {
-                    npc->setState(NPC::HUNTING);
-
-                    // the player has a weapon
-                    if (player->getColdWeapon() != nullptr && chance(player->getColdWeapon()->getAccuracy()*2, 21))
-                    {
-                        player->attack(npc);
-                        subject.notify(PLAYER_ATTACK_SUCCESS, npc);
-                    }
-                    // the player has no weapon
-                    else if (player->getColdWeapon() == nullptr && chance(10, 21))
-                    {
-                        player->attack(npc);
-                        subject.notify(PLAYER_ATTACK_SUCCESS, npc);
-                    }
-                    // the probability didn't let the player attack
-                    else subject.notify(PLAYER_ATTACK_FAILURE, npc);
-
-                    // the npc dies
-                    if (npc->getAttributes().health <= 0)
-                    {
-                        subject.notify(NPC_DIES, npc);
-                        player->addExperience(npc->getAttributes().level*10);
-                    }
-
-                    break;
+                    player->attack(npc);
+                    subject.notify(PLAYER_ATTACK_SUCCESS, npc);
                 }
+                // the player has no weapon
+                else if (player->getColdWeapon() == nullptr && chance(10, 21))
+                {
+                    player->attack(npc);
+                    subject.notify(PLAYER_ATTACK_SUCCESS, npc);
+                }
+                // the probability didn't let the player attack
+                else subject.notify(PLAYER_ATTACK_FAILURE, npc);
+
+                // the npc dies
+                if (npc->getAttributes().health <= 0)
+                {
+                    subject.notify(NPC_DIES, npc);
+                    player->addExperience(npc->getAttributes().level*10);
+                }
+
+                break;
             }
             ++it;
         }
@@ -214,78 +224,75 @@ namespace rr
             }
         }
 
-        for (auto it=entities_.begin(); it!=entities_.end(); ++it)
+        for (auto it=npcs_.begin(); it!=npcs_.end(); ++it)
         {
-            if (instanceof <NPC, Entity> (*it))
+            auto npc = *it;
+
             {
-                auto npc = (NPC*) *it;
+                auto pos = npc->getGridPosition();
+                tiles_      [pos.x + pos.y*size_.x] = OCCUPIED;
+                tilesAsInts_[pos.x + pos.y*size_.x] = 5;
+            }
 
+            if (npc->getState() == NPC::STANDING)
+            {
+                while (true)
                 {
-                    auto pos = npc->getGridPosition();
-                    tiles_      [pos.x + pos.y*size_.x] = OCCUPIED;
-                    tilesAsInts_[pos.x + pos.y*size_.x] = 5;
-                }
-
-                if (npc->getState() == NPC::STANDING)
-                {
-                    while (true)
+                    int x=rand()%size_.x, y=rand()%size_.y;
+                    if (tiles_[x + y*size_.x] == ROOM && tiles_[x + y*size_.x] != OCCUPIED)
                     {
-                        int x=rand()%size_.x, y=rand()%size_.y;
-                        if (tiles_[x + y*size_.x] == ROOM && tiles_[x + y*size_.x] != OCCUPIED)
-                        {
-                            npc->setDestination(sf::Vector2i(x, y));
-                            npc->setState(NPC::EXPLORING);
-                            break;
-                        }
+                        npc->setDestination(sf::Vector2i(x, y));
+                        npc->setState(NPC::EXPLORING);
+                        break;
                     }
                 }
+            }
 
-                if (npc->getAttitude() == NPC::AGGRESSIVE && npc->getState() == NPC::HUNTING) // the npc is either aggressive and hunting
+            if (npc->getAttitude() == NPC::AGGRESSIVE && npc->getState() == NPC::HUNTING) // the npc is either aggressive and hunting
+            {
+                int detector = npc->detects(player);
+                if (detector != -1) // the npc detects player
                 {
-                    int detector = npc->detects(player);
-                    if (detector != -1) // the npc detects player
-                    {
-                        if      ( (detector == 0 || detector == 3 || detector == 5) && npc->getDirection() != NPC::LEFT
-                                 ) npc->setDirection(NPC::LEFT);
-                        else if ( (detector == 2 || detector == 4 || detector == 7) && npc->getDirection() != NPC::RIGHT
-                                 ) npc->setDirection(NPC::RIGHT);
+                    if      ( (detector == 0 || detector == 3 || detector == 5) && npc->getDirection() != NPC::LEFT
+                             ) npc->setDirection(NPC::LEFT);
+                    else if ( (detector == 2 || detector == 4 || detector == 7) && npc->getDirection() != NPC::RIGHT
+                             ) npc->setDirection(NPC::RIGHT);
 
-                        if (instanceof <Bandit, NPC> (npc)) // the npc is a bandit
+                    if (instanceof <Bandit, NPC> (npc)) // the npc is a bandit
+                    {
+                        bool hit = false;
+                        switch (((Bandit*) npc)->getType())
                         {
-                            bool hit = false;
-                            switch (((Bandit*) npc)->getType())
-                            {
-                                case Bandit::CLUB    : if (chance(ColdWeapon(ColdWeapon::CLUB).getAccuracy()*2, 21))
-                                                       {
-                                                           ((Bandit*) npc)->attack(player);
-                                                           hit = true;
-                                                       }
-                                                       break;
+                            case Bandit::CLUB    : if (chance(ColdWeapon(ColdWeapon::CLUB).getAccuracy()*2, 21))
+                                                   {
+                                                       ((Bandit*) npc)->attack(player);
+                                                       hit = true;
+                                                   }
+                                                   break;
 
-                                case Bandit::CROSSBOW: if (chance(RangedWeapon(RangedWeapon::CROSSBOW).getAccuracy()*2, 21))
-                                                       {
-                                                           ((Bandit*) npc)->attack(player);
-                                                           hit = true;
-                                                       }
-                                                       break;
+                            case Bandit::CROSSBOW: if (chance(RangedWeapon(RangedWeapon::CROSSBOW).getAccuracy()*2, 21))
+                                                   {
+                                                       ((Bandit*) npc)->attack(player);
+                                                       hit = true;
+                                                   }
+                                                   break;
 
-                                case Bandit::DAGGER  : if (chance(ColdWeapon(ColdWeapon::DAGGER).getAccuracy()*2, 21))
-                                                       {
-                                                           ((Bandit*) npc)->attack(player);
-                                                           hit = true;
-                                                       }
-                                                       break;
-                            }
-
-                            if (  hit
-                                ) subject.notify(NPC_ATTACK_SUCCESS, npc); // the npc hit the player
-                            else  subject.notify(NPC_ATTACK_FAILURE, npc); // the player dodged the attack
+                            case Bandit::DAGGER  : if (chance(ColdWeapon(ColdWeapon::DAGGER).getAccuracy()*2, 21))
+                                                   {
+                                                       ((Bandit*) npc)->attack(player);
+                                                       hit = true;
+                                                   }
+                                                   break;
                         }
+
+                        if (  hit
+                            ) subject.notify(NPC_ATTACK_SUCCESS, npc); // the npc hit the player
+                        else  subject.notify(NPC_ATTACK_FAILURE, npc); // the player dodged the attack
                     }
-                    else if (FOV::seesEntity(tilesAsInts_, npc, player))
-                    {
-                        npc->setDestination(player->getGridPosition());
-                    }
+                }
+                else if (FOV::seesEntity(tilesAsInts_, npc, player))
+                {
+                    npc->setDestination(player->getGridPosition());
                 }
             }
         }

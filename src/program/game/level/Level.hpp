@@ -182,7 +182,11 @@ namespace rr
              int                      tilesAsInts_[77*43];
              Cell                     tiles_      [77*43];
              ShadowMap                shadowMap_;
+
              std::list<Entity*>       entities_;
+             std::list<NPC*>          npcs_;
+             std::list<Item*>         items_;
+             
              std::vector<sf::IntRect> rooms_;
              int                      region_count_;
              int                      levelNumber_;
