@@ -142,7 +142,8 @@ namespace rr
         save();
     }
 
-    bool Game::loadNewGame()
+    bool
+    Game::loadNewGame()
     {
         reset();
 
@@ -179,7 +180,7 @@ namespace rr
 
         currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
 
-        inventory_.addItem(new ColdWeapon(ColdWeapon::KNIFE));
+        inventory_.addItem(new MeleeWeapon(MeleeWeapon::KNIFE));
         inventory_.addItem(new Food(Food::BAGUETTE));
         inventory_.addItem(new Potion(Potion::HEALING));
 

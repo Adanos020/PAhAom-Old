@@ -35,20 +35,20 @@ namespace rr
             case   5: return new Coin        (Coin::SILVER                , Coin::BIG           , amount);
             case   6: return new Coin        (Coin::BRONZE                , Coin::BIG           , amount);
 
-            /* COLD WEAPON */
-            case  10: return new ColdWeapon  (ColdWeapon::DOUBLE_AXE                            , amount);
-            case  11: return new ColdWeapon  (ColdWeapon::HAMMER                                , amount);
-            case  12: return new ColdWeapon  (ColdWeapon::HALBERD                               , amount);
-            case  13: return new ColdWeapon  (ColdWeapon::AXE                                   , amount);
-            case  14: return new ColdWeapon  (ColdWeapon::SERRATED_SWORD                        , amount);
-            case  15: return new ColdWeapon  (ColdWeapon::LANCE                                 , amount);
-            case  16: return new ColdWeapon  (ColdWeapon::CLUB                                  , amount);
-            case  17: return new ColdWeapon  (ColdWeapon::SWORD                                 , amount);
-            case  18: return new ColdWeapon  (ColdWeapon::SPEAR                                 , amount);
-            case  19: return new ColdWeapon  (ColdWeapon::PIQUE                                 , amount);
-            case  20: return new ColdWeapon  (ColdWeapon::LONG_STICK                            , amount);
-            case  21: return new ColdWeapon  (ColdWeapon::DAGGER                                , amount);
-            case  22: return new ColdWeapon  (ColdWeapon::KNIFE                                 , amount);
+            /* MELEE WEAPON */
+            case  10: return new MeleeWeapon (MeleeWeapon::DOUBLE_AXE                           , amount);
+            case  11: return new MeleeWeapon (MeleeWeapon::HAMMER                               , amount);
+            case  12: return new MeleeWeapon (MeleeWeapon::HALBERD                              , amount);
+            case  13: return new MeleeWeapon (MeleeWeapon::AXE                                  , amount);
+            case  14: return new MeleeWeapon (MeleeWeapon::SERRATED_SWORD                       , amount);
+            case  15: return new MeleeWeapon (MeleeWeapon::LANCE                                , amount);
+            case  16: return new MeleeWeapon (MeleeWeapon::CLUB                                 , amount);
+            case  17: return new MeleeWeapon (MeleeWeapon::SWORD                                , amount);
+            case  18: return new MeleeWeapon (MeleeWeapon::SPEAR                                , amount);
+            case  19: return new MeleeWeapon (MeleeWeapon::PIQUE                                , amount);
+            case  20: return new MeleeWeapon (MeleeWeapon::LONG_STICK                           , amount);
+            case  21: return new MeleeWeapon (MeleeWeapon::DAGGER                               , amount);
+            case  22: return new MeleeWeapon (MeleeWeapon::KNIFE                                , amount);
 
             /* RANGED WEAPON */
             case  23: return new RangedWeapon(RangedWeapon::BOW                                 , amount);
@@ -66,7 +66,7 @@ namespace rr
             /* BOOKS */
             case  40: return new Book        (Book::CRAFTING                                    , amount);
             case  41: return new Book        (Book::ALCHEMY                                     , amount);
-            case  42: return new Book        (Book::COLD_WEAPON_MASTERY                         , amount);
+            case  42: return new Book        (Book::MELEE_WEAPON_MASTERY                        , amount);
             case  43: return new Book        (Book::RANGED_WEAPON_MASTERY                       , amount);
             case  44: return new Book        (Book::EAGLE_EYE                                   , amount);
             case  45: return new Book        (Book::MANA_REGEN                                  , amount);
@@ -148,14 +148,29 @@ namespace rr
     {
         int IDs[] =
         {
-              1,   2,   3,   4,   5,   6,                                    // COINS
-             10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22, // COLD WEAPON
-             23,  24,  25,  26,                                              // RANGED WEAPON
-             27,  28,  29,  30,  31,                                         // AMMUNITION
-             40,  41,  42,  43,  44,  45,  46,  47,  48,                     // BOOKS
-             49,  50,  51,  52,  53,  54,  55,  56,  57,  58,  59,  60,      // RUNES
-             61,  62,  63,  64,  65,  66,  67,                               // FOOD
-            100, 101, 102, 110, 111, 112, 120, 121, 122, 130, 131, 132,      // POTIONS
+            // COINS
+              1,   2,   3,   4,   5,   6,
+
+            // MELEE WEAPON
+             10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,
+
+            // RANGED WEAPON
+             23,  24,  25,  26,
+
+            // AMMUNITION
+             27,  28,  29,  30,  31,
+
+            // BOOKS
+             40,  41,  42,  43,  44,  45,  46,  47,  48,
+
+            // RUNES
+             49,  50,  51,  52,  53,  54,  55,  56,  57,  58,  59,  60,
+
+            // FOOD
+             61,  62,  63,  64,  65,  66,  67,
+
+            // POTIONS
+            100, 101, 102, 110, 111, 112, 120, 121, 122, 130, 131, 132,
             140, 141, 142, 150, 151, 152, 160, 161, 162, 170, 171, 172,
             180, 181, 182 
         };

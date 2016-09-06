@@ -22,30 +22,31 @@ namespace rr
 {
 
     Level::Level(int number) :
-      size_        (sf::Vector2i(77, 43)),
-      shadowMap_   (ShadowMap(size_)    ),
-      region_count_(0                   ),
-      levelNumber_ (number              )
+      m_size       (sf::Vector2i(77, 43)),
+      m_shadowMap  (ShadowMap(m_size)),
+      m_AIManager  (this),
+      m_regionCount(0),
+      m_levelNumber(number)
     {
-        tilemap_.setPrimitiveType(sf::Quads);
-        tilemap_.resize(size_.x*size_.y*4);
+        m_tilemap.setPrimitiveType(sf::Quads);
+        m_tilemap.resize(m_size.x*m_size.y*4);
 
-        for (int i = 0; i < size_.x; ++i)
+        for (int i = 0; i < m_size.x; ++i)
         {
-            for (int j = 0; j < size_.y; ++j)
+            for (int j = 0; j < m_size.y; ++j)
             {
-                regions_[i + j*size_.x] = -1;
+                m_regions[i + j*m_size.x] = -1;
             }
         }
     }
 
     Level::~Level()
     {
-        for (auto entity : entities_)
+        for (auto entity : m_entities)
         {
             delete entity;
         }
-        entities_.clear();
+        m_entities.clear();
     }
 
     void
@@ -53,15 +54,15 @@ namespace rr
     {
         states.transform *= getTransform();
         states.texture = &Resources::texture.tileset;
-        target.draw(tilemap_, states);
+        target.draw(m_tilemap, states);
 
         states = sf::RenderStates::Default;
 
-        for (auto it = entities_.begin(); it != entities_.end(); ++it)
+        for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
         {
             target.draw(**it);
         }
-        target.draw(shadowMap_, states);
+        target.draw(m_shadowMap, states);
     }
 
     void
@@ -70,10 +71,10 @@ namespace rr
         if (e != nullptr)
         {
             e->setGridPosition(position);
-            entities_.push_back(e);
+            m_entities.push_back(e);
 
-            if (instanceof <NPC , Entity> (e)) npcs_ .push_back((NPC *) e);
-            if (instanceof <Item, Entity> (e)) items_.push_back((Item*) e);
+            if (instanceof <NPC , Entity> (e)) m_npcs .push_back((NPC *) e);
+            if (instanceof <Item, Entity> (e)) m_items.push_back((Item*) e);
         }
     }
 
@@ -82,18 +83,18 @@ namespace rr
     {
         if (e != nullptr)
         {
-            entities_.push_back(e);
+            m_entities.push_back(e);
 
-            if (instanceof <NPC , Entity> (e)) npcs_ .push_back((NPC *) e);
-            if (instanceof <Item, Entity> (e)) items_.push_back((Item*) e);
+            if (instanceof <NPC , Entity> (e)) m_npcs .push_back((NPC *) e);
+            if (instanceof <Item, Entity> (e)) m_items.push_back((Item*) e);
         }
     }
 
     void
     Level::playerInteract(Game* game)
     {
-        auto it=entities_.begin();
-        while (it != entities_.end())
+        auto it=m_entities.begin();
+        while (it != m_entities.end())
         {
             if (game->getPlayer()->getGridPosition() == (*it)->getGridPosition())
             {
@@ -102,7 +103,7 @@ namespace rr
                     if (game->getInventory()->addItem((Item*) *it))
                     {
                         subject.notify(ITEM_PICKED, *it);
-                        entities_.erase(it++);
+                        m_entities.erase(it++);
                     }
                     else game->getMessageManager()->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
                 }
@@ -119,12 +120,12 @@ namespace rr
                 {
                     if (((Stairs*) *it)->isUpwards())
                     {
-                        game->switchLevel(levelNumber_+1);
+                        game->switchLevel(m_levelNumber+1);
                         return;
                     }
                     else
                     {
-                        game->switchLevel(levelNumber_-1);
+                        game->switchLevel(m_levelNumber-1);
                         return;
                     }
                 }
@@ -147,8 +148,8 @@ namespace rr
     void
     Level::playerAttack(Player* player)
     {
-        auto it=npcs_.begin();
-        while (it != npcs_.end())
+        auto it=m_npcs.begin();
+        while (it != m_npcs.end())
         {
             auto npc = *it;
             // the npc detects the player
@@ -157,13 +158,13 @@ namespace rr
                 npc->setState(NPC::HUNTING);
 
                 // the player has a weapon
-                if (player->getColdWeapon() != nullptr && chance(player->getColdWeapon()->getAccuracy()*2, 21))
+                if (player->getMeleeWeapon() != nullptr && chance(player->getMeleeWeapon()->getAccuracy()*2, 21))
                 {
                     player->attack(npc);
                     subject.notify(PLAYER_ATTACK_SUCCESS, npc);
                 }
                 // the player has no weapon
-                else if (player->getColdWeapon() == nullptr && chance(10, 21))
+                else if (player->getMeleeWeapon() == nullptr && chance(10, 21))
                 {
                     player->attack(npc);
                     subject.notify(PLAYER_ATTACK_SUCCESS, npc);
@@ -189,7 +190,7 @@ namespace rr
     void
     Level::update(Game* game, sf::Clock& timer)
     {
-        for (auto it = entities_.begin(); it != entities_.end(); ++it)
+        for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
         {
             if (instanceof <Door, Entity> (*it))
             {
@@ -201,7 +202,7 @@ namespace rr
             else if (instanceof <NPC, Entity> (*it))
             {
                 auto npc = (NPC*) *it;
-                npc->update(tilesAsInts_, timer.getElapsedTime());
+                npc->update(m_tilesAsInts, timer.getElapsedTime());
             }
         }
     }
@@ -212,29 +213,29 @@ namespace rr
         // clearing all the previously occupied tiles
         for (int i = 0; i < 77*43; ++i)
         {
-            if (tiles_[i] == OCCUPIED)
+            if (m_tiles[i] == OCCUPIED)
             {
-                tiles_      [i] = ROOM;
-                tilesAsInts_[i] = 2;
+                m_tiles      [i] = ROOM;
+                m_tilesAsInts[i] = 2;
             }
         }
 
-        for (auto it = npcs_.begin(); it != npcs_.end(); ++it)
+        for (auto it = m_npcs.begin(); it != m_npcs.end(); ++it)
         {
             auto npc = *it;
 
             {
                 auto pos = npc->getGridPosition();
-                tiles_      [pos.x + pos.y*size_.x] = OCCUPIED;
-                tilesAsInts_[pos.x + pos.y*size_.x] = 5;
+                m_tiles      [pos.x + pos.y*m_size.x] = OCCUPIED;
+                m_tilesAsInts[pos.x + pos.y*m_size.x] = 5;
             }
 
             if (npc->getState() == NPC::STANDING)
             {
                 while (true)
                 {
-                    int x=rand()%size_.x, y=rand()%size_.y;
-                    if (tiles_[x + y*size_.x] == ROOM && tiles_[x + y*size_.x] != OCCUPIED)
+                    int x=rand()%m_size.x, y=rand()%m_size.y;
+                    if (m_tiles[x + y*m_size.x] == ROOM && m_tiles[x + y*m_size.x] != OCCUPIED)
                     {
                         npc->setDestination(sf::Vector2i(x, y));
                         npc->setState(NPC::EXPLORING);
@@ -256,7 +257,7 @@ namespace rr
                         bool hit = false;
                         switch (((Bandit*) npc)->getType())
                         {
-                            case Bandit::CLUB    : if (chance(ColdWeapon(ColdWeapon::CLUB).getAccuracy()*2, 21))
+                            case Bandit::CLUB    : if (chance(MeleeWeapon(MeleeWeapon::CLUB).getAccuracy()*2, 21))
                                                    {
                                                        ((Bandit*) npc)->attack(player);
                                                        hit = true;
@@ -270,7 +271,7 @@ namespace rr
                                                    }
                                                    break;
 
-                            case Bandit::DAGGER  : if (chance(ColdWeapon(ColdWeapon::DAGGER).getAccuracy()*2, 21))
+                            case Bandit::DAGGER  : if (chance(MeleeWeapon(MeleeWeapon::DAGGER).getAccuracy()*2, 21))
                                                    {
                                                        ((Bandit*) npc)->attack(player);
                                                        hit = true;
@@ -284,7 +285,7 @@ namespace rr
                             subject.notify(NPC_ATTACK_FAILURE, npc); // the player dodged the attack
                     }
                 }
-                else if (FOV::seesEntity(tilesAsInts_, npc, player))
+                else if (FOV::seesEntity(m_tilesAsInts, npc, player))
                 {
                     npc->setDestination(player->getGridPosition());
                 }
@@ -295,18 +296,18 @@ namespace rr
     void
     Level::calculateFOV(sf::Vector2i origin, int range)
     {
-        FOV::compute(&shadowMap_, tilesAsInts_, origin, range);
+        FOV::compute(&m_shadowMap, m_tilesAsInts, origin, range);
     }
 
     void
     Level::generateWorld()
     {
      // first we create an 2-dimensional array filled with 1's representing a wall
-        for (int i = 0; i < size_.x; ++i)
+        for (int i = 0; i < m_size.x; ++i)
         {
-            for (int j = 0; j < size_.y; ++j)
+            for (int j = 0; j < m_size.y; ++j)
             {
-                tiles_[i + j*size_.x] = WALL;
+                m_tiles[i + j*m_size.x] = WALL;
             }
         }
 
@@ -314,11 +315,11 @@ namespace rr
         digRooms();
 
      // then we pick the entrance cells to be our starting points and start digging corridors among the rooms
-        for (int i = 1; i < size_.x; i += 2)
+        for (int i = 1; i < m_size.x; i += 2)
         {
-            for (int j = 1; j < size_.y; j += 2)
+            for (int j = 1; j < m_size.y; j += 2)
             {
-                if (tiles_[i + j*size_.x] == WALL)
+                if (m_tiles[i + j*m_size.x] == WALL)
                 {
                     fillWithMaze(i, j);
                 }
@@ -332,28 +333,28 @@ namespace rr
         removeDeadEnds();
 
      // here we place the starting point
-        for (int x = rand()%size_.x, y = size_.y; ; x = rand()%size_.x, y = rand()%size_.y)
+        for (int x = rand()%m_size.x, y = m_size.y; ; x = rand()%m_size.x, y = rand()%m_size.y)
         {
-            if (tiles_[x + y*size_.x] == ROOM)
+            if (m_tiles[x + y*m_size.x] == ROOM)
             {
-                startingPoint_ = sf::Vector2i(x, y);
-                tiles_[x + y*size_.x] = EXIT;
+                m_startingPoint = sf::Vector2i(x, y);
+                m_tiles[x + y*m_size.x] = EXIT;
 
-                if (levelNumber_ >= 1)
-                    addEntity(new Stairs(false), startingPoint_);
+                if (m_levelNumber >= 1)
+                    addEntity(new Stairs(false), m_startingPoint);
                 break;
             }
         }
 
      // here we place the ending point
-        if (levelNumber_ < 29)
-        for (int x=rand()%size_.x, y=rand()%size_.y; ; x=rand()%size_.x, y=rand()%size_.y)
+        if (m_levelNumber < 29)
+        for (int x=rand()%m_size.x, y=rand()%m_size.y; ; x=rand()%m_size.x, y=rand()%m_size.y)
         {
-            if (tiles_[x + y*size_.x] == ROOM && (levelNumber_ == 1 || (abs(x-startingPoint_.x) > 30 || abs(y-startingPoint_.y) > 30)))
+            if (m_tiles[x + y*m_size.x] == ROOM && (m_levelNumber == 1 || (abs(x-m_startingPoint.x) > 30 || abs(y-m_startingPoint.y) > 30)))
             {
-                endingPoint_ = sf::Vector2i(x, y);
-                tiles_[x + y*size_.x] = EXIT;
-                addEntity(new Stairs(true), endingPoint_);
+                m_endingPoint = sf::Vector2i(x, y);
+                m_tiles[x + y*m_size.x] = EXIT;
+                addEntity(new Stairs(true), m_endingPoint);
                 break;
             }
         }
@@ -365,11 +366,11 @@ namespace rr
         generateTileMap();
 
      // and just transform the table of cells to a table of ints
-        for (int i = 0; i < size_.x; ++i)
+        for (int i = 0; i < m_size.x; ++i)
         {
-            for (int j = 0; j < size_.y; ++j)
+            for (int j = 0; j < m_size.y; ++j)
             {
-                tilesAsInts_[i + j*size_.x] = tiles_[i + j*size_.x];
+                m_tilesAsInts[i + j*m_size.x] = m_tiles[i + j*m_size.x];
             }
         }
     }
@@ -380,12 +381,12 @@ namespace rr
         for (int i = 0; i < 100; ++i)
         {
             sf::Vector2i rsize((rand()%4+1)*2+1, (rand()%4+1)*2+1);
-            sf::Vector2i rpos(rand()%((size_.x-rsize.x)/2)*2+1, rand()%((size_.y-rsize.y)/2)*2+1);
+            sf::Vector2i rpos(rand()%((m_size.x-rsize.x)/2)*2+1, rand()%((m_size.y-rsize.y)/2)*2+1);
 
             bool intersects = false;
             for (int i = rpos.x; i < rpos.x+rsize.x; ++i)
             {
-                if (tiles_[i + (rpos.y-1)*size_.x] == ROOM || tiles_[i+(rpos.y+rsize.y+1)*size_.x] == ROOM)
+                if (m_tiles[i + (rpos.y-1)*m_size.x] == ROOM || m_tiles[i+(rpos.y+rsize.y+1)*m_size.x] == ROOM)
                 {
                     intersects = true;
                     break;
@@ -393,7 +394,7 @@ namespace rr
             }
             for (int i = rpos.y; i < rpos.y+rsize.y && !intersects; ++i)
             {
-                if (tiles_[rpos.x-1 + i*size_.x] == ROOM || tiles_[rpos.x+rsize.x+i*size_.x] == ROOM)
+                if (m_tiles[rpos.x-1 + i*m_size.x] == ROOM || m_tiles[rpos.x+rsize.x+i*m_size.x] == ROOM)
                 {
                     intersects = true;
                     break;
@@ -406,13 +407,13 @@ namespace rr
                 {
                     for (int j = rpos.y; j < rpos.y+rsize.y; ++j)
                     {
-                        tiles_  [i + j*size_.x] = ROOM;
-                        regions_[i + j*size_.x] = region_count_;
+                        m_tiles  [i + j*m_size.x] = ROOM;
+                        m_regions[i + j*m_size.x] = m_regionCount;
                     }
                 }
 
-                rooms_.push_back(sf::IntRect(rpos, rsize));
-                region_count_++;
+                m_rooms.push_back(sf::IntRect(rpos, rsize));
+                m_regionCount++;
             }
         }
     }
@@ -420,10 +421,10 @@ namespace rr
     void
     Level::fillWithMaze(int r, int c)
     {
-        region_count_++;
+        m_regionCount++;
 
-        tiles_  [r + c*size_.x] = CORRIDOR;
-        regions_[r + c*size_.x] = region_count_;
+        m_tiles  [r + c*m_size.x] = CORRIDOR;
+        m_regions[r + c*m_size.x] = m_regionCount;
 
         std::vector<sf::Vector2i> cells;
         cells.push_back(sf::Vector2i(r, c));
@@ -444,7 +445,7 @@ namespace rr
 
             for (auto dir : directions)
             {
-                if (!isOnBorder(cell.x+dir.x*3, cell.y+dir.y*3) && tiles_[cell.x+dir.x*2+(cell.y+dir.y*2)*size_.x] == WALL)
+                if (!isOnBorder(cell.x+dir.x*3, cell.y+dir.y*3) && m_tiles[cell.x+dir.x*2+(cell.y+dir.y*2)*m_size.x] == WALL)
                     unmadeCells.push_back(dir);
             }
 
@@ -466,11 +467,11 @@ namespace rr
                 else
                     dir = unmadeCells[rand()%unmadeCells.size()];
 
-                tiles_  [cell.x+dir.x   + (cell.y+dir.y  )*size_.x] = CORRIDOR;
-                tiles_  [cell.x+dir.x*2 + (cell.y+dir.y*2)*size_.x] = CORRIDOR;
+                m_tiles  [cell.x+dir.x   + (cell.y+dir.y  )*m_size.x] = CORRIDOR;
+                m_tiles  [cell.x+dir.x*2 + (cell.y+dir.y*2)*m_size.x] = CORRIDOR;
 
-                regions_[cell.x+dir.x   + (cell.y+dir.y  )*size_.x] = region_count_;
-                regions_[cell.x+dir.x*2 + (cell.y+dir.y*2)*size_.x] = region_count_;
+                m_regions[cell.x+dir.x   + (cell.y+dir.y  )*m_size.x] = m_regionCount;
+                m_regions[cell.x+dir.x*2 + (cell.y+dir.y*2)*m_size.x] = m_regionCount;
 
                 cells.push_back(cell+dir*2);
                 lastDir = dir;
@@ -486,35 +487,35 @@ namespace rr
     void
     Level::connectRooms()
     {
-     // a container of tiles_ which can connect two regions_
+     // a container of tiles which can connect two regions
         std::vector<sf::Vector2i> connectors;
 
      // we have to place the conectors on every tile on whose two opposite sides is no wall
-        for (sf::Vector2i pos(1, 1); pos.x<size_.x-1 && pos.y<size_.y-1; pos += (pos.x >= size_.x-2 ? sf::Vector2i(-(size_.x-3), 1) : sf::Vector2i(1, 0)))
+        for (sf::Vector2i pos(1, 1); pos.x<m_size.x-1 && pos.y<m_size.y-1; pos += (pos.x >= m_size.x-2 ? sf::Vector2i(-(m_size.x-3), 1) : sf::Vector2i(1, 0)))
         {
 
          // we cannot place a connector on a tile which is not a wall
-            if (tiles_[pos.x+pos.y*size_.x] == WALL)
+            if (m_tiles[pos.x+pos.y*m_size.x] == WALL)
             {
-                if (regions_[pos.x-1+pos.y*size_.x] != -1 && regions_[pos.x+1+pos.y*size_.x] != -1)
+                if (m_regions[pos.x-1+pos.y*m_size.x] != -1 && m_regions[pos.x+1+pos.y*m_size.x] != -1)
                 {
                  // are there walls neither on the right nor on the left?
-                    if (tiles_[pos.x-1+pos.y*size_.x] == CORRIDOR || tiles_[pos.x+1+pos.y*size_.x] == CORRIDOR)
+                    if (m_tiles[pos.x-1+pos.y*m_size.x] == CORRIDOR || m_tiles[pos.x+1+pos.y*m_size.x] == CORRIDOR)
                     {
-                     // the regions_ on both sides cannot be the same if one of them is a corridor
-                        if (regions_[pos.x-1+pos.y*size_.x] != regions_[pos.x+1+pos.y*size_.x])
+                     // the regions on both sides cannot be the same if one of them is a corridor
+                        if (m_regions[pos.x-1+pos.y*m_size.x] != m_regions[pos.x+1+pos.y*m_size.x])
                             connectors.push_back(pos);
                     }
                     else connectors.push_back(pos);
                 }
 
              // are there walls neither above nor below?
-                else if (regions_[pos.x+(pos.y-1)*size_.x] != -1 && regions_[pos.x+(pos.y+1)*size_.x] != -1)
+                else if (m_regions[pos.x+(pos.y-1)*m_size.x] != -1 && m_regions[pos.x+(pos.y+1)*m_size.x] != -1)
                 {
-                    if (tiles_[pos.x+(pos.y-1)*size_.x] == CORRIDOR || tiles_[pos.x+(pos.y+1)*size_.x] == CORRIDOR)
+                    if (m_tiles[pos.x+(pos.y-1)*m_size.x] == CORRIDOR || m_tiles[pos.x+(pos.y+1)*m_size.x] == CORRIDOR)
                     {
-                     // the regions_ on both sides cannot be the same if one of them is a corridor
-                        if (regions_[pos.x+(pos.y-1)*size_.x] != regions_[pos.x+(pos.y+1)*size_.x])
+                     // the regions on both sides cannot be the same if one of them is a corridor
+                        if (m_regions[pos.x+(pos.y-1)*m_size.x] != m_regions[pos.x+(pos.y+1)*m_size.x])
                             connectors.push_back(pos);
                     }
                     else connectors.push_back(pos);
@@ -523,7 +524,7 @@ namespace rr
         }
 
      // then we iterate on each room and give it a random numbers of entrances
-        for (auto room = rooms_.begin(); room != rooms_.end(); ++room)
+        for (auto room = m_rooms.begin(); room != m_rooms.end(); ++room)
         {
             for (int entrances = rand()%2+2; entrances > 0; --entrances)
             {
@@ -548,7 +549,7 @@ namespace rr
                         if (x == position)
                         {
                             found = true;
-                            tiles_[position.x+position.y*size_.x] = ENTRANCE;
+                            m_tiles[position.x+position.y*m_size.x] = ENTRANCE;
                             break;
                         }
                     }
@@ -559,37 +560,37 @@ namespace rr
 
      // after that we check if there appear any doors placed next to each other
      // if so-then we delete one of them
-        for (sf::Vector2i pos(1, 1); pos.x<size_.x-1 && pos.y<size_.y-1; pos += (pos.x >= size_.x-2 ? sf::Vector2i(-(size_.x-3), 1) : sf::Vector2i(1, 0)))
+        for (sf::Vector2i pos(1, 1); pos.x<m_size.x-1 && pos.y<m_size.y-1; pos += (pos.x >= m_size.x-2 ? sf::Vector2i(-(m_size.x-3), 1) : sf::Vector2i(1, 0)))
         {
-            if (tiles_[pos.x + pos.y*size_.x] == ENTRANCE)
+            if (m_tiles[pos.x + pos.y*m_size.x] == ENTRANCE)
             {
-                if (tiles_[pos.x-1 + pos.y*size_.x] == ENTRANCE)
+                if (m_tiles[pos.x-1 + pos.y*m_size.x] == ENTRANCE)
                 {
                     if (rand()%2)
-                        tiles_[ pos.x  + pos.y*size_.x] = WALL;
+                        m_tiles[ pos.x  + pos.y*m_size.x] = WALL;
                     else
-                        tiles_[pos.x-1 + pos.y*size_.x] = WALL;
+                        m_tiles[pos.x-1 + pos.y*m_size.x] = WALL;
                 }
-                if (tiles_[pos.x+1 + pos.y*size_.x] == ENTRANCE)
+                if (m_tiles[pos.x+1 + pos.y*m_size.x] == ENTRANCE)
                 {
                     if (rand()%2)
-                        tiles_[ pos.x  + pos.y*size_.x] = WALL;
+                        m_tiles[ pos.x  + pos.y*m_size.x] = WALL;
                     else
-                        tiles_[pos.x+1 + pos.y*size_.x] = WALL;
+                        m_tiles[pos.x+1 + pos.y*m_size.x] = WALL;
                 }
-                if (tiles_[pos.x+(pos.y-1)*size_.x] == ENTRANCE)
+                if (m_tiles[pos.x+(pos.y-1)*m_size.x] == ENTRANCE)
                 {
                     if (rand()%2)
-                        tiles_[pos.x +   pos.y*size_.x  ] = WALL;
+                        m_tiles[pos.x +   pos.y*m_size.x  ] = WALL;
                     else
-                        tiles_[pos.x + (pos.y-1)*size_.x] = WALL;
+                        m_tiles[pos.x + (pos.y-1)*m_size.x] = WALL;
                 }
-                if (tiles_[pos.x + (pos.y+1)*size_.x] == ENTRANCE)
+                if (m_tiles[pos.x + (pos.y+1)*m_size.x] == ENTRANCE)
                 {
                     if (rand()%2)
-                        tiles_[pos.x +   pos.y*size_.x  ] = WALL;
+                        m_tiles[pos.x +   pos.y*m_size.x  ] = WALL;
                     else
-                        tiles_[pos.x + (pos.y+1)*size_.x] = WALL;
+                        m_tiles[pos.x + (pos.y+1)*m_size.x] = WALL;
                 }
             }
         }
@@ -603,25 +604,25 @@ namespace rr
         while (!done)
         {
             done = true;
-            for (int i = 1; i < size_.x-1; ++i)
+            for (int i = 1; i < m_size.x-1; ++i)
             {
-                for (int j = 1; j < size_.y-1; ++j)
+                for (int j = 1; j < m_size.y-1; ++j)
                 {
-                    if (tiles_[i + j*size_.x] == WALL)
+                    if (m_tiles[i + j*m_size.x] == WALL)
                         continue;
 
                     // if it only has one exit, it's a dead end.
                     int exits = 0;
-                    if (tiles_[(i-1) + j*size_.x] != WALL) exits++;
-                    if (tiles_[(i+1) + j*size_.x] != WALL) exits++;
-                    if (tiles_[i + (j-1)*size_.x] != WALL) exits++;
-                    if (tiles_[i + (j+1)*size_.x] != WALL) exits++;
+                    if (m_tiles[(i-1) + j*m_size.x] != WALL) exits++;
+                    if (m_tiles[(i+1) + j*m_size.x] != WALL) exits++;
+                    if (m_tiles[i + (j-1)*m_size.x] != WALL) exits++;
+                    if (m_tiles[i + (j+1)*m_size.x] != WALL) exits++;
 
                     if (exits > 1)
                         continue;
 
                     done = false;
-                    tiles_[i + j*size_.x] = WALL;
+                    m_tiles[i + j*m_size.x] = WALL;
                 }
             }
         }
@@ -630,12 +631,12 @@ namespace rr
     void
     Level::generateTileMap()
     {
-        for (int i = 0; i < size_.x; ++i)
+        for (int i = 0; i < m_size.x; ++i)
         {
-            for (int j = 0; j < size_.y; ++j)
+            for (int j = 0; j < m_size.y; ++j)
             {
                 int tileNumber;
-                switch (tiles_[i + j*size_.x]) // assigning an appropriate tile number to a given cell
+                switch (m_tiles[i + j*m_size.x]) // assigning an appropriate tile number to a given cell
                 {
                     case CHASM: tileNumber = 0;
                                 break;
@@ -651,114 +652,114 @@ namespace rr
                                 };
                                 if (!isOnBorder(i, j))
                                 {
-                                    if      (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    if      (  (m_tiles[ i  + (j-1)*m_size.x] != WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] != WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] != WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] != WALL)
                                              )                                      tileNumber += ALL         *16;
 
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] == WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] != WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] != WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] != WALL)
                                              )                                      tileNumber += NO_TOP      *16;
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] != WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] == WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] != WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] != WALL)
                                              )                                      tileNumber += NO_BOTTOM   *16;
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] != WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] != WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] == WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] != WALL)
                                              )                                      tileNumber += NO_LEFT     *16;
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] != WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] != WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] != WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] == WALL)
                                              )                                      tileNumber += NO_RIGHT    *16;
 
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] == WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] == WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] != WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] != WALL)
                                              )                                      tileNumber += LEFT_RIGHT  *16;
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] == WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] != WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] == WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] != WALL)
                                              )                                      tileNumber += BOTTOM_RIGHT*16;
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] == WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] != WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] != WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] == WALL)
                                              )                                      tileNumber += BOTTOM_LEFT *16;
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] != WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] != WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] == WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] == WALL)
                                              )                                      tileNumber += TOP_BOTTOM  *16;
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] != WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] == WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] == WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] != WALL)
                                              )                                      tileNumber += TOP_RIGHT   *16;
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] != WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] == WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] != WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] == WALL)
                                              )                                      tileNumber += TOP_LEFT    *16;
 
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] != WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] != WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] == WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] == WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] == WALL)
                                              )                                      tileNumber += TOP         *16;
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] != WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] == WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] != WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] == WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] == WALL)
                                              )                                      tileNumber += BOTTOM      *16;
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] != WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] == WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] == WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] == WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] != WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] == WALL)
                                              )                                      tileNumber += LEFT        *16;
-                                    else if (  (tiles_[ i  + (j-1)*size_.x] == WALL)
-                                            && (tiles_[ i  + (j+1)*size_.x] == WALL)
-                                            && (tiles_[i-1 +   j*size_.x  ] == WALL)
-                                            && (tiles_[i+1 +   j*size_.x  ] != WALL)
+                                    else if (  (m_tiles[ i  + (j-1)*m_size.x] == WALL)
+                                            && (m_tiles[ i  + (j+1)*m_size.x] == WALL)
+                                            && (m_tiles[i-1 +   j*m_size.x  ] == WALL)
+                                            && (m_tiles[i+1 +   j*m_size.x  ] != WALL)
                                              )                                      tileNumber += RIGHT       *16;
                                 }
                                 else if (i == 0)
                                 {
-                                    if (j > 0 && j < size_.y-1)
+                                    if (j > 0 && j < m_size.y-1)
                                     {
-                                        if      ((tiles_[i+1 + j*size_.x] != WALL)) tileNumber += LEFT_RIGHT  *16;
-                                        else if ((tiles_[i+1 + j*size_.x] == WALL)) tileNumber += LEFT        *16;
+                                        if      ((m_tiles[i+1 + j*m_size.x] != WALL)) tileNumber += LEFT_RIGHT  *16;
+                                        else if ((m_tiles[i+1 + j*m_size.x] == WALL)) tileNumber += LEFT        *16;
                                     }
                                     else if (j == 0)                                tileNumber += TOP_LEFT    *16;
-                                    else if (j == size_.y-1)                        tileNumber += BOTTOM_LEFT *16;
+                                    else if (j == m_size.y-1)                        tileNumber += BOTTOM_LEFT *16;
                                 }
-                                else if (i == size_.x-1)
+                                else if (i == m_size.x-1)
                                 {
-                                    if (j > 0 && j < size_.y-1)
+                                    if (j > 0 && j < m_size.y-1)
                                     {
-                                        if      ((tiles_[i-1+j*size_.x] != WALL))   tileNumber += LEFT_RIGHT  *16;
-                                        else if ((tiles_[i-1+j*size_.x] == WALL))   tileNumber += RIGHT       *16;
+                                        if      ((m_tiles[i-1+j*m_size.x] != WALL))   tileNumber += LEFT_RIGHT  *16;
+                                        else if ((m_tiles[i-1+j*m_size.x] == WALL))   tileNumber += RIGHT       *16;
                                     }
                                     else if (j == 0)                                tileNumber += TOP_RIGHT   *16;
-                                    else if (j == size_.y-1)                        tileNumber += BOTTOM_RIGHT*16;
+                                    else if (j == m_size.y-1)                        tileNumber += BOTTOM_RIGHT*16;
                                 }
-                                else if (j == 0 && i > 0 && i < size_.x-1)
+                                else if (j == 0 && i > 0 && i < m_size.x-1)
                                 {
-                                    if      ((tiles_[i+(j+1)*size_.x] != WALL))     tileNumber += TOP_BOTTOM  *16;
-                                    else if ((tiles_[i+(j+1)*size_.x] == WALL))     tileNumber += TOP         *16;
+                                    if      ((m_tiles[i+(j+1)*m_size.x] != WALL))     tileNumber += TOP_BOTTOM  *16;
+                                    else if ((m_tiles[i+(j+1)*m_size.x] == WALL))     tileNumber += TOP         *16;
                                 }
-                                else if (j == size_.y-1 && i > 0 && i < size_.x-1)
+                                else if (j == m_size.y-1 && i > 0 && i < m_size.x-1)
                                 {
-                                    if      ((tiles_[i+(j-1)*size_.x] != WALL))     tileNumber += TOP_BOTTOM  *16;
-                                    else if ((tiles_[i+(j-1)*size_.x] == WALL))     tileNumber += BOTTOM      *16;
+                                    if      ((m_tiles[i+(j-1)*m_size.x] != WALL))     tileNumber += TOP_BOTTOM  *16;
+                                    else if ((m_tiles[i+(j-1)*m_size.x] == WALL))     tileNumber += BOTTOM      *16;
                                 }
                                 break;
 
@@ -769,7 +770,7 @@ namespace rr
                 int tu = tileNumber%(Resources::texture.tileset.getSize().x/16);
                 int tv = tileNumber/(Resources::texture.tileset.getSize().y/16);
 
-                sf::Vertex* quad = &tilemap_[(i + j*size_.x)*4];
+                sf::Vertex* quad = &m_tilemap[(i + j*m_size.x)*4];
 
                 quad[0].position  = sf::Vector2f(  i  *80,   j  *80);
                 quad[1].position  = sf::Vector2f((i+1)*80,   j  *80);
@@ -789,11 +790,11 @@ namespace rr
     {
      /* OBJECTS */
      // here we place the doors
-        for (int x = 1; x < size_.x-1; ++x)
+        for (int x = 1; x < m_size.x-1; ++x)
         {
-            for (int y = 1; y < size_.y-1; ++y)
+            for (int y = 1; y < m_size.y-1; ++y)
             {
-                if (tiles_[x+y*size_.x] == ENTRANCE)
+                if (m_tiles[x+y*m_size.x] == ENTRANCE)
                     addEntity(new Door(false), sf::Vector2i(x, y));
             }
         }
@@ -805,11 +806,11 @@ namespace rr
         {
             while (true)
             {
-                int x=rand()%size_.x, y=rand()%size_.y;
-                if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED)
+                int x=rand()%m_size.x, y=rand()%m_size.y;
+                if (m_tiles[x+y*m_size.x] == ROOM && m_tiles[x+y*m_size.x] != OCCUPIED)
                 {
                     addEntity(new Chest((rand()%20) ? Chest::REGULAR : Chest::SPECIAL), sf::Vector2i(x, y)); // here we choose randomly whether the chest
-                    tiles_[x+y*size_.x] = OCCUPIED;                                                          // has to be the special (probability = 5%)
+                    m_tiles[x+y*m_size.x] = OCCUPIED;                                                          // has to be the special (probability = 5%)
                     toUnOccupy.push(sf::Vector2i(x, y));                                                     // or the regular one (p = 95%)
                     break;
                 }
@@ -822,11 +823,11 @@ namespace rr
         {
             while (true)
             {
-                int x=rand()%size_.x, y=rand()%size_.y;
-                if (tiles_[x+y*size_.x] == ROOM && tiles_[x+y*size_.x] != OCCUPIED)
+                int x=rand()%m_size.x, y=rand()%m_size.y;
+                if (m_tiles[x+y*m_size.x] == ROOM && m_tiles[x+y*m_size.x] != OCCUPIED)
                 {
                     addEntity(getRandomItemBalanced(), sf::Vector2i(x, y));
-                    tiles_[x+y*size_.x] = OCCUPIED;
+                    m_tiles[x+y*m_size.x] = OCCUPIED;
                     toUnOccupy.push(sf::Vector2i(x, y));
                     break;
                 }
@@ -835,23 +836,23 @@ namespace rr
 
      /* NPCs */
      // here we place the teachers every 5th level
-        if (levelNumber_%5 == 0)
+        if (m_levelNumber%5 == 0)
         {
            sf::Vector2i pos;
            while (true)
            {
-               pos = sf::Vector2i(rand()%10-5, rand()%10-5)+startingPoint_;
-               if ( !isOnBorder(pos.x, pos.y) && tiles_[pos.x+pos.y*size_.x] == ROOM
-                  && startingPoint_+pos != startingPoint_
+               pos = sf::Vector2i(rand()%10-5, rand()%10-5)+m_startingPoint;
+               if ( !isOnBorder(pos.x, pos.y) && m_tiles[pos.x+pos.y*m_size.x] == ROOM
+                  && m_startingPoint+pos != m_startingPoint
                    ) break;
            }
-           switch (levelNumber_)
+           switch (m_levelNumber)
            {
-               case 5 : addEntity(new Teacher(Teacher::SWORDSMAN     ), pos); tiles_[pos.x + pos.y*size_.x] = OCCUPIED; break;
-               case 10: addEntity(new Teacher(Teacher::SHARPSHOOTER  ), pos); tiles_[pos.x + pos.y*size_.x] = OCCUPIED; break;
-               case 15: addEntity(new Teacher(Teacher::CARPENTER     ), pos); tiles_[pos.x + pos.y*size_.x] = OCCUPIED; break;
-               case 20: addEntity(new Teacher(Teacher::MAGE          ), pos); tiles_[pos.x + pos.y*size_.x] = OCCUPIED; break;
-               case 25: addEntity(new Teacher(Teacher::KUNG_FU_MASTER), pos); tiles_[pos.x + pos.y*size_.x] = OCCUPIED; break;
+               case 5 : addEntity(new Teacher(Teacher::SWORDSMAN     ), pos); m_tiles[pos.x + pos.y*m_size.x] = OCCUPIED; break;
+               case 10: addEntity(new Teacher(Teacher::SHARPSHOOTER  ), pos); m_tiles[pos.x + pos.y*m_size.x] = OCCUPIED; break;
+               case 15: addEntity(new Teacher(Teacher::CARPENTER     ), pos); m_tiles[pos.x + pos.y*m_size.x] = OCCUPIED; break;
+               case 20: addEntity(new Teacher(Teacher::MAGE          ), pos); m_tiles[pos.x + pos.y*m_size.x] = OCCUPIED; break;
+               case 25: addEntity(new Teacher(Teacher::KUNG_FU_MASTER), pos); m_tiles[pos.x + pos.y*m_size.x] = OCCUPIED; break;
            }
         }
      // here we put some enemies
@@ -859,8 +860,8 @@ namespace rr
         {
             while (true)
             {
-                int x=rand()%size_.x, y=rand()%size_.y;
-                if (tiles_[x + y*size_.x] == ROOM && tiles_[x + y*size_.x] != OCCUPIED)
+                int x=rand()%m_size.x, y=rand()%m_size.y;
+                if (m_tiles[x + y*m_size.x] == ROOM && m_tiles[x + y*m_size.x] != OCCUPIED)
                 {
                     int weapon = rand()%3;
                     switch (weapon)
@@ -869,7 +870,7 @@ namespace rr
                         case 1: addEntity(new Bandit(Bandit::CROSSBOW), sf::Vector2i(x, y)); break;
                         case 2: addEntity(new Bandit(Bandit::DAGGER  ), sf::Vector2i(x, y)); break;
                     }
-                    tiles_[x + y*size_.x] = OCCUPIED;
+                    m_tiles[x + y*m_size.x] = OCCUPIED;
                     break;
                 }
             }
@@ -877,7 +878,7 @@ namespace rr
 
         while (!toUnOccupy.empty())
         {
-            tiles_[toUnOccupy.top().x + 77*toUnOccupy.top().y] = ROOM;
+            m_tiles[toUnOccupy.top().x + 77*toUnOccupy.top().y] = ROOM;
             toUnOccupy.pop();
         }
     }
@@ -892,7 +893,14 @@ namespace rr
 
             case PLAYER_DIES : break;
 
-            case NPC_DIES    : entities_.remove(entity);
+            case NPC_DIES    : m_entities.remove(entity);
+                               if (instanceof <NPC, Entity> (entity))
+                               {
+                                   m_npcs.remove((NPC*) entity);
+                                   delete entity;
+                               }
+                               else if (instanceof <Item, Entity> (entity))
+                                   m_items.remove((Item*) entity);
                                break;
 
             default          : break;
@@ -902,24 +910,24 @@ namespace rr
     bool
     Level::isOnBorder(int x, int y)
     {
-        return x <= 0 || y <= 0 || x >= size_.x-1 || y >= size_.y-1;
+        return x <= 0 || y <= 0 || x >= m_size.x-1 || y >= m_size.y-1;
     }
 
     std::ifstream&
     Level::operator<<(std::ifstream& file)
     {
-        for (auto entity = entities_.begin(); entity != entities_.end(); ++entity) // delete the entities
+        for (auto entity = m_entities.begin(); entity != m_entities.end(); ++entity) // delete the entities
         {
             delete *entity;
         }
-        entities_.clear();
+        m_entities.clear();
 
         try
         {
-            readFile <int> (file, startingPoint_.x);
-            readFile <int> (file, startingPoint_.y);
-            readFile <int> (file, endingPoint_  .x);
-            readFile <int> (file, endingPoint_  .y);
+            readFile <int> (file, m_startingPoint.x);
+            readFile <int> (file, m_startingPoint.y);
+            readFile <int> (file, m_endingPoint  .x);
+            readFile <int> (file, m_endingPoint  .y);
 
             int number;
             readFile <int> (file, number);
@@ -936,7 +944,7 @@ namespace rr
                     case  0: entity = new Ammunition  (); readEntity(file, entity); addEntity(entity); break;
                     case  1: entity = new Book        (); readEntity(file, entity); addEntity(entity); break;
                     case  2: entity = new Coin        (); readEntity(file, entity); addEntity(entity); break;
-                    case  3: entity = new ColdWeapon  (); readEntity(file, entity); addEntity(entity); break;
+                    case  3: entity = new MeleeWeapon (); readEntity(file, entity); addEntity(entity); break;
                     case  4: entity = new Food        (); readEntity(file, entity); addEntity(entity); break;
                     case  5: entity = new Potion      (); readEntity(file, entity); addEntity(entity); break;
                     case  6: entity = new RangedWeapon(); readEntity(file, entity); addEntity(entity); break;
@@ -949,12 +957,12 @@ namespace rr
                 }
             }
 
-            shadowMap_ << file;
+            m_shadowMap << file;
 
             for (int i = 0; i < 77*43; ++i) // load the tiles
             {
-                file >> tilesAsInts_[i];
-                tiles_[i] = (Cell) tilesAsInts_[i];
+                file >> m_tilesAsInts[i];
+                m_tiles[i] = (Cell) m_tilesAsInts[i];
             }
             generateTileMap();
         }
@@ -969,22 +977,22 @@ namespace rr
     std::ofstream&
     Level::operator>>(std::ofstream& file)
     {
-        file << startingPoint_.x << ' '
-             << startingPoint_.y << '\n'  // save the starting point
-             << endingPoint_  .x << ' '
-             << endingPoint_  .y << '\n'; // save the ending point
+        file << m_startingPoint.x << ' '
+             << m_startingPoint.y << '\n'  // save the starting point
+             << m_endingPoint  .x << ' '
+             << m_endingPoint  .y << '\n'; // save the ending point
 
-        file << entities_.size() << '\n';
-        for (auto entity = entities_.begin(); entity != entities_.end(); ++entity) // save the entities
+        file << m_entities.size() << '\n';
+        for (auto entity = m_entities.begin(); entity != m_entities.end(); ++entity) // save the entities
         {
             **entity >> file << '\n';
         }
 
-        shadowMap_ >> file;
+        m_shadowMap >> file;
 
         for (int i = 0; i < 77*43; ++i) // save the tiles
         {
-            file << tilesAsInts_[i] << (((i+1)%77 == 0) ? '\n' : ' ');
+            file << m_tilesAsInts[i] << (((i+1)%77 == 0) ? '\n' : ' ');
         }
 
         return file;

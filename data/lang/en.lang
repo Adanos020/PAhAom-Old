@@ -252,7 +252,7 @@ item.book.type.crafting
 item.book.type.alchemy
 "Alchemy basics"
 
-item.book.type.cold_weapon_mastery
+item.book.type.melee_weapon_mastery
 "Swordsmen's book"
 
 item.book.type.ranged_weapon_mastery
@@ -279,7 +279,7 @@ Complex tutorial for beginner handymen, which will teach you the basics of produ
 item.book.description.alchemy
 Thanks to this book you will notice the usefulness of all kinds of herbs or ingredients acquired from monsters and you will be able to brew your own potions.
 
-item.book.description.cold_weapon_mastery
+item.book.description.melee_weapon_mastery
 Are you tired of waving your sword like a flail? Are you still getting bitten in fights? In this tutorial you'll meet new, more fancy fighting techniques thanks to which you'll train up in the art of swordplay.
 
 item.book.description.ranged_weapon_mastery
@@ -393,85 +393,85 @@ Another drink which would better not be drunk - except for you want to make the 
 item.potion.description.weakness
 The slump is frustrating - to avoid it it'd be better to throw out this mixture. Consuming it decreases the power of your spells and strokes.
 
-item.coldweapon.name.knife
+item.meleeweapon.name.knife
 Kitchen knife
 
-item.coldweapon.name.dagger
+item.meleeweapon.name.dagger
 Dagger
 
-item.coldweapon.name.sword
+item.meleeweapon.name.sword
 Sword
 
-item.coldweapon.name.serrated_sword
+item.meleeweapon.name.serrated_sword
 Serrated sword
 
-item.coldweapon.name.club
+item.meleeweapon.name.club
 Hercules's mace
 
-item.coldweapon.name.axe
+item.meleeweapon.name.axe
 Ancaeus's axe
 
-item.coldweapon.name.double_axe
+item.meleeweapon.name.double_axe
 Trollfist
 
-item.coldweapon.name.spear
+item.meleeweapon.name.spear
 Ares's spear
 
-item.coldweapon.name.halberd
+item.meleeweapon.name.halberd
 Halberd
 
-item.coldweapon.name.lance
+item.meleeweapon.name.lance
 Lance
 
-item.coldweapon.name.pique
+item.meleeweapon.name.pique
 War pique
 
-item.coldweapon.name.long_stick
+item.meleeweapon.name.long_stick
 Long stick
 
-item.coldweapon.name.hammer
+item.meleeweapon.name.hammer
 Stone hammer
 
 item.magicweapon.name.runic_sword
 Runic sword
 
-item.coldweapon.description.knife
+item.meleeweapon.description.knife
 More often it is used as a very useful, comprehensive tool, than an actual weapon, even though it may be also used in this purpose.
 
-item.coldweapon.description.dagger
+item.meleeweapon.description.dagger
 Longer than a knife, a weapon of assassins and rogues, perfect for doing so called ‘quiet job' or for fighting in narrow passages.
 
-item.coldweapon.description.sword
+item.meleeweapon.description.sword
 In this category weapon with various lengths can be included but it is usually characterized by a straight blade and grip with a crossguard facilitating parrying the attacks. A sword was often a symbol of state of the warrior and it signified a high position in hierarchy.
 
-item.coldweapon.description.serrated_sword
+item.meleeweapon.description.serrated_sword
 An original contraption whose efficacy you'll have an opportunity to check. As fantastic as some of the beasts you will have to confront.
 
-item.coldweapon.description.club
+item.meleeweapon.description.club
 How a club looks like - anyone can see. Its purpose is to hit - and, nevertheless, hitting someone's head with a club might stun. The legendary maker of this club has promised that this one is incomparable when it comes to stunning.
 
-item.coldweapon.description.axe
+item.meleeweapon.description.axe
 This ax was first found close to a carcass of a giant boar but the fact that there was no spot of blood on the blade might suggest that the previous owner overestimated his ability to throw a weapon of that kind at the enemies a bit.
 
-item.coldweapon.description.double_axe
+item.meleeweapon.description.double_axe
 This two handed axe with two blades is a terrifying, formidable weapon of which the full advantage will be taken only by the strongest warrior. It decisively deserved its name.
 
-item.coldweapon.description.spear
+item.meleeweapon.description.spear
 One of the oldest weapons in the world, however her efficiency can be confirmed by the fact that still it is used not only as a weapon massively used by meager squads. This spear was blessed by the God of War to, in his honor, hit the enemies accurately and powerfully.
 
-item.coldweapon.description.halberd
+item.meleeweapon.description.halberd
 This weapon looks kind of like a hybrid of a spear and an axe, interfusing the advantages of both. Is known from being a weapon of city police, thanks to its construction it may make a dangerous tool in hands of an experienced warrior.
 
-item.coldweapon.description.lance
+item.meleeweapon.description.lance
 A wooden weapon associated with horse-riding knighthood, used to breaking the arrays of the opponent during the charges of the cavalry.
 
-item.coldweapon.description.pique
+item.meleeweapon.description.pique
 Longer than a spear, works optimally in a compact infantry array as a defensive weapon. The combat style of the pikemen relates to the ancient tactics of hoplits and falangists.
 
-item.coldweapon.description.long_stick
+item.meleeweapon.description.long_stick
 Long sticks of this kind are most often associated with the wandering mages or pilgrims and thanks to their length and versatility they allow keeping the opponent in a distance.
 
-item.coldweapon.description.hammer
+item.meleeweapon.description.hammer
 Stone is heavy, as well as the hammer. That means a stone hammer must be a cursedly heavy and slow weapon which could be used only by someone with supernatural strength.
 
 item.magicweapon.description.runic_sword
@@ -655,8 +655,8 @@ CRAFTING
 player.skills.alchemy
 ALCHEMY
 
-player.skills.cold_weapon_mastery
-COLD WEAPON
+player.skills.melee_weapon_mastery
+MELEE WEAPON
 
 player.skills.ranged_weapon_mastery
 RANGED WEAPON
@@ -756,8 +756,8 @@ Now you know how to craft!
 message.item_used.book.alchemy
 Now you know how to brew potions!
 
-message.item_used.book.cold_weapon_mastery
-Now you know how to use the cold weapon!
+message.item_used.book.melee_weapon_mastery
+Now you know how to use the melee weapon!
 
 message.item_used.book.ranged_weapon_mastery
 Now you know how to use the ranged weapon!

@@ -1,21 +1,21 @@
 /**
- * @file src/program/game/item/ColdWeapon.hpp
+ * @file src/program/game/item/MeleeWeapon.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
-#ifndef ITEM_COLDWEAPON_HPP
-#define ITEM_COLDWEAPON_HPP
+#ifndef ITEM_MELEEWEAPON_HPP
+#define ITEM_MELEEWEAPON_HPP
 
 #include "Item.hpp"
 
 namespace rr
 {
 
-    class ColdWeapon : public Weapon
+    class MeleeWeapon : public Weapon
     {
     private: ////////////////////////////////////////////////////////////////////////
-             /// \brief Initializes the cold weapon.
+             /// \brief Initializes the melee weapon.
              ////////////////////////////////////////////////////////////////////////
      virtual void initialize() override;
 
@@ -39,20 +39,20 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
              ////////////////////////////////////////////////////////////////////////
-             ColdWeapon(Type = HAMMER, int amount = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
+             MeleeWeapon(Type = HAMMER, int amount = 1, sf::Vector2i pos = sf::Vector2i(0, 0));
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Copy constructor.
              ////////////////////////////////////////////////////////////////////////
-             ColdWeapon(ColdWeapon const&);
+             MeleeWeapon(MeleeWeapon const&);
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Creates an exact copy of the cold weapon.
+             /// \brief Creates an exact copy of the melee weapon.
              ////////////////////////////////////////////////////////////////////////
-             virtual Entity*        clone         () const         override { return new ColdWeapon(*this); }
+             virtual Entity* clone() const override { return new MeleeWeapon(*this); }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Returns the cold weapon's type.
+             /// \brief Returns the melee weapon's type.
              ///
              /// The possible values are:
              /// - HAMMER
@@ -72,33 +72,33 @@ namespace rr
              Type getType() const { return type_; }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Returns the cold weapon's name.
+             /// \brief Returns the melee weapon's name.
              ////////////////////////////////////////////////////////////////////////
              virtual sf::String getName() const override;
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Returns the cold weapon's description.
+             /// \brief Returns the melee weapon's description.
              ////////////////////////////////////////////////////////////////////////
              virtual sf::String getDescription() const override;
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Increases the cold weapon's level and maximum damage dealt by
+             /// \brief Increases the melee weapon's level and maximum damage dealt by
              /// it and reduces its requirement.
              ////////////////////////////////////////////////////////////////////////
              virtual void enhance() override;
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Puts an enchantment on the cold weapon.
+             /// \brief Puts an enchantment on the melee weapon.
              ////////////////////////////////////////////////////////////////////////
              virtual void enchant() override;
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Reads the cold weapon from the file.
+             /// \brief Reads the melee weapon from the file.
              ////////////////////////////////////////////////////////////////////////
              virtual std::ifstream& operator<< (std::ifstream&) override;
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Saves the cold weapon to the file.
+             /// \brief Saves the melee weapon to the file.
              ////////////////////////////////////////////////////////////////////////
              virtual std::ofstream& operator>> (std::ofstream&) override;
 
@@ -107,4 +107,4 @@ namespace rr
 
 }
 
-#endif // ITEM_COLDWEAPON_HPP
+#endif // ITEM_MELEEWEAPON_HPP

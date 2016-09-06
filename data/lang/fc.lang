@@ -249,7 +249,7 @@ item.book.type.crafting
 item.book.type.alchemy
 «toactavbi alxemjũ»
 
-item.book.type.cold_weapon_mastery
+item.book.type.melee_weapon_mastery
 «qwjehta dexmũcétxíyb»
 
 item.book.type.ranged_weapon_mastery
@@ -276,7 +276,7 @@ item.book.description.crafting
 item.book.description.alchemy
 .yjehqũ tenj qwjehúe txibíäthowjyjn bwelaqũx čjyleq ybi cklähjũqyb točbicqũbahbix čé totbopyb aocétxíexjew ũ blache mũqéctyvbi tboxibiyj mytl behyjew
 
-item.book.description.cold_weapon_mastery
+item.book.description.melee_weapon_mastery
 ?maxahjér mjeýem jérq úetem aowjyj maw ?bé balue yjehtle oavbibaw .bé tbim topähjnqy hobe, bapyjenj čäbahcobahe texhjũqũ balqũ [yjehqũ qtyvbim bé wtyúe dextyhqy wjeh toawqolũw] točhaw
 
 item.book.description.ranged_weapon_mastery
@@ -390,88 +390,88 @@ item.potion.description.slowness
 item.potion.description.weakness
 .ctäeq dopémbi dépycétpyjehubi ject .avbi to yhjũqhohyj hanjletjenj teh mũqéctypeh vbixiyj .ctoxjbiyje wjũleh tbonx čaqlehyj n yjecyb čémhjenjwa
 
-item.coldweapon.name.knife
+item.meleeweapon.name.knife
 hyxj qyxeȟbi
 
-item.coldweapon.name.dagger
+item.meleeweapon.name.dagger
 wétbilet
 
-item.coldweapon.name.sword
+item.meleeweapon.name.sword
 mjeý
 
-item.coldweapon.name.serrated_sword
+item.meleeweapon.name.serrated_sword
 tũlomjeý
 
-item.coldweapon.name.club
+item.meleeweapon.name.club
 maÿta Herqulesa
 
-item.coldweapon.name.axe
+item.meleeweapon.name.axe
 totyp Anqajosa
 
-item.coldweapon.name.double_axe
+item.meleeweapon.name.double_axe
 tjehwjyj tépola
 
-item.coldweapon.name.spear
+item.meleeweapon.name.spear
 blÿhjér Aresa
 
-item.coldweapon.name.halberd
+item.meleeweapon.name.halberd
 xalabapä
 
-item.coldweapon.name.lance
+item.meleeweapon.name.lance
 lahúa
 
-item.coldweapon.name.pique
+item.meleeweapon.name.pique
 tũqa bojeba
 
-item.coldweapon.name.long_stick
+item.meleeweapon.name.long_stick
 alytũ qoctyp
 
-item.coldweapon.name.hammer
+item.meleeweapon.name.hammer
 qamjeȟbi mlot
 
-item.coldweapon.name.runic_sword
+item.meleeweapon.name.runic_sword
 pyhjnyhbi mjey
 
-item.coldweapon.description.knife
+item.meleeweapon.description.knife
 .yehwjyjenj bapúo yxjbiteýhe ũ bwextépoȟe haxiehyje hjũxj tpabyjnboh vpohj ctahobũ, ale n bé tbim úely to vbiqoxibictayj moxjha
 
-item.coldweapon.description.dagger
+item.meleeweapon.description.dagger
 .alyxjéwbi oá hoxja, vpohj céqvbitobynjúyb ũ xiečjũmjewqyb, naéalha aó vbiqohbibahjér tčb. «yjũxenj pobotbi» ybi balqũ bé bohcéqũx ylnyqax
 
-item.coldweapon.description.sword
+item.meleeweapon.description.sword
 .ao tenj qatetopjũ čalnybiyj vpohj pyxjhenj alytowjyjn moxjha, ale tpocte océtxie n pehqojewjyj č jelúem ylatbjérjehubim tapobahje je xapaqtevbičyje .mjey cbimbolem ctatycy bojebhjũqa ýehcto vbil ũ vbicoqoh točbiújeh očhayal
 
-item.coldweapon.description.serrated_sword
+item.meleeweapon.description.serrated_sword
 .ovbitũhalhbi vbihalačeq qtypeto cqyteýhowjyj oqačjeh cétpabyjnyj mjérl behyjew .pybhje dahtactbíyhbi úo hjeqtype bectje čé qtyvbimũ yjn wjeh mjexibíyj txibinjyje
 
-item.coldweapon.description.club
+item.meleeweapon.description.club
 .jérqa maÿta ject, qaxjabi bnyjn .jenj txíečhayehjem yáexiayj ject, a txieyjexj yáexiehje obyxem bé tlobeh otlywbiyj moxje .letehtapéhbi tbypúa tenj maÿtn čawjé clobo äl xje ta b otlywahjy cobje pybéhbix hje ma
 
-item.coldweapon.description.axe
+item.meleeweapon.description.axe
 .totyp teh b oqolnuax tépyxla otpomheto yjnqa iwbi pač čhalečjeho, ale daqt [xje ha océtxíy wjéläyb qévbũ čhayj hje vbilo] cohyjnyj točbala, xje totxíeahjũ blawjyjnyjel cboje čaolhowjyjn xíyuahjér be vpotyb taqoh vpohjeh hjeúo txieúehjũl
 
-item.coldweapon.description.double_axe
+item.meleeweapon.description.double_axe
 .teh zbypehyhbi totyp o zbyx octéxiax txiepaxjajehúoh ũ totehxjhoh vpohjeh [qtypoh tébilqo hanjwjũlhjenjvbi bojebhjũq bé telhjũ vbiqoxibicta] ject .čaeúbíaobahje ha cbojeh hačbeh čaclyxjbil
 
-item.coldweapon.description.spear
+item.meleeweapon.description.spear
 .iha č hanjctapéwbix vpohjũ wjébjérta, jeahaq hjex o jenj cqyteýhowjyjn daqt towjéräýbi, xje byjehxj totylapha ject - hje tébilqo jérqo vpohj macobo yxjbibaha txieč ybotje oayjérélbi tjexotébi .teh blÿhjeh cam Byt Bonjéhbi toblotoclabũl, vbi ha jeto xbaleh úelhje ũ moúho yáexíala
 
-item.coldweapon.description.halberd
+item.meleeweapon.description.halberd
 .ta vpohj qéxibixjybqeh blÿhjũ n totopa txibitomũha - lohýohu čaletbi ũx oby .totylapha jérqo vpohj mjenjcqũx mũlénunjén, yjehqũ cbenj býaóbje tpočjhe haxiehyje bé pehqax čaolheto bojebhjũqa ctahobnyj moxje
 
-item.coldweapon.description.lance
+item.meleeweapon.description.lance
 .vpohj axíebúoba qojérxioha č aowjéräjehubim qohjũ vbicepéctébem, vbiqoxibictbibaha aó lamahjér vbiqyb txieyjnbhjũqa toayac wapéxjbi qabalepjũ
 
-item.coldweapon.description.pique
+item.meleeweapon.description.pique
 .alyxjwa oá blÿhjũ, hanjletjenj bé čébapétbim vbiqy tjexotébi jérqo vbohj aedehcébibha wjeh čétpabúa .cétbil balqũ tũqũhjepyb ao ctapoxjbithenj taqétbiqũ xotlũtyb ũ dalahtũtyb habjehčyje
 
-item.coldweapon.description.long_stick
+item.meleeweapon.description.long_stick
 .alytje lacqũ teto tbity čé behapobéhbimũ matamũ ybi tjeltéxibimamũ hanjyehwjyjenj qojérxiohe coh, a yjehqũ cbenj alytowjyjn ũ bwexcétpoȟowjyjn ha txibimahje txieyjnbhjũqa ha abicétahc točbalajeh
 
-item.coldweapon.description.hammer
+item.meleeweapon.description.hammer
 .qamjehj yjehxjqũ ject - mlot texj .bobeú teto qamjeȟbi mlot ajérbelhje yjehxjqoh ũ tobolhoh vpohjeh [qtypoh xbiba tbilqo qtowj o hjelyúqjenj wjũle wjeh toclytyje] vbiyj mywjũ
 
-item.coldweapon.description.runic_sword
+item.meleeweapon.description.runic_sword
 .teh aocqohale vbiqytbi ũ vbibaxjehbi mjey mjenjcúe ha matnyhoh pyheh [qtypa my aoätqobe, cteújérélhe blawjyjnbowjyn čatebhjũ] towjérå
 
 item.food.name.meat
@@ -686,7 +686,7 @@ XÍEMJEWJÉLŨCÉTBO
 player.skills.alchemy
 ALXEMJÉR
 
-player.skills.cold_weapon_mastery
+player.skills.melee_weapon_mastery
 VPOHJ BJÉRLA
 
 player.skills.ranged_weapon_mastery
@@ -753,7 +753,7 @@ message.item_used.book.crafting
 message.item_used.book.alchemy
 !tepač mũqéctyvbi baxibiyj ymjew
 
-message.item_used.book.cold_weapon_mastery
+message.item_used.book.melee_weapon_mastery
 !tepač vpohjeh bjérloh wjeh toclytũbayj ymjew
 
 message.item_used.book.ranged_weapon_mastery

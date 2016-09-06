@@ -132,11 +132,11 @@ namespace rr
                         if (player_->equipItem((Equipable*)item, equip))
                             ((Equipable*)item)->equip(equip);
 
-                        if (instanceof <ColdWeapon, Item> (item))
+                        if (instanceof <MeleeWeapon, Item> (item))
                         {
                             for (int i = 0; i < 32; ++i)
                             {
-                                if (instanceof <ColdWeapon, Item> (component(wInve_, Slot, i)->getItem()))
+                                if (instanceof <MeleeWeapon, Item> (component(wInve_, Slot, i)->getItem()))
                                 {
                                     ((Equipable*)component(wInve_, Slot, i)->getItem())->equip(false);
                                 }
@@ -199,11 +199,11 @@ namespace rr
                                 if (player_->equipItem((Equipable*) component(wInve_, Slot, i)->getItem(), equip))
                                     ((Equipable*)component(wInve_, Slot, i)->getItem())->equip(equip);
 
-                                if (instanceof <ColdWeapon, Item> (component(wInve_, Slot, i)->getItem()))
+                                if (instanceof <MeleeWeapon, Item> (component(wInve_, Slot, i)->getItem()))
                                 {
                                     for (int j = 0; j < 32; ++j)
                                     {
-                                        if (j != i && instanceof <ColdWeapon, Item> (component(wInve_, Slot, j)->getItem()))
+                                        if (j != i && instanceof <MeleeWeapon, Item> (component(wInve_, Slot, j)->getItem()))
                                         {
                                             ((Equipable*) component(wInve_, Slot, j)->getItem())->equip(false);
                                         }
@@ -526,7 +526,7 @@ namespace rr
                     case 0: item = new Ammunition  (); readEntity(file, item); break;
                     case 1: item = new Book        (); readEntity(file, item); break;
                     case 2: item = new Coin        (); readEntity(file, item); break;
-                    case 3: item = new ColdWeapon  (); readEntity(file, item); break;
+                    case 3: item = new MeleeWeapon (); readEntity(file, item); break;
                     case 4: item = new Food        (); readEntity(file, item); break;
                     case 5: item = new Potion      (); readEntity(file, item); break;
                     case 6: item = new RangedWeapon(); readEntity(file, item); break;

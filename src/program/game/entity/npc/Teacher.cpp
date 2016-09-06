@@ -80,7 +80,7 @@ namespace rr
                         auto later = new Sentence(Sentence::_NPC, "Come later noob.");
                         later->setLeft(teaching);
 
-                        auto cwm = new Sentence(Sentence::PLAYER, "Cold Weapon Mastery (10SP, 2 gold)");
+                        auto cwm = new Sentence(Sentence::PLAYER, "Melee Weapon Mastery (10SP, 2 gold)");
                         cwm->setLeft(gz);
                         cwm->setRight(later);
 

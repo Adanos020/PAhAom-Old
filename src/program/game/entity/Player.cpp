@@ -22,7 +22,7 @@ namespace rr
 {
 
     Player::Player() :
-      coldWeapon_      (nullptr           ),
+      meleeWeapon_     (nullptr           ),
       rangedWeapon_    (nullptr           ),
       position_        (sf::Vector2i(0, 0)),
       currentAnimation_(&walkingRight_    ),
@@ -42,7 +42,7 @@ namespace rr
 
         attrs_.crafting              = false;
         attrs_.alchemy               = false;
-        attrs_.cold_weapon_mastery   = false;
+        attrs_.melee_weapon_mastery  = false;
         attrs_.ranged_weapon_mastery = false;
         attrs_.eagle_eye             = false;
         attrs_.mana_regeneration     = false;
@@ -64,7 +64,7 @@ namespace rr
     Player::Player(Player const& copy) :
       attrs_           (copy.attrs_           ),
       buffs_           (copy.buffs_           ),
-      coldWeapon_      (copy.coldWeapon_      ),
+      meleeWeapon_     (copy.meleeWeapon_      ),
       rangedWeapon_    (copy.rangedWeapon_    ),
       position_        (copy.position_        ),
       body_            (copy.body_            ),
@@ -208,8 +208,8 @@ namespace rr
     Player::attack(NPC* npc)
     {
         int maxDamage = attrs_.strength/3.f;
-        if (coldWeapon_ != nullptr)
-            maxDamage = coldWeapon_->getDamageDealt() - (coldWeapon_->getRequirement() - attrs_.strength);
+        if (meleeWeapon_ != nullptr)
+            maxDamage = meleeWeapon_->getDamageDealt() - (meleeWeapon_->getRequirement() - attrs_.strength);
 
         npc->handleDamage(rand()%maxDamage);
     }
@@ -228,7 +228,7 @@ namespace rr
         {
             case Book::CRAFTING             : attrs_.crafting              = true; break;
             case Book::ALCHEMY              : attrs_.alchemy               = true; break;
-            case Book::COLD_WEAPON_MASTERY  : attrs_.cold_weapon_mastery   = true; break;
+            case Book::MELEE_WEAPON_MASTERY : attrs_.melee_weapon_mastery  = true; break;
             case Book::RANGED_WEAPON_MASTERY: attrs_.ranged_weapon_mastery = true; break;
             case Book::EAGLE_EYE            : attrs_.eagle_eye             = true; break;
             case Book::MANA_REGEN           : attrs_.mana_regeneration     = true; break;
@@ -292,7 +292,7 @@ namespace rr
 
         attrs_.crafting              = false;
         attrs_.alchemy               = false;
-        attrs_.cold_weapon_mastery   = false;
+        attrs_.melee_weapon_mastery  = false;
         attrs_.ranged_weapon_mastery = false;
         attrs_.eagle_eye             = false;
         attrs_.mana_regeneration     = false;
@@ -324,7 +324,7 @@ namespace rr
             {
                 case Book::CRAFTING             : attrs_.crafting              = true; break;
                 case Book::ALCHEMY              : attrs_.alchemy               = true; break;
-                case Book::COLD_WEAPON_MASTERY  : attrs_.cold_weapon_mastery   = true; break;
+                case Book::MELEE_WEAPON_MASTERY : attrs_.melee_weapon_mastery  = true; break;
                 case Book::RANGED_WEAPON_MASTERY: attrs_.ranged_weapon_mastery = true; break;
                 case Book::EAGLE_EYE            : attrs_.eagle_eye             = true; break;
                 case Book::MANA_REGEN           : attrs_.mana_regeneration     = true; break;
@@ -422,16 +422,16 @@ namespace rr
     Player::equipItem(Equipable* item, bool equip)
     {
         bool success = false;
-        if (instanceof <ColdWeapon, Equipable> (item))
+        if (instanceof <MeleeWeapon, Equipable> (item))
         {
             if (!equip)
             {
-                coldWeapon_ = nullptr;
+                meleeWeapon_ = nullptr;
                 success     = true;
             }
-            else if (((ColdWeapon*) item)->getRequirement() <= attrs_.strength)
+            else if (((MeleeWeapon*) item)->getRequirement() <= attrs_.strength)
             {
-                coldWeapon_ = (ColdWeapon*) item;
+                meleeWeapon_ = (MeleeWeapon*) item;
                 success     = true;
             }
         }
@@ -503,7 +503,7 @@ namespace rr
 
             readFile < bool> (file, attrs_.crafting);
             readFile < bool> (file, attrs_.alchemy);
-            readFile < bool> (file, attrs_.cold_weapon_mastery);
+            readFile < bool> (file, attrs_.melee_weapon_mastery);
             readFile < bool> (file, attrs_.ranged_weapon_mastery);
             readFile < bool> (file, attrs_.eagle_eye);
             readFile < bool> (file, attrs_.mana_regeneration);
@@ -547,7 +547,7 @@ namespace rr
 
              << attrs_.crafting              << ' '
              << attrs_.alchemy               << ' '
-             << attrs_.cold_weapon_mastery   << ' '
+             << attrs_.melee_weapon_mastery  << ' '
              << attrs_.ranged_weapon_mastery << ' '
              << attrs_.eagle_eye             << ' '
              << attrs_.mana_regeneration     << ' '

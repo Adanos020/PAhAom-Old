@@ -52,7 +52,7 @@ namespace rr
 
         wAttr_.getComponent <Text> (2)->setString((p->getAttributes().crafting               ? Resources::dictionary["player.skills.crafting"             ] : sf::String("-"))
                                             +"\n"+(p->getAttributes().alchemy                ? Resources::dictionary["player.skills.alchemy"              ] : sf::String("-"))
-                                            +"\n"+(p->getAttributes().cold_weapon_mastery    ? Resources::dictionary["player.skills.cold_weapon_mastery"  ] : sf::String("-"))
+                                            +"\n"+(p->getAttributes().melee_weapon_mastery   ? Resources::dictionary["player.skills.melee_weapon_mastery" ] : sf::String("-"))
                                             +"\n"+(p->getAttributes().ranged_weapon_mastery  ? Resources::dictionary["player.skills.ranged_weapon_mastery"] : sf::String("-"))
                                             +"\n"+(p->getAttributes().eagle_eye              ? Resources::dictionary["player.skills.better_sight"         ] : sf::String("-"))
                                             +"\n"+(p->getAttributes().mana_regeneration      ? Resources::dictionary["player.skills.mana_regen"           ] : sf::String("-"))

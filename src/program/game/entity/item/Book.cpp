@@ -62,7 +62,7 @@ namespace rr
         {
             case CRAFTING:              return Resources::dictionary["item.book.type.crafting"             ];
             case ALCHEMY:               return Resources::dictionary["item.book.type.alchemy"              ];
-            case COLD_WEAPON_MASTERY:   return Resources::dictionary["item.book.type.cold_weapon_mastery"  ];
+            case MELEE_WEAPON_MASTERY:  return Resources::dictionary["item.book.type.melee_weapon_mastery" ];
             case RANGED_WEAPON_MASTERY: return Resources::dictionary["item.book.type.ranged_weapon_mastery"];
             case EAGLE_EYE:             return Resources::dictionary["item.book.type.eagle_eye"            ];
             case MANA_REGEN:            return Resources::dictionary["item.book.type.mana_regen"           ];
@@ -80,7 +80,7 @@ namespace rr
         {
             case CRAFTING:              return Resources::dictionary["item.book.description.crafting"             ];
             case ALCHEMY:               return Resources::dictionary["item.book.description.alchemy"              ];
-            case COLD_WEAPON_MASTERY:   return Resources::dictionary["item.book.description.cold_weapon_mastery"  ];
+            case MELEE_WEAPON_MASTERY:  return Resources::dictionary["item.book.description.melee_weapon_mastery" ];
             case RANGED_WEAPON_MASTERY: return Resources::dictionary["item.book.description.ranged_weapon_mastery"];
             case EAGLE_EYE:             return Resources::dictionary["item.book.description.eagle_eye"            ];
             case MANA_REGEN:            return Resources::dictionary["item.book.description.mana_regen"           ];

@@ -67,9 +67,9 @@ namespace rr
                         update = true;
                 }
 
-                if (player_->getAttributes().cold_weapon_mastery)
+                if (player_->getAttributes().melee_weapon_mastery)
                 {
-                    if (answers->removeAnswer("Cold Weapon Mastery (10SP, 2 gold)"))
+                    if (answers->removeAnswer("Melee Weapon Mastery (10SP, 2 gold)"))
                         update = true;
                 }
 
@@ -125,11 +125,11 @@ namespace rr
 
             // recognizing if the choice is a request for learning
             // a skill or increasing some attributes
-            if (action == "Cold Weapon Mastery (10SP, 2 gold)")
+            if (action == "Melee Weapon Mastery (10SP, 2 gold)")
             {
                 if (g->getPlayer()->getAttributes().skillPoints >= 10 && g->getInventory()->getGold() >= 2)
                 {
-                    g->getPlayer()->learnSkill(Book::COLD_WEAPON_MASTERY, 10);
+                    g->getPlayer()->learnSkill(Book::MELEE_WEAPON_MASTERY, 10);
                     g->getInventory()->removeItem(new Coin(Coin::GOLDEN), 2);
                     answers->removeAnswer(chosen);
                     dialogue_->goLeft();

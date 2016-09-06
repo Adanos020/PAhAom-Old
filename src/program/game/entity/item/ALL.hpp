@@ -10,7 +10,7 @@
 #include "Ammunition.hpp"
 #include "Book.hpp"
 #include "Coin.hpp"
-#include "ColdWeapon.hpp"
+#include "MeleeWeapon.hpp"
 #include "Food.hpp"
 #include "Potion.hpp"
 #include "RangedWeapon.hpp"

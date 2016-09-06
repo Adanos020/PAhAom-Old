@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/ui/BookOfSpells.hpp
+ * @file src/program/game/ui/Inventory.hpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */

@@ -24,7 +24,7 @@ namespace rr
     PathFinder::aStar(sf::Vector2i from, sf::Vector2i to, int tiles[])
     {
         std::vector <sf::Vector2i> path;
-        std::list   <    Node*   > opened;
+        std::list   <    Node*   > open;
         std::list   <    Node*   > closed;
 
         Node* start = getNode(tiles, from);
@@ -34,22 +34,22 @@ namespace rr
 
         unsigned n = 0;
 
-        start->setOpened(true);
-        opened.push_back(start);
+        start->setOpen(true);
+        open.push_back(start);
 
-        while ((n == 0 || (current != end)))
+        while ((n == 0 || (current != end && n < 50)))
         {
-            for (auto it = opened.begin(); it != opened.end(); ++it)
+            for (auto it = open.begin(); it != open.end(); ++it)
             {
-                if (it == opened.begin() || (*it)->getF() <= current->getF())
+                if (it == open.begin() || (*it)->getF() <= current->getF())
                     current = *it;
             }
 
             if (current == end)
                 break;
 
-            opened.remove(current);
-            current->setOpened(false);
+            open.remove(current);
+            current->setOpen(false);
 
             closed.push_back(current);
             current->setClosed(true);
@@ -61,7 +61,7 @@ namespace rr
                     if (x == 0 && y == 0)
                         continue;
 
-                    child = getNode(tiles, sf::Vector2i(current->getPosition().x+x, current->getPosition().y+y));
+                    child = getNode(tiles, sf::Vector2i(current->getPosition().x + x, current->getPosition().y + y));
                     if (child->isClosed() || !child->isWalkable())
                         continue;
 
@@ -72,7 +72,7 @@ namespace rr
                             ) continue;
                     }
 
-                    if (child->isOpened())
+                    if (child->isOpen())
                     {
                         if (child->getG() > child->getG(current))
                         {
@@ -82,8 +82,8 @@ namespace rr
                     }
                     else
                     {
-                        child->setOpened(true);
-                        opened.push_back(child);
+                        child->setOpen(true);
+                        open.push_back(child);
                         
                         child->setParent(current);
                         child->calculateScores(end);
@@ -94,9 +94,9 @@ namespace rr
             ++n;
         }
 
-        for (auto it=opened.begin(); it!=opened.end(); ++it)
+        for (auto it=open.begin(); it!=open.end(); ++it)
         {
-            (*it)->setOpened(false);
+            (*it)->setOpen(false);
         }
         for (auto it=closed.begin(); it!=closed.end(); ++it)
         {
@@ -109,6 +109,9 @@ namespace rr
             current = current->getParent();
             ++n;
         }
+
+        open.clear();
+        closed.clear();
 
         return path;
     }

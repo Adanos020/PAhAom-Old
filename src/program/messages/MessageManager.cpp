@@ -85,7 +85,7 @@ namespace rr
                                             {
                                                 case Book  ::CRAFTING             : addMessage(Message(Resources::dictionary["message.item_used.book.crafting"             ])); break;
                                                 case Book  ::ALCHEMY              : addMessage(Message(Resources::dictionary["message.item_used.book.alchemy"              ])); break;
-                                                case Book  ::COLD_WEAPON_MASTERY  : addMessage(Message(Resources::dictionary["message.item_used.book.cold_weapon_mastery"  ])); break;
+                                                case Book  ::MELEE_WEAPON_MASTERY : addMessage(Message(Resources::dictionary["message.item_used.book.melee_weapon_mastery" ])); break;
                                                 case Book  ::RANGED_WEAPON_MASTERY: addMessage(Message(Resources::dictionary["message.item_used.book.ranged_weapon_mastery"])); break;
                                                 case Book  ::EAGLE_EYE            : addMessage(Message(Resources::dictionary["message.item_used.book.eagle_eye"            ])); break;
                                                 case Book  ::MANA_REGEN           : addMessage(Message(Resources::dictionary["message.item_used.book.mana_regen"           ])); break;

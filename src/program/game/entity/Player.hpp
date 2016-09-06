@@ -12,7 +12,7 @@
 #include "../../../../lib/AnimatedSprite.hpp"
 
 #include "Entity.hpp"
-#include "item/ColdWeapon.hpp"
+#include "item/MeleeWeapon.hpp"
 #include "item/RangedWeapon.hpp"
 #include "item/Item.hpp"
 #include "item/Book.hpp"
@@ -21,7 +21,7 @@ namespace rr
 {
 
     class Level;
-    class ColdWeapon;
+    class MeleeWeapon;
     class RangedWeapon;
     class Equipable;
     class NPC;
@@ -44,7 +44,7 @@ namespace rr
                  
                      bool  crafting;
                      bool  alchemy;
-                     bool  cold_weapon_mastery;
+                     bool  melee_weapon_mastery;
                      bool  ranged_weapon_mastery;
                      bool  eagle_eye;
                      bool  mana_regeneration;
@@ -62,7 +62,7 @@ namespace rr
                      int hunger;
              } buffs_;
 
-             ColdWeapon*        coldWeapon_;
+             MeleeWeapon*       meleeWeapon_;
              RangedWeapon*      rangedWeapon_;
 
              sf::Vector2i       position_;
@@ -169,9 +169,9 @@ namespace rr
              bool equipItem(Equipable*, bool);
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Returns the player's cold weapon that he equipped.
+             /// \brief Returns the player's melee weapon that he equipped.
              ////////////////////////////////////////////////////////////////////////
-             ColdWeapon* getColdWeapon() const { return coldWeapon_; }
+             MeleeWeapon* getMeleeWeapon() const { return meleeWeapon_; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's ranged weapon that he equipped.
@@ -210,7 +210,7 @@ namespace rr
              /// The possible values are:
              /// - CRAFTING
              /// - ALCHEMY
-             /// - COLD_WEAPON_MASTERY
+             /// - MELEE_WEAPON_MASTERY
              /// - RANGED_WEAPON_MASTERY
              /// - EAGLE_EYE
              /// - MANA_REGEN

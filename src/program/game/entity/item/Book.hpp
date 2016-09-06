@@ -23,7 +23,7 @@ namespace rr
              {
                  CRAFTING,
                  ALCHEMY,
-                 COLD_WEAPON_MASTERY,
+                 MELEE_WEAPON_MASTERY,
                  RANGED_WEAPON_MASTERY,
                  EAGLE_EYE,
                  MANA_REGEN,
@@ -53,7 +53,7 @@ namespace rr
              /// The possible values are:
              /// - CRAFTING
              /// - ALCHEMY
-             /// - COLD_WEAPON_MASTERY
+             /// - MELEE_WEAPON_MASTERY
              /// - RANGED_WEAPON_MASTERY
              /// - EAGLE_EYE
              /// - MANA_REGEN

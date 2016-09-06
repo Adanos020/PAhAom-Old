@@ -1,12 +1,12 @@
 /**
- * @file src/program/game/item/ColdWeapon.cpp
+ * @file src/program/game/item/MeleeWeapon.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML 2.3.2
  */
 
 #include <iostream>
 
-#include "ColdWeapon.hpp"
+#include "MeleeWeapon.hpp"
 
 #include "../../../Resources.hpp"
 
@@ -17,8 +17,8 @@
 namespace rr
 {
 
-    ColdWeapon::ColdWeapon(Type type, int amount, sf::Vector2i pos) :
-      type_      (type )
+    MeleeWeapon::MeleeWeapon(Type type, int amount, sf::Vector2i pos) :
+      type_(type )
     {
         level_      = 0;
         identified_ = false;
@@ -28,7 +28,7 @@ namespace rr
         setGridPosition(pos);
     }
 
-    ColdWeapon::ColdWeapon(ColdWeapon const& copy) :
+    MeleeWeapon::MeleeWeapon(MeleeWeapon const& copy) :
       type_(copy.type_)
     {
         amount_     = copy.amount_;
@@ -40,7 +40,7 @@ namespace rr
     }
 
     void
-    ColdWeapon::initialize()
+    MeleeWeapon::initialize()
     {
         disposable_ = false;
         stackable_  = false;
@@ -145,25 +145,25 @@ namespace rr
     }
     
     sf::String
-    ColdWeapon::getName() const
+    MeleeWeapon::getName() const
     {
         sf::String name = "";
 
         switch (type_)
         {
-            case HAMMER        : name += Resources::dictionary["item.coldweapon.name.hammer"        ]; break;
-            case DOUBLE_AXE    : name += Resources::dictionary["item.coldweapon.name.double_axe"    ]; break;
-            case HALBERD       : name += Resources::dictionary["item.coldweapon.name.halberd"       ]; break;
-            case AXE           : name += Resources::dictionary["item.coldweapon.name.axe"           ]; break;
-            case SERRATED_SWORD: name += Resources::dictionary["item.coldweapon.name.serrated_sword"]; break;
-            case LANCE         : name += Resources::dictionary["item.coldweapon.name.lance"         ]; break;
-            case CLUB          : name += Resources::dictionary["item.coldweapon.name.club"          ]; break;
-            case SWORD         : name += Resources::dictionary["item.coldweapon.name.sword"         ]; break;
-            case SPEAR         : name += Resources::dictionary["item.coldweapon.name.spear"         ]; break;
-            case PIQUE         : name += Resources::dictionary["item.coldweapon.name.pique"         ]; break;
-            case LONG_STICK    : name += Resources::dictionary["item.coldweapon.name.long_stick"    ]; break;
-            case DAGGER        : name += Resources::dictionary["item.coldweapon.name.dagger"        ]; break;
-            case KNIFE         : name += Resources::dictionary["item.coldweapon.name.knife"         ]; break;
+            case HAMMER        : name += Resources::dictionary["item.meleeweapon.name.hammer"        ]; break;
+            case DOUBLE_AXE    : name += Resources::dictionary["item.meleeweapon.name.double_axe"    ]; break;
+            case HALBERD       : name += Resources::dictionary["item.meleeweapon.name.halberd"       ]; break;
+            case AXE           : name += Resources::dictionary["item.meleeweapon.name.axe"           ]; break;
+            case SERRATED_SWORD: name += Resources::dictionary["item.meleeweapon.name.serrated_sword"]; break;
+            case LANCE         : name += Resources::dictionary["item.meleeweapon.name.lance"         ]; break;
+            case CLUB          : name += Resources::dictionary["item.meleeweapon.name.club"          ]; break;
+            case SWORD         : name += Resources::dictionary["item.meleeweapon.name.sword"         ]; break;
+            case SPEAR         : name += Resources::dictionary["item.meleeweapon.name.spear"         ]; break;
+            case PIQUE         : name += Resources::dictionary["item.meleeweapon.name.pique"         ]; break;
+            case LONG_STICK    : name += Resources::dictionary["item.meleeweapon.name.long_stick"    ]; break;
+            case DAGGER        : name += Resources::dictionary["item.meleeweapon.name.dagger"        ]; break;
+            case KNIFE         : name += Resources::dictionary["item.meleeweapon.name.knife"         ]; break;
         }
 
         name += ((identified_ && cursed_) ? " - "+Resources::dictionary["item.enchantment.name.cursed"] : "");
@@ -172,25 +172,25 @@ namespace rr
     }
 
     sf::String
-    ColdWeapon::getDescription() const
+    MeleeWeapon::getDescription() const
     {
         sf::String description = "";
 
         switch (type_)
         {
-            case HAMMER        : description += Resources::dictionary["item.coldweapon.description.hammer"        ]; break;
-            case DOUBLE_AXE    : description += Resources::dictionary["item.coldweapon.description.double_axe"    ]; break;
-            case HALBERD       : description += Resources::dictionary["item.coldweapon.description.halberd"       ]; break;
-            case AXE           : description += Resources::dictionary["item.coldweapon.description.axe"           ]; break;
-            case SERRATED_SWORD: description += Resources::dictionary["item.coldweapon.description.serrated_sword"]; break;
-            case LANCE         : description += Resources::dictionary["item.coldweapon.description.lance"         ]; break;
-            case CLUB          : description += Resources::dictionary["item.coldweapon.description.club"          ]; break;
-            case SWORD         : description += Resources::dictionary["item.coldweapon.description.sword"         ]; break;
-            case SPEAR         : description += Resources::dictionary["item.coldweapon.description.spear"         ]; break;
-            case PIQUE         : description += Resources::dictionary["item.coldweapon.description.pique"         ]; break;
-            case LONG_STICK    : description += Resources::dictionary["item.coldweapon.description.long_stick"    ]; break;
-            case DAGGER        : description += Resources::dictionary["item.coldweapon.description.dagger"        ]; break;
-            case KNIFE         : description += Resources::dictionary["item.coldweapon.description.knife"         ]; break;
+            case HAMMER        : description += Resources::dictionary["item.meleeweapon.description.hammer"        ]; break;
+            case DOUBLE_AXE    : description += Resources::dictionary["item.meleeweapon.description.double_axe"    ]; break;
+            case HALBERD       : description += Resources::dictionary["item.meleeweapon.description.halberd"       ]; break;
+            case AXE           : description += Resources::dictionary["item.meleeweapon.description.axe"           ]; break;
+            case SERRATED_SWORD: description += Resources::dictionary["item.meleeweapon.description.serrated_sword"]; break;
+            case LANCE         : description += Resources::dictionary["item.meleeweapon.description.lance"         ]; break;
+            case CLUB          : description += Resources::dictionary["item.meleeweapon.description.club"          ]; break;
+            case SWORD         : description += Resources::dictionary["item.meleeweapon.description.sword"         ]; break;
+            case SPEAR         : description += Resources::dictionary["item.meleeweapon.description.spear"         ]; break;
+            case PIQUE         : description += Resources::dictionary["item.meleeweapon.description.pique"         ]; break;
+            case LONG_STICK    : description += Resources::dictionary["item.meleeweapon.description.long_stick"    ]; break;
+            case DAGGER        : description += Resources::dictionary["item.meleeweapon.description.dagger"        ]; break;
+            case KNIFE         : description += Resources::dictionary["item.meleeweapon.description.knife"         ]; break;
         }
 
         description += "\n" + ((identified_ && cursed_  ) ? "\n"+Resources::dictionary["item.enchantment.description.cursed"]                                 : "")
@@ -202,7 +202,7 @@ namespace rr
     }
 
     void
-    ColdWeapon::enhance()
+    MeleeWeapon::enhance()
     {
         level_       ++;
         speed_       ++;
@@ -212,13 +212,13 @@ namespace rr
     }
 
     void
-    ColdWeapon::enchant() 
+    MeleeWeapon::enchant() 
     {
 
     }
 
     std::ifstream&
-    ColdWeapon::operator<<(std::ifstream& file)
+    MeleeWeapon::operator<<(std::ifstream& file)
     {
         sf::Vector2i position;
         int type;
@@ -253,7 +253,7 @@ namespace rr
     }
 
     std::ofstream&
-    ColdWeapon::operator>>(std::ofstream& file)
+    MeleeWeapon::operator>>(std::ofstream& file)
     {
         file << 3                            << ' '
              << (int) body_[0].position.x/80 << ' '

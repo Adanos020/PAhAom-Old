@@ -21,7 +21,7 @@ namespace rr
              private: Node*        parent_;
 
                       bool         closed_;
-                      bool         opened_;
+                      bool         open_;
                       bool         walkable_;
 
                       sf::Vector2i position_;
@@ -57,9 +57,9 @@ namespace rr
                       void setClosed(bool closed) { closed_ = closed; }
 
                       ////////////////////////////////////////////////////////////////////////
-                      /// \brief Sets the node opened.
+                      /// \brief Sets the node open.
                       ////////////////////////////////////////////////////////////////////////
-                      void setOpened(bool opened) { opened_ = opened; }
+                      void setOpen(bool open) { open_ = open; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Sets the node walkable.
@@ -72,9 +72,9 @@ namespace rr
                       bool isClosed() const { return closed_; }
 
                       ////////////////////////////////////////////////////////////////////////
-                      /// \brief Tells if the node is opened.
+                      /// \brief Tells if the node is open.
                       ////////////////////////////////////////////////////////////////////////
-                      bool isOpened() const { return opened_; }
+                      bool isOpen() const { return open_; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Tells if the node is walkable.

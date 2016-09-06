@@ -16,8 +16,12 @@
 #include "ShadowMap.hpp"
 #include "../entity/Player.hpp"
 
+#include "../entity/npc/ai/AIManager.hpp"
+
 namespace rr
 {
+
+    class AIManager;
 
 /// Class for the level
     class Level : public Observer, public sf::Drawable, public sf::Transformable
@@ -98,22 +102,22 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the level's starting point.
              ////////////////////////////////////////////////////////////////////////
-             sf::Vector2i getStartingPoint() const { return startingPoint_; }
+             sf::Vector2i getStartingPoint() const { return m_startingPoint; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the level's ending point.
              ////////////////////////////////////////////////////////////////////////
-             sf::Vector2i getEndingPoint() const { return endingPoint_; }
+             sf::Vector2i getEndingPoint() const { return m_endingPoint; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the level's list of tiles converted into integers.
              ////////////////////////////////////////////////////////////////////////
-             int* getTiles() { return tilesAsInts_; }
+             int* getTiles() { return m_tilesAsInts; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the level's list of tiles.
              ////////////////////////////////////////////////////////////////////////
-             Cell* getTilesAsCells() { return tiles_; }
+             Cell* getTilesAsCells() { return m_tiles; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reads the level from a file.
@@ -173,23 +177,25 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              bool isOnBorder(int, int);
 
-             sf::VertexArray          tilemap_;
-             sf::Vector2i             size_;
-             sf::Vector2i             startingPoint_;
-             sf::Vector2i             endingPoint_;
+             sf::VertexArray          m_tilemap;
+             sf::Vector2i             m_size;
+             sf::Vector2i             m_startingPoint;
+             sf::Vector2i             m_endingPoint;
 
-             int                      regions_    [77*43];
-             int                      tilesAsInts_[77*43];
-             Cell                     tiles_      [77*43];
-             ShadowMap                shadowMap_;
+             int                      m_regions    [77*43];
+             int                      m_tilesAsInts[77*43];
+             Cell                     m_tiles      [77*43];
+             ShadowMap                m_shadowMap;
 
-             std::list<Entity*>       entities_;
-             std::list<NPC*>          npcs_;
-             std::list<Item*>         items_;
+             AIManager                m_AIManager;
+
+             std::list<Entity*>       m_entities;
+             std::list<NPC*>          m_npcs;
+             std::list<Item*>         m_items;
              
-             std::vector<sf::IntRect> rooms_;
-             int                      region_count_;
-             int                      levelNumber_;
+             std::vector<sf::IntRect> m_rooms;
+             int                      m_regionCount;
+             int                      m_levelNumber;
     };
 
 }

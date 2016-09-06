@@ -424,7 +424,7 @@ namespace rr
                         wSoun->getComponent <ScrollBar> (1)->buttonEvents(rw, e);
 
                         g->getAudioManager()->setMusicVolume(wSoun->getComponent <Checkbox> (0)->isChecked() ? 0
-                                                                                                           : (float) wSoun->getComponent <ScrollBar> (0)->getValue());
+                                                                                                             : (float) wSoun->getComponent <ScrollBar> (0)->getValue());
                     }
                     if (wSoun->getComponent <Button> (0)->isPressed(rw, e))
                         wSoun->setVisible(false);

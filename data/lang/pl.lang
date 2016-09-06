@@ -252,7 +252,7 @@ item.book.type.crafting
 item.book.type.alchemy
 „Podstawy alchemii”
 
-item.book.type.cold_weapon_mastery
+item.book.type.melee_weapon_mastery
 „Księga fechmistrzów”
 
 item.book.type.ranged_weapon_mastery
@@ -279,7 +279,7 @@ Kompleksowy poradnik dla początkujących majsterkowiczów i złotych rączek, k
 item.book.description.alchemy
 Dzięki tej księdze dostrzeżesz przydatność wszelakich ziółek czy składników pozyskiwanych z potworów i będziesz mógł tworzyć własne mikstury.
 
-item.book.description.cold_weapon_mastery
+item.book.description.melee_weapon_mastery
 Masz dość machania mieczem jak cepem? Ciągle obrywasz w walce? W tym poradniku poznasz nowe, bardziej zaawansowane techniki walki, dzięki którym podszkolisz się w sztuce fechtunku.
 
 item.book.description.ranged_weapon_mastery
@@ -393,88 +393,88 @@ Kolejny napój, którego lepiej nie pić - chyba, że chcesz dać fory goniącym
 item.potion.description.weakness
 Spadek formy jest frustrujący - aby go uniknąć najlepiej wyrzuć tę miksturę. Spożycie zmniejsza siłę twoich zaklęć i ciosów.
 
-item.coldweapon.name.knife
+item.meleeweapon.name.knife
 Nóż kuchenny
 
-item.coldweapon.name.dagger
+item.meleeweapon.name.dagger
 Sztylet
 
-item.coldweapon.name.sword
+item.meleeweapon.name.sword
 Miecz
 
-item.coldweapon.name.serrated_sword
+item.meleeweapon.name.serrated_sword
 Piłomiecz
 
-item.coldweapon.name.club
+item.meleeweapon.name.club
 Maczuga Herkulesa
 
-item.coldweapon.name.axe
+item.meleeweapon.name.axe
 Topór Ankajosa
 
-item.coldweapon.name.double_axe
+item.meleeweapon.name.double_axe
 Pięść trolla
 
-item.coldweapon.name.spear
+item.meleeweapon.name.spear
 Włócznia Aresa
 
-item.coldweapon.name.halberd
+item.meleeweapon.name.halberd
 Halabarda
 
-item.coldweapon.name.lance
+item.meleeweapon.name.lance
 Lanca
 
-item.coldweapon.name.pique
+item.meleeweapon.name.pique
 Pika bojowa
 
-item.coldweapon.name.long_stick
+item.meleeweapon.name.long_stick
 Długi kostur
 
-item.coldweapon.name.hammer
+item.meleeweapon.name.hammer
 Kamienny młot
 
-item.coldweapon.name.runic_sword
+item.meleeweapon.name.runic_sword
 Miecz runiczny
 
-item.coldweapon.description.knife
+item.meleeweapon.description.knife
 Częściej stanowi bardzo użyteczne, wszechstronne narzędzie, niż prawdziwą broń, ale można go wykorzystać i w tym celu.
 
-item.coldweapon.description.dagger
+item.meleeweapon.description.dagger
 Dłuższy od noża, broń skrytobójców i rzezimieszków, idealna do wykonywania tzw. "cichej roboty" czy walki w wąskich uliczkach.
 
-item.coldweapon.description.sword
+item.meleeweapon.description.sword
 Do tej kategorii można zaliczyć broń różnej długości, ale charakteryzuje je najczęściej proste ostrze i rękojeść z jelcem ułatwiającym parowanie. Miecz był często symbolem statusu wojownika i oznaczał wysoką pozycję.
 
-item.coldweapon.description.serrated_sword
+item.meleeweapon.description.serrated_sword
 Oryginalny wynalazek, którego skuteczność będziesz miał okazję sprawdzić. Równie fantastyczny co niektóre bestie, z którymi przyjdzie ci się mierzyć.
 
-item.coldweapon.description.club
+item.meleeweapon.description.club
 Jaka maczuga jest, każdy widzi. Jej przeznaczeniem jest uderzać, a przecież uderzenie obuchem w głowę może ogłuszyć - legendarny twórca tej maczugi zaś dał słowo, że ta w ogłuszaniu nie ma sobie równych.
 
-item.coldweapon.description.axe
+item.meleeweapon.description.axe
 Topór ten pierwszy raz znaleziono w okolicach truchła ogromnego dzika, ale fakt że na ostrzu nie znać było śladów krwi pozwala sądzić, że poprzedni właściciel nieco przecenił swoje zdolności rzucania we wrogów taką bronią.
 
-item.coldweapon.description.double_axe
+item.meleeweapon.description.double_axe
 Ten obureczny topór o dwóch ostrzach jest przerażającą, potężną bronią, którą w pełni wykorzysta tylko najsilniejszy wojownik. Zdecydowanie zasłużył na swoją nazwę.
 
-item.coldweapon.description.spear
+item.meleeweapon.description.spear
 Jedna z najstarszych broni świata, jednak niech o jej skuteczności poświadczy fakt, że wciąż jest popularna nie tylko jako broń masowo używana przez ubogie oddziały. Tę włócznię pobłogosławił sam Bóg Wojny, by na jego chwałę uderzała celnie i mocno.
 
-item.coldweapon.description.halberd
+item.meleeweapon.description.halberd
 Ta broń przypomina krzyżówkę włóczni i topora, łącząc zalety ich obu. Popularna jako broń miejskich milicji, dzięki swej budowie może stanowić groźne narzędzie w rękach zdolnego wojownika.
 
-item.coldweapon.description.lance
+item.meleeweapon.description.lance
 Broń drzewcowa kojarzona z dosiadającym koni rycerstwem, wykorzystywana do łamania szyków przeciwnika podczas szarży kawalerii.
 
-item.coldweapon.description.pique
+item.meleeweapon.description.pique
 Dłuższa od włóczni, najlepiej sprawdza się w zwartym szyku piechoty jako broń defensywna. Styl walki pikinierów nawiązuje do starożytnej taktyki hoplitów i falangitów.
 
-item.coldweapon.description.long_stick
+item.meleeweapon.description.long_stick
 Długie laski tego typu kojarzone są najczęściej z wędrownymi magami czy pielgrzymami, a dzięki swej długości i wszechstronności pozwalają na trzymanie przeciwnika na dystans.
 
-item.coldweapon.description.hammer
+item.meleeweapon.description.hammer
 Kamień jest ciężki, młot też. Kamienny młot musi być wobec tego diabelnie ciężką i powolną bronią, którą posługuje się chyba tylko ktoś o nieludzkiej sile.
 
-item.coldweapon.description.runic_sword
+item.meleeweapon.description.runic_sword
 Ten doskonale wykuty i wyważony miecz posiada miejsce na magiczną runę, która zapewni mu dodatkowe, specjalne właściwości. Nawet bez niej jest szybką i cenioną bronią.
 
 item.food.name.meat
@@ -689,7 +689,7 @@ RZEMIEŚLNICTWO
 player.skills.alchemy
 ALCHEMIA
 
-player.skills.cold_weapon_mastery
+player.skills.melee_weapon_mastery
 BROŃ BIAŁA
 
 player.skills.ranged_weapon_mastery
@@ -756,7 +756,7 @@ Teraz możesz wytwarzać przedmioty!
 message.item_used.book.alchemy
 Teraz umiesz warzyć mikstury!
 
-message.item_used.book.cold_weapon_mastery
+message.item_used.book.melee_weapon_mastery
 Teraz umiesz posługiwać się bronią białą!
 
 message.item_used.book.ranged_weapon_mastery

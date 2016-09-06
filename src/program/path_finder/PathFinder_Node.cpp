@@ -12,7 +12,7 @@ namespace rr
     PathFinder::Node::Node() :
       parent_  (nullptr),
       closed_  (false),
-      opened_  (false),
+      open_    (false),
       position_(sf::Vector2i(0, 0)),
       f_       (0),
       g_       (0),
@@ -21,7 +21,7 @@ namespace rr
     PathFinder::Node::Node(sf::Vector2i position, bool walkable) :
       parent_  (nullptr),
       closed_  (false),
-      opened_  (false),
+      open_    (false),
       walkable_(walkable),
       position_(position),
       f_       (0),
