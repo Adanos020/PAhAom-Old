@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/Food.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -17,39 +17,39 @@ namespace rr
 {
 
     Food::Food(Type type, int amount, sf::Vector2i position) :
-      type_(type)
+      m_type(type)
     {
-        amount_ = amount;
+        m_amount = amount;
 
         initialize();
         setGridPosition(position);
     }
 
     Food::Food(Food const& copy) :
-      type_(copy.type_)
+      m_type(copy.m_type)
     {
-        amount_     = copy.amount_;
-        disposable_ = copy.disposable_;
-        stackable_  = copy.stackable_;
-        ID_         = copy.ID_;
-        iconIndex_  = copy.iconIndex_;
-        body_       = copy.body_;
+        m_amount     = copy.m_amount;
+        m_disposable = copy.m_disposable;
+        m_stackable  = copy.m_stackable;
+        m_ID         = copy.m_ID;
+        m_iconIndex  = copy.m_iconIndex;
+        m_body       = copy.m_body;
     }
 
     void Food::initialize()
     {
-        disposable_ = true;
-        stackable_  = true;
-        cursed_     = false;
-        ID_         = type_ + 61;
-        iconIndex_  = type_ + 80;
+        m_disposable = true;
+        m_stackable  = true;
+        m_cursed     = false;
+        m_ID         = m_type + 61;
+        m_iconIndex  = m_type + 80;
 
-        setIcon(body_, iconIndex_);
+        setIcon(m_body, m_iconIndex);
     }
 
     sf::String Food::getName() const
     {
-        switch (type_)
+        switch (m_type)
         {
             case MEAT     : return Resources::dictionary["item.food.name.meat"     ];
             case SANDVICH : return Resources::dictionary["item.food.name.sandvich" ];
@@ -64,7 +64,7 @@ namespace rr
 
     sf::String Food::getDescription() const
     {
-        switch (type_)
+        switch (m_type)
         {
             case MEAT     : return Resources::dictionary["item.food.description.meat"     ];
             case SANDVICH : return Resources::dictionary["item.food.description.sandvich" ];
@@ -87,7 +87,7 @@ namespace rr
         {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
-            readFile <int> (file, amount_);
+            readFile <int> (file, m_amount);
             readFile <int> (file, type);
         }
         catch (std::invalid_argument ex)
@@ -95,7 +95,7 @@ namespace rr
             std::cerr << ex.what() << '\n';
         }
 
-        type_ = (Type) type;
+        m_type = (Type) type;
 
         initialize();
         setGridPosition(position);
@@ -106,11 +106,11 @@ namespace rr
     std::ofstream&
     Food::operator>>(std::ofstream& file)
     {
-        file << 4                            << ' '
-             << (int) body_[0].position.x/80 << ' '
-             << (int) body_[0].position.y/80 << ' '
-             << amount_                      << ' '
-             << type_;
+        file << 4                             << ' '
+             << (int) m_body[0].position.x/80 << ' '
+             << (int) m_body[0].position.y/80 << ' '
+             << m_amount                      << ' '
+             << m_type;
 
         return file;
     }

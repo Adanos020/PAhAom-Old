@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/npc/Teacher.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef NPC_TEACHER_HPP
@@ -22,7 +22,7 @@ namespace rr
                      int slowness;
                      int weakness;
                      int hunger;
-             } buffs_;
+             } m_buffs;
              
              ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the teacher.
@@ -56,7 +56,7 @@ namespace rr
              /// - CROSSBOW
              /// - DAGGER
              ////////////////////////////////////////////////////////////////////////
-             Type getType() const { return type_; }
+             Type getType() const { return m_type; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Creates an exact copy of the teacher.
@@ -103,7 +103,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
      virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type type_;
+    private: Type m_type;
     };
 
 }

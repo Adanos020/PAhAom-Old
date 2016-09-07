@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/Inventory.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef UI_INVENTORY_HPP
@@ -24,15 +24,15 @@ namespace rr
 
     class Inventory : public Observer, public sf::Drawable
     {
-    private: sf::RectangleShape shadow_;
+    private: sf::RectangleShape m_shadow;
 
-             Window             wInve_;
-             Slot*              sCarryOn_[5];
-             Player*            player_;
+             Window             m_wInve;
+             Slot*              m_sCarryOn[5];
+             Player*            m_player;
 
-             short              bronze_;
-             short              silver_;
-             short              gold_;
+             short              m_bronze;
+             short              m_silver;
+             short              m_gold;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sorts the items in the backpack.
@@ -81,17 +81,17 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells how much gold there is in the inventory.
              ////////////////////////////////////////////////////////////////////////
-             short getGold() const { return gold_; }
+             short getGold() const { return m_gold; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells how much silver there is in the inventory.
              ////////////////////////////////////////////////////////////////////////
-             short getSilver() const { return silver_; }
+             short getSilver() const { return m_silver; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells how much bronze there is in the inventory.
              ////////////////////////////////////////////////////////////////////////
-             short getBronze() const { return bronze_; }
+             short getBronze() const { return m_bronze; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Clears the inventory.
@@ -116,7 +116,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the inventory is open.
              ////////////////////////////////////////////////////////////////////////
-             bool isOpen() const { return wInve_.isVisible(); }
+             bool isOpen() const { return m_wInve.isVisible(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reads the inventory from a file.

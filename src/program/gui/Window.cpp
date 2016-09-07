@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Window.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include "Window.hpp"
@@ -12,62 +12,62 @@ namespace rr
 {
 
     Window::Window(sf::String head, sf::Vector2f size, sf::Vector2f position, sf::Color c) :
-      header_  (Text(sf::Vector2f(0, 0), head, Resources::font.Unifont, 20, sf::Color::Yellow)),
-      visible_ (false)
+      m_header (Text(sf::Vector2f(0, 0), head, Resources::font.Unifont, 20, sf::Color::Yellow)),
+      m_visible(false)
     {
-        body_.setSize            (size);
-        body_.setPosition        (position);
-        body_.setFillColor       (sf::Color(c.r, c.g, c.b, 128));
-        body_.setOutlineColor    (c);
-        body_.setOutlineThickness(5);
+        m_body.setSize(size);
+        m_body.setPosition(position);
+        m_body.setFillColor(sf::Color(c.r, c.g, c.b, 128));
+        m_body.setOutlineColor(c);
+        m_body.setOutlineThickness(5);
 
-        header_.setPosition       (sf::Vector2f(position.x+5, position.y));
-        header_.setParentComponent(this);
+        m_header.setPosition(sf::Vector2f(position.x+5, position.y));
+        m_header.setParentComponent(this);
     }
 
     Window::~Window()
     {
-        for (auto component : components_)
+        for (auto component : m_components)
         {
             delete component;
         }
-        components_.clear();
+        m_components.clear();
     }
 
     void
     Window::addComponent(Component* c, bool attached)
     {
         if (attached)
-            c->setPosition(sf::Vector2f(body_.getPosition().x + c->getPosition().x, body_.getPosition().y + c->getPosition().y));
+            c->setPosition(sf::Vector2f(m_body.getPosition().x + c->getPosition().x, m_body.getPosition().y + c->getPosition().y));
         c->setParentComponent(this);
-        components_.push_back(c);
+        m_components.push_back(c);
     }
 
     void
     Window::setPosition(sf::Vector2f pos)
     {
-        for (auto component : components_)
+        for (auto component : m_components)
         {
-            component->setPosition(pos + component->getPosition() - body_.getPosition());
+            component->setPosition(pos + component->getPosition() - m_body.getPosition());
         }
-        body_  .setPosition(pos);
-        header_.setPosition(sf::Vector2f(pos.x+5, pos.y));
+        m_body  .setPosition(pos);
+        m_header.setPosition(sf::Vector2f(pos.x+5, pos.y));
     }
 
     void
     Window::setVisible(bool b)
     {
-        visible_ = b;
+        m_visible = b;
     }
 
     void
     Window::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        if (visible_)
+        if (m_visible)
         {
-            target.draw(body_  , states);
-            target.draw(header_, states);
-            for (auto component : components_)
+            target.draw(m_body  , states);
+            target.draw(m_header, states);
+            for (auto component : m_components)
             {
                 target.draw(*component, states);
             }

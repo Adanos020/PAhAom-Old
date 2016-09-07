@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entities/item/Item.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ITEM_HPP
@@ -19,13 +19,13 @@ namespace rr
 /// Class for an item
     class Item : public Entity
     {
-    protected: sf::VertexArray body_;
-               bool            disposable_;
-               bool            stackable_;
-               bool            cursed_;
-               int             ID_;
-               int             amount_;
-               unsigned        iconIndex_;
+    protected: sf::VertexArray m_body;
+               bool            m_disposable;
+               bool            m_stackable;
+               bool            m_cursed;
+               int             m_ID;
+               int             m_amount;
+               unsigned        m_iconIndex;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Draws the item's body and texture on the screen.
@@ -33,7 +33,7 @@ namespace rr
        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override
                {
                    states.texture = &Resources::texture.items;
-                   target.draw(body_, states);
+                   target.draw(m_body, states);
                }
 
     public:    ////////////////////////////////////////////////////////////////////////
@@ -44,37 +44,37 @@ namespace rr
                ////////////////////////////////////////////////////////////////////////
                /// \brief Changes the amount
                ////////////////////////////////////////////////////////////////////////
-       virtual void setAmount(int x) { amount_ = x; }
+       virtual void setAmount(int x) { m_amount = x; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the item's ID
                ////////////////////////////////////////////////////////////////////////
-       virtual int getID() const { return ID_; }
+       virtual int getID() const { return m_ID; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the amount of this item
                ////////////////////////////////////////////////////////////////////////
-       virtual int getAmount() const { return amount_; }
+       virtual int getAmount() const { return m_amount; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Tells if the item is disposable
                ////////////////////////////////////////////////////////////////////////
-       virtual bool isDisposable() const { return disposable_; }
+       virtual bool isDisposable() const { return m_disposable; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Tells if the item is stackable
                ////////////////////////////////////////////////////////////////////////
-       virtual bool isStackable() const { return stackable_; }
+       virtual bool isStackable() const { return m_stackable; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Tells if the item is cursed
                ////////////////////////////////////////////////////////////////////////
-       virtual bool isCursed() const { return cursed_; }
+       virtual bool isCursed() const { return m_cursed; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the sprite of this item
                ////////////////////////////////////////////////////////////////////////
-       virtual sf::VertexArray getBody() const { return body_; }
+       virtual sf::VertexArray getBody() const { return m_body; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the name of this item
@@ -89,7 +89,7 @@ namespace rr
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the texture's icon index
                ////////////////////////////////////////////////////////////////////////
-       virtual unsigned getIconIndex() const { return iconIndex_; }
+       virtual unsigned getIconIndex() const { return m_iconIndex; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets the item's position relatively to the grid marked out by
@@ -97,17 +97,17 @@ namespace rr
                ////////////////////////////////////////////////////////////////////////
        virtual void setGridPosition(sf::Vector2i pos) override
                {
-                   body_[0].position = (sf::Vector2f)pos*80.f;
-                   body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
-                   body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
-                   body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
+                   m_body[0].position = (sf::Vector2f)pos*80.f;
+                   m_body[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f);
+                   m_body[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
+                   m_body[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
                }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the item's position relatively to the grid marked out
                /// by the level's tile map.
                ////////////////////////////////////////////////////////////////////////
-       virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) body_[0].position/80; }
+       virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) m_body[0].position/80; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets the item's position relatively to the graphics card's
@@ -115,17 +115,17 @@ namespace rr
                ////////////////////////////////////////////////////////////////////////
        virtual void setPosition(sf::Vector2f pos) override
                {
-                   body_[0].position =               pos;
-                   body_[1].position =  sf::Vector2f(pos.x+80, pos.y);
-                   body_[2].position =  sf::Vector2f(pos.x+80, pos.y+80);
-                   body_[3].position =  sf::Vector2f(pos.x   , pos.y+80);
+                   m_body[0].position =               pos;
+                   m_body[1].position =  sf::Vector2f(pos.x+80, pos.y);
+                   m_body[2].position =  sf::Vector2f(pos.x+80, pos.y+80);
+                   m_body[3].position =  sf::Vector2f(pos.x   , pos.y+80);
                }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the item's position relatively to the graphics card's
                /// coordinate system.
                ////////////////////////////////////////////////////////////////////////
-       virtual sf::Vector2f getPosition() const override { return body_[0].position/80.f; }
+       virtual sf::Vector2f getPosition() const override { return m_body[0].position/80.f; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Tells if another entity's bound box intersects with the item's
@@ -136,7 +136,7 @@ namespace rr
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the item's bound box.
                ////////////////////////////////////////////////////////////////////////
-       virtual sf::FloatRect getBounds() const override { return sf::FloatRect(body_[0].position, body_[2].position-body_[0].position); }
+       virtual sf::FloatRect getBounds() const override { return sf::FloatRect(m_body[0].position, m_body[2].position - m_body[0].position); }
     };
 
     class Discoverable : public Item
@@ -159,7 +159,7 @@ namespace rr
 
     class Equipable : public Discoverable
     {
-    protected: bool equipped_ = false;
+    protected: bool m_equipped = false;
     
     public:    ////////////////////////////////////////////////////////////////////////
                /// \brief Virtual destructor.
@@ -179,12 +179,12 @@ namespace rr
 
     class Weapon : public Equipable
     {
-    protected: float requirement_;
-               float damageDealt_;
-               float speed_;
-               float accuracy_;
-               int   level_;
-               bool  identified_;
+    protected: float m_requirement;
+               float m_damageDealt;
+               float m_speed;
+               float m_accuracy;
+               int   m_level;
+               bool  m_identified;
 
     public:    ////////////////////////////////////////////////////////////////////////
                /// \brief Virtual destructor.
@@ -194,27 +194,27 @@ namespace rr
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the weapon's requirement.
                ////////////////////////////////////////////////////////////////////////
-               float getRequirement() const { return requirement_; }
+               float getRequirement() const { return m_requirement; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the weapon's maximum damage dealt.
                ////////////////////////////////////////////////////////////////////////
-               float getDamageDealt() const { return damageDealt_; }
+               float getDamageDealt() const { return m_damageDealt; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the weapon's speed.
                ////////////////////////////////////////////////////////////////////////
-               float getSpeed() const { return speed_; }
+               float getSpeed() const { return m_speed; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the weapon's accuracy.
                ////////////////////////////////////////////////////////////////////////
-               float getAccuracy() const { return accuracy_; }
+               float getAccuracy() const { return m_accuracy; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the weapon's upgrade level.
                ////////////////////////////////////////////////////////////////////////
-               int getLevel() const { return level_; }
+               int getLevel() const { return m_level; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Tells everything about the weapon.
@@ -222,22 +222,22 @@ namespace rr
                /// This allows the player to see the actual level and enchantments of
                /// the weapon.
                ////////////////////////////////////////////////////////////////////////
-       virtual void reveal() override { identified_ = true; }
+       virtual void reveal() override { m_identified = true; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Tells if the weapon is discovered.
                ////////////////////////////////////////////////////////////////////////
-       virtual bool isDiscovered() const override { return identified_; }
+       virtual bool isDiscovered() const override { return m_identified; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Makes the weapon equipped.
                ////////////////////////////////////////////////////////////////////////
-       virtual void equip(bool b) override { equipped_ = b; }
+       virtual void equip(bool b) override { m_equipped = b; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Tells if the weapon is equipped.
                ////////////////////////////////////////////////////////////////////////
-       virtual bool isEquipped() const override { return equipped_; }
+       virtual bool isEquipped() const override { return m_equipped; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Increases the weapon's level and maximum damage dealt by

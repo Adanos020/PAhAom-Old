@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/npc/Bandit.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef NPC_BANDIT_HPP
@@ -16,7 +16,7 @@ namespace rr
 
     class Bandit : public NPC
     {
-    private: bool moving_;
+    private: bool m_moving;
 
              struct // Structure for buffs - each buff is represented by an integer
              {      // which tells for how many turns is it going to be valid.
@@ -26,7 +26,7 @@ namespace rr
                      int slowness;
                      int weakness;
                      int hunger;
-             } buffs_;
+             } m_buffs;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the bandit.
@@ -63,7 +63,7 @@ namespace rr
              /// - CROSSBOW
              /// - DAGGER
              ////////////////////////////////////////////////////////////////////////
-             Type getType() const { return type_; }
+             Type getType() const { return m_type; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Updates the bandit's state.
@@ -105,7 +105,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
      virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type type_;
+    private: Type m_type;
     };
 
 }

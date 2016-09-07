@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Checkbox.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GUI_CHECKBOX_HPP
@@ -16,11 +16,11 @@ namespace rr
 
     class Checkbox : public Component
     {
-    private: sf::RectangleShape body_;
-             Image              image_;
-             Text               text_;
-             bool               checked_;
-             bool               held_;
+    private: sf::RectangleShape m_body;
+             Image              m_image;
+             Text               m_text;
+             bool               m_checked;
+             bool               m_held;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the ckeckbox on the screen.
@@ -46,7 +46,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the checkbox's body's position.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
+     virtual sf::Vector2f getPosition() const override { return m_body.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the checkbox's body's size.
@@ -56,17 +56,17 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the checkbox's body's size.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getSize() const override { return body_.getSize(); }
+     virtual sf::Vector2f getSize() const override { return m_body.getSize(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the string of the text displayed next to the checkbox.
              ////////////////////////////////////////////////////////////////////////
-             void setText(sf::String s) { text_.setString(s); }
+             void setText(sf::String s) { m_text.setString(s); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text displayed next to the checkbox.
              ////////////////////////////////////////////////////////////////////////
-             Text getText() const { return text_; }
+             Text getText() const { return m_text; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the checkbox is touched by a mouse cursor.
@@ -81,7 +81,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Method telling if the checkbox is checked.
              ////////////////////////////////////////////////////////////////////////
-             bool isChecked() const { return checked_; }
+             bool isChecked() const { return m_checked; }
     };
 
 }

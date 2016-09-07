@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Window.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GUI_WINDOW_HPP
@@ -19,10 +19,10 @@ namespace rr
 
     class Window : public Component
     {
-    private: sf::RectangleShape      body_;
-             Text                    header_;
-             std::vector<Component*> components_;
-             bool                    visible_;
+    private: sf::RectangleShape      m_body;
+             Text                    m_header;
+             std::vector<Component*> m_components;
+             bool                    m_visible;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.
@@ -54,23 +54,23 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Method telling if the internal window is visible.
              ////////////////////////////////////////////////////////////////////////
-             bool isVisible() const { return visible_; }
+             bool isVisible() const { return m_visible; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the internal window's title.
              ////////////////////////////////////////////////////////////////////////
-             void setHeader(sf::String s) { header_.setString(s); }
+             void setHeader(sf::String s) { m_header.setString(s); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the internal window's title.
              ////////////////////////////////////////////////////////////////////////
-             Text getHeader() const { return header_; }
+             Text getHeader() const { return m_header; }
 
              void setPosition(sf::Vector2f) override;
-             void setSize(sf::Vector2f siz) override { body_.setSize(siz); }
+             void setSize(sf::Vector2f siz) override { m_body.setSize(siz); }
 
-             sf::Vector2f getSize() const override { return body_.getSize(); }
-             sf::Vector2f getPosition() const override { return body_.getPosition(); }
+             sf::Vector2f getSize() const override { return m_body.getSize(); }
+             sf::Vector2f getPosition() const override { return m_body.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the internal window's component of a given type and
@@ -81,12 +81,12 @@ namespace rr
              {
                  if (std::is_base_of<Component, T>::value)
                  {
-                     for (unsigned i=0; i<components_.size(); i++)
+                     for (unsigned i=0; i<m_components.size(); i++)
                      {
-                         if (instanceof<T, Component>(components_[i]))
+                         if (instanceof<T, Component>(m_components[i]))
                          {
                              if (  index-- == 0
-                                 ) return (T*)components_[i];
+                                 ) return (T*)m_components[i];
                          }
                      }
                  }

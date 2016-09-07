@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/Stairs.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ENTITY_STAIRS_HPP
@@ -14,10 +14,9 @@ namespace rr
 
     class Stairs : public Entity
     {
-    private: sf::Sprite   body_;
-             sf::Vector2i position_;
-             bool         upwards_;
-             
+    private: sf::Sprite   m_body;
+             bool         m_upwards;
+
              ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the stairs.
              ////////////////////////////////////////////////////////////////////////
@@ -27,7 +26,7 @@ namespace rr
              /// \brief Draws the starirs' body and texture on the screen.
              ////////////////////////////////////////////////////////////////////////
      virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
-    
+
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
              ////////////////////////////////////////////////////////////////////////
@@ -46,31 +45,31 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the stairs are upwards.
              ////////////////////////////////////////////////////////////////////////
-             bool isUpwards() const { return upwards_; }
+             bool isUpwards() const { return m_upwards; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the stairs' position relatively to the grid marked out
              /// by the level's tile map.
              ////////////////////////////////////////////////////////////////////////
-     virtual void setGridPosition(sf::Vector2i pos) override { body_.setPosition((sf::Vector2f) pos*80.f); }
+     virtual void setGridPosition(sf::Vector2i pos) override { m_body.setPosition((sf::Vector2f) pos*80.f); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the stairs' position relatively to the grid marked
              /// out by the level's tile map.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) body_.getPosition()/80; }
+     virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) m_body.getPosition()/80; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the stairs' position relatively to the graphics card's
              /// coordinate system.
              ////////////////////////////////////////////////////////////////////////
-     virtual void setPosition(sf::Vector2f pos) override { body_.setPosition(pos); }
+     virtual void setPosition(sf::Vector2f pos) override { m_body.setPosition(pos); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the stairs' position relatively to the graphics
              /// card's coordinate system.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
+     virtual sf::Vector2f getPosition() const override { return m_body.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if another entity's bound box intersects with the
@@ -81,7 +80,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the stairs' bound box.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::FloatRect getBounds() const override { return body_.getGlobalBounds(); }
+     virtual sf::FloatRect getBounds() const override { return m_body.getGlobalBounds(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reads the stairs from the file.

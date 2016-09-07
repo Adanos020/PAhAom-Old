@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/Door.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -16,45 +16,45 @@ namespace rr
 {
 
     Door::Door(bool lock) :
-      locked_        (lock    ),
-      open_          (false   ),
-      withoutWindow_ (rand()%2)
+      m_locked      (lock),
+      m_open        (false),
+      m_withWindow(rand()%2)
     {
         initialize();
     }
 
     Door::Door(Door const& copy) :
-      body_         (copy.body_         ),
-      locked_       (copy.locked_       ),
-      open_         (copy.open_         ),
-      withoutWindow_(copy.withoutWindow_) {}
+      m_body      (copy.m_body),
+      m_locked    (copy.m_locked),
+      m_open      (copy.m_open),
+      m_withWindow(copy.m_withWindow) {}
 
     void
     Door::initialize()
     {
-        body_.setTexture    (Resources::texture.objects);
-        body_.setScale      (sf::Vector2f(5, 5));
-        body_.setTextureRect(sf::IntRect(sf::Vector2i(rand()%5*16*(withoutWindow_+1), 0), sf::Vector2i(16, 16)));
+        m_body.setTexture(Resources::texture.objects);
+        m_body.setScale(sf::Vector2f(5, 5));
+        m_body.setTextureRect(sf::IntRect(sf::Vector2i(rand()%5*16*((!m_withWindow)+1), 0), sf::Vector2i(16, 16)));
     }
 
     void
     Door::setOpen(bool b)
     {
-        open_ = b;
-        if (open_)
+        m_open = b;
+        if (m_open)
         {
-            body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80, 16), sf::Vector2i(16, 16)));
-            locked_ = false;
+            m_body.setTextureRect(sf::IntRect(sf::Vector2i(m_body.getTextureRect().left%80, 16), sf::Vector2i(16, 16)));
+            m_locked = false;
         }
         else
-            body_.setTextureRect(sf::IntRect(sf::Vector2i(body_.getTextureRect().left%80 + 80*withoutWindow_, 0), sf::Vector2i(16, 16)));
+            m_body.setTextureRect(sf::IntRect(sf::Vector2i(m_body.getTextureRect().left%80 + 80*(!m_withWindow), 0), sf::Vector2i(16, 16)));
     }
 
     void
     Door::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         states.texture = &Resources::texture.objects;
-        target.draw(body_, states);
+        target.draw(m_body, states);
     }
 
     std::ifstream&
@@ -65,9 +65,9 @@ namespace rr
         {
             readFile <int > (file, position.x);
             readFile <int > (file, position.y);
-            readFile <bool> (file, locked_);
-            readFile <bool> (file, open_);
-            readFile <bool> (file, withoutWindow_);
+            readFile <bool> (file, m_locked);
+            readFile <bool> (file, m_open);
+            readFile <bool> (file, m_withWindow);
         }
         catch (std::invalid_argument ex)
         {
@@ -83,12 +83,12 @@ namespace rr
     std::ofstream&
     Door::operator>>(std::ofstream& file)
     {
-        file << 41                             << ' '
-             << (int) body_.getPosition().x/80 << ' '
-             << (int) body_.getPosition().y/80 << ' '
-             << locked_                        << ' '
-             << open_                          << ' '
-             << withoutWindow_;
+        file << 41                              << ' '
+             << (int) m_body.getPosition().x/80 << ' '
+             << (int) m_body.getPosition().y/80 << ' '
+             << m_locked                        << ' '
+             << m_open                          << ' '
+             << m_withWindow;
 
         return file;
     }

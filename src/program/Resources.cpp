@@ -1,7 +1,7 @@
 /**
  * @file src/program/Resources.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <fstream>

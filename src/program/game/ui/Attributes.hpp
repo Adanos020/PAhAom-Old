@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/Attributes.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef UI_ATTRIBUTES_HPP
@@ -20,8 +20,8 @@ namespace rr
 
     class Attributes : public sf::Drawable
     {
-    private: sf::RectangleShape shadow_;
-             Window             wAttr_;
+    private: sf::RectangleShape m_shadow;
+             Window             m_wAttr;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.
@@ -46,17 +46,17 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Opens the player attributes window.
              ////////////////////////////////////////////////////////////////////////
-             void open() { wAttr_.setVisible(true); }
+             void open() { m_wAttr.setVisible(true); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Closes the player attributes window.
              ////////////////////////////////////////////////////////////////////////
-             void close() { wAttr_.setVisible(false); }
+             void close() { m_wAttr.setVisible(false); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the player attributes window is open.
              ////////////////////////////////////////////////////////////////////////
-             bool isOpen() const { return wAttr_.isVisible(); }
+             bool isOpen() const { return m_wAttr.isVisible(); }
     };
 
 }

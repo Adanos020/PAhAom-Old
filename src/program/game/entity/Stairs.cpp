@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/Stairs.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -16,28 +16,28 @@ namespace rr
 {
 
     Stairs::Stairs(bool upwards) :
-      upwards_ (upwards)
+      m_upwards(upwards)
     {
         initialize();
     }
 
     Stairs::Stairs(Stairs const& copy) :
-      body_   (copy.body_   ),
-      upwards_(copy.upwards_) {}
+      m_body   (copy.m_body   ),
+      m_upwards(copy.m_upwards) {}
 
     void
     Stairs::initialize()
     {
-        body_.setTexture    (Resources::texture.objects);
-        body_.setScale      (sf::Vector2f(5, 5));
-        body_.setTextureRect(sf::IntRect(upwards_ ? 16 : 0, 64, 16, 16));
+        m_body.setTexture    (Resources::texture.objects);
+        m_body.setScale      (sf::Vector2f(5, 5));
+        m_body.setTextureRect(sf::IntRect(m_upwards ? 16 : 0, 64, 16, 16));
     }
 
     void
     Stairs::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         states.texture = &Resources::texture.objects;
-        target.draw(body_, states);
+        target.draw(m_body, states);
     }
 
     std::ifstream&
@@ -49,7 +49,7 @@ namespace rr
         {
             readFile < int> (file, position.x);
             readFile < int> (file, position.y);
-            readFile <bool> (file, upwards_);
+            readFile <bool> (file, m_upwards);
         }
         catch (std::invalid_argument ex)
         {
@@ -66,9 +66,9 @@ namespace rr
     Stairs::operator>>(std::ofstream& file)
     {
         file << 42                             << ' '
-             << (int) body_.getPosition().x/80 << ' '
-             << (int) body_.getPosition().y/80 << ' '
-             << upwards_;
+             << (int) m_body.getPosition().x/80 << ' '
+             << (int) m_body.getPosition().y/80 << ' '
+             << m_upwards;
 
         return file;
     }

@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Slot.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include "Slot.hpp"
@@ -15,92 +15,93 @@ namespace rr
 {
 
     Slot::Slot(sf::Vector2f size, sf::Vector2f pos, int icon) :
-      image_ (Image(pos, Resources::texture.gui, 14, icon)),
-      text_  (Text (sf::Vector2f(pos.x+5, pos.y+55), "", Resources::font.Pixel, 20)),
-      item_  (nullptr),
-      hollow_(true)
+      m_image (Image(pos, Resources::texture.gui, 14, icon)),
+      m_text  (Text (sf::Vector2f(pos.x+5, pos.y+55), "", Resources::font.Pixel, 20)),
+      m_item  (nullptr),
+      m_hollow(true)
     {
-        body_ .setSize            (size);
-        body_ .setPosition        (pos);
-        body_ .setFillColor       (sf::Color(110, 110, 110, 128));
-        body_ .setOutlineColor    (sf::Color(130, 130, 130));
-        body_ .setOutlineThickness(5);
+        m_body.setSize            (size);
+        m_body.setPosition        (pos);
+        m_body.setFillColor       (sf::Color(110, 110, 110, 128));
+        m_body.setOutlineColor    (sf::Color(130, 130, 130));
+        m_body.setOutlineThickness(5);
 
-        image_.setParentComponent (this);
-        text_ .setParentComponent (this);
+        m_image.setParentComponent (this);
+        m_text .setParentComponent (this);
     }
 
     Slot::~Slot()
     {
-        if (!hollow_) delete item_;
+        if (!m_hollow)
+            delete m_item;
     }
 
     void
     Slot::setPosition(sf::Vector2f pos)
     {
-        body_ .setPosition(pos);
-        image_.setPosition(pos);
-        text_ .setPosition(sf::Vector2f(pos.x+5, pos.y+55));
+        m_body .setPosition(pos);
+        m_image.setPosition(pos);
+        m_text .setPosition(sf::Vector2f(pos.x+5, pos.y+55));
     }
 
     void
     Slot::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        target.draw(body_, states);
+        target.draw(m_body, states);
 
-        if (hollow_)
-            target.draw(image_, states);
+        if (m_hollow)
+            target.draw(m_image, states);
         else
         {
-            target.draw(*item_, states);
-            if (item_->getAmount() > 1)
-                target.draw(text_, states);
+            target.draw(*m_item, states);
+            if (m_item->getAmount() > 1)
+                target.draw(m_text, states);
         }
     }
 
     bool
     Slot::addItem(Item* item)
     {
-        if (!hollow_)
+        if (!m_hollow)
         {
-            if (item->getID() == item_->getID())
+            if (item->getID() == m_item->getID())
             {
-                item_->setAmount(item_->getAmount()+item->getAmount());
-                text_.setString(std::to_wstring(item_->getAmount()));
+                m_item->setAmount(m_item->getAmount()+item->getAmount());
+                m_text.setString(std::to_wstring(m_item->getAmount()));
                 return true;
             }
             return false;
         }
-        item_ = getItemFromID(item->getID(), item->getAmount());
+        m_item = getItemFromID(item->getID(), item->getAmount());
 
         if (instanceof<Discoverable, Item>(item) && ((Discoverable*) item)->isDiscovered())
-            ((Discoverable*) item_)->reveal();
+            ((Discoverable*) m_item)->reveal();
 
         if (instanceof<Equipable, Item>(item))
-            ((Equipable*) item_)->equip(((Equipable*) item)->isEquipped());
+            ((Equipable*) m_item)->equip(((Equipable*) item)->isEquipped());
 
-        item_->setPosition(body_.getPosition());
-        text_.setString(std::to_string(item_->getAmount()));
+        m_item->setPosition(m_body.getPosition());
+        m_text.setString(std::to_string(m_item->getAmount()));
 
-        hollow_ = false;
+        m_hollow = false;
         return true;
     }
 
     void
     Slot::removeItem(int x, bool deleteFromMemory)
     {
-        if (!hollow_)
+        if (!m_hollow)
         {
-            item_->setAmount(item_->getAmount()-x);
-            text_.setString(std::to_string(item_->getAmount()));
-            text_.setCharacterSize(20);
+            m_item->setAmount(m_item->getAmount()-x);
+            m_text.setString(std::to_string(m_item->getAmount()));
+            m_text.setCharacterSize(20);
 
-            if (item_->getAmount() == 0)
+            if (m_item->getAmount() == 0)
             {
-                hollow_ = true;
+                m_hollow = true;
                 if (deleteFromMemory)
-                    delete item_;
-                else  item_ = nullptr;
+                    delete m_item;
+                else  m_item = nullptr;
             }
         }
     }
@@ -108,76 +109,76 @@ namespace rr
     void
     Slot::removeItem(bool deleteFromMemory)
     {
-        hollow_ = true;
+        m_hollow = true;
         if (deleteFromMemory)
-            delete item_;
-        else  item_ = nullptr;
+            delete m_item;
+        else  m_item = nullptr;
     }
 
     void
     Slot::swapItems(Slot* slot)
     {
-        Item* temp = item_;
-        item_ = slot->item_;
-        slot->item_ = temp ;
+        Item* temp = m_item;
+        m_item = slot->m_item;
+        slot->m_item = temp ;
         
-        if (hollow_ && !slot->hollow_)
+        if (m_hollow && !slot->m_hollow)
         {
-                  hollow_ = false;
-            slot->hollow_ = true;
+                  m_hollow = false;
+            slot->m_hollow = true;
 
-            item_->setPosition(body_.getPosition());
+            m_item->setPosition(m_body.getPosition());
 
-            text_.setString(std::to_string(item_->getAmount()));
-            text_.setCharacterSize(20);
+            m_text.setString(std::to_string(m_item->getAmount()));
+            m_text.setCharacterSize(20);
         }
-        else if (!hollow_ && slot->hollow_)
+        else if (!m_hollow && slot->m_hollow)
         {
-                  hollow_ = true;
-            slot->hollow_ = false;
+                  m_hollow = true;
+            slot->m_hollow = false;
 
-            slot->item_->setPosition(slot->body_.getPosition());
+            slot->m_item->setPosition(slot->m_body.getPosition());
 
-            slot->text_.setString(std::to_string(slot->item_->getAmount()));
-            slot->text_.setCharacterSize(20);
+            slot->m_text.setString(std::to_string(slot->m_item->getAmount()));
+            slot->m_text.setCharacterSize(20);
         }
-        else if (!hollow_ && !slot->hollow_)
+        else if (!m_hollow && !slot->m_hollow)
         {
-                  item_->setPosition(      body_.getPosition());
-            slot->item_->setPosition(slot->body_.getPosition());
+                  m_item->setPosition(      m_body.getPosition());
+            slot->m_item->setPosition(slot->m_body.getPosition());
 
-                  text_.setString(std::to_string(      item_->getAmount()));
-            slot->text_.setString(std::to_string(slot->item_->getAmount()));
-                  text_.setCharacterSize(20);
-            slot->text_.setCharacterSize(20);
+                  m_text.setString(std::to_string(      m_item->getAmount()));
+            slot->m_text.setString(std::to_string(slot->m_item->getAmount()));
+                  m_text.setCharacterSize(20);
+            slot->m_text.setCharacterSize(20);
         }
     }
 
     void
     Slot::clear()
     {
-        if (!hollow_)
+        if (!m_hollow)
         {
-            hollow_ = true;
-            delete item_;
+            m_hollow = true;
+            delete m_item;
         }
     }
 
     bool
     Slot::containsMouseCursor(sf::RenderWindow& rw)
     {
-        if (  !hollow_
-           && instanceof<Equipable, Item>(item_)
-           && ((Equipable*) item_)->isEquipped()
-            ) body_.setOutlineColor(sf::Color(128, 128, 180));
-        else  body_.setOutlineColor(sf::Color(130, 130, 130));
+        if (  !m_hollow
+           && instanceof<Equipable, Item>(m_item)
+           && ((Equipable*) m_item)->isEquipped()
+            ) m_body.setOutlineColor(sf::Color(128, 128, 180));
+        else  m_body.setOutlineColor(sf::Color(130, 130, 130));
 
-        if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw)))
+        if (m_body.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw)))
         {
-            body_.setFillColor(sf::Color(128, 128, 128, 255));
+            m_body.setFillColor(sf::Color(128, 128, 128, 255));
             return true;
         }
-        body_.setFillColor(sf::Color(128, 128, 128, 128));
+        m_body.setFillColor(sf::Color(128, 128, 128, 128));
         
         return false;
     }
@@ -187,19 +188,19 @@ namespace rr
     {
         if (containsMouseCursor(rw) && e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == button)
         {
-            held_ = true;
+            m_held = true;
             return true;
         }
         if (e.type == sf::Event::MouseButtonReleased)
-            held_ = false;
+            m_held = false;
         return false;
     }
 
     Item*
     Slot::getItem() const
     {
-        if (!hollow_)
-            return item_;
+        if (!m_hollow)
+            return m_item;
         return nullptr;
     }
 

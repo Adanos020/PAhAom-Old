@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/DeathScreen.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef UI_DEATHSCREEN_HPP
@@ -17,14 +17,14 @@ namespace rr
 
     class DeathScreen : public sf::Drawable
     {
-    private: sf::RectangleShape shadow_;
-             sf::Time           endAnimation_;
+    private: sf::RectangleShape m_shadow;
+             sf::Time           m_endAnimation;
 
-             Text               tYouDied_;
-             Button             bNewGame_;
-             Button             bQuit_;
+             Text               m_tYouDied;
+             Button             m_bNewGame;
+             Button             m_bQuit;
 
-             bool               visible_;
+             bool               m_visible;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.
@@ -44,12 +44,12 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Opens the screen of death.
              ////////////////////////////////////////////////////////////////////////
-             void open() { visible_ = true; }
+             void open() { m_visible = true; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Opens the screen of death.
              ////////////////////////////////////////////////////////////////////////
-             bool isOpen() { return visible_; }
+             bool isOpen() { return m_visible; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Updates the screen of death's state.

@@ -1,7 +1,7 @@
 /**
  * @file src/program/audio/AudioManager.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef AUDIO_MANAGER_HPP
@@ -18,7 +18,7 @@ namespace rr
 
     class AudioManager : public Observer, public sf::Listener
     {
-        private: sf::Music music_;
+        private: sf::Music m_music;
 
                  ////////////////////////////////////////////////////////////////////////
                  /// \brief Reacts to a specific event. It can either do something with

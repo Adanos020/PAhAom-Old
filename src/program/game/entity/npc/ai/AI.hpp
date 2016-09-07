@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entities/npc/ai/AI.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef NPC_AI_HPP

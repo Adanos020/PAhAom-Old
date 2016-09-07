@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/MeleeWeapon.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -18,130 +18,130 @@ namespace rr
 {
 
     MeleeWeapon::MeleeWeapon(Type type, int amount, sf::Vector2i pos) :
-      type_(type )
+      m_type(type)
     {
-        level_      = 0;
-        identified_ = false;
-        amount_     = amount;
+        m_level      = 0;
+        m_identified = false;
+        m_amount     = amount;
 
         initialize();
         setGridPosition(pos);
     }
 
     MeleeWeapon::MeleeWeapon(MeleeWeapon const& copy) :
-      type_(copy.type_)
+      m_type(copy.m_type)
     {
-        amount_     = copy.amount_;
-        disposable_ = copy.disposable_;
-        stackable_  = copy.stackable_;
-        ID_         = copy.ID_;
-        iconIndex_  = copy.iconIndex_;
-        body_       = copy.body_;
+        m_amount     = copy.m_amount;
+        m_disposable = copy.m_disposable;
+        m_stackable  = copy.m_stackable;
+        m_ID         = copy.m_ID;
+        m_iconIndex  = copy.m_iconIndex;
+        m_body       = copy.m_body;
     }
 
     void
     MeleeWeapon::initialize()
     {
-        disposable_ = false;
-        stackable_  = false;
-        cursed_     = chance(1, 4);
-        ID_         = 10+type_;
+        m_disposable = false;
+        m_stackable  = false;
+        m_cursed     = chance(1, 4);
+        m_ID         = 10 + m_type;
 
-        switch (type_)
+        switch (m_type)
         {
-            case HAMMER:         damageDealt_ = 70;
-                                 requirement_ = 80;
-                                 speed_       =  4;
-                                 accuracy_    = 10;
-                                 iconIndex_   = 39;
+            case HAMMER:         m_damageDealt = 70;
+                                 m_requirement = 80;
+                                 m_speed       =  4;
+                                 m_accuracy    = 10;
+                                 m_iconIndex   = 39;
                                  break;
 
-            case DOUBLE_AXE:     damageDealt_ =  90;
-                                 requirement_ = 100;
-                                 speed_       =   5;
-                                 accuracy_    =   7;
-                                 iconIndex_   =  21;
+            case DOUBLE_AXE:     m_damageDealt =  90;
+                                 m_requirement = 100;
+                                 m_speed       =   5;
+                                 m_accuracy    =   7;
+                                 m_iconIndex   =  21;
                                  break;
 
-            case HALBERD:        damageDealt_ = 60;
-                                 requirement_ = 70;
-                                 speed_       =  4;
-                                 accuracy_    =  7;
-                                 iconIndex_   = 22;
+            case HALBERD:        m_damageDealt = 60;
+                                 m_requirement = 70;
+                                 m_speed       =  4;
+                                 m_accuracy    =  7;
+                                 m_iconIndex   = 22;
                                  break;
 
-            case AXE:            damageDealt_ = 55;
-                                 requirement_ = 70;
-                                 speed_       =  7;
-                                 accuracy_    =  5;
-                                 iconIndex_   = 20;
+            case AXE:            m_damageDealt = 55;
+                                 m_requirement = 70;
+                                 m_speed       =  7;
+                                 m_accuracy    =  5;
+                                 m_iconIndex   = 20;
                                  break;
 
-            case SERRATED_SWORD: damageDealt_ = 50;
-                                 requirement_ = 60;
-                                 speed_       =  7;
-                                 accuracy_    =  8;
-                                 iconIndex_   =  7;
+            case SERRATED_SWORD: m_damageDealt = 50;
+                                 m_requirement = 60;
+                                 m_speed       =  7;
+                                 m_accuracy    =  8;
+                                 m_iconIndex   =  7;
                                  break;
 
-            case LANCE:          damageDealt_ = 50;
-                                 requirement_ = 60;
-                                 speed_       =  4;
-                                 accuracy_    =  6;
-                                 iconIndex_   = 24;
+            case LANCE:          m_damageDealt = 50;
+                                 m_requirement = 60;
+                                 m_speed       =  4;
+                                 m_accuracy    =  6;
+                                 m_iconIndex   = 24;
                                  break;
 
-            case CLUB:           damageDealt_ = 40;
-                                 requirement_ = 50;
-                                 speed_       =  6;
-                                 accuracy_    =  7;
-                                 iconIndex_   = 38;
+            case CLUB:           m_damageDealt = 40;
+                                 m_requirement = 50;
+                                 m_speed       =  6;
+                                 m_accuracy    =  7;
+                                 m_iconIndex   = 38;
                                  break;
                              
-            case SWORD:          damageDealt_ = 30;
-                                 requirement_ = 30;
-                                 speed_       =  7;
-                                 accuracy_    =  5;
-                                 iconIndex_   =  6;
+            case SWORD:          m_damageDealt = 30;
+                                 m_requirement = 30;
+                                 m_speed       =  7;
+                                 m_accuracy    =  5;
+                                 m_iconIndex   =  6;
                                  break;
 
-            case SPEAR:          damageDealt_ = 30;
-                                 requirement_ = 50;
-                                 speed_       =  6;
-                                 accuracy_    =  4;
-                                 iconIndex_   = 23;
+            case SPEAR:          m_damageDealt = 30;
+                                 m_requirement = 50;
+                                 m_speed       =  6;
+                                 m_accuracy    =  4;
+                                 m_iconIndex   = 23;
                                  break;
 
-            case PIQUE:          damageDealt_ = 20;
-                                 requirement_ = 25;
-                                 speed_       =  7;
-                                 accuracy_    =  7;
-                                 iconIndex_   = 36;
+            case PIQUE:          m_damageDealt = 20;
+                                 m_requirement = 25;
+                                 m_speed       =  7;
+                                 m_accuracy    =  7;
+                                 m_iconIndex   = 36;
                                  break;
 
-            case LONG_STICK:     damageDealt_ = 15;
-                                 requirement_ = 20;
-                                 speed_       =  8;
-                                 accuracy_    =  7;
-                                 iconIndex_   = 37;
+            case LONG_STICK:     m_damageDealt = 15;
+                                 m_requirement = 20;
+                                 m_speed       =  8;
+                                 m_accuracy    =  7;
+                                 m_iconIndex   = 37;
                                  break;
 
-            case DAGGER:         damageDealt_ = 15;
-                                 requirement_ =  5;
-                                 speed_       =  8;
-                                 accuracy_    =  5;
-                                 iconIndex_   =  5;
+            case DAGGER:         m_damageDealt = 15;
+                                 m_requirement =  5;
+                                 m_speed       =  8;
+                                 m_accuracy    =  5;
+                                 m_iconIndex   =  5;
                                  break;
                              
-            case KNIFE:          damageDealt_ = 10;
-                                 requirement_ =  5;
-                                 speed_       = 10;
-                                 accuracy_    =  4;
-                                 iconIndex_   =  4;
+            case KNIFE:          m_damageDealt = 10;
+                                 m_requirement =  5;
+                                 m_speed       = 10;
+                                 m_accuracy    =  4;
+                                 m_iconIndex   =  4;
                                  break;
         }
 
-        setIcon(body_, iconIndex_);
+        setIcon(m_body, m_iconIndex);
     }
     
     sf::String
@@ -149,7 +149,7 @@ namespace rr
     {
         sf::String name = "";
 
-        switch (type_)
+        switch (m_type)
         {
             case HAMMER        : name += Resources::dictionary["item.meleeweapon.name.hammer"        ]; break;
             case DOUBLE_AXE    : name += Resources::dictionary["item.meleeweapon.name.double_axe"    ]; break;
@@ -166,7 +166,7 @@ namespace rr
             case KNIFE         : name += Resources::dictionary["item.meleeweapon.name.knife"         ]; break;
         }
 
-        name += ((identified_ && cursed_) ? " - "+Resources::dictionary["item.enchantment.name.cursed"] : "");
+        name += ((m_identified && m_cursed) ? " - " + Resources::dictionary["item.enchantment.name.cursed"] : "");
         
         return name;
     }
@@ -176,7 +176,7 @@ namespace rr
     {
         sf::String description = "";
 
-        switch (type_)
+        switch (m_type)
         {
             case HAMMER        : description += Resources::dictionary["item.meleeweapon.description.hammer"        ]; break;
             case DOUBLE_AXE    : description += Resources::dictionary["item.meleeweapon.description.double_axe"    ]; break;
@@ -193,10 +193,10 @@ namespace rr
             case KNIFE         : description += Resources::dictionary["item.meleeweapon.description.knife"         ]; break;
         }
 
-        description += "\n" + ((identified_ && cursed_  ) ? "\n"+Resources::dictionary["item.enchantment.description.cursed"]                                 : "")
-                            +                               "\n"+Resources::dictionary["item.requirement.strength"          ]+" "+std::to_string((int)requirement_)
-                            +                               "\n"+Resources::dictionary["item.weapon.damage_dealt"           ]+" "+std::to_string((int)damageDealt_)
-                            + ((identified_ && level_!=0) ? "\n"+Resources::dictionary["item.weapon.level"                  ]+" "+std::to_string((int)level_) : "");
+        description += "\n" + ((m_identified && m_cursed  ) ? "\n"+Resources::dictionary["item.enchantment.description.cursed"]                                   : "")
+                            +                                 "\n"+Resources::dictionary["item.requirement.strength"          ]+" "+std::to_string((int) m_requirement)
+                            +                                 "\n"+Resources::dictionary["item.weapon.damage_dealt"           ]+" "+std::to_string((int) m_damageDealt)
+                            + ((m_identified && m_level!=0) ? "\n"+Resources::dictionary["item.weapon.level"                  ]+" "+std::to_string((int) m_level) : "");
 
         return description;
     }
@@ -204,11 +204,11 @@ namespace rr
     void
     MeleeWeapon::enhance()
     {
-        level_       ++;
-        speed_       ++;
-        accuracy_    ++;
-        damageDealt_ += 5;
-        requirement_ -= 3;
+        m_level       ++;
+        m_speed       ++;
+        m_accuracy    ++;
+        m_damageDealt += 5;
+        m_requirement -= 3;
     }
 
     void
@@ -227,10 +227,10 @@ namespace rr
         {
             readFile <int > (file, position.x);
             readFile <int > (file, position.y);
-            readFile <int > (file, amount_);
-            readFile <bool> (file, identified_);
-            readFile <bool> (file, equipped_);
-            readFile <int > (file, level_);
+            readFile <int > (file, m_amount);
+            readFile <bool> (file, m_identified);
+            readFile <bool> (file, m_equipped);
+            readFile <int > (file, m_level);
             readFile <int > (file, type);
         }
         catch (std::invalid_argument ex)
@@ -238,14 +238,14 @@ namespace rr
             std::cerr << ex.what() << '\n';
         }
 
-        type_ = (Type) type;
+        m_type = (Type) type;
 
         initialize();
 
-        speed_       += level_;
-        accuracy_    += level_;
-        damageDealt_ += level_*5;
-        requirement_ -= level_*3;
+        m_speed       += m_level;
+        m_accuracy    += m_level;
+        m_damageDealt += m_level*5;
+        m_requirement -= m_level*3;
 
         setGridPosition(position);
 
@@ -255,14 +255,14 @@ namespace rr
     std::ofstream&
     MeleeWeapon::operator>>(std::ofstream& file)
     {
-        file << 3                            << ' '
-             << (int) body_[0].position.x/80 << ' '
-             << (int) body_[0].position.y/80 << ' '
-             << amount_                      << ' '
-             << identified_                  << ' '
-             << equipped_                    << ' '
-             << level_                       << ' '
-             << type_;
+        file << 3                             << ' '
+             << (int) m_body[0].position.x/80 << ' '
+             << (int) m_body[0].position.y/80 << ' '
+             << m_amount                      << ' '
+             << m_identified                  << ' '
+             << m_equipped                    << ' '
+             << m_level                       << ' '
+             << m_type;
 
         return file;
     }

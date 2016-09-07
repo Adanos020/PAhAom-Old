@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/Chest.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -17,27 +17,27 @@ namespace rr
 {
 
     Chest::Chest(Type type) :
-      item_ (getRandomItemBalanced()),
-      type_ (type                   )
+      m_item(getRandomItemBalanced()),
+      m_type(type)
     {
         initialize();
     }
 
     Chest::Chest(Chest const& copy) :
-      body_(copy.body_),
-      item_(copy.item_),
-      type_(copy.type_) {}
+      m_body(copy.m_body),
+      m_item(copy.m_item),
+      m_type(copy.m_type) {}
 
     Chest::~Chest()
     {
-        delete item_;
+        delete m_item;
     }
 
     void
     Chest::initialize()
     {
         int tu, tv;
-        if (type_ == SPECIAL)
+        if (m_type == SPECIAL)
         {
             tu = (rand()%2+18)%(Resources::texture.objects.getSize().x/16);
             tv = (rand()%2+18)/(Resources::texture.objects.getSize().y/16);
@@ -48,16 +48,16 @@ namespace rr
             tv = (rand()%3+15)/(Resources::texture.objects.getSize().y/16);
         }
 
-        body_.setTextureRect(sf::IntRect(tu*16, tv*16, 16, 16));
-        body_.setTexture    (Resources::texture.objects);
-        body_.setScale      (sf::Vector2f(5.f, 5.f));
+        m_body.setTextureRect(sf::IntRect(tu*16, tv*16, 16, 16));
+        m_body.setTexture(Resources::texture.objects);
+        m_body.setScale(sf::Vector2f(5.f, 5.f));
     }
 
     void
     Chest::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         states.texture = &Resources::texture.objects;
-        target.draw(body_, states);
+        target.draw(m_body, states);
     }
 
     std::ifstream&
@@ -77,8 +77,8 @@ namespace rr
             std::cerr << ex.what() << '\n';
         }
 
-        type_ = (Type) type;
-        item_ = getRandomItem();
+        m_type = (Type) type;
+        m_item = getRandomItem();
 
         initialize();
         setGridPosition(position);
@@ -89,10 +89,10 @@ namespace rr
     std::ofstream&
     Chest::operator>>(std::ofstream& file)
     {
-        file << 40                             << ' '
-             << (int) body_.getPosition().x/80 << ' '
-             << (int) body_.getPosition().y/80 << ' '
-             << type_                          << ' ';
+        file << 40                              << ' '
+             << (int) m_body.getPosition().x/80 << ' '
+             << (int) m_body.getPosition().y/80 << ' '
+             << m_type                          << ' ';
 
         return file;
     }

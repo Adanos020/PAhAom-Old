@@ -1,7 +1,7 @@
 /**
  * @file src/program/Program.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include "Program.hpp"
@@ -16,7 +16,7 @@
 namespace rr
 {
 
-    sf::String Program::version_("pre-alpha 0.7");
+    sf::String Program::m_version("pre-alpha 0.7");
 
     Program::Program()
     {
@@ -34,50 +34,50 @@ namespace rr
     void
     Program::runGame()
     {
-        window_.setVerticalSyncEnabled(Settings::graphics.vsync);
-        window_.setKeyRepeatEnabled   (false);
-        window_.create                (sf::VideoMode(Settings::graphics.resolution.x, Settings::graphics.resolution.y, 32), "PAhAom",
-                                                     Settings::graphics.fullscreen ? sf::Style::Fullscreen
-                                                                                   : sf::Style::Close     , Settings::graphics.csettings);
+        m_window.setVerticalSyncEnabled(Settings::graphics.vsync);
+        m_window.setKeyRepeatEnabled(false);
+        m_window.create(sf::VideoMode(Settings::graphics.resolution.x, Settings::graphics.resolution.y, 32), "PAhAom",
+                        Settings::graphics.fullscreen ? sf::Style::Fullscreen
+                                                      : sf::Style::Close, Settings::graphics.csettings);
 
-        game_ = new Game();
+        m_game = new Game();
         mainLoop();
     }
 
     void
     Program::handleEvents()
     {
-        while (window_.pollEvent(event_))
+        while (m_window.pollEvent(m_event))
         {
-            if (event_.type == sf::Event::Closed)
-                window_.close();
-            if (event_.type == sf::Event::LostFocus && !game_->isPaused())
-                game_->pause(true);
+            if (m_event.type == sf::Event::Closed)
+                m_window.close();
+            if (m_event.type == sf::Event::LostFocus && !m_game->isPaused())
+                m_game->pause(true);
 
-            game_->buttonEvents(window_, event_);
+            m_game->buttonEvents(m_window, m_event);
         }
     }
 
     void
     Program::draw()
     {
-        window_.clear  ();
-        game_ ->draw   (window_);
-        window_.display();
+        m_window.clear();
+        m_game->draw(m_window);
+        m_window.display();
     }
 
     void
     Program::update(sf::Clock& timer)
     {
-        if (game_->isStarted())
-            game_->update(event_, timer);
+        if (m_game->isStarted())
+            m_game->update(m_event, timer);
     }
 
     void
     Program::mainLoop()
     {
         sf::Clock timer;
-        while (window_.isOpen())
+        while (m_window.isOpen())
         {
             update       (timer);
             timer.restart();

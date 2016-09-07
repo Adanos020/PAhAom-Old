@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Component.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GUI_COMPONENT_HPP
@@ -14,7 +14,7 @@ namespace rr
 
     class Component : public sf::Drawable
     {
-    private: Component* parentComponent_;
+    private: Component* m_parentComponent;
     
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Virtual destructor.
@@ -44,12 +44,12 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the component's parent component.
              ////////////////////////////////////////////////////////////////////////
-             void setParentComponent(Component* p) { parentComponent_ = p; }
+             void setParentComponent(Component* p) { m_parentComponent = p; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the component's parent component.
              ////////////////////////////////////////////////////////////////////////
-             Component* getParentComponent() const { return parentComponent_; }
+             Component* getParentComponent() const { return m_parentComponent; }
     };
 
 }

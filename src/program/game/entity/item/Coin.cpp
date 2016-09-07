@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/Coin.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -17,43 +17,43 @@ namespace rr
 {
 
     Coin::Coin(Type t, Size s, int am, sf::Vector2i pos) :
-      type_(t),
-      size_(s)
+      m_type(t),
+      m_size(s)
     {
-        amount_ = am;
+        m_amount = am;
 
         initialize();
         setGridPosition(pos);
     }
 
     Coin::Coin(Coin const& copy) :
-      type_(copy.type_),
-      size_(copy.size_)
+      m_type(copy.m_type),
+      m_size(copy.m_size)
     {
-        amount_     = copy.amount_;
-        disposable_ = copy.disposable_;
-        stackable_  = copy.stackable_;
-        ID_         = copy.ID_;
-        iconIndex_  = copy.iconIndex_;
-        body_       = copy.body_;
+        m_amount     = copy.m_amount;
+        m_disposable = copy.m_disposable;
+        m_stackable  = copy.m_stackable;
+        m_ID         = copy.m_ID;
+        m_iconIndex  = copy.m_iconIndex;
+        m_body       = copy.m_body;
     }
 
     void
     Coin::initialize()
     {
-        disposable_ = false;
-        stackable_  = true;
-        cursed_     = false;
-        ID_         = 3*size_ + type_ + 1;
-        iconIndex_  = type_ + (size_+2)*16 + 1;
+        m_disposable = false;
+        m_stackable  = true;
+        m_cursed     = false;
+        m_ID         = 3*m_size + m_type + 1;
+        m_iconIndex  = m_type + (m_size+2)*16 + 1;
 
-        setIcon(body_, iconIndex_);
+        setIcon(m_body, m_iconIndex);
     }
     
     sf::String
     Coin::getName() const
     {
-        switch (type_)
+        switch (m_type)
         {
             case BRONZE: return Resources::dictionary["item.coin.bronze"];
             case SILVER: return Resources::dictionary["item.coin.silver"];
@@ -78,7 +78,7 @@ namespace rr
         {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
-            readFile <int> (file, amount_);
+            readFile <int> (file, m_amount);
             readFile <int> (file, type);
             readFile <int> (file, size);
         }
@@ -87,8 +87,8 @@ namespace rr
             std::cerr << ex.what() << '\n';
         }
 
-        type_ = (Type) type;
-        size_ = (Size) size;
+        m_type = (Type) type;
+        m_size = (Size) size;
 
         initialize();
         setGridPosition(position);
@@ -99,12 +99,12 @@ namespace rr
     std::ofstream&
     Coin::operator>>(std::ofstream& file)
     {
-        file << 2                            << ' '
-             << (int) body_[0].position.x/80 << ' '
-             << (int) body_[0].position.y/80 << ' '
-             << amount_                      << ' '
-             << type_                        << ' '
-             << size_;
+        file << 2                             << ' '
+             << (int) m_body[0].position.x/80 << ' '
+             << (int) m_body[0].position.y/80 << ' '
+             << m_amount                      << ' '
+             << m_type                        << ' '
+             << m_size;
 
         return file;
     }

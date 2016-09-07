@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/BookOfSpells.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef UI_BOOKOFSPELLS_HPP
@@ -18,8 +18,8 @@ namespace rr
 
     class BookOfSpells : public sf::Drawable
     {
-    private: sf::RectangleShape shadow_;
-             Window             wBofs_;
+    private: sf::RectangleShape m_shadow;
+             Window             m_wBofs;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.
@@ -39,17 +39,17 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Opens the window of the book of Runes.
              ////////////////////////////////////////////////////////////////////////
-             void open() { wBofs_.setVisible(true); }
+             void open() { m_wBofs.setVisible(true); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Closes the window of the book of Runes.
              ////////////////////////////////////////////////////////////////////////
-             void close() { wBofs_.setVisible(false); }
+             void close() { m_wBofs.setVisible(false); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the window of the book of Runes is open.
              ////////////////////////////////////////////////////////////////////////
-             bool isOpen() const { return wBofs_.isVisible(); }
+             bool isOpen() const { return m_wBofs.isVisible(); }
     };
 
 }

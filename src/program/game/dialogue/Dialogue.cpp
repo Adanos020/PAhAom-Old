@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/dialogue/Dialogue.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -16,30 +16,30 @@ namespace rr
 {
 
     Sentence::Sentence(Sentence::Speaker s, sf::String sn) :
-      speaker_ (s),
-      sentence_(sn) {}
+      m_speaker (s),
+      m_sentence(sn) {}
 
     DialogueTree::DialogueTree() :
-      current_(nullptr),
-      root_   (nullptr) {}
+      m_current(nullptr),
+      m_root   (nullptr) {}
 
     void
     DialogueTree::setTree(Branch* tree, bool permanent)
     {
         if (permanent)
-            root_ = tree;
-        current_ = tree;
+            m_root = tree;
+        m_current = tree;
     }
 
     bool
     Answers::removeAnswer(Sentence* s)
     {
         unsigned i=0;
-        while (i < answers_.size())
+        while (i < m_answers.size())
         {
-            if (answers_[i] == s)
+            if (m_answers[i] == s)
             {
-                answers_.erase(answers_.begin()+i);
+                m_answers.erase(m_answers.begin()+i);
                 return true;
             }
             ++i;
@@ -51,11 +51,11 @@ namespace rr
     Answers::removeAnswer(sf::String s)
     {
         unsigned i=0;
-        while (i<answers_.size())
+        while (i<m_answers.size())
         {
-            if (answers_[i]->getSentence() == s)
+            if (m_answers[i]->getSentence() == s)
             {
-                answers_.erase(answers_.begin()+i);
+                m_answers.erase(m_answers.begin()+i);
                 return true;
             }
             ++i;
@@ -66,10 +66,10 @@ namespace rr
     Sentence*
     Answers::find(sf::String sought) const
     {
-        for (unsigned i=0; i<answers_.size(); ++i)
+        for (unsigned i=0; i<m_answers.size(); ++i)
         {
-            if (answers_[i]->getSentence() == sought)
-                return answers_[i];
+            if (m_answers[i]->getSentence() == sought)
+                return m_answers[i];
         }
         return nullptr;
     }

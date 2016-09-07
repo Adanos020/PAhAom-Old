@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/ScrollBar.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GUI_SCROLLBAR_HPP
@@ -16,13 +16,13 @@ namespace rr
 
     class ScrollBar : public Component
     {
-    private: sf::RectangleShape border_;
-             sf::Vector2f       valueLimit_;
-             Button             indicator_;
-             Button             bLeft_;
-             Button             bRight_;
-             Text               label_;
-             float              value_;
+    private: sf::RectangleShape m_border;
+             sf::Vector2f       m_valueLimit;
+             Button             m_indicator;
+             Button             m_bLeft;
+             Button             m_bRight;
+             Text               m_label;
+             float              m_value;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the scroll bar on the screen.
@@ -33,7 +33,7 @@ namespace rr
              {
                  HORIZONTAL,
                  VERTICAL
-             } plain_;
+             } m_plain;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
@@ -53,7 +53,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the scroll bar's body's position.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getPosition () const override { return bLeft_.getPosition(); }
+     virtual sf::Vector2f getPosition () const override { return m_bLeft.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the scroll bar's body's size.
@@ -63,17 +63,17 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the scroll bar's body's size.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getSize() const override { return border_.getSize(); }
+     virtual sf::Vector2f getSize() const override { return m_border.getSize(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the string of the text displayed on the scroll bar.
              ////////////////////////////////////////////////////////////////////////
-             void setText(sf::String s) { label_.setString(s); }
+             void setText(sf::String s) { m_label.setString(s); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text displayed on the scroll bar.
              ////////////////////////////////////////////////////////////////////////
-             Text getText() const { return label_; }
+             Text getText() const { return m_label; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the actual value of the scroll bar.
@@ -88,7 +88,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the actual value of the scroll bar.
              ////////////////////////////////////////////////////////////////////////
-             int getValue() const { return value_; }
+             int getValue() const { return m_value; }
     };
 
 }

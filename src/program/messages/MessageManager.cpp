@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/messages/MessageManager.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -19,28 +19,28 @@ namespace rr
     void
     MessageManager::addMessage(Message message)
     {
-        messages_.push_back(message);
+        m_messages.push_back(message);
         std::wcout << message.getString().toWideString() << '\n';
 
-        float mHeight = messages_.back().getSize().y;
-        messages_.back().setPosition(sf::Vector2f(0, Settings::graphics.resolution.y-40-mHeight));
+        float mHeight = m_messages.back().getSize().y;
+        m_messages.back().setPosition(sf::Vector2f(0, Settings::graphics.resolution.y-40-mHeight));
 
-        for (int i = messages_.size()-2; i >= 0; i--)
+        for (int i = m_messages.size()-2; i >= 0; i--)
         {
-            mHeight = messages_[i].getSize().y;
-            messages_[i].setPosition(messages_[i+1].getPosition() - sf::Vector2f(0, mHeight+3));
+            mHeight = m_messages[i].getSize().y;
+            m_messages[i].setPosition(m_messages[i+1].getPosition() - sf::Vector2f(0, mHeight+3));
         }
     }
 
     void
     MessageManager::update(sf::Clock& timer)
     {
-        for (auto i = messages_.begin(); i != messages_.end(); ++i)
+        for (auto i = m_messages.begin(); i != m_messages.end(); ++i)
         {
             i->update(timer.getElapsedTime());
             if (i->getColor().a < 10)
             {
-                messages_.erase(i);
+                m_messages.erase(i);
                 break;
             }
         }
@@ -49,7 +49,7 @@ namespace rr
     void
     MessageManager::draw(sf::RenderWindow& rw)
     {
-        for (auto message : messages_)
+        for (auto message : m_messages)
         {
             rw.draw(message);
         }

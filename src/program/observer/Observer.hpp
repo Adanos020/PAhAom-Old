@@ -1,7 +1,7 @@
 /**
  * @file src/program/observer/Observer.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef OBSERVER_HPP
@@ -49,7 +49,7 @@ namespace rr
 
     class Subject
     {
-    private: std::vector<Observer*> observers_;
+    private: std::vector<Observer*> m_observers;
     
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Virtual destructor.

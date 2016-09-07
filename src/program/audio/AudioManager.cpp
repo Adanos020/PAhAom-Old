@@ -1,7 +1,7 @@
 /**
  * @file src/program/audio/AudioManager.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include "AudioManager.hpp"
@@ -38,8 +38,8 @@ namespace rr
 
     AudioManager::AudioManager()
     {
-        music_.setLoop(true);
-        music_.setVolume(Settings::sound.music_muted ? 0
+        m_music.setLoop(true);
+        m_music.setVolume(Settings::sound.music_muted ? 0
                                                      : Settings::sound.music_volume);
     }
 
@@ -48,9 +48,9 @@ namespace rr
     {
         switch (song)
         {
-            case MENU: music_.stop();
-                       music_.openFromFile("data/music/menu.ogg");
-                       music_.play();
+            case MENU: m_music.stop();
+                       m_music.openFromFile("data/music/menu.ogg");
+                       m_music.play();
 
             default  : break;
         }
@@ -59,19 +59,19 @@ namespace rr
     void
     AudioManager::stopMusic()
     {
-        music_.stop();
+        m_music.stop();
     }
 
     void
     AudioManager::pauseMusic()
     {
-        music_.pause();
+        m_music.pause();
     }
 
     void
     AudioManager::setMusicVolume(float vol)
     {
-        music_.setVolume(vol);
+        m_music.setVolume(vol);
     }
 
     void

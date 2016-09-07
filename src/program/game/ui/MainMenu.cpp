@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/MainMenu.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include "MainMenu.hpp"
@@ -23,27 +23,27 @@ namespace rr
 {
 
     MainMenu::MainMenu() :
-      title_  (Text  (sf::Vector2f(0, 0), "PAhAom"             , Resources::font.Pixel       , 100, sf::Color::Yellow)),
-      version_(Text  (sf::Vector2f(0, 0), Program::getVersion(), Resources::font.FinalFantasy,  50, sf::Color::Yellow)),
-      wMenu_  (Window("", sf::Vector2f(248, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225)))
+      m_title  (Text  (sf::Vector2f(0, 0), "PAhAom"             , Resources::font.Pixel       , 100, sf::Color::Yellow)),
+      m_version(Text  (sf::Vector2f(0, 0), Program::getVersion(), Resources::font.FinalFantasy,  50, sf::Color::Yellow)),
+      m_wMenu  (Window("", sf::Vector2f(248, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225)))
     {
-        backTexture_.loadFromFile("data/graphics/menubkg.png");
-        background_.setTexture(&backTexture_);
-        background_.setSize(sf::Vector2f(Settings::graphics.resolution.y*(16.f/9.f),
+        m_backTexture.loadFromFile("data/graphics/menubkg.png");
+        m_background.setTexture(&m_backTexture);
+        m_background.setSize(sf::Vector2f(Settings::graphics.resolution.y*(16.f/9.f),
                                          Settings::graphics.resolution.y));
 
-        title_  .setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-title_  .getSize().x/2,  10));
-        version_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-version_.getSize().x/2, 100));
+        m_title  .setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-m_title  .getSize().x/2,  10));
+        m_version.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-m_version.getSize().x/2, 100));
 
-        wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.newgame"], 52);
-        wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.load"   ], 52);
-        wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.options"], 52);
-        wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.help"   ], 52);
-        wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.credits"], 52);
-        wMenu_ += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52);
+        m_wMenu += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.newgame"], 52);
+        m_wMenu += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.load"   ], 52);
+        m_wMenu += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.options"], 52);
+        m_wMenu += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.help"   ], 52);
+        m_wMenu += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.credits"], 52);
+        m_wMenu += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52);
         for (int i = 0; i < 6; i++)
         {
-            wMenu_.getComponent <Button> (i)->setPosition(wMenu_.getPosition() + sf::Vector2f(wMenu_.getSize().x/2 - wMenu_.getComponent <Button> (i)->getSize().x/2,
+            m_wMenu.getComponent <Button> (i)->setPosition(m_wMenu.getPosition() + sf::Vector2f(m_wMenu.getSize().x/2 - m_wMenu.getComponent <Button> (i)->getSize().x/2,
                                                                                             5+i*75));
         }
 
@@ -229,7 +229,7 @@ namespace rr
             *wCred += new Text(sf::Vector2f( 0, 315), "\tJakub Szewczyk", Resources::font.Unifont, 25, sf::Color::Yellow);
 
             *wCred += new Text(sf::Vector2f(20, 345), Resources::dictionary["gui.text.usedlib"], Resources::font.Unifont, 30);
-            *wCred += new Text(sf::Vector2f( 0, 375), "\tSFML 2.3.2", Resources::font.Unifont, 25, sf::Color::Yellow);
+            *wCred += new Text(sf::Vector2f( 0, 375), "\tSFML", Resources::font.Unifont, 25, sf::Color::Yellow);
 
             auto wQuit = new Button(sf::Vector2f(5, 255), Resources::dictionary["gui.button.quit"], 30);
                  wQuit->setPosition(sf::Vector2f(wCred->getSize().x/2 - wQuit->getSize().x/2,
@@ -238,27 +238,27 @@ namespace rr
             *wCred += wQuit;
         }
 
-        ((wMenu_ |= wOpts) |= wHelp) |= wCred;
-        wMenu_.setVisible(true);
+        ((m_wMenu |= wOpts) |= wHelp) |= wCred;
+        m_wMenu.setVisible(true);
     }
 
     void
     MainMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g)
     {
-        auto wOpts = wMenu_.getComponent <Window> (0);
+        auto wOpts = m_wMenu.getComponent <Window> (0);
         auto wGame = wOpts->getComponent <Window> (0);
         auto wGrap = wOpts->getComponent <Window> (1);
         auto wSoun = wOpts->getComponent <Window> (2);
         auto wCont = wOpts->getComponent <Window> (3);
         auto wWait = wCont->getComponent <Window> (0);
-        auto wHelp = wMenu_.getComponent <Window> (1);
-        auto wCred = wMenu_.getComponent <Window> (2);
+        auto wHelp = m_wMenu.getComponent <Window> (1);
+        auto wCred = m_wMenu.getComponent <Window> (2);
 
-        if (wMenu_.isVisible())
+        if (m_wMenu.isVisible())
         {
             if (!wOpts->isVisible() && !wHelp->isVisible() && !wCred->isVisible())
             {
-                if (wMenu_.getComponent <Button> (0)->isPressed(rw, e)) {
+                if (m_wMenu.getComponent <Button> (0)->isPressed(rw, e)) {
                     auto generatingWorld = Text(Resources::dictionary["gui.text.generating_world"], Resources::font.Unifont);
                     generatingWorld.setPosition((sf::Vector2f) Settings::graphics.resolution/2.f - generatingWorld.getSize()/2.f);
 
@@ -273,11 +273,11 @@ namespace rr
                     
                     g->loadNewGame();
                 }
-                if (wMenu_.getComponent <Button> (1)->isPressed(rw, e) && g->load()) g->start(true);
-                if (wMenu_.getComponent <Button> (2)->isPressed(rw, e)) wOpts->setVisible(true);
-                if (wMenu_.getComponent <Button> (3)->isPressed(rw, e)) wHelp->setVisible(true);
-                if (wMenu_.getComponent <Button> (4)->isPressed(rw, e)) wCred->setVisible(true);
-                if (wMenu_.getComponent <Button> (5)->isPressed(rw, e)) rw.close();
+                if (m_wMenu.getComponent <Button> (1)->isPressed(rw, e) && g->load()) g->start(true);
+                if (m_wMenu.getComponent <Button> (2)->isPressed(rw, e)) wOpts->setVisible(true);
+                if (m_wMenu.getComponent <Button> (3)->isPressed(rw, e)) wHelp->setVisible(true);
+                if (m_wMenu.getComponent <Button> (4)->isPressed(rw, e)) wCred->setVisible(true);
+                if (m_wMenu.getComponent <Button> (5)->isPressed(rw, e)) rw.close();
             }
 
             else if (wOpts->isVisible())
@@ -470,10 +470,10 @@ namespace rr
 
     void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        target.draw(background_, states);
-        target.draw(title_     , states);
-        target.draw(version_   , states);
-        target.draw(wMenu_     , states);
+        target.draw(m_background, states);
+        target.draw(m_title     , states);
+        target.draw(m_version   , states);
+        target.draw(m_wMenu     , states);
     }
 
 }

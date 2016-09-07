@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/Door.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ENTITY_DOOR_HPP
@@ -14,10 +14,10 @@ namespace rr
 
     class Door : public Entity
     {
-    private: sf::Sprite body_;
-             bool       locked_;
-             bool       open_;
-             bool       withoutWindow_;
+    private: sf::Sprite m_body;
+             bool       m_locked;
+             bool       m_open;
+             bool       m_withWindow;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the door.
@@ -52,41 +52,41 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the door is open.
              ////////////////////////////////////////////////////////////////////////
-             bool isOpen() const { return open_; }
+             bool isOpen() const { return m_open; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the door is locked.
              ////////////////////////////////////////////////////////////////////////
-             bool isLocked() const { return locked_; }
+             bool isLocked() const { return m_locked; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the door has no window.
              ////////////////////////////////////////////////////////////////////////
-             bool isWithoutWindow() const { return withoutWindow_; }
+             bool isWithoutWindow() const { return m_withWindow; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the door's position relatively to the grid marked out
              /// by the level's tile map.
              ////////////////////////////////////////////////////////////////////////
-     virtual void setGridPosition(sf::Vector2i pos) override { body_.setPosition((sf::Vector2f)pos*80.f); }
+     virtual void setGridPosition(sf::Vector2i pos) override { m_body.setPosition((sf::Vector2f)pos*80.f); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the door's position relatively to the grid marked
              /// out by the level's tile map.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) body_.getPosition()/80; }
+     virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) m_body.getPosition()/80; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the door's position relatively to the graphics card's
              /// coordinate system.
              ////////////////////////////////////////////////////////////////////////
-     virtual void setPosition(sf::Vector2f pos) override { body_.setPosition(pos); }
+     virtual void setPosition(sf::Vector2f pos) override { m_body.setPosition(pos); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the door's position relatively to the graphics
              /// card's coordinate system.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
+     virtual sf::Vector2f getPosition() const override { return m_body.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if another entity's bound box intersects with the
@@ -97,7 +97,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the door's bound box.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::FloatRect getBounds() const override { return body_.getGlobalBounds(); }
+     virtual sf::FloatRect getBounds() const override { return m_body.getGlobalBounds(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reads the door from the file.

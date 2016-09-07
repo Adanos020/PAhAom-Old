@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/Conversation.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include "../../Settings.hpp"
@@ -16,20 +16,20 @@ namespace rr
 {
 
     Conversation::Conversation(Player* p) :
-      wConv_   ("", sf::Vector2f(Settings::graphics.resolution.x - 50, 200), sf::Vector2f(25, 25)),
-      wOpts_   ("", sf::Vector2f(Settings::graphics.resolution.x - 50, 200), sf::Vector2f(25, Settings::graphics.resolution.y - 225)),
-      dialogue_(nullptr),
-      player_  (p)
+      m_wConv   ("", sf::Vector2f(Settings::graphics.resolution.x - 50, 200), sf::Vector2f(25, 25)),
+      m_wOpts   ("", sf::Vector2f(Settings::graphics.resolution.x - 50, 200), sf::Vector2f(25, Settings::graphics.resolution.y - 225)),
+      m_dialogue(nullptr),
+      m_player  (p)
     {
-        shadow_.setSize     ((sf::Vector2f) Settings::graphics.resolution);
-        shadow_.setPosition (sf::Vector2f(0, 0));
-        shadow_.setFillColor(sf::Color(0, 0, 0, 172));
+        m_shadow.setSize     ((sf::Vector2f) Settings::graphics.resolution);
+        m_shadow.setPosition (sf::Vector2f(0, 0));
+        m_shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
         auto text = new Text(sf::Vector2f(20, 20), "", Resources::font.Unifont, 20);
-             text->wrap(wConv_.getSize().x-40);
-        wConv_ += text;
+             text->wrap(m_wConv.getSize().x-40);
+        m_wConv += text;
 
-        wOpts_ += new Menu(sf::Vector2f(10, 10));
+        m_wOpts += new Menu(sf::Vector2f(10, 10));
     }
 
     void
@@ -37,67 +37,67 @@ namespace rr
     {
         if (isOpen())
         {
-            target.draw(shadow_);
-            target.draw(wConv_);
-            target.draw(wOpts_);
+            target.draw(m_shadow);
+            target.draw(m_wConv);
+            target.draw(m_wOpts);
         }
     }
 
     void
     Conversation::buttonEvents(sf::RenderWindow& rw, sf::Event& event, Game* g)
     {
-        if (wOpts_.isVisible())
+        if (m_wOpts.isVisible())
         {
-            sf::String action = wOpts_.getComponent <Menu> (0)->getChosenOption(rw, event);
+            sf::String action = m_wOpts.getComponent <Menu> (0)->getChosenOption(rw, event);
 
-            auto answers = (Answers*) dialogue_->getCurrentBranch();
+            auto answers = (Answers*) m_dialogue->getCurrentBranch();
 
             // removing the skill teaching answers if player already has learnt the skills
             {
                 bool update = false;
-                if (player_->getAttributes().crafting)
+                if (m_player->getAttributes().crafting)
                 {
                     if (answers->removeAnswer("Crafting (10SP, 2 gold)"))
                         update = true;
                 }
 
-                if (player_->getAttributes().alchemy)
+                if (m_player->getAttributes().alchemy)
                 {
                     if (answers->removeAnswer("Alchemy (10SP, 2 gold)"))
                         update = true;
                 }
 
-                if (player_->getAttributes().melee_weapon_mastery)
+                if (m_player->getAttributes().melee_weapon_mastery)
                 {
                     if (answers->removeAnswer("Melee Weapon Mastery (10SP, 2 gold)"))
                         update = true;
                 }
 
-                if (player_->getAttributes().ranged_weapon_mastery)
+                if (m_player->getAttributes().ranged_weapon_mastery)
                 {
                     if (answers->removeAnswer("Ranged Weapon Mastery (10SP, 2 gold)"))
                         update = true;
                 }
 
-                if (player_->getAttributes().eagle_eye)
+                if (m_player->getAttributes().eagle_eye)
                 {
                     if (answers->removeAnswer("Enhanced Sight (10SP, 2 gold)"))
                         update = true;
                 }
 
-                if (player_->getAttributes().mana_regeneration)
+                if (m_player->getAttributes().mana_regeneration)
                 {
                     if (answers->removeAnswer("Mana Regeneration (10SP, 2 gold)"))
                         update = true;
                 }
 
-                if (player_->getAttributes().health_regeneration)
+                if (m_player->getAttributes().health_regeneration)
                 {
                     if (answers->removeAnswer("Health Regeneration (10SP, 2 gold)"))
                         update = true;
                 }
 
-                if (player_->getAttributes().faster_learning)
+                if (m_player->getAttributes().faster_learning)
                 {
                     if (answers->removeAnswer("Faster Learning (10SP, 2 gold)"))
                         update = true;
@@ -107,8 +107,8 @@ namespace rr
                 // unless you still want to see this option
                 if (update)
                 {
-                    auto menu = wOpts_.getComponent <Menu> (0);
-                    auto answers = (Answers*) dialogue_->getCurrentBranch();
+                    auto menu = m_wOpts.getComponent <Menu> (0);
+                    auto answers = (Answers*) m_dialogue->getCurrentBranch();
 
                     menu->clear();
                     for (unsigned i = 0; i < answers->getAnswers().size(); ++i)
@@ -119,9 +119,9 @@ namespace rr
             }
 
             // recognizing the choice
-            auto chosen = ((Answers*) dialogue_->getCurrentBranch())->find(action);
+            auto chosen = ((Answers*) m_dialogue->getCurrentBranch())->find(action);
             if (chosen != nullptr)
-                dialogue_->setTree(chosen);
+                m_dialogue->setTree(chosen);
 
             // recognizing if the choice is a request for learning
             // a skill or increasing some attributes
@@ -132,11 +132,11 @@ namespace rr
                     g->getPlayer()->learnSkill(Book::MELEE_WEAPON_MASTERY, 10);
                     g->getInventory()->removeItem(new Coin(Coin::GOLDEN), 2);
                     answers->removeAnswer(chosen);
-                    dialogue_->goLeft();
+                    m_dialogue->goLeft();
                 }
                 else
                 {
-                    dialogue_->goRight();
+                    m_dialogue->goRight();
                 }
             }
             else if (action == "+5STR (5SP, 1 gold)") {
@@ -144,11 +144,11 @@ namespace rr
                 {
                     g->getPlayer()->increaseAttribute(Player::STRENGTH, 5, 5);
                     g->getInventory()->removeItem(new Coin(Coin::GOLDEN), 1);
-                    dialogue_->goLeft();
+                    m_dialogue->goLeft();
                 }
                 else
                 {
-                    dialogue_->goRight();
+                    m_dialogue->goRight();
                 }
             }
             else if (action == "+1STR (1SP, 10 silver)")
@@ -157,11 +157,11 @@ namespace rr
                 {
                     g->getPlayer()->increaseAttribute(Player::STRENGTH, 1, 1);
                     g->getInventory()->removeItem(new Coin(Coin::SILVER), 10);
-                    dialogue_->goLeft();
+                    m_dialogue->goLeft();
                 }
                 else
                 {
-                    dialogue_->goRight();
+                    m_dialogue->goRight();
                 }
             }
 
@@ -171,24 +171,24 @@ namespace rr
             // of the dialogue
             if (chosen != nullptr)
             {
-                wOpts_.getComponent <Menu> (0)->clear();
-                if (instanceof <Answers, Branch> (dialogue_->getCurrentBranch()))
+                m_wOpts.getComponent <Menu> (0)->clear();
+                if (instanceof <Answers, Branch> (m_dialogue->getCurrentBranch()))
                 {
-                    auto menu = wOpts_.getComponent <Menu> (0);
-                    auto answers = (Answers*) dialogue_->getCurrentBranch();
+                    auto menu = m_wOpts.getComponent <Menu> (0);
+                    auto answers = (Answers*) m_dialogue->getCurrentBranch();
 
                     for (unsigned i = 0; i < answers->getAnswers().size(); ++i)
                     {
                         menu->addOption(answers->getAnswers()[i]->getSentence());
                     }
-                    wOpts_.setVisible(true);
-                    wConv_.setVisible(false);
+                    m_wOpts.setVisible(true);
+                    m_wConv.setVisible(false);
                 }
-                else if (instanceof <Sentence, Branch> (dialogue_->getCurrentBranch()))
+                else if (instanceof <Sentence, Branch> (m_dialogue->getCurrentBranch()))
                 {
-                    wConv_.getComponent <Text> (0)->setString(((Sentence*) dialogue_->getCurrentBranch())->getSentence());
-                    wOpts_.setVisible(false);
-                    wConv_.setVisible(true);
+                    m_wConv.getComponent <Text> (0)->setString(((Sentence*) m_dialogue->getCurrentBranch())->getSentence());
+                    m_wOpts.setVisible(false);
+                    m_wConv.setVisible(true);
                 }
                 else
                 {
@@ -196,38 +196,38 @@ namespace rr
                 }
             }
         }
-        else if (wConv_.isVisible())
+        else if (m_wConv.isVisible())
         {
             if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Escape))
-                dialogue_->goLeft();
+                m_dialogue->goLeft();
 
-            if (dialogue_->getCurrentBranch() == nullptr)
+            if (m_dialogue->getCurrentBranch() == nullptr)
                 close(g);
             else
             {
-                if (instanceof <Answers, Branch> (dialogue_->getCurrentBranch()))
+                if (instanceof <Answers, Branch> (m_dialogue->getCurrentBranch()))
                 {
-                    auto menu = wOpts_.getComponent <Menu> (0);
-                    auto answers = (Answers*) dialogue_->getCurrentBranch();
+                    auto menu = m_wOpts.getComponent <Menu> (0);
+                    auto answers = (Answers*) m_dialogue->getCurrentBranch();
 
                     for (unsigned i = 0; i < answers->getAnswers().size(); ++i)
                     {
                         menu->addOption(answers->getAnswers()[i]->getSentence());
                     }
-                    wOpts_.setVisible(true);
-                    wConv_.setVisible(false);
+                    m_wOpts.setVisible(true);
+                    m_wConv.setVisible(false);
                 }
-                else if (instanceof <Sentence, Branch> (dialogue_->getCurrentBranch()))
+                else if (instanceof <Sentence, Branch> (m_dialogue->getCurrentBranch()))
                 {
-                    wConv_.getComponent <Text> (0)->setString(((Sentence*) dialogue_->getCurrentBranch())->getSentence());
+                    m_wConv.getComponent <Text> (0)->setString(((Sentence*) m_dialogue->getCurrentBranch())->getSentence());
 
-                    if (((Sentence*) dialogue_->getCurrentBranch())->getSpeaker() == Sentence::_NPC)
-                        wConv_.setHeader(npcName_);
+                    if (((Sentence*) m_dialogue->getCurrentBranch())->getSpeaker() == Sentence::_NPC)
+                        m_wConv.setHeader(m_npcName);
                     else
-                        wConv_.setHeader("");
+                        m_wConv.setHeader("");
 
-                    wOpts_.setVisible(false);
-                    wConv_.setVisible(true);
+                    m_wOpts.setVisible(false);
+                    m_wConv.setVisible(true);
                 }
             }
         }
@@ -236,44 +236,44 @@ namespace rr
     void
     Conversation::open(NPC* npc)
     {
-        dialogue_ = npc->getDialogue();
-        npcName_  = npc->getName();
+        m_dialogue = npc->getDialogue();
+        m_npcName  = npc->getName();
 
-        if (instanceof <Answers, Branch> (dialogue_->getCurrentBranch()))
+        if (instanceof <Answers, Branch> (m_dialogue->getCurrentBranch()))
         {
-            auto menu = wOpts_.getComponent <Menu> (0);
-            auto answers = (Answers*) dialogue_->getCurrentBranch();
+            auto menu = m_wOpts.getComponent <Menu> (0);
+            auto answers = (Answers*) m_dialogue->getCurrentBranch();
 
             for (unsigned i = 0; i < answers->getAnswers().size(); ++i)
             {
                 menu->addOption(answers->getAnswers()[i]->getSentence());
             }
 
-            wOpts_.setVisible(true);
+            m_wOpts.setVisible(true);
         }
-        else if (instanceof <Sentence, Branch> (dialogue_->getCurrentBranch()))
+        else if (instanceof <Sentence, Branch> (m_dialogue->getCurrentBranch()))
         {
-            wConv_.getComponent <Text> (0)->setString(((Sentence*) dialogue_->getCurrentBranch())->getSentence());
+            m_wConv.getComponent <Text> (0)->setString(((Sentence*) m_dialogue->getCurrentBranch())->getSentence());
 
-            if (((Sentence*) dialogue_->getCurrentBranch())->getSpeaker() == Sentence::_NPC)
-                wConv_.setHeader(npcName_);
+            if (((Sentence*) m_dialogue->getCurrentBranch())->getSpeaker() == Sentence::_NPC)
+                m_wConv.setHeader(m_npcName);
             else
-                wConv_.setHeader("");
+                m_wConv.setHeader("");
 
-            wConv_.setVisible(true);
+            m_wConv.setVisible(true);
         }
     }
 
     void
     Conversation::close(Game* g)
     {
-        dialogue_->reset();
-        dialogue_ = nullptr;
+        m_dialogue->reset();
+        m_dialogue = nullptr;
 
-        wOpts_.getComponent <Menu> (0)->clear();
+        m_wOpts.getComponent <Menu> (0)->clear();
 
-        wOpts_.setVisible(false);
-        wConv_.setVisible(false);
+        m_wOpts.setVisible(false);
+        m_wConv.setVisible(false);
 
         g->pause(false);
     }

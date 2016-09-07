@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/dialogue/Dialogue.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef DIALOGUE_HPP
@@ -12,33 +12,33 @@ namespace rr
     
     class Branch
     {
-    private: Branch* left_  = nullptr;
-             Branch* right_ = nullptr;
+    private: Branch* m_left  = nullptr;
+             Branch* m_right = nullptr;
     
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Virtual destructor.
              ////////////////////////////////////////////////////////////////////////
-     virtual ~Branch() { if (left_ != nullptr) delete left_; if (right_ != nullptr) delete right_; }
+     virtual ~Branch() { if (m_left != nullptr) delete m_left; if (m_right != nullptr) delete m_right; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the left link.
              ////////////////////////////////////////////////////////////////////////
-             void setLeft(Branch* b) { left_ = b; }
+             void setLeft(Branch* b) { m_left = b; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the right link.
              ////////////////////////////////////////////////////////////////////////
-             void setRight(Branch* b) { right_ = b; }
+             void setRight(Branch* b) { m_right = b; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the left link.
              ////////////////////////////////////////////////////////////////////////
-             Branch* getLeft() const { return left_; }
+             Branch* getLeft() const { return m_left; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the right link.
              ////////////////////////////////////////////////////////////////////////
-             Branch* getRight() const { return right_; }
+             Branch* getRight() const { return m_right; }
     };
 
     class Sentence : public Branch
@@ -57,25 +57,25 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the speaker of the sentence.
              ////////////////////////////////////////////////////////////////////////
-             Speaker getSpeaker() const { return speaker_; }
+             Speaker getSpeaker() const { return m_speaker; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the sentence's string.
              ////////////////////////////////////////////////////////////////////////
-             sf::String getSentence() const { return sentence_; }
+             sf::String getSentence() const { return m_sentence; }
 
-    private: Speaker    speaker_;
-             sf::String sentence_;
+    private: Speaker    m_speaker;
+             sf::String m_sentence;
     };
 
     class Answers : public Branch
     {
-    private: std::vector<Sentence*> answers_;
+    private: std::vector<Sentence*> m_answers;
 
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Adds an answer to the list.
              ////////////////////////////////////////////////////////////////////////
-             void addAnswer(Sentence* s) { answers_.push_back(s); }
+             void addAnswer(Sentence* s) { m_answers.push_back(s); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Removes an answer from the list.
@@ -94,7 +94,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the list of answers.
              ////////////////////////////////////////////////////////////////////////
-             std::vector<Sentence*> getAnswers() const { return answers_; }
+             std::vector<Sentence*> getAnswers() const { return m_answers; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Finds an answer that equals the given string.
@@ -114,7 +114,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Destructor.
              ////////////////////////////////////////////////////////////////////////
-            ~DialogueTree() { if (root_ != nullptr) delete root_; }
+            ~DialogueTree() { if (m_root != nullptr) delete m_root; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Assigns the tree.
@@ -124,25 +124,25 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the pointer to the current branch to its left branch.
              ////////////////////////////////////////////////////////////////////////
-             void goLeft() { current_ = current_->getLeft(); }
+             void goLeft() { m_current = m_current->getLeft(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the pointer to the current branch to its right branch.
              ////////////////////////////////////////////////////////////////////////
-             void goRight() { current_ = current_->getRight(); }
+             void goRight() { m_current = m_current->getRight(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the current step of the dialogue.
              ////////////////////////////////////////////////////////////////////////
-             Branch* getCurrentBranch() { return current_; }
+             Branch* getCurrentBranch() { return m_current; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the pointer to the current step to the initial one.
              ////////////////////////////////////////////////////////////////////////
-             void reset() { current_ = root_; }
+             void reset() { m_current = m_root; }
     
-    private: Branch* current_;
-             Branch* root_;
+    private: Branch* m_current;
+             Branch* m_root;
     };
 
 }

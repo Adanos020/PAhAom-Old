@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/Potion.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ITEM_POTION_HPP
@@ -38,7 +38,7 @@ namespace rr
                  SMALL
              };
 
-      static bool identified_[9];
+      static bool m_identified[9];
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
@@ -69,7 +69,7 @@ namespace rr
              /// - SLOWNESS
              /// - WEAKNESS
              ////////////////////////////////////////////////////////////////////////
-             Type getType() const { return type_; }
+             Type getType() const { return m_type; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the potion's size.
@@ -79,17 +79,17 @@ namespace rr
              /// - MEDIUM
              /// - SMALL
              ////////////////////////////////////////////////////////////////////////
-             Size getSize() const { return size_; }
+             Size getSize() const { return m_size; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reveals the potion's properties.
              ////////////////////////////////////////////////////////////////////////
-     virtual void reveal() override { identified_[type_] = true; }
+     virtual void reveal() override { m_identified[m_type] = true; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the potion is discovered.
              ////////////////////////////////////////////////////////////////////////
-     virtual bool isDiscovered() const override { return identified_[type_]; }
+     virtual bool isDiscovered() const override { return m_identified[m_type]; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the potion's name.
@@ -123,8 +123,8 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
      virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type type_;
-             Size size_;
+    private: Type m_type;
+             Size m_size;
     };
 
 }

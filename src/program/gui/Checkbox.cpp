@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Checkbox.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include "Checkbox.hpp"
@@ -12,54 +12,54 @@ namespace rr
 {
 
     Checkbox::Checkbox(sf::Vector2f pos, sf::String txt, int chsize, sf::Color c) :
-      image_(Image(pos, Resources::texture.gui, 14, 1)),
-      text_ (Text (sf::Vector2f(0, 0), txt, Resources::font.Unifont, chsize))
+      m_image(Image(pos, Resources::texture.gui, 14, 1)),
+      m_text (Text (sf::Vector2f(0, 0), txt, Resources::font.Unifont, chsize))
     {
-        body_.setSize            (sf::Vector2f(35, 35));
-        body_.setPosition        (pos);
-        body_.setFillColor       (c);
-        body_.setOutlineColor    (sf::Color(c.r+20, c.g+20, c.b+20));
-        body_.setOutlineThickness(5);
+        m_body.setSize            (sf::Vector2f(35, 35));
+        m_body.setPosition        (pos);
+        m_body.setFillColor       (c);
+        m_body.setOutlineColor    (sf::Color(c.r+20, c.g+20, c.b+20));
+        m_body.setOutlineThickness(5);
 
-        text_.setPosition(sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_.getSize().y));
+        m_text.setPosition(sf::Vector2f(pos.x+45, pos.y+m_body.getSize().y/2-m_text.getSize().y));
 
-        image_.setParentComponent(this);
-        text_ .setParentComponent(this);
+        m_image.setParentComponent(this);
+        m_text .setParentComponent(this);
     }
 
     void
     Checkbox::check(bool b)
     {
-        checked_ = b;
+        m_checked = b;
     }
 
     void
     Checkbox::setPosition(sf::Vector2f pos)
     {
-        body_ .setPosition(pos);
-        text_ .setPosition(sf::Vector2f(pos.x+45, pos.y+body_.getSize().y/2-text_.getSize().y));
-        image_.setPosition(pos);
+        m_body .setPosition(pos);
+        m_text .setPosition(sf::Vector2f(pos.x+45, pos.y+m_body.getSize().y/2-m_text.getSize().y));
+        m_image.setPosition(pos);
     }
 
 
     void
     Checkbox::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        target.draw(body_ , states);
-        if (checked_)
-            target.draw(image_, states);
-        target.draw(text_ , states);
+        target.draw(m_body , states);
+        if (m_checked)
+            target.draw(m_image, states);
+        target.draw(m_text , states);
     }
 
     bool
     Checkbox::containsMouseCursor(sf::RenderWindow& rw)
     {
-        if (body_.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw)))
+        if (m_body.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(rw)))
         {
-            body_.setFillColor(sf::Color(128, 128, 128, 255));
+            m_body.setFillColor(sf::Color(128, 128, 128, 255));
             return true;
         }
-        body_.setFillColor(sf::Color(128, 128, 128, 128));
+        m_body.setFillColor(sf::Color(128, 128, 128, 128));
         return false;
     }
 
@@ -68,11 +68,11 @@ namespace rr
     {
         if (containsMouseCursor(rw) && e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left)
         {
-            held_ = true;
+            m_held = true;
             return true;
         }
         if (e.type == sf::Event::MouseButtonReleased)
-            held_ = false;
+            m_held = false;
         return false;
     }
 

@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/npc/Teacher.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -16,47 +16,47 @@ namespace rr
 {
 
     Teacher::Teacher(Type type) :
-      type_(type)
+      m_type(type)
     {
-        velocity_                        = 900.f;
-        attrs_.health = attrs_.maxHealth = 100.f;
-        attrs_.armor                     =  50.f;
-        attrs_.level                     =  30  ;
+        m_velocity                         = 900.f;
+        m_attrs.health = m_attrs.maxHealth = 100.f;
+        m_attrs.armor                      =  50.f;
+        m_attrs.level                      =  30  ;
 
         initialize();
-        body_.scale(sf::Vector2f(5, 5));
+        m_body.scale(sf::Vector2f(5, 5));
     }
 
     Teacher::Teacher(Teacher const& copy) :
-      type_(copy.type_)
+      m_type(copy.m_type)
     {
-        velocity_         = copy.velocity_;
-        body_             = copy.body_;
-        currentAnimation_ = copy.currentAnimation_;
+        m_velocity         = copy.m_velocity;
+        m_body             = copy.m_body;
+        m_currentAnimation = copy.m_currentAnimation;
     }
 
     void Teacher::initialize()
     {
-        standingLeft_.setSpriteSheet(Resources::texture.npc);
+        m_standingLeft.setSpriteSheet(Resources::texture.npc);
 
-        for (int i = 0; i < (type_ == KUNG_FU_MASTER ? 20 : 10); i++)
+        for (int i = 0; i < (m_type == KUNG_FU_MASTER ? 20 : 10); i++)
         {
-            standingLeft_.addFrame(sf::IntRect(i*16, type_*16, 16, 16));
+            m_standingLeft.addFrame(sf::IntRect(i*16, m_type*16, 16, 16));
         }
 
-        currentAnimation_ = &standingLeft_;
+        m_currentAnimation = &m_standingLeft;
 
-        attitude_ = NEUTRAL;
+        m_attitude = NEUTRAL;
 
-        body_.setAnimation(*currentAnimation_);
-        body_.setLooped   (true);
+        m_body.setAnimation(*m_currentAnimation);
+        m_body.setLooped(true);
         
-        if (type_ == MAGE)
-            body_.setFrameTime(sf::seconds(.4f));
-        else  body_.setFrameTime(sf::seconds(.2f));
+        if (m_type == MAGE)
+            m_body.setFrameTime(sf::seconds(.4f));
+        else  m_body.setFrameTime(sf::seconds(.2f));
 
         // building dialogue trees
-        switch (type_)
+        switch (m_type)
         {
             case SWORDSMAN:
             {
@@ -106,7 +106,7 @@ namespace rr
                 auto bye = new Sentence(Sentence::PLAYER, "K bye."); // end
                 root->addAnswer(bye);
 
-                dialogue_.setTree(root, true);
+                m_dialogue.setTree(root, true);
             } break;
             
             case SHARPSHOOTER:
@@ -134,63 +134,63 @@ namespace rr
     void
     Teacher::update(int tiles[], sf::Time timeStep)
     {
-        if (moving_)
+        if (m_moving)
         {
-            sf::Vector2f offset = body_.getPosition()-(sf::Vector2f) position_*80.f;
+            sf::Vector2f offset = m_body.getPosition()-(sf::Vector2f) m_position*80.f;
             if (offset != sf::Vector2f(0, 0))
             {
-                if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep.asSeconds(),  0));
-                if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep.asSeconds(),  0));
-                if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep.asSeconds()));
-                if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep.asSeconds()));
+                if (offset.x < 0) m_body.move(sf::Vector2f( m_velocity*timeStep.asSeconds(),  0));
+                if (offset.x > 0) m_body.move(sf::Vector2f(-m_velocity*timeStep.asSeconds(),  0));
+                if (offset.y < 0) m_body.move(sf::Vector2f( 0,  m_velocity*timeStep.asSeconds()));
+                if (offset.y > 0) m_body.move(sf::Vector2f( 0, -m_velocity*timeStep.asSeconds()));
             }
             else
             {
-                buffs_.speed        -= (buffs_.speed        == 0 ? 0 : 1);
-                buffs_.regeneration -= (buffs_.regeneration == 0 ? 0 : 1);
-                buffs_.poison       -= (buffs_.poison       == 0 ? 0 : 1);
-                buffs_.slowness     -= (buffs_.slowness     == 0 ? 0 : 1);
-                buffs_.weakness     -= (buffs_.weakness     == 0 ? 0 : 1);
+                m_buffs.speed        -= (m_buffs.speed        == 0 ? 0 : 1);
+                m_buffs.regeneration -= (m_buffs.regeneration == 0 ? 0 : 1);
+                m_buffs.poison       -= (m_buffs.poison       == 0 ? 0 : 1);
+                m_buffs.slowness     -= (m_buffs.slowness     == 0 ? 0 : 1);
+                m_buffs.weakness     -= (m_buffs.weakness     == 0 ? 0 : 1);
 
-                if (buffs_.poison > 0)
-                    attrs_.health -= 1.f;
+                if (m_buffs.poison > 0)
+                    m_attrs.health -= 1.f;
 
-                if (buffs_.regeneration > 0)
-                    attrs_.health += 0.15f;
+                if (m_buffs.regeneration > 0)
+                    m_attrs.health += 0.15f;
 
-                moving_ = false;
+                m_moving = false;
             }
 
-            if (  (abs(offset.x) < velocity_/128 && abs(offset.x) > 0) // preventing the teacher from wobbling
-               || (abs(offset.y) < velocity_/128 && abs(offset.y) > 0) // in between of two cells
-                )  body_.setPosition((sf::Vector2f) position_*80.f);
+            if (  (abs(offset.x) < m_velocity/128 && abs(offset.x) > 0) // preventing the teacher from wobbling
+               || (abs(offset.y) < m_velocity/128 && abs(offset.y) > 0) // in between of two cells
+                )  m_body.setPosition((sf::Vector2f) m_position*80.f);
         }
 
-        body_.update(timeStep);
+        m_body.update(timeStep);
 
-        switch (state_)
+        switch (m_state)
         {
-            case STANDING : if      (   direction_        == LEFT
-                                    && *currentAnimation_ != standingLeft_
-                                     )  currentAnimation_ = &standingLeft_;
+            case STANDING : if      (   m_direction        == LEFT
+                                    && *m_currentAnimation != m_standingLeft
+                                     )  m_currentAnimation = &m_standingLeft;
 
-                            else if (   direction_        == RIGHT
-                                    && *currentAnimation_ != standingRight_
-                                     )  currentAnimation_ = &standingRight_;
+                            else if (   m_direction        == RIGHT
+                                    && *m_currentAnimation != m_standingRight
+                                     )  m_currentAnimation = &m_standingRight;
                             break;
 
             case WAITING  : break;
 
-            case EXPLORING: if (!moving_)
+            case EXPLORING: if (!m_moving)
                             {
-                                if (position_ == destination_)
+                                if (m_position == m_destination)
                                 {/*
-                                    position_ = PathFinder::aStar(position_, destination_, tiles)[0] - position_;
-                                    moving_ = true;*/
+                                    m_position = PathFinder::aStar(m_position, m_destination, tiles)[0] - m_position;
+                                    m_moving = true;*/
                                 }
                                 else
                                 {
-                                    state_ = STANDING;
+                                    m_state = STANDING;
                                 }
                             }
                             break;
@@ -200,7 +200,7 @@ namespace rr
             case ESCAPING : break;
         }
 
-        body_.play(*currentAnimation_);
+        m_body.play(*m_currentAnimation);
     }
 
     void
@@ -212,7 +212,7 @@ namespace rr
     sf::String
     Teacher::getName() const
     {
-        switch (type_)
+        switch (m_type)
         {
             case SWORDSMAN     : return Resources::dictionary["npc.teacher.name.swordsman"     ];
             case SHARPSHOOTER  : return Resources::dictionary["npc.teacher.name.sharpshooter"  ];
@@ -227,7 +227,7 @@ namespace rr
     std::ifstream&
     Teacher::operator<<(std::ifstream& file)
     {
-        currentAnimation_->clearFrames();
+        m_currentAnimation->clearFrames();
         
         sf::Vector2i position;
         int type;
@@ -243,7 +243,7 @@ namespace rr
             std::cerr << ex.what() << '\n';
         }
 
-        type_ = (Type) type;
+        m_type = (Type) type;
 
         initialize();
         setGridPosition(position);
@@ -254,10 +254,10 @@ namespace rr
     std::ofstream&
     Teacher::operator>>(std::ofstream& file)
     {
-        file << 21                             << ' '
-             << (int) body_.getPosition().x/80 << ' '
-             << (int) body_.getPosition().y/80 << ' '
-             << type_;
+        file << 21                              << ' '
+             << (int) m_body.getPosition().x/80 << ' '
+             << (int) m_body.getPosition().y/80 << ' '
+             << m_type;
 
         return file;
     }

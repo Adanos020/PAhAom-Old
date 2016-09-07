@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/Journal.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
  
 #ifndef UI_JOURNAL_HPP
@@ -18,8 +18,8 @@ namespace rr
 
     class Journal : public sf::Drawable
     {
-    private: sf::RectangleShape shadow_;
-             Window             wJour_;
+    private: sf::RectangleShape m_shadow;
+             Window             m_wJour;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.
@@ -39,17 +39,17 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Opens the task list window.
              ////////////////////////////////////////////////////////////////////////
-             void open() { wJour_.setVisible(true); }
+             void open() { m_wJour.setVisible(true); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Closes the task list window.
              ////////////////////////////////////////////////////////////////////////
-             void close() { wJour_.setVisible(false); }
+             void close() { m_wJour.setVisible(false); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the task list is open.
              ////////////////////////////////////////////////////////////////////////
-             bool isOpen() const { return wJour_.isVisible(); }
+             bool isOpen() const { return m_wJour.isVisible(); }
     };
 
 }

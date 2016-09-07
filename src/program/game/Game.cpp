@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/Game.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <cstdlib>
@@ -28,30 +28,30 @@ namespace rr
 {
 
     Game::Game() :
-      currentLevel_(nullptr            ),
-      conversation_(&player_           ),
-      inventory_   (Inventory(&player_)),
-      started_     (false              ),
-      paused_      (false              ),
-      mapOpen_     (false              ),
-      lost_        (false              ),
-      levelNumber_ (0                  )
+      m_currentLevel(nullptr            ),
+      m_conversation(&m_player           ),
+      m_inventory   (Inventory(&m_player)),
+      m_started     (false              ),
+      m_paused      (false              ),
+      m_mapOpen     (false              ),
+      m_lost        (false              ),
+      m_levelNumber (0                  )
     {
-        gameView_.setSize((sf::Vector2f) Settings::graphics.resolution);
+        m_gameView.setSize((sf::Vector2f) Settings::graphics.resolution);
 
-        mapView_.setSize  (6160.f, 3440.f);
-        mapView_.setCenter(mapView_.getSize()/2.f);
+        m_mapView.setSize  (6160.f, 3440.f);
+        m_mapView.setCenter(m_mapView.getSize()/2.f);
 
-        subject.addObserver(&inventory_);
-        subject.addObserver(&audioManager_);
-        subject.addObserver(&messageManager_);
+        subject.addObserver(&m_inventory);
+        subject.addObserver(&m_audioManager);
+        subject.addObserver(&m_messageManager);
 
-        audioManager_.playMusic(AudioManager::MENU);
+        m_audioManager.playMusic(AudioManager::MENU);
     }
 
     Game::~Game()
     {
-        delete currentLevel_;
+        delete m_currentLevel;
     }
 
     void
@@ -98,46 +98,46 @@ namespace rr
     Game::switchLevel(int index)
     {
         {
-            std::ofstream file("save/level"+std::to_string(levelNumber_)+".pah");
+            std::ofstream file("save/level"+std::to_string(m_levelNumber)+".pah");
             file.clear();
-            *currentLevel_ >> file;
+            *m_currentLevel >> file;
             file.close();
         }
 
         bool ascending = false;
-        if (index > (int) levelNumber_)
+        if (index > (int) m_levelNumber)
         {
-            if (levelNumber_ < 29)
-                levelNumber_++;
+            if (m_levelNumber < 29)
+                m_levelNumber++;
             else return;
             ascending = true;
         }
-        else if (index < (int) levelNumber_)
+        else if (index < (int) m_levelNumber)
         {
-            if (levelNumber_ > 0)
-                levelNumber_--;
+            if (m_levelNumber > 0)
+                m_levelNumber--;
             else return;
         }
 
-        subject.removeObserver(currentLevel_);
-        delete currentLevel_;
+        subject.removeObserver(m_currentLevel);
+        delete m_currentLevel;
 
-        currentLevel_ = new Level(levelNumber_);
-        currentLevel_->generateWorld();
-        subject.addObserver(currentLevel_);
+        m_currentLevel = new Level(m_levelNumber);
+        m_currentLevel->generateWorld();
+        subject.addObserver(m_currentLevel);
 
-        std::ifstream file("save/level"+std::to_string(levelNumber_)+".pah");
-        *currentLevel_ << file;
+        std::ifstream file("save/level"+std::to_string(m_levelNumber)+".pah");
+        *m_currentLevel << file;
         file.close();
 
-        player_.setGridPosition((ascending) ? currentLevel_->getStartingPoint() : currentLevel_->getEndingPoint());
+        m_player.setGridPosition((ascending) ? m_currentLevel->getStartingPoint() : m_currentLevel->getEndingPoint());
 
-        currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
+        m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
 
-        messageManager_.addMessage(Message(Resources::dictionary["message.welcome_to_level"]
-                                          +" "
-                                          +std::to_string(levelNumber_+1)
-                                          +((Settings::game.language == "fc") ? "" : "!"), sf::Color::Green));
+        m_messageManager.addMessage(Message(Resources::dictionary["message.welcome_to_level"]
+                                           +" "
+                                           +std::to_string(m_levelNumber+1)
+                                           +((Settings::game.language == "fc") ? "" : "!"), sf::Color::Green));
 
         save();
     }
@@ -147,16 +147,16 @@ namespace rr
     {
         reset();
 
-        seed_ = time(0);
-        srand(seed_);
+        m_seed = time(0);
+        srand(m_seed);
         randomizeItems();
 
         std::ofstream file;
 
         for (int i = 29; i >= 0; --i)
         {
-            currentLevel_ = new Level(i);
-            currentLevel_->generateWorld();
+            m_currentLevel = new Level(i);
+            m_currentLevel->generateWorld();
 
             file.open("save/level"+std::to_string(i)+".pah");
             if (!file.good()) {
@@ -165,27 +165,27 @@ namespace rr
             }
 
             file.clear();
-            *currentLevel_ >> file;
+            *m_currentLevel >> file;
             file.close();
 
             if (i != 0)
-                delete currentLevel_;
+                delete m_currentLevel;
         }
-        subject.addObserver(currentLevel_);
+        subject.addObserver(m_currentLevel);
 
-        player_.setGridPosition(currentLevel_->getStartingPoint());
+        m_player.setGridPosition(m_currentLevel->getStartingPoint());
 
         start(true);
         pause(false);
 
-        currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
+        m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
 
-        inventory_.addItem(new MeleeWeapon(MeleeWeapon::KNIFE));
-        inventory_.addItem(new Food(Food::BAGUETTE));
-        inventory_.addItem(new Potion(Potion::HEALING));
+        m_inventory.addItem(new MeleeWeapon(MeleeWeapon::KNIFE));
+        m_inventory.addItem(new Food(Food::BAGUETTE));
+        m_inventory.addItem(new Potion(Potion::HEALING));
 
-        //inventory_.addItem(new Book(Book::SPELLS_BOOK));
-        //inventory_.addItem(new Coin(Coin::GOLDEN, Coin::SMALL, 3));
+        //m_inventory.addItem(new Book(Book::SPELLS_BOOK));
+        //m_inventory.addItem(new Coin(Coin::GOLDEN, Coin::SMALL, 3));
 
         return true;
     }
@@ -202,24 +202,24 @@ namespace rr
 
         try
         {
-            readFile <unsigned> (file, seed_       );
-            readFile <unsigned> (file, levelNumber_);
+            readFile <unsigned> (file, m_seed       );
+            readFile <unsigned> (file, m_levelNumber);
 
             for (int i = 0; i < 9; ++i)
             {
-                readFile <bool> (file, Potion::identified_[i]);
+                readFile <bool> (file, Potion::m_identified[i]);
             }
             for (int i = 0; i < 12; ++i)
             {
-                readFile <bool> (file, Rune  ::identified_[i]);
+                readFile <bool> (file, Rune  ::m_identified[i]);
             }
 
-            readEntity(file, &player_);
+            readEntity(file, &m_player);
 
-            srand(seed_);
+            srand(m_seed);
             randomizeItems();
 
-            inventory_ << file;
+            m_inventory << file;
             if (file.fail())
             {
                 std::string wtf;
@@ -233,13 +233,13 @@ namespace rr
 
             file.close();
 
-            currentLevel_ = new Level(levelNumber_);
+            m_currentLevel = new Level(m_levelNumber);
 
-            file.open("save/level"+std::to_string(levelNumber_)+".pah");
-            *currentLevel_ << file;
+            file.open("save/level"+std::to_string(m_levelNumber)+".pah");
+            *m_currentLevel << file;
             file.close();
 
-            subject.addObserver(currentLevel_);
+            subject.addObserver(m_currentLevel);
         }
         catch (std::invalid_argument ex)
         {
@@ -249,7 +249,7 @@ namespace rr
         start(true);
         pause(false);
 
-        currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
+        m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
 
         return true;
     }
@@ -260,28 +260,28 @@ namespace rr
         std::ofstream file("save/save.pah");
         file.clear();
 
-        file        << seed_        << '\n'
-                    << levelNumber_ << '\n';
+        file        << m_seed        << '\n'
+                    << m_levelNumber << '\n';
 
         for (int i = 0; i < 9; ++i)
         {
-            file << Potion::identified_[i] << ' ';
+            file << Potion::m_identified[i] << ' ';
         }
         for (int i = 0; i < 12; ++i)
         {
-            file << Rune  ::identified_[i] << ' ';
+            file << Rune  ::m_identified[i] << ' ';
         }
         file << '\n';
 
-        player_    >> file << '\n';
-        inventory_ >> file;
+        m_player    >> file << '\n';
+        m_inventory >> file;
 
         file.close();
 
-        file.open("save/level"+std::to_string(levelNumber_)+".pah");
+        file.open("save/level"+std::to_string(m_levelNumber)+".pah");
         file.clear();
 
-        *currentLevel_ >> file << ' ';
+        *m_currentLevel >> file << ' ';
 
         file.close();
     }
@@ -289,7 +289,7 @@ namespace rr
     void
     Game::lose()
     {
-        lost_ = true;
+        m_lost = true;
 
 #if defined (__WINDOWS__) || defined (__TOS_WIN__) || defined (__WIN32__) || defined (_WIN64) || defined (_WIN32)
         system("del save/*.pah");
@@ -302,33 +302,33 @@ namespace rr
     void
     Game::draw(sf::RenderWindow& rw)
     {
-        if (!started_)
+        if (!m_started)
         {
             rw.setView(sf::View((sf::Vector2f) rw.getSize()/2.f, (sf::Vector2f) rw.getSize()));
-            rw.draw(mainMenu_);
-            rw.setView((mapOpen_) ? mapView_ : gameView_);
+            rw.draw(m_mainMenu);
+            rw.setView((m_mapOpen) ? m_mapView : m_gameView);
         }
         else
         {
-            rw.setView((mapOpen_) ? mapView_ : gameView_);
-            rw.draw(*currentLevel_);
-            rw.draw(player_);
+            rw.setView((m_mapOpen) ? m_mapView : m_gameView);
+            rw.draw(*m_currentLevel);
+            rw.draw(m_player);
 
             rw.setView(sf::View((sf::Vector2f) rw.getSize()/2.f, (sf::Vector2f) rw.getSize()));
 
-            messageManager_.draw(rw);
+            m_messageManager.draw(rw);
 
-            if (!conversation_.isOpen())
+            if (!m_conversation.isOpen())
             {
-                rw.draw(hud_);
-                rw.draw(inventory_);
+                rw.draw(m_hud);
+                rw.draw(m_inventory);
             }
-            rw.draw(attributes_);
-            rw.draw(bookOfSpells_);
-            rw.draw(conversation_);
-            rw.draw(deathScreen_);
-            rw.draw(journal_);
-            rw.draw(pauseMenu_);
+            rw.draw(m_attributes);
+            rw.draw(m_bookOfSpells);
+            rw.draw(m_conversation);
+            rw.draw(m_deathScreen);
+            rw.draw(m_journal);
+            rw.draw(m_pauseMenu);
         }
     }
 
@@ -337,131 +337,132 @@ namespace rr
     {
         controls(event);
 
-        player_        .update(timer);
-        messageManager_.update(timer);
-        deathScreen_   .update(timer);
+        m_player        .update(timer);
+        m_messageManager.update(timer);
+        m_deathScreen   .update(timer);
 
         // the player dies
-        if (!lost_ && player_.getAttributes().health == 0)
+        if (!m_lost && m_player.getAttributes().health == 0)
         {
             subject.notify(Observer::PLAYER_DIES, nullptr);
 
-            paused_ = true;
+            m_paused = true;
             lose();
 
-            deathScreen_.open();
+            m_deathScreen.open();
         }
 
-        gameView_.setCenter(sf::Vector2f(player_.getBounds().left+40, player_.getBounds().top+40));
+        m_gameView.setCenter(sf::Vector2f(m_player.getBounds().left+40, m_player.getBounds().top+40));
 
-        if (started_ && !paused_)
-            currentLevel_->update(this, timer);
+        if (m_started && !m_paused)
+            m_currentLevel->update(this, timer);
 
-        hud_.update(&player_, levelNumber_+1, timer);
+        m_hud.update(&m_player, m_levelNumber+1, timer);
     }
 
     void
     Game::controls(sf::Event& event)
     {
-        if ((!mapOpen_ || Settings::game.debugMode) && started_ && !paused_)
+        if ((!m_mapOpen || Settings::game.debugMode) && m_started && !m_paused)
         {
-            bool canUpdateFOV = !player_.isMoving();
+            bool canUpdateFOV = !m_player.isMoving();
             if (isKeyPressed(Settings::keys.move_up))
             {
-                player_.move(currentLevel_->getTiles(), Player::UP);
-                if (canUpdateFOV && player_.isMoving())
+                m_player.move(m_currentLevel->getTiles(), Player::UP);
+                if (canUpdateFOV && m_player.isMoving())
                 {
-                    currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
-                    currentLevel_->makeOrdersToNPCs(&player_);
+                    m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
+                    m_currentLevel->makeOrdersToNPCs(&m_player);
                 }
             }
             if (isKeyPressed(Settings::keys.move_down))
             {
-                player_.move(currentLevel_->getTiles(), Player::DOWN);
-                if (canUpdateFOV && player_.isMoving())
+                m_player.move(m_currentLevel->getTiles(), Player::DOWN);
+                if (canUpdateFOV && m_player.isMoving())
                 {
-                    currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
-                    currentLevel_->makeOrdersToNPCs(&player_);
+                    m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
+                    m_currentLevel->makeOrdersToNPCs(&m_player);
                 }
             }
             if (isKeyPressed(Settings::keys.move_left))
             {
-                player_.move(currentLevel_->getTiles(), Player::LEFT);
-                if (canUpdateFOV && player_.isMoving())
+                m_player.move(m_currentLevel->getTiles(), Player::LEFT);
+                if (canUpdateFOV && m_player.isMoving())
                 {
-                    currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
-                    currentLevel_->makeOrdersToNPCs(&player_);
+                    m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
+                    m_currentLevel->makeOrdersToNPCs(&m_player);
                 }
             }
             if (isKeyPressed(Settings::keys.move_right))
             {
-                player_.move(currentLevel_->getTiles(), Player::RIGHT);
-                if (canUpdateFOV && player_.isMoving())
+                m_player.move(m_currentLevel->getTiles(), Player::RIGHT);
+                if (canUpdateFOV && m_player.isMoving())
                 {
-                    currentLevel_->calculateFOV(player_.getGridPosition(), player_.getSightRange());
-                    currentLevel_->makeOrdersToNPCs(&player_);
+                    m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
+                    m_currentLevel->makeOrdersToNPCs(&m_player);
                 }
             }
 
             if (Settings::game.debugMode)
-                player_.cheat();
+                m_player.cheat();
         }
     }
 
     void
     Game::buttonEvents(sf::RenderWindow& rw, sf::Event& event)
     {
-        if (started_)
+        if (m_started)
         {
             if (Settings::game.debugMode)
             {
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Add)
-                    switchLevel(levelNumber_+1);
+                    switchLevel(m_levelNumber+1);
                 else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Subtract)
-                    switchLevel(levelNumber_-1);
+                    switchLevel(m_levelNumber-1);
             }
 
-            if (wasKeyPressed(event, sf::Keyboard::Escape) && !conversation_.isOpen())
+            if (wasKeyPressed(event, sf::Keyboard::Escape) && !m_conversation.isOpen())
                 pause(!isPaused());
 
-            if (!paused_)
+            if (!m_paused)
             {
                 if (wasKeyPressed(event, Settings::keys.open_attributes))
                 {
-                    attributes_.update(&player_);
-                    attributes_.open();
+                    m_attributes.update(&m_player);
+                    m_attributes.open();
                     if (!Settings::game.debugMode)
-                        paused_ = true;
+                        m_paused = true;
                 }
                 else if (wasKeyPressed(event, Settings::keys.open_inventory))
                 {
-                    inventory_.open();
-                    paused_ = true;
+                    m_inventory.open();
+                    m_paused = true;
                 }
                 else if (wasKeyPressed(event, Settings::keys.open_map))
                 {
-                    mapOpen_ = !mapOpen_;
+                    m_mapOpen = !m_mapOpen;
 
-                    if (!Settings::game.debugMode) paused_ = true;
+                    if (!Settings::game.debugMode)
+                        m_paused = true;
                 }
                 else if (wasKeyPressed(event, Settings::keys.open_journal))
                 {
-                    journal_.open();
-                    paused_ = true;
+                    m_journal.open();
+                    m_paused = true;
                 }
-                else if (wasKeyPressed(event, Settings::keys.open_bookOfSpells) && inventory_.contains(new Book(Book::SPELLS_BOOK, 0)))
+                else if (wasKeyPressed(event, Settings::keys.open_bookOfSpells) && m_inventory.contains(new Book(Book::SPELLS_BOOK, 0)))
                 {
-                    bookOfSpells_.open();
-                    paused_ = true;
+                    m_bookOfSpells.open();
+                    m_paused = true;
                 }
 
                 else if (wasKeyPressed(event, Settings::keys.attack))
                 {
-                    currentLevel_->playerAttack(&player_);
+                    m_currentLevel->playerAttack(&m_player);
                 }
                 else if (wasKeyPressed(event, Settings::keys.interact))
                 {
-                    currentLevel_->playerInteract(this);
+                    m_currentLevel->playerInteract(this);
                 }
 
                 if      (wasKeyPressed(event, Settings::keys.useslot_1)) {}
@@ -472,75 +473,75 @@ namespace rr
             }
         }
 
-        if (      !started_       ) mainMenu_    .buttonEvents(rw, event, this);
-        if (attributes_  .isOpen()) attributes_  .buttonEvents(rw, event, this);
-        if (bookOfSpells_.isOpen()) bookOfSpells_.buttonEvents(rw, event, this);
-        if (conversation_.isOpen()) conversation_.buttonEvents(rw, event, this);
-        if (deathScreen_ .isOpen()) deathScreen_ .buttonEvents(rw, event, this);
-        if (inventory_   .isOpen()) inventory_   .buttonEvents(rw, event, this);
-        if (journal_     .isOpen()) journal_     .buttonEvents(rw, event, this);
-        if (pauseMenu_   .isOpen()) pauseMenu_   .buttonEvents(rw, event, this);
+        if (      !m_started       ) m_mainMenu    .buttonEvents(rw, event, this);
+        if (m_attributes  .isOpen()) m_attributes  .buttonEvents(rw, event, this);
+        if (m_bookOfSpells.isOpen()) m_bookOfSpells.buttonEvents(rw, event, this);
+        if (m_conversation.isOpen()) m_conversation.buttonEvents(rw, event, this);
+        if (m_deathScreen .isOpen()) m_deathScreen .buttonEvents(rw, event, this);
+        if (m_inventory   .isOpen()) m_inventory   .buttonEvents(rw, event, this);
+        if (m_journal     .isOpen()) m_journal     .buttonEvents(rw, event, this);
+        if (m_pauseMenu   .isOpen()) m_pauseMenu   .buttonEvents(rw, event, this);
     }
 
     void
     Game::start(bool b)
     {
-        started_ = b;
+        m_started = b;
 
-        if (!started_)
-            audioManager_.playMusic(AudioManager::MENU);
+        if (!m_started)
+            m_audioManager.playMusic(AudioManager::MENU);
     }
 
     void
     Game::pause(bool b)
     {
-        paused_ = b;
-        if (paused_ && !conversation_.isOpen())
-            pauseMenu_.open();
+        m_paused = b;
+        if (m_paused && !m_conversation.isOpen())
+            m_pauseMenu.open();
         else
         {
-            pauseMenu_   .close();
-            inventory_   .close();
-            attributes_  .close();
-            journal_     .close();
-            bookOfSpells_.close();
+            m_pauseMenu   .close();
+            m_inventory   .close();
+            m_attributes  .close();
+            m_journal     .close();
+            m_bookOfSpells.close();
 
             if (!Settings::game.debugMode)
-                mapOpen_ = false;
+                m_mapOpen = false;
         }
     }
 
     void
     Game::reset()
     {
-        if (currentLevel_ != nullptr)
+        if (m_currentLevel != nullptr)
         {
-            delete currentLevel_;
-            currentLevel_ = nullptr;
+            delete m_currentLevel;
+            m_currentLevel = nullptr;
         }
 
         for (int i = 0; i < 9; ++i)
         {
-            Potion::identified_[i] = false;
+            Potion::m_identified[i] = false;
         }
         for (int i = 0; i < 12; ++i)
         {
-            Rune  ::identified_[i] = false;
+            Rune  ::m_identified[i] = false;
         }
 
-        inventory_  .clear();
-        player_     .reset();
-        deathScreen_.reset();
+        m_inventory  .clear();
+        m_player     .reset();
+        m_deathScreen.reset();
 
         subject.clear();
-        subject.addObserver(&inventory_);
-        subject.addObserver(&audioManager_);
-        subject.addObserver(&messageManager_);
+        subject.addObserver(&m_inventory);
+        subject.addObserver(&m_audioManager);
+        subject.addObserver(&m_messageManager);
 
-        levelNumber_ = 0;
+        m_levelNumber = 0;
 
-        mapOpen_ = false;
-        lost_    = false;
+        m_mapOpen = false;
+        m_lost    = false;
     }
 
 }

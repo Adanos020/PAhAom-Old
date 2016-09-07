@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/npc/NPC.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include "NPC.hpp"
@@ -12,49 +12,49 @@ namespace rr
     void
     NPC::placeDetectors()
     {
-        entityDetector_[0] = getGridPosition() + sf::Vector2i(-1, -1); // TOP LEFT
-        entityDetector_[1] = getGridPosition() + sf::Vector2i( 0, -1); // TOP
-        entityDetector_[2] = getGridPosition() + sf::Vector2i(+1, -1); // TOP RIGHT
-        entityDetector_[3] = getGridPosition() + sf::Vector2i(+1,  0); // RIGHT
-        entityDetector_[4] = getGridPosition() + sf::Vector2i(+1, +1); // BOTTOM RIGHT
-        entityDetector_[5] = getGridPosition() + sf::Vector2i( 0, +1); // BOTTOM
-        entityDetector_[6] = getGridPosition() + sf::Vector2i(-1, +1); // BOTTOM LEFT
-        entityDetector_[7] = getGridPosition() + sf::Vector2i(-1,  0); // LEFT
+        m_entityDetector[0] = getGridPosition() + sf::Vector2i(-1, -1); // TOP LEFT
+        m_entityDetector[1] = getGridPosition() + sf::Vector2i( 0, -1); // TOP
+        m_entityDetector[2] = getGridPosition() + sf::Vector2i(+1, -1); // TOP RIGHT
+        m_entityDetector[3] = getGridPosition() + sf::Vector2i(+1,  0); // RIGHT
+        m_entityDetector[4] = getGridPosition() + sf::Vector2i(+1, +1); // BOTTOM RIGHT
+        m_entityDetector[5] = getGridPosition() + sf::Vector2i( 0, +1); // BOTTOM
+        m_entityDetector[6] = getGridPosition() + sf::Vector2i(-1, +1); // BOTTOM LEFT
+        m_entityDetector[7] = getGridPosition() + sf::Vector2i(-1,  0); // LEFT
     }
 
     void
     NPC::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         states.texture = &Resources::texture.items;
-        target.draw(body_, states);
+        target.draw(m_body, states);
     }
 
     void
     NPC::setGridPosition(sf::Vector2i pos)
     {
-        position_ = pos;
-        body_.setPosition((sf::Vector2f) pos*80.f);
+        m_position = pos;
+        m_body.setPosition((sf::Vector2f) pos*80.f);
         placeDetectors();
     }
 
     sf::Vector2i
     NPC::getGridPosition() const
     {
-        return position_;
+        return m_position;
     }
 
     void
     NPC::setPosition(sf::Vector2f pos)
     {
-        position_ = (sf::Vector2i) pos/80;
-        body_.setPosition(pos);
+        m_position = (sf::Vector2i) pos/80;
+        m_body.setPosition(pos);
         placeDetectors();
     }
 
     sf::Vector2f
     NPC::getPosition() const
     {
-        return body_.getPosition();
+        return m_body.getPosition();
     }
 
     bool
@@ -66,95 +66,95 @@ namespace rr
     sf::FloatRect
     NPC::getBounds() const
     {
-        return body_.getGlobalBounds();
+        return m_body.getGlobalBounds();
     }
 
     void
     NPC::setDestination(sf::Vector2i dest)
     {
-        destination_ = dest;
+        m_destination = dest;
     }
 
     sf::Vector2i
     NPC::getDestination() const
     {
-        return destination_;
+        return m_destination;
     }
 
     DialogueTree*
     NPC::getDialogue() const
     {
-        return (DialogueTree*) &dialogue_;
+        return (DialogueTree*) &m_dialogue;
     }
 
     void
     NPC::setAttitude(Attitude attitude)
     {
-        attitude_ = attitude;
+        m_attitude = attitude;
     }
 
     NPC::Attitude
     NPC::getAttitude() const
     {
-        return attitude_;
+        return m_attitude;
     }
 
     void
     NPC::setState(State state)
     {
-        state_ = state;
+        m_state = state;
     }
 
     NPC::State
     NPC::getState() const
     {
-        return state_;
+        return m_state;
     }
 
     void
     NPC::setDirection(Direction direction)
     {
-        direction_ = direction;
+        m_direction = direction;
     }
 
     NPC::Direction
     NPC::getDirection() const
     {
-        return direction_;
+        return m_direction;
     }
 
     void
     NPC::move(int tiles[], Direction di)
     {
-        if (!moving_)
+        if (!m_moving)
         {
-            if (di == UP    && (tiles[position_.x   + (position_.y-1)*77] != 1 && tiles[position_.x   + (position_.y-1)*77] != 5))
+            if (di == UP    && (tiles[m_position.x   + (m_position.y-1)*77] != 1 && tiles[m_position.x   + (m_position.y-1)*77] != 5))
             {
-                position_ = sf::Vector2i(position_.x, position_.y-1);
-                moving_ = true;
+                m_position = sf::Vector2i(m_position.x, m_position.y-1);
+                m_moving = true;
             }
-            if (di == DOWN  && (tiles[position_.x   + (position_.y+1)*77] != 1 && tiles[position_.x   + (position_.y+1)*77] != 5))
+            if (di == DOWN  && (tiles[m_position.x   + (m_position.y+1)*77] != 1 && tiles[m_position.x   + (m_position.y+1)*77] != 5))
             {
-                position_ = sf::Vector2i(position_.x, position_.y+1);
-                moving_ = true;
+                m_position = sf::Vector2i(m_position.x, m_position.y+1);
+                m_moving = true;
             }
             if (di == LEFT)
             {
-                if (tiles[position_.x-1 + position_.y*77] != 1 && tiles[position_.x-1 + position_.y*77] != 5)
+                if (tiles[m_position.x-1 + m_position.y*77] != 1 && tiles[m_position.x-1 + m_position.y*77] != 5)
                 {
-                    position_ = sf::Vector2i(position_.x-1, position_.y);
-                    moving_ = true;
+                    m_position = sf::Vector2i(m_position.x-1, m_position.y);
+                    m_moving = true;
                 }
-                currentAnimation_ = &walkingLeft_;
+                m_currentAnimation = &m_walkingLeft;
             }
             if (di == RIGHT)
             {
-                if (tiles[position_.x+1 + position_.y*77] != 1 && tiles[position_.x+1 + position_.y*77] != 5)
+                if (tiles[m_position.x+1 + m_position.y*77] != 1 && tiles[m_position.x+1 + m_position.y*77] != 5)
                 {
-                    position_ = sf::Vector2i(position_.x+1, position_.y);
-                    moving_ = true;
+                    m_position = sf::Vector2i(m_position.x+1, m_position.y);
+                    m_moving = true;
                 }
-                currentAnimation_ = &walkingRight_;
+                m_currentAnimation = &m_walkingRight;
             }
         }
     }
@@ -162,7 +162,7 @@ namespace rr
     NPC::Attrs
     NPC::getAttributes() const
     {
-        return attrs_;
+        return m_attrs;
     }
 
     int
@@ -170,7 +170,7 @@ namespace rr
     {
         for (int i = 0; i < 8; ++i)
         {
-            if (e->getGridPosition() == entityDetector_[i])
+            if (e->getGridPosition() == m_entityDetector[i])
                 return i;
         }
         return -1;

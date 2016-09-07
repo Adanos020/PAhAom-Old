@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Image.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GUI_IMAGE_HPP
@@ -14,8 +14,8 @@ namespace rr
 
     class Image : public Component
     {
-    private: sf::Sprite body_;
-             int        icon_;
+    private: sf::Sprite m_body;
+             int        m_icon;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the image on the screen.
@@ -35,7 +35,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the image's body's position.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
+     virtual sf::Vector2f getPosition() const override { return m_body.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the image's body's size.
@@ -45,8 +45,8 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the image's body's size.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getSize() const override { return sf::Vector2f(body_.getGlobalBounds().width,
-                                                                         body_.getGlobalBounds().height); }
+     virtual sf::Vector2f getSize() const override { return sf::Vector2f(m_body.getGlobalBounds().width,
+                                                                         m_body.getGlobalBounds().height); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Changes the icon index.
@@ -71,7 +71,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the image's body.
              ////////////////////////////////////////////////////////////////////////
-             sf::Sprite getBody() const { return body_; }
+             sf::Sprite getBody() const { return m_body; }
     };
 
 }

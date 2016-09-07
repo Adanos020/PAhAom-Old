@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Text.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GUI_TEXT_HPP
@@ -14,7 +14,7 @@ namespace rr
 
     class Text : public Component
     {
-    private: sf::Text text_;
+    private: sf::Text m_text;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the text on the screen.
@@ -39,7 +39,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text's body's position.
              ////////////////////////////////////////////////////////////////////////
-             sf::Vector2f getPosition() const override { return text_.getPosition(); }
+             sf::Vector2f getPosition() const override { return m_text.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the text's body's size. (?)
@@ -49,77 +49,77 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text's body's size.
              ////////////////////////////////////////////////////////////////////////
-             sf::Vector2f getSize() const override { return sf::Vector2f(text_.getGlobalBounds().width, text_.getGlobalBounds().height); }
+             sf::Vector2f getSize() const override { return sf::Vector2f(m_text.getGlobalBounds().width, m_text.getGlobalBounds().height); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the text's character size.
              ////////////////////////////////////////////////////////////////////////
-             void setCharacterSize(unsigned c) { text_.setCharacterSize(c); }
+             void setCharacterSize(unsigned c) { m_text.setCharacterSize(c); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text's character size.
              ////////////////////////////////////////////////////////////////////////
-             int getCharacterSize() const { return text_.getCharacterSize(); }
+             int getCharacterSize() const { return m_text.getCharacterSize(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the text's fill color.
              ////////////////////////////////////////////////////////////////////////
-             void setFillColor(sf::Color c) { text_.setFillColor(c); }
+             void setFillColor(sf::Color c) { m_text.setFillColor(c); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text's fill color.
              ////////////////////////////////////////////////////////////////////////
-             sf::Color getFillColor() const { return text_.getFillColor(); }
+             sf::Color getFillColor() const { return m_text.getFillColor(); }
              
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the text's outline color.
              ////////////////////////////////////////////////////////////////////////
-             void setOutlineColor(sf::Color c) { text_.setOutlineColor(c); }
+             void setOutlineColor(sf::Color c) { m_text.setOutlineColor(c); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text's outline color.
              ////////////////////////////////////////////////////////////////////////
-             sf::Color getOutlineColor() const { return text_.getOutlineColor(); }
+             sf::Color getOutlineColor() const { return m_text.getOutlineColor(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the text's outline color.
              ////////////////////////////////////////////////////////////////////////
-             void setOutlineThickness(float t) { text_.setOutlineThickness(t); }
+             void setOutlineThickness(float t) { m_text.setOutlineThickness(t); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text's outline color.
              ////////////////////////////////////////////////////////////////////////
-             float getOutlineThickness() const { return text_.getOutlineThickness(); }
+             float getOutlineThickness() const { return m_text.getOutlineThickness(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the text's string.
              ////////////////////////////////////////////////////////////////////////
-             void setString(sf::String s) { text_.setString(s); }
+             void setString(sf::String s) { m_text.setString(s); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text's string.
              ////////////////////////////////////////////////////////////////////////
-             sf::String getString() const { return text_.getString(); }
+             sf::String getString() const { return m_text.getString(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the text's font.
              ////////////////////////////////////////////////////////////////////////
-             void setFont(sf::Font f) { text_.setFont(f); }
+             void setFont(sf::Font f) { m_text.setFont(f); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text's font.
              ////////////////////////////////////////////////////////////////////////
-       const sf::Font* getFont() const { return text_.getFont(); }
+       const sf::Font* getFont() const { return m_text.getFont(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the text's style.
              ////////////////////////////////////////////////////////////////////////
-             void setStyle(sf::Text::Style s) { text_.setStyle(s); }
+             void setStyle(sf::Text::Style s) { m_text.setStyle(s); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text style.
              ////////////////////////////////////////////////////////////////////////
-             sf::Text::Style getStyle() const { return (sf::Text::Style)text_.getStyle(); }
+             sf::Text::Style getStyle() const { return (sf::Text::Style) m_text.getStyle(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Wraps the text.

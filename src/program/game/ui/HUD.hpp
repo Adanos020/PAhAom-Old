@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/HUD.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef UI_HUD_HPP
@@ -15,12 +15,12 @@ namespace rr
 
     class HUD : public sf::Drawable
     {
-    private: Bar  bHP_;
-             Bar  bMP_;
-             Bar  bXP_;
-             Text tXPlevel_;
-             Text tLevelNumber_;
-             Text tFPS_;
+    private: Bar  m_bHP;
+             Bar  m_bMP;
+             Bar  m_bXP;
+             Text m_tXPlevel;
+             Text m_tLevelNumber;
+             Text m_tFPS;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the HUD on the screen.

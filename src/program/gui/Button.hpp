@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Button.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GUI_BUTTON_HPP
@@ -16,10 +16,10 @@ namespace rr
 
     class Button : public Component
     {
-    private: sf::RectangleShape body_;
-             Image              image_;
-             Text               text_;
-             bool               held_;
+    private: sf::RectangleShape m_body;
+             Image              m_image;
+             Text               m_text;
+             bool               m_held;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the button on the screen.
@@ -41,7 +41,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text displayed on the button.
              ////////////////////////////////////////////////////////////////////////
-             Text getText() const { return text_; }
+             Text getText() const { return m_text; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the button is touched by a mouse cursor.
@@ -56,7 +56,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the button is being held.
              ////////////////////////////////////////////////////////////////////////
-             bool isHeld() const { return held_; }
+             bool isHeld() const { return m_held; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the button's body's position.
@@ -66,17 +66,17 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the button's body's position.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
+     virtual sf::Vector2f getPosition() const override { return m_body.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the button's body's size.
              ////////////////////////////////////////////////////////////////////////
-     virtual void setSize(sf::Vector2f size) override { body_.setSize(size); }
+     virtual void setSize(sf::Vector2f size) override { m_body.setSize(size); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the button's body's size.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getSize() const override { return body_.getSize(); }
+     virtual sf::Vector2f getSize() const override { return m_body.getSize(); }
     };
 
 }

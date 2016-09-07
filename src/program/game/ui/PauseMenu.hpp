@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/PauseMenu.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef UI_PAUSE_HPP
@@ -19,10 +19,10 @@ namespace rr
 
     class PauseMenu : public sf::Drawable
     {
-    private: sf::RectangleShape shadow_;
-             Text               title_;
-             Text               version_;
-             Window             wMenu_;
+    private: sf::RectangleShape m_shadow;
+             Text               m_title;
+             Text               m_version;
+             Window             m_wMenu;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.
@@ -42,7 +42,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// Opens the pause menu.
              ////////////////////////////////////////////////////////////////////////
-             void open() { wMenu_.setVisible(true); }
+             void open() { m_wMenu.setVisible(true); }
 
              ////////////////////////////////////////////////////////////////////////
              /// Closes the pause menu window.
@@ -52,7 +52,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// Tells if the pause menu is open.
              ////////////////////////////////////////////////////////////////////////
-             bool isOpen() const { return wMenu_.isVisible();}
+             bool isOpen() const { return m_wMenu.isVisible();}
     };
 
 }

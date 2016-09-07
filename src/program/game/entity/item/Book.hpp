@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/item_Book.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ITEM_BOOK_HPP
@@ -61,7 +61,7 @@ namespace rr
              /// - FASTER_LEARNING
              /// - SPELLS_BOOK
              ////////////////////////////////////////////////////////////////////////
-             Type getType() const { return type_; }
+             Type getType() const { return m_type; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the book's position relatively to the grid marked out by
@@ -95,7 +95,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
      virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type type_;
+    private: Type m_type;
     };
 
 }

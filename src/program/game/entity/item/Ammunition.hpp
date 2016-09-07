@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/Ammunition.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ITEM_AMMUNITION_HPP
@@ -53,7 +53,7 @@ namespace rr
              /// - DART (required by bellows)
              /// - SHURIKEN (thrown ammunition)
              ////////////////////////////////////////////////////////////////////////
-             Type getType() const { return type_; }
+             Type getType() const { return m_type; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the ammunition's name.
@@ -75,7 +75,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
      virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type type_;
+    private: Type m_type;
     };
 
 }

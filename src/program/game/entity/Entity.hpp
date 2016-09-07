@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/Entity.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ENTITY_HPP

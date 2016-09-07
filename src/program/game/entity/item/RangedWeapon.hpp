@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/RangedWeapon.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ITEM_RANGEDWEAPON_HPP
@@ -51,7 +51,7 @@ namespace rr
              /// - SLINGSHOT
              /// - BELLOWS
              ////////////////////////////////////////////////////////////////////////
-             Type getType() const { return type_; }
+             Type getType() const { return m_type; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the ranged weapon's name.
@@ -77,7 +77,7 @@ namespace rr
              virtual std::ifstream& operator<<(std::ifstream&) override;
              virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type type_;
+    private: Type m_type;
     };
 
 }

@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/messages/MessageManager.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef MESSAGEMANAGER_HPP
@@ -16,9 +16,9 @@ namespace rr
 
     class Message : public sf::Drawable
     {
-    private: Text     message_;
-             sf::Time timeElapsed_;
-             sf::Time lifeTime_;
+    private: Text     m_message;
+             sf::Time m_timeElapsed;
+             sf::Time m_lifeTime;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the message on the screen.
@@ -43,27 +43,27 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the message's position on the screen.
              ////////////////////////////////////////////////////////////////////////
-             sf::Vector2f getPosition() const { return message_.getPosition (); }
+             sf::Vector2f getPosition() const { return m_message.getPosition (); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the message's size.
              ////////////////////////////////////////////////////////////////////////
-             sf::Vector2f getSize() const { return message_.getSize(); }
+             sf::Vector2f getSize() const { return m_message.getSize(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the message's text's fill color.
              ////////////////////////////////////////////////////////////////////////
-             sf::Color getColor() const { return message_.getFillColor(); }
+             sf::Color getColor() const { return m_message.getFillColor(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the message's string.
              ////////////////////////////////////////////////////////////////////////
-             sf::String getString() const { return message_.getString(); }
+             sf::String getString() const { return m_message.getString(); }
     };
 
     class MessageManager : public Observer
     {
-    private: std::vector<Message> messages_;
+    private: std::vector<Message> m_messages;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reacts to a specific event. It can either do something with

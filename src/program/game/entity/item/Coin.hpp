@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/Coin.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ITEM_COIN_HPP
@@ -54,7 +54,7 @@ namespace rr
              /// - SLIVER
              /// - BRONZE
              ////////////////////////////////////////////////////////////////////////
-             Type getType() const { return type_; }
+             Type getType() const { return m_type; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the coin's size.
@@ -63,7 +63,7 @@ namespace rr
              /// - SMALL
              /// - BIG
              ////////////////////////////////////////////////////////////////////////
-             Size getSize() const { return size_; }
+             Size getSize() const { return m_size; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the coin's name.
@@ -85,8 +85,8 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
      virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type type_;
-             Size size_;
+    private: Type m_type;
+             Size m_size;
     };
 
 }

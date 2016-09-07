@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/npc/Merchant.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef NPC_MERCHANT_HPP
@@ -23,7 +23,7 @@ namespace rr
                  WEAPON_SELLER,
                  ARMOR_SELLER,
                  ARTIFACT_SELLER
-             } type_;
+             } m_type;
 
              Merchant(Type = POTION_SELLER);
              Merchant(Merchant const&);

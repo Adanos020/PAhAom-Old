@@ -1,7 +1,7 @@
 /**
  * @file src/program/path_finder/PathFinder.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef PATHFINDER_HPP
@@ -18,17 +18,17 @@ namespace rr
     {
     private: class Node
              {
-             private: Node*        parent_;
+             private: Node*        m_parent;
 
-                      bool         closed_;
-                      bool         open_;
-                      bool         walkable_;
+                      bool         m_closed;
+                      bool         m_open;
+                      bool         m_walkable;
 
-                      sf::Vector2i position_;
+                      sf::Vector2i m_position;
 
-                      int          f_;
-                      int          g_;
-                      int          h_;
+                      int          m_f;
+                      int          m_g;
+                      int          m_h;
 
              public:  ////////////////////////////////////////////////////////////////////////
                       /// \brief Default constructor.
@@ -49,77 +49,77 @@ namespace rr
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Sets the node's parent node.
                       ////////////////////////////////////////////////////////////////////////
-                      void setParent(Node* n) { parent_ = n; }
+                      void setParent(Node* n) { m_parent = n; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Sets the node closed.
                       ////////////////////////////////////////////////////////////////////////
-                      void setClosed(bool closed) { closed_ = closed; }
+                      void setClosed(bool closed) { m_closed = closed; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Sets the node open.
                       ////////////////////////////////////////////////////////////////////////
-                      void setOpen(bool open) { open_ = open; }
+                      void setOpen(bool open) { m_open = open; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Sets the node walkable.
                       ////////////////////////////////////////////////////////////////////////
-                      void setWalkable(bool walkable) { walkable_ = walkable; }
+                      void setWalkable(bool walkable) { m_walkable = walkable; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Tells if the node is closed.
                       ////////////////////////////////////////////////////////////////////////
-                      bool isClosed() const { return closed_; }
+                      bool isClosed() const { return m_closed; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Tells if the node is open.
                       ////////////////////////////////////////////////////////////////////////
-                      bool isOpen() const { return open_; }
+                      bool isOpen() const { return m_open; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Tells if the node is walkable.
                       ////////////////////////////////////////////////////////////////////////
-                      bool isWalkable() const { return walkable_; }
+                      bool isWalkable() const { return m_walkable; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Returns the node's position as two integers.
                       ////////////////////////////////////////////////////////////////////////
-                      sf::Vector2i getPosition() const { return position_; }
+                      sf::Vector2i getPosition() const { return m_position; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Returns the node's position as two floats.
                       ////////////////////////////////////////////////////////////////////////
-                      sf::Vector2f getFPosition() const { return (sf::Vector2f) position_; }
+                      sf::Vector2f getFPosition() const { return (sf::Vector2f) m_position; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Returns the node's parent node.
                       ////////////////////////////////////////////////////////////////////////
-                      Node* getParent() const { return parent_; }
+                      Node* getParent() const { return m_parent; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Returns the node's F score.
                       ////////////////////////////////////////////////////////////////////////
-                      int getF() const { return f_; }
+                      int getF() const { return m_f; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Returns the node's G score.
                       ////////////////////////////////////////////////////////////////////////
-                      int getG() const { return g_; }
+                      int getG() const { return m_g; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Calculates and returns the node's F score.
                       ////////////////////////////////////////////////////////////////////////
-                      int getG(Node* n) const { return n->g_ + ((position_.x == n->position_.x || position_.y == n->position_.y) ? 10 : 14); }
+                      int getG(Node* n) const { return n->m_g + ((m_position.x == n->m_position.x || m_position.y == n->m_position.y) ? 10 : 14); }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Returns the node's H score.
                       ////////////////////////////////////////////////////////////////////////
-                      int getH() const { return h_; }
+                      int getH() const { return m_h; }
 
                       ////////////////////////////////////////////////////////////////////////
                       /// \brief Calculates and returns the node's H score.
                       ////////////////////////////////////////////////////////////////////////
-                      int getH(Node* n)  const { return (std::abs(n->position_.x - position_.x) + std::abs(n->position_.y - position_.y))*10; }
+                      int getH(Node* n)  const { return (std::abs(n->m_position.x - m_position.x) + std::abs(n->m_position.y - m_position.y))*10; }
              };
 
              ////////////////////////////////////////////////////////////////////////

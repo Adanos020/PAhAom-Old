@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/Game.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GAME_HPP
@@ -39,34 +39,34 @@ namespace rr
 
     class Game
     {
-    private: sf::View       gameView_;
-             sf::View       mapView_;
+    private: sf::View       m_gameView;
+             sf::View       m_mapView;
 
-             Level*         currentLevel_;
+             Level*         m_currentLevel;
 
-             AudioManager   audioManager_;
-             MessageManager messageManager_;
+             AudioManager   m_audioManager;
+             MessageManager m_messageManager;
 
-             Player         player_;
+             Player         m_player;
 
-             Attributes     attributes_;
-             BookOfSpells   bookOfSpells_;
-             Conversation   conversation_;
-             DeathScreen    deathScreen_;
-             Inventory      inventory_;
-             Journal        journal_;
-             HUD            hud_;
-             MainMenu       mainMenu_;
-             PauseMenu      pauseMenu_;
+             Attributes     m_attributes;
+             BookOfSpells   m_bookOfSpells;
+             Conversation   m_conversation;
+             DeathScreen    m_deathScreen;
+             Inventory      m_inventory;
+             Journal        m_journal;
+             HUD            m_hud;
+             MainMenu       m_mainMenu;
+             PauseMenu      m_pauseMenu;
 
-             bool           started_;
-             bool           paused_;
-             bool           mapOpen_;
+             bool           m_started;
+             bool           m_paused;
+             bool           m_mapOpen;
 
-             bool           lost_;
+             bool           m_lost;
 
-             unsigned       levelNumber_;
-             unsigned       seed_;
+             unsigned       m_levelNumber;
+             unsigned       m_seed;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Keyboard controls.
@@ -141,47 +141,47 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the game is started.
              ////////////////////////////////////////////////////////////////////////
-             bool isStarted() { return started_; }
+             bool isStarted() { return m_started; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the game is paused.
              ////////////////////////////////////////////////////////////////////////
-             bool isPaused() { return paused_; }
+             bool isPaused() { return m_paused; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the game is lost.
              ////////////////////////////////////////////////////////////////////////
-             bool isLost() { return lost_; }
+             bool isLost() { return m_lost; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the pointer to the player.
              ////////////////////////////////////////////////////////////////////////
-             Player* getPlayer() { return &player_; }
+             Player* getPlayer() { return &m_player; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the inventory.
              ////////////////////////////////////////////////////////////////////////
-             Inventory* getInventory() { return &inventory_; }
+             Inventory* getInventory() { return &m_inventory; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the conversation UI.
              ////////////////////////////////////////////////////////////////////////
-             Conversation* getConversationUI() { return &conversation_; }
+             Conversation* getConversationUI() { return &m_conversation; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the vector of game levels.
              ////////////////////////////////////////////////////////////////////////
-             Level* getCurrentLevel() { return currentLevel_; }
+             Level* getCurrentLevel() { return m_currentLevel; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the audio manager.
              ////////////////////////////////////////////////////////////////////////
-             AudioManager* getAudioManager() { return &audioManager_; }
+             AudioManager* getAudioManager() { return &m_audioManager; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the message manager.
              ////////////////////////////////////////////////////////////////////////
-             MessageManager* getMessageManager() { return &messageManager_; }
+             MessageManager* getMessageManager() { return &m_messageManager; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Resets the game state.

@@ -1,7 +1,7 @@
 /**
  * @file src/program/path_finder/PathFinder_Node.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include "PathFinder.hpp"
@@ -10,30 +10,30 @@ namespace rr
 {
 
     PathFinder::Node::Node() :
-      parent_  (nullptr),
-      closed_  (false),
-      open_    (false),
-      position_(sf::Vector2i(0, 0)),
-      f_       (0),
-      g_       (0),
-      h_       (0) {}
+      m_parent  (nullptr),
+      m_closed  (false),
+      m_open    (false),
+      m_position(sf::Vector2i(0, 0)),
+      m_f       (0),
+      m_g       (0),
+      m_h       (0) {}
 
     PathFinder::Node::Node(sf::Vector2i position, bool walkable) :
-      parent_  (nullptr),
-      closed_  (false),
-      open_    (false),
-      walkable_(walkable),
-      position_(position),
-      f_       (0),
-      g_       (0),
-      h_       (0) {}
+      m_parent  (nullptr),
+      m_closed  (false),
+      m_open    (false),
+      m_walkable(walkable),
+      m_position(position),
+      m_f       (0),
+      m_g       (0),
+      m_h       (0) {}
 
     void
     PathFinder::Node::calculateScores(PathFinder::Node* goal)
     {
-        g_ = getG(parent_);
-        h_ = getH(goal);
-        f_ = g_ + h_;
+        m_g = getG(m_parent);
+        m_h = getH(goal);
+        m_f = m_g + m_h;
     }
 
 }

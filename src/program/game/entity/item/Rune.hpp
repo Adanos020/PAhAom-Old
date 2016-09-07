@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/Rune.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ITEM_RUNE_HPP
@@ -35,7 +35,7 @@ namespace rr
                  TELEKINESIS
              };
 
-      static bool identified_[12];
+      static bool m_identified[12];
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
@@ -69,17 +69,17 @@ namespace rr
              /// - UNCURSE
              /// - TELEKINESIS
              ////////////////////////////////////////////////////////////////////////
-             Type getType() const { return type_; }
+             Type getType() const { return m_type; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reveals the rune's properties.
              ////////////////////////////////////////////////////////////////////////
-     virtual void reveal() override { identified_[type_] = true; }
+     virtual void reveal() override { m_identified[m_type] = true; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the rune is discovered.
              ////////////////////////////////////////////////////////////////////////
-     virtual bool isDiscovered() const override { return identified_[type_]; }
+     virtual bool isDiscovered() const override { return m_identified[m_type]; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the rune's name.
@@ -113,7 +113,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
      virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type type_;
+    private: Type m_type;
     };
 
 }

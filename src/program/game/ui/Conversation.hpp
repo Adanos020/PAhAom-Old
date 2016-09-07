@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/Conversation.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef UI_CONVERSATION_HPP
@@ -21,12 +21,12 @@ namespace rr
 
     class Conversation : public sf::Drawable
     {
-    private: sf::RectangleShape shadow_;
-             sf::String         npcName_;
-             Window             wConv_;
-             Window             wOpts_;
-             DialogueTree*      dialogue_;
-             Player*            player_;
+    private: sf::RectangleShape m_shadow;
+             sf::String         m_npcName;
+             Window             m_wConv;
+             Window             m_wOpts;
+             DialogueTree*      m_dialogue;
+             Player*            m_player;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.
@@ -56,7 +56,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the conversation window is open.
              ////////////////////////////////////////////////////////////////////////
-             bool isOpen() const { return wConv_.isVisible() || wOpts_.isVisible(); }
+             bool isOpen() const { return m_wConv.isVisible() || m_wOpts.isVisible(); }
     };
 
 }

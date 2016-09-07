@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/Player.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -22,103 +22,112 @@ namespace rr
 {
 
     Player::Player() :
-      meleeWeapon_     (nullptr           ),
-      rangedWeapon_    (nullptr           ),
-      position_        (sf::Vector2i(0, 0)),
-      currentAnimation_(&walkingRight_    ),
-      moving_          (false             ),
-      velocity_        (900.f             ),
-      sightRange_      (4                 )
+      m_meleeWeapon     (nullptr           ),
+      m_rangedWeapon    (nullptr           ),
+      m_position        (sf::Vector2i(0, 0)),
+      m_currentAnimation(&m_walkingRight   ),
+      m_moving          (false             ),
+      m_velocity        (900.f             ),
+      m_sightRange      (4                 )
     {
-        attrs_.health = attrs_.maxHealth =  50.f;
-        attrs_.mana   = attrs_.maxMana   =   5.f;
-        attrs_.strength                  =  10.f;
-        attrs_.dexterity                 =  10.f;
-        attrs_.experience                =   0.f;
-        attrs_.nextLevel                 = 500.f;
-        attrs_.level                     =   0  ;
-        attrs_.skillPoints               =   0.f;
-        attrs_.armor                     =   0.f;
+        m_attrs.health = m_attrs.maxHealth =  50.f;
+        m_attrs.mana   = m_attrs.maxMana   =   5.f;
+        m_attrs.strength                   =  10.f;
+        m_attrs.dexterity                  =  10.f;
+        m_attrs.experience                 =   0.f;
+        m_attrs.nextLevel                  = 500.f;
+        m_attrs.level                      =   0  ;
+        m_attrs.skillPoints                =   0.f;
+        m_attrs.armor                      =   0.f;
 
-        attrs_.crafting              = false;
-        attrs_.alchemy               = false;
-        attrs_.melee_weapon_mastery  = false;
-        attrs_.ranged_weapon_mastery = false;
-        attrs_.eagle_eye             = false;
-        attrs_.mana_regeneration     = false;
-        attrs_.health_regeneration   = false;
-        attrs_.faster_learning       = false;
+        m_attrs.crafting              = false;
+        m_attrs.alchemy               = false;
+        m_attrs.melee_weapon_mastery  = false;
+        m_attrs.ranged_weapon_mastery = false;
+        m_attrs.eagle_eye             = false;
+        m_attrs.mana_regeneration     = false;
+        m_attrs.health_regeneration   = false;
+        m_attrs.faster_learning       = false;
 
-        buffs_.speed        = 0;
-        buffs_.regeneration = 0;
-        buffs_.poison       = 0;
-        buffs_.slowness     = 0;
-        buffs_.weakness     = 0;
-        buffs_.hunger       = 0;
+        m_buffs.speed        = 0;
+        m_buffs.regeneration = 0;
+        m_buffs.poison       = 0;
+        m_buffs.slowness     = 0;
+        m_buffs.weakness     = 0;
+        m_buffs.hunger       = 0;
 
         initialize();
-        body_.setPosition(sf::Vector2f(0, 0));
-        body_.scale      (sf::Vector2f(5, 5));
+        m_body.setPosition(sf::Vector2f(0, 0));
+        m_body.scale      (sf::Vector2f(5, 5));
     }
 
     Player::Player(Player const& copy) :
-      attrs_           (copy.attrs_           ),
-      buffs_           (copy.buffs_           ),
-      meleeWeapon_     (copy.meleeWeapon_      ),
-      rangedWeapon_    (copy.rangedWeapon_    ),
-      position_        (copy.position_        ),
-      body_            (copy.body_            ),
-      walkingLeft_     (copy.walkingLeft_     ),
-      walkingRight_    (copy.walkingRight_    ),
-      currentAnimation_(copy.currentAnimation_),
-      moving_          (copy.moving_          ),
-      velocity_        (copy.velocity_        ),
-      sightRange_      (copy.sightRange_      ) {}
+      m_attrs           (copy.m_attrs           ),
+      m_buffs           (copy.m_buffs           ),
+      m_meleeWeapon     (copy.m_meleeWeapon      ),
+      m_rangedWeapon    (copy.m_rangedWeapon    ),
+      m_position        (copy.m_position        ),
+      m_body            (copy.m_body            ),
+      m_walkingLeft     (copy.m_walkingLeft     ),
+      m_walkingRight    (copy.m_walkingRight    ),
+      m_currentAnimation(copy.m_currentAnimation),
+      m_moving          (copy.m_moving          ),
+      m_velocity        (copy.m_velocity        ),
+      m_sightRange      (copy.m_sightRange      ) {}
 
     void
     Player::initialize()
     {
-        walkingLeft_ .setSpriteSheet(Resources::texture.player );
-        walkingRight_.setSpriteSheet(Resources::texture.player );
-        walkingLeft_ .addFrame      (sf::IntRect(0, 16, 16, 16));
-        walkingRight_.addFrame      (sf::IntRect(0, 0,  16, 16));
+        m_walkingLeft .setSpriteSheet(Resources::texture.player);
+        m_walkingRight.setSpriteSheet(Resources::texture.player);
 
-        body_.setLooped(false);
-        body_.pause();
+        m_walkingLeft.addFrame(sf::IntRect(0 , 16, 16, 16));
+        m_walkingLeft.addFrame(sf::IntRect(16, 16, 16, 16));
+        m_walkingLeft.addFrame(sf::IntRect(0 , 16, 16, 16));
+        m_walkingLeft.addFrame(sf::IntRect(32, 16, 16, 16));
+
+        m_walkingRight.addFrame(sf::IntRect(0 , 0, 16, 16));
+        m_walkingRight.addFrame(sf::IntRect(16, 0, 16, 16));
+        m_walkingRight.addFrame(sf::IntRect(0 , 0, 16, 16));
+        m_walkingRight.addFrame(sf::IntRect(32, 0, 16, 16));
+
+        m_body.setFrameTime(sf::seconds(0.1f));
+        m_body.setLooped(false);
+        m_body.pause();
     }
 
     void
     Player::move(int tiles[], Direction di)
     {
-        if (!moving_)
+        if (!m_moving)
         {
-            if (di == UP && (tiles[position_.x + (position_.y-1)*77] != 1 && tiles[position_.x + (position_.y-1)*77] != 5))
+            if (di == UP && (tiles[m_position.x + (m_position.y-1)*77] != 1 && tiles[m_position.x + (m_position.y-1)*77] != 5))
             {
-                position_ = sf::Vector2i(position_.x, position_.y-1);
-                moving_ = true;
+                m_position = sf::Vector2i(m_position.x, m_position.y-1);
+                m_moving = true;
             }
-            if (di == DOWN && (tiles[position_.x + (position_.y+1)*77] != 1 && tiles[position_.x + (position_.y+1)*77] != 5))
+            if (di == DOWN && (tiles[m_position.x + (m_position.y+1)*77] != 1 && tiles[m_position.x + (m_position.y+1)*77] != 5))
             {
-                position_ = sf::Vector2i(position_.x, position_.y+1);
-                moving_ = true;
+                m_position = sf::Vector2i(m_position.x, m_position.y+1);
+                m_moving = true;
             }
             if (di == LEFT)
             {
-                if (tiles[position_.x-1 + position_.y*77] != 1 && tiles[position_.x-1 + position_.y*77] != 5)
+                if (tiles[m_position.x-1 + m_position.y*77] != 1 && tiles[m_position.x-1 + m_position.y*77] != 5)
                 {
-                    position_ = sf::Vector2i(position_.x-1, position_.y);
-                    moving_ = true;
+                    m_position = sf::Vector2i(m_position.x-1, m_position.y);
+                    m_moving = true;
                 }
-                currentAnimation_ = &walkingLeft_;
+                m_currentAnimation = &m_walkingLeft;
             }
             if (di == RIGHT)
             {
-                if (tiles[position_.x+1 + position_.y*77] != 1 && tiles[position_.x+1 + position_.y*77] != 5)
+                if (tiles[m_position.x+1 + m_position.y*77] != 1 && tiles[m_position.x+1 + m_position.y*77] != 5)
                 {
-                    position_ = sf::Vector2i(position_.x+1, position_.y);
-                    moving_ = true;
+                    m_position = sf::Vector2i(m_position.x+1, m_position.y);
+                    m_moving = true;
                 }
-                currentAnimation_ = &walkingRight_;
+                m_currentAnimation = &m_walkingRight;
             }
         }
     }
@@ -127,89 +136,89 @@ namespace rr
     Player::update(sf::Clock& timer)
     {
         auto timeStep = timer.getElapsedTime();
-        if (moving_)
+        if (m_moving)
         {
-            sf::Vector2f offset = body_.getPosition() - (sf::Vector2f) position_*80.f;
+            sf::Vector2f offset = m_body.getPosition() - (sf::Vector2f) m_position*80.f;
             if (offset != sf::Vector2f(0, 0))
             {
-                if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep.asSeconds(),  0));
-                if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep.asSeconds(),  0));
-                if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep.asSeconds()));
-                if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep.asSeconds()));
+                if (offset.x < 0) m_body.move(sf::Vector2f( m_velocity*timeStep.asSeconds(),  0));
+                if (offset.x > 0) m_body.move(sf::Vector2f(-m_velocity*timeStep.asSeconds(),  0));
+                if (offset.y < 0) m_body.move(sf::Vector2f( 0,  m_velocity*timeStep.asSeconds()));
+                if (offset.y > 0) m_body.move(sf::Vector2f( 0, -m_velocity*timeStep.asSeconds()));
             }
             else
             {
-                buffs_.speed        -= (buffs_.speed        == 0 ? 0 : 1);
-                buffs_.regeneration -= (buffs_.regeneration == 0 ? 0 : 1);
-                buffs_.poison       -= (buffs_.poison       == 0 ? 0 : 1);
-                buffs_.slowness     -= (buffs_.slowness     == 0 ? 0 : 1);
-                buffs_.weakness     -= (buffs_.weakness     == 0 ? 0 : 1);
-                buffs_.hunger       ++;
+                m_buffs.speed        -= (m_buffs.speed        == 0 ? 0 : 1);
+                m_buffs.regeneration -= (m_buffs.regeneration == 0 ? 0 : 1);
+                m_buffs.poison       -= (m_buffs.poison       == 0 ? 0 : 1);
+                m_buffs.slowness     -= (m_buffs.slowness     == 0 ? 0 : 1);
+                m_buffs.weakness     -= (m_buffs.weakness     == 0 ? 0 : 1);
+                m_buffs.hunger       ++;
 
-                if (buffs_.hunger == 500 ) subject.notify(Observer::PLAYER_HUNGRY  , nullptr);
-                if (buffs_.hunger == 1000) subject.notify(Observer::PLAYER_STARVING, nullptr);
+                if (m_buffs.hunger == 500 ) subject.notify(Observer::PLAYER_HUNGRY  , nullptr);
+                if (m_buffs.hunger == 1000) subject.notify(Observer::PLAYER_STARVING, nullptr);
 
-                if (attrs_.mana_regeneration)
-                    attrs_.mana += 0.1;
+                if (m_attrs.mana_regeneration)
+                    m_attrs.mana += 0.1;
 
-                if      (buffs_.hunger < 500  ) attrs_.health += (attrs_.health_regeneration ? 0.1f : 0.05f);
-                else if (buffs_.hunger < 1000 ) attrs_.health += (attrs_.health_regeneration ? 0.05f : 0.f);
-                else if (buffs_.hunger >= 1000) attrs_.health -= (attrs_.health_regeneration ? 0.f : 0.05f);
+                if      (m_buffs.hunger <   500) m_attrs.health += (m_attrs.health_regeneration ? 0.1f : 0.05f);
+                else if (m_buffs.hunger <  1000) m_attrs.health += (m_attrs.health_regeneration ? 0.05f : 0.f);
+                else if (m_buffs.hunger >= 1000) m_attrs.health -= (m_attrs.health_regeneration ? 0.f : 0.05f);
 
-                if (buffs_.poison > 0)
-                    attrs_.health -= 1.f;
+                if (m_buffs.poison > 0)
+                    m_attrs.health -= 1.f;
 
-                if (buffs_.regeneration > 0)
-                    attrs_.health += 0.15f;
+                if (m_buffs.regeneration > 0)
+                    m_attrs.health += 0.15f;
 
-                moving_ = false;
+                m_moving = false;
             }
 
-            if (  (abs(offset.x) < velocity_/128 && abs(offset.x) > 0) // preventing the player from wobbling
-               || (abs(offset.y) < velocity_/128 && abs(offset.y) > 0) // in between of two cells
-                )  body_.setPosition((sf::Vector2f) position_*80.f);
+            if (  (abs(offset.x) < m_velocity/128 && abs(offset.x) > 0) // preventing the player from wobbling
+               || (abs(offset.y) < m_velocity/128 && abs(offset.y) > 0) // in between of two cells
+                )  m_body.setPosition((sf::Vector2f) m_position*80.f);
         }
 
-        if (attrs_.health >= attrs_.maxHealth)
-            attrs_.health  = attrs_.maxHealth;
+        if (m_attrs.health >= m_attrs.maxHealth)
+            m_attrs.health  = m_attrs.maxHealth;
 
-        if (attrs_.health <= 0)
-            attrs_.health  = 0;
+        if (m_attrs.health <= 0)
+            m_attrs.health  = 0;
 
-        if (attrs_.mana <= 0)
-            attrs_.mana  = 0;
+        if (m_attrs.mana <= 0)
+            m_attrs.mana  = 0;
 
-        if (attrs_.mana >= attrs_.maxMana)
-            attrs_.mana  = attrs_.maxMana;
+        if (m_attrs.mana >= m_attrs.maxMana)
+            m_attrs.mana  = m_attrs.maxMana;
 
-        if (attrs_.experience >= attrs_.nextLevel)
+        if (m_attrs.experience >= m_attrs.nextLevel)
         {
-            attrs_.experience  -= attrs_.nextLevel;
-            attrs_.nextLevel   *= 1.15f;
-            attrs_.level       ++;
-            attrs_.skillPoints += (attrs_.faster_learning) ? 15 : 10;
+            m_attrs.experience  -= m_attrs.nextLevel;
+            m_attrs.nextLevel   *= 1.15f;
+            m_attrs.level       ++;
+            m_attrs.skillPoints += (m_attrs.faster_learning) ? 15 : 10;
 
-            float proportion  = attrs_.health/attrs_.maxHealth;
-            attrs_.maxHealth += 10;
-            attrs_.health     = proportion*attrs_.maxHealth;
+            float proportion   = m_attrs.health/m_attrs.maxHealth;
+            m_attrs.maxHealth += 10;
+            m_attrs.health     = proportion*m_attrs.maxHealth;
 
-            proportion      = attrs_.mana/attrs_.maxMana;
-            attrs_.maxMana += 1;
-            attrs_.mana     = proportion*attrs_.maxMana;
+            proportion       = m_attrs.mana/m_attrs.maxMana;
+            m_attrs.maxMana += 1;
+            m_attrs.mana     = proportion*m_attrs.maxMana;
 
             subject.notify(Observer::PLAYER_LEVELUP, this);
         }
 
-        body_.update(timeStep);
-        body_.play  (*currentAnimation_);
+        m_body.update(timeStep);
+        m_body.play(*m_currentAnimation);
     }
 
     void
     Player::attack(NPC* npc)
     {
-        int maxDamage = attrs_.strength/3.f;
-        if (meleeWeapon_ != nullptr)
-            maxDamage = meleeWeapon_->getDamageDealt() - (meleeWeapon_->getRequirement() - attrs_.strength);
+        int maxDamage = m_attrs.strength/3.f;
+        if (m_meleeWeapon != nullptr)
+            maxDamage = m_meleeWeapon->getDamageDealt() - (m_meleeWeapon->getRequirement() - m_attrs.strength);
 
         npc->handleDamage(rand()%maxDamage);
     }
@@ -217,8 +226,8 @@ namespace rr
     void
     Player::handleDamage(int damage)
     {
-        if (damage >= attrs_.armor)
-            attrs_.health -= (damage - attrs_.armor);
+        if (damage >= m_attrs.armor)
+            m_attrs.health -= (damage - m_attrs.armor);
     }
 
     void
@@ -226,18 +235,18 @@ namespace rr
     {
         switch (skill)
         {
-            case Book::CRAFTING             : attrs_.crafting              = true; break;
-            case Book::ALCHEMY              : attrs_.alchemy               = true; break;
-            case Book::MELEE_WEAPON_MASTERY : attrs_.melee_weapon_mastery  = true; break;
-            case Book::RANGED_WEAPON_MASTERY: attrs_.ranged_weapon_mastery = true; break;
-            case Book::EAGLE_EYE            : attrs_.eagle_eye             = true; break;
-            case Book::MANA_REGEN           : attrs_.mana_regeneration     = true; break;
-            case Book::HEALTH_REGEN         : attrs_.health_regeneration   = true; break;
-            case Book::FASTER_LEARNING      : attrs_.faster_learning       = true; break;
+            case Book::CRAFTING             : m_attrs.crafting              = true; break;
+            case Book::ALCHEMY              : m_attrs.alchemy               = true; break;
+            case Book::MELEE_WEAPON_MASTERY : m_attrs.melee_weapon_mastery  = true; break;
+            case Book::RANGED_WEAPON_MASTERY: m_attrs.ranged_weapon_mastery = true; break;
+            case Book::EAGLE_EYE            : m_attrs.eagle_eye             = true; break;
+            case Book::MANA_REGEN           : m_attrs.mana_regeneration     = true; break;
+            case Book::HEALTH_REGEN         : m_attrs.health_regeneration   = true; break;
+            case Book::FASTER_LEARNING      : m_attrs.faster_learning       = true; break;
             
             default: break; // any other is ignored
         }
-        attrs_.skillPoints -= sp;
+        m_attrs.skillPoints -= sp;
     }
 
     void
@@ -247,64 +256,64 @@ namespace rr
         {
             case HEALTH:
             {
-                float proportion  = attrs_.health/attrs_.maxHealth;
-                attrs_.maxHealth += difference;
-                attrs_.health     = proportion*attrs_.maxHealth;
+                float proportion   = m_attrs.health/m_attrs.maxHealth;
+                m_attrs.maxHealth += difference;
+                m_attrs.health     = proportion*m_attrs.maxHealth;
             } break;
 
             case MANA:
             {
-                float proportion = attrs_.mana/attrs_.maxMana;
-                attrs_.maxMana  += difference;
-                attrs_.mana      = proportion*attrs_.maxMana;
+                float proportion  = m_attrs.mana/m_attrs.maxMana;
+                m_attrs.maxMana  += difference;
+                m_attrs.mana      = proportion*m_attrs.maxMana;
             } break;
 
-            case STRENGTH : attrs_.strength += difference;
+            case STRENGTH : m_attrs.strength += difference;
                             break;
                             
-            case DEXTERITY: attrs_.dexterity += difference;
+            case DEXTERITY: m_attrs.dexterity += difference;
                             break;
         }
-        attrs_.skillPoints -= sp;
+        m_attrs.skillPoints -= sp;
     }
 
     void
     Player::reset()
     {
-        attrs_.health      =  50.f;
-        attrs_.mana        =   5.f;
-        attrs_.maxHealth   =  50.f;
-        attrs_.maxMana     =   5.f;
-        attrs_.strength    =  10.f;
-        attrs_.dexterity   =  10.f;
-        attrs_.experience  =   0.f;
-        attrs_.nextLevel   = 500.f;
-        attrs_.level       =   0  ;
-        attrs_.skillPoints =   0.f;
-        attrs_.armor       =   0.f;
+        m_attrs.health      =  50.f;
+        m_attrs.mana        =   5.f;
+        m_attrs.maxHealth   =  50.f;
+        m_attrs.maxMana     =   5.f;
+        m_attrs.strength    =  10.f;
+        m_attrs.dexterity   =  10.f;
+        m_attrs.experience  =   0.f;
+        m_attrs.nextLevel   = 500.f;
+        m_attrs.level       =   0  ;
+        m_attrs.skillPoints =   0.f;
+        m_attrs.armor       =   0.f;
 
-        buffs_.speed        = 0;
-        buffs_.regeneration = 0;
-        buffs_.poison       = 0;
-        buffs_.slowness     = 0;
-        buffs_.weakness     = 0;
-        buffs_.hunger       = 0;
+        m_buffs.speed        = 0;
+        m_buffs.regeneration = 0;
+        m_buffs.poison       = 0;
+        m_buffs.slowness     = 0;
+        m_buffs.weakness     = 0;
+        m_buffs.hunger       = 0;
 
-        attrs_.crafting              = false;
-        attrs_.alchemy               = false;
-        attrs_.melee_weapon_mastery  = false;
-        attrs_.ranged_weapon_mastery = false;
-        attrs_.eagle_eye             = false;
-        attrs_.mana_regeneration     = false;
-        attrs_.health_regeneration   = false;
-        attrs_.faster_learning       = false;
+        m_attrs.crafting              = false;
+        m_attrs.alchemy               = false;
+        m_attrs.melee_weapon_mastery  = false;
+        m_attrs.ranged_weapon_mastery = false;
+        m_attrs.eagle_eye             = false;
+        m_attrs.mana_regeneration     = false;
+        m_attrs.health_regeneration   = false;
+        m_attrs.faster_learning       = false;
     }
 
     void
     Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         states.texture = &Resources::texture.player;
-        target.draw(body_, states);
+        target.draw(m_body, states);
     }
 
     void
@@ -322,25 +331,25 @@ namespace rr
         {
             switch (((Book*) item)->getType())
             {
-                case Book::CRAFTING             : attrs_.crafting              = true; break;
-                case Book::ALCHEMY              : attrs_.alchemy               = true; break;
-                case Book::MELEE_WEAPON_MASTERY : attrs_.melee_weapon_mastery  = true; break;
-                case Book::RANGED_WEAPON_MASTERY: attrs_.ranged_weapon_mastery = true; break;
-                case Book::EAGLE_EYE            : attrs_.eagle_eye             = true; break;
-                case Book::MANA_REGEN           : attrs_.mana_regeneration     = true; break;
-                case Book::HEALTH_REGEN         : attrs_.health_regeneration   = true; break;
-                case Book::FASTER_LEARNING      : attrs_.faster_learning       = true; break;
+                case Book::CRAFTING             : m_attrs.crafting              = true; break;
+                case Book::ALCHEMY              : m_attrs.alchemy               = true; break;
+                case Book::MELEE_WEAPON_MASTERY : m_attrs.melee_weapon_mastery  = true; break;
+                case Book::RANGED_WEAPON_MASTERY: m_attrs.ranged_weapon_mastery = true; break;
+                case Book::EAGLE_EYE            : m_attrs.eagle_eye             = true; break;
+                case Book::MANA_REGEN           : m_attrs.mana_regeneration     = true; break;
+                case Book::HEALTH_REGEN         : m_attrs.health_regeneration   = true; break;
+                case Book::FASTER_LEARNING      : m_attrs.faster_learning       = true; break;
                 default                         :                                      break;
             }
         }
         else if (instanceof<Food, Item>(item))
         {
-            if (buffs_.hunger >= 1000)
-                buffs_.hunger  = 500;
+            if (m_buffs.hunger >= 1000)
+                m_buffs.hunger  = 500;
             else
-                buffs_.hunger  = 0;
+                m_buffs.hunger  = 0;
 
-            attrs_.health += 10;
+            m_attrs.health += 10;
         }
         else if (instanceof<Potion, Item>(item))
         {
@@ -348,67 +357,67 @@ namespace rr
             {
                 case Potion::HEALING     : switch (((Potion*) item)->getSize())
                                            {
-                                               case Potion::SMALL : attrs_.health += attrs_.maxHealth*0.25; break;
-                                               case Potion::MEDIUM: attrs_.health += attrs_.maxHealth*0.50; break;
-                                               case Potion::BIG   : attrs_.health += attrs_.maxHealth*0.75; break;
+                                               case Potion::SMALL : m_attrs.health += m_attrs.maxHealth*0.25; break;
+                                               case Potion::MEDIUM: m_attrs.health += m_attrs.maxHealth*0.50; break;
+                                               case Potion::BIG   : m_attrs.health += m_attrs.maxHealth*0.75; break;
                                            }
-                                           buffs_.poison = 0;
+                                           m_buffs.poison = 0;
                                            break;
 
                 case Potion::MAGIC       : switch (((Potion*) item)->getSize())
                                            {
-                                               case Potion::SMALL : attrs_.mana += attrs_.maxMana * 0.25; break;
-                                               case Potion::MEDIUM: attrs_.mana += attrs_.maxMana * 0.50; break;
-                                               case Potion::BIG   : attrs_.mana += attrs_.maxMana * 0.75; break;
+                                               case Potion::SMALL : m_attrs.mana += m_attrs.maxMana * 0.25; break;
+                                               case Potion::MEDIUM: m_attrs.mana += m_attrs.maxMana * 0.50; break;
+                                               case Potion::BIG   : m_attrs.mana += m_attrs.maxMana * 0.75; break;
                                            } break;
 
                 case Potion::STRENGTH    : switch (((Potion*) item)->getSize())
                                            {
-                                               case Potion::SMALL : attrs_.strength += 1; break;
-                                               case Potion::MEDIUM: attrs_.strength += 3; break;
-                                               case Potion::BIG   : attrs_.strength += 5; break;
+                                               case Potion::SMALL : m_attrs.strength += 1; break;
+                                               case Potion::MEDIUM: m_attrs.strength += 3; break;
+                                               case Potion::BIG   : m_attrs.strength += 5; break;
                                            } break;
 
                 case Potion::DEXTERITY   : switch (((Potion*) item)->getSize())
                                            {
-                                               case Potion::SMALL : attrs_.dexterity += 1; break;
-                                               case Potion::MEDIUM: attrs_.dexterity += 3; break;
-                                               case Potion::BIG   : attrs_.dexterity += 5; break;
+                                               case Potion::SMALL : m_attrs.dexterity += 1; break;
+                                               case Potion::MEDIUM: m_attrs.dexterity += 3; break;
+                                               case Potion::BIG   : m_attrs.dexterity += 5; break;
                                            } break;
 
                 case Potion::SPEED       : switch (((Potion*) item)->getSize())
                                            {
-                                               case Potion::SMALL : buffs_.speed += 10; break;
-                                               case Potion::MEDIUM: buffs_.speed += 30; break;
-                                               case Potion::BIG   : buffs_.speed += 50; break;
+                                               case Potion::SMALL : m_buffs.speed += 10; break;
+                                               case Potion::MEDIUM: m_buffs.speed += 30; break;
+                                               case Potion::BIG   : m_buffs.speed += 50; break;
                                            } break;
 
                 case Potion::REGENERATION: switch (((Potion*) item)->getSize())
                                            {
-                                               case Potion::SMALL : buffs_.regeneration += 10; break;
-                                               case Potion::MEDIUM: buffs_.regeneration += 30; break;
-                                               case Potion::BIG   : buffs_.regeneration += 50; break;
+                                               case Potion::SMALL : m_buffs.regeneration += 10; break;
+                                               case Potion::MEDIUM: m_buffs.regeneration += 30; break;
+                                               case Potion::BIG   : m_buffs.regeneration += 50; break;
                                            } break;
 
                 case Potion::POISON      : switch (((Potion*) item)->getSize())
                                            {
-                                               case Potion::SMALL : buffs_.poison += 10; break;
-                                               case Potion::MEDIUM: buffs_.poison += 30; break;
-                                               case Potion::BIG   : buffs_.poison += 50; break;
+                                               case Potion::SMALL : m_buffs.poison += 10; break;
+                                               case Potion::MEDIUM: m_buffs.poison += 30; break;
+                                               case Potion::BIG   : m_buffs.poison += 50; break;
                                            } break;
 
                 case Potion::SLOWNESS    : switch (((Potion*) item)->getSize())
                                            {
-                                               case Potion::SMALL : buffs_.slowness += 10; break;
-                                               case Potion::MEDIUM: buffs_.slowness += 30; break;
-                                               case Potion::BIG   : buffs_.slowness += 50; break;
+                                               case Potion::SMALL : m_buffs.slowness += 10; break;
+                                               case Potion::MEDIUM: m_buffs.slowness += 30; break;
+                                               case Potion::BIG   : m_buffs.slowness += 50; break;
                                            } break;
 
                 case Potion::WEAKNESS    : switch (((Potion*) item)->getSize())
                                            {
-                                               case Potion::SMALL : buffs_.weakness += 10; break;
-                                               case Potion::MEDIUM: buffs_.weakness += 30; break;
-                                               case Potion::BIG   : buffs_.weakness += 50; break;
+                                               case Potion::SMALL : m_buffs.weakness += 10; break;
+                                               case Potion::MEDIUM: m_buffs.weakness += 30; break;
+                                               case Potion::BIG   : m_buffs.weakness += 50; break;
                                            } break;
             }
         }
@@ -426,12 +435,12 @@ namespace rr
         {
             if (!equip)
             {
-                meleeWeapon_ = nullptr;
+                m_meleeWeapon = nullptr;
                 success     = true;
             }
-            else if (((MeleeWeapon*) item)->getRequirement() <= attrs_.strength)
+            else if (((MeleeWeapon*) item)->getRequirement() <= m_attrs.strength)
             {
-                meleeWeapon_ = (MeleeWeapon*) item;
+                m_meleeWeapon = (MeleeWeapon*) item;
                 success     = true;
             }
         }
@@ -439,12 +448,12 @@ namespace rr
         {
             if (!equip)
             {
-                rangedWeapon_ = nullptr;
+                m_rangedWeapon = nullptr;
                 success       = true;
             }
-            else if (((RangedWeapon*) item)->getRequirement() <= attrs_.dexterity)
+            else if (((RangedWeapon*) item)->getRequirement() <= m_attrs.dexterity)
             {
-                rangedWeapon_ = (RangedWeapon*) item;
+                m_rangedWeapon = (RangedWeapon*) item;
                 success       = true;
             }
         }
@@ -465,53 +474,53 @@ namespace rr
     void
     Player::cheat()
     {
-             if (isKeyPressed(sf::Keyboard::Numpad1)) attrs_.health     --;
-        else if (isKeyPressed(sf::Keyboard::Numpad2)) attrs_.health     ++;
-        else if (isKeyPressed(sf::Keyboard::Numpad3)) attrs_.mana       --;
-        else if (isKeyPressed(sf::Keyboard::Numpad4)) attrs_.mana       ++;
-        else if (isKeyPressed(sf::Keyboard::Numpad5)) attrs_.experience ++;
-        else if (isKeyPressed(sf::Keyboard::Numpad6)) attrs_.level      ++;
-        else if (isKeyPressed(sf::Keyboard::Numpad7)) attrs_.skillPoints++;
-        else if (isKeyPressed(sf::Keyboard::Numpad8)) attrs_.strength   ++;
-        else if (isKeyPressed(sf::Keyboard::Numpad9)) attrs_.dexterity  ++;
+             if (isKeyPressed(sf::Keyboard::Numpad1)) m_attrs.health     --;
+        else if (isKeyPressed(sf::Keyboard::Numpad2)) m_attrs.health     ++;
+        else if (isKeyPressed(sf::Keyboard::Numpad3)) m_attrs.mana       --;
+        else if (isKeyPressed(sf::Keyboard::Numpad4)) m_attrs.mana       ++;
+        else if (isKeyPressed(sf::Keyboard::Numpad5)) m_attrs.experience ++;
+        else if (isKeyPressed(sf::Keyboard::Numpad6)) m_attrs.level      ++;
+        else if (isKeyPressed(sf::Keyboard::Numpad7)) m_attrs.skillPoints++;
+        else if (isKeyPressed(sf::Keyboard::Numpad8)) m_attrs.strength   ++;
+        else if (isKeyPressed(sf::Keyboard::Numpad9)) m_attrs.dexterity  ++;
     }
 
     std::ifstream&
     Player::operator<<(std::ifstream& file)
     {
-        currentAnimation_->clearFrames();
+        m_currentAnimation->clearFrames();
 
         try
         {
-            readFile <float> (file, attrs_.health);
-            readFile <float> (file, attrs_.mana);
-            readFile <float> (file, attrs_.maxHealth);
-            readFile <float> (file, attrs_.maxMana);
-            readFile <float> (file, attrs_.strength);
-            readFile <float> (file, attrs_.dexterity);
-            readFile <float> (file, attrs_.experience);
-            readFile <float> (file, attrs_.nextLevel);
-            readFile < int > (file, attrs_.level);
-            readFile <float> (file, attrs_.skillPoints);
+            readFile <float> (file, m_attrs.health);
+            readFile <float> (file, m_attrs.mana);
+            readFile <float> (file, m_attrs.maxHealth);
+            readFile <float> (file, m_attrs.maxMana);
+            readFile <float> (file, m_attrs.strength);
+            readFile <float> (file, m_attrs.dexterity);
+            readFile <float> (file, m_attrs.experience);
+            readFile <float> (file, m_attrs.nextLevel);
+            readFile < int > (file, m_attrs.level);
+            readFile <float> (file, m_attrs.skillPoints);
 
-            readFile < int > (file, buffs_.speed);
-            readFile < int > (file, buffs_.regeneration);
-            readFile < int > (file, buffs_.poison);
-            readFile < int > (file, buffs_.slowness);
-            readFile < int > (file, buffs_.weakness);
-            readFile < int > (file, buffs_.hunger);
+            readFile < int > (file, m_buffs.speed);
+            readFile < int > (file, m_buffs.regeneration);
+            readFile < int > (file, m_buffs.poison);
+            readFile < int > (file, m_buffs.slowness);
+            readFile < int > (file, m_buffs.weakness);
+            readFile < int > (file, m_buffs.hunger);
 
-            readFile < bool> (file, attrs_.crafting);
-            readFile < bool> (file, attrs_.alchemy);
-            readFile < bool> (file, attrs_.melee_weapon_mastery);
-            readFile < bool> (file, attrs_.ranged_weapon_mastery);
-            readFile < bool> (file, attrs_.eagle_eye);
-            readFile < bool> (file, attrs_.mana_regeneration);
-            readFile < bool> (file, attrs_.health_regeneration);
-            readFile < bool> (file, attrs_.faster_learning);
+            readFile < bool> (file, m_attrs.crafting);
+            readFile < bool> (file, m_attrs.alchemy);
+            readFile < bool> (file, m_attrs.melee_weapon_mastery);
+            readFile < bool> (file, m_attrs.ranged_weapon_mastery);
+            readFile < bool> (file, m_attrs.eagle_eye);
+            readFile < bool> (file, m_attrs.mana_regeneration);
+            readFile < bool> (file, m_attrs.health_regeneration);
+            readFile < bool> (file, m_attrs.faster_learning);
 
-            readFile < int > (file, position_.x);
-            readFile < int > (file, position_.y);
+            readFile < int > (file, m_position.x);
+            readFile < int > (file, m_position.y);
         }
         catch (std::invalid_argument ex)
         {
@@ -519,7 +528,7 @@ namespace rr
         }
 
         initialize();
-        setGridPosition(position_);
+        setGridPosition(m_position);
 
         return file;
     }
@@ -527,35 +536,35 @@ namespace rr
     std::ofstream&
     Player::operator>>(std::ofstream& file)
     {
-        file << attrs_.health                << ' '
-             << attrs_.mana                  << ' '
-             << attrs_.maxHealth             << ' '
-             << attrs_.maxMana               << ' '
-             << attrs_.strength              << ' '
-             << attrs_.dexterity             << ' '
-             << attrs_.experience            << ' '
-             << attrs_.nextLevel             << ' '
-             << attrs_.level                 << ' '
-             << attrs_.skillPoints           << ' '
+        file << m_attrs.health                << ' '
+             << m_attrs.mana                  << ' '
+             << m_attrs.maxHealth             << ' '
+             << m_attrs.maxMana               << ' '
+             << m_attrs.strength              << ' '
+             << m_attrs.dexterity             << ' '
+             << m_attrs.experience            << ' '
+             << m_attrs.nextLevel             << ' '
+             << m_attrs.level                 << ' '
+             << m_attrs.skillPoints           << ' '
 
-             << buffs_.speed                 << ' '
-             << buffs_.regeneration          << ' '
-             << buffs_.poison                << ' '
-             << buffs_.slowness              << ' '
-             << buffs_.weakness              << ' '
-             << buffs_.hunger                << ' '
+             << m_buffs.speed                 << ' '
+             << m_buffs.regeneration          << ' '
+             << m_buffs.poison                << ' '
+             << m_buffs.slowness              << ' '
+             << m_buffs.weakness              << ' '
+             << m_buffs.hunger                << ' '
 
-             << attrs_.crafting              << ' '
-             << attrs_.alchemy               << ' '
-             << attrs_.melee_weapon_mastery  << ' '
-             << attrs_.ranged_weapon_mastery << ' '
-             << attrs_.eagle_eye             << ' '
-             << attrs_.mana_regeneration     << ' '
-             << attrs_.health_regeneration   << ' '
-             << attrs_.faster_learning       << ' '
+             << m_attrs.crafting              << ' '
+             << m_attrs.alchemy               << ' '
+             << m_attrs.melee_weapon_mastery  << ' '
+             << m_attrs.ranged_weapon_mastery << ' '
+             << m_attrs.eagle_eye             << ' '
+             << m_attrs.mana_regeneration     << ' '
+             << m_attrs.health_regeneration   << ' '
+             << m_attrs.faster_learning       << ' '
              
-             << position_.x                  << ' '
-             << position_.y;
+             << m_position.x                  << ' '
+             << m_position.y;
         
         return file;
     }

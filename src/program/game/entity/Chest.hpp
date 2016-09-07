@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/Chest.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ENTITY_CHEST_HPP
@@ -19,8 +19,8 @@ namespace rr
 
     class Chest : public Entity
     {
-    private: sf::Sprite body_;
-             Item*      item_;
+    private: sf::Sprite m_body;
+             Item*      m_item;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the chest.
@@ -60,7 +60,7 @@ namespace rr
              /// weapon, food, money, etc.)
              /// - SPECIAL (contains a rare or special item)
              ////////////////////////////////////////////////////////////////////////
-             Type getType() const { return type_; }
+             Type getType() const { return m_type; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Creates an exact copy of the chest.
@@ -71,25 +71,25 @@ namespace rr
              /// \brief Sets the chest's position relatively to the grid marked out
              /// by the level's tile map.
              ////////////////////////////////////////////////////////////////////////
-     virtual void setGridPosition(sf::Vector2i pos) override { body_.setPosition((sf::Vector2f)pos*80.f); }
+     virtual void setGridPosition(sf::Vector2i pos) override { m_body.setPosition((sf::Vector2f)pos*80.f); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the chest's position relatively to the grid marked
              /// out by the level's tile map.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) body_.getPosition()/80; }
+     virtual sf::Vector2i getGridPosition() const override { return (sf::Vector2i) m_body.getPosition()/80; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the chest's position relatively to the graphics card's
              /// coordinate system.
              ////////////////////////////////////////////////////////////////////////
-     virtual void setPosition(sf::Vector2f pos) override { body_.setPosition(pos); }
+     virtual void setPosition(sf::Vector2f pos) override { m_body.setPosition(pos); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the chest's position relatively to the graphics
              /// card's coordinate system.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
+     virtual sf::Vector2f getPosition() const override { return m_body.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if another entity's bound box intersects with the
@@ -100,12 +100,12 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the chest's bound box.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::FloatRect getBounds() const override { return body_.getGlobalBounds(); }
+     virtual sf::FloatRect getBounds() const override { return m_body.getGlobalBounds(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// Returns the item which the chest contains
              ////////////////////////////////////////////////////////////////////////
-             Item* getItem() const { return item_; }
+             Item* getItem() const { return m_item; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reads the chest from the file.
@@ -117,7 +117,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
      virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type type_;
+    private: Type m_type;
     };
 
 }

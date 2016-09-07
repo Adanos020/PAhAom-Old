@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/MainMenu.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef UI_MAINMENU_HPP
@@ -19,11 +19,11 @@ namespace rr
 
     class MainMenu : public sf::Drawable
     {
-    private: sf::RectangleShape background_;
-             sf::Texture        backTexture_;
-             Text               title_;
-             Text               version_;
-             Window             wMenu_;
+    private: sf::RectangleShape m_background;
+             sf::Texture        m_backTexture;
+             Text               m_title;
+             Text               m_version;
+             Window             m_wMenu;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.

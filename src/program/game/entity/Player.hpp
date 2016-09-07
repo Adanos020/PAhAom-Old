@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/Player.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ENTITY_PLAYER_HPP
@@ -50,7 +50,7 @@ namespace rr
                      bool  mana_regeneration;
                      bool  health_regeneration;
                      bool  faster_learning;
-             } attrs_;
+             } m_attrs;
 
              struct Buffs   // Structure for buffs - each buff is represented by an integer
              {              // which tells for how many turns is it going to be valid.
@@ -60,20 +60,21 @@ namespace rr
                      int slowness;
                      int weakness;
                      int hunger;
-             } buffs_;
+             } m_buffs;
 
-             MeleeWeapon*       meleeWeapon_;
-             RangedWeapon*      rangedWeapon_;
+             MeleeWeapon*       m_meleeWeapon;
+             RangedWeapon*      m_rangedWeapon;
 
-             sf::Vector2i       position_;
-             sf::AnimatedSprite body_;
-             sf::Animation      walkingLeft_;
-             sf::Animation      walkingRight_;
-             sf::Animation*     currentAnimation_;
+             sf::Vector2i       m_position;
+             sf::AnimatedSprite m_body;
+             
+             sf::Animation      m_walkingLeft;
+             sf::Animation      m_walkingRight;
+             sf::Animation*     m_currentAnimation;
 
-             bool               moving_;
-             float              velocity_;
-             int                sightRange_;
+             bool               m_moving;
+             float              m_velocity;
+             int                m_sightRange;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the player.
@@ -120,25 +121,25 @@ namespace rr
              /// \brief Sets the player's position relatively to the grid marked out
              /// by the level's tile map.
              ////////////////////////////////////////////////////////////////////////
-     virtual void setGridPosition(sf::Vector2i pos) override { position_ = pos; body_.setPosition((sf::Vector2f) pos*80.f); }
+     virtual void setGridPosition(sf::Vector2i pos) override { m_position = pos; m_body.setPosition((sf::Vector2f) pos*80.f); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's position relatively to the grid marked
              /// out by the level's tile map.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2i getGridPosition() const override { return position_; }
+     virtual sf::Vector2i getGridPosition() const override { return m_position; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the player's position relatively to the graphics card's
              /// coordinate system.
              ////////////////////////////////////////////////////////////////////////
-     virtual void setPosition(sf::Vector2f pos) override { position_ = (sf::Vector2i) pos/80; body_.setPosition(pos); }
+     virtual void setPosition(sf::Vector2f pos) override { m_position = (sf::Vector2i) pos/80; m_body.setPosition(pos); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's position relatively to the graphics
              /// card's coordinate system.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getPosition() const override { return body_.getPosition(); }
+     virtual sf::Vector2f getPosition() const override { return m_body.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if another entity's bound box intersects with the
@@ -149,7 +150,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's bound box.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::FloatRect getBounds() const override { return body_.getGlobalBounds(); }
+     virtual sf::FloatRect getBounds() const override { return m_body.getGlobalBounds(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Moves the player's character to a cell in a given direction.
@@ -171,12 +172,12 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's melee weapon that he equipped.
              ////////////////////////////////////////////////////////////////////////
-             MeleeWeapon* getMeleeWeapon() const { return meleeWeapon_; }
+             MeleeWeapon* getMeleeWeapon() const { return m_meleeWeapon; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's ranged weapon that he equipped.
              ////////////////////////////////////////////////////////////////////////
-             RangedWeapon* getRangedWeapon() const { return rangedWeapon_; }
+             RangedWeapon* getRangedWeapon() const { return m_rangedWeapon; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Updates the player's state.
@@ -201,7 +202,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Gives a specific amount of experience to the player.
              ////////////////////////////////////////////////////////////////////////
-             void addExperience(int exp) { attrs_.experience += exp; }
+             void addExperience(int exp) { m_attrs.experience += exp; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Makes the player learn the skill given as a type of book he
@@ -235,22 +236,22 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's attributes.
              ////////////////////////////////////////////////////////////////////////
-             Attrs getAttributes() const { return attrs_; }
+             Attrs getAttributes() const { return m_attrs; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's attributes.
              ////////////////////////////////////////////////////////////////////////
-             Buffs getBuffs() const { return buffs_; }
+             Buffs getBuffs() const { return m_buffs; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the player's sight range.
              ////////////////////////////////////////////////////////////////////////
-             int getSightRange() const { return sightRange_ + (attrs_.eagle_eye ? 5 : 0); }
+             int getSightRange() const { return m_sightRange + (m_attrs.eagle_eye ? 5 : 0); }
              
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the player is moving.
              ////////////////////////////////////////////////////////////////////////
-             bool isMoving() const { return moving_; }
+             bool isMoving() const { return m_moving; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Resets the player's atributes.

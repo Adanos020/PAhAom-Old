@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/npc/NPC.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef NPC_HPP
@@ -29,24 +29,24 @@ namespace rr
                    float maxHealth;
                    int   level;
                    float armor;
-               }                  attrs_;
-               sf::AnimatedSprite body_;
-               sf::Animation*     currentAnimation_;
-               sf::Animation      standingLeft_;
-               sf::Animation      standingRight_;
-               sf::Animation      walkingLeft_;
-               sf::Animation      walkingRight_;
-               sf::Animation      attackingLeft_;
-               sf::Animation      attackingRight_;
+               }                  m_attrs;
+               sf::AnimatedSprite m_body;
+               sf::Animation*     m_currentAnimation;
+               sf::Animation      m_standingLeft;
+               sf::Animation      m_standingRight;
+               sf::Animation      m_walkingLeft;
+               sf::Animation      m_walkingRight;
+               sf::Animation      m_attackingLeft;
+               sf::Animation      m_attackingRight;
 
-               sf::Vector2i       entityDetector_[8];
-               sf::Vector2i       position_;
-               sf::Vector2i       destination_;
+               sf::Vector2i       m_entityDetector[8];
+               sf::Vector2i       m_position;
+               sf::Vector2i       m_destination;
 
-               bool               moving_;
-               float              velocity_;
+               bool               m_moving;
+               float              m_velocity;
 
-               DialogueTree       dialogue_;
+               DialogueTree       m_dialogue;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets all the player detectors' positions.
@@ -273,9 +273,9 @@ namespace rr
                ////////////////////////////////////////////////////////////////////////
                int detects(Entity*) const;
 
-    protected: Attitude  attitude_;
-               State     state_;
-               Direction direction_;
+    protected: Attitude  m_attitude;
+               State     m_state;
+               Direction m_direction;
     };
 
 }

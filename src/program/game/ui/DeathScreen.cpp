@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/DeathScreen.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include "DeathScreen.hpp"
@@ -13,44 +13,45 @@ namespace rr
 {
 
     DeathScreen::DeathScreen() :
-      endAnimation_(sf::Time::Zero),
-      tYouDied_    (Resources::dictionary["gui.text.you_died"], Resources::font.FinalFantasy, 200, sf::Color(255, 0, 0, 0)),
-      bNewGame_    (sf::Vector2f(0, 0), Resources::dictionary["gui.button.newgame"], 52),
-      bQuit_       (sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52),
-      visible_     (false)
+      m_endAnimation(sf::Time::Zero),
+      m_tYouDied    (Resources::dictionary["gui.text.you_died"], Resources::font.FinalFantasy, 200, sf::Color(255, 0, 0, 0)),
+      m_bNewGame    (sf::Vector2f(0, 0), Resources::dictionary["gui.button.newgame"], 52),
+      m_bQuit       (sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52),
+      m_visible     (false)
     {
-        shadow_.setSize((sf::Vector2f) Settings::graphics.resolution);
-        shadow_.setPosition (sf::Vector2f(0, 0));
-        shadow_.setFillColor(sf::Color(255, 0, 0, 0));
+        m_shadow.setSize((sf::Vector2f) Settings::graphics.resolution);
+        m_shadow.setPosition (sf::Vector2f(0, 0));
+        m_shadow.setFillColor(sf::Color(255, 0, 0, 0));
 
-        tYouDied_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2 - tYouDied_.getSize().x/2 - 2.5f,
-                                           Settings::graphics.resolution.y/2 - tYouDied_.getSize().y/0.5));
+        m_tYouDied.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2 - m_tYouDied.getSize().x/2 - 2.5f,
+                                            Settings::graphics.resolution.y/2 - m_tYouDied.getSize().y/0.5));
 
-        bNewGame_.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2 - (bNewGame_.getSize().x + bQuit_.getSize().x+7.5f)/2,
-                                           Settings::graphics.resolution.y/2 + bNewGame_.getSize().y*0.25f));
-        bQuit_.setPosition(sf::Vector2f(bNewGame_.getSize().x+5, 0) + bNewGame_.getPosition());
+        m_bNewGame.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2 - (m_bNewGame.getSize().x + m_bQuit.getSize().x+7.5f)/2,
+                                            Settings::graphics.resolution.y/2 + m_bNewGame.getSize().y*0.25f));
+        
+        m_bQuit.setPosition(sf::Vector2f(m_bNewGame.getSize().x+5, 0) + m_bNewGame.getPosition());
     }
 
     void
     DeathScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        if (visible_)
+        if (m_visible)
         {
-            target.draw(shadow_  , states);
-            target.draw(tYouDied_, states);
-            target.draw(bNewGame_, states);
-            target.draw(bQuit_   , states);
+            target.draw(m_shadow  , states);
+            target.draw(m_tYouDied, states);
+            target.draw(m_bNewGame, states);
+            target.draw(m_bQuit   , states);
         }
     }
 
     void
     DeathScreen::buttonEvents(sf::RenderWindow& rw, sf::Event& event, Game* g)
     {
-        if (visible_)
+        if (m_visible)
         {
-            if (bNewGame_.isPressed(rw, event))
+            if (m_bNewGame.isPressed(rw, event))
             {
-                visible_ = false;
+                m_visible = false;
 
                 auto generatingWorld = Text(Resources::dictionary["gui.text.generating_world"], Resources::font.Unifont);
                 generatingWorld.setPosition((sf::Vector2f) Settings::graphics.resolution/2.f - generatingWorld.getSize()/2.f);
@@ -66,9 +67,9 @@ namespace rr
                     
                 g->loadNewGame();
             }
-            if (bQuit_.isPressed(rw, event))
+            if (m_bQuit.isPressed(rw, event))
             {
-                visible_ = false;
+                m_visible = false;
                 reset();
                 g->start(false);
             }
@@ -78,20 +79,20 @@ namespace rr
     void
     DeathScreen::update(sf::Clock& timer)
     {
-        if (visible_)
+        if (m_visible)
         {
-            if (endAnimation_.asSeconds() <= 1.f)
+            if (m_endAnimation.asSeconds() <= 1.f)
             {
-                sf::Color shadow  = shadow_  .getFillColor();
-                sf::Color youdied = tYouDied_.getFillColor();
+                sf::Color shadow  = m_shadow  .getFillColor();
+                sf::Color youdied = m_tYouDied.getFillColor();
 
-                shadow .a = 140 * endAnimation_.asSeconds();
-                youdied.a = 255 * endAnimation_.asSeconds();
+                shadow .a = 140 * m_endAnimation.asSeconds();
+                youdied.a = 255 * m_endAnimation.asSeconds();
 
-                shadow_  .setFillColor(shadow);
-                tYouDied_.setFillColor(youdied);
+                m_shadow  .setFillColor(shadow);
+                m_tYouDied.setFillColor(youdied);
 
-                endAnimation_ += timer.getElapsedTime();
+                m_endAnimation += timer.getElapsedTime();
             }
         }
     }
@@ -99,9 +100,9 @@ namespace rr
     void
     DeathScreen::reset()
     {
-        endAnimation_ = sf::Time::Zero;
-        tYouDied_.setFillColor(sf::Color(255, 0, 0, 0));
-        shadow_  .setFillColor(sf::Color(255, 0, 0, 0));
+        m_endAnimation = sf::Time::Zero;
+        m_tYouDied.setFillColor(sf::Color(255, 0, 0, 0));
+        m_shadow  .setFillColor(sf::Color(255, 0, 0, 0));
     }
 
 }

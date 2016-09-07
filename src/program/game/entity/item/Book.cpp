@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/Book.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -19,46 +19,46 @@ namespace rr
 {
 
     Book::Book(Type type, int am, sf::Vector2i pos) {
-        type_       = type;
-        amount_     = am;
+        m_type       = type;
+        m_amount     = am;
 
         initialize();
         setGridPosition(pos);
     }
 
     Book::Book(Book const& copy) :
-      type_(copy.type_)
+      m_type(copy.m_type)
     {
-        amount_      = copy.amount_;
-        disposable_  = copy.disposable_;
-        stackable_   = copy.stackable_;
-        ID_          = copy.ID_;
-        iconIndex_   = copy.iconIndex_;
-        body_        = copy.body_;
+        m_amount      = copy.m_amount;
+        m_disposable  = copy.m_disposable;
+        m_stackable   = copy.m_stackable;
+        m_ID          = copy.m_ID;
+        m_iconIndex   = copy.m_iconIndex;
+        m_body        = copy.m_body;
     }
 
     void
     Book::initialize()
     {
-        ID_         = type_+40;
-        stackable_  = false;
-        cursed_     = false;
-        iconIndex_  = 16;
+        m_ID         = m_type+40;
+        m_stackable  = false;
+        m_cursed     = false;
+        m_iconIndex  = 16;
 
-        disposable_ = type_ != SPELLS_BOOK;
+        m_disposable = m_type != SPELLS_BOOK;
 
-        int icons[] = { (int)iconIndex_, icons[1] = (int)iconIndex_+16 };
+        int icons[] = { (int) m_iconIndex, icons[1] = (int) m_iconIndex+16 };
 
-        setIcon (body_, 2, icons);
-        setColor(body_, 0, sf::Color(itemColors[type_].r + (255-itemColors[type_].r)/2,
-                                     itemColors[type_].g + (255-itemColors[type_].g)/2,
-                                     itemColors[type_].b + (255-itemColors[type_].b)/2));
+        setIcon (m_body, 2, icons);
+        setColor(m_body, 0, sf::Color(itemColors[m_type].r + (255-itemColors[m_type].r)/2,
+                                     itemColors[m_type].g + (255-itemColors[m_type].g)/2,
+                                     itemColors[m_type].b + (255-itemColors[m_type].b)/2));
     }
 
     sf::String
     Book::getName() const
     {
-        switch (type_)
+        switch (m_type)
         {
             case CRAFTING:              return Resources::dictionary["item.book.type.crafting"             ];
             case ALCHEMY:               return Resources::dictionary["item.book.type.alchemy"              ];
@@ -76,7 +76,7 @@ namespace rr
     sf::String
     Book::getDescription() const
     {
-        switch (type_)
+        switch (m_type)
         {
             case CRAFTING:              return Resources::dictionary["item.book.description.crafting"             ];
             case ALCHEMY:               return Resources::dictionary["item.book.description.alchemy"              ];
@@ -94,29 +94,29 @@ namespace rr
     void
     Book::setGridPosition(sf::Vector2i pos)
     {
-        body_[0].position = (sf::Vector2f)pos*80.f;
-        body_[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
-        body_[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
-        body_[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
+        m_body[0].position = (sf::Vector2f)pos*80.f;
+        m_body[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
+        m_body[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
+        m_body[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
 
-        body_[4].position = body_[0].position;
-        body_[5].position = body_[1].position;
-        body_[6].position = body_[2].position;
-        body_[7].position = body_[3].position;
+        m_body[4].position = m_body[0].position;
+        m_body[5].position = m_body[1].position;
+        m_body[6].position = m_body[2].position;
+        m_body[7].position = m_body[3].position;
     }
 
     void
     Book::setPosition(sf::Vector2f pos)
     {
-        body_[0].position = pos;
-        body_[1].position = sf::Vector2f(pos.x+80, pos.y   );
-        body_[2].position = sf::Vector2f(pos.x+80, pos.y+80);
-        body_[3].position = sf::Vector2f(pos.x   , pos.y+80);
+        m_body[0].position = pos;
+        m_body[1].position = sf::Vector2f(pos.x+80, pos.y   );
+        m_body[2].position = sf::Vector2f(pos.x+80, pos.y+80);
+        m_body[3].position = sf::Vector2f(pos.x   , pos.y+80);
 
-        body_[4].position = body_[0].position;
-        body_[5].position = body_[1].position;
-        body_[6].position = body_[2].position;
-        body_[7].position = body_[3].position;
+        m_body[4].position = m_body[0].position;
+        m_body[5].position = m_body[1].position;
+        m_body[6].position = m_body[2].position;
+        m_body[7].position = m_body[3].position;
     }
 
     std::ifstream&
@@ -129,7 +129,7 @@ namespace rr
         {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
-            readFile <int> (file, amount_);
+            readFile <int> (file, m_amount);
             readFile <int> (file, type);
         }
         catch (std::invalid_argument ex)
@@ -137,7 +137,7 @@ namespace rr
             std::cerr << ex.what() << '\n';
         }
 
-        type_ = (Type) type;
+        m_type = (Type) type;
 
         initialize();
         setGridPosition(position);
@@ -148,11 +148,11 @@ namespace rr
     std::ofstream&
     Book::operator>>(std::ofstream& file)
     {
-        file << 1                            << ' '
-             << (int) body_[0].position.x/80 << ' '
-             << (int) body_[0].position.y/80 << ' '
-             << amount_                      << ' '
-             << type_;
+        file << 1                             << ' '
+             << (int) m_body[0].position.x/80 << ' '
+             << (int) m_body[0].position.y/80 << ' '
+             << m_amount                      << ' '
+             << m_type;
 
         return file;
     }

@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Switch.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GUI_SWITCH_HPP
@@ -16,12 +16,12 @@ namespace rr
 
     class Switch : public Component
     {
-    private: sf::RectangleShape      body_;
-             std::vector<sf::String> options_;
-             Button                  left_;
-             Button                  right_;
-             Text                    text_;
-             unsigned                counter_;
+    private: sf::RectangleShape      m_body;
+             std::vector<sf::String> m_options;
+             Button                  m_left;
+             Button                  m_right;
+             Text                    m_text;
+             unsigned                m_counter;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the switch on the screen.
@@ -41,7 +41,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the switch's body's position.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getPosition() const override { return left_.getPosition(); }
+     virtual sf::Vector2f getPosition() const override { return m_left.getPosition(); }
      
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the switch's body's size.
@@ -51,17 +51,17 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the switch's body's size.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getSize() const override { return body_.getSize(); }
+     virtual sf::Vector2f getSize() const override { return m_body.getSize(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the string of the text displayed on the switch.
              ////////////////////////////////////////////////////////////////////////
-             void setText(sf::String s) { text_.setString(s); }
+             void setText(sf::String s) { m_text.setString(s); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text displayed on the switch.
              ////////////////////////////////////////////////////////////////////////
-             Text getText() const { return text_; }
+             Text getText() const { return m_text; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Method for handling the button events.
@@ -81,7 +81,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the current option.
              ////////////////////////////////////////////////////////////////////////
-             sf::String getCurrentOption() const { return options_[counter_]; }
+             sf::String getCurrentOption() const { return m_options[m_counter]; }
     };
 
 }

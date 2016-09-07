@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/ui/ALL.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef UI_ALL_HPP

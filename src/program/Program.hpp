@@ -1,7 +1,7 @@
 /**
  * @file src/program/Program.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef PROGRAM_HPP
@@ -22,12 +22,12 @@ namespace rr
 
     class Program
     {
-    private: sf::Event        event_;
-             sf::RenderWindow window_;
+    private: sf::Event        m_event;
+             sf::RenderWindow m_window;
 
-      static sf::String       version_;
+      static sf::String       m_version;
 
-             Game*            game_;
+             Game*            m_game;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Loads all the resources, settings and dictionary.
@@ -69,14 +69,14 @@ namespace rr
              ///
              /// \return an instance of Game class
              ////////////////////////////////////////////////////////////////////////
-             Game* getGame() const { return game_; }
+             Game* getGame() const { return m_game; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the program version.
              ///
              /// \return the program version as a string
              ////////////////////////////////////////////////////////////////////////
-      static sf::String getVersion() { return version_; }
+      static sf::String getVersion() { return m_version; }
     };
 
 }

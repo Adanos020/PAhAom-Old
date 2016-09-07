@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/MeleeWeapon.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ITEM_MELEEWEAPON_HPP
@@ -69,7 +69,7 @@ namespace rr
              /// - DAGGER
              /// - KNIFE
              ////////////////////////////////////////////////////////////////////////
-             Type getType() const { return type_; }
+             Type getType() const { return m_type; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the melee weapon's name.
@@ -102,7 +102,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              virtual std::ofstream& operator>> (std::ofstream&) override;
 
-    private: Type type_;
+    private: Type m_type;
     };
 
 }

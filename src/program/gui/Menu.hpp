@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Menu.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GUI_MENU_HPP
@@ -17,8 +17,8 @@ namespace rr
 
     class Menu : public Component
     {
-    private: std::vector<Button> options_;
-             sf::Vector2f        position_;
+    private: std::vector<Button> m_options;
+             sf::Vector2f        m_position;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the menu on the screen.
@@ -53,7 +53,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Clears the list of options.
              ////////////////////////////////////////////////////////////////////////
-             void clear() { options_.clear(); }
+             void clear() { m_options.clear(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the string of a chosen option.
@@ -63,7 +63,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the number of options stored in the list.
              ////////////////////////////////////////////////////////////////////////
-             int getOptionCount() const { return options_.size(); }
+             int getOptionCount() const { return m_options.size(); }
              
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the menu's body's position.
@@ -73,7 +73,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the menu's body's position.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getPosition() const { return position_; }
+     virtual sf::Vector2f getPosition() const { return m_position; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the menu's body's size.
@@ -83,7 +83,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the menu's body's size.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getSize() const { return sf::Vector2f(0, options_.size()*40); }
+     virtual sf::Vector2f getSize() const { return sf::Vector2f(0, m_options.size()*40); }
     };
 
 }

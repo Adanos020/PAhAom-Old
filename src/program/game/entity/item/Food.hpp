@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/Food.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef ITEM_FOOD_HPP
@@ -57,7 +57,7 @@ namespace rr
              /// - HAMBURGER
              /// - BAGUETTE
              ////////////////////////////////////////////////////////////////////////
-             Type getType() { return type_; }
+             Type getType() { return m_type; }
          
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the food's name.
@@ -79,7 +79,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type type_;
+    private: Type m_type;
     };
 
 }

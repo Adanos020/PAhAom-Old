@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Bar.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GUI_BAR_HPP
@@ -14,8 +14,8 @@ namespace rr
 
     class Bar : public Component
     {
-    private: sf::RectangleShape border_;
-             sf::RectangleShape bar_;
+    private: sf::RectangleShape m_border;
+             sf::RectangleShape m_bar;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the bar on the screen.
@@ -47,7 +47,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the bar's body's position.
              ////////////////////////////////////////////////////////////////////////
-             sf::Vector2f getPosition() const override { return border_.getPosition(); }
+             sf::Vector2f getPosition() const override { return m_border.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the bar's body's size.
@@ -57,27 +57,27 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the bar's body's size.
              ////////////////////////////////////////////////////////////////////////
-             sf::Vector2f getSize() const override { return border_.getSize(); }
+             sf::Vector2f getSize() const override { return m_border.getSize(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the bar's fill color.
              ////////////////////////////////////////////////////////////////////////
-             void setFillColor(sf::Color c) { bar_.setFillColor(c); }
+             void setFillColor(sf::Color c) { m_bar.setFillColor(c); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the bar's fill color.
              ////////////////////////////////////////////////////////////////////////
-             sf::Color getFillColor() const { return bar_.getFillColor(); }
+             sf::Color getFillColor() const { return m_bar.getFillColor(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the bar's fill color.
              ////////////////////////////////////////////////////////////////////////
-             void setOutlineColor(sf::Color c) { border_.setOutlineColor(c); }
+             void setOutlineColor(sf::Color c) { m_border.setOutlineColor(c); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the bar's fill color.
              ////////////////////////////////////////////////////////////////////////
-             sf::Color getOutlineColor() const { return border_.getOutlineColor(); }
+             sf::Color getOutlineColor() const { return m_border.getOutlineColor(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the bar's display value.

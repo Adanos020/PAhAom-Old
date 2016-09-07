@@ -1,7 +1,7 @@
 /**
  * @file src/program/funcs/files.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef FUNCS_FILES_HPP

@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/shadowmap/ShadowMap.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef SHADOWMAP_HPP
@@ -16,15 +16,15 @@ namespace rr
 
     class ShadowMap : public sf::Drawable
     {
-    private: bool                      discovered_[77*43];
-             unsigned char             cellIDs_ [9*77*43];
+    private: bool                      m_discovered[77*43];
+             unsigned char             m_cellIDs [9*77*43];
 
-             sf::Vector2i              size_;
-             sf::VertexArray           shadowSprite_;
-             sf::Texture               shadowTexture_;
-             sf::Image                 shadowImage_;
+             sf::Vector2i              m_size;
+             sf::VertexArray           m_shadowSprite;
+             sf::Texture               m_shadowTexture;
+             sf::Image                 m_shadowImage;
 
-             std::vector<sf::Vector2i> lastlyLit_;
+             std::vector<sf::Vector2i> m_lastlyLit;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if a 3x3 cell is filled with one color.

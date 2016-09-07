@@ -1,7 +1,7 @@
 /**
  * @file src/program/observer/observer_Observer.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include "Observer.hpp"
@@ -17,22 +17,22 @@ namespace rr
     void
     Subject::addObserver(Observer* observer)
     {
-        for (auto obs : observers_)
+        for (auto obs : m_observers)
         {
             if (obs == observer)
                 return;
         }
-        observers_.push_back(observer);
+        m_observers.push_back(observer);
     }
 
     void
     Subject::removeObserver(Observer* observer)
     {
-        for (unsigned i = 0; i < observers_.size(); i++)
+        for (unsigned i = 0; i < m_observers.size(); i++)
         {
-            if (observer == observers_[i])
+            if (observer == m_observers[i])
             {
-                observers_.erase(observers_.begin()+i);
+                m_observers.erase(m_observers.begin()+i);
                 return;
             }
         }
@@ -41,13 +41,13 @@ namespace rr
     void
     Subject::clear()
     {
-        observers_.clear();
+        m_observers.clear();
     }
 
     void
     Subject::notify(Observer::Event event, Entity* entity)
     {
-        for (auto observer : observers_)
+        for (auto observer : m_observers)
         {
             observer->onNotify(event, entity);
         }

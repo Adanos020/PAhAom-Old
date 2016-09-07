@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/shadowmap/ShadowMap.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -15,42 +15,42 @@ namespace rr
 {
 
     ShadowMap::ShadowMap(sf::Vector2i size) :
-      size_(size)
+      m_size(size)
     {
-        shadowImage_.create(size_.x*3, size_.y*3, sf::Color::Black);
+        m_shadowImage.create(m_size.x*3, m_size.y*3, sf::Color::Black);
 
-        shadowTexture_.loadFromImage(shadowImage_);
-        shadowTexture_.setSmooth(true);
+        m_shadowTexture.loadFromImage(m_shadowImage);
+        m_shadowTexture.setSmooth(true);
 
-        shadowSprite_.resize(4);
-        shadowSprite_.setPrimitiveType(sf::Quads);
+        m_shadowSprite.resize(4);
+        m_shadowSprite.setPrimitiveType(sf::Quads);
 
-        shadowSprite_[0].position  = sf::Vector2f(0        , 0        );
-        shadowSprite_[1].position  = sf::Vector2f(80*size.x, 0        );
-        shadowSprite_[2].position  = sf::Vector2f(80*size.x, 80*size.y);
-        shadowSprite_[3].position  = sf::Vector2f(0        , 80*size.y);
+        m_shadowSprite[0].position  = sf::Vector2f(0        , 0        );
+        m_shadowSprite[1].position  = sf::Vector2f(80*size.x, 0        );
+        m_shadowSprite[2].position  = sf::Vector2f(80*size.x, 80*size.y);
+        m_shadowSprite[3].position  = sf::Vector2f(0        , 80*size.y);
 
-        shadowSprite_[0].texCoords = sf::Vector2f(0       , 0       );
-        shadowSprite_[1].texCoords = sf::Vector2f(3*size.x, 0       );
-        shadowSprite_[2].texCoords = sf::Vector2f(3*size.x, 3*size.y);
-        shadowSprite_[3].texCoords = sf::Vector2f(0       , 3*size.y);
+        m_shadowSprite[0].texCoords = sf::Vector2f(0       , 0       );
+        m_shadowSprite[1].texCoords = sf::Vector2f(3*size.x, 0       );
+        m_shadowSprite[2].texCoords = sf::Vector2f(3*size.x, 3*size.y);
+        m_shadowSprite[3].texCoords = sf::Vector2f(0       , 3*size.y);
 
-        for (int i = 0; i < size_.x*size_.y; ++i)
+        for (int i = 0; i < m_size.x*m_size.y; ++i)
         {
-            discovered_[i] = false;
+            m_discovered[i] = false;
         }
 
-        for (int i = 0; i < size_.x*size_.y*9; ++i)
+        for (int i = 0; i < m_size.x*m_size.y*9; ++i)
         {
-            cellIDs_[i] = 0;
+            m_cellIDs[i] = 0;
         }
     }
 
     bool
     ShadowMap::isFilled(int x, int y, unsigned char id) const
     {
-        if (  x < 0 || x > size_.x-1
-           || y < 0 || y > size_.y-1
+        if (  x < 0 || x > m_size.x-1
+           || y < 0 || y > m_size.y-1
             ) return false;
 
         int tx = 3*x, ty = 3*y;
@@ -61,7 +61,7 @@ namespace rr
         {
             for (int j = 0; j < 3; ++j)
             {
-                if (cellIDs_[tx+i + (ty+j)*size_.x*3] == id)
+                if (m_cellIDs[tx+i + (ty+j)*m_size.x*3] == id)
                 {
                     filled = false;
                     break;
@@ -76,63 +76,63 @@ namespace rr
     void
     ShadowMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        states.texture = &shadowTexture_;
-        target.draw(shadowSprite_, states);
+        states.texture = &m_shadowTexture;
+        target.draw(m_shadowSprite, states);
     }
 
     void
     ShadowMap::setLit(int x, int y)
     {
-        discovered_[x + y*size_.x] = true;
+        m_discovered[x + y*m_size.x] = true;
 
         int tx = 3*x + 1, ty = 3*y + 1;
 
-        cellIDs_[tx + ty*size_.x*3] = 2;
-        lastlyLit_.push_back(sf::Vector2i(tx, ty));
+        m_cellIDs[tx + ty*m_size.x*3] = 2;
+        m_lastlyLit.push_back(sf::Vector2i(tx, ty));
 
-        if (x < size_.x-1)
+        if (x < m_size.x-1)
         {
             if (y > 0)
             {
-                if (cellIDs_[tx+3 + (ty-3)*size_.x*3] == 2) // TOP RIGHT
+                if (m_cellIDs[tx+3 + (ty-3)*m_size.x*3] == 2) // TOP RIGHT
                 {
-                    cellIDs_[tx+1 + (ty-1)*size_.x*3] =  2;
-                    cellIDs_[tx+1 + ( ty )*size_.x*3] =  2;
-                    cellIDs_[ tx  + (ty-1)*size_.x*3] =  2;
+                    m_cellIDs[tx+1 + (ty-1)*m_size.x*3] =  2;
+                    m_cellIDs[tx+1 + ( ty )*m_size.x*3] =  2;
+                    m_cellIDs[ tx  + (ty-1)*m_size.x*3] =  2;
 
-                    cellIDs_[tx+2 + (ty-2)*size_.x*3] =  2;
+                    m_cellIDs[tx+2 + (ty-2)*m_size.x*3] =  2;
 
-                    lastlyLit_.push_back(sf::Vector2i(tx+1, ty-1));
-                    lastlyLit_.push_back(sf::Vector2i(tx+1,  ty ));
-                    lastlyLit_.push_back(sf::Vector2i( tx , ty-1));
-                    lastlyLit_.push_back(sf::Vector2i(tx+2, ty-2));
+                    m_lastlyLit.push_back(sf::Vector2i(tx+1, ty-1));
+                    m_lastlyLit.push_back(sf::Vector2i(tx+1,  ty ));
+                    m_lastlyLit.push_back(sf::Vector2i( tx , ty-1));
+                    m_lastlyLit.push_back(sf::Vector2i(tx+2, ty-2));
                 }
             }
 
-            if (y < size_.y-1)
+            if (y < m_size.y-1)
             {
-                if (cellIDs_[tx+3 + (ty+3)*size_.x*3] == 2) // BOTTOM RIGHT
+                if (m_cellIDs[tx+3 + (ty+3)*m_size.x*3] == 2) // BOTTOM RIGHT
                 {
-                    cellIDs_[tx+1 + (ty+1)*size_.x*3] =  2;
-                    cellIDs_[tx+1 + ( ty )*size_.x*3] =  2;
-                    cellIDs_[ tx  + (ty+1)*size_.x*3] =  2;
+                    m_cellIDs[tx+1 + (ty+1)*m_size.x*3] =  2;
+                    m_cellIDs[tx+1 + ( ty )*m_size.x*3] =  2;
+                    m_cellIDs[ tx  + (ty+1)*m_size.x*3] =  2;
 
-                    cellIDs_[tx+2 + (ty+2)*size_.x*3] =  2;
+                    m_cellIDs[tx+2 + (ty+2)*m_size.x*3] =  2;
 
-                    lastlyLit_.push_back(sf::Vector2i(tx+1, ty+1));
-                    lastlyLit_.push_back(sf::Vector2i(tx+1,  ty ));
-                    lastlyLit_.push_back(sf::Vector2i( tx , ty+1));
-                    lastlyLit_.push_back(sf::Vector2i(tx+2, ty+2));
+                    m_lastlyLit.push_back(sf::Vector2i(tx+1, ty+1));
+                    m_lastlyLit.push_back(sf::Vector2i(tx+1,  ty ));
+                    m_lastlyLit.push_back(sf::Vector2i( tx , ty+1));
+                    m_lastlyLit.push_back(sf::Vector2i(tx+2, ty+2));
                 }
             }
 
-            if (cellIDs_[tx+3 + ty*size_.x*3] == 2) // RIGHT
+            if (m_cellIDs[tx+3 + ty*m_size.x*3] == 2) // RIGHT
             {
-                cellIDs_[tx+1 + ty*size_.x*3] =  2;
-                cellIDs_[tx+2 + ty*size_.x*3] =  2;
+                m_cellIDs[tx+1 + ty*m_size.x*3] =  2;
+                m_cellIDs[tx+2 + ty*m_size.x*3] =  2;
 
-                lastlyLit_.push_back(sf::Vector2i(tx+1, ty));
-                lastlyLit_.push_back(sf::Vector2i(tx+2, ty));
+                m_lastlyLit.push_back(sf::Vector2i(tx+1, ty));
+                m_lastlyLit.push_back(sf::Vector2i(tx+2, ty));
             }
         }
 
@@ -140,69 +140,69 @@ namespace rr
         {
             if (y > 0)
             {
-                if (cellIDs_[tx-3 + (ty-3)*size_.x*3] == 2) // TOP LEFT
+                if (m_cellIDs[tx-3 + (ty-3)*m_size.x*3] == 2) // TOP LEFT
                 {
-                    cellIDs_[tx-1 + (ty-1)*size_.x*3] =  2;
-                    cellIDs_[tx-1 + ( ty )*size_.x*3] =  2;
-                    cellIDs_[ tx  + (ty-1)*size_.x*3] =  2;
+                    m_cellIDs[tx-1 + (ty-1)*m_size.x*3] =  2;
+                    m_cellIDs[tx-1 + ( ty )*m_size.x*3] =  2;
+                    m_cellIDs[ tx  + (ty-1)*m_size.x*3] =  2;
 
-                    cellIDs_[tx-2 + (ty-2)*size_.x*3] =  2;
+                    m_cellIDs[tx-2 + (ty-2)*m_size.x*3] =  2;
 
-                    lastlyLit_.push_back(sf::Vector2i(tx-1, ty-1));
-                    lastlyLit_.push_back(sf::Vector2i(tx-1,  ty ));
-                    lastlyLit_.push_back(sf::Vector2i( tx , ty-1));
-                    lastlyLit_.push_back(sf::Vector2i(tx-2, ty-2));
+                    m_lastlyLit.push_back(sf::Vector2i(tx-1, ty-1));
+                    m_lastlyLit.push_back(sf::Vector2i(tx-1,  ty ));
+                    m_lastlyLit.push_back(sf::Vector2i( tx , ty-1));
+                    m_lastlyLit.push_back(sf::Vector2i(tx-2, ty-2));
                 }
             }
 
-            if (y < size_.y-1)
+            if (y < m_size.y-1)
             {
-                if (cellIDs_[tx-3 + (ty+3)*size_.x*3] == 2) // BOTTOM LEFT
+                if (m_cellIDs[tx-3 + (ty+3)*m_size.x*3] == 2) // BOTTOM LEFT
                 {
-                    cellIDs_[tx-1 + (ty+1)*size_.x*3] =  2;
-                    cellIDs_[tx-1 + ( ty )*size_.x*3] =  2;
-                    cellIDs_[ tx  + (ty+1)*size_.x*3] =  2;
+                    m_cellIDs[tx-1 + (ty+1)*m_size.x*3] =  2;
+                    m_cellIDs[tx-1 + ( ty )*m_size.x*3] =  2;
+                    m_cellIDs[ tx  + (ty+1)*m_size.x*3] =  2;
 
-                    cellIDs_[tx-2 + (ty+2)*size_.x*3] =  2;
+                    m_cellIDs[tx-2 + (ty+2)*m_size.x*3] =  2;
 
-                    lastlyLit_.push_back(sf::Vector2i(tx-1, ty+1));
-                    lastlyLit_.push_back(sf::Vector2i(tx-1,  ty ));
-                    lastlyLit_.push_back(sf::Vector2i( tx , ty+1));
-                    lastlyLit_.push_back(sf::Vector2i(tx-2, ty+2));
+                    m_lastlyLit.push_back(sf::Vector2i(tx-1, ty+1));
+                    m_lastlyLit.push_back(sf::Vector2i(tx-1,  ty ));
+                    m_lastlyLit.push_back(sf::Vector2i( tx , ty+1));
+                    m_lastlyLit.push_back(sf::Vector2i(tx-2, ty+2));
                 }
             }
 
-            if (cellIDs_[tx-3 + ty*size_.x*3] == 2) // LEFT
+            if (m_cellIDs[tx-3 + ty*m_size.x*3] == 2) // LEFT
             {
-                cellIDs_[tx-1 + ty*size_.x*3] =  2;
-                cellIDs_[tx-2 + ty*size_.x*3] =  2;
+                m_cellIDs[tx-1 + ty*m_size.x*3] =  2;
+                m_cellIDs[tx-2 + ty*m_size.x*3] =  2;
 
-                lastlyLit_.push_back(sf::Vector2i(tx-1, ty));
-                lastlyLit_.push_back(sf::Vector2i(tx-2, ty));
+                m_lastlyLit.push_back(sf::Vector2i(tx-1, ty));
+                m_lastlyLit.push_back(sf::Vector2i(tx-2, ty));
             }
         }
 
         if (y > 0)
         {
-            if (cellIDs_[tx + (ty-3)*size_.x*3] == 2) // TOP
+            if (m_cellIDs[tx + (ty-3)*m_size.x*3] == 2) // TOP
             {
-                cellIDs_[tx + (ty-1)*size_.x*3] =  2;
-                cellIDs_[tx + (ty-2)*size_.x*3] =  2;
+                m_cellIDs[tx + (ty-1)*m_size.x*3] =  2;
+                m_cellIDs[tx + (ty-2)*m_size.x*3] =  2;
 
-                lastlyLit_.push_back(sf::Vector2i(tx, ty-1));
-                lastlyLit_.push_back(sf::Vector2i(tx, ty-2));
+                m_lastlyLit.push_back(sf::Vector2i(tx, ty-1));
+                m_lastlyLit.push_back(sf::Vector2i(tx, ty-2));
             }
         }
 
-        if (y < size_.y-1)
+        if (y < m_size.y-1)
         {
-            if (cellIDs_[tx + (ty+3)*size_.x*3] == 2) // BOTTOM
+            if (m_cellIDs[tx + (ty+3)*m_size.x*3] == 2) // BOTTOM
             {
-                cellIDs_[tx + (ty+1)*size_.x*3] =  2;
-                cellIDs_[tx + (ty+2)*size_.x*3] =  2;
+                m_cellIDs[tx + (ty+1)*m_size.x*3] =  2;
+                m_cellIDs[tx + (ty+2)*m_size.x*3] =  2;
 
-                lastlyLit_.push_back(sf::Vector2i(tx, ty+1));
-                lastlyLit_.push_back(sf::Vector2i(tx, ty+2));
+                m_lastlyLit.push_back(sf::Vector2i(tx, ty+1));
+                m_lastlyLit.push_back(sf::Vector2i(tx, ty+2));
             }
         }
 
@@ -224,24 +224,24 @@ namespace rr
         std::vector<unsigned char> neighbors;
         if (x > 0)
         {
-            if (y > 0)         neighbors.push_back(1);
-            if (y < size_.y-1) neighbors.push_back(7);
+            if (y > 0)          neighbors.push_back(1);
+            if (y < m_size.y-1) neighbors.push_back(7);
 
             neighbors.push_back(8);
         }
 
-        if (x < size_.x-1)
+        if (x < m_size.x-1)
         {
             if (y > 0)         neighbors.push_back(3);
 
-            if (y < size_.y-1) neighbors.push_back(5);
+            if (y < m_size.y-1) neighbors.push_back(5);
 
             neighbors.push_back(4);
         }
         
         if (y > 0)         neighbors.push_back(2);
 
-        if (y < size_.y-1) neighbors.push_back(6);
+        if (y < m_size.y-1) neighbors.push_back(6);
 
         for (unsigned i = 0; i < neighbors.size(); ++i)
         {
@@ -258,60 +258,60 @@ namespace rr
                 case 8: tx = 3*(x-1) + 1; ty = 3*( y ) + 1; break;  // LEFT
             }
 
-            if (  cellIDs_[tx-1 + ( ty )*size_.x*3] == 2            // IF LEFT
-               && cellIDs_[ tx  + (ty-1)*size_.x*3] == 2)           // AND TOP ARE TRANSPARENT
+            if (  m_cellIDs[tx-1 + ( ty )*m_size.x*3] == 2            // IF LEFT
+               && m_cellIDs[ tx  + (ty-1)*m_size.x*3] == 2)           // AND TOP ARE TRANSPARENT
             {
-                  cellIDs_[tx-1 + (ty-1)*size_.x*3] =  2;           // THEN SET TOP LEFT TO TRANSPARENT
-                  lastlyLit_.push_back(sf::Vector2i(tx-1, ty-1));
+                  m_cellIDs[tx-1 + (ty-1)*m_size.x*3] =  2;           // THEN SET TOP LEFT TO TRANSPARENT
+                  m_lastlyLit.push_back(sf::Vector2i(tx-1, ty-1));
             }
 
-            if (  cellIDs_[tx-1 + ( ty )*size_.x*3] == 2            // IF LEFT
-               && cellIDs_[ tx  + (ty+1)*size_.x*3] == 2)           // AND BOTTOM ARE TRANSPARENT
+            if (  m_cellIDs[tx-1 + ( ty )*m_size.x*3] == 2            // IF LEFT
+               && m_cellIDs[ tx  + (ty+1)*m_size.x*3] == 2)           // AND BOTTOM ARE TRANSPARENT
             {
-                  cellIDs_[tx-1 + (ty+1)*size_.x*3] =  2;           // THEN SET BOTTOM LEFT TO TRANSPARENT
-                  lastlyLit_.push_back(sf::Vector2i(tx-1, ty+1));
+                  m_cellIDs[tx-1 + (ty+1)*m_size.x*3] =  2;           // THEN SET BOTTOM LEFT TO TRANSPARENT
+                  m_lastlyLit.push_back(sf::Vector2i(tx-1, ty+1));
             }
 
-            if (  cellIDs_[tx+1 + ( ty )*size_.x*3] == 2            // IF RIGHT
-               && cellIDs_[ tx  + (ty-1)*size_.x*3] == 2)           // AND TOP ARE TRANSPARENT
+            if (  m_cellIDs[tx+1 + ( ty )*m_size.x*3] == 2            // IF RIGHT
+               && m_cellIDs[ tx  + (ty-1)*m_size.x*3] == 2)           // AND TOP ARE TRANSPARENT
             {
-                  cellIDs_[tx+1 + (ty-1)*size_.x*3] =  2;           // THEN SET TOP RIGHT TO TRANSPARENT
-                  lastlyLit_.push_back(sf::Vector2i(tx+1, ty-1));
+                  m_cellIDs[tx+1 + (ty-1)*m_size.x*3] =  2;           // THEN SET TOP RIGHT TO TRANSPARENT
+                  m_lastlyLit.push_back(sf::Vector2i(tx+1, ty-1));
             }
 
-            if (  cellIDs_[tx+1 + ( ty )*size_.x*3] == 2            // IF RIGHT
-               && cellIDs_[ tx  + (ty+1)*size_.x*3] == 2)           // AND BOTTOM ARE TRANSPARENT
+            if (  m_cellIDs[tx+1 + ( ty )*m_size.x*3] == 2            // IF RIGHT
+               && m_cellIDs[ tx  + (ty+1)*m_size.x*3] == 2)           // AND BOTTOM ARE TRANSPARENT
             {
-                  cellIDs_[tx+1 + (ty+1)*size_.x*3] =  2;           // THEN SET BOTTOM RIGHT TO TRANSPARENT
-                  lastlyLit_.push_back(sf::Vector2i(tx+1, ty+1));
+                  m_cellIDs[tx+1 + (ty+1)*m_size.x*3] =  2;           // THEN SET BOTTOM RIGHT TO TRANSPARENT
+                  m_lastlyLit.push_back(sf::Vector2i(tx+1, ty+1));
             }
 
-            if (  cellIDs_[tx-1 + (ty-1)*size_.x*3] == 2            // IF TOP LEFT
-               && cellIDs_[tx-1 + (ty+1)*size_.x*3] == 2)           // AND BOTTOM LEFT ARE TRANSPARENT
+            if (  m_cellIDs[tx-1 + (ty-1)*m_size.x*3] == 2            // IF TOP LEFT
+               && m_cellIDs[tx-1 + (ty+1)*m_size.x*3] == 2)           // AND BOTTOM LEFT ARE TRANSPARENT
             {
-                  cellIDs_[tx-1 + ( ty )*size_.x*3] =  2;           // THEN SET LEFT TO TRANSPARENT
-                  lastlyLit_.push_back(sf::Vector2i(tx-1, ty));
+                  m_cellIDs[tx-1 + ( ty )*m_size.x*3] =  2;           // THEN SET LEFT TO TRANSPARENT
+                  m_lastlyLit.push_back(sf::Vector2i(tx-1, ty));
             }
 
-            if (  cellIDs_[tx-1 + (ty-1)*size_.x*3] == 2            // IF TOP LEFT
-               && cellIDs_[tx+1 + (ty-1)*size_.x*3] == 2)           // AND TOP RIGHT ARE TRANSPARENT
+            if (  m_cellIDs[tx-1 + (ty-1)*m_size.x*3] == 2            // IF TOP LEFT
+               && m_cellIDs[tx+1 + (ty-1)*m_size.x*3] == 2)           // AND TOP RIGHT ARE TRANSPARENT
             {
-                  cellIDs_[ tx  + (ty-1)*size_.x*3] =  2;           // THEN SET TOP TO TRANSPARENT
-                  lastlyLit_.push_back(sf::Vector2i(tx, ty-1));
+                  m_cellIDs[ tx  + (ty-1)*m_size.x*3] =  2;           // THEN SET TOP TO TRANSPARENT
+                  m_lastlyLit.push_back(sf::Vector2i(tx, ty-1));
             }
 
-            if (  cellIDs_[tx+1 + (ty+1)*size_.x*3] == 2            // IF BOTTOM RIGHT
-               && cellIDs_[tx+1 + (ty-1)*size_.x*3] == 2)           // AND TOP RIGHT ARE TRANSPARENT
+            if (  m_cellIDs[tx+1 + (ty+1)*m_size.x*3] == 2            // IF BOTTOM RIGHT
+               && m_cellIDs[tx+1 + (ty-1)*m_size.x*3] == 2)           // AND TOP RIGHT ARE TRANSPARENT
             {
-                  cellIDs_[tx+1 + ( ty )*size_.x*3] =  2;           // THEN SET RIGHT TO TRANSPARENT
-                  lastlyLit_.push_back(sf::Vector2i(tx+1, ty));
+                  m_cellIDs[tx+1 + ( ty )*m_size.x*3] =  2;           // THEN SET RIGHT TO TRANSPARENT
+                  m_lastlyLit.push_back(sf::Vector2i(tx+1, ty));
             }
 
-            if (  cellIDs_[tx+1 + (ty+1)*size_.x*3] == 2            // IF BOTTOM RIGHT
-               && cellIDs_[tx-1 + (ty+1)*size_.x*3] == 2)           // AND BOTTOM LEFT ARE TRANSPARENT
+            if (  m_cellIDs[tx+1 + (ty+1)*m_size.x*3] == 2            // IF BOTTOM RIGHT
+               && m_cellIDs[tx-1 + (ty+1)*m_size.x*3] == 2)           // AND BOTTOM LEFT ARE TRANSPARENT
             {
-                  cellIDs_[ tx  + (ty+1)*size_.x*3] =  2;           // THEN SET BOTTOM TO TRANSPARENT
-                  lastlyLit_.push_back(sf::Vector2i(tx, ty+1));
+                  m_cellIDs[ tx  + (ty+1)*m_size.x*3] =  2;           // THEN SET BOTTOM TO TRANSPARENT
+                  m_lastlyLit.push_back(sf::Vector2i(tx, ty+1));
             }
         }
     }
@@ -319,26 +319,26 @@ namespace rr
     void
     ShadowMap::darken()
     {
-        for (unsigned i = 0; i < lastlyLit_.size(); ++i)
+        for (unsigned i = 0; i < m_lastlyLit.size(); ++i)
         {
-            cellIDs_[lastlyLit_[i].x + lastlyLit_[i].y*size_.x*3] = 1;
+            m_cellIDs[m_lastlyLit[i].x + m_lastlyLit[i].y*m_size.x*3] = 1;
         }
-        lastlyLit_.clear();
+        m_lastlyLit.clear();
     }
 
     void
     ShadowMap::update()
     {
-        for (int x=0; x<3*size_.x; ++x)
+        for (int x=0; x<3*m_size.x; ++x)
         {
-            for (int y=0; y<3*size_.y; ++y)
+            for (int y=0; y<3*m_size.y; ++y)
             {
-                if      (cellIDs_[x + y*3*size_.x] == 1) shadowImage_.setPixel(x, y, sf::Color(0, 0, 0, 200));
-                else if (cellIDs_[x + y*3*size_.x] == 2) shadowImage_.setPixel(x, y, sf::Color(0, 0, 0,   0));
+                if      (m_cellIDs[x + y*3*m_size.x] == 1) m_shadowImage.setPixel(x, y, sf::Color(0, 0, 0, 200));
+                else if (m_cellIDs[x + y*3*m_size.x] == 2) m_shadowImage.setPixel(x, y, sf::Color(0, 0, 0,   0));
             }
         }
 
-        shadowTexture_.update(shadowImage_);
+        m_shadowTexture.update(m_shadowImage);
     }
 
     std::ifstream&
@@ -346,12 +346,12 @@ namespace rr
     {
         try
         {
-            for (int x = 0; x < size_.x; ++x)
+            for (int x = 0; x < m_size.x; ++x)
             {
-                for (int y = 0; y < size_.y; ++y)
+                for (int y = 0; y < m_size.y; ++y)
                 {
-                    readFile <bool> (file, discovered_[x + y*size_.x]);
-                    if (discovered_[x + y*size_.x])
+                    readFile <bool> (file, m_discovered[x + y*m_size.x]);
+                    if (m_discovered[x + y*m_size.x])
                         setLit(x, y);
                 }
             }
@@ -367,11 +367,11 @@ namespace rr
     std::ofstream&
     ShadowMap::operator>>(std::ofstream& file)
     {
-        for (int x = 0; x < size_.x; ++x)
+        for (int x = 0; x < m_size.x; ++x)
         {
-            for (int y = 0; y < size_.y; ++y)
+            for (int y = 0; y < m_size.y; ++y)
             {
-                file << discovered_[x + y*size_.x] << ' ';
+                file << m_discovered[x + y*m_size.x] << ' ';
             }
             file << '\n';
         }

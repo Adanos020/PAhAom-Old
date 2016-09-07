@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/item/RangedWeapon.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -18,70 +18,70 @@ namespace rr
 {
 
     RangedWeapon::RangedWeapon(Type type, int amount, sf::Vector2i position) :
-      type_(type)
+      m_type(type)
     {
-        level_      = 0;
-        identified_ = false;
-        amount_     = amount;
+        m_level      = 0;
+        m_identified = false;
+        m_amount     = amount;
 
         initialize();
         setGridPosition(position);
     }
 
     RangedWeapon::RangedWeapon(RangedWeapon const& copy) :
-      type_(copy.type_)
+      m_type(copy.m_type)
     {
-        amount_     = copy.amount_;
-        disposable_ = copy.disposable_;
-        stackable_  = copy.stackable_;
-        ID_         = copy.ID_;
-        iconIndex_  = copy.iconIndex_;
-        body_       = copy.body_;
+        m_amount     = copy.m_amount;
+        m_disposable = copy.m_disposable;
+        m_stackable  = copy.m_stackable;
+        m_ID         = copy.m_ID;
+        m_iconIndex  = copy.m_iconIndex;
+        m_body       = copy.m_body;
     }
 
     void
     RangedWeapon::initialize()
     {
-        disposable_ = false;
-        stackable_  = false;
-        cursed_     = chance(1, 4);
-        ID_         = type_ + 23;
-        iconIndex_  = type_ + 52;
+        m_disposable = false;
+        m_stackable  = false;
+        m_cursed     = chance(1, 4);
+        m_ID         = m_type + 23;
+        m_iconIndex  = m_type + 52;
 
-        switch (type_)
+        switch (m_type)
         {
-            case BOW      : damageDealt_ = 40;
-                            requirement_ = 25;
-                            speed_       =  7;
-                            accuracy_    =  9;
+            case BOW      : m_damageDealt = 40;
+                            m_requirement = 25;
+                            m_speed       =  7;
+                            m_accuracy    =  9;
                             break;
 
-            case CROSSBOW : damageDealt_ = 50;
-                            requirement_ = 40;
-                            speed_       =  6;
-                            accuracy_    =  8;
+            case CROSSBOW : m_damageDealt = 50;
+                            m_requirement = 40;
+                            m_speed       =  6;
+                            m_accuracy    =  8;
                             break;
 
-            case SLINGSHOT: damageDealt_ = 30;
-                            requirement_ = 15;
-                            speed_       =  8;
-                            accuracy_    =  5;
+            case SLINGSHOT: m_damageDealt = 30;
+                            m_requirement = 15;
+                            m_speed       =  8;
+                            m_accuracy    =  5;
                             break;
 
-            case BELLOWS  : damageDealt_ = 35;
-                            requirement_ = 17;
-                            speed_       =  7;
-                            accuracy_    =  7;
+            case BELLOWS  : m_damageDealt = 35;
+                            m_requirement = 17;
+                            m_speed       =  7;
+                            m_accuracy    =  7;
                             break;
         }
 
-        setIcon(body_, iconIndex_);
+        setIcon(m_body, m_iconIndex);
     }
 
     sf::String
     RangedWeapon::getName() const
     {
-        switch (type_)
+        switch (m_type)
         {
             case BOW      : return Resources::dictionary["item.ranged_weapon.name.bow"      ];
             case CROSSBOW : return Resources::dictionary["item.ranged_weapon.name.crossbow" ];
@@ -96,7 +96,7 @@ namespace rr
     RangedWeapon::getDescription() const
     {
         sf::String description = "";
-        switch (type_)
+        switch (m_type)
         {
             case BOW      : description += Resources::dictionary["item.ranged_weapon.description.bow"      ] + "\n\n"
                                          + Resources::dictionary["item.requirement.item"                   ] + " "
@@ -119,10 +119,10 @@ namespace rr
                             break;
         }
 
-        description += "\n" + ((identified_ && cursed_  ) ? "\n"+Resources::dictionary["item.enchantment.description.cursed"]                                  : "")
-                            +                               "\n"+Resources::dictionary["item.requirement.dexterity"         ]+" "+std::to_string((int) requirement_)
-                            +                               "\n"+Resources::dictionary["item.weapon.damage_dealt"           ]+" "+std::to_string((int) damageDealt_)
-                            + ((identified_ && level_!=0) ? "\n"+Resources::dictionary["item.weapon.level"                  ]+" "+std::to_string((int) level_) : "");
+        description += "\n" + ((m_identified && m_cursed  ) ? "\n"+Resources::dictionary["item.enchantment.description.cursed"]                                   : "")
+                            +                                 "\n"+Resources::dictionary["item.requirement.dexterity"         ]+" "+std::to_string((int) m_requirement)
+                            +                                 "\n"+Resources::dictionary["item.weapon.damage_dealt"           ]+" "+std::to_string((int) m_damageDealt)
+                            + ((m_identified && m_level!=0) ? "\n"+Resources::dictionary["item.weapon.level"                  ]+" "+std::to_string((int) m_level) : "");
 
         return description;
     }
@@ -130,11 +130,11 @@ namespace rr
     void
     RangedWeapon::enhance()
     {
-        level_       ++;
-        speed_       ++;
-        accuracy_    ++;
-        damageDealt_ += 5;
-        requirement_ -= 3;
+        m_level       ++;
+        m_speed       ++;
+        m_accuracy    ++;
+        m_damageDealt += 5;
+        m_requirement -= 3;
     }
 
     void
@@ -153,10 +153,10 @@ namespace rr
         {
             readFile <int > (file, position.x);
             readFile <int > (file, position.y);
-            readFile <int > (file, amount_);
-            readFile <bool> (file, identified_);
-            readFile <bool> (file, equipped_);
-            readFile <int > (file, level_);
+            readFile <int > (file, m_amount);
+            readFile <bool> (file, m_identified);
+            readFile <bool> (file, m_equipped);
+            readFile <int > (file, m_level);
             readFile <int > (file, type);
         }
         catch (std::invalid_argument ex)
@@ -164,14 +164,14 @@ namespace rr
             std::cerr << ex.what() << '\n';
         }
 
-        type_ = (Type) type;
+        m_type = (Type) type;
 
         initialize();
 
-        speed_       += level_;
-        accuracy_    += level_;
-        damageDealt_ += level_*5;
-        requirement_ -= level_*3;
+        m_speed       += m_level;
+        m_accuracy    += m_level;
+        m_damageDealt += m_level*5;
+        m_requirement -= m_level*3;
 
         setGridPosition(position);
 
@@ -181,14 +181,14 @@ namespace rr
     std::ofstream&
     RangedWeapon::operator>>(std::ofstream& file)
     {
-        file << 6                            << ' '
-             << (int) body_[0].position.x/80 << ' '
-             << (int) body_[0].position.y/80 << ' '
-             << amount_                      << ' '
-             << identified_                  << ' '
-             << equipped_                    << ' '
-             << level_                       << ' '
-             << type_;
+        file << 6                             << ' '
+             << (int) m_body[0].position.x/80 << ' '
+             << (int) m_body[0].position.y/80 << ' '
+             << m_amount                      << ' '
+             << m_identified                  << ' '
+             << m_equipped                    << ' '
+             << m_level                       << ' '
+             << m_type;
 
         return file;
     }

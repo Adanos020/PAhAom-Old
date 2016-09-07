@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entities/npc/ai/MeleeAI.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef NPC_AI_MELEE_HPP

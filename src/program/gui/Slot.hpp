@@ -1,7 +1,7 @@
 /**
  * @file src/program/gui/Slot.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef GUI_SLOT_HPP
@@ -18,12 +18,12 @@ namespace rr
 
     class Slot : public Component
     {
-    private: sf::RectangleShape body_;
-             Image              image_;
-             Text               text_;
-             Item*              item_;
-             bool               hollow_;
-             bool               held_;
+    private: sf::RectangleShape m_body;
+             Image              m_image;
+             Text               m_text;
+             Item*              m_item;
+             bool               m_hollow;
+             bool               m_held;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the slot on the screen.
@@ -73,27 +73,27 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the slot's body's position.
              ////////////////////////////////////////////////////////////////////////
-             sf::Vector2f getPosition() const override { return body_.getPosition(); }
+             sf::Vector2f getPosition() const override { return m_body.getPosition(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the slot's body's size.
              ////////////////////////////////////////////////////////////////////////
-             void setSize(sf::Vector2f size) override { body_.setSize(size); }
+             void setSize(sf::Vector2f size) override { m_body.setSize(size); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the slot's body's size.
              ////////////////////////////////////////////////////////////////////////
-             sf::Vector2f getSize() const override { return body_.getSize(); }
+             sf::Vector2f getSize() const override { return m_body.getSize(); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the string of the text displayed on the scroll bar.
              ////////////////////////////////////////////////////////////////////////
-             void setText(sf::String s) { text_.setString(s); }
+             void setText(sf::String s) { m_text.setString(s); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the text displayed on the scroll bar.
              ////////////////////////////////////////////////////////////////////////
-             Text getText() const { return text_; }
+             Text getText() const { return m_text; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the slot is touched by a mouse cursor.
@@ -108,7 +108,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the slot is being held.
              ////////////////////////////////////////////////////////////////////////
-             bool isHeld() const { return held_; }
+             bool isHeld() const { return m_held; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the item contained in the slot.
@@ -118,7 +118,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Method telling if the slot is empty.
              ////////////////////////////////////////////////////////////////////////
-             bool isEmpty() const { return hollow_; }
+             bool isEmpty() const { return m_hollow; }
     };
 
 }

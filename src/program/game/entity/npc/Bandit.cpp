@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entity/npc/Bandit.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <iostream>
@@ -17,125 +17,125 @@ namespace rr
 {
 
     Bandit::Bandit(Type type) :
-      type_    (type  )
+      m_type(type)
     {
-        velocity_                        = 900.f;
-        attrs_.health = attrs_.maxHealth =  20.f;
-        attrs_.armor                     =   5.f;
-        attrs_.level                     =   5  ;
+        m_velocity                         = 900.f;
+        m_attrs.health = m_attrs.maxHealth =  20.f;
+        m_attrs.armor                      =   5.f;
+        m_attrs.level                      =   5  ;
 
         initialize();
-        body_.scale(sf::Vector2f(5, 5));
+        m_body.scale(sf::Vector2f(5, 5));
     }
 
     Bandit::Bandit(Bandit const& copy) :
-      type_(copy.type_)
+      m_type(copy.m_type)
     {
-        velocity_         = copy.velocity_;
-        attrs_            = copy.attrs_;
-        body_             = copy.body_;
-        currentAnimation_ = copy.currentAnimation_;
+        m_velocity         = copy.m_velocity;
+        m_attrs            = copy.m_attrs;
+        m_body             = copy.m_body;
+        m_currentAnimation = copy.m_currentAnimation;
     }
 
     void
     Bandit::initialize()
     {
-        standingLeft_  .setSpriteSheet(Resources::texture.enemies);
-        standingRight_ .setSpriteSheet(Resources::texture.enemies);
-        walkingLeft_   .setSpriteSheet(Resources::texture.enemies);
-        walkingRight_  .setSpriteSheet(Resources::texture.enemies);
-        attackingLeft_ .setSpriteSheet(Resources::texture.enemies);
-        attackingRight_.setSpriteSheet(Resources::texture.enemies);
+        m_standingLeft  .setSpriteSheet(Resources::texture.enemies);
+        m_standingRight .setSpriteSheet(Resources::texture.enemies);
+        m_walkingLeft   .setSpriteSheet(Resources::texture.enemies);
+        m_walkingRight  .setSpriteSheet(Resources::texture.enemies);
+        m_attackingLeft .setSpriteSheet(Resources::texture.enemies);
+        m_attackingRight.setSpriteSheet(Resources::texture.enemies);
 
-        standingLeft_  .addFrame(sf::IntRect(0, type_*32 + 16, 16, 16));
+        m_standingLeft  .addFrame(sf::IntRect(0, m_type*32 + 16, 16, 16));
 
-        standingRight_ .addFrame(sf::IntRect(0, type_*32     , 16, 16));
+        m_standingRight .addFrame(sf::IntRect(0, m_type*32     , 16, 16));
 
-        walkingLeft_   .addFrame(sf::IntRect(0, type_*32 + 16, 16, 16));
+        m_walkingLeft   .addFrame(sf::IntRect(0, m_type*32 + 16, 16, 16));
 
-        walkingRight_  .addFrame(sf::IntRect(0, type_*32     , 16, 16));
+        m_walkingRight  .addFrame(sf::IntRect(0, m_type*32     , 16, 16));
 
-        attackingLeft_ .addFrame(sf::IntRect(0, type_*32 + 16, 16, 16));
+        m_attackingLeft .addFrame(sf::IntRect(0, m_type*32 + 16, 16, 16));
 
-        attackingRight_.addFrame(sf::IntRect(0, type_*32     , 16, 16));
+        m_attackingRight.addFrame(sf::IntRect(0, m_type*32     , 16, 16));
 
-        currentAnimation_ = chance(1, 2) ? &standingLeft_ : &standingRight_;
+        m_currentAnimation = chance(1, 2) ? &m_standingLeft : &m_standingRight;
 
-        attitude_ = AGGRESSIVE;
-        state_    = chance(1, 3) ? STANDING : WAITING;
+        m_attitude = AGGRESSIVE;
+        m_state    = chance(1, 3) ? STANDING : WAITING;
 
-        body_.setAnimation(*currentAnimation_);
-        body_.setLooped   (true);
-        body_.setFrameTime(sf::seconds(.2f));
+        m_body.setAnimation(*m_currentAnimation);
+        m_body.setLooped   (true);
+        m_body.setFrameTime(sf::seconds(.2f));
     }
 
     void
     Bandit::update(int tiles[], sf::Time timeStep)
     {
-        if (moving_)
+        if (m_moving)
         {
-            sf::Vector2f offset = body_.getPosition() - (sf::Vector2f) position_*80.f;
+            sf::Vector2f offset = m_body.getPosition() - (sf::Vector2f) m_position*80.f;
             if (offset != sf::Vector2f(0, 0))
             {
-                if (offset.x < 0) body_.move(sf::Vector2f( velocity_*timeStep.asSeconds(),  0));
-                if (offset.x > 0) body_.move(sf::Vector2f(-velocity_*timeStep.asSeconds(),  0));
-                if (offset.y < 0) body_.move(sf::Vector2f( 0,  velocity_*timeStep.asSeconds()));
-                if (offset.y > 0) body_.move(sf::Vector2f( 0, -velocity_*timeStep.asSeconds()));
+                if (offset.x < 0) m_body.move(sf::Vector2f( m_velocity*timeStep.asSeconds(),  0));
+                if (offset.x > 0) m_body.move(sf::Vector2f(-m_velocity*timeStep.asSeconds(),  0));
+                if (offset.y < 0) m_body.move(sf::Vector2f( 0,  m_velocity*timeStep.asSeconds()));
+                if (offset.y > 0) m_body.move(sf::Vector2f( 0, -m_velocity*timeStep.asSeconds()));
             }
             else
             {
-                buffs_.speed        -= (buffs_.speed        == 0 ? 0 : 1);
-                buffs_.regeneration -= (buffs_.regeneration == 0 ? 0 : 1);
-                buffs_.poison       -= (buffs_.poison       == 0 ? 0 : 1);
-                buffs_.slowness     -= (buffs_.slowness     == 0 ? 0 : 1);
-                buffs_.weakness     -= (buffs_.weakness     == 0 ? 0 : 1);
+                m_buffs.speed        -= (m_buffs.speed        == 0 ? 0 : 1);
+                m_buffs.regeneration -= (m_buffs.regeneration == 0 ? 0 : 1);
+                m_buffs.poison       -= (m_buffs.poison       == 0 ? 0 : 1);
+                m_buffs.slowness     -= (m_buffs.slowness     == 0 ? 0 : 1);
+                m_buffs.weakness     -= (m_buffs.weakness     == 0 ? 0 : 1);
 
-                if (buffs_.poison > 0)
-                    attrs_.health -= 1.f;
+                if (m_buffs.poison > 0)
+                    m_attrs.health -= 1.f;
 
-                if (buffs_.regeneration > 0)
-                    attrs_.health += 0.15f;
+                if (m_buffs.regeneration > 0)
+                    m_attrs.health += 0.15f;
 
-                moving_ = false;
+                m_moving = false;
             }
 
-            if (  (abs(offset.x) < velocity_/128 && abs(offset.x) > 0) // preventing the bandit from wobbling
-               || (abs(offset.y) < velocity_/128 && abs(offset.y) > 0) // in between of two cells
-                )  body_.setPosition((sf::Vector2f) position_*80.f);
+            if (  (abs(offset.x) < m_velocity/128 && abs(offset.x) > 0) // preventing the bandit from wobbling
+               || (abs(offset.y) < m_velocity/128 && abs(offset.y) > 0) // in between of two cells
+                )  m_body.setPosition((sf::Vector2f) m_position*80.f);
         }
 
-        body_.update(timeStep);
+        m_body.update(timeStep);
 
-        if (!body_.isPlaying())
+        if (!m_body.isPlaying())
         {
-            if      (direction_ == LEFT ) currentAnimation_ = &standingLeft_;
-            else if (direction_ == RIGHT) currentAnimation_ = &standingRight_;
-            body_.setLooped(true);
+            if      (m_direction == LEFT ) m_currentAnimation = &m_standingLeft;
+            else if (m_direction == RIGHT) m_currentAnimation = &m_standingRight;
+            m_body.setLooped(true);
         }
 
-        switch (state_)
+        switch (m_state)
         {
-            case STANDING : if      (   direction_        == LEFT
-                                    && *currentAnimation_ != standingLeft_
-                                     )  currentAnimation_ = &standingLeft_;
+            case STANDING : if      (   m_direction        == LEFT
+                                    && *m_currentAnimation != m_standingLeft
+                                     )  m_currentAnimation = &m_standingLeft;
 
-                            else if (   direction_        == RIGHT
-                                    && *currentAnimation_ != standingRight_
-                                     )  currentAnimation_ = &standingRight_;
+                            else if (   m_direction        == RIGHT
+                                    && *m_currentAnimation != m_standingRight
+                                     )  m_currentAnimation = &m_standingRight;
                             break;
 
             case WAITING  : break;
 
-            case EXPLORING: if (!moving_)
+            case EXPLORING: if (!m_moving)
                             {
-                                if (position_ != destination_)
+                                if (m_position != m_destination)
                                 {
-                                    /*position_ = PathFinder::aStar(position_, destination_, tiles)[0] - position_;
-                                    moving_ = true;*/
+                                    /*m_position = PathFinder::aStar(m_position, m_destination, tiles)[0] - m_position;
+                                    m_moving = true;*/
                                 }
                                 else
                                 {
-                                    state_ = STANDING;
+                                    m_state = STANDING;
                                 }
                             }
                             break;
@@ -145,13 +145,13 @@ namespace rr
             case ESCAPING : break;
         }
 
-        body_.play(*currentAnimation_);
+        m_body.play(*m_currentAnimation);
     }
 
     sf::String
     Bandit::getName() const
     {
-        switch (type_)
+        switch (m_type)
         {
             case CLUB    : return Resources::dictionary["npc.bandit.name.bully"      ]; break;
             case CROSSBOW: return Resources::dictionary["npc.bandit.name.crossbowman"]; break;
@@ -164,20 +164,20 @@ namespace rr
     void
     Bandit::handleDamage(int damage)
     {
-        if (damage >= attrs_.armor)
-            attrs_.health -= (damage - attrs_.armor);
-        state_ = HUNTING;
+        if (damage >= m_attrs.armor)
+            m_attrs.health -= (damage - m_attrs.armor);
+        m_state = HUNTING;
     }
 
     void
     Bandit::attack(NPC* npc)
     {
-        if      (direction_ == LEFT ) currentAnimation_ = &attackingLeft_;
-        else if (direction_ == RIGHT) currentAnimation_ = &attackingRight_;
-        body_.setLooped(false);
+        if      (m_direction == LEFT ) m_currentAnimation = &m_attackingLeft;
+        else if (m_direction == RIGHT) m_currentAnimation = &m_attackingRight;
+        m_body.setLooped(false);
 
         int maxDamage = 0;
-        switch (type_)
+        switch (m_type)
         {
             case CLUB    : maxDamage = 10; break;
             case CROSSBOW: maxDamage =  5; break;
@@ -190,12 +190,12 @@ namespace rr
     void
     Bandit::attack(Player* player)
     {
-        if      (direction_ == LEFT ) currentAnimation_ = &attackingLeft_;
-        else if (direction_ == RIGHT) currentAnimation_ = &attackingRight_;
-        body_.setLooped(false);
+        if      (m_direction == LEFT ) m_currentAnimation = &m_attackingLeft;
+        else if (m_direction == RIGHT) m_currentAnimation = &m_attackingRight;
+        m_body.setLooped(false);
 
         int maxDamage = 0;
-        switch (type_)
+        switch (m_type)
         {
             case CLUB    : maxDamage = 10; break;
             case CROSSBOW: maxDamage =  5; break;
@@ -208,12 +208,12 @@ namespace rr
     std::ifstream&
     Bandit::operator<<(std::ifstream& file)
     {
-        standingLeft_  .clearFrames();
-        standingRight_ .clearFrames();
-        walkingLeft_   .clearFrames();
-        walkingRight_  .clearFrames();
-        attackingLeft_ .clearFrames();
-        attackingRight_.clearFrames();
+        m_standingLeft  .clearFrames();
+        m_standingRight .clearFrames();
+        m_walkingLeft   .clearFrames();
+        m_walkingRight  .clearFrames();
+        m_attackingLeft .clearFrames();
+        m_attackingRight.clearFrames();
 
         sf::Vector2i position;
         int state, direction, type;
@@ -231,9 +231,9 @@ namespace rr
             std::cerr << ex.what() << '\n';
         }
 
-        state_     = (  State  )     state;
-        direction_ = (Direction) direction;
-        type_      = (   Type  )      type;
+        m_state     = (  State  )     state;
+        m_direction = (Direction) direction;
+        m_type      = (   Type  )      type;
 
         initialize();
         setGridPosition(position);
@@ -245,11 +245,11 @@ namespace rr
     Bandit::operator>>(std::ofstream& file)
     {
         file << 20                             << ' '
-             << (int) body_.getPosition().x/80 << ' '
-             << (int) body_.getPosition().y/80 << ' '
-             << state_                         << ' '
-             << direction_                     << ' '
-             << type_;
+             << (int) m_body.getPosition().x/80 << ' '
+             << (int) m_body.getPosition().y/80 << ' '
+             << m_state                         << ' '
+             << m_direction                     << ' '
+             << m_type;
 
         return file;
     }
