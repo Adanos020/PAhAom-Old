@@ -12,15 +12,17 @@ namespace rr
 
     class NPC;
     class Level;
+    class Player;
 
     class AIManager
     {
-        private: Level* m_level;
+        private: Level*  m_level;
+                 Player* m_player;
 
         public:  ////////////////////////////////////////////////////////////////////////
                  /// \brief Regular constructor.
                  ////////////////////////////////////////////////////////////////////////
-                 AIManager(Level* = nullptr);
+                 AIManager(Level* = nullptr, Player* = nullptr);
 
                  ////////////////////////////////////////////////////////////////////////
                  /// \brief Makes orders to a given NPC.

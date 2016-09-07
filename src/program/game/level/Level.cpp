@@ -21,10 +21,10 @@ extern rr::Subject subject;
 namespace rr
 {
 
-    Level::Level(int number) :
+    Level::Level(int number, Player* player) :
       m_size       (sf::Vector2i(77, 43)),
       m_shadowMap  (ShadowMap(m_size)),
-      m_AIManager  (this),
+      m_AIManager  (this, player),
       m_regionCount(0),
       m_levelNumber(number)
     {
@@ -230,66 +230,7 @@ namespace rr
                 m_tilesAsInts[pos.x + pos.y*m_size.x] = 5;
             }
 
-            if (npc->getState() == NPC::STANDING)
-            {
-                while (true)
-                {
-                    int x=rand()%m_size.x, y=rand()%m_size.y;
-                    if (m_tiles[x + y*m_size.x] == ROOM && m_tiles[x + y*m_size.x] != OCCUPIED)
-                    {
-                        npc->setDestination(sf::Vector2i(x, y));
-                        npc->setState(NPC::EXPLORING);
-                        break;
-                    }
-                }
-            }
-
-            if (npc->getAttitude() == NPC::AGGRESSIVE && npc->getState() == NPC::HUNTING) // the npc is either aggressive and hunting
-            {
-                int detector = npc->detects(player);
-                if (detector != -1) // the npc detects player
-                {
-                    if      ((detector == 0 || detector == 3 || detector == 5) && npc->getDirection() != NPC::LEFT ) npc->setDirection(NPC::LEFT);
-                    else if ((detector == 2 || detector == 4 || detector == 7) && npc->getDirection() != NPC::RIGHT) npc->setDirection(NPC::RIGHT);
-
-                    if (instanceof <Bandit, NPC> (npc)) // the npc is a bandit
-                    {
-                        bool hit = false;
-                        switch (((Bandit*) npc)->getType())
-                        {
-                            case Bandit::CLUB    : if (chance(MeleeWeapon(MeleeWeapon::CLUB).getAccuracy()*2, 21))
-                                                   {
-                                                       ((Bandit*) npc)->attack(player);
-                                                       hit = true;
-                                                   }
-                                                   break;
-
-                            case Bandit::CROSSBOW: if (chance(RangedWeapon(RangedWeapon::CROSSBOW).getAccuracy()*2, 21))
-                                                   {
-                                                       ((Bandit*) npc)->attack(player);
-                                                       hit = true;
-                                                   }
-                                                   break;
-
-                            case Bandit::DAGGER  : if (chance(MeleeWeapon(MeleeWeapon::DAGGER).getAccuracy()*2, 21))
-                                                   {
-                                                       ((Bandit*) npc)->attack(player);
-                                                       hit = true;
-                                                   }
-                                                   break;
-                        }
-
-                        if (hit)
-                            subject.notify(NPC_ATTACK_SUCCESS, npc); // the npc hit the player
-                        else
-                            subject.notify(NPC_ATTACK_FAILURE, npc); // the player dodged the attack
-                    }
-                }
-                else if (FOV::seesEntity(m_tilesAsInts, npc, player))
-                {
-                    npc->setDestination(player->getGridPosition());
-                }
-            }
+            m_AIManager.makeOrders(npc);
         }
     }
 

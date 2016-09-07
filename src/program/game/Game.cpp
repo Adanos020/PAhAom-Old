@@ -122,9 +122,15 @@ namespace rr
         subject.removeObserver(m_currentLevel);
         delete m_currentLevel;
 
+<<<<<<< HEAD
         m_currentLevel = new Level(m_levelNumber);
         m_currentLevel->generateWorld();
         subject.addObserver(m_currentLevel);
+=======
+        currentLevel_ = new Level(levelNumber_, &player_);
+        currentLevel_->generateWorld();
+        subject.addObserver(currentLevel_);
+>>>>>>> 2c05e2b4deb6660a995af48558ad18b2246a9c2a
 
         std::ifstream file("save/level"+std::to_string(m_levelNumber)+".pah");
         *m_currentLevel << file;
@@ -155,8 +161,13 @@ namespace rr
 
         for (int i = 29; i >= 0; --i)
         {
+<<<<<<< HEAD
             m_currentLevel = new Level(i);
             m_currentLevel->generateWorld();
+=======
+            currentLevel_ = new Level(i, &player_);
+            currentLevel_->generateWorld();
+>>>>>>> 2c05e2b4deb6660a995af48558ad18b2246a9c2a
 
             file.open("save/level"+std::to_string(i)+".pah");
             if (!file.good()) {
@@ -233,7 +244,11 @@ namespace rr
 
             file.close();
 
+<<<<<<< HEAD
             m_currentLevel = new Level(m_levelNumber);
+=======
+            currentLevel_ = new Level(levelNumber_, &player_);
+>>>>>>> 2c05e2b4deb6660a995af48558ad18b2246a9c2a
 
             file.open("save/level"+std::to_string(m_levelNumber)+".pah");
             *m_currentLevel << file;
