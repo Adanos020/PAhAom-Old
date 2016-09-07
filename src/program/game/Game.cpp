@@ -122,7 +122,7 @@ namespace rr
         subject.removeObserver(currentLevel_);
         delete currentLevel_;
 
-        currentLevel_ = new Level(levelNumber_);
+        currentLevel_ = new Level(levelNumber_, &player_);
         currentLevel_->generateWorld();
         subject.addObserver(currentLevel_);
 
@@ -155,7 +155,7 @@ namespace rr
 
         for (int i = 29; i >= 0; --i)
         {
-            currentLevel_ = new Level(i);
+            currentLevel_ = new Level(i, &player_);
             currentLevel_->generateWorld();
 
             file.open("save/level"+std::to_string(i)+".pah");
@@ -233,7 +233,7 @@ namespace rr
 
             file.close();
 
-            currentLevel_ = new Level(levelNumber_);
+            currentLevel_ = new Level(levelNumber_, &player_);
 
             file.open("save/level"+std::to_string(levelNumber_)+".pah");
             *currentLevel_ << file;

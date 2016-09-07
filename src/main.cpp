@@ -1,7 +1,7 @@
 /**
  * @file src/main.cpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #include <SFML/Graphics.hpp>

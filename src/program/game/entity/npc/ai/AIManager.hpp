@@ -1,7 +1,7 @@
 /**
  * @file src/program/game/entities/npc/ai/AIManager.hpp
  * @author Adam 'Adanos' Gąsior
- * Used library: SFML 2.3.2
+ * Used library: SFML
  */
 
 #ifndef NPC_AI_MANAGER_HPP
@@ -12,15 +12,17 @@ namespace rr
 
     class NPC;
     class Level;
+    class Player;
 
     class AIManager
     {
-        private: Level* m_level;
+        private: Level*  m_level;
+                 Player* m_player;
 
         public:  ////////////////////////////////////////////////////////////////////////
                  /// \brief Regular constructor.
                  ////////////////////////////////////////////////////////////////////////
-                 AIManager(Level* = nullptr);
+                 AIManager(Level* = nullptr, Player* = nullptr);
 
                  ////////////////////////////////////////////////////////////////////////
                  /// \brief Makes orders to a given NPC.
