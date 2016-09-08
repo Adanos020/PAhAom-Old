@@ -86,20 +86,22 @@ namespace rr
         m_walkingRight.setSpriteSheet(Resources::texture.player);
 
         // adding the frames to the animations
-        m_standingLeft .addFrame(sf::IntRect(0 , 16, 16, 16));
-        m_standingRight.addFrame(sf::IntRect(0 , 0 , 16, 16));
+        m_standingLeft.addFrame(sf::IntRect(0, 16, 16, 16));
+        
+        m_standingRight.addFrame(sf::IntRect(0, 0, 16, 16));
 
-        m_walkingLeft.addFrame(sf::IntRect(0 , 16, 16, 16));
+        m_walkingLeft.addFrame(sf::IntRect( 0, 16, 16, 16));
         m_walkingLeft.addFrame(sf::IntRect(16, 16, 16, 16));
-        m_walkingLeft.addFrame(sf::IntRect(0 , 16, 16, 16));
+        m_walkingLeft.addFrame(sf::IntRect( 0, 16, 16, 16));
         m_walkingLeft.addFrame(sf::IntRect(32, 16, 16, 16));
 
-        m_walkingRight.addFrame(sf::IntRect(0 , 0, 16, 16));
+        m_walkingRight.addFrame(sf::IntRect( 0, 0, 16, 16));
         m_walkingRight.addFrame(sf::IntRect(16, 0, 16, 16));
-        m_walkingRight.addFrame(sf::IntRect(0 , 0, 16, 16));
+        m_walkingRight.addFrame(sf::IntRect( 0, 0, 16, 16));
         m_walkingRight.addFrame(sf::IntRect(32, 0, 16, 16));
 
-        m_body.setFrameTime(sf::seconds(.075f));
+        // setting the animated sprite's properties
+        m_body.setFrameTime(sf::seconds(.125f));
         m_body.setLooped(false);
         m_body.pause();
     }
