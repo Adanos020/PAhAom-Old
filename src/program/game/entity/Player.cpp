@@ -78,8 +78,16 @@ namespace rr
     void
     Player::initialize()
     {
+        // loading the sprite sheets for the animations
+        m_standingLeft .setSpriteSheet(Resources::texture.player);
+        m_standingRight.setSpriteSheet(Resources::texture.player);
+
         m_walkingLeft .setSpriteSheet(Resources::texture.player);
         m_walkingRight.setSpriteSheet(Resources::texture.player);
+
+        // adding the frames to the animations
+        m_standingLeft .addFrame(sf::IntRect(0 , 16, 16, 16));
+        m_standingRight.addFrame(sf::IntRect(0 , 0 , 16, 16));
 
         m_walkingLeft.addFrame(sf::IntRect(0 , 16, 16, 16));
         m_walkingLeft.addFrame(sf::IntRect(16, 16, 16, 16));
@@ -91,7 +99,7 @@ namespace rr
         m_walkingRight.addFrame(sf::IntRect(0 , 0, 16, 16));
         m_walkingRight.addFrame(sf::IntRect(32, 0, 16, 16));
 
-        m_body.setFrameTime(sf::seconds(0.1f));
+        m_body.setFrameTime(sf::seconds(.075f));
         m_body.setLooped(false);
         m_body.pause();
     }
@@ -105,11 +113,23 @@ namespace rr
             {
                 m_position = sf::Vector2i(m_position.x, m_position.y-1);
                 m_moving = true;
+
+                if (m_currentAnimation == &m_standingLeft)
+                    m_currentAnimation = &m_walkingLeft;
+
+                else if (m_currentAnimation == &m_standingRight)
+                    m_currentAnimation = &m_walkingRight;
             }
             if (di == DOWN && (tiles[m_position.x + (m_position.y+1)*77] != 1 && tiles[m_position.x + (m_position.y+1)*77] != 5))
             {
                 m_position = sf::Vector2i(m_position.x, m_position.y+1);
                 m_moving = true;
+
+                if (m_currentAnimation == &m_standingLeft)
+                    m_currentAnimation = &m_walkingLeft;
+
+                else if (m_currentAnimation == &m_standingRight)
+                    m_currentAnimation = &m_walkingRight;
             }
             if (di == LEFT)
             {
@@ -177,6 +197,14 @@ namespace rr
             if (  (abs(offset.x) < m_velocity/128 && abs(offset.x) > 0) // preventing the player from wobbling
                || (abs(offset.y) < m_velocity/128 && abs(offset.y) > 0) // in between of two cells
                 )  m_body.setPosition((sf::Vector2f) m_position*80.f);
+        }
+        else
+        {
+            if (m_currentAnimation == &m_walkingLeft)
+                m_currentAnimation = &m_standingLeft;
+
+            else if (m_currentAnimation == &m_walkingRight)
+                m_currentAnimation = &m_standingRight;
         }
 
         if (m_attrs.health >= m_attrs.maxHealth)

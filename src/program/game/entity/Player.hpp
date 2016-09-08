@@ -67,7 +67,10 @@ namespace rr
 
              sf::Vector2i       m_position;
              sf::AnimatedSprite m_body;
-             
+
+
+             sf::Animation      m_standingLeft;
+             sf::Animation      m_standingRight;
              sf::Animation      m_walkingLeft;
              sf::Animation      m_walkingRight;
              sf::Animation*     m_currentAnimation;
