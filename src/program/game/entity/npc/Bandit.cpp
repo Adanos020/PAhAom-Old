@@ -141,8 +141,8 @@ namespace rr
                             {
                                 if (m_position != m_destination)
                                 {
-                                    /*m_position = PathFinder::aStar(m_position, m_destination, tiles)[0] - m_position;
-                                    m_moving = true;*/
+                                    //m_position = PathFinder::aStar(m_position, m_destination, tiles)[0];
+                                    m_moving = true;
                                 }
                                 else
                                 {
@@ -255,7 +255,7 @@ namespace rr
     std::ofstream&
     Bandit::operator>>(std::ofstream& file)
     {
-        file << 20                             << ' '
+        file << 20                              << ' '
              << (int) m_body.getPosition().x/80 << ' '
              << (int) m_body.getPosition().y/80 << ' '
              << m_state                         << ' '

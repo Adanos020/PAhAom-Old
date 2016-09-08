@@ -101,7 +101,7 @@ namespace rr
         m_walkingRight.addFrame(sf::IntRect(32, 0, 16, 16));
 
         // setting the animated sprite's properties
-        m_body.setFrameTime(sf::seconds(.125f));
+        m_body.setFrameTime(sf::seconds(.1f));
         m_body.setLooped(false);
         m_body.pause();
     }
@@ -466,7 +466,7 @@ namespace rr
             if (!equip)
             {
                 m_meleeWeapon = nullptr;
-                success     = true;
+                success       = true;
             }
             else if (((MeleeWeapon*) item)->getRequirement() <= m_attrs.strength)
             {
@@ -479,12 +479,12 @@ namespace rr
             if (!equip)
             {
                 m_rangedWeapon = nullptr;
-                success       = true;
+                success        = true;
             }
             else if (((RangedWeapon*) item)->getRequirement() <= m_attrs.dexterity)
             {
                 m_rangedWeapon = (RangedWeapon*) item;
-                success       = true;
+                success        = true;
             }
         }
 
