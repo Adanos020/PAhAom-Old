@@ -14,8 +14,8 @@ namespace rr
 
     class Stairs : public Entity
     {
-    private: sf::Sprite   m_body;
-             bool         m_upwards;
+    private: sf::Sprite m_body;
+             bool       m_upwards;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the stairs.

@@ -28,14 +28,14 @@ namespace rr
 {
 
     Game::Game() :
-      m_currentLevel(nullptr            ),
-      m_conversation(&m_player           ),
+      m_currentLevel(nullptr),
+      m_conversation(&m_player),
       m_inventory   (Inventory(&m_player)),
-      m_started     (false              ),
-      m_paused      (false              ),
-      m_mapOpen     (false              ),
-      m_lost        (false              ),
-      m_levelNumber (0                  )
+      m_started     (false),
+      m_paused      (false),
+      m_mapOpen     (false),
+      m_lost        (false),
+      m_levelNumber (0)
     {
         m_gameView.setSize((sf::Vector2f) Settings::graphics.resolution);
 
@@ -291,10 +291,10 @@ namespace rr
     {
         m_lost = true;
 
-#if defined (__WINDOWS__) || defined (__TOS_WIN__) || defined (__WIN32__) || defined (_WIN64) || defined (_WIN32)
-        system("del save/*.pah");
-#else
+#if defined (__gnu_linux__)
         system("rm -rf save/*.pah");
+#else
+        system("del save/*.pah");
 #endif
 
     }

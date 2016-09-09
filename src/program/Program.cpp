@@ -20,8 +20,12 @@ namespace rr
 
     Program::Program()
     {
-        if (loadResources())
-            runGame();
+
+    }
+
+    Program::~Program()
+    {
+        delete m_game;
     }
 
     bool

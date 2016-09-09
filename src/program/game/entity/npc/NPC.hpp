@@ -31,6 +31,7 @@ namespace rr
                    float armor;
                }                  m_attrs;
                sf::AnimatedSprite m_body;
+
                sf::Animation*     m_currentAnimation;
                sf::Animation      m_standingLeft;
                sf::Animation      m_standingRight;

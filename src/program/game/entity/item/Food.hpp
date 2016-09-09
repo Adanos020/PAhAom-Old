@@ -43,7 +43,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Creates an exact copy of the food.
              ////////////////////////////////////////////////////////////////////////
-             virtual Entity* clone() const override { return new Food(*this); }
+     virtual Entity* clone() const override { return new Food(*this); }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the food's type.
@@ -62,22 +62,22 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the food's name.
              ////////////////////////////////////////////////////////////////////////
-             virtual sf::String getName() const override;
+     virtual sf::String getName() const override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the food's description.
              ////////////////////////////////////////////////////////////////////////
-             virtual sf::String getDescription() const override;
+     virtual sf::String getDescription() const override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reads the food from the file.
              ////////////////////////////////////////////////////////////////////////
-             virtual std::ifstream& operator<<(std::ifstream&) override;
+     virtual std::ifstream& operator<<(std::ifstream&) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Saves the food to the file.
              ////////////////////////////////////////////////////////////////////////
-             virtual std::ofstream& operator>>(std::ofstream&) override;
+     virtual std::ofstream& operator>>(std::ofstream&) override;
 
     private: Type m_type;
     };

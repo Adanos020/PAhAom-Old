@@ -16,6 +16,9 @@ int         spellSymbols[12];
 int main()
 {
     auto p = new rr::Program();
+    
+    if (p->loadResources())
+        p->runGame();
 
     delete p;
     return EXIT_SUCCESS;

@@ -22,13 +22,13 @@ namespace rr
 {
 
     Player::Player() :
-      m_meleeWeapon     (nullptr           ),
-      m_rangedWeapon    (nullptr           ),
+      m_meleeWeapon     (nullptr),
+      m_rangedWeapon    (nullptr),
       m_position        (sf::Vector2i(0, 0)),
-      m_currentAnimation(&m_walkingRight   ),
-      m_moving          (false             ),
-      m_velocity        (900.f             ),
-      m_sightRange      (4                 )
+      m_currentAnimation(&m_walkingRight),
+      m_moving          (false),
+      m_velocity        (900.f),
+      m_sightRange      (4)
     {
         m_attrs.health = m_attrs.maxHealth =  50.f;
         m_attrs.mana   = m_attrs.maxMana   =   5.f;
@@ -163,10 +163,11 @@ namespace rr
             sf::Vector2f offset = m_body.getPosition() - (sf::Vector2f) m_position*80.f;
             if (offset != sf::Vector2f(0, 0))
             {
-                if (offset.x < 0) m_body.move(sf::Vector2f( m_velocity*timeStep.asSeconds(),  0));
-                if (offset.x > 0) m_body.move(sf::Vector2f(-m_velocity*timeStep.asSeconds(),  0));
-                if (offset.y < 0) m_body.move(sf::Vector2f( 0,  m_velocity*timeStep.asSeconds()));
-                if (offset.y > 0) m_body.move(sf::Vector2f( 0, -m_velocity*timeStep.asSeconds()));
+                auto displacement = m_velocity*timeStep.asSeconds();
+                if (offset.x < 0 && displacement-2 >= offset.x) m_body.move(sf::Vector2f( displacement,  0));
+                if (offset.x > 0 && displacement-2 <= offset.x) m_body.move(sf::Vector2f(-displacement,  0));
+                if (offset.y < 0 && displacement-2 >= offset.y) m_body.move(sf::Vector2f( 0,  displacement));
+                if (offset.y > 0 && displacement-2 <= offset.y) m_body.move(sf::Vector2f( 0, -displacement));
             }
             else
             {
@@ -196,8 +197,8 @@ namespace rr
                 m_moving = false;
             }
 
-            if (  (abs(offset.x) < m_velocity/128 && abs(offset.x) > 0) // preventing the player from wobbling
-               || (abs(offset.y) < m_velocity/128 && abs(offset.y) > 0) // in between of two cells
+            if (  (abs(offset.x) < m_velocity/80 && abs(offset.x) > 0) // preventing the player from wobbling
+               || (abs(offset.y) < m_velocity/80 && abs(offset.y) > 0) // in between of two cells
                 )  m_body.setPosition((sf::Vector2f) m_position*80.f);
         }
         else
