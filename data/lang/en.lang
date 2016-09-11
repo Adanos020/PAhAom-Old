@@ -208,19 +208,19 @@ item.ammunition.name.shuriken
 Shuriken
 
 item.ammunition.description.arrow
-Ammunition for bows. Seems to look like just a piece of wood with an arrowhead in the end, even though producing a good arrow is not an easy job.
+Ammunition for bows. Seems to look like a simple piece of wood with an arrowhead on the end, even though producing a good arrow is not an easy job.
 
 item.ammunition.description.bolt
-Ammunition for crossbows. Surely the total newbies could confuse a bolt with an arrow.
+Ammunition for crossbows. Surely only a total newbie could confuse a bolt with an arrow.
 
 item.ammunition.description.rocks
-Pebbles and river stones of a proper shape, used as an ammunition for a slingshot.
+Pebbles and river stones of a proper shape, used as ammunition for a slingshot.
 
 item.ammunition.description.dart
-Soaked with poison arrows to throw them at the opponent. Maybe it's inconspicious but it might be very useful in good hands.
+Soaked with poison, these projectiles can be thrown at enemies. Maybe it's inconspicious but it might be very useful in good hands.
 
 item.ammunition.description.shuriken
-Thrown weapon from the east. Especially appreciated by assasins or secret agents.
+Thrown weapon from the east. Especially appreciated by assassins and secret agents.
 
 item.ranged_weapon.name.bow
 Bow
@@ -235,13 +235,13 @@ item.ranged_weapon.name.bellows
 Bellows
 
 item.ranged_weapon.description.bow
-This weapon is almost as old as humanity, accompanies to our species since the dawn of history, firstly only for hunting, then also during battles. The consequence of this fact is the existence of many different types of bows e.g. reflex arc or composite bow.
+This weapon is almost as old as humanity, accompanying our species since the dawn of history, used only for hunting at first, then appropriated for combat. In consequence, many different types of bows were brought into existence e.g. reflex, arc, or composite bow.
 
 item.ranged_weapon.description.crossbow
-A shooting weapon often used by militias, can be very dangerous. A bolt from a high quality crossbow can pierce a plate armor.
+A shooting weapon often used by militias, can be very dangerous. A bolt from a high quality crossbow can pierce plate armor.
 
 item.ranged_weapon.description.slingshot
-Another weapon whose origins vanish in the mists of time. A slingshot allows to shoot rocks and any similar projectiles towards the enemy.
+Another weapon which origins vanish in the mists of time. A slingshot allows to cast rocks or any similar projectile at the enemy.
 
 item.ranged_weapon.description.bellows
 Used to throw the poisonous darts. It's perfect for preparing traps in the forest!
@@ -274,31 +274,31 @@ item.book.type.spells_book
 Book of spells
 
 item.book.description.crafting
-Complex tutorial for beginner handymen, which will teach you the basics of producing various items.
+Complex tutorial for beginner handymen, teaching you the basics of item production.
 
 item.book.description.alchemy
-Thanks to this book you will notice the usefulness of all kinds of herbs or ingredients acquired from monsters and you will be able to brew your own potions.
+Thanks to this book you will notice the usefulness of all kinds of herbs or ingredients acquired from monsters, and will be able to brew your own potions.
 
 item.book.description.melee_weapon_mastery
-Are you tired of waving your sword like a flail? Are you still getting bitten in fights? In this tutorial you'll meet new, more fancy fighting techniques thanks to which you'll train up in the art of swordplay.
+Are you tired of waving your sword around like a flail? Keep getting beaten in fights? This tutorial will show you new, fancier fighting techniques to work on your swordplay.
 
 item.book.description.ranged_weapon_mastery
-Shooting with a bow or a crossbow is not easy at all. If you care about refining your technique and accuracy, this book will appear very helpful.
+Shooting a bow or crossbow is not easy at all. If you care about refining your technique and accuracy, this book will be very helpful.
 
 item.book.description.eagle_eye
-Who's there? If you complain about myopia, thanks to this book you will expand your sight area. Literally.
+Who's there? If you're suffering from myopia, this book will help you expand your area of sight. Literally.
 
 item.book.description.mana_regen
-Clear your mind, take some rest - the meditation techniques included in this book will accelerate your mana regeneration.
+Clear your mind, take some rest - the meditation techniques covered in this book will accelerate your mana regeneration.
 
 item.book.description.health_regen
-This book written by monks from farlands contains techniques allowing you regeneration of wounds.
+This book written by monks from faraway lands contains techniques allowing you to recover from your wounds.
 
 item.book.description.faster_learning
-Thanks to the techniques of fast reading included in this book you acquire knowledge faster.
+Thanks to the techniques of fast reading included in this book, you acquire knowledge faster.
 
 item.book.description.spells_book
-Due to the touch of this book you have a crawly feeling in your fingers - it must be a book of spells! But what kind of magic is it kept inside?
+As you touch this book, you get a crawly feeling in your fingertips - it must be a spellbook! But what kind of magic is kept inside?
 
 item.coin.gold
 Gold
@@ -331,7 +331,7 @@ item.potion.effect.regeneration
 Potion of regeneration
 
 item.potion.effect.slowness
-Potion of slowness
+Potion of sluggishness
 
 item.potion.effect.weakness
 Potion of weakness
@@ -364,34 +364,34 @@ item.potion.color.white
 White potion
 
 item.potion.description.unknown
-A colorful bottle - or maybe it's the drink inside? Who knows what kind of effect gives drinking this potion?
+A colorful bottle - or maybe it's the fluid inside? Who knows what kind of effect will drinking this potion give?
 
 item.potion.description.healing
-This potion will heal your wounds and generally will do its best to mitigate the effects of encounters with many different opponents.
+This potion will heal your wounds and generally mitigate the effects of encounters with your enemies.
 
 item.potion.description.magic
-Everyone sometimes feels dry in their throaths - even mages! To quench the desire of throwing lightnings at your enemies just try this potion and regenerate your resources of magical power.
+Everyone has a dry throat from time to time - even mages! To appease your desire for casting lightning bolts at your enemies, try this potion and regenerate your mana.
 
 item.potion.description.strength
-If you feel that recently you visit the gym not too frequently and you need to enlarge your muscles a bit - this drink is for you.
+If you feel like you have missed too many visits at the gym and are in need for muscle enlargement - this potion is for you.
 
 item.potion.description.dexterity
-In an adventurer's life there appear some awkward situations. To avoid them, just drink this potion: +x points of dexterity (depending on the size of a bottle).
+In an adventurer's life, some awkward situations may appear. To avoid them, just drink this potion: +x points of dexterity (depending on the size of a bottle).
 
 item.potion.description.speed
-Chasing the trends, thieves or monsters may be difficult. This potion will increase your speed and facilitate the pursuit (or escape).
+Chasing the trends, thieves, or monsters may be difficult. This potion will increase your speed and facilitate the pursuit (or escape).
 
 item.potion.description.poison
-Bleh! Only something that died a long time ago and didn't like to wash up when it was alive would smell like this. If you still have an ability to think, you'd better not drink it and just get rid of it.
+Bleh! Only something that died a long time ago and didn't like to wash would smell like this. If you still have the ability to think, you'd better not drink it and just get rid of it.
 
 item.potion.description.regeneration
-You don't need to hurry up to get fully cured, do you? If you have some patience - this potion is for you!
+You're not in a hurry to get fully cured, are you? If you have some patience - this potion is for you!
 
 item.potion.description.slowness
-Another drink which would better not be drunk - except for you want to make the monsters' job easier.
+Another drink which you'd be better off not drinking - unless you want to make the monsters' job easier.
 
 item.potion.description.weakness
-The slump is frustrating - to avoid it it'd be better to throw out this mixture. Consuming it decreases the power of your spells and strokes.
+A slump can be frustrating - to avoid it it'd be better to throw this mixture out. Consuming it decreases the power of your spells and strokes.
 
 item.meleeweapon.name.knife
 Kitchen knife
@@ -436,46 +436,46 @@ item.magicweapon.name.runic_sword
 Runic sword
 
 item.meleeweapon.description.knife
-More often it is used as a very useful, comprehensive tool, than an actual weapon, even though it may be also used in this purpose.
+Although it is usually used as a very useful, comprehensive tool, it can be turned into a weapon as well.
 
 item.meleeweapon.description.dagger
-Longer than a knife, a weapon of assassins and rogues, perfect for doing so called ‘quiet job' or for fighting in narrow passages.
+Longer than a knife, a weapon of assassins and rogues, perfect for doing the so-called ‘quiet job,' or for fighting in narrow passages.
 
 item.meleeweapon.description.sword
-In this category weapon with various lengths can be included but it is usually characterized by a straight blade and grip with a crossguard facilitating parrying the attacks. A sword was often a symbol of state of the warrior and it signified a high position in hierarchy.
+Weapons of various lengths can be contained within this category, but they are usually characterised by a straight blade, and a grip with a crossguard for parrying attacks. A sword was often a symbol of status and high position in hierarchy of its wielder.
 
 item.meleeweapon.description.serrated_sword
-An original contraption whose efficacy you'll have an opportunity to check. As fantastic as some of the beasts you will have to confront.
+You'll have more than one opportunity to check this original weapon's efficacy. As fantastic as some of the beasts you will confront.
 
 item.meleeweapon.description.club
-How a club looks like - anyone can see. Its purpose is to hit - and, nevertheless, hitting someone's head with a club might stun. The legendary maker of this club has promised that this one is incomparable when it comes to stunning.
+Anyone can see how a club looks like. Its purpose is to hit - when you hit somebody's head with it they might be stunned. The maker of this club is said to have promised that no other shall come close to it when it comes to stunning.
 
 item.meleeweapon.description.axe
-This ax was first found close to a carcass of a giant boar but the fact that there was no spot of blood on the blade might suggest that the previous owner overestimated his ability to throw a weapon of that kind at the enemies a bit.
+This axe was first found close to a carcass of a giant boar. The fact that there was not a single drop of blood on the blade might suggest that the previous owner might have a bit overestimated his ability to throw a weapon of this kind at enemies.
 
 item.meleeweapon.description.double_axe
-This two handed axe with two blades is a terrifying, formidable weapon of which the full advantage will be taken only by the strongest warrior. It decisively deserved its name.
+This two-handed axe with two blades is a terrifying, formidable weapon of which only the strongest warrior may take full advantage. It decisively deserved its name.
 
 item.meleeweapon.description.spear
-One of the oldest weapons in the world, however her efficiency can be confirmed by the fact that still it is used not only as a weapon massively used by meager squads. This spear was blessed by the God of War to, in his honor, hit the enemies accurately and powerfully.
+One of the oldest weapons in the world, however its efficiency can be confirmed by the fact that it is still used as a weapon, and not only by some meager squads. This spear was blessed by the God of War to, in his honor, hit the enemies accurately and powerfully.
 
 item.meleeweapon.description.halberd
-This weapon looks kind of like a hybrid of a spear and an axe, interfusing the advantages of both. Is known from being a weapon of city police, thanks to its construction it may make a dangerous tool in hands of an experienced warrior.
+This weapon looks like a hybrid of a spear and an axe, interfusing the advantages of both. Known for being a weapon of city police, the halberd may become a dangerous tool in the hand of an experienced warrior.
 
 item.meleeweapon.description.lance
-A wooden weapon associated with horse-riding knighthood, used to breaking the arrays of the opponent during the charges of the cavalry.
+A wooden weapon associated with horse-riding knights, used for breaking the opponent arrays during the charges of cavalry.
 
 item.meleeweapon.description.pique
-Longer than a spear, works optimally in a compact infantry array as a defensive weapon. The combat style of the pikemen relates to the ancient tactics of hoplits and falangists.
+Longer than a spear, works optimally in a compact infantry array as a defensive weapon. The combat style of pikemen relates to the ancient tactics of hoplits and falangists.
 
 item.meleeweapon.description.long_stick
-Long sticks of this kind are most often associated with the wandering mages or pilgrims and thanks to their length and versatility they allow keeping the opponent in a distance.
+Long sticks of this kind are most often associated with wandering mages or pilgrims, and thanks to their length and versatility they allow for keeping the opponent in a distance.
 
 item.meleeweapon.description.hammer
-Stone is heavy, as well as the hammer. That means a stone hammer must be a cursedly heavy and slow weapon which could be used only by someone with supernatural strength.
+Stone is heavy, and so is the hammer. That means a stone hammer must be a cursedly heavy and slow weapon which could be used only by someone with supernatural strength.
 
 item.magicweapon.description.runic_sword
-This perfectly forged and balanced sword has a slot for a magical rune that will provide it some additional, special properties. Even without it it's a fast and valued weapon.
+This perfectly forged and balanced sword has a slot for insertion of a magical rune that will provide it with some additional, special properties. Even without it it's a fast and valued weapon.
 
 item.food.name.meat
 Piece of ham
@@ -499,25 +499,25 @@ item.food.name.baguette
 Baguette
 
 item.food.description.meat
-For a starving adventurer it must be a real rarity. It's even smoked a little!
+It must be a real rarity for a starving traveller. It's even smoked a little!
 
 item.food.description.sandvich
-Two slices of bread and ingredients of different type between them. The sandviches differ from each other as much as people.
+Two slices of bread and ingredients of different types between them. The sandviches differ from each other as much as people do.
 
 item.food.description.apple
 Dang it, the apple-tree which gave birth to this fruit must have been bred by giants! This fruit sized as a pumpkin obviously contains all the nutritional values of an apple.
 
 item.food.description.beer
-There are hundreads of beer genres, even though nobody is sure what is brewed in this dungeon. Or maybe it's imported? All you need to do is to try this popular intoxicant.
+There are hundreds of beer genres, even though nobody is sure what is brewed in this dungeon. Or maybe it's imported? All you need to do is to try this popular intoxicant.
 
 item.food.description.hot_dog
-A wiener on a bun with a salad. Of course it is the best if it's warm.
+A wiener in a bun with salad. Of course it is the best if it's warm.
 
 item.food.description.hamburger
-A cutlet surrounded with a roll from both sides, very magnificient. Multiplicity of supplements makes yor heart and stomach happier.
+A cutlet surrounded with a roll from both sides, very magnificent. Multiplicity of supplements makes your heart and stomach happier.
 
 item.food.description.baguette
-Some time ago it was a popular dish of the Napoleon's Army's soldiers which brought it to the world. This is the reason of the popularity of this long, thin roll.
+Some time ago it was a popular dish of the Napoleon's Army's soldiers who brought it to the world. This is the reason of the popularity of this long, thin roll.
 
 item.spell.symbol.shcha
 "Shcha" rune
@@ -592,43 +592,43 @@ item.spell.type.telekinesis
 Telekinesis
 
 item.spell.description.unknown
-There's no doubt this is a magical rune so it lets you to cast some spell. Unfortunately you cannot tell which one.
+There's no doubt this is a magical rune, so it lets you cast some spell. Unfortunately you cannot tell which one.
 
 item.spell.description.heal
-To be a driving whell, a sailor... and a first aid kit! This rune releases a wave of magical energy doing up your wounds.
+To paddle one's own canoe... and to cure your own wounds! This rune releases a wave of healing energy that seals up your wounds and replenishes your stamina.
 
 item.spell.description.firebolt
-A cliché among the offesinve spells of enchantment adepts. Although it doesn't deal too much damage, it can be used very frequently.
+A cliché among the offensive spells of enchantment adepts. Although it doesn't deal too much damage, it can be used very frequently.
 
 item.spell.description.lightning
-Although it can be used more rarely than a Firebolt, it deals far more damage. Moreover it disallows the enemies to use their special abilities.
+Although it can be used more rarely than a Firebolt, it deals far greater damage. It also prevents your enemies from using their special abilities.
 
 item.spell.description.iceBullet
-An ice bullet stuns an enemy after hitting it.
+An ice bullet that stuns your enemy on impact.
 
 item.spell.description.teleport
-A real windfall for all kinds of jesters. No other spell allows you evade the punishment, regardless it is an enemy's axe or an arrow!
+A real windfall for all kinds of jesters. No other spell allows you to evade punishment, regardless it is an enemy's axe or an arrow!
 
 item.spell.description.fireRain
-A formidable attack sorcery dealing substantial area damage. Make your opponents have a hot shower!
+A formidable attack spell dealing substantial area damage. Give your opponents a hot shower!
 
 item.spell.description.storm
-An area version of a lightning with respectively strengthened effects. Sometimes is being noisy!
+An area version of a lightning with respectively strengthened effects. Sometimes can be noisy!
 
 item.spell.description.iceWave
-A frost wave inflicting injury from cold and freezes the antagonists in the area the spell acts on.
+A frost wave inflicting injury from cold and freezing the antagonists in the area the spell acts on.
 
 item.spell.description.timeFreezing
 The world around you congeals in time. It is a powerful spell giving you many possibilities not only in combat but also in solving puzzles.
 
 item.spell.description.identify
-Does this ring have magical properties? If so, then what are they? Will I permanently move into a privy after drinking this potion? This spell will let you discover the properties of magical items, potions, etc.
+Does this ring have magical properties? If so, what are they? Will I permanently move into a privy after drinking this potion? This spell will let you discover the properties of magical items, potions, etc.
 
 item.spell.description.uncurse
-This bewitchment effaces the negative consequences of curses casted at you and provides a temporary resistance against them.
+This spell effaces the negative consequences of curses casted at you and provides a temporary resistance against them.
 
 item.spell.description.telekinesis
-What telekinesis is - everybody knows. Who doesn't, let him try to lift and move some object with help of his mind.
+Everybody knows what telekinesis is. Who doesn't, let them try lifting and moving an object solely with their mind.
 
 ;-------------PLAYER--------------;
 player.attributes.health
@@ -684,7 +684,7 @@ npc.attitude.passive
 passive
 
 npc.bandit.name.bully
-Bully
+Nigger
 
 npc.bandit.name.crossbowman
 Crossbowman
@@ -705,7 +705,7 @@ npc.teacher.name.mage
 Mage
 
 npc.teacher.name.kung_fu_master
-Kung-fu master
+Chink
 
 ;------------MESSAGES-------------;
 message.welcome_to_level
@@ -718,7 +718,7 @@ message.item_equip_failure
 You cannot equip
 
 message.item_discovered
-It was a
+It was a fucking
 
 message.item_picked
 You've picked up
@@ -727,7 +727,7 @@ message.item_used.potion.healing
 You feel a lot healthier now.
 
 message.item_used.potion.magic
-You feel a gain in magical power now.
+You feel a gain in magical power.
 
 message.item_used.potion.strength
 You feel a lot stronger now.
@@ -736,10 +736,10 @@ message.item_used.potion.dexterity
 You feel like you could nakurwiac salto.
 
 message.item_used.potion.speed
-You feel like you would overtake fucking Speedy Gonzales.
+You feel like you could overtake fucking Speedy Gonzales.
 
 message.item_used.potion.regeneration
-You feel like you get cured in a moment.
+You feel as if you will get cured in a moment.
 
 message.item_used.potion.poison
 You feel as if you were going to vomit now.
@@ -748,7 +748,7 @@ message.item_used.potion.slowness
 You feel like you were carrying something really heavy.
 
 message.item_used.potion.weakness
-You feel like you lost your will to live.
+You feel like an MLP fan.
 
 message.item_used.book.crafting
 Now you know how to craft!
@@ -757,10 +757,10 @@ message.item_used.book.alchemy
 Now you know how to brew potions!
 
 message.item_used.book.melee_weapon_mastery
-Now you know how to use the melee weapon!
+Now you know how to use melee weapons!
 
 message.item_used.book.ranged_weapon_mastery
-Now you know how to use the ranged weapon!
+Now you know how to use ranged weapons!
 
 message.item_used.book.eagle_eye
 Now you can see better!
@@ -793,7 +793,7 @@ message.player_dies
 You died!
 
 message.player_levelup
-You've reached the next experience level! You can think that you are more smart now, your maximum health and mana have increased. Also you can now learn some new skills and increase some attributes, if you find a teacher (and money).
+You've reached the next level! You can think that you are smarter now, your maximum health and mana have increased. Also you can now learn some new skills and increase some attributes, if you find a teacher (and money).
 
 message.npc_attack_success
 hits you.
@@ -802,5 +802,5 @@ message.npc_attack_failure
 doesn't hit you.
 
 message.npc_dies
-dies.
+is shot by a fucking nigger.
 
