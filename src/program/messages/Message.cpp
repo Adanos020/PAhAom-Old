@@ -28,7 +28,7 @@ namespace rr
     }
 
     void
-    Message::update(sf::Time timeStep)
+    Message::update(sf::Time& timeStep)
     {
         m_timeElapsed += timeStep;
 

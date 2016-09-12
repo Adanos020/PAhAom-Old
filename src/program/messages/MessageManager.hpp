@@ -38,7 +38,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Updates the lifetime counter of the message.
              ////////////////////////////////////////////////////////////////////////
-             void update(sf::Time);
+             void update(sf::Time&);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the message's position on the screen.
@@ -81,7 +81,7 @@ namespace rr
              ///
              /// If a message's life time expires, then it is deleted.
              ////////////////////////////////////////////////////////////////////////
-             void update(sf::Clock&);
+             void update(sf::Time&);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the messages on the screen.

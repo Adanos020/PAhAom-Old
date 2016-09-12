@@ -33,11 +33,11 @@ namespace rr
     }
 
     void
-    MessageManager::update(sf::Clock& timer)
+    MessageManager::update(sf::Time& timeStep)
     {
         for (auto i = m_messages.begin(); i != m_messages.end(); ++i)
         {
-            i->update(timer.getElapsedTime());
+            i->update(timeStep);
             if (i->getColor().a < 10)
             {
                 m_messages.erase(i);

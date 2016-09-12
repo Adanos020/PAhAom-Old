@@ -11,12 +11,11 @@
 namespace rr
 {
 
-    PathFinder::Node* PathFinder::getNode(int tiles[], sf::Vector2i position)
+    PathFinder::Node*
+    PathFinder::getNode(int tiles[], sf::Vector2i position)
     {
-        bool walkable = true;
-        if (  tiles[position.x + 77*position.y] == 0
-           || tiles[position.x + 77*position.y] == 1
-            ) walkable = false;
+        bool walkable = tiles[position.x + 77*position.y] != 0
+                     && tiles[position.x + 77*position.y] != 1;
         return new Node(position, walkable);
     }
 
@@ -37,7 +36,7 @@ namespace rr
         start->setOpen(true);
         open.push_back(start);
 
-        while ((n == 0 || (current != end && n < 50)))
+        while (n == 0 || (current != end && n < 50))
         {
             for (auto it = open.begin(); it != open.end(); ++it)
             {

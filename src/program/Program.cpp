@@ -71,10 +71,10 @@ namespace rr
     }
 
     void
-    Program::update(sf::Clock& timer)
+    Program::update(sf::Time& time)
     {
         if (m_game->isStarted())
-            m_game->update(m_event, timer);
+            m_game->update(m_event, time);
     }
 
     void
@@ -83,7 +83,8 @@ namespace rr
         sf::Clock timer;
         while (m_window.isOpen())
         {
-            update       (timer);
+            auto time = timer.getElapsedTime();
+            update       (time);
             timer.restart();
             
             draw         ();

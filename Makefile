@@ -213,7 +213,8 @@ ifeq ($(OS),Windows_NT)
 	@rd /s /q bin
 else
 	rm -rf *.o */*.o */*/*.o */*/*/*.o */*/*/*/*.o */*/*/*/*/*.o  */*/*/*/*/*/*.o
-	rm -rf bin
+	rm -rf bin/Debug/*
+	rm -rf bin/Release/*
 endif
 
 .PHONY: all clean debug release

@@ -189,7 +189,7 @@ namespace rr
              /// The things updated in this function are the animations, states of
              /// the seeked path, moving the player, etc.
              ////////////////////////////////////////////////////////////////////////
-             void update(sf::Clock&);
+             void update(sf::Time&);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Makes the player attack an NPC.

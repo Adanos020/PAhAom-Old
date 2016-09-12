@@ -684,7 +684,7 @@ npc.attitude.passive
 passive
 
 npc.bandit.name.bully
-Nigger
+Bully
 
 npc.bandit.name.crossbowman
 Crossbowman
@@ -705,7 +705,7 @@ npc.teacher.name.mage
 Mage
 
 npc.teacher.name.kung_fu_master
-Chink
+Kung-fu master
 
 ;------------MESSAGES-------------;
 message.welcome_to_level
@@ -718,7 +718,7 @@ message.item_equip_failure
 You cannot equip
 
 message.item_discovered
-It was a fucking
+It was a
 
 message.item_picked
 You've picked up
@@ -802,5 +802,4 @@ message.npc_attack_failure
 doesn't hit you.
 
 message.npc_dies
-is shot by a fucking nigger.
-
+dies.

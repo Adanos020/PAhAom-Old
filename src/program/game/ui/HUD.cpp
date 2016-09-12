@@ -40,7 +40,7 @@ namespace rr
     }
 
     void
-    HUD::update(Player* p, int lvl, sf::Clock& timer)
+    HUD::update(Player* p, int lvl, sf::Time& time)
     {
         if (p->getBuffs().poison > 0)
             m_bHP.setFillColor(sf::Color(0x80, 0xff, 0x80));
@@ -63,7 +63,7 @@ namespace rr
         m_tLevelNumber.setPosition(sf::Vector2f(Settings::graphics.resolution.x - m_tLevelNumber.getSize().x - 10, 10));
 
         char buf[64];
-        snprintf(buf, 64, "%.1f", 1.f/timer.getElapsedTime().asSeconds());
+        snprintf(buf, 64, "%.1f", 1.f/time.asSeconds());
         m_tFPS.setString("FPS: "+sf::String(buf));
     }
 

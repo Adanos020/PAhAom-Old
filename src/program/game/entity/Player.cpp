@@ -5,6 +5,7 @@
  */
 
 #include <iostream>
+#include <cmath>
 
 #include "Player.hpp"
 #include "item/ALL.hpp"
@@ -155,9 +156,8 @@ namespace rr
     }
 
     void
-    Player::update(sf::Clock& timer)
+    Player::update(sf::Time& timeStep)
     {
-        auto timeStep = timer.getElapsedTime();
         if (m_moving)
         {
             sf::Vector2f offset = m_body.getPosition() - (sf::Vector2f) m_position*80.f;
@@ -178,7 +178,7 @@ namespace rr
                 m_buffs.weakness     -= (m_buffs.weakness     == 0 ? 0 : 1);
                 m_buffs.hunger       ++;
 
-                if (m_buffs.hunger == 500 ) subject.notify(Observer::PLAYER_HUNGRY  , nullptr);
+                if (m_buffs.hunger ==  500) subject.notify(Observer::PLAYER_HUNGRY  , nullptr);
                 if (m_buffs.hunger == 1000) subject.notify(Observer::PLAYER_STARVING, nullptr);
 
                 if (m_attrs.mana_regeneration)
@@ -197,8 +197,8 @@ namespace rr
                 m_moving = false;
             }
 
-            if (  (abs(offset.x) < m_velocity/80 && abs(offset.x) > 0) // preventing the player from wobbling
-               || (abs(offset.y) < m_velocity/80 && abs(offset.y) > 0) // in between of two cells
+            if (  (fabs(offset.x) < m_velocity/80 && fabs(offset.x) > 0) // preventing the player from wobbling
+               || (fabs(offset.y) < m_velocity/80 && fabs(offset.y) > 0) // in between of two cells
                 )  m_body.setPosition((sf::Vector2f) m_position*80.f);
         }
         else
@@ -350,7 +350,7 @@ namespace rr
     void
     Player::useItem(Item* item)
     {
-        if (instanceof<Discoverable, Item>(item) && !((Discoverable*) item)->isDiscovered())
+        if (instanceof <Discoverable, Item> (item) && !((Discoverable*) item)->isDiscovered())
         {
             ((Discoverable*) item)->reveal();
             subject.notify(Observer::ITEM_DISCOVERED, item);
@@ -358,7 +358,7 @@ namespace rr
 
         subject.notify(Observer::ITEM_USED, item);
 
-        if (instanceof<Book, Item>(item))
+        if (instanceof <Book, Item> (item))
         {
             switch (((Book*) item)->getType())
             {
@@ -373,7 +373,7 @@ namespace rr
                 default                         :                                      break;
             }
         }
-        else if (instanceof<Food, Item>(item))
+        else if (instanceof <Food, Item> (item))
         {
             if (m_buffs.hunger >= 1000)
                 m_buffs.hunger  = 500;
@@ -382,7 +382,7 @@ namespace rr
 
             m_attrs.health += 10;
         }
-        else if (instanceof<Potion, Item>(item))
+        else if (instanceof <Potion, Item> (item))
         {
             switch (((Potion*) item)->getType())
             {
@@ -452,7 +452,7 @@ namespace rr
                                            } break;
             }
         }
-        else if (instanceof<Rune, Item>(item))
+        else if (instanceof <Rune, Item> (item))
         {
 
         }
@@ -467,12 +467,12 @@ namespace rr
             if (!equip)
             {
                 m_meleeWeapon = nullptr;
-                success       = true;
+                success = true;
             }
             else if (((MeleeWeapon*) item)->getRequirement() <= m_attrs.strength)
             {
                 m_meleeWeapon = (MeleeWeapon*) item;
-                success     = true;
+                success = true;
             }
         }
         else if (instanceof <RangedWeapon, Equipable> (item))
@@ -480,12 +480,12 @@ namespace rr
             if (!equip)
             {
                 m_rangedWeapon = nullptr;
-                success        = true;
+                success = true;
             }
             else if (((RangedWeapon*) item)->getRequirement() <= m_attrs.dexterity)
             {
                 m_rangedWeapon = (RangedWeapon*) item;
-                success        = true;
+                success = true;
             }
         }
 

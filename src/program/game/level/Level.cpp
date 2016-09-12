@@ -188,7 +188,7 @@ namespace rr
     }
 
     void
-    Level::update(Game* game, sf::Clock& timer)
+    Level::update(Game* game, sf::Time& time)
     {
         for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
         {
@@ -202,7 +202,7 @@ namespace rr
             else if (instanceof <NPC, Entity> (*it))
             {
                 auto npc = (NPC*) *it;
-                npc->update(m_tilesAsInts, timer.getElapsedTime());
+                npc->update(m_tilesAsInts, time);
             }
         }
     }

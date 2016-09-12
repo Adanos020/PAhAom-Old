@@ -77,7 +77,7 @@ namespace rr
     }
 
     void
-    DeathScreen::update(sf::Clock& timer)
+    DeathScreen::update(sf::Time& time)
     {
         if (m_visible)
         {
@@ -92,7 +92,7 @@ namespace rr
                 m_shadow  .setFillColor(shadow);
                 m_tYouDied.setFillColor(youdied);
 
-                m_endAnimation += timer.getElapsedTime();
+                m_endAnimation += time;
             }
         }
     }

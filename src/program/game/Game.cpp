@@ -333,13 +333,13 @@ namespace rr
     }
 
     void
-    Game::update(sf::Event& event, sf::Clock& timer)
+    Game::update(sf::Event& event, sf::Time& time)
     {
         controls(event);
 
-        m_player        .update(timer);
-        m_messageManager.update(timer);
-        m_deathScreen   .update(timer);
+        m_player        .update(time);
+        m_messageManager.update(time);
+        m_deathScreen   .update(time);
 
         // the player dies
         if (!m_lost && m_player.getAttributes().health == 0)
@@ -355,9 +355,9 @@ namespace rr
         m_gameView.setCenter(sf::Vector2f(m_player.getBounds().left+40, m_player.getBounds().top+40));
 
         if (m_started && !m_paused)
-            m_currentLevel->update(this, timer);
+            m_currentLevel->update(this, time);
 
-        m_hud.update(&m_player, m_levelNumber+1, timer);
+        m_hud.update(&m_player, m_levelNumber+1, time);
     }
 
     void
