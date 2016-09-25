@@ -277,7 +277,7 @@ item.book.description.alchemy
 Yjehqũ tenj qwjehúe txibíäthowjyjn bwelaqũx čjyleq ybi cklähjũqyb točbicqũbahbix čé totbopyb aocétxíexjew ũ blache mũqéctyvbi tboxibiyj mytl behyjew.
 
 item.book.description.melee_weapon_mastery
-Maxahjér mjeýem jérq úetem aowjyj maw ?bé balue yjehtle oavbibaw? Bé tbim topähjnqy hobe, bapyjenj čäbahcobahe texhjũqũ balqũ [yjehqũ qtyvbim bé wtyúe dextyhqy wjeh toawqolũw] točhaw.
+Maxahjér mjeýem jérq úetem aowjyj maw? Bé balue yjehtle oavbibaw? Bé tbim topähjnqy hobe, bapyjenj čäbahcobahe texhjũqũ balqũ [yjehqũ qtyvbim bé wtyúe dextyhqy wjeh toawqolũw] točhaw.
 
 item.book.description.ranged_weapon_mastery
 Cétxíelahje č lyqy ybi čé qywbi bahalhe búale hje ject. Jewjéln ha aotpaúobahjy texhjũqũ n úelhowjyjn yjn čalexjbi - ta qwjehxjqa bapúo tomouha wjeh oqaxje.
@@ -715,10 +715,10 @@ message.item_equip_failure
 Čaloxjbiyj hje moxjew:
 
 message.item_discovered
-oaqévbilewjé.
+Oáqévbilewjé:
 
 message.item_picked
-Toahjeclewjé
+Toahjeclewjé:
 
 message.item_used.potion.healing
 O bjele čapobéwbi wjeh ÿjew.

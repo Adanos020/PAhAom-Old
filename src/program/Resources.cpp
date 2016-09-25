@@ -56,8 +56,6 @@ namespace rr
                 {
                     std::getline(idict, translation);
                     dictionary[word] = utf8ToUtf32(translation);
-
-                    std::cout << word << ":" << translation << '\n';
                 }
             }
             idict.close();

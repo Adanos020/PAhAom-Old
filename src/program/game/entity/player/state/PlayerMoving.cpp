@@ -22,9 +22,9 @@ namespace rr
         {
             auto displacement = player.m_velocity*delta.asSeconds();
             if (offset.x < 0 && displacement-2 >= offset.x) player.m_body.move(sf::Vector2f( displacement,  0));
-            if (offset.x > 0 && displacement-2 <= offset.x) player.m_body.move(sf::Vector2f(-displacement,  0));
+            if (offset.x > 0 && displacement+2 <= offset.x) player.m_body.move(sf::Vector2f(-displacement,  0));
             if (offset.y < 0 && displacement-2 >= offset.y) player.m_body.move(sf::Vector2f( 0,  displacement));
-            if (offset.y > 0 && displacement-2 <= offset.y) player.m_body.move(sf::Vector2f( 0, -displacement));
+            if (offset.y > 0 && displacement+2 <= offset.y) player.m_body.move(sf::Vector2f( 0, -displacement));
 
             if (  (fabs(offset.x) < player.m_velocity/80 && fabs(offset.x) > 0) // preventing the player from wobbling
                || (fabs(offset.y) < player.m_velocity/80 && fabs(offset.y) > 0) // in between of two cells
@@ -45,9 +45,9 @@ namespace rr
         if (player.m_attrs.mana_regeneration)
             player.m_attrs.mana += 0.1;
 
-        if      (player.m_buffs.hunger <   500) player.m_attrs.health += (player.m_attrs.health_regeneration ? 0.1f : 0.05f);
+        if      (player.m_buffs.hunger <   500) player.m_attrs.health += (player.m_attrs.health_regeneration ? 0.1f  : 0.05f);
         else if (player.m_buffs.hunger <  1000) player.m_attrs.health += (player.m_attrs.health_regeneration ? 0.05f : 0.f);
-        else if (player.m_buffs.hunger >= 1000) player.m_attrs.health -= (player.m_attrs.health_regeneration ? 0.f : 0.05f);
+        else if (player.m_buffs.hunger >= 1000) player.m_attrs.health -= (player.m_attrs.health_regeneration ? 0.f   : 0.05f);
 
         if (player.m_buffs.poison > 0)
             player.m_attrs.health -= 1.f;

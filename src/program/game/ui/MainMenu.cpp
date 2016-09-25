@@ -4,6 +4,8 @@
  * Used library: SFML
  */
 
+#include <cstdlib>
+
 #include "MainMenu.hpp"
 
 #include "../../gui/Button.hpp"
@@ -43,8 +45,8 @@ namespace rr
         m_wMenu += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52);
         for (int i = 0; i < 6; i++)
         {
-            m_wMenu.getComponent <Button> (i)->setPosition(m_wMenu.getPosition() + sf::Vector2f(m_wMenu.getSize().x/2 - m_wMenu.getComponent <Button> (i)->getSize().x/2,
-                                                                                            5+i*75));
+            m_wMenu.getComponent <Button> (i)->setPosition(m_wMenu.getPosition()
+                                                         + sf::Vector2f(m_wMenu.getSize().x/2 - m_wMenu.getComponent <Button> (i)->getSize().x/2, 5+i*75));
         }
 
         auto wOpts = new Window(Resources::dictionary["gui.button.options"], sf::Vector2f(330, 405), sf::Vector2f(Settings::graphics.resolution.x/2-165,
@@ -91,14 +93,16 @@ namespace rr
                 *wGrap += new Text(sf::Vector2f(20, 30), Resources::dictionary["gui.text.resolution"], Resources::font.Unifont, 20);
 
                 auto swResolution = new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60));
-                     swResolution->addOption("1280x720");
-                     swResolution->addOption("1280x1024");
-                     swResolution->addOption("1366x768");
-                     swResolution->addOption("1440x900");
-                     swResolution->addOption("1600x900");
-                     swResolution->addOption("1920x1080");
-                     swResolution->addOption("4096x2160");
-                     swResolution->setCurrentOption(std::to_string(Settings::graphics.resolution.x)+"x"+std::to_string(Settings::graphics.resolution.y));
+                {
+                    auto modes = sf::VideoMode::getFullscreenModes();
+                    std::reverse(modes.begin(), modes.end());
+                    for (auto mode : modes)
+                    {
+                        swResolution->addOption(std::to_string(mode.width) + "x" + std::to_string(mode.height));
+                    }
+
+                    swResolution->setCurrentOption(std::to_string(Settings::graphics.resolution.x)+"x"+std::to_string(Settings::graphics.resolution.y));
+                }
 
                 auto cFullscreen = new Checkbox(sf::Vector2f(15, 170), Resources::dictionary["gui.checkbox.fullscreen"], 15);
                      cFullscreen->check(Settings::graphics.fullscreen);
@@ -246,11 +250,11 @@ namespace rr
     MainMenu::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* g)
     {
         auto wOpts = m_wMenu.getComponent <Window> (0);
-        auto wGame = wOpts->getComponent <Window> (0);
-        auto wGrap = wOpts->getComponent <Window> (1);
-        auto wSoun = wOpts->getComponent <Window> (2);
-        auto wCont = wOpts->getComponent <Window> (3);
-        auto wWait = wCont->getComponent <Window> (0);
+        auto wGame = wOpts ->getComponent <Window> (0);
+        auto wGrap = wOpts ->getComponent <Window> (1);
+        auto wSoun = wOpts ->getComponent <Window> (2);
+        auto wCont = wOpts ->getComponent <Window> (3);
+        auto wWait = wCont ->getComponent <Window> (0);
         auto wHelp = m_wMenu.getComponent <Window> (1);
         auto wCred = m_wMenu.getComponent <Window> (2);
 

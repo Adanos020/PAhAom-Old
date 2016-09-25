@@ -22,9 +22,10 @@ namespace rr
         m_velocity = 900.f;
         m_moving   = false;
 
-        m_attrs.health = m_attrs.maxHealth =  20.f;
-        m_attrs.armor                      =   5.f;
-        m_attrs.level                      =   5  ;
+        m_attrs.health
+         = m_attrs.maxHealth = 10.f;
+        m_attrs.armor        =  5.f;
+        m_attrs.level        =  5  ;
 
         initialize();
         m_body.scale(sf::Vector2f(5, 5));
@@ -235,11 +236,15 @@ namespace rr
 
         try
         {
-            readFile <int> (file, position.x);
-            readFile <int> (file, position.y);
-            readFile <int> (file, state);
-            readFile <int> (file, direction);
-            readFile <int> (file, type);
+            readFile < int > (file, position.x);
+            readFile < int > (file, position.y);
+            readFile < int > (file, state);
+            readFile < int > (file, direction);
+            readFile < int > (file, type);
+            readFile <float> (file, m_attrs.health);
+            readFile <float> (file, m_attrs.maxHealth);
+            readFile < int > (file, m_attrs.level);
+            readFile <float> (file, m_attrs.armor);
         }
         catch (std::invalid_argument ex)
         {
@@ -264,7 +269,11 @@ namespace rr
              << (int) m_body.getPosition().y/80 << ' '
              << m_state                         << ' '
              << m_direction                     << ' '
-             << m_type;
+             << m_type                          << ' '
+             << m_attrs.health                  << ' '
+             << m_attrs.maxHealth               << ' '
+             << m_attrs.level                   << ' '
+             << m_attrs.armor                   << ' ';
 
         return file;
     }
