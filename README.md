@@ -3,7 +3,7 @@
 To compile this code you need to use SFML:
 http://www.sfml-dev.org/index.php
 
-# STORYLINE #
+# Storyline #
 Some nameless lumberjack gets captured by bandits during his another day of work. He's being led by them to their boss who happens to be a rich owner of an underground palace. He tells his rogues to lead our hero to the dungeon in the bottom of the complex. As it seems, the bandits are not very smart and they forget to lock the door to the jail. After they leave the room, our hero gets out of the jail and finds a dagger. a piece of baguette and a healing potion on the floor, with which he goes to the next floor. He decides to have a revenge on the bandits' boss living on the top of his underground palace. In order to prepare for the combat he explores the next floors of the residence.
 
 # Used technologies #
