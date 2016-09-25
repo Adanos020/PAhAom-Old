@@ -31,8 +31,8 @@ namespace rr
     bool
     Program::loadResources()
     {
-        return Settings ::load()
-            && Resources::load();
+        return Settings::load()
+           && Resources::load();
     }
 
     void
@@ -84,11 +84,11 @@ namespace rr
         while (m_window.isOpen())
         {
             auto time = timer.getElapsedTime();
-            update       (time);
+            update(time);
             timer.restart();
-            
-            draw         ();
-            handleEvents ();
+
+            draw();
+            handleEvents();
         }
     }
 
