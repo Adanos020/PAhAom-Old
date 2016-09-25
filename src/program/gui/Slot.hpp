@@ -11,7 +11,7 @@
 #include "Image.hpp"
 #include "Text.hpp"
 
-#include "../game/entity/item/Item.hpp"
+#include "../game/entity/Item.hpp"
 
 namespace rr
 {

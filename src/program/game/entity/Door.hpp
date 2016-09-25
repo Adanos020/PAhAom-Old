@@ -7,7 +7,7 @@
 #ifndef ENTITY_DOOR_HPP
 #define ENTITY_DOOR_HPP
 
-#include "Entity.hpp"
+#include "../Entity.hpp"
 
 namespace rr
 {

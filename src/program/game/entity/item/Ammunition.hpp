@@ -7,7 +7,7 @@
 #ifndef ITEM_AMMUNITION_HPP
 #define ITEM_AMMUNITION_HPP
 
-#include "Item.hpp"
+#include "../Item.hpp"
 
 namespace rr
 {

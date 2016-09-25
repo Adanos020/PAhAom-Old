@@ -4,7 +4,7 @@
  * Used library: SFML
  */
 
-#include "Program.hpp"
+#include "../Program.hpp"
 #include "Settings.hpp"
 #include "Resources.hpp"
 

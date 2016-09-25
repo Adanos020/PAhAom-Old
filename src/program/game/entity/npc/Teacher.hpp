@@ -7,7 +7,7 @@
 #ifndef NPC_TEACHER_HPP
 #define NPC_TEACHER_HPP
 
-#include "NPC.hpp"
+#include "../NPC.hpp"
 
 namespace rr
 {

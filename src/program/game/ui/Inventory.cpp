@@ -34,52 +34,48 @@ namespace rr
         m_shadow.setPosition (sf::Vector2f(0, 0));
         m_shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
-#define component(w, c, i) w.getComponent <c> (i)
-
-            for (int i = 0; i < 4; ++i)
+        for (int i = 0; i < 4; ++i)
+        {
+            for (int j = 0; j < 8; ++j)
             {
-                for (int j = 0; j < 8; ++j)
-                {
-                    m_wInve += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10 + j*95, 30 + i*95));
-                }
+                m_wInve += new Slot(sf::Vector2f(80, 80), sf::Vector2f(10 + j*95, 30 + i*95));
             }
+        }
 
-            m_wInve += new Image(sf::Vector2f(0  , 390), Resources::texture.items, 16, 33);
-            m_wInve += new Image(sf::Vector2f(150, 390), Resources::texture.items, 16, 34);
-            m_wInve += new Image(sf::Vector2f(300, 390), Resources::texture.items, 16, 35);
+        m_wInve += new Image(sf::Vector2f(0  , 390), Resources::texture.items, 16, 33);
+        m_wInve += new Image(sf::Vector2f(150, 390), Resources::texture.items, 16, 34);
+        m_wInve += new Image(sf::Vector2f(300, 390), Resources::texture.items, 16, 35);
 
-            m_wInve += new Text(sf::Vector2f(70 , 415), "GOLD", Resources::font.Pixel, 30);
-            m_wInve += new Text(sf::Vector2f(220, 415), "SILV", Resources::font.Pixel, 30);
-            m_wInve += new Text(sf::Vector2f(370, 415), "BRON", Resources::font.Pixel, 30);
+        m_wInve += new Text(sf::Vector2f(70 , 415), "GOLD", Resources::font.Pixel, 30);
+        m_wInve += new Text(sf::Vector2f(220, 415), "SILV", Resources::font.Pixel, 30);
+        m_wInve += new Text(sf::Vector2f(370, 415), "BRON", Resources::font.Pixel, 30);
 
-            auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
-                 bQuit->setPosition(sf::Vector2f(m_wInve.getSize().x - bQuit->getSize().x - 15, 
-                                                 m_wInve.getSize().y - bQuit->getSize().y -  5));
+        auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
+             bQuit->setPosition(sf::Vector2f(m_wInve.getSize().x - bQuit->getSize().x - 15, 
+                                             m_wInve.getSize().y - bQuit->getSize().y -  5));
 
-            auto wInfo = new Window("", sf::Vector2f(410, 40), sf::Vector2f(0, 0));
-            {
-                auto tDescription = new Text(sf::Vector2f(5, 20), "", Resources::font.Unifont, 20);
-                     tDescription->setStyle(sf::Text::Regular);
-                     tDescription->setOutlineColor(sf::Color(0x40, 0x40, 0x40));
-                *wInfo += tDescription;
-            }
-            auto wOpts = new Window("", sf::Vector2f(142, 143), sf::Vector2f(0, 0));
-            {
-                 auto mOpts = new Menu(sf::Vector2f(5, 25));
-                      mOpts->addOption(Resources::dictionary["gui.menu.use"            ]);
-                      mOpts->addOption(Resources::dictionary["gui.menu.move_to_carryon"]);
-                      mOpts->addOption(Resources::dictionary["gui.menu.drop"           ]);
-                 *wOpts += mOpts;
-            }
+        auto wInfo = new Window("", sf::Vector2f(410, 40), sf::Vector2f(0, 0));
+        {
+            auto tDescription = new Text(sf::Vector2f(5, 20), "", Resources::font.Unifont, 20);
+                 tDescription->setStyle(sf::Text::Regular);
+                 tDescription->setOutlineColor(sf::Color(0x40, 0x40, 0x40));
+            *wInfo += tDescription;
+        }
+        auto wOpts = new Window("", sf::Vector2f(142, 143), sf::Vector2f(0, 0));
+        {
+             auto mOpts = new Menu(sf::Vector2f(5, 25));
+                  mOpts->addOption(Resources::dictionary["gui.menu.use"            ]);
+                  mOpts->addOption(Resources::dictionary["gui.menu.move_to_carryon"]);
+                  mOpts->addOption(Resources::dictionary["gui.menu.drop"           ]);
+             *wOpts += mOpts;
+        }
 
-            ((m_wInve |= wInfo) |= wOpts) += bQuit;
+        ((m_wInve |= wInfo) |= wOpts) += bQuit;
 
         for (int i = 0; i < 5; ++i)
         {
             m_sCarryOn[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(Settings::graphics.resolution.x-90, Settings::graphics.resolution.y/2-250 + i*95));
         }
-
-#undef component
 
     }
 
@@ -123,14 +119,14 @@ namespace rr
                 sf::String chosenOption = component(wOpts, Menu, 0)->getChosenOption(rw, e);
                 if (chosenOption == Resources::dictionary["gui.menu.use"])
                 {
-                    Item* item = ((Slot*)wOpts.getParentComponent())->getItem();
+                    Item* item = ((Slot*) wOpts.getParentComponent())->getItem();
 
                     if (instanceof <Equipable, Item> (item))
                     {
-                        bool equip = !((Equipable*)item)->isEquipped(); 
+                        bool equip = !((Equipable*) item)->isEquipped(); 
 
-                        if (m_player->equipItem((Equipable*)item, equip))
-                            ((Equipable*)item)->equip(equip);
+                        if (m_player->equipItem((Equipable*) item, equip))
+                            ((Equipable*) item)->equip(equip);
 
                         if (instanceof <MeleeWeapon, Item> (item))
                         {
@@ -138,7 +134,7 @@ namespace rr
                             {
                                 if (instanceof <MeleeWeapon, Item> (component(m_wInve, Slot, i)->getItem()))
                                 {
-                                    ((Equipable*)component(m_wInve, Slot, i)->getItem())->equip(false);
+                                    ((Equipable*) component(m_wInve, Slot, i)->getItem())->equip(false);
                                 }
                             }
                         }
@@ -148,23 +144,23 @@ namespace rr
                         game->getPlayer()->useItem(item);
                         if (item->isDisposable())
                         {
-                            ((Slot*)wOpts.getParentComponent())->removeItem(1);
+                            ((Slot*) wOpts.getParentComponent())->removeItem(1);
                             sort();
                         }
                     }
                 }
                 else if (chosenOption == Resources::dictionary["gui.menu.drop"])
                 {
-                    Item* item = ((Slot*)wOpts.getParentComponent())->getItem();
+                    Item* item = ((Slot*) wOpts.getParentComponent())->getItem();
                     item->setPosition(m_player->getPosition());
 
                     if (  instanceof <Equipable, Item> (item)
-                       && ((Equipable*)item)->isEquipped()
-                        ) ((Equipable*)item)->equip(false);
+                       && ((Equipable*) item)->isEquipped()
+                        ) ((Equipable*) item)->equip(false);
 
                     subject.notify(Observer::ITEM_DROPPED, item);
                     
-                    ((Slot*)wOpts.getParentComponent())->removeItem(false);
+                    ((Slot*) wOpts.getParentComponent())->removeItem(false);
                     sort();
                 }
                 else if (chosenOption == Resources::dictionary["gui.menu.to_carryon"])

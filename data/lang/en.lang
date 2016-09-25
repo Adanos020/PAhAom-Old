@@ -439,7 +439,7 @@ item.meleeweapon.description.knife
 Although it is usually used as a very useful, comprehensive tool, it can be turned into a weapon as well.
 
 item.meleeweapon.description.dagger
-Longer than a knife, a weapon of assassins and rogues, perfect for doing the so-called ‘quiet job,' or for fighting in narrow passages.
+Longer than a knife, a weapon of assassins and rogues, perfect for doing the so-called â€˜quiet job,' or for fighting in narrow passages.
 
 item.meleeweapon.description.sword
 Weapons of various lengths can be contained within this category, but they are usually characterised by a straight blade, and a grip with a crossguard for parrying attacks. A sword was often a symbol of status and high position in hierarchy of its wielder.
@@ -598,7 +598,7 @@ item.spell.description.heal
 To paddle one's own canoe... and to cure your own wounds! This rune releases a wave of healing energy that seals up your wounds and replenishes your stamina.
 
 item.spell.description.firebolt
-A cliché among the offensive spells of enchantment adepts. Although it doesn't deal too much damage, it can be used very frequently.
+A clichÃ© among the offensive spells of enchantment adepts. Although it doesn't deal too much damage, it can be used very frequently.
 
 item.spell.description.lightning
 Although it can be used more rarely than a Firebolt, it deals far greater damage. It also prevents your enemies from using their special abilities.
@@ -803,3 +803,4 @@ doesn't hit you.
 
 message.npc_dies
 dies.
+

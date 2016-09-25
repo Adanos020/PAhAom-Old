@@ -7,7 +7,7 @@
 #ifndef ITEM_RUNE_HPP
 #define ITEM_RUNE_HPP
 
-#include "Item.hpp"
+#include "../Item.hpp"
 
 namespace rr
 {

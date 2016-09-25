@@ -6,8 +6,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "program/Program.hpp"
-#include "program/observer/Observer.hpp"
+#include "Program.hpp"
+#include "program/Observer.hpp"
 
 rr::Subject subject;
 sf::Color   itemColors[9];

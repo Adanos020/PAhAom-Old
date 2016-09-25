@@ -7,7 +7,7 @@
 #ifndef ENTITY_STAIRS_HPP
 #define ENTITY_STAIRS_HPP
 
-#include "Entity.hpp"
+#include "../Entity.hpp"
 
 namespace rr
 {

@@ -7,9 +7,9 @@
 #ifndef NPC_AI_MELEE_HPP
 #define NPC_AI_MELEE_HPP
 
-#include "../../Entity.hpp"
-#include "../../npc/NPC.hpp"
-#include "AI.hpp"
+#include "../../../Entity.hpp"
+#include "../../NPC.hpp"
+#include "../AI.hpp"
 
 namespace rr
 {

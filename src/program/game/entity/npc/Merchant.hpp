@@ -7,7 +7,7 @@
 #ifndef NPC_MERCHANT_HPP
 #define NPC_MERCHANT_HPP
 
-#include "NPC.hpp"
+#include "../NPC.hpp"
 
 namespace rr
 {

@@ -40,10 +40,11 @@ namespace sf {
              std::size_t        getSize       ()                 const;
              const sf::IntRect& getFrame      (std::size_t n)    const;
 
-             // These operator overloads were not added by the author of this class.
-             // I've added them to make the work with animations easier for me.
+             // The following operator overloads and methods were not added by the author
+             // of this class. I've added them to make the work with animations easier for me.
              // But still this doesn't remove the credit from the author of this software
              // mentioned in the notice above.
+
              bool               operator==    (const Animation&) const;
              bool               operator!=    (const Animation&) const;
 

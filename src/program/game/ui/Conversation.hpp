@@ -9,15 +9,16 @@
 
 #include "../../gui/Window.hpp"
 
-#include "../entity/npc/NPC.hpp"
+#include "../entity/NPC.hpp"
 #include "../entity/Player.hpp"
 
-#include "../dialogue/Dialogue.hpp"
+#include "../Dialogue.hpp"
 
 namespace rr
 {
 
     class Game;
+    class NPC;
 
     class Conversation : public sf::Drawable
     {
@@ -61,6 +62,6 @@ namespace rr
 
 }
 
-#include "../Game.hpp"
+#include "../../Game.hpp"
 
 #endif // UI_CONVERSATION_HPP

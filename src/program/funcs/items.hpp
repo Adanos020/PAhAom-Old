@@ -12,7 +12,7 @@
 #include "classes.hpp"
 #include "random.hpp"
 
-#include "../game/entity/item/Item.hpp"
+#include "../game/entity/Item.hpp"
 #include "../game/entity/item/ALL.hpp"
 
 namespace rr

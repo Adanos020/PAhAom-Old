@@ -7,7 +7,7 @@
 #ifndef ITEM_POTION_HPP
 #define ITEM_POTION_HPP
 
-#include "Item.hpp"
+#include "../Item.hpp"
 
 namespace rr
 {

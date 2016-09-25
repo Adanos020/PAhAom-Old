@@ -8,7 +8,7 @@
 
 #include "../../../Resources.hpp"
 #include "../../../funcs/files.hpp"
-#include "../../../path_finder/PathFinder.hpp"
+#include "../../PathFinder.hpp"
 
 #include "Teacher.hpp"
 
@@ -18,7 +18,9 @@ namespace rr
     Teacher::Teacher(Type type) :
       m_type(type)
     {
-        m_velocity                         = 900.f;
+        m_velocity = 900.f;
+        m_moving   = false;
+
         m_attrs.health = m_attrs.maxHealth = 100.f;
         m_attrs.armor                      =  50.f;
         m_attrs.level                      =  30  ;

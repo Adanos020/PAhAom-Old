@@ -32,6 +32,6 @@ namespace rr
 
 }
 
-#include "../../../level/Level.hpp"
+#include "../../../Level.hpp"
 
 #endif // NPC_AI_MANAGER_HPP

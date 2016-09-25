@@ -7,7 +7,7 @@
 #ifndef ITEM_FOOD_HPP
 #define ITEM_FOOD_HPP
 
-#include "Item.hpp"
+#include "../Item.hpp"
 
 namespace rr
 {

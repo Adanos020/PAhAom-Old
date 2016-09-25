@@ -1,5 +1,5 @@
 /**
- * @file src/program/game/Game.cpp
+ * @file src/program/Game.cpp
  * @author Adam 'Adanos' Gąsior
  * Used library: SFML
  */
@@ -10,12 +10,12 @@
 #include <fstream>
 #include <cmath>
 
-#include "Game.hpp"
+#include "../Game.hpp"
 
 #include "../Settings.hpp"
 #include "../Resources.hpp"
 
-#include "../observer/Observer.hpp"
+#include "../Observer.hpp"
 
 #include "../funcs/keys.hpp"
 #include "../funcs/files.hpp"
@@ -139,6 +139,8 @@ namespace rr
                                            +std::to_string(m_levelNumber+1)
                                            +((Settings::game.language == "fc") ? "" : "!"), sf::Color::Green));
 
+        m_player.setCurrentLevel(m_currentLevel);
+
         save();
     }
 
@@ -174,6 +176,7 @@ namespace rr
         subject.addObserver(m_currentLevel);
 
         m_player.setGridPosition(m_currentLevel->getStartingPoint());
+        m_player.setCurrentLevel(m_currentLevel);
 
         start(true);
         pause(false);
@@ -234,6 +237,7 @@ namespace rr
             file.close();
 
             m_currentLevel = new Level(m_levelNumber, &m_player);
+            m_player.setCurrentLevel(m_currentLevel);
 
             file.open("save/level"+std::to_string(m_levelNumber)+".pah");
             *m_currentLevel << file;
@@ -366,41 +370,12 @@ namespace rr
         if ((!m_mapOpen || Settings::game.debugMode) && m_started && !m_paused)
         {
             bool canUpdateFOV = !m_player.isMoving();
-            if (isKeyPressed(Settings::keys.move_up))
+            m_player.handleInput(event);
+
+            if (canUpdateFOV && m_player.isMoving())
             {
-                m_player.move(m_currentLevel->getTiles(), Player::UP);
-                if (canUpdateFOV && m_player.isMoving())
-                {
-                    m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
-                    m_currentLevel->makeOrdersToNPCs(&m_player);
-                }
-            }
-            if (isKeyPressed(Settings::keys.move_down))
-            {
-                m_player.move(m_currentLevel->getTiles(), Player::DOWN);
-                if (canUpdateFOV && m_player.isMoving())
-                {
-                    m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
-                    m_currentLevel->makeOrdersToNPCs(&m_player);
-                }
-            }
-            if (isKeyPressed(Settings::keys.move_left))
-            {
-                m_player.move(m_currentLevel->getTiles(), Player::LEFT);
-                if (canUpdateFOV && m_player.isMoving())
-                {
-                    m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
-                    m_currentLevel->makeOrdersToNPCs(&m_player);
-                }
-            }
-            if (isKeyPressed(Settings::keys.move_right))
-            {
-                m_player.move(m_currentLevel->getTiles(), Player::RIGHT);
-                if (canUpdateFOV && m_player.isMoving())
-                {
-                    m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
-                    m_currentLevel->makeOrdersToNPCs(&m_player);
-                }
+                m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
+                m_currentLevel->makeOrdersToNPCs(&m_player);
             }
 
             if (Settings::game.debugMode)

@@ -9,12 +9,12 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../observer/Observer.hpp"
+#include "../../Observer.hpp"
 
 #include "../../gui/Window.hpp"
 #include "../../gui/Slot.hpp"
 
-#include "../entity/Entity.hpp"
+#include "../Entity.hpp"
 #include "../entity/Player.hpp"
 
 namespace rr
@@ -131,6 +131,6 @@ namespace rr
 
 }
 
-#include "../Game.hpp"
+#include "../../Game.hpp"
 
 #endif // UI_INVENTORY_HPP

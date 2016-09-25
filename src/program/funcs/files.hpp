@@ -10,7 +10,7 @@
 #include <fstream>
 #include <string>
 
-#include "../game/entity/Entity.hpp"
+#include "../game/Entity.hpp"
 
 namespace rr
 {

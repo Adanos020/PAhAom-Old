@@ -11,11 +11,13 @@
 
 #include "../../../../lib/AnimatedSprite.hpp"
 
-#include "Entity.hpp"
+#include "../Entity.hpp"
 #include "item/MeleeWeapon.hpp"
 #include "item/RangedWeapon.hpp"
-#include "item/Item.hpp"
+#include "Item.hpp"
 #include "item/Book.hpp"
+
+#include "player/PlayerState.hpp"
 
 namespace rr
 {
@@ -28,6 +30,11 @@ namespace rr
 
     class Player : public Entity
     {
+        friend class PlayerState;
+        friend class PlayerStanding;
+        friend class PlayerMoving;
+        friend class PlayerAttacking;
+
     private: struct Attrs // Structure for the player attributes.
              {
              public: float health;
@@ -65,6 +72,10 @@ namespace rr
              MeleeWeapon*       m_meleeWeapon;
              RangedWeapon*      m_rangedWeapon;
 
+             PlayerState*       m_state;
+
+             Level*             m_currentLevel;
+
              sf::Vector2i       m_position;
              sf::AnimatedSprite m_body;
 
@@ -74,7 +85,6 @@ namespace rr
              sf::Animation      m_walkingRight;
              sf::Animation*     m_currentAnimation;
 
-             bool               m_moving;
              float              m_velocity;
              int                m_sightRange;
 
@@ -107,12 +117,17 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
              ////////////////////////////////////////////////////////////////////////
-             Player();
+             Player(Level* = nullptr);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Copy constructor.
              ////////////////////////////////////////////////////////////////////////
              Player(Player const&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the pointer to the current game level.
+             ////////////////////////////////////////////////////////////////////////
+             void setCurrentLevel(Level*);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Creates an exact copy of the player.
@@ -155,11 +170,18 @@ namespace rr
      virtual sf::FloatRect getBounds() const override { return m_body.getGlobalBounds(); }
 
              ////////////////////////////////////////////////////////////////////////
+             /// \brief Handles the input.
+             ////////////////////////////////////////////////////////////////////////
+             void handleInput(sf::Event&);
+
+             ////////////////////////////////////////////////////////////////////////
              /// \brief Moves the player's character to a cell in a given direction.
              ///
              /// \param tiles the set of tiles of the level in which the player moves
+             ///
+             /// \return true if the player could move, false if not
              ////////////////////////////////////////////////////////////////////////
-             void move(int[], Direction);
+             bool move(Direction);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Makes the player use a given item.
@@ -253,7 +275,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if the player is moving.
              ////////////////////////////////////////////////////////////////////////
-             bool isMoving() const { return m_moving; }
+             bool isMoving() const;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Resets the player's atributes.
@@ -278,6 +300,6 @@ namespace rr
 
 }
 
-#include "npc/NPC.hpp"
+#include "NPC.hpp"
 
 #endif // ENTITY_PLAYER_HPP

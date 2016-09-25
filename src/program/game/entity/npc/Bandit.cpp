@@ -9,7 +9,7 @@
 #include "../../../Resources.hpp"
 #include "../../../funcs/files.hpp"
 #include "../../../funcs/random.hpp"
-#include "../../../path_finder/PathFinder.hpp"
+#include "../../PathFinder.hpp"
 
 #include "Bandit.hpp"
 
@@ -19,7 +19,9 @@ namespace rr
     Bandit::Bandit(Type type) :
       m_type(type)
     {
-        m_velocity                         = 900.f;
+        m_velocity = 900.f;
+        m_moving   = false;
+
         m_attrs.health = m_attrs.maxHealth =  20.f;
         m_attrs.armor                      =   5.f;
         m_attrs.level                      =   5  ;
@@ -227,7 +229,9 @@ namespace rr
         m_attackingRight.clearFrames();
 
         sf::Vector2i position;
-        int state, direction, type;
+        int state     = 0,
+            direction = 0,
+            type      = 0;
 
         try
         {

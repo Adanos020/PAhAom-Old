@@ -4,10 +4,11 @@
  * Used library: SFML
  */
 
+#include <iostream>
 #include <fstream>
 
 #include "Resources.hpp"
-#include "Program.hpp"
+#include "../Program.hpp"
 
 #include "funcs/strings.hpp"
 
@@ -40,6 +41,8 @@ namespace rr
         std::ifstream idict;
         idict.open("data/lang/"+Settings::game.language+".lang");
 
+        std::cout << "lang: " << Settings::game.language << '\n';
+
         if (idict.good())
         {
             puts(">Loading the dictionary...");
@@ -53,6 +56,8 @@ namespace rr
                 {
                     std::getline(idict, translation);
                     dictionary[word] = utf8ToUtf32(translation);
+
+                    std::cout << word << ":" << translation << '\n';
                 }
             }
             idict.close();

@@ -7,7 +7,7 @@
 #ifndef ITEM_RANGEDWEAPON_HPP
 #define ITEM_RANGEDWEAPON_HPP
 
-#include "Item.hpp"
+#include "../Item.hpp"
 
 namespace rr
 {

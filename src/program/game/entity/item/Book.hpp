@@ -7,7 +7,7 @@
 #ifndef ITEM_BOOK_HPP
 #define ITEM_BOOK_HPP
 
-#include "Item.hpp"
+#include "../Item.hpp"
 
 namespace rr
 {

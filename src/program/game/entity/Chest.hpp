@@ -9,8 +9,8 @@
 
 #include "../../funcs/items.hpp"
 
-#include "Entity.hpp"
-#include "item/Item.hpp"
+#include "../Entity.hpp"
+#include "Item.hpp"
 
 namespace rr
 {

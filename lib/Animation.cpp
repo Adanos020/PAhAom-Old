@@ -35,36 +35,52 @@ namespace sf {
     Animation::Animation() :
       m_texture(NULL) {}
 
-    void Animation::addFrame(sf::IntRect rect) {
+    void
+    Animation::addFrame(sf::IntRect rect)
+    {
         m_frames.push_back(rect);
     }
 
-    void Animation::clearFrames() {
+    void
+    Animation::clearFrames()
+    {
         m_frames.clear();
     }
 
-    void Animation::setSpriteSheet(const sf::Texture& texture) {
+    void
+    Animation::setSpriteSheet(const sf::Texture& texture)
+    {
         m_texture = &texture;
     }
 
-    const sf::Texture* Animation::getSpriteSheet() const {
+    const sf::Texture*
+    Animation::getSpriteSheet() const
+    {
         return m_texture;
     }
 
-    std::size_t Animation::getSize() const {
+    std::size_t
+    Animation::getSize() const
+    {
         return m_frames.size();
     }
 
-    const sf::IntRect& Animation::getFrame(std::size_t n) const {
+    const sf::IntRect&
+    Animation::getFrame(std::size_t n) const
+    {
         return m_frames[n];
     }
 
-    bool Animation::operator==(const Animation& right) const {
+    bool
+    Animation::operator==(const Animation& right) const
+    {
         return m_frames  == right.m_frames
             && m_texture == right.m_texture;
     }
 
-    bool Animation::operator!=(const Animation& right) const {
+    bool
+    Animation::operator!=(const Animation& right) const
+    {
         return m_frames  != right.m_frames
             || m_texture != right.m_texture;
     }

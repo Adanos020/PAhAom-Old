@@ -57,6 +57,6 @@ namespace rr
 
 }
 
-#include "../Game.hpp"
+#include "../../Game.hpp"
 
 #endif // UI_PAUSE_HPP

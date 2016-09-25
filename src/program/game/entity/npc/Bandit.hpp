@@ -7,7 +7,7 @@
 #ifndef NPC_BANDIT_HPP
 #define NPC_BANDIT_HPP
 
-#include "NPC.hpp"
+#include "../NPC.hpp"
 
 #include "../Player.hpp"
 

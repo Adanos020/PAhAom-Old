@@ -4,8 +4,8 @@
  * Used library: SFML
  */
 
-#include "../../../../observer/Observer.hpp"
-#include "../../../fov/FOV.hpp"
+#include "../../../../Observer.hpp"
+#include "../../../FOV.hpp"
 
 #include "AIManager.hpp"
 

@@ -4,7 +4,7 @@
  * Used library: SFML
  */
 
-#include "NPC.hpp"
+#include "../NPC.hpp"
 
 namespace rr
 {

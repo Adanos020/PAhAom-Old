@@ -46,12 +46,12 @@ namespace sf {
              void             stop           ();
              void             setLooped      (bool looped);
              void             setColor       (const sf::Color& color);
-             const Animation* getAnimation   ()                                                  const;
-             sf::FloatRect    getLocalBounds ()                                                  const;
-             sf::FloatRect    getGlobalBounds()                                                  const;
-             bool             isLooped       ()                                                  const;
-             bool             isPlaying      ()                                                  const;
-             sf::Time         getFrameTime   ()                                                  const;
+             const Animation* getAnimation   () const;
+             sf::FloatRect    getLocalBounds () const;
+             sf::FloatRect    getGlobalBounds() const;
+             bool             isLooped       () const;
+             bool             isPlaying      () const;
+             sf::Time         getFrameTime   () const;
              void             setFrame       (std::size_t newFrame, bool resetTime = true);
     
     private: const Animation*   m_animation;

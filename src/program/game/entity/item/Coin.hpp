@@ -7,7 +7,7 @@
 #ifndef ITEM_COIN_HPP
 #define ITEM_COIN_HPP
 
-#include "Item.hpp"
+#include "../Item.hpp"
 
 namespace rr
 {
