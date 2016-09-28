@@ -98,7 +98,8 @@ namespace rr
                     std::reverse(modes.begin(), modes.end());
                     for (auto mode : modes)
                     {
-                        swResolution->addOption(std::to_string(mode.width) + "x" + std::to_string(mode.height));
+                        if (mode.width >= 1000 && mode.height >= 600)
+                            swResolution->addOption(std::to_string(mode.width) + "x" + std::to_string(mode.height));
                     }
 
                     swResolution->setCurrentOption(std::to_string(Settings::graphics.resolution.x)+"x"+std::to_string(Settings::graphics.resolution.y));

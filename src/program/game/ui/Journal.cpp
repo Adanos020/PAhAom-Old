@@ -22,6 +22,8 @@ namespace rr
         m_shadow.setPosition(sf::Vector2f(0, 0));
         m_shadow.setFillColor(sf::Color(0, 0, 0, 128));
 
+        
+
         auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
              bQuit->setPosition(sf::Vector2f(m_wJour.getSize().x - bQuit->getSize().x - 15,
                                              m_wJour.getSize().y - bQuit->getSize().y -  5));

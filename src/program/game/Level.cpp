@@ -93,6 +93,7 @@ namespace rr
     void
     Level::playerInteract(Game* game)
     {
+        bool quitsLevel = false;
         auto it=m_entities.begin();
         while (it != m_entities.end())
         {
@@ -121,12 +122,12 @@ namespace rr
                     if (((Stairs*) *it)->isUpwards())
                     {
                         game->switchLevel(m_levelNumber+1);
-                        return;
+                        quitsLevel = true;
                     }
                     else
                     {
                         game->switchLevel(m_levelNumber-1);
-                        return;
+                        quitsLevel = true;
                     }
                 }
             }
@@ -142,7 +143,8 @@ namespace rr
             ++it;
         }
 
-        makeOrdersToNPCs(game->getPlayer());
+        if (!quitsLevel)
+            makeOrdersToNPCs(game->getPlayer());
     }
 
     void
