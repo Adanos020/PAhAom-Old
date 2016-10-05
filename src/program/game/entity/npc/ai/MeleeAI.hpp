@@ -19,7 +19,7 @@ namespace rr
         public: ////////////////////////////////////////////////////////////////////////
                 /// \brief Tells if the NPC can move towards the entity.
                 ////////////////////////////////////////////////////////////////////////
-        virtual bool canMoveTowards(Entity*, NPC*) const override;
+        virtual bool canMoveTowards(Entity*, NPC*, int[]) const override;
 
                 ////////////////////////////////////////////////////////////////////////
                 /// \brief Moves the NPC towards the entity.

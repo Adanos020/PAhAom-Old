@@ -62,7 +62,7 @@ namespace rr
         {
             target.draw(**it);
         }
-        target.draw(m_shadowMap, states);
+        //target.draw(m_shadowMap, states);
     }
 
     void
@@ -94,8 +94,9 @@ namespace rr
     Level::playerInteract(Game* game)
     {
         bool quitsLevel = false;
+
         auto it=m_entities.begin();
-        while (it != m_entities.end())
+        while (it != m_entities.end() && !quitsLevel)
         {
             if (game->getPlayer()->getGridPosition() == (*it)->getGridPosition())
             {
@@ -225,12 +226,10 @@ namespace rr
         for (auto it = m_npcs.begin(); it != m_npcs.end(); ++it)
         {
             auto npc = *it;
+            auto pos = npc->getGridPosition();
 
-            {
-                auto pos = npc->getGridPosition();
-                m_tiles      [pos.x + pos.y*m_size.x] = OCCUPIED;
-                m_tilesAsInts[pos.x + pos.y*m_size.x] = 5;
-            }
+            m_tiles      [pos.x + pos.y*m_size.x] = OCCUPIED;
+            m_tilesAsInts[pos.x + pos.y*m_size.x] = 5;
 
             m_AIManager.makeOrders(npc);
         }
@@ -831,22 +830,26 @@ namespace rr
     {
         switch (event)
         {
-            case ITEM_DROPPED: addEntity(entity);
-                               break;
+            case ITEM_DROPPED:
+            {
+                addEntity(entity);
+            }
+            break;
 
-            case PLAYER_DIES : break;
+            case NPC_DIES:
+            {
+                m_entities.remove(entity);
+                if (instanceof <NPC, Entity> (entity))
+                {
+                    m_npcs.remove((NPC*) entity);
+                    delete entity;
+                }
+                else if (instanceof <Item, Entity> (entity))
+                    m_items.remove((Item*) entity);
+            }
+            break;
 
-            case NPC_DIES    : m_entities.remove(entity);
-                               if (instanceof <NPC, Entity> (entity))
-                               {
-                                   m_npcs.remove((NPC*) entity);
-                                   delete entity;
-                               }
-                               else if (instanceof <Item, Entity> (entity))
-                                   m_items.remove((Item*) entity);
-                               break;
-
-            default          : break;
+            default: break;
         }
     }
 

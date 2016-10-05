@@ -5,20 +5,21 @@
  */
 
 #include "MeleeAI.hpp"
+#include "../../../PathFinder.hpp"
 
 namespace rr
 {
 
     bool
-    MeleeAI::canMoveTowards(Entity* entity, NPC* npc) const
+    MeleeAI::canMoveTowards(Entity* entity, NPC* npc, int tiles[]) const
     {
-        return false;
+        return !PathFinder::aStar(npc->getGridPosition(), entity->getGridPosition(), tiles).empty();
     }
 
     void
     MeleeAI::moveTowards(Entity* entity, NPC* npc)
     {
-
+        npc->setDestination(entity->getGridPosition());
     }
 
     bool

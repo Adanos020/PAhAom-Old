@@ -84,17 +84,22 @@ namespace rr
     }
 
     void
-    Bandit::update(int tiles[], sf::Time timeStep)
+    Bandit::update(int tiles[], sf::Time delta)
     {
         if (m_moving)
         {
             sf::Vector2f offset = m_body.getPosition() - (sf::Vector2f) m_position*80.f;
             if (offset != sf::Vector2f(0, 0))
             {
-                if (offset.x < 0) m_body.move(sf::Vector2f( m_velocity*timeStep.asSeconds(),  0));
-                if (offset.x > 0) m_body.move(sf::Vector2f(-m_velocity*timeStep.asSeconds(),  0));
-                if (offset.y < 0) m_body.move(sf::Vector2f( 0,  m_velocity*timeStep.asSeconds()));
-                if (offset.y > 0) m_body.move(sf::Vector2f( 0, -m_velocity*timeStep.asSeconds()));
+                auto displacement = m_velocity*delta.asSeconds();
+                if (offset.x < 0 && displacement-2 >= offset.x) m_body.move(sf::Vector2f( displacement,  0));
+                if (offset.x > 0 && displacement+2 <= offset.x) m_body.move(sf::Vector2f(-displacement,  0));
+                if (offset.y < 0 && displacement-2 >= offset.y) m_body.move(sf::Vector2f( 0,  displacement));
+                if (offset.y > 0 && displacement+2 <= offset.y) m_body.move(sf::Vector2f( 0, -displacement));
+
+                if (  (abs(offset.x) < m_velocity/128 && abs(offset.x) > 0) // preventing the bandit from wobbling
+                   || (abs(offset.y) < m_velocity/128 && abs(offset.y) > 0) // in between of two cells
+                    )  m_body.setPosition((sf::Vector2f) m_position*80.f);
             }
             else
             {
@@ -112,13 +117,9 @@ namespace rr
 
                 m_moving = false;
             }
-
-            if (  (abs(offset.x) < m_velocity/128 && abs(offset.x) > 0) // preventing the bandit from wobbling
-               || (abs(offset.y) < m_velocity/128 && abs(offset.y) > 0) // in between of two cells
-                )  m_body.setPosition((sf::Vector2f) m_position*80.f);
         }
 
-        m_body.update(timeStep);
+        m_body.update(delta);
 
         if (!m_body.isPlaying())
         {
@@ -129,34 +130,59 @@ namespace rr
 
         switch (m_state)
         {
-            case STANDING : if      (   m_direction        == LEFT
-                                    && *m_currentAnimation != m_standingLeft
-                                     )  m_currentAnimation = &m_standingLeft;
+            case STANDING:
+            {
+                if (m_direction == LEFT && *m_currentAnimation != m_standingLeft)
+                    m_currentAnimation = &m_standingLeft;
 
-                            else if (   m_direction        == RIGHT
-                                    && *m_currentAnimation != m_standingRight
-                                     )  m_currentAnimation = &m_standingRight;
-                            break;
+                else if (m_direction == RIGHT && *m_currentAnimation != m_standingRight)
+                    m_currentAnimation = &m_standingRight;
+            }
+            break;
 
-            case WAITING  : break;
+            case WAITING:
+            {
 
-            case EXPLORING: if (!m_moving)
-                            {
-                                if (m_position != m_destination)
-                                {
-                                    //m_position = PathFinder::aStar(m_position, m_destination, tiles)[0];
-                                    m_moving = true;
-                                }
-                                else
-                                {
-                                    m_state = STANDING;
-                                }
-                            }
-                            break;
+            }
+            break;
 
-            case HUNTING  : break;
+            case EXPLORING:
+            {
+                if (!m_moving)
+                {
+                    if (m_position != m_destination)
+                    {
+                        auto path = PathFinder::aStar(m_destination, m_position, tiles);
+                        if (!path.empty())
+                        {
+                            m_position = path.front();
+                            std::cout << "moving to: [" << m_position.x << ", " << m_position.y << "]\n";
+                            m_moving = true;
+                        }
+                        else
+                        {
+                            m_state = STANDING;
+                        }
+                    }
+                    else
+                    {
+                        m_state = STANDING;
+                    }
+                }
+            }
+            break;
 
-            case ESCAPING : break;
+            case HUNTING:
+            {
+                
+            }
+            break;
+
+            case ESCAPING:
+            {
+
+            }
+            break;
         }
 
         m_body.play(*m_currentAnimation);
