@@ -62,7 +62,7 @@ namespace rr
         {
             target.draw(**it);
         }
-        //target.draw(m_shadowMap, states);
+        target.draw(m_shadowMap, states);
     }
 
     void

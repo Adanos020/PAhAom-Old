@@ -32,7 +32,7 @@ namespace rr
         begin->setOpen(true);
         openList.push_back(begin);
 
-        while (tries == 0 || (*current != *end && tries <= 5000))
+        while (tries == 0 || (*current != *end && tries <= 77*430))
         {
             if (openList.empty())
                 return path;

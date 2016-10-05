@@ -176,4 +176,10 @@ namespace rr
         return -1;
     }
 
+    bool
+    NPC::isMoving() const
+    {
+        return m_moving;
+    }
+
 }

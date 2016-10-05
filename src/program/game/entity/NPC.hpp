@@ -16,6 +16,8 @@
 
 #include "../Dialogue.hpp"
 
+#include "npc/AI.hpp"
+
 namespace rr
 {
 
@@ -48,6 +50,8 @@ namespace rr
                float              m_velocity;
 
                DialogueTree       m_dialogue;
+
+               AI*                m_AI;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets all the player detectors' positions.
@@ -273,6 +277,11 @@ namespace rr
                /// and -1 is anywhere else.
                ////////////////////////////////////////////////////////////////////////
                int detects(Entity*) const;
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Tells if the NPC is moving;
+               ////////////////////////////////////////////////////////////////////////
+               bool isMoving() const;
 
     protected: Attitude  m_attitude;
                State     m_state;

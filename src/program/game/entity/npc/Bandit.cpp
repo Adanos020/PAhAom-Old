@@ -22,8 +22,8 @@ namespace rr
         m_velocity = 900.f;
         m_moving   = false;
 
-        m_attrs.health
-         = m_attrs.maxHealth = 10.f;
+        m_attrs.health =
+           m_attrs.maxHealth = 10.f;
         m_attrs.armor        =  5.f;
         m_attrs.level        =  5  ;
 
@@ -80,7 +80,14 @@ namespace rr
         m_body.setFrameTime(sf::seconds(.2f));
 
         m_attitude = AGGRESSIVE;
-        m_state    = chance(1, 3) ? STANDING : WAITING;
+        m_state = chance(1, 3) ? STANDING : WAITING;
+/*
+        switch (m_type)
+        {
+            //case CROSSBOW: m_AI = new RangedAI(); break;
+            default      : m_AI = new MeleeAI (); break;
+        }
+*/
     }
 
     void
@@ -148,27 +155,7 @@ namespace rr
 
             case EXPLORING:
             {
-                if (!m_moving)
-                {
-                    if (m_position != m_destination)
-                    {
-                        auto path = PathFinder::aStar(m_destination, m_position, tiles);
-                        if (!path.empty())
-                        {
-                            m_position = path.front();
-                            std::cout << "moving to: [" << m_position.x << ", " << m_position.y << "]\n";
-                            m_moving = true;
-                        }
-                        else
-                        {
-                            m_state = STANDING;
-                        }
-                    }
-                    else
-                    {
-                        m_state = STANDING;
-                    }
-                }
+
             }
             break;
 
