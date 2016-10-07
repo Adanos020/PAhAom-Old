@@ -108,6 +108,7 @@ src/program/gui/Window.debug.o \
 src/program/gui/Text.debug.o \
 src/program/gui/Switch.debug.o \
 src/program/gui/Slot.debug.o \
+src/program/gui/Separator.debug.o \
 src/program/gui/ScrollBar.debug.o \
 src/program/gui/Menu.debug.o \
 src/program/gui/Image.debug.o \
@@ -165,6 +166,7 @@ src/program/gui/Window.o \
 src/program/gui/Text.o \
 src/program/gui/Switch.o \
 src/program/gui/Slot.o \
+src/program/gui/Separator.o \
 src/program/gui/ScrollBar.o \
 src/program/gui/Menu.o \
 src/program/gui/Image.o \

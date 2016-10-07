@@ -11,6 +11,8 @@
 #include "../../../funcs/random.hpp"
 #include "../../PathFinder.hpp"
 
+#include "ai/MeleeAI.hpp"
+
 #include "Bandit.hpp"
 
 namespace rr
@@ -81,13 +83,13 @@ namespace rr
 
         m_attitude = AGGRESSIVE;
         m_state = chance(1, 3) ? STANDING : WAITING;
-/*
+
         switch (m_type)
         {
             //case CROSSBOW: m_AI = new RangedAI(); break;
             default      : m_AI = new MeleeAI (); break;
         }
-*/
+
     }
 
     void
@@ -147,27 +149,9 @@ namespace rr
             }
             break;
 
-            case WAITING:
-            {
-
-            }
-            break;
-
-            case EXPLORING:
-            {
-
-            }
-            break;
-
-            case HUNTING:
+            default:
             {
                 
-            }
-            break;
-
-            case ESCAPING:
-            {
-
             }
             break;
         }

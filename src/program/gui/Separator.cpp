@@ -39,7 +39,7 @@ namespace rr
     {
         m_length = length;
 
-        if (plain == HORIZONTAL)
+        if (m_plain == HORIZONTAL)
             m_vertices[1].position = sf::Vector2f(length, 0);
         else
             m_vertices[1].position = sf::Vector2f(0, length);
@@ -61,7 +61,27 @@ namespace rr
     sf::Color
     Separator::getColor() const
     {
-        return m_vertices[0].color = color;
+        return m_vertices[0].color;
+    }
+
+    void
+    Separator::setPosition(sf::Vector2f pos)
+    {
+        auto distance = m_vertices[1].position - m_vertices[0].position;
+        m_vertices[0].position = pos;
+        m_vertices[1].position = pos + distance;
+    }
+
+    sf::Vector2f
+    Separator::getPosition() const
+    {
+        return m_vertices[0].position;
+    }
+
+    sf::Vector2f
+    Separator::getSize() const
+    {
+        return m_vertices[1].position - m_vertices[0].position;
     }
 
 }

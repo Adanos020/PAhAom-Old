@@ -17,7 +17,8 @@ namespace rr
 
     AIManager::AIManager(Level* level, Player* player) :
       m_level (level),
-      m_player(player) {}
+      m_player(player)
+    {}
 
     void
     AIManager::makeOrders(NPC* npc)
@@ -79,8 +80,11 @@ namespace rr
             int detector = npc->detects(m_player);
             if (detector >= 0) // the npc detects player
             {
-                if      ((detector == 0 || detector == 3 || detector == 5) && npc->getDirection() != NPC::LEFT ) npc->setDirection(NPC::RIGHT);
-                else if ((detector == 2 || detector == 4 || detector == 7) && npc->getDirection() != NPC::RIGHT) npc->setDirection(NPC::LEFT);
+                if ((detector == 0 || detector == 3 || detector == 5)
+                  && npc->getDirection() != NPC::LEFT ) npc->setDirection(NPC::RIGHT);
+                
+                else if ((detector == 2 || detector == 4 || detector == 7)
+                  && npc->getDirection() != NPC::RIGHT) npc->setDirection(NPC::LEFT);
 
                 if (instanceof <Bandit, NPC> (npc)) // the npc is a bandit
                 {
@@ -109,10 +113,8 @@ namespace rr
                                                break;
                     }
 
-                    if (hit)
-                        subject.notify(Observer::NPC_ATTACK_SUCCESS, npc); // the npc hit the player
-                    else
-                        subject.notify(Observer::NPC_ATTACK_FAILURE, npc); // the player dodged the attack
+                    if (hit) subject.notify(Observer::NPC_ATTACK_SUCCESS, npc); // the npc hit the player
+                    else     subject.notify(Observer::NPC_ATTACK_FAILURE, npc); // the player dodged the attack
                 }
             }
             else if (FOV::seesEntity(m_level->getTiles(), npc, m_player))
