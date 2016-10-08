@@ -28,6 +28,7 @@ namespace rr
 
         public:  enum Song
                  {
+                     NONE,
                      MENU,
                      PRISON,
                      BOSSFIGHT,
@@ -69,6 +70,13 @@ namespace rr
                  /// \brief Plays a given sound.
                  ////////////////////////////////////////////////////////////////////////
                  void playSound(SoundEffect, float volume);
+
+                 ////////////////////////////////////////////////////////////////////////
+                 /// \brief Returns the current song playing.
+                 ////////////////////////////////////////////////////////////////////////
+                 Song getCurrentSong() const;
+
+    private:     Song m_song;
     };
 
 }

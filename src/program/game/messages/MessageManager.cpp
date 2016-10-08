@@ -47,6 +47,12 @@ namespace rr
     }
 
     void
+    MessageManager::clear()
+    {
+        m_messages.clear();
+    }
+
+    void
     MessageManager::draw(sf::RenderWindow& rw)
     {
         for (auto message : m_messages)

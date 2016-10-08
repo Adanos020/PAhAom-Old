@@ -149,11 +149,7 @@ namespace rr
             }
             break;
 
-            default:
-            {
-                
-            }
-            break;
+            default: break;
         }
 
         m_body.play(*m_currentAnimation);

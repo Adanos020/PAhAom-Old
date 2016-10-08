@@ -45,9 +45,16 @@ namespace rr
     void
     AudioManager::playMusic(Song song)
     {
+        m_song = song;
         switch (song)
         {
-            case MENU: 
+            case NONE:
+            {
+                m_music.stop();
+            }
+            break;
+
+            case MENU:
             {
                 m_music.stop();
                 m_music.openFromFile("data/music/menu.ogg");
@@ -92,6 +99,12 @@ namespace rr
         {
             default: break;
         }
+    }
+
+    AudioManager::Song
+    AudioManager::getCurrentSong() const
+    {
+        return m_song;
     }
 
 }

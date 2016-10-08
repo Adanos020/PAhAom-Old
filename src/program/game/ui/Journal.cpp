@@ -41,6 +41,9 @@ namespace rr
             images.push_back(new Image(sf::Vector2f(10, 25 + i*55), Resources::texture.items, 16, 2));
             images.back()->scale(sf::Vector2f(0.5f, 0.5f));
 
+            images.push_back(new Image(sf::Vector2f(10, 25 + i*55), Resources::texture.items, 16, 0));
+            images.back()->scale(sf::Vector2f(0.5f, 0.5f));
+
             sf::String name = "";
             switch (i)
             {
@@ -62,6 +65,9 @@ namespace rr
         for (int i = 0; i < 12; ++i)
         {
             images.push_back(new Image(sf::Vector2f(m_wJour.getSize().x/3 + 10, 25 + i*40.5f), Resources::texture.items, 16, 48));
+            images.back()->scale(sf::Vector2f(0.5f, 0.5f));
+
+            images.push_back(new Image(sf::Vector2f(m_wJour.getSize().x/3 + 10, 25 + i*40.5f), Resources::texture.items, 16, 0));
             images.back()->scale(sf::Vector2f(0.5f, 0.5f));
 
             sf::String name = "";
@@ -93,7 +99,10 @@ namespace rr
         for (unsigned i = 0; i < images.size(); ++i)
         {
             m_wJour += images[i];
-            m_wJour += names [i];
+        }
+        for (unsigned i = 0; i < names.size(); ++i)
+        {
+            m_wJour += names[i];
         }
     }
 
@@ -118,22 +127,16 @@ namespace rr
                 {
                     if (instanceof <Potion, Item> ((Item*) entity))
                     {
-                        sf::Vector2f position = m_wJour.getComponent <Image> (((Potion*) entity)->getType())->getPosition();
+                        auto img = m_wJour.getComponent <Image> (2 * ((Potion*) entity)->getType() + 1);
 
-                        auto img = new Image(position, Resources::texture.items, 16, 18);
+                        img->setIconIndex(18);
                         img->paint(itemColors[((Potion*) entity)->getType()]);
-                        img->scale(sf::Vector2f(0.5f, 0.5f));
-
-                        m_wJour |= img;
                     }
                     else if (instanceof <Rune, Item> ((Item*) entity))
                     {
-                        sf::Vector2f position = m_wJour.getComponent <Image> (9 + ((Rune*) entity)->getType())->getPosition();
+                        auto img = m_wJour.getComponent <Image> (2 * ((Rune*) entity)->getType() + 19);
 
-                        auto img = new Image(position, Resources::texture.items, 16, 64 + spellSymbols[((Rune*) entity)->getType()]);
-                        img->scale(sf::Vector2f(0.5f, 0.5f));
-
-                        m_wJour |= img;
+                        img->setIconIndex(64 + spellSymbols[((Rune*) entity)->getType()]);
                     }
                 }
             }

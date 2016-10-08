@@ -226,6 +226,7 @@ namespace rr
                 if (Rune::m_identified[i])
                     subject.notify(Observer::ITEM_DISCOVERED, new Rune((Rune::Type) i));
             }
+            m_messageManager.clear();
 
             readEntity(file, &m_player);
 
@@ -273,8 +274,8 @@ namespace rr
         std::ofstream file("save/save.pah");
         file.clear();
 
-        file        << m_seed        << '\n'
-                    << m_levelNumber << '\n';
+        file << m_seed        << '\n'
+             << m_levelNumber << '\n';
 
         for (int i = 0; i < 9; ++i)
         {
