@@ -4,6 +4,8 @@
  * Used library: SFML
  */
 
+#include "../../funcs/classes.hpp"
+
 #include "Journal.hpp"
 
 #include "../../gui/Button.hpp"
@@ -12,12 +14,15 @@
 #include "../../Settings.hpp"
 #include "../../Resources.hpp"
 
+extern sf::Color itemColors  [9];
+extern int       spellSymbols[12];
+
 namespace rr
 {
 
     Journal::Journal() :
-      m_wJour(Window(Resources::dictionary["gui.window.journal"], sf::Vector2f(725, 520), sf::Vector2f(Settings::graphics.resolution.x/2-362.5,
-                                                                                                       Settings::graphics.resolution.y/2-260)))
+      m_wJour(Resources::dictionary["gui.window.journal"], sf::Vector2f(725, 520),
+              sf::Vector2f(Settings::graphics.resolution.x/2-362.5, Settings::graphics.resolution.y/2-260))
     {
         m_shadow.setSize((sf::Vector2f) Settings::graphics.resolution);
         m_shadow.setPosition(sf::Vector2f(0, 0));
@@ -30,17 +35,54 @@ namespace rr
              separator2->setPosition(sf::Vector2f(2*m_wJour.getSize().x/3, 15));
 
         std::vector <Image*> images;
+        std::vector <Text* > names;
         for (int i = 0; i < 9; ++i)
         {
-            images.push_back(new Image(sf::Vector2f(10, 25 + i*8*5),
-                                       Resources::texture.items, 16, 0));
+            images.push_back(new Image(sf::Vector2f(10, 25 + i*55), Resources::texture.items, 16, 2));
             images.back()->scale(sf::Vector2f(0.5f, 0.5f));
+
+            sf::String name = "";
+            switch (i)
+            {
+                case 0: name = "item.potion.effect.healing";      break;
+                case 1: name = "item.potion.effect.magic";        break;
+                case 2: name = "item.potion.effect.strength";     break;
+                case 3: name = "item.potion.effect.dexterity";    break;
+                case 4: name = "item.potion.effect.speed";        break;
+                case 5: name = "item.potion.effect.regeneration"; break;
+                case 6: name = "item.potion.effect.poison";       break;
+                case 7: name = "item.potion.effect.slowness";     break;
+                case 8: name = "item.potion.effect.weakness";     break;
+            }
+            names.push_back(new Text(Resources::dictionary[name], Resources::font.Unifont, 20));
+            names.back()->wrap(m_wJour.getSize().x/3 - 50);
+            names.back()->setPosition(images.back()->getPosition() + sf::Vector2f(40, images.back()->getSize().y/2 - names.back()->getSize().y/1.75f));
         }
+
         for (int i = 0; i < 12; ++i)
         {
-            images.push_back(new Image(sf::Vector2f(m_wJour.getSize().x/3 + 10, 25 + i*8*5),
-                                       Resources::texture.items, 16, 0));
+            images.push_back(new Image(sf::Vector2f(m_wJour.getSize().x/3 + 10, 25 + i*40.5f), Resources::texture.items, 16, 48));
             images.back()->scale(sf::Vector2f(0.5f, 0.5f));
+
+            sf::String name = "";
+            switch (i)
+            {
+                case  0: name = "item.spell.type.heal";         break;
+                case  1: name = "item.spell.type.firebolt";     break;
+                case  2: name = "item.spell.type.lightning";    break;
+                case  3: name = "item.spell.type.iceBullet";    break;
+                case  4: name = "item.spell.type.teleport";     break;
+                case  5: name = "item.spell.type.fireRain";     break;
+                case  6: name = "item.spell.type.storm";        break;
+                case  7: name = "item.spell.type.iceWave";      break;
+                case  8: name = "item.spell.type.timeFreezing"; break;
+                case  9: name = "item.spell.type.identify";     break;
+                case 10: name = "item.spell.type.uncurse";      break;
+                case 11: name = "item.spell.type.telekinesis";  break;
+            }
+            names.push_back(new Text(Resources::dictionary[name], Resources::font.Unifont, 20));
+            names.back()->wrap(m_wJour.getSize().x/3 - 50);
+            names.back()->setPosition(images.back()->getPosition() + sf::Vector2f(40, images.back()->getSize().y/2 - names.back()->getSize().y/1.75f));
         }
 
         auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
@@ -51,6 +93,7 @@ namespace rr
         for (unsigned i = 0; i < images.size(); ++i)
         {
             m_wJour += images[i];
+            m_wJour += names [i];
         }
     }
 
@@ -61,6 +104,41 @@ namespace rr
         {
             if (m_wJour.getComponent <Button> (0)->isPressed(rw, e))
                 g->pause(false);
+        }
+    }
+
+    void
+    Journal::onNotify(Observer::Event event, Entity* entity)
+    {
+        switch (event)
+        {
+            case ITEM_DISCOVERED:
+            {
+                if (instanceof <Item, Entity> (entity))
+                {
+                    if (instanceof <Potion, Item> ((Item*) entity))
+                    {
+                        sf::Vector2f position = m_wJour.getComponent <Image> (((Potion*) entity)->getType())->getPosition();
+
+                        auto img = new Image(position, Resources::texture.items, 16, 18);
+                        img->paint(itemColors[((Potion*) entity)->getType()]);
+                        img->scale(sf::Vector2f(0.5f, 0.5f));
+
+                        m_wJour |= img;
+                    }
+                    else if (instanceof <Rune, Item> ((Item*) entity))
+                    {
+                        sf::Vector2f position = m_wJour.getComponent <Image> (9 + ((Rune*) entity)->getType())->getPosition();
+
+                        auto img = new Image(position, Resources::texture.items, 16, 64 + spellSymbols[((Rune*) entity)->getType()]);
+                        img->scale(sf::Vector2f(0.5f, 0.5f));
+
+                        m_wJour |= img;
+                    }
+                }
+            }
+
+            default: break;
         }
     }
 

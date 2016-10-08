@@ -39,8 +39,7 @@ namespace rr
     AudioManager::AudioManager()
     {
         m_music.setLoop(true);
-        m_music.setVolume(Settings::sound.music_muted ? 0
-                                                     : Settings::sound.music_volume);
+        m_music.setVolume(Settings::sound.music_muted ? 0 : Settings::sound.music_volume);
     }
 
     void
@@ -48,9 +47,21 @@ namespace rr
     {
         switch (song)
         {
-            case MENU: m_music.stop();
-                       m_music.openFromFile("data/music/menu.ogg");
-                       m_music.play();
+            case MENU: 
+            {
+                m_music.stop();
+                m_music.openFromFile("data/music/menu.ogg");
+                m_music.play();
+            }
+            break;
+
+            case PRISON:
+            {
+                m_music.stop();
+                m_music.openFromFile("data/music/prison.ogg");
+                m_music.play();
+            }
+            break;
 
             default  : break;
         }

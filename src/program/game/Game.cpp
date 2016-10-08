@@ -42,6 +42,7 @@ namespace rr
         m_mapView.setSize  (6160.f, 3440.f);
         m_mapView.setCenter(m_mapView.getSize()/2.f);
 
+        subject.addObserver(&m_journal);
         subject.addObserver(&m_inventory);
         subject.addObserver(&m_audioManager);
         subject.addObserver(&m_messageManager);
@@ -190,6 +191,8 @@ namespace rr
         //m_inventory.addItem(new Book(Book::SPELLS_BOOK));
         //m_inventory.addItem(new Coin(Coin::GOLDEN, Coin::SMALL, 3));
 
+        m_audioManager.playMusic(AudioManager::PRISON);
+
         return true;
     }
 
@@ -208,19 +211,23 @@ namespace rr
             readFile <unsigned> (file, m_seed       );
             readFile <unsigned> (file, m_levelNumber);
 
+            srand(m_seed);
+            randomizeItems();
+
             for (int i = 0; i < 9; ++i)
             {
                 readFile <bool> (file, Potion::m_identified[i]);
+                if (Potion::m_identified[i])
+                    subject.notify(Observer::ITEM_DISCOVERED, new Potion((Potion::Type) i));
             }
             for (int i = 0; i < 12; ++i)
             {
-                readFile <bool> (file, Rune  ::m_identified[i]);
+                readFile <bool> (file, Rune::m_identified[i]);
+                if (Rune::m_identified[i])
+                    subject.notify(Observer::ITEM_DISCOVERED, new Rune((Rune::Type) i));
             }
 
             readEntity(file, &m_player);
-
-            srand(m_seed);
-            randomizeItems();
 
             m_inventory << file;
             if (file.fail())
@@ -254,6 +261,8 @@ namespace rr
         pause(false);
 
         m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
+
+        m_audioManager.playMusic(AudioManager::PRISON);
 
         return true;
     }
@@ -509,6 +518,7 @@ namespace rr
         m_deathScreen.reset();
 
         subject.clear();
+        subject.addObserver(&m_journal);
         subject.addObserver(&m_inventory);
         subject.addObserver(&m_audioManager);
         subject.addObserver(&m_messageManager);

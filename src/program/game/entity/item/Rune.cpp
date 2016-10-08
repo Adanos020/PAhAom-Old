@@ -50,7 +50,7 @@ namespace rr
         m_ID         = 49+m_type;
         m_iconIndex  = 48;
 
-        int icons[] = { (int)m_iconIndex, 64+(int)spellSymbols[m_type] };
+        int icons[] = { (int) m_iconIndex, 64 + (int) spellSymbols[m_type] };
 
         setIcon(m_body, 2, icons);
     }

@@ -194,9 +194,9 @@ namespace rr
 
              AIManager                m_AIManager;
 
-             std::list<Entity*>       m_entities;
-             std::list<NPC*>          m_npcs;
-             std::list<Item*>         m_items;
+             std::vector<Entity*>     m_entities;
+             std::vector<NPC*>        m_npcs;
+             std::vector<Item*>       m_items;
              
              std::vector<sf::IntRect> m_rooms;
              int                      m_regionCount;

@@ -838,14 +838,14 @@ namespace rr
 
             case NPC_DIES:
             {
-                m_entities.remove(entity);
+                m_entities.erase(std::find(m_entities.begin(), m_entities.end(), entity));
                 if (instanceof <NPC, Entity> (entity))
                 {
-                    m_npcs.remove((NPC*) entity);
+                    m_npcs.erase(std::find(m_npcs.begin(), m_npcs.end(), (NPC*) entity));
                     delete entity;
                 }
                 else if (instanceof <Item, Entity> (entity))
-                    m_items.remove((Item*) entity);
+                    m_items.erase(std::find(m_items.begin(), m_items.end(), (Item*) entity));
             }
             break;
 

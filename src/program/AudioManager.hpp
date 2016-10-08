@@ -29,6 +29,7 @@ namespace rr
         public:  enum Song
                  {
                      MENU,
+                     PRISON,
                      BOSSFIGHT,
                      DEATH
                  };

@@ -7,6 +7,8 @@
 #ifndef RESOURCES_HPP
 #define RESOURCES_HPP
 
+#include <unordered_map>
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 

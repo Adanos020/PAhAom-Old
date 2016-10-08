@@ -9,6 +9,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../../Observer.hpp"
 #include "../../gui/Window.hpp"
 
 namespace rr
@@ -16,7 +17,7 @@ namespace rr
 
     class Game;
 
-    class Journal : public sf::Drawable
+    class Journal : public Observer, public sf::Drawable
     {
     private: sf::RectangleShape m_shadow;
              Window             m_wJour;
@@ -30,6 +31,11 @@ namespace rr
              /// \brief Regular constructor.
              ////////////////////////////////////////////////////////////////////////
              Journal();
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Reacts to the notification from the subject.
+             ////////////////////////////////////////////////////////////////////////
+     virtual void onNotify(Event, Entity*) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Handles the button events.
