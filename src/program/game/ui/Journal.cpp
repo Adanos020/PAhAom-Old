@@ -21,27 +21,27 @@ namespace rr
 {
 
     Journal::Journal() :
-      m_wJour(Resources::dictionary["gui.window.journal"], sf::Vector2f(725, 520),
+      m_wJour(Resources::dictionary["gui.window.journal"], sf::Vector2f(725, 570),
               sf::Vector2f(Settings::graphics.resolution.x/2-362.5, Settings::graphics.resolution.y/2-260))
     {
         m_shadow.setSize((sf::Vector2f) Settings::graphics.resolution);
         m_shadow.setPosition(sf::Vector2f(0, 0));
         m_shadow.setFillColor(sf::Color(0, 0, 0, 128));
 
-        auto separator1 = new Separator(Separator::VERTICAL, 490);
+        auto separator1 = new Separator(Separator::VERTICAL, 540);
              separator1->setPosition(sf::Vector2f(m_wJour.getSize().x/3, 15));
              
-        auto separator2 = new Separator(Separator::VERTICAL, 490);
+        auto separator2 = new Separator(Separator::VERTICAL, 540);
              separator2->setPosition(sf::Vector2f(2*m_wJour.getSize().x/3, 15));
 
         std::vector <Image*> images;
         std::vector <Text* > names;
         for (int i = 0; i < 9; ++i)
         {
-            images.push_back(new Image(sf::Vector2f(10, 25 + i*55), Resources::texture.items, 16, 2));
+            images.push_back(new Image(sf::Vector2f(10, 55 + i*55), Resources::texture.items, 16, 2));
             images.back()->scale(sf::Vector2f(0.5f, 0.5f));
 
-            images.push_back(new Image(sf::Vector2f(10, 25 + i*55), Resources::texture.items, 16, 0));
+            images.push_back(new Image(sf::Vector2f(10, 55 + i*55), Resources::texture.items, 16, 0));
             images.back()->scale(sf::Vector2f(0.5f, 0.5f));
 
             sf::String name = "";
@@ -64,10 +64,10 @@ namespace rr
 
         for (int i = 0; i < 12; ++i)
         {
-            images.push_back(new Image(sf::Vector2f(m_wJour.getSize().x/3 + 10, 25 + i*40.5f), Resources::texture.items, 16, 48));
+            images.push_back(new Image(sf::Vector2f(m_wJour.getSize().x/3 + 10, 55 + i*40.5f), Resources::texture.items, 16, 48));
             images.back()->scale(sf::Vector2f(0.5f, 0.5f));
 
-            images.push_back(new Image(sf::Vector2f(m_wJour.getSize().x/3 + 10, 25 + i*40.5f), Resources::texture.items, 16, 0));
+            images.push_back(new Image(sf::Vector2f(m_wJour.getSize().x/3 + 10, 55 + i*40.5f), Resources::texture.items, 16, 0));
             images.back()->scale(sf::Vector2f(0.5f, 0.5f));
 
             sf::String name = "";
@@ -95,6 +95,16 @@ namespace rr
              bQuit->setPosition(sf::Vector2f(m_wJour.getSize().x - bQuit->getSize().x - 15,
                                              m_wJour.getSize().y - bQuit->getSize().y - 5));
 
+        auto tCreativity = new Text("CREATIVITY", Resources::font.Unifont);
+             tCreativity->setPosition(sf::Vector2f(20, 15));
+
+        auto tAction = new Text("ACTION", Resources::font.Unifont);
+             tAction->setPosition(sf::Vector2f(20, 0) + separator1->getPosition());
+
+        auto tService = new Text("SERVICE", Resources::font.Unifont);
+             tService->setPosition(sf::Vector2f(20, 0) + separator2->getPosition());
+
+        ((m_wJour += tCreativity) += tAction) += tService;
         ((m_wJour += bQuit) += separator1) += separator2;
         for (unsigned i = 0; i < images.size(); ++i)
         {
