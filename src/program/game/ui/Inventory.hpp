@@ -15,12 +15,12 @@
 #include "../../gui/Slot.hpp"
 
 #include "../Entity.hpp"
-#include "../entity/Player.hpp"
 
 namespace rr
 {
 
     class Game;
+    class Player;
 
     class Inventory : public Observer, public sf::Drawable
     {
@@ -132,5 +132,6 @@ namespace rr
 }
 
 #include "../../Game.hpp"
+#include "../entity/Player.hpp"
 
 #endif // UI_INVENTORY_HPP

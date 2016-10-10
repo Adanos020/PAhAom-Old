@@ -71,7 +71,7 @@ namespace rr
              /// The things updated in this function are the animations, states of
              /// the seeked path, moving the teacher, etc.
              ////////////////////////////////////////////////////////////////////////
-     virtual void update(int tiles[], sf::Time timeStep) override;
+     virtual void update(int tiles[], sf::Time& timeStep) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Attacks other NPC.
@@ -86,7 +86,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Handles the damage that the teacher got.
              ////////////////////////////////////////////////////////////////////////
-     virtual void handleDamage(int damage) override;
+     virtual int handleDamage(int damage) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the bandit's name.

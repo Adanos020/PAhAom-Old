@@ -9,9 +9,9 @@
 
 #include <vector>
 
+#include "game/Level.hpp"
 #include "game/ui/ALL.hpp"
 #include "game/entity/ALL.hpp"
-#include "game/Level.hpp"
 
 #include "game/MessageManager.hpp"
 #include "AudioManager.hpp"

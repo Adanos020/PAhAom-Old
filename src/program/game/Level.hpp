@@ -11,8 +11,6 @@
 
 #include "../Observer.hpp"
 
-#include "../Game.hpp"
-
 #include "ShadowMap.hpp"
 #include "entity/Player.hpp"
 
@@ -22,6 +20,7 @@ namespace rr
 {
 
     class AIManager;
+    class Game;
 
 /// Class for the level
     class Level : public Observer, public sf::Drawable, public sf::Transformable
@@ -204,5 +203,7 @@ namespace rr
     };
 
 }
+
+#include "../Game.hpp"
 
 #endif // LEVEL_HPP

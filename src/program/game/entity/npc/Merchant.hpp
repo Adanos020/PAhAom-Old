@@ -31,8 +31,8 @@ namespace rr
              virtual Entity*        clone       () const            override { return new Merchant(*this); }
 */
              virtual void           talk        ();
-             virtual void           update      (int tiles[], sf::Time timeStep) override;
-             virtual void           handleDamage(int damage)        override;
+             virtual void           update      (int tiles[], sf::Time& timeStep) override;
+             virtual int            handleDamage(int damage)        override;
          
              virtual std::ifstream& operator<<  (std::ifstream&)    override;
              virtual std::ofstream& operator>>  (std::ofstream&)    override;

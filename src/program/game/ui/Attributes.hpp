@@ -11,12 +11,11 @@
 
 #include "../../gui/Window.hpp"
 
-#include "../entity/Player.hpp"
-
 namespace rr
 {
 
     class Game;
+    class Player;
 
     class Attributes : public sf::Drawable
     {
@@ -62,5 +61,7 @@ namespace rr
 }
 
 #include "../../Game.hpp"
+
+#include "../entity/Player.hpp"
 
 #endif // UI_ATTRIBUTES_HPP

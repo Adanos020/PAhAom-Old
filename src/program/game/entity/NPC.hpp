@@ -22,16 +22,37 @@ namespace rr
 {
 
     class Player;
+    class NPCState;
 
     class NPC : public Entity
     {
+        friend class AIManager;
+
+        friend class NPCAttacking;
+        friend class NPCCurious;
+        friend class NPCHunting;
+        friend class NPCMoving;
+        friend class NPCSleeping;
+        friend class NPCState;
+
     protected: struct Attrs
                {
                    float health;
                    float maxHealth;
                    int   level;
                    float armor;
-               }                  m_attrs;
+               } m_attrs;
+
+               struct // Structure for buffs - each buff is represented by an integer
+               {      // which tells for how many turns is it going to be valid.
+               public: int speed;
+                       int regeneration;
+                       int poison;
+                       int slowness;
+                       int weakness;
+                       int hunger;
+               } m_buffs;
+
                sf::AnimatedSprite m_body;
 
                sf::Animation*     m_currentAnimation;
@@ -51,6 +72,7 @@ namespace rr
 
                DialogueTree       m_dialogue;
 
+               NPCState*          m_state;
                AI*                m_AI;
 
                ////////////////////////////////////////////////////////////////////////
@@ -63,26 +85,18 @@ namespace rr
                ////////////////////////////////////////////////////////////////////////
        virtual void draw(sf::RenderTarget&, sf::RenderStates) const override;
 
-    public:    enum Attitude
-               {
-                   PASSIVE,
-                   NEUTRAL,
-                   AGGRESSIVE
-               };
-               enum State
-               {
-                   STANDING,
-                   WAITING,
-                   EXPLORING,
-                   HUNTING,
-                   ESCAPING
-               };
-               enum Direction
+    public:    enum Direction
                {
                    UP,
                    DOWN,
                    LEFT,
                    RIGHT
+               };
+               enum Attitude
+               {
+                   PASSIVE,
+                   NEUTRAL,
+                   HOSTILE
                };
 
                ////////////////////////////////////////////////////////////////////////
@@ -98,7 +112,7 @@ namespace rr
                /// The things updated in this function are the animations, states of
                /// the seeked path, moving the NPC, etc.
                ////////////////////////////////////////////////////////////////////////
-       virtual void update(int tiles[], sf::Time timeStep) = 0;
+       virtual void update(int tiles[], sf::Time& timeStep) = 0;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Attacks other NPC.
@@ -113,7 +127,7 @@ namespace rr
                ////////////////////////////////////////////////////////////////////////
                /// \brief Handles the damage that the NPC got.
                ////////////////////////////////////////////////////////////////////////
-       virtual void handleDamage(int damage) = 0;
+       virtual int handleDamage(int damage) = 0;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Returns the NPC's name.
@@ -178,7 +192,7 @@ namespace rr
                /// just starts escaping)
                /// - NEUTRAL (the NPC doesn't attack the Player as long as the Player
                /// doesn't attack him)
-               /// - AGGRESSIVE (the NPC starts chasing the Player if he sees him and
+               /// - HOSTILE (the NPC starts chasing the Player if he sees him and
                /// tries to attack)
                ////////////////////////////////////////////////////////////////////////
                void setAttitude(Attitude);
@@ -191,36 +205,10 @@ namespace rr
                /// just starts escaping)
                /// - NEUTRAL (the NPC doesn't attack the Player as long as the Player
                /// doesn't attack him)
-               /// - AGGRESSIVE (the NPC starts chasing the Player if he sees him and
+               /// - HOSTILE (the NPC starts chasing the Player if he sees him and
                /// tries to attack)
                ////////////////////////////////////////////////////////////////////////
                Attitude getAttitude() const;
-
-               ////////////////////////////////////////////////////////////////////////
-               /// \brief Sets the NPC's moving state.
-               ///
-               /// The possible values are:
-               /// - STANDING (just stands in one place but seeks track to some place)
-               /// - WAITING (just stands in one place)
-               /// - EXPLORING (picks random points on the map and goes towards them)
-               /// - HUNTING (chases the Player and tries to attack him)
-               /// - ESCAPING (is frightened of something and tries to find a way to
-               /// get as far as he cannot se it)
-               ////////////////////////////////////////////////////////////////////////
-               void setState(State);
-
-               ////////////////////////////////////////////////////////////////////////
-               /// \brief Returns the NPC's moving state.
-               ///
-               /// The possible values are:
-               /// - STANDING (just stands in one place but seeks track to some place)
-               /// - WAITING (just stands in one place)
-               /// - EXPLORING (picks random points on the map and goes towards them)
-               /// - HUNTING (chases the Player and tries to attack him)
-               /// - ESCAPING (is frightened of something and tries to find a way to
-               /// get as far as he cannot se it)
-               ////////////////////////////////////////////////////////////////////////
-               State getState() const;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets the NPC's facing direction.
@@ -284,11 +272,12 @@ namespace rr
                bool isMoving() const;
 
     protected: Attitude  m_attitude;
-               State     m_state;
                Direction m_direction;
     };
 
 }
+
+#include "npc/NPCState.hpp"
 
 #endif // NPC_HPP
 

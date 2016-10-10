@@ -81,8 +81,8 @@ namespace rr
         m_body.setLooped(true);
         m_body.setFrameTime(sf::seconds(.2f));
 
-        m_attitude = AGGRESSIVE;
-        m_state = chance(1, 3) ? STANDING : WAITING;
+        m_attitude = HOSTILE;
+        m_state = new NPCSleeping();
 
         switch (m_type)
         {
@@ -93,40 +93,11 @@ namespace rr
     }
 
     void
-    Bandit::update(int tiles[], sf::Time delta)
+    Bandit::update(int tiles[], sf::Time& delta)
     {
-        if (m_moving)
-        {
-            sf::Vector2f offset = m_body.getPosition() - (sf::Vector2f) m_position*80.f;
-            if (offset != sf::Vector2f(0, 0))
-            {
-                auto displacement = m_velocity*delta.asSeconds();
-                if (offset.x < 0 && displacement-2 >= offset.x) m_body.move(sf::Vector2f( displacement,  0));
-                if (offset.x > 0 && displacement+2 <= offset.x) m_body.move(sf::Vector2f(-displacement,  0));
-                if (offset.y < 0 && displacement-2 >= offset.y) m_body.move(sf::Vector2f( 0,  displacement));
-                if (offset.y > 0 && displacement+2 <= offset.y) m_body.move(sf::Vector2f( 0, -displacement));
-
-                if (  (abs(offset.x) < m_velocity/128 && abs(offset.x) > 0) // preventing the bandit from wobbling
-                   || (abs(offset.y) < m_velocity/128 && abs(offset.y) > 0) // in between of two cells
-                    )  m_body.setPosition((sf::Vector2f) m_position*80.f);
-            }
-            else
-            {
-                m_buffs.speed        -= (m_buffs.speed        == 0 ? 0 : 1);
-                m_buffs.regeneration -= (m_buffs.regeneration == 0 ? 0 : 1);
-                m_buffs.poison       -= (m_buffs.poison       == 0 ? 0 : 1);
-                m_buffs.slowness     -= (m_buffs.slowness     == 0 ? 0 : 1);
-                m_buffs.weakness     -= (m_buffs.weakness     == 0 ? 0 : 1);
-
-                if (m_buffs.poison > 0)
-                    m_attrs.health -= 1.f;
-
-                if (m_buffs.regeneration > 0)
-                    m_attrs.health += 0.15f;
-
-                m_moving = false;
-            }
-        }
+        auto newState = m_state->update(delta, this);
+        if (newState != nullptr)
+            m_state = newState;
 
         m_body.update(delta);
 
@@ -135,21 +106,6 @@ namespace rr
             if      (m_direction == LEFT ) m_currentAnimation = &m_standingLeft;
             else if (m_direction == RIGHT) m_currentAnimation = &m_standingRight;
             m_body.setLooped(true);
-        }
-
-        switch (m_state)
-        {
-            case STANDING:
-            {
-                if (m_direction == LEFT && *m_currentAnimation != m_standingLeft)
-                    m_currentAnimation = &m_standingLeft;
-
-                else if (m_direction == RIGHT && *m_currentAnimation != m_standingRight)
-                    m_currentAnimation = &m_standingRight;
-            }
-            break;
-
-            default: break;
         }
 
         m_body.play(*m_currentAnimation);
@@ -168,12 +124,16 @@ namespace rr
         return "";
     }
 
-    void
+    int
     Bandit::handleDamage(int damage)
     {
         if (damage >= m_attrs.armor)
+        {
             m_attrs.health -= (damage - m_attrs.armor);
-        m_state = HUNTING;
+            m_state = &m_state->hunting;
+        }
+
+        return damage - m_attrs.armor;
     }
 
     void
@@ -244,7 +204,6 @@ namespace rr
             std::cerr << ex.what() << '\n';
         }
 
-        m_state     = (  State  )     state;
         m_direction = (Direction) direction;
         m_type      = (   Type  )      type;
 
@@ -260,7 +219,6 @@ namespace rr
         file << 20                              << ' '
              << (int) m_body.getPosition().x/80 << ' '
              << (int) m_body.getPosition().y/80 << ' '
-             << m_state                         << ' '
              << m_direction                     << ' '
              << m_type                          << ' '
              << m_attrs.health                  << ' '

@@ -9,6 +9,12 @@
 namespace rr
 {
 
+    NPCAttacking NPCState::attacking;
+    NPCCurious   NPCState::curious;
+    NPCHunting   NPCState::hunting;
+    NPCMoving    NPCState::moving;
+    NPCSleeping  NPCState::sleeping;
+
     void
     NPC::placeDetectors()
     {
@@ -100,18 +106,6 @@ namespace rr
     }
 
     void
-    NPC::setState(State state)
-    {
-        m_state = state;
-    }
-
-    NPC::State
-    NPC::getState() const
-    {
-        return m_state;
-    }
-
-    void
     NPC::setDirection(Direction direction)
     {
         m_direction = direction;
@@ -128,12 +122,12 @@ namespace rr
     {
         if (!m_moving)
         {
-            if (di == UP    && (tiles[m_position.x   + (m_position.y-1)*77] != 1 && tiles[m_position.x   + (m_position.y-1)*77] != 5))
+            if (di == UP && (tiles[m_position.x + (m_position.y-1)*77] != 1 && tiles[m_position.x + (m_position.y-1)*77] != 5))
             {
                 m_position = sf::Vector2i(m_position.x, m_position.y-1);
                 m_moving = true;
             }
-            if (di == DOWN  && (tiles[m_position.x   + (m_position.y+1)*77] != 1 && tiles[m_position.x   + (m_position.y+1)*77] != 5))
+            if (di == DOWN && (tiles[m_position.x + (m_position.y+1)*77] != 1 && tiles[m_position.x + (m_position.y+1)*77] != 5))
             {
                 m_position = sf::Vector2i(m_position.x, m_position.y+1);
                 m_moving = true;

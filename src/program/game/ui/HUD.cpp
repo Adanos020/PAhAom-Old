@@ -62,8 +62,8 @@ namespace rr
         m_tLevelNumber.setString  ("L"+std::to_string(lvl));
         m_tLevelNumber.setPosition(sf::Vector2f(Settings::graphics.resolution.x - m_tLevelNumber.getSize().x - 10, 10));
 
-        char buf[64];
-        snprintf(buf, 64, "%.1f", 1.f/time.asSeconds());
+        char buf[10];
+        snprintf(buf, 10, "%.1f", 1.f/time.asSeconds());
         m_tFPS.setString("FPS: "+sf::String(buf));
     }
 

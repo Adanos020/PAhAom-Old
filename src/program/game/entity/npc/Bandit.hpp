@@ -7,8 +7,6 @@
 #ifndef NPC_BANDIT_HPP
 #define NPC_BANDIT_HPP
 
-#include "../NPC.hpp"
-
 #include "../Player.hpp"
 
 namespace rr
@@ -17,16 +15,6 @@ namespace rr
     class Bandit : public NPC
     {
     private: bool m_moving;
-
-             struct // Structure for buffs - each buff is represented by an integer
-             {      // which tells for how many turns is it going to be valid.
-             public: int speed;
-                     int regeneration;
-                     int poison;
-                     int slowness;
-                     int weakness;
-                     int hunger;
-             } m_buffs;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Initializes the bandit.
@@ -73,12 +61,12 @@ namespace rr
              /// The things updated in this function are the animations, states of
              /// the seeked path, moving the bandit, etc.
              ////////////////////////////////////////////////////////////////////////
-     virtual void update(int tiles[], sf::Time timeStep) override;
+     virtual void update(int tiles[], sf::Time& timeStep) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Handles the damage that the bandit got.
              ////////////////////////////////////////////////////////////////////////
-     virtual void handleDamage(int damage) override;
+     virtual int handleDamage(int damage) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the bandit's name.
@@ -109,5 +97,7 @@ namespace rr
     };
 
 }
+
+#include "../NPC.hpp"
 
 #endif // NPC_BANDIT_HPP

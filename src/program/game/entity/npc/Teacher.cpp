@@ -50,6 +50,8 @@ namespace rr
 
         m_attitude = NEUTRAL;
 
+        m_state = new NPCSleeping();
+
         m_body.setAnimation(*m_currentAnimation);
         m_body.setLooped(true);
         
@@ -134,7 +136,7 @@ namespace rr
     }
 
     void
-    Teacher::update(int tiles[], sf::Time timeStep)
+    Teacher::update(int tiles[], sf::Time& timeStep)
     {
         if (m_moving)
         {
@@ -170,45 +172,19 @@ namespace rr
 
         m_body.update(timeStep);
 
-        switch (m_state)
-        {
-            case STANDING : if      (   m_direction        == LEFT
-                                    && *m_currentAnimation != m_standingLeft
-                                     )  m_currentAnimation = &m_standingLeft;
-
-                            else if (   m_direction        == RIGHT
-                                    && *m_currentAnimation != m_standingRight
-                                     )  m_currentAnimation = &m_standingRight;
-                            break;
-
-            case WAITING  : break;
-
-            case EXPLORING: if (!m_moving)
-                            {
-                                if (m_position == m_destination)
-                                {/*
-                                    m_position = PathFinder::aStar(m_position, m_destination, tiles)[0] - m_position;
-                                    m_moving = true;*/
-                                }
-                                else
-                                {
-                                    m_state = STANDING;
-                                }
-                            }
-                            break;
-            
-            case HUNTING  : break;
-            
-            case ESCAPING : break;
-        }
-
         m_body.play(*m_currentAnimation);
     }
 
-    void
+    int
     Teacher::handleDamage(int damage)
     {
-        
+        if (damage >= m_attrs.armor)
+        {
+            m_attrs.health -= (damage - m_attrs.armor);
+            m_state = &m_state->hunting;
+        }
+
+        return damage - m_attrs.armor;
     }
 
     sf::String
