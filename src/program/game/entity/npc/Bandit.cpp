@@ -9,9 +9,8 @@
 #include "../../../Resources.hpp"
 #include "../../../funcs/files.hpp"
 #include "../../../funcs/random.hpp"
-#include "../../PathFinder.hpp"
 
-#include "ai/MeleeAI.hpp"
+#include "../../PathFinder.hpp"
 
 #include "Bandit.hpp"
 
@@ -83,13 +82,6 @@ namespace rr
 
         m_attitude = HOSTILE;
         m_state = new NPCSleeping();
-
-        switch (m_type)
-        {
-            //case CROSSBOW: m_AI = new RangedAI(); break;
-            default      : m_AI = new MeleeAI (); break;
-        }
-
     }
 
     void

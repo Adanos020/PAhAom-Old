@@ -14,12 +14,9 @@
 #include "ShadowMap.hpp"
 #include "entity/Player.hpp"
 
-#include "entity/npc/ai/AIManager.hpp"
-
 namespace rr
 {
 
-    class AIManager;
     class Game;
 
 /// Class for the level
@@ -190,8 +187,6 @@ namespace rr
              int                      m_tilesAsInts[77*43];
              Cell                     m_tiles      [77*43];
              ShadowMap                m_shadowMap;
-
-             AIManager                m_AIManager;
 
              std::vector<Entity*>     m_entities;
              std::vector<NPC*>        m_npcs;

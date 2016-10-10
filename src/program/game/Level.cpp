@@ -24,7 +24,6 @@ namespace rr
     Level::Level(int number, Player* player) :
       m_size       (sf::Vector2i(77, 43)),
       m_shadowMap  (ShadowMap(m_size)),
-      m_AIManager  (this, player),
       m_regionCount(0),
       m_levelNumber(number)
     {
@@ -228,8 +227,6 @@ namespace rr
 
             m_tiles      [pos.x + pos.y*m_size.x] = OCCUPIED;
             m_tilesAsInts[pos.x + pos.y*m_size.x] = 5;
-
-            m_AIManager.makeOrders(npc);
         }
     }
 

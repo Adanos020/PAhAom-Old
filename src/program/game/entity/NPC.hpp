@@ -16,8 +16,6 @@
 
 #include "../Dialogue.hpp"
 
-#include "npc/AI.hpp"
-
 namespace rr
 {
 
@@ -73,7 +71,6 @@ namespace rr
                DialogueTree       m_dialogue;
 
                NPCState*          m_state;
-               AI*                m_AI;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets all the player detectors' positions.

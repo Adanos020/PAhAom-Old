@@ -148,8 +148,6 @@ src/program/game/entity/npc/state/NPCCurious.debug.o \
 src/program/game/entity/npc/state/NPCHunting.debug.o \
 src/program/game/entity/npc/state/NPCMoving.debug.o \
 src/program/game/entity/npc/state/NPCSleeping.debug.o \
-src/program/game/entity/npc/ai/AIManager.debug.o \
-src/program/game/entity/npc/ai/MeleeAI.debug.o \
 src/program/game/entity/item/Rune.debug.o \
 src/program/game/entity/item/Potion.debug.o \
 src/program/game/entity/item/Food.debug.o \
@@ -212,8 +210,6 @@ src/program/game/entity/npc/state/NPCCurious.o \
 src/program/game/entity/npc/state/NPCHunting.o \
 src/program/game/entity/npc/state/NPCMoving.o \
 src/program/game/entity/npc/state/NPCSleeping.o \
-src/program/game/entity/npc/ai/AIManager.o \
-src/program/game/entity/npc/ai/MeleeAI.o \
 src/program/game/entity/item/Rune.o \
 src/program/game/entity/item/Potion.o \
 src/program/game/entity/item/Food.o \
