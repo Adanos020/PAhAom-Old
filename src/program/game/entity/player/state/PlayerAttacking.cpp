@@ -18,7 +18,7 @@ namespace rr
         player.m_body.update(delta);
         if (player.m_body.isPlaying())
             return nullptr;
-        
+
         return &standing;
     }
 

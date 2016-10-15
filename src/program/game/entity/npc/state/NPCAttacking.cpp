@@ -15,7 +15,7 @@ namespace rr
         npc->m_body.update(delta);
         if (npc->m_body.isPlaying())
             return nullptr;
-        
+
         return &hunting;
     }
 

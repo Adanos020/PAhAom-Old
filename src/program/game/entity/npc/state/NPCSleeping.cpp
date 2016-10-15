@@ -6,6 +6,8 @@
 
 #include "../NPCSleeping.hpp"
 
+#include "../../../FOV.hpp"
+
 namespace rr
 {
 
@@ -24,6 +26,12 @@ namespace rr
     NPCState*
     NPCSleeping::react(Level* level, NPC* npc, Player& player)
     {
+        if (npc->getAttitude() == NPC::HOSTILE)
+        {
+            if ((npc->detects(&player) >= 0) || (FOV::seesEntity(level->getTiles(), npc, &player) && chance(1, 5)))
+                return &hunting;
+        }
+
         return nullptr;
     }
 

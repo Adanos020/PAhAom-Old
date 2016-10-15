@@ -40,7 +40,7 @@ namespace rr
         if (npc->m_buffs.regeneration > 0)
             npc->m_attrs.health += 0.15f;
 
-        return &curious;
+        return &hunting;
     }
 
     NPCState*

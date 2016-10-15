@@ -127,7 +127,11 @@ namespace rr
         for (unsigned octant = 0; octant < 8; octant++)
         {
             if (seesEntity(tiles, octant, origin, entity->getGridPosition(), 2*range, 1, Slope(1, 1), Slope(0, 1)))
+            {
+                std::cout << "[" << npc->getGridPosition().x << "," << npc->getGridPosition().y << "] sees ["
+                            << entity->getGridPosition().x << "," << entity->getGridPosition().y << "]\n";
                 return true;
+            }
         }
         return false;
     }

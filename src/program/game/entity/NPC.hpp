@@ -27,7 +27,6 @@ namespace rr
         friend class AIManager;
 
         friend class NPCAttacking;
-        friend class NPCCurious;
         friend class NPCHunting;
         friend class NPCMoving;
         friend class NPCSleeping;
@@ -87,7 +86,12 @@ namespace rr
                    UP,
                    DOWN,
                    LEFT,
-                   RIGHT
+                   RIGHT,
+
+                   UPLEFT,
+                   UPRIGHT,
+                   DOWNLEFT,
+                   DOWNRIGHT
                };
                enum Attitude
                {
@@ -235,6 +239,11 @@ namespace rr
                /// \param tiles the set of tiles of the level in which the NPC moves
                ////////////////////////////////////////////////////////////////////////
                void move(int[], Direction);
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Makes the npc react to the current of the level.
+               ////////////////////////////////////////////////////////////////////////
+               void react(Level*, Player&);
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Gives a read-only access to the NPC's attributes.

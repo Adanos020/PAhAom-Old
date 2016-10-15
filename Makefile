@@ -144,7 +144,6 @@ src/program/game/entity/npc/NPC.debug.o \
 src/program/game/entity/npc/Bandit.debug.o \
 src/program/game/entity/npc/Teacher.debug.o \
 src/program/game/entity/npc/state/NPCAttacking.debug.o \
-src/program/game/entity/npc/state/NPCCurious.debug.o \
 src/program/game/entity/npc/state/NPCHunting.debug.o \
 src/program/game/entity/npc/state/NPCMoving.debug.o \
 src/program/game/entity/npc/state/NPCSleeping.debug.o \
@@ -206,7 +205,6 @@ src/program/game/entity/npc/NPC.o \
 src/program/game/entity/npc/Bandit.o \
 src/program/game/entity/npc/Teacher.o \
 src/program/game/entity/npc/state/NPCAttacking.o \
-src/program/game/entity/npc/state/NPCCurious.o \
 src/program/game/entity/npc/state/NPCHunting.o \
 src/program/game/entity/npc/state/NPCMoving.o \
 src/program/game/entity/npc/state/NPCSleeping.o \

@@ -15,10 +15,14 @@ namespace rr
     PlayerState*
     PlayerStanding::update(sf::Time& delta, Player& player)
     {
-        if (player.m_currentAnimation == &player.m_walkingLeft)
+        if (player.m_currentAnimation == &player.m_walkingLeft
+ //        || player.m_currentAnimation == &player.m_attackingLeft
+         )
             player.m_currentAnimation = &player.m_standingLeft;
 
-        else if (player.m_currentAnimation == &player.m_walkingRight)
+        else if (player.m_currentAnimation == &player.m_walkingRight
+//         || player.m_currentAnimation == &player.m_attackingRight
+         )
             player.m_currentAnimation = &player.m_standingRight;
 
         return nullptr;

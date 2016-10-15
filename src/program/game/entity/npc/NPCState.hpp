@@ -15,7 +15,6 @@ namespace rr
     class NPC;
 
     class NPCAttacking;
-    class NPCCurious;
     class NPCHunting;
     class NPCMoving;
     class NPCSleeping;
@@ -24,7 +23,6 @@ namespace rr
     {
         public:
          static NPCAttacking attacking;
-         static NPCCurious   curious;
          static NPCHunting   hunting;
          static NPCMoving    moving;
          static NPCSleeping  sleeping;
@@ -48,7 +46,6 @@ namespace rr
 }
 
 #include "NPCAttacking.hpp"
-#include "NPCCurious.hpp"
 #include "NPCHunting.hpp"
 #include "NPCMoving.hpp"
 #include "NPCSleeping.hpp"

@@ -78,7 +78,7 @@ namespace rr
         // setting the animated sprite's properties
         m_body.setAnimation(*m_currentAnimation);
         m_body.setLooped(true);
-        m_body.setFrameTime(sf::seconds(.2f));
+        m_body.setFrameTime(sf::seconds(.1f));
 
         m_attitude = HOSTILE;
         m_state = new NPCSleeping();

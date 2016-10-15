@@ -225,6 +225,8 @@ namespace rr
             auto npc = *it;
             auto pos = npc->getGridPosition();
 
+            npc->react(this, *player);
+
             m_tiles      [pos.x + pos.y*m_size.x] = OCCUPIED;
             m_tilesAsInts[pos.x + pos.y*m_size.x] = 5;
         }

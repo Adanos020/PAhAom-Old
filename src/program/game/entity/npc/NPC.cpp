@@ -10,7 +10,6 @@ namespace rr
 {
 
     NPCAttacking NPCState::attacking;
-    NPCCurious   NPCState::curious;
     NPCHunting   NPCState::hunting;
     NPCMoving    NPCState::moving;
     NPCSleeping  NPCState::sleeping;
@@ -127,12 +126,12 @@ namespace rr
                 m_position = sf::Vector2i(m_position.x, m_position.y-1);
                 m_moving = true;
             }
-            if (di == DOWN && (tiles[m_position.x + (m_position.y+1)*77] != 1 && tiles[m_position.x + (m_position.y+1)*77] != 5))
+            else if (di == DOWN && (tiles[m_position.x + (m_position.y+1)*77] != 1 && tiles[m_position.x + (m_position.y+1)*77] != 5))
             {
                 m_position = sf::Vector2i(m_position.x, m_position.y+1);
                 m_moving = true;
             }
-            if (di == LEFT)
+            else if (di == LEFT)
             {
                 if (tiles[m_position.x-1 + m_position.y*77] != 1 && tiles[m_position.x-1 + m_position.y*77] != 5)
                 {
@@ -141,7 +140,7 @@ namespace rr
                 }
                 m_currentAnimation = &m_walkingLeft;
             }
-            if (di == RIGHT)
+            else if (di == RIGHT)
             {
                 if (tiles[m_position.x+1 + m_position.y*77] != 1 && tiles[m_position.x+1 + m_position.y*77] != 5)
                 {
@@ -150,7 +149,53 @@ namespace rr
                 }
                 m_currentAnimation = &m_walkingRight;
             }
+            else if (di == UPLEFT)
+            {
+                if (tiles[m_position.x-1 + m_position.y*77] != 1 && tiles[m_position.x-1 + m_position.y*77] != 5)
+                {
+                    m_position = sf::Vector2i(m_position.x-1, m_position.y-1);
+                    m_moving = true;
+                }
+                m_currentAnimation = &m_walkingLeft;
+            }
+            else if (di == UPRIGHT)
+            {
+                if (tiles[m_position.x+1 + m_position.y*77] != 1 && tiles[m_position.x+1 + m_position.y*77] != 5)
+                {
+                    m_position = sf::Vector2i(m_position.x+1, m_position.y-1);
+                    m_moving = true;
+                }
+                m_currentAnimation = &m_walkingRight;
+            }
+            else if (di == DOWNLEFT)
+            {
+                if (tiles[m_position.x-1 + m_position.y*77] != 1 && tiles[m_position.x-1 + m_position.y*77] != 5)
+                {
+                    m_position = sf::Vector2i(m_position.x-1, m_position.y+1);
+                    m_moving = true;
+                }
+                m_currentAnimation = &m_walkingLeft;
+            }
+            else if (di == DOWNRIGHT)
+            {
+                if (tiles[m_position.x+1 + m_position.y*77] != 1 && tiles[m_position.x+1 + m_position.y*77] != 5)
+                {
+                    m_position = sf::Vector2i(m_position.x+1, m_position.y+1);
+                    m_moving = true;
+                }
+                m_currentAnimation = &m_walkingRight;
+            }
+
+            placeDetectors();
         }
+    }
+
+    void
+    NPC::react(Level* level, Player& player)
+    {
+        NPCState* state = m_state->react(level, this, player);
+        if (state != nullptr)
+            m_state = state;
     }
 
     NPC::Attrs
