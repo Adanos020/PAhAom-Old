@@ -175,15 +175,13 @@ namespace rr
         m_attackingRight.clearFrames();
 
         sf::Vector2i position;
-        int state     = 0,
-            direction = 0,
+        int direction = 0,
             type      = 0;
 
         try
         {
             readFile < int > (file, position.x);
             readFile < int > (file, position.y);
-            readFile < int > (file, state);
             readFile < int > (file, direction);
             readFile < int > (file, type);
             readFile <float> (file, m_attrs.health);

@@ -4,6 +4,8 @@
  * Used library: SFML
  */
 
+#include <cmath>
+
 #include "../NPCMoving.hpp"
 
 namespace rr
@@ -22,8 +24,8 @@ namespace rr
             if (offset.y < 0 && displacement-2 >= offset.y) npc->m_body.move(sf::Vector2f( 0,  displacement));
             if (offset.y > 0 && displacement+2 <= offset.y) npc->m_body.move(sf::Vector2f( 0, -displacement));
 
-            if (  (abs(offset.x) < npc->m_velocity/128 && abs(offset.x) > 0) // preventing the bandit from wobbling
-               || (abs(offset.y) < npc->m_velocity/128 && abs(offset.y) > 0) // in between of two cells
+            if (  (fabs(offset.x) < npc->m_velocity/128 && fabs(offset.x) > 0) // preventing the npc from wobbling
+               || (fabs(offset.y) < npc->m_velocity/128 && fabs(offset.y) > 0) // in between of two cells
                 )  npc->m_body.setPosition((sf::Vector2f) npc->m_position*80.f);
 
             return nullptr;

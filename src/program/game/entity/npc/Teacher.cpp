@@ -19,7 +19,6 @@ namespace rr
       m_type(type)
     {
         m_velocity = 900.f;
-        m_moving   = false;
 
         m_attrs.health = m_attrs.maxHealth = 100.f;
         m_attrs.armor                      =  50.f;
@@ -111,66 +110,52 @@ namespace rr
                 root->addAnswer(bye);
 
                 m_dialogue.setTree(root, true);
-            } break;
-            
+            }
+            break;
+
             case SHARPSHOOTER:
             {
-                
-            } break;
+
+            }
+            break;
 
             case CARPENTER:
             {
-                
-            } break;
+
+            }
+            break;
             
             case MAGE:
             {
-                
-            } break;
+
+            }
+            break;
             
             case KUNG_FU_MASTER:
             {
-                
-            } break;
+
+            }
+            break;
         }
     }
 
     void
-    Teacher::update(int tiles[], sf::Time& timeStep)
+    Teacher::update(int tiles[], sf::Time& delta)
     {
-        if (m_moving)
+        auto newState = m_state->update(delta, this);
+        if (newState != nullptr)
+            m_state = newState;
+
+        m_body.update(delta);
+
+        if (!m_body.isPlaying())
         {
-            sf::Vector2f offset = m_body.getPosition()-(sf::Vector2f) m_position*80.f;
-            if (offset != sf::Vector2f(0, 0))
-            {
-                if (offset.x < 0) m_body.move(sf::Vector2f( m_velocity*timeStep.asSeconds(),  0));
-                if (offset.x > 0) m_body.move(sf::Vector2f(-m_velocity*timeStep.asSeconds(),  0));
-                if (offset.y < 0) m_body.move(sf::Vector2f( 0,  m_velocity*timeStep.asSeconds()));
-                if (offset.y > 0) m_body.move(sf::Vector2f( 0, -m_velocity*timeStep.asSeconds()));
-            }
-            else
-            {
-                m_buffs.speed        -= (m_buffs.speed        == 0 ? 0 : 1);
-                m_buffs.regeneration -= (m_buffs.regeneration == 0 ? 0 : 1);
-                m_buffs.poison       -= (m_buffs.poison       == 0 ? 0 : 1);
-                m_buffs.slowness     -= (m_buffs.slowness     == 0 ? 0 : 1);
-                m_buffs.weakness     -= (m_buffs.weakness     == 0 ? 0 : 1);
-
-                if (m_buffs.poison > 0)
-                    m_attrs.health -= 1.f;
-
-                if (m_buffs.regeneration > 0)
-                    m_attrs.health += 0.15f;
-
-                m_moving = false;
-            }
-
-            if (  (abs(offset.x) < m_velocity/128 && abs(offset.x) > 0) // preventing the teacher from wobbling
-               || (abs(offset.y) < m_velocity/128 && abs(offset.y) > 0) // in between of two cells
-                )  m_body.setPosition((sf::Vector2f) m_position*80.f);
+            if      (m_direction == LEFT ) m_currentAnimation = &m_standingLeft;
+            else if (m_direction == RIGHT) m_currentAnimation = &m_standingRight;
+            m_body.setLooped(true);
         }
 
-        m_body.update(timeStep);
+        m_body.update(delta);
 
         m_body.play(*m_currentAnimation);
     }

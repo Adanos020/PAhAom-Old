@@ -61,13 +61,13 @@ namespace rr
             {
                 if (grid[current->x + (current->y+y)*77] == 0
                  || grid[current->x + (current->y+y)*77] == 1
-                 || grid[current->x + (current->y+y)*77] == 4)
+                 || grid[current->x + (current->y+y)*77] == 5)
                     continue;
                 for (int x = -1; x <= 1; ++x)
                 {
                     if (grid[current->x+x + current->y*77] == 0
                      || grid[current->x+x + current->y*77] == 1
-                     || grid[current->x+x + current->y*77] == 4)
+                     || grid[current->x+x + current->y*77] == 5)
                         continue;
                     if (x != 0 || y != 0) // ignoring the node in the middle, because this is the current node
                     {

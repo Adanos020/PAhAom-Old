@@ -222,10 +222,9 @@ namespace rr
 
         for (auto it = m_npcs.begin(); it != m_npcs.end(); ++it)
         {
-            auto npc = *it;
-            auto pos = npc->getGridPosition();
+            (*it)->react(this, *player);
 
-            npc->react(this, *player);
+            auto pos = (*it)->getGridPosition();
 
             m_tiles      [pos.x + pos.y*m_size.x] = OCCUPIED;
             m_tilesAsInts[pos.x + pos.y*m_size.x] = 5;
@@ -235,7 +234,17 @@ namespace rr
     void
     Level::calculateFOV(sf::Vector2i origin, int range)
     {
-        FOV::compute(&m_shadowMap, m_tilesAsInts, origin, range);
+        FOV::compute(m_shadowMap, *this, origin, range);
+    }
+
+    Entity*
+    Level::getEntityAt(sf::Vector2i pos) const
+    {
+        for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
+        {
+            if ((*it)->getGridPosition() == pos) return *it;
+        }
+        return nullptr;
     }
 
     void

@@ -64,7 +64,6 @@ namespace rr
                sf::Vector2i       m_position;
                sf::Vector2i       m_destination;
 
-               bool               m_moving;
                float              m_velocity;
 
                DialogueTree       m_dialogue;

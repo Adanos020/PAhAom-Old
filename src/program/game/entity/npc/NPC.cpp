@@ -119,75 +119,64 @@ namespace rr
     void
     NPC::move(int tiles[], Direction di)
     {
-        if (!m_moving)
+        if (di == UP && (tiles[m_position.x + (m_position.y-1)*77] != 1 && tiles[m_position.x + (m_position.y-1)*77] != 5))
         {
-            if (di == UP && (tiles[m_position.x + (m_position.y-1)*77] != 1 && tiles[m_position.x + (m_position.y-1)*77] != 5))
-            {
-                m_position = sf::Vector2i(m_position.x, m_position.y-1);
-                m_moving = true;
-            }
-            else if (di == DOWN && (tiles[m_position.x + (m_position.y+1)*77] != 1 && tiles[m_position.x + (m_position.y+1)*77] != 5))
-            {
-                m_position = sf::Vector2i(m_position.x, m_position.y+1);
-                m_moving = true;
-            }
-            else if (di == LEFT)
-            {
-                if (tiles[m_position.x-1 + m_position.y*77] != 1 && tiles[m_position.x-1 + m_position.y*77] != 5)
-                {
-                    m_position = sf::Vector2i(m_position.x-1, m_position.y);
-                    m_moving = true;
-                }
-                m_currentAnimation = &m_walkingLeft;
-            }
-            else if (di == RIGHT)
-            {
-                if (tiles[m_position.x+1 + m_position.y*77] != 1 && tiles[m_position.x+1 + m_position.y*77] != 5)
-                {
-                    m_position = sf::Vector2i(m_position.x+1, m_position.y);
-                    m_moving = true;
-                }
-                m_currentAnimation = &m_walkingRight;
-            }
-            else if (di == UPLEFT)
-            {
-                if (tiles[m_position.x-1 + m_position.y*77] != 1 && tiles[m_position.x-1 + m_position.y*77] != 5)
-                {
-                    m_position = sf::Vector2i(m_position.x-1, m_position.y-1);
-                    m_moving = true;
-                }
-                m_currentAnimation = &m_walkingLeft;
-            }
-            else if (di == UPRIGHT)
-            {
-                if (tiles[m_position.x+1 + m_position.y*77] != 1 && tiles[m_position.x+1 + m_position.y*77] != 5)
-                {
-                    m_position = sf::Vector2i(m_position.x+1, m_position.y-1);
-                    m_moving = true;
-                }
-                m_currentAnimation = &m_walkingRight;
-            }
-            else if (di == DOWNLEFT)
-            {
-                if (tiles[m_position.x-1 + m_position.y*77] != 1 && tiles[m_position.x-1 + m_position.y*77] != 5)
-                {
-                    m_position = sf::Vector2i(m_position.x-1, m_position.y+1);
-                    m_moving = true;
-                }
-                m_currentAnimation = &m_walkingLeft;
-            }
-            else if (di == DOWNRIGHT)
-            {
-                if (tiles[m_position.x+1 + m_position.y*77] != 1 && tiles[m_position.x+1 + m_position.y*77] != 5)
-                {
-                    m_position = sf::Vector2i(m_position.x+1, m_position.y+1);
-                    m_moving = true;
-                }
-                m_currentAnimation = &m_walkingRight;
-            }
-
-            placeDetectors();
+            m_position = sf::Vector2i(m_position.x, m_position.y-1);
         }
+        else if (di == DOWN && (tiles[m_position.x + (m_position.y+1)*77] != 1 && tiles[m_position.x + (m_position.y+1)*77] != 5))
+        {
+            m_position = sf::Vector2i(m_position.x, m_position.y+1);
+        }
+        else if (di == LEFT)
+        {
+            if (tiles[m_position.x-1 + m_position.y*77] != 1 && tiles[m_position.x-1 + m_position.y*77] != 5)
+            {
+                m_position = sf::Vector2i(m_position.x-1, m_position.y);
+            }
+            m_currentAnimation = &m_walkingLeft;
+        }
+        else if (di == RIGHT)
+        {
+            if (tiles[m_position.x+1 + m_position.y*77] != 1 && tiles[m_position.x+1 + m_position.y*77] != 5)
+            {
+                m_position = sf::Vector2i(m_position.x+1, m_position.y);
+            }
+            m_currentAnimation = &m_walkingRight;
+        }
+        else if (di == UPLEFT)
+        {
+            if (tiles[m_position.x-1 + m_position.y*77] != 1 && tiles[m_position.x-1 + m_position.y*77] != 5)
+            {
+                m_position = sf::Vector2i(m_position.x-1, m_position.y-1);
+            }
+            m_currentAnimation = &m_walkingLeft;
+        }
+        else if (di == UPRIGHT)
+        {
+            if (tiles[m_position.x+1 + m_position.y*77] != 1 && tiles[m_position.x+1 + m_position.y*77] != 5)
+            {
+                m_position = sf::Vector2i(m_position.x+1, m_position.y-1);
+            }
+            m_currentAnimation = &m_walkingRight;
+        }
+        else if (di == DOWNLEFT)
+        {
+            if (tiles[m_position.x-1 + m_position.y*77] != 1 && tiles[m_position.x-1 + m_position.y*77] != 5)
+            {
+                m_position = sf::Vector2i(m_position.x-1, m_position.y+1);
+            }
+            m_currentAnimation = &m_walkingLeft;
+        }
+        else if (di == DOWNRIGHT)
+        {
+            if (tiles[m_position.x+1 + m_position.y*77] != 1 && tiles[m_position.x+1 + m_position.y*77] != 5)
+            {
+                m_position = sf::Vector2i(m_position.x+1, m_position.y+1);
+            }
+            m_currentAnimation = &m_walkingRight;
+        }
+
+        placeDetectors();
     }
 
     void
@@ -218,7 +207,7 @@ namespace rr
     bool
     NPC::isMoving() const
     {
-        return m_moving;
+        return instanceof <NPCMoving, NPCState> (m_state);
     }
 
 }

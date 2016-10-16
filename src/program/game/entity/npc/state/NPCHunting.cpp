@@ -86,7 +86,7 @@ namespace rr
 
                 return &attacking;
             }
-            else if (FOV::seesEntity(level->getTiles(), npc, &player))
+            else if (FOV::seesEntity(*level, npc, &player))
             {
                 npc->setDestination(player.getGridPosition());
             }
@@ -110,7 +110,7 @@ namespace rr
         if (npc->getGridPosition() != npc->getDestination()
             || (npc->getAttitude() == NPC::HOSTILE && npc->detects(&player) < 0))
         {
-            auto offset = path.back() - npc->getGridPosition();
+            auto offset = path[1] - npc->getGridPosition();
 
             if      (offset == sf::Vector2i( 0, -1)) npc->move(level->getTiles(), NPC::UP);
             else if (offset == sf::Vector2i( 0,  1)) npc->move(level->getTiles(), NPC::DOWN);

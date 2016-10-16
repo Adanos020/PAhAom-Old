@@ -32,7 +32,7 @@ namespace rr
              /// \brief Calculates the possible field of vision from a given point on
              /// the tile map.
              ////////////////////////////////////////////////////////////////////////
-      static void compute(ShadowMap* shadows, int tiles[], unsigned octant, sf::Vector2i origin, int range, unsigned x, Slope top, Slope bottom);
+      static void compute(ShadowMap&, Level&, unsigned octant, sf::Vector2i origin, int range, unsigned x, Slope top, Slope bottom);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if an entity is in the NPC's field of vision.
@@ -40,17 +40,17 @@ namespace rr
              /// \param npc the npc whose field of vision is calculated
              /// \param entity the entity which may be detected by the NPC
              ////////////////////////////////////////////////////////////////////////
-      static bool seesEntity(int tiles[], unsigned octant, sf::Vector2i origin, sf::Vector2i dest, int range, unsigned x, Slope top, Slope bottom);
+      static bool seesEntity(Level&, unsigned octant, sf::Vector2i origin, sf::Vector2i dest, int range, unsigned x, Slope top, Slope bottom);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if a block in a given position blocks light.
              ////////////////////////////////////////////////////////////////////////
-      static bool blocksLight(int tiles[], int x, int y, unsigned octant, sf::Vector2i origin);
+      static bool blocksLight(Level&, int x, int y, unsigned octant, sf::Vector2i origin);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the selected tile visible.
              ////////////////////////////////////////////////////////////////////////
-      static void setVisible(ShadowMap* shadows, int x, int y, unsigned octant, sf::Vector2i origin);
+      static void setVisible(ShadowMap&, int x, int y, unsigned octant, sf::Vector2i origin);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the visible tile's position.
@@ -67,15 +67,12 @@ namespace rr
              /// \brief Calculates the possible field of vision from a given point on
              /// the tile map.
              ////////////////////////////////////////////////////////////////////////
-      static void compute(ShadowMap* shadows, int tiles[], sf::Vector2i origin, int range);
+      static void compute(ShadowMap&, Level&, sf::Vector2i origin, int range);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Tells if an entity is in the NPC's field of vision.
-             ///
-             /// \param npc the npc whose field of vision is calculated
-             /// \param entity the entity which may be detected by the NPC
              ////////////////////////////////////////////////////////////////////////
-      static bool seesEntity(int tiles[], NPC* npc, Entity* entity);
+      static bool seesEntity(Level&, Entity* e1, Entity* e2);
     };
 
 }

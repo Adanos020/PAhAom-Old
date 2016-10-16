@@ -22,7 +22,7 @@ namespace rr
       m_parent  (nullptr),
       m_walkable(grid[position.x + position.y*77] != 0
               && grid[position.x + position.y*77] != 1
-              && grid[position.x + position.y*77] != 4),
+              && grid[position.x + position.y*77] != 5),
       m_closed  (false),
       m_open    (false),
       m_FScore  (0),
