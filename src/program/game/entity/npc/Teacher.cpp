@@ -48,8 +48,8 @@ namespace rr
         m_currentAnimation = &m_standingLeft;
 
         m_attitude = NEUTRAL;
-
         m_state = new NPCSleeping();
+        m_stepsToFollow = 0;
 
         m_body.setAnimation(*m_currentAnimation);
         m_body.setLooped(true);

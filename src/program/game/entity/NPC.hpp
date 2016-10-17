@@ -69,6 +69,7 @@ namespace rr
                DialogueTree       m_dialogue;
 
                NPCState*          m_state;
+               int                m_stepsToFollow;
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets all the player detectors' positions.

@@ -13,6 +13,7 @@
 
 #include "ShadowMap.hpp"
 #include "entity/Player.hpp"
+#include "entity/Door.hpp"
 
 namespace rr
 {
@@ -96,6 +97,11 @@ namespace rr
              void calculateFOV(sf::Vector2i origin, int range);
 
              ////////////////////////////////////////////////////////////////////////
+             /// \brief Closes all the doors in the level.
+             ////////////////////////////////////////////////////////////////////////
+             void closeDoors();
+
+             ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the level's starting point.
              ////////////////////////////////////////////////////////////////////////
              sf::Vector2i getStartingPoint() const { return m_startingPoint; }
@@ -119,6 +125,21 @@ namespace rr
              /// \brief Returns the level's list of tiles.
              ////////////////////////////////////////////////////////////////////////
              Cell* getTilesAsCells() { return m_tiles; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns a pointer to the entity being in the given position,
+             /// ommiting ones of the given type.
+             ////////////////////////////////////////////////////////////////////////
+             template <class toOmmit>
+             Entity* getEntityAt(sf::Vector2i pos) const
+             {
+                 for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
+                 {
+                     if ((*it)->getGridPosition() == pos && !instanceof <toOmmit, Entity> (*it))
+                         return *it;
+                 }
+                 return nullptr;
+             }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns a pointer to the entity being in the given position.

@@ -82,6 +82,7 @@ namespace rr
 
         m_attitude = HOSTILE;
         m_state = new NPCSleeping();
+        m_stepsToFollow = 0;
     }
 
     void

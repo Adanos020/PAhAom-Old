@@ -17,7 +17,6 @@ namespace rr
         if (npc->m_body.isPlaying())
             return nullptr;
 
-        std::cout << "ATTACKING ANIMATION FINISHED\n";
         return &hunting;
     }
 

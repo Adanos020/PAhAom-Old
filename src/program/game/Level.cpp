@@ -194,7 +194,7 @@ namespace rr
         {
             if (instanceof <Door, Entity> (*it))
             {
-                if (game->getPlayer()->collides(*it))
+                if (game->getPlayer()->collides(*it) || getEntityAt <Door> ((*it)->getGridPosition()) != nullptr)
                     ((Door*) *it)->setOpen(true);
                 else
                     ((Door*) *it)->setOpen(false);
@@ -237,12 +237,23 @@ namespace rr
         FOV::compute(m_shadowMap, *this, origin, range);
     }
 
+    void
+    Level::closeDoors()
+    {
+        for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
+        {
+            if (instanceof <Door, Entity> (*it))
+                ((Door*) (*it))->setOpen(false);
+        }
+    }
+
     Entity*
     Level::getEntityAt(sf::Vector2i pos) const
     {
         for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
         {
-            if ((*it)->getGridPosition() == pos) return *it;
+            if ((*it)->getGridPosition() == pos)
+                return *it;
         }
         return nullptr;
     }
@@ -742,7 +753,7 @@ namespace rr
         {
             for (int y = 1; y < m_size.y-1; ++y)
             {
-                if (m_tiles[x+y*m_size.x] == ENTRANCE)
+                if (m_tiles[x + y*m_size.x] == ENTRANCE)
                     addEntity(new Door(false), sf::Vector2i(x, y));
             }
         }

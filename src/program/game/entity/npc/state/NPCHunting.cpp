@@ -4,6 +4,8 @@
  * Used library: SFML
  */
 
+#include <iostream>
+
 #include "../NPCHunting.hpp"
 
 #include "../../../FOV.hpp"
@@ -86,9 +88,10 @@ namespace rr
 
                 return &attacking;
             }
-            else if (FOV::seesEntity(*level, npc, &player))
+            else if (npc->m_stepsToFollow > 0 || FOV::seesEntity(*level, npc, &player))
             {
                 npc->setDestination(player.getGridPosition());
+                npc->m_stepsToFollow = 10;
             }
         }
 
@@ -121,6 +124,9 @@ namespace rr
             else if (offset == sf::Vector2i( 1, -1)) npc->move(level->getTiles(), NPC::UPRIGHT);
             else if (offset == sf::Vector2i(-1,  1)) npc->move(level->getTiles(), NPC::DOWNLEFT);
             else if (offset == sf::Vector2i( 1,  1)) npc->move(level->getTiles(), NPC::DOWNRIGHT);
+
+            --npc->m_stepsToFollow;
+            std::cout << npc->m_stepsToFollow << '\n';
 
             return &moving;
         }

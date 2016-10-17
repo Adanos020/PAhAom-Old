@@ -384,6 +384,7 @@ namespace rr
 
             if (canUpdateFOV && m_player.isMoving())
             {
+                m_currentLevel->closeDoors();
                 m_currentLevel->calculateFOV(m_player.getGridPosition(), m_player.getSightRange());
                 m_currentLevel->makeOrdersToNPCs(&m_player);
             }
