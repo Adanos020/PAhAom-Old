@@ -133,9 +133,10 @@ namespace rr
              template <class toOmmit>
              Entity* getEntityAt(sf::Vector2i pos) const
              {
-                 for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
+                 for (unsigned i = 0; it < m_entities.size(); ++i)
                  {
-                     if ((*it)->getGridPosition() == pos && !instanceof <toOmmit, Entity> (*it))
+                     if (m_entities[i]->getGridPosition() == pos
+                        && !instanceof <toOmmit, Entity> (m_entities[i]))
                          return *it;
                  }
                  return nullptr;
