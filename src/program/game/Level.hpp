@@ -127,6 +127,22 @@ namespace rr
              Cell* getTilesAsCells() { return m_tiles; }
 
              ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns a pointer to the entity being in the given position,
+             /// ommiting ones of the given type.
+             ////////////////////////////////////////////////////////////////////////
+             template <class toOmmit>
+             Entity* getEntityAt(sf::Vector2i pos) const
+             {
+                 for (unsigned i = 0; i < m_entities.size(); ++i)
+                 {
+                     if (m_entities[i]->getGridPosition() == pos
+                        && !instanceof <toOmmit, Entity> (m_entities[i]))
+                         return m_entities[i];
+                 }
+                 return nullptr;
+             }
+
+             ////////////////////////////////////////////////////////////////////////
              /// \brief Returns a pointer to the entity being in the given position.
              ////////////////////////////////////////////////////////////////////////
              Entity* getEntityAt(sf::Vector2i pos, Entity::Species consider = Entity::NONE,
