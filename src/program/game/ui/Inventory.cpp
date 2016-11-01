@@ -111,7 +111,6 @@ namespace rr
 #define wInfo (*component(m_wInve, Window, 0))
 #define wOpts (*component(m_wInve, Window, 1))
 ;
-
         if (m_wInve.isVisible())
         {
             if (wOpts.isVisible()) // ITEM OPTIONS WINDOW IS OPEN
@@ -123,7 +122,7 @@ namespace rr
 
                     if (instanceof <Equipable, Item> (item))
                     {
-                        bool equip = !((Equipable*) item)->isEquipped(); 
+                        bool equip = !((Equipable*) item)->isEquipped();
 
                         if (m_player->equipItem((Equipable*) item, equip))
                             ((Equipable*) item)->equip(equip);
@@ -152,14 +151,13 @@ namespace rr
                 else if (chosenOption == Resources::dictionary["gui.menu.drop"])
                 {
                     Item* item = ((Slot*) wOpts.getParentComponent())->getItem();
-                    item->setPosition(m_player->getPosition());
+                    item->setGridPosition(m_player->getGridPosition());
 
-                    if (  instanceof <Equipable, Item> (item)
-                       && ((Equipable*) item)->isEquipped()
-                        ) ((Equipable*) item)->equip(false);
+                    if (instanceof <Equipable, Item> (item) && ((Equipable*) item)->isEquipped())
+                        ((Equipable*) item)->equip(false);
 
                     subject.notify(Observer::ITEM_DROPPED, item);
-                    
+
                     ((Slot*) wOpts.getParentComponent())->removeItem(false);
                     sort();
                 }

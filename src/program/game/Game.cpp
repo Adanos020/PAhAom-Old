@@ -436,7 +436,8 @@ namespace rr
                     m_journal.open();
                     m_paused = true;
                 }
-                else if (wasKeyPressed(event, Settings::keys.open_bookOfSpells) && m_inventory.contains(new Book(Book::SPELLS_BOOK, 0)))
+                else if (wasKeyPressed(event, Settings::keys.open_bookOfSpells)
+                    && m_inventory.contains(new Book(Book::SPELLS_BOOK, 0)))
                 {
                     m_bookOfSpells.open();
                     m_paused = true;

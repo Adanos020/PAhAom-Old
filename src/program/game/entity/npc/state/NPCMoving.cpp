@@ -46,7 +46,7 @@ namespace rr
     }
 
     NPCState*
-    NPCMoving::react(Level* level, NPC* npc, Player& player)
+    NPCMoving::react(Level* level, NPC* npc, Player* player)
     {
         return nullptr;
     }

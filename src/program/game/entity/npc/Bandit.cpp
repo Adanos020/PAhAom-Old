@@ -24,7 +24,7 @@ namespace rr
         m_moving   = false;
 
         m_attrs.health =
-           m_attrs.maxHealth = 10.f;
+           m_attrs.maxHealth = 20.f;
         m_attrs.armor        =  5.f;
         m_attrs.level        =  5  ;
 
@@ -83,25 +83,6 @@ namespace rr
         m_attitude = HOSTILE;
         m_state = new NPCSleeping();
         m_stepsToFollow = 0;
-    }
-
-    void
-    Bandit::update(int tiles[], sf::Time& delta)
-    {
-        auto newState = m_state->update(delta, this);
-        if (newState != nullptr)
-            m_state = newState;
-
-        m_body.update(delta);
-
-        if (!m_body.isPlaying())
-        {
-            if      (m_direction == LEFT ) m_currentAnimation = &m_standingLeft;
-            else if (m_direction == RIGHT) m_currentAnimation = &m_standingRight;
-            m_body.setLooped(true);
-        }
-
-        m_body.play(*m_currentAnimation);
     }
 
     sf::String

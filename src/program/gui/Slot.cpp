@@ -101,7 +101,7 @@ namespace rr
                 m_hollow = true;
                 if (deleteFromMemory)
                     delete m_item;
-                else  m_item = nullptr;
+                m_item = nullptr;
             }
         }
     }
@@ -112,7 +112,7 @@ namespace rr
         m_hollow = true;
         if (deleteFromMemory)
             delete m_item;
-        else  m_item = nullptr;
+        m_item = nullptr;
     }
 
     void

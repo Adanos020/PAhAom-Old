@@ -70,12 +70,12 @@ namespace rr
              sf::Color getFillColor() const { return m_bar.getFillColor(); }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Sets the bar's fill color.
+             /// \brief Sets the bar's outline color.
              ////////////////////////////////////////////////////////////////////////
              void setOutlineColor(sf::Color c) { m_border.setOutlineColor(c); }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Returns the bar's fill color.
+             /// \brief Returns the bar's outline color.
              ////////////////////////////////////////////////////////////////////////
              sf::Color getOutlineColor() const { return m_border.getOutlineColor(); }
 

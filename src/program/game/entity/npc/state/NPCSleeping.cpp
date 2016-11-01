@@ -23,11 +23,11 @@ namespace rr
     }
 
     NPCState*
-    NPCSleeping::react(Level* level, NPC* npc, Player& player)
+    NPCSleeping::react(Level* level, NPC* npc, Player* player)
     {
         if (npc->getAttitude() == NPC::HOSTILE)
         {
-            if ((npc->detects(&player) >= 0) || (FOV::seesEntity(*level, npc, &player) && chance(1, 5)))
+            if ((npc->detects(player) >= 0) || (FOV::seesEntity(*level, npc, player) && chance(1, 5)))
                 return &hunting;
         }
 

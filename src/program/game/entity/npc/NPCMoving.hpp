@@ -22,7 +22,7 @@ namespace rr
                 ////////////////////////////////////////////////////////////////////////
                 /// \brief Reacts to an event.
                 ////////////////////////////////////////////////////////////////////////
-        virtual NPCState* react(Level*, NPC*, Player&) override;
+        virtual NPCState* react(Level*, NPC*, Player*) override;
     };
 
 }

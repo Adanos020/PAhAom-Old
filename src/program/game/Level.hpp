@@ -127,24 +127,10 @@ namespace rr
              Cell* getTilesAsCells() { return m_tiles; }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Returns a pointer to the entity being in the given position,
-             /// ommiting ones of the given type.
-             ////////////////////////////////////////////////////////////////////////
-             template <class toOmmit>
-             Entity* getEntityAt(sf::Vector2i pos) const
-             {
-                 for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
-                 {
-                     if ((*it)->getGridPosition() == pos && !instanceof <toOmmit, Entity> (*it))
-                         return *it;
-                 }
-                 return nullptr;
-             }
-
-             ////////////////////////////////////////////////////////////////////////
              /// \brief Returns a pointer to the entity being in the given position.
              ////////////////////////////////////////////////////////////////////////
-             Entity* getEntityAt(sf::Vector2i pos) const;
+             Entity* getEntityAt(sf::Vector2i pos, Entity::Species consider = Entity::NONE,
+                bool include = false) const;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reads the level from a file.

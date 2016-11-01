@@ -229,6 +229,11 @@ namespace rr
              void addExperience(int exp) { m_attrs.experience += exp; }
 
              ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the species of the entity.
+             ////////////////////////////////////////////////////////////////////////
+     virtual Species getSpecies() const override { return PLAYER; }
+
+             ////////////////////////////////////////////////////////////////////////
              /// \brief Makes the player learn the skill given as a type of book he
              /// can read.
              ///

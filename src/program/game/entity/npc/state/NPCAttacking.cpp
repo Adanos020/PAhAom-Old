@@ -13,7 +13,6 @@ namespace rr
     NPCState*
     NPCAttacking::update(sf::Time& delta, NPC* npc)
     {
-        npc->m_body.update(delta);
         if (npc->m_body.isPlaying())
             return nullptr;
 
@@ -21,7 +20,7 @@ namespace rr
     }
 
     NPCState*
-    NPCAttacking::react(Level* level, NPC* npc, Player& player)
+    NPCAttacking::react(Level* level, NPC* npc, Player* player)
     {
         return nullptr;
     }

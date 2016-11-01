@@ -99,7 +99,7 @@ namespace rr
              void buttonEvents(sf::RenderWindow&, sf::Event&);
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Draws the game components.
+             /// \brief Updates the game's state.
              ////////////////////////////////////////////////////////////////////////
              void update(sf::Event&, sf::Time&);
 

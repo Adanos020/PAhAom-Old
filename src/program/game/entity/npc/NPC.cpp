@@ -180,7 +180,25 @@ namespace rr
     }
 
     void
-    NPC::react(Level* level, Player& player)
+    NPC::update(int tiles[], sf::Time& delta)
+    {
+        auto newState = m_state->update(delta, this);
+        if (newState != nullptr)
+            m_state = newState;
+/*
+        if (!m_body.isPlaying())
+        {
+            if      (m_direction == LEFT ) m_currentAnimation = &m_standingLeft;
+            else if (m_direction == RIGHT) m_currentAnimation = &m_standingRight;
+            m_body.setLooped(true);
+        }
+*/
+        m_body.update(delta);
+        m_body.play(*m_currentAnimation);
+    }
+
+    void
+    NPC::react(Level* level, Player* player)
     {
         NPCState* state = m_state->react(level, this, player);
         if (state != nullptr)

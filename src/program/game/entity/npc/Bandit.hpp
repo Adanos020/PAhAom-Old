@@ -54,16 +54,6 @@ namespace rr
              Type getType() const { return m_type; }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Updates the bandit's state.
-             ///
-             /// \param timeStep the time duration of a single frame
-             ///
-             /// The things updated in this function are the animations, states of
-             /// the seeked path, moving the bandit, etc.
-             ////////////////////////////////////////////////////////////////////////
-     virtual void update(int tiles[], sf::Time& timeStep) override;
-
-             ////////////////////////////////////////////////////////////////////////
              /// \brief Handles the damage that the bandit got.
              ////////////////////////////////////////////////////////////////////////
      virtual int handleDamage(int damage) override;

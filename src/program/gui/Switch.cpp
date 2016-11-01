@@ -16,15 +16,15 @@ namespace rr
       m_right(Button(sf::Vector2f(m_body.getPosition().x + m_body.getSize().x+24, pos.y), ">", 30)),
       m_text (Text  (sf::Vector2f(0, 0), L"QYTA CLOHJÉR", Resources::font.Unifont, size.y))
     {
-        m_body .setSize            (size);
-        m_body .setPosition        (sf::Vector2f(pos.x+44, pos.y+5));
-        m_body .setFillColor       (sf::Color(128, 128, 128, 128));
-        m_body .setOutlineColor    (sf::Color(108, 108, 108));
-        m_body .setOutlineThickness(5);
+        m_body.setSize            (size);
+        m_body.setPosition        (sf::Vector2f(pos.x+44, pos.y+5));
+        m_body.setFillColor       (sf::Color(128, 128, 128, 128));
+        m_body.setOutlineColor    (sf::Color(108, 108, 108));
+        m_body.setOutlineThickness(5);
 
-        m_left .setParentComponent (this);
-        m_right.setParentComponent (this);
-        m_text .setParentComponent (this);
+        m_left .setParentComponent(this);
+        m_right.setParentComponent(this);
+        m_text .setParentComponent(this);
 
         setPosition(pos);
 

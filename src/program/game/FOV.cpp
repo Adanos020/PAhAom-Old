@@ -242,8 +242,8 @@ namespace rr
             case 6: nx += y; ny += x; break;
             case 7: nx += x; ny += y; break;
         }
-        auto entity = level.getEntityAt(sf::Vector2i(nx, ny));
-        bool doorClosed = entity != nullptr && instanceof <Door, Entity> (entity) && !((Door*) entity)->isOpen();
+        auto entity = level.getEntityAt(sf::Vector2i(nx, ny), Entity::DOOR, true);
+        bool doorClosed = entity != nullptr && entity->getSpecies() == Entity::DOOR && !((Door*) entity)->isOpen();
 
         return (nx < 77 && ny < 43) && (level.getTiles()[nx + ny*77] == 1 || doorClosed);
     }

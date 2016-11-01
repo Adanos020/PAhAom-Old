@@ -137,6 +137,11 @@ namespace rr
                /// \brief Returns the item's bound box.
                ////////////////////////////////////////////////////////////////////////
        virtual sf::FloatRect getBounds() const override { return sf::FloatRect(m_body[0].position, m_body[2].position - m_body[0].position); }
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Returns the species of the entity.
+               ////////////////////////////////////////////////////////////////////////
+       virtual Species getSpecies() const override { return ITEM; }
     };
 
     class Discoverable : public Item

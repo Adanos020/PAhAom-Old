@@ -113,7 +113,7 @@ namespace rr
                /// The things updated in this function are the animations, states of
                /// the seeked path, moving the NPC, etc.
                ////////////////////////////////////////////////////////////////////////
-       virtual void update(int tiles[], sf::Time& timeStep) = 0;
+               void update(int tiles[], sf::Time& timeStep);
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Attacks other NPC.
@@ -134,6 +134,11 @@ namespace rr
                /// \brief Returns the NPC's name.
                ////////////////////////////////////////////////////////////////////////
        virtual sf::String getName() const = 0;
+
+               ////////////////////////////////////////////////////////////////////////
+               /// \brief Returns the species of the entity.
+               ////////////////////////////////////////////////////////////////////////
+       virtual Species getSpecies() const override { return N_P_C; }
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Sets the NPC's position relatively to the grid marked out by
@@ -243,7 +248,7 @@ namespace rr
                ////////////////////////////////////////////////////////////////////////
                /// \brief Makes the npc react to the current of the level.
                ////////////////////////////////////////////////////////////////////////
-               void react(Level*, Player&);
+               void react(Level*, Player*);
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Gives a read-only access to the NPC's attributes.

@@ -64,16 +64,6 @@ namespace rr
      virtual Entity* clone() const override { return new Teacher(*this); }
 
              ////////////////////////////////////////////////////////////////////////
-             /// \brief Updates the teacher's state.
-             ///
-             /// \param timeStep the time duration of a single frame
-             ///
-             /// The things updated in this function are the animations, states of
-             /// the seeked path, moving the teacher, etc.
-             ////////////////////////////////////////////////////////////////////////
-     virtual void update(int tiles[], sf::Time& timeStep) override;
-
-             ////////////////////////////////////////////////////////////////////////
              /// \brief Attacks other NPC.
              ////////////////////////////////////////////////////////////////////////
      virtual void attack(NPC*) {}

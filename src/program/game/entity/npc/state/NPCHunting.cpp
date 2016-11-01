@@ -23,11 +23,11 @@ namespace rr
     }
 
     NPCState*
-    NPCHunting::react(Level* level, NPC* npc, Player& player)
+    NPCHunting::react(Level* level, NPC* npc, Player* player)
     {
         if (npc->getAttitude() == NPC::HOSTILE)
         {
-            int detector = npc->detects(&player);
+            int detector = npc->detects(player);
             if (detector >= 0) // the npc detects player
             {
                 if ((detector == 0 || detector == 3 || detector == 5)
@@ -45,7 +45,7 @@ namespace rr
                         {
                             if (chance(MeleeWeapon(MeleeWeapon::CLUB).getAccuracy()*2, 21))
                             {
-                                ((Bandit*) npc)->attack(&player);
+                                ((Bandit*) npc)->attack(player);
                                 hit = true;
                             }
                         }
@@ -55,7 +55,7 @@ namespace rr
                         {
                             if (chance(RangedWeapon(RangedWeapon::CROSSBOW).getAccuracy()*2, 21))
                             {
-                                ((Bandit*) npc)->attack(&player);
+                                ((Bandit*) npc)->attack(player);
                                 hit = true;
                             }
                         }
@@ -65,7 +65,7 @@ namespace rr
                         {
                             if (chance(MeleeWeapon(MeleeWeapon::DAGGER).getAccuracy()*2, 21))
                             {
-                                ((Bandit*) npc)->attack(&player);
+                                ((Bandit*) npc)->attack(player);
                                 hit = true;
                             }
                         }
@@ -88,9 +88,9 @@ namespace rr
 
                 return &attacking;
             }
-            else if (npc->m_stepsToFollow > 0 || FOV::seesEntity(*level, npc, &player))
+            else if (npc->m_stepsToFollow > 0 || FOV::seesEntity(*level, npc, player))
             {
-                npc->setDestination(player.getGridPosition());
+                npc->setDestination(player->getGridPosition());
                 npc->m_stepsToFollow = 10;
             }
         }
@@ -111,7 +111,7 @@ namespace rr
         }
 
         if (npc->getGridPosition() != npc->getDestination()
-            || (npc->getAttitude() == NPC::HOSTILE && npc->detects(&player) < 0))
+            || (npc->getAttitude() == NPC::HOSTILE && npc->detects(player) < 0))
         {
             auto offset = path[1] - npc->getGridPosition();
 
@@ -126,7 +126,7 @@ namespace rr
             else if (offset == sf::Vector2i( 1,  1)) npc->move(level->getTiles(), NPC::DOWNRIGHT);
 
             --npc->m_stepsToFollow;
-            std::cout << npc->m_stepsToFollow << '\n';
+            //std::cout << npc->m_stepsToFollow << '\n';
 
             return &moving;
         }

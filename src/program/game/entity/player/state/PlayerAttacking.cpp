@@ -15,7 +15,6 @@ namespace rr
     PlayerState*
     PlayerAttacking::update(sf::Time& delta, Player& player)
     {
-        player.m_body.update(delta);
         if (player.m_body.isPlaying())
             return nullptr;
 

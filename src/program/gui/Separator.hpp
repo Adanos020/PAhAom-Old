@@ -40,12 +40,12 @@ namespace rr
                  float getLength() const;
                 
                  ////////////////////////////////////////////////////////////////////////
-                 /// \brief Sets the separator's color;
+                 /// \brief Sets the separator's color.
                  ////////////////////////////////////////////////////////////////////////
                  void setColor(sf::Color);
                 
                  ////////////////////////////////////////////////////////////////////////
-                 /// \brief Returns the separator's color;
+                 /// \brief Returns the separator's color.
                  ////////////////////////////////////////////////////////////////////////
                  sf::Color getColor() const;
 

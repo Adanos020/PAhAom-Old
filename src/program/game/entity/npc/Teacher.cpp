@@ -139,27 +139,6 @@ namespace rr
         }
     }
 
-    void
-    Teacher::update(int tiles[], sf::Time& delta)
-    {
-        auto newState = m_state->update(delta, this);
-        if (newState != nullptr)
-            m_state = newState;
-
-        m_body.update(delta);
-
-        if (!m_body.isPlaying())
-        {
-            if      (m_direction == LEFT ) m_currentAnimation = &m_standingLeft;
-            else if (m_direction == RIGHT) m_currentAnimation = &m_standingRight;
-            m_body.setLooped(true);
-        }
-
-        m_body.update(delta);
-
-        m_body.play(*m_currentAnimation);
-    }
-
     int
     Teacher::handleDamage(int damage)
     {

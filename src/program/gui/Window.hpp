@@ -43,8 +43,8 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Adds a given component to the internal window.
              ////////////////////////////////////////////////////////////////////////
-
              void addComponent(Component*, bool attached);
+
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the internal window visible or not, depending on the
              /// value of the given argument.

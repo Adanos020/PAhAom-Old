@@ -72,8 +72,8 @@ namespace rr
             e->setGridPosition(position);
             m_entities.push_back(e);
 
-            if (instanceof <NPC , Entity> (e)) m_npcs .push_back((NPC *) e);
-            if (instanceof <Item, Entity> (e)) m_items.push_back((Item*) e);
+            if (e->getSpecies() == Entity::N_P_C) m_npcs .push_back((NPC *) e);
+            if (e->getSpecies() == Entity::ITEM ) m_items.push_back((Item*) e);
         }
     }
 
@@ -84,8 +84,10 @@ namespace rr
         {
             m_entities.push_back(e);
 
-            if (instanceof <NPC , Entity> (e)) m_npcs .push_back((NPC *) e);
-            if (instanceof <Item, Entity> (e)) m_items.push_back((Item*) e);
+            if (e->getSpecies() == Entity::N_P_C)
+                m_npcs .push_back((NPC*) e);
+            if (e->getSpecies() == Entity::ITEM)
+                m_items.push_back((Item*) e);
         }
     }
 
@@ -94,55 +96,63 @@ namespace rr
     {
         bool quitsLevel = false;
 
-        auto it=m_entities.begin();
-        while (it != m_entities.end() && !quitsLevel)
+        try
         {
-            if (game->getPlayer()->getGridPosition() == (*it)->getGridPosition())
+            auto it = m_entities.begin();
+            while (it != m_entities.end() && !quitsLevel)
             {
-                if (instanceof <Item, Entity> (*it))
+                auto entity = *it;
+                if (game->getPlayer()->getGridPosition() == entity->getGridPosition())
                 {
-                    if (game->getInventory()->addItem((Item*) *it))
+                    if (entity->getSpecies() == Entity::ITEM)
                     {
-                        subject.notify(ITEM_PICKED, *it);
-                        m_entities.erase(it++);
+                        if (game->getInventory()->addItem((Item*) entity))
+                        {
+                            subject.notify(ITEM_PICKED, entity);
+                            m_entities.erase(it++);
+                        }
+                        else game->getMessageManager()->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
                     }
-                    else game->getMessageManager()->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
-                }
-                else if (instanceof <Chest, Entity> (*it))
-                {
-                    Entity* temp  = ((Chest*) *it)->getItem()->clone();
-                    auto position = (*it)->getGridPosition();
+                    else if (entity->getSpecies() == Entity::CHEST)
+                    {
+                        Entity* temp  = ((Chest*) entity)->getItem()->clone();
+                        auto position = entity->getGridPosition();
 
-                    delete *it;
-                    *it = temp;
-                    (*it++)->setGridPosition(position);
-                }
-                else if (instanceof <Stairs, Entity> (*it))
-                {
-                    if (((Stairs*) *it)->isUpwards())
-                    {
-                        game->switchLevel(m_levelNumber+1);
-                        quitsLevel = true;
+                        delete entity;
+                        entity = temp;
+                        entity->setGridPosition(position);
                     }
-                    else
+                    else if (entity->getSpecies() == Entity::STAIRS)
                     {
-                        game->switchLevel(m_levelNumber-1);
-                        quitsLevel = true;
+                        if (((Stairs*) entity)->isUpwards())
+                        {
+                            game->switchLevel(m_levelNumber+1);
+                            quitsLevel = true;
+                        }
+                        else
+                        {
+                            game->switchLevel(m_levelNumber-1);
+                            quitsLevel = true;
+                        }
                     }
                 }
-            }
-            else if (instanceof <NPC, Entity> (*it))
-            {
-                auto npc = (NPC*) *it;
-                if (npc->detects(game->getPlayer()) != -1 && npc->getAttitude() != NPC::HOSTILE)
+                else if (entity->getSpecies() == Entity::N_P_C)
                 {
-                    game->getConversationUI()->open(npc);
-                    game->pause(true);
+                    auto npc = (NPC*) entity;
+                    if (npc->detects(game->getPlayer()) != -1 && npc->getAttitude() != NPC::HOSTILE)
+                    {
+                        game->getConversationUI()->open(npc);
+                        game->pause(true);
+                    }
                 }
+                ++it;
             }
-            ++it;
         }
-
+        catch (...)
+        {
+            std::cout << "what the actual fuck\n";
+        }
+        
         if (!quitsLevel)
             makeOrdersToNPCs(game->getPlayer());
     }
@@ -150,7 +160,7 @@ namespace rr
     void
     Level::playerAttack(Player* player)
     {
-        auto it=m_npcs.begin();
+        auto it = m_npcs.begin();
         while (it != m_npcs.end())
         {
             auto npc = *it;
@@ -192,14 +202,14 @@ namespace rr
     {
         for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
         {
-            if (instanceof <Door, Entity> (*it))
+            if ((*it)->getSpecies() == Entity::DOOR)
             {
-                if (game->getPlayer()->collides(*it) || getEntityAt <Door> ((*it)->getGridPosition()) != nullptr)
+                if (game->getPlayer()->collides(*it) || getEntityAt((*it)->getGridPosition(), Entity::DOOR) != nullptr)
                     ((Door*) *it)->setOpen(true);
                 else
                     ((Door*) *it)->setOpen(false);
             }
-            else if (instanceof <NPC, Entity> (*it))
+            else if ((*it)->getSpecies() == Entity::N_P_C)
             {
                 auto npc = (NPC*) *it;
                 npc->update(m_tilesAsInts, time);
@@ -222,7 +232,7 @@ namespace rr
 
         for (auto it = m_npcs.begin(); it != m_npcs.end(); ++it)
         {
-            (*it)->react(this, *player);
+            (*it)->react(this, player);
 
             auto pos = (*it)->getGridPosition();
 
@@ -242,16 +252,18 @@ namespace rr
     {
         for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
         {
-            if (instanceof <Door, Entity> (*it))
+            if ((*it)->getSpecies() == Entity::DOOR)
                 ((Door*) (*it))->setOpen(false);
         }
     }
 
     Entity*
-    Level::getEntityAt(sf::Vector2i pos) const
+    Level::getEntityAt(sf::Vector2i pos, Entity::Species consider, bool include) const
     {
         for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
         {
+            if (include != ((*it)->getSpecies() == consider))
+                continue;
             if ((*it)->getGridPosition() == pos)
                 return *it;
         }
@@ -856,12 +868,12 @@ namespace rr
             case NPC_DIES:
             {
                 m_entities.erase(std::find(m_entities.begin(), m_entities.end(), entity));
-                if (instanceof <NPC, Entity> (entity))
+                if (entity->getSpecies() == Entity::N_P_C)
                 {
                     m_npcs.erase(std::find(m_npcs.begin(), m_npcs.end(), (NPC*) entity));
                     delete entity;
                 }
-                else if (instanceof <Item, Entity> (entity))
+                else if (entity->getSpecies() == Entity::ITEM)
                     m_items.erase(std::find(m_items.begin(), m_items.end(), (Item*) entity));
             }
             break;

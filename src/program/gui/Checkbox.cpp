@@ -41,7 +41,6 @@ namespace rr
         m_image.setPosition(pos);
     }
 
-
     void
     Checkbox::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
