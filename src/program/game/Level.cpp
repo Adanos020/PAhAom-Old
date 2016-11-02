@@ -215,13 +215,13 @@ namespace rr
     void
     Level::makeOrdersToNPCs(Player* player)
     {
+        std::vector <int> toClear; 
         // clearing all the previously occupied tiles
         for (int i = 0; i < 77*43; ++i)
         {
             if (m_tiles[i] == OCCUPIED)
             {
-                m_tiles      [i] = ROOM;
-                m_tilesAsInts[i] = 2;
+                toClear.push_back(i);
             }
         }
 
@@ -229,6 +229,20 @@ namespace rr
         {
             (*it)->react(this, player);
 
+            auto pos = (*it)->getGridPosition();
+
+            m_tiles      [pos.x + pos.y*m_size.x] = OCCUPIED;
+            m_tilesAsInts[pos.x + pos.y*m_size.x] = 5;
+        }
+
+        for (auto i : toClear)
+        {
+            m_tiles[i] = ROOM;
+            m_tilesAsInts[i] = 2;
+        }
+
+        for (auto it = m_npcs.begin(); it != m_npcs.end(); ++it)
+        {
             auto pos = (*it)->getGridPosition();
 
             m_tiles      [pos.x + pos.y*m_size.x] = OCCUPIED;

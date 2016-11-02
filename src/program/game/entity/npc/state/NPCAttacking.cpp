@@ -13,16 +13,18 @@ namespace rr
     NPCState*
     NPCAttacking::update(sf::Time& delta, NPC* npc)
     {
-        if (npc->m_body.isPlaying())
-            return nullptr;
+        //if (npc->m_body.isPlaying())
+        //    return nullptr;
 
         return &hunting;
     }
 
     NPCState*
     NPCAttacking::react(Level* level, NPC* npc, Player* player)
-    {
-        return nullptr;
-    }
+    { return nullptr; }
+
+    sf::String
+    NPCAttacking::toString() const
+    { return "ATTACKING"; }
 
 }

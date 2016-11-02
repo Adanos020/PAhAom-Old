@@ -134,4 +134,8 @@ namespace rr
         return nullptr;
     }
 
+    sf::String
+    NPCHunting::toString() const
+    { return "HUNTING"; }
+
 }

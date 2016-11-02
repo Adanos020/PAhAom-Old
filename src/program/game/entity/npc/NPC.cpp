@@ -4,6 +4,8 @@
  * Used library: SFML
  */
 
+#include <iostream>
+
 #include "../NPC.hpp"
 
 namespace rr
@@ -184,7 +186,11 @@ namespace rr
     {
         auto newState = m_state->update(delta, this);
         if (newState != nullptr)
+        {
             m_state = newState;
+            std::cout << getName().toAnsiString() << ": update -> state changed to "
+                << newState->toString().toAnsiString() << '\n';
+        }
 /*
         if (!m_body.isPlaying())
         {
@@ -202,7 +208,11 @@ namespace rr
     {
         NPCState* state = m_state->react(level, this, player);
         if (state != nullptr)
+        {
             m_state = state;
+            std::cout << getName().toAnsiString() << ": react -> state changed to "
+                << state->toString().toAnsiString() << '\n';
+        }
     }
 
     NPC::Attrs

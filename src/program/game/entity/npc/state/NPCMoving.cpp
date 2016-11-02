@@ -51,4 +51,8 @@ namespace rr
         return nullptr;
     }
 
+    sf::String
+    NPCMoving::toString() const
+    { return "MOVING"; }
+
 }

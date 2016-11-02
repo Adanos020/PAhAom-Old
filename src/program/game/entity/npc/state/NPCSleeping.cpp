@@ -34,4 +34,8 @@ namespace rr
         return nullptr;
     }
 
+    sf::String
+    NPCSleeping::toString() const
+    { return "SLEEPING"; }
+
 }
