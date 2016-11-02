@@ -19,6 +19,11 @@ int main()
     
     if (p->loadResources())
         p->runGame();
+    else
+    {
+        delete p;
+        return EXIT_FAILURE;
+    }
 
     delete p;
     return EXIT_SUCCESS;

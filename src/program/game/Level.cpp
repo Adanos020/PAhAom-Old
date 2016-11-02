@@ -94,67 +94,62 @@ namespace rr
     void
     Level::playerInteract(Game* game)
     {
-        bool quitsLevel = false;
+        std::vector <Item*> toErase;
 
-        try
+        for (auto& entity : m_entities)
         {
-            auto it = m_entities.begin();
-            while (it != m_entities.end() && !quitsLevel)
+            if (game->getPlayer()->getGridPosition() == entity->getGridPosition())
             {
-                auto entity = *it;
-                if (game->getPlayer()->getGridPosition() == entity->getGridPosition())
+                if (entity->getSpecies() == Entity::ITEM)
                 {
-                    if (entity->getSpecies() == Entity::ITEM)
+                    if (game->getInventory()->addItem((Item*) entity))
                     {
-                        if (game->getInventory()->addItem((Item*) entity))
-                        {
-                            subject.notify(ITEM_PICKED, entity);
-                            m_entities.erase(it++);
-                        }
-                        else game->getMessageManager()->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
+                        subject.notify(ITEM_PICKED, entity);
+                        toErase.push_back((Item*)entity);
                     }
-                    else if (entity->getSpecies() == Entity::CHEST)
-                    {
-                        Entity* temp  = ((Chest*) entity)->getItem()->clone();
-                        auto position = entity->getGridPosition();
+                    else game->getMessageManager()->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
+                }
+                else if (entity->getSpecies() == Entity::CHEST)
+                {
+                    Entity* temp  = ((Chest*) entity)->getItem()->clone();
+                    auto position = entity->getGridPosition();
 
-                        delete entity;
-                        entity = temp;
-                        entity->setGridPosition(position);
-                    }
-                    else if (entity->getSpecies() == Entity::STAIRS)
-                    {
-                        if (((Stairs*) entity)->isUpwards())
-                        {
-                            game->switchLevel(m_levelNumber+1);
-                            quitsLevel = true;
-                        }
-                        else
-                        {
-                            game->switchLevel(m_levelNumber-1);
-                            quitsLevel = true;
-                        }
-                    }
+                    delete entity;
+                    entity = temp;
+                    entity->setGridPosition(position);
                 }
-                else if (entity->getSpecies() == Entity::N_P_C)
+                else if (entity->getSpecies() == Entity::STAIRS)
                 {
-                    auto npc = (NPC*) entity;
-                    if (npc->detects(game->getPlayer()) != -1 && npc->getAttitude() != NPC::HOSTILE)
+                    if (((Stairs*) entity)->isUpwards())
                     {
-                        game->getConversationUI()->open(npc);
-                        game->pause(true);
+                        game->switchLevel(m_levelNumber+1);
+                        return;
+                    }
+                    else
+                    {
+                        game->switchLevel(m_levelNumber-1);
+                        return;
                     }
                 }
-                ++it;
+            }
+            else if (entity->getSpecies() == Entity::N_P_C)
+            {
+                auto npc = (NPC*) entity;
+                if (npc->detects(game->getPlayer()) != -1 && npc->getAttitude() != NPC::HOSTILE)
+                {
+                    game->getConversationUI()->open(npc);
+                    game->pause(true);
+                }
             }
         }
-        catch (...)
+
+        for (auto& ent : toErase)
         {
-            std::cout << "what the actual fuck\n";
+            m_items.erase( std::find(m_items.begin(), m_items.end(), ent ) );
+            m_entities.erase( std::find(m_entities.begin(), m_entities.end(), (Entity*)ent ) );
         }
         
-        if (!quitsLevel)
-            makeOrdersToNPCs(game->getPlayer());
+        makeOrdersToNPCs(game->getPlayer());
     }
 
     void
