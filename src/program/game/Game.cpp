@@ -110,22 +110,25 @@ namespace rr
         {
             if (m_levelNumber < 29)
                 m_levelNumber++;
-            else return;
+            else
+                return;
             ascending = true;
         }
         else if (index < (int) m_levelNumber)
         {
             if (m_levelNumber > 0)
                 m_levelNumber--;
-            else return;
+            else
+                return;
         }
 
         subject.removeObserver(m_currentLevel);
         delete m_currentLevel;
 
         m_currentLevel = new Level(m_levelNumber, &m_player);
-        m_currentLevel->generateWorld();
+        //m_currentLevel->generateWorld();
         subject.addObserver(m_currentLevel);
+        m_player.setCurrentLevel(m_currentLevel);
 
         std::ifstream file("save/level"+std::to_string(m_levelNumber)+".pah");
         *m_currentLevel << file;
@@ -139,8 +142,6 @@ namespace rr
                                            +" "
                                            +std::to_string(m_levelNumber+1)
                                            +((Settings::game.language == "fc") ? "" : "!"), sf::Color::Green));
-
-        m_player.setCurrentLevel(m_currentLevel);
 
         save();
     }
@@ -305,7 +306,7 @@ namespace rr
     {
         m_lost = true;
 
-#if defined (__gnu_linux__)
+#ifdef __gnu_linux__
         system("rm -rf save/*.pah");
 #else
         system("del save/*.pah");

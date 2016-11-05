@@ -25,7 +25,8 @@ namespace rr
     }
 
     void
-    FOV::compute(ShadowMap& shadows, Level& level, unsigned octant, sf::Vector2i origin, int range, unsigned x, Slope top, Slope bottom)
+    FOV::compute(ShadowMap& shadows, Level& level, unsigned octant, sf::Vector2i origin,
+        int range, unsigned x, Slope top, Slope bottom)
     {
         for (; x <= (unsigned) range; x++)
         {
@@ -35,10 +36,11 @@ namespace rr
             else
             {
                 topY = ((x*2-1)*top.y_+top.x_) / (top.x_*2);
-                if (  blocksLight(level, x, topY, octant, origin)
-                   && top >= Slope(topY*2+1, x*2)
-                   && !blocksLight(level, x, topY+1, octant, origin)
-                    ) ++topY;
+                if (blocksLight(level, x, topY, octant, origin) && top >= Slope(topY*2+1, x*2)
+                    && !blocksLight(level, x, topY+1, octant, origin))
+                {
+                    ++topY;
+                }
                 else
                 {
                     unsigned ax = x*2;
@@ -55,10 +57,11 @@ namespace rr
             else
             {
                 bottomY = ((x*2-1)*bottom.y_+bottom.x_)/(bottom.x_*2);
-                if (   bottom >= Slope(bottomY*2+1, x*2)
-                   &&  blocksLight(level, x, bottomY, octant, origin) 
-                   && !blocksLight(level, x, bottomY+1, octant, origin)
-                    )  ++bottomY;
+                if (bottom >= Slope(bottomY*2+1, x*2) && blocksLight(level, x, bottomY, octant, origin) 
+                   && !blocksLight(level, x, bottomY+1, octant, origin))
+                {
+                    ++bottomY;
+                }
             }
 
             int wasOpaque = -1;
@@ -68,11 +71,11 @@ namespace rr
                 {
                     bool isOpaque = blocksLight(level, x, y, octant, origin);
                     
-                    if (  isOpaque 
-                       || (  (  y != topY    || top    > Slope(y*4-1, x*4+1))
-                          && (  y != bottomY || bottom < Slope(y*4+1, x*4-1))
-                           )
-                        ) setVisible(shadows, x, y, octant, origin);
+                    if (isOpaque || ((y != topY || top > Slope(y*4-1, x*4+1))
+                        && (y != bottomY || bottom < Slope(y*4+1, x*4-1))))
+                    {
+                        setVisible(shadows, x, y, octant, origin);
+                    }
 
                     if ((int) x != range)
                     {
@@ -90,7 +93,8 @@ namespace rr
                                         bottom = Slope(ny, nx);
                                         break;
                                     }
-                                    else compute(shadows, level, octant, origin, range, x+1, top, Slope(ny, nx));
+                                    else
+                                        compute(shadows, level, octant, origin, range, x+1, top, Slope(ny, nx));
                                 }
                                 else if (y == bottomY)
                                     return;
@@ -124,8 +128,11 @@ namespace rr
     {
         for (unsigned octant = 0; octant < 8; octant++)
         {
-            if (seesEntity(level, octant, e1->getGridPosition(), e2->getGridPosition(), 14, 1, Slope(1, 1), Slope(0, 1)))
+            if (seesEntity(level, octant, e1->getGridPosition(),
+                e2->getGridPosition(), 14, 1, Slope(1, 1), Slope(0, 1)))
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -141,10 +148,11 @@ namespace rr
             else
             {
                 topY = ((x*2-1)*top.y_+top.x_) / (top.x_*2);
-                if (  blocksLight(level, x, topY, octant, origin)
-                   && top >= Slope(topY*2+1, x*2)
-                   && !blocksLight(level, x, topY+1, octant, origin)
-                    ) ++topY;
+                if (blocksLight(level, x, topY, octant, origin) && top >= Slope(topY*2+1, x*2)
+                   && !blocksLight(level, x, topY+1, octant, origin))
+                {
+                    ++topY;
+                }
                 else
                 {
                     unsigned ax = x*2;
@@ -161,10 +169,11 @@ namespace rr
             else
             {
                 bottomY = ((x*2-1)*bottom.y_+bottom.x_)/(bottom.x_*2);
-                if (   bottom >= Slope(bottomY*2+1, x*2)
-                   &&  blocksLight(level, x, bottomY, octant, origin) 
-                   && !blocksLight(level, x, bottomY+1, octant, origin)
-                    )  ++bottomY;
+                if (bottom >= Slope(bottomY*2+1, x*2) && blocksLight(level, x, bottomY, octant, origin) 
+                    && !blocksLight(level, x, bottomY+1, octant, origin))
+                {
+                    ++bottomY;
+                }
             }
 
             int wasOpaque = -1;
@@ -174,7 +183,8 @@ namespace rr
                 {
                     bool isOpaque = blocksLight(level, x, y, octant, origin);
                     
-                    if (isOpaque || ((y != topY || top > Slope(y*4-1, x*4+1)) && (y != bottomY || bottom < Slope(y*4+1, x*4-1))))
+                    if (isOpaque || ((y != topY || top > Slope(y*4-1, x*4+1))
+                        && (y != bottomY || bottom < Slope(y*4+1, x*4-1))))
                     {
                         if (getVisible(x, y, octant, origin) == dest)
                             return true;
@@ -196,7 +206,8 @@ namespace rr
                                         bottom = Slope(ny, nx);
                                         break;
                                     }
-                                    else seesEntity(level, octant, origin, dest, range, x+1, top, Slope(ny, nx));
+                                    else
+                                        seesEntity(level, octant, origin, dest, range, x+1, top, Slope(ny, nx));
                                 }
                                 else if (y == bottomY)
                                     return false;
@@ -243,9 +254,11 @@ namespace rr
             case 7: nx += x; ny += y; break;
         }
         auto entity = level.getEntityAt(sf::Vector2i(nx, ny), Entity::DOOR, true);
-        bool doorClosed = entity != nullptr && entity->getSpecies() == Entity::DOOR && !((Door*) entity)->isOpen();
+        bool doorClosed = entity != nullptr && entity->getSpecies() == Entity::DOOR
+            && !((Door*) entity)->isOpen();
 
-        return (nx < 77 && ny < 43) && (level.getTiles()[nx + ny*77] == 1 || doorClosed);
+        return (nx < 77 && nx >= 0 && ny < 43 && ny >= 0)
+            && (level.getTiles()[nx + ny*77] == 1 || doorClosed);
     }
 
     void

@@ -91,7 +91,7 @@ namespace rr
             else if (npc->m_stepsToFollow > 0 || FOV::seesEntity(*level, npc, player))
             {
                 npc->setDestination(player->getGridPosition());
-                npc->m_stepsToFollow = 10;
+                npc->m_stepsToFollow = 3;
             }
         }
 

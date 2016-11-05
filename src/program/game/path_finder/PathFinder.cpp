@@ -21,7 +21,7 @@ namespace rr
         std::vector <Node*> closedList;
 
         auto begin = new Node(grid, from);
-        auto end   = new Node(grid, to  );
+        auto  end  = new Node(grid,  to );
         
         Node* current = nullptr;
         Node* child   = nullptr;
@@ -32,7 +32,7 @@ namespace rr
         begin->setOpen(true);
         openList.push_back(begin);
 
-        while (tries == 0 || (*current != *end && tries <= 77*430))
+        while (tries == 0 || (*current != *end && tries <= 77*43))
         {
             if (openList.empty())
                 return path;

@@ -188,17 +188,19 @@ namespace rr
         if (newState != nullptr)
         {
             m_state = newState;
+#ifdef pah_debug
             std::cout << getName().toAnsiString() << ": update -> state changed to "
                 << newState->toString().toAnsiString() << '\n';
+#endif
         }
-/*
+
         if (!m_body.isPlaying())
         {
             if      (m_direction == LEFT ) m_currentAnimation = &m_standingLeft;
             else if (m_direction == RIGHT) m_currentAnimation = &m_standingRight;
             m_body.setLooped(true);
         }
-*/
+
         m_body.update(delta);
         m_body.play(*m_currentAnimation);
     }
@@ -210,8 +212,10 @@ namespace rr
         if (state != nullptr)
         {
             m_state = state;
+#ifdef pah_debug
             std::cout << getName().toAnsiString() << ": react -> state changed to "
                 << state->toString().toAnsiString() << '\n';
+#endif
         }
     }
 

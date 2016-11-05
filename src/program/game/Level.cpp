@@ -94,7 +94,7 @@ namespace rr
     void
     Level::playerInteract(Game* game)
     {
-        std::vector <Item*> toErase;
+        std::vector <Entity*> toErase;
 
         for (auto& entity : m_entities)
         {
@@ -105,18 +105,20 @@ namespace rr
                     if (game->getInventory()->addItem((Item*) entity))
                     {
                         subject.notify(ITEM_PICKED, entity);
-                        toErase.push_back((Item*)entity);
+                        toErase.push_back(entity);
                     }
-                    else game->getMessageManager()->addMessage(Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
+                    else
+                        game->getMessageManager()->addMessage(
+                            Message(Resources::dictionary["message.full_inventory"], sf::Color::Red));
                 }
                 else if (entity->getSpecies() == Entity::CHEST)
                 {
                     Entity* temp  = ((Chest*) entity)->getItem()->clone();
                     auto position = entity->getGridPosition();
 
-                    delete entity;
-                    entity = temp;
-                    entity->setGridPosition(position);
+                    toErase.push_back(entity);
+
+                    addEntity(temp, position);
                 }
                 else if (entity->getSpecies() == Entity::STAIRS)
                 {
@@ -145,8 +147,9 @@ namespace rr
 
         for (auto& ent : toErase)
         {
-            m_items.erase( std::find(m_items.begin(), m_items.end(), ent ) );
-            m_entities.erase( std::find(m_entities.begin(), m_entities.end(), (Entity*)ent ) );
+            if (ent->getSpecies() == Entity::ITEM)
+                m_items.erase(std::find(m_items.begin(), m_items.end(), ent));
+            m_entities.erase(std::find(m_entities.begin(), m_entities.end(), ent));
         }
         
         makeOrdersToNPCs(game->getPlayer());
@@ -215,35 +218,16 @@ namespace rr
     void
     Level::makeOrdersToNPCs(Player* player)
     {
-        std::vector <int> toClear; 
-        // clearing all the previously occupied tiles
-        for (int i = 0; i < 77*43; ++i)
+        for (auto& npc : m_npcs)
         {
-            if (m_tiles[i] == OCCUPIED)
-            {
-                toClear.push_back(i);
-            }
-        }
+            auto pos = npc->getGridPosition();
 
-        for (auto it = m_npcs.begin(); it != m_npcs.end(); ++it)
-        {
-            (*it)->react(this, player);
+            m_tiles      [pos.x + pos.y*m_size.x] = ROOM;
+            m_tilesAsInts[pos.x + pos.y*m_size.x] = 2;
 
-            auto pos = (*it)->getGridPosition();
+            npc->react(this, player);
 
-            m_tiles      [pos.x + pos.y*m_size.x] = OCCUPIED;
-            m_tilesAsInts[pos.x + pos.y*m_size.x] = 5;
-        }
-
-        for (auto i : toClear)
-        {
-            m_tiles[i] = ROOM;
-            m_tilesAsInts[i] = 2;
-        }
-
-        for (auto it = m_npcs.begin(); it != m_npcs.end(); ++it)
-        {
-            auto pos = (*it)->getGridPosition();
+            pos = npc->getGridPosition();
 
             m_tiles      [pos.x + pos.y*m_size.x] = OCCUPIED;
             m_tilesAsInts[pos.x + pos.y*m_size.x] = 5;
@@ -358,7 +342,7 @@ namespace rr
     void
     Level::digRooms()
     {
-        for (int i = 0; i < 100; ++i)
+        for (int i = 0; i < 50; ++i)
         {
             sf::Vector2i rsize((rand()%4+1)*2+1, (rand()%4+1)*2+1);
             sf::Vector2i rpos(rand()%((m_size.x-rsize.x)/2)*2+1, rand()%((m_size.y-rsize.y)/2)*2+1);
@@ -876,6 +860,9 @@ namespace rr
 
             case NPC_DIES:
             {
+                m_tiles[entity->getGridPosition().x + entity->getGridPosition().y * m_size.x] = ROOM;
+                m_tilesAsInts[entity->getGridPosition().x + entity->getGridPosition().y * m_size.x] = 2;
+
                 m_entities.erase(std::find(m_entities.begin(), m_entities.end(), entity));
                 if (entity->getSpecies() == Entity::N_P_C)
                 {
