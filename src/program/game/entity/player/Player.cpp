@@ -235,9 +235,12 @@ namespace rr
     Player::handleDamage(int damage)
     {
         if (damage >= m_attrs.armor)
-            m_attrs.health -= (damage - m_attrs.armor);
+            damage -= m_attrs.armor;
+        else
+            damage = 0;
 
-        return m_attrs.health -= (damage - m_attrs.armor);
+        m_attrs.health -= damage;
+        return damage;
     }
 
     void

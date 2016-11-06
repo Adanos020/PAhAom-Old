@@ -103,11 +103,16 @@ namespace rr
     {
         if (damage >= m_attrs.armor)
         {
-            m_attrs.health -= (damage - m_attrs.armor);
+            damage -= m_attrs.armor;
             m_state = &m_state->hunting;
         }
+        else
+        {
+            damage = 0;
+        }
 
-        return damage - m_attrs.armor;
+        m_attrs.health -= damage;
+        return damage;
     }
 
     int
