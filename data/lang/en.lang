@@ -804,3 +804,6 @@ doesn't hit you.
 message.npc_dies
 dies.
 
+;--------HIT MARKERS--------;
+hit.miss
+MISS

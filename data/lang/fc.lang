@@ -793,11 +793,14 @@ message.player_levelup
 Qolenjhbi točjem aowjebjéryehjér owjehthohlewjé! Xje mohaxíenjwbi jectewjé mbiwjéleyj moxjew, a tboje maqécbimalhe tyhqétbi xjbíyjér ũ mahbi béčpocélbi .pybhjexj [jewjéln haýbíyjela ũ tjehjehue čhanjyjew] yetowjé hobeto wjeh haÿbiyj lyb céboje atévbibytbi čbjehqéwbiyj moxjew.
 
 message.npc_attack_success
-yjeh tpadjér.
+yjeh tvadjér.
 
 message.npc_attack_failure
-yjeh hje tpadjér.
+yjeh hjetvadjér.
 
 message.npc_dies
 ymjepa.
-
+ 
+;--------HIT MARKERS--------; 
+hit.miss 
+TÝALO

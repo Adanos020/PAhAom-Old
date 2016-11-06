@@ -28,14 +28,15 @@ namespace rr
 {
 
     Game::Game() :
-      m_currentLevel(nullptr),
-      m_conversation(&m_player),
-      m_inventory   (Inventory(&m_player)),
-      m_started     (false),
-      m_paused      (false),
-      m_mapOpen     (false),
-      m_lost        (false),
-      m_levelNumber (0)
+      m_currentLevel    (nullptr),
+      m_hitMarkerManager(&m_player),
+      m_conversation    (&m_player),
+      m_inventory       (Inventory(&m_player)),
+      m_started         (false),
+      m_paused          (false),
+      m_mapOpen         (false),
+      m_lost            (false),
+      m_levelNumber     (0)
     {
         m_gameView.setSize((sf::Vector2f) Settings::graphics.resolution);
 
@@ -46,6 +47,7 @@ namespace rr
         subject.addObserver(&m_inventory);
         subject.addObserver(&m_audioManager);
         subject.addObserver(&m_messageManager);
+        subject.addObserver(&m_hitMarkerManager);
 
         m_audioManager.playMusic(AudioManager::MENU);
     }
@@ -328,6 +330,7 @@ namespace rr
             rw.setView((m_mapOpen) ? m_mapView : m_gameView);
             rw.draw(*m_currentLevel);
             rw.draw(m_player);
+            m_hitMarkerManager.draw(rw);
 
             rw.setView(sf::View((sf::Vector2f) rw.getSize()/2.f, (sf::Vector2f) rw.getSize()));
 
@@ -352,9 +355,10 @@ namespace rr
     {
         controls(event);
 
-        m_player        .update(time);
-        m_messageManager.update(time);
-        m_deathScreen   .update(time);
+        m_player          .update(time);
+        m_messageManager  .update(time);
+        m_hitMarkerManager.update(time);
+        m_deathScreen     .update(time);
 
         // the player dies
         if (!m_lost && m_player.getAttributes().health == 0)
@@ -526,6 +530,7 @@ namespace rr
         subject.addObserver(&m_inventory);
         subject.addObserver(&m_audioManager);
         subject.addObserver(&m_messageManager);
+        subject.addObserver(&m_hitMarkerManager);
 
         m_levelNumber = 0;
 

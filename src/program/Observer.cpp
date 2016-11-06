@@ -45,11 +45,11 @@ namespace rr
     }
 
     void
-    Subject::notify(Observer::Event event, Entity* entity)
+    Subject::notify(Observer::Event event, Entity* entity, sf::String message)
     {
         for (auto observer : m_observers)
         {
-            observer->onNotify(event, entity);
+            observer->onNotify(event, entity, message);
         }
     }
 

@@ -14,7 +14,7 @@ namespace rr
     // PRIVATE
 
     void
-    AudioManager::onNotify(Event event, Entity* entity)
+    AudioManager::onNotify(Event event, Entity* entity, sf::String)
     {
         switch (event)
         {

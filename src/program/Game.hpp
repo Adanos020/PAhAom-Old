@@ -14,6 +14,7 @@
 #include "game/entity/ALL.hpp"
 
 #include "game/MessageManager.hpp"
+#include "game/HitMarkerManager.hpp"
 #include "AudioManager.hpp"
 
 namespace rr
@@ -30,6 +31,7 @@ namespace rr
     class Level;
     class FOV;
     class MessageManager;
+    class HitMarkerManager;
 
     class Player;
 
@@ -39,34 +41,35 @@ namespace rr
 
     class Game
     {
-    private: sf::View       m_gameView;
-             sf::View       m_mapView;
+    private: sf::View         m_gameView;
+             sf::View         m_mapView;
 
-             Level*         m_currentLevel;
+             Level*           m_currentLevel;
 
-             AudioManager   m_audioManager;
-             MessageManager m_messageManager;
+             AudioManager     m_audioManager;
+             MessageManager   m_messageManager;
+             HitMarkerManager m_hitMarkerManager;
 
-             Player         m_player;
+             Player           m_player;
 
-             Attributes     m_attributes;
-             BookOfSpells   m_bookOfSpells;
-             Conversation   m_conversation;
-             DeathScreen    m_deathScreen;
-             Inventory      m_inventory;
-             Journal        m_journal;
-             HUD            m_hud;
-             MainMenu       m_mainMenu;
-             PauseMenu      m_pauseMenu;
+             Attributes       m_attributes;
+             BookOfSpells     m_bookOfSpells;
+             Conversation     m_conversation;
+             DeathScreen      m_deathScreen;
+             Inventory        m_inventory;
+             Journal          m_journal;
+             HUD              m_hud;
+             MainMenu         m_mainMenu;
+             PauseMenu        m_pauseMenu;
 
-             bool           m_started;
-             bool           m_paused;
-             bool           m_mapOpen;
+             bool             m_started;
+             bool             m_paused;
+             bool             m_mapOpen;
 
-             bool           m_lost;
+             bool             m_lost;
 
-             unsigned       m_levelNumber;
-             unsigned       m_seed;
+             unsigned         m_levelNumber;
+             unsigned         m_seed;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Keyboard controls.

@@ -563,7 +563,7 @@ namespace rr
         return file;
     }
 
-    void Inventory::onNotify(Event event, Entity* entity)
+    void Inventory::onNotify(Event event, Entity* entity, sf::String)
     {
         switch (event)
         {

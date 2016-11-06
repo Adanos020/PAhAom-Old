@@ -37,6 +37,7 @@ namespace rr
                     && npc->getDirection() != NPC::RIGHT) npc->setDirection(NPC::LEFT);
 
                 bool hit = false;
+                int damage = 0;
                 if (instanceof <Bandit, NPC> (npc))
                 {
                     switch (((Bandit*) npc)->getType())
@@ -45,7 +46,7 @@ namespace rr
                         {
                             if (chance(MeleeWeapon(MeleeWeapon::CLUB).getAccuracy()*2, 21))
                             {
-                                ((Bandit*) npc)->attack(player);
+                                damage = ((Bandit*) npc)->attack(player);
                                 hit = true;
                             }
                         }
@@ -55,7 +56,7 @@ namespace rr
                         {
                             if (chance(RangedWeapon(RangedWeapon::CROSSBOW).getAccuracy()*2, 21))
                             {
-                                ((Bandit*) npc)->attack(player);
+                                damage = ((Bandit*) npc)->attack(player);
                                 hit = true;
                             }
                         }
@@ -65,7 +66,7 @@ namespace rr
                         {
                             if (chance(MeleeWeapon(MeleeWeapon::DAGGER).getAccuracy()*2, 21))
                             {
-                                ((Bandit*) npc)->attack(player);
+                                damage = ((Bandit*) npc)->attack(player);
                                 hit = true;
                             }
                         }
@@ -73,8 +74,10 @@ namespace rr
                     }
                 }
 
-                if (hit) subject.notify(Observer::NPC_ATTACK_SUCCESS, npc); // the npc hit the player
-                else     subject.notify(Observer::NPC_ATTACK_FAILURE, npc); // the player dodged the attack
+                if (hit)
+                    subject.notify(Observer::NPC_ATTACK_SUCCESS, npc, std::to_string(damage)); // the npc hit the player
+                else
+                    subject.notify(Observer::NPC_ATTACK_FAILURE, npc, Resources::dictionary["hit.miss"]); // the player dodged the attack
 
                 if (npc->getDirection() == NPC::LEFT)
                 {

@@ -62,7 +62,7 @@ namespace rr
     }
 
     void
-    MessageManager::onNotify(Event event, Entity* entity)
+    MessageManager::onNotify(Event event, Entity* entity, sf::String)
     {
         switch (event)
         {

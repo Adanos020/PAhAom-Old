@@ -221,21 +221,23 @@ namespace rr
         m_body.play(*m_currentAnimation);
     }
 
-    void
+    int
     Player::attack(NPC* npc)
     {
         int maxDamage = m_attrs.strength/3.f;
         if (m_meleeWeapon != nullptr)
             maxDamage = m_meleeWeapon->getDamageDealt() - (m_meleeWeapon->getRequirement() - m_attrs.strength);
 
-        npc->handleDamage(rand()%maxDamage);
+        return npc->handleDamage(rand()%maxDamage);
     }
 
-    void
+    int
     Player::handleDamage(int damage)
     {
         if (damage >= m_attrs.armor)
             m_attrs.health -= (damage - m_attrs.armor);
+
+        return m_attrs.health -= (damage - m_attrs.armor);
     }
 
     void

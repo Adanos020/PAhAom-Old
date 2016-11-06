@@ -44,7 +44,7 @@ namespace rr
              /// \brief Reacts to a specific event. It can either do something with
              /// a given entity or just ignore it.
              ////////////////////////////////////////////////////////////////////////
-     virtual void onNotify(Event, Entity*) = 0;
+     virtual void onNotify(Event, Entity*, sf::String message = "") = 0;
     };
 
     class Subject
@@ -75,7 +75,7 @@ namespace rr
              /// \brief Notifies all the observers about an event related to a
              /// specific entity.
              ////////////////////////////////////////////////////////////////////////
-             void notify(Observer::Event, Entity*);
+             void notify(Observer::Event, Entity*, sf::String message = "");
     };
 
 }

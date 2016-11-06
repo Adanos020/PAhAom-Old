@@ -127,7 +127,7 @@ namespace rr
     }
 
     void
-    Journal::onNotify(Observer::Event event, Entity* entity)
+    Journal::onNotify(Observer::Event event, Entity* entity, sf::String)
     {
         switch (event)
         {

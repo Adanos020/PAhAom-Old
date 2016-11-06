@@ -110,7 +110,7 @@ namespace rr
         return damage - m_attrs.armor;
     }
 
-    void
+    int
     Bandit::attack(NPC* npc)
     {
         if      (m_direction == LEFT ) m_currentAnimation = &m_attackingLeft;
@@ -125,10 +125,10 @@ namespace rr
             case DAGGER  : maxDamage =  8; break;
         }
 
-        npc->handleDamage(range(0, maxDamage));
+        return npc->handleDamage(range(0, maxDamage));
     }
 
-    void
+    int
     Bandit::attack(Player* player)
     {
         if      (m_direction == LEFT ) m_currentAnimation = &m_attackingLeft;
@@ -143,7 +143,7 @@ namespace rr
             case DAGGER  : maxDamage =  8; break;
         }
 
-        player->handleDamage(range(0, maxDamage));
+        return player->handleDamage(range(0, maxDamage));
     }
 
     std::ifstream&

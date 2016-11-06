@@ -803,4 +803,7 @@ nie trafia cię.
 
 message.npc_dies
 umiera.
-
+ 
+;--------HIT MARKERS--------; 
+hit.miss 
+PUDŁO

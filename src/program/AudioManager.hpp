@@ -24,7 +24,7 @@ namespace rr
                  /// \brief Reacts to a specific event. It can either do something with
                  /// a given entity or just ignore it.
                  ////////////////////////////////////////////////////////////////////////
-         virtual void onNotify(Event, Entity*) override;
+         virtual void onNotify(Event, Entity*, sf::String) override;
 
         public:  enum Song
                  {

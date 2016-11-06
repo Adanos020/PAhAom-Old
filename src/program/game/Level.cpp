@@ -168,22 +168,23 @@ namespace rr
                 // the player has a weapon
                 if (player->getMeleeWeapon() != nullptr && chance(player->getMeleeWeapon()->getAccuracy()*2, 21))
                 {
-                    player->attack(npc);
-                    subject.notify(PLAYER_ATTACK_SUCCESS, npc);
+                    int damage = player->attack(npc);
+                    subject.notify(PLAYER_ATTACK_SUCCESS, npc, std::to_string(damage));
                 }
                 // the player has no weapon
                 else if (player->getMeleeWeapon() == nullptr && chance(10, 21))
                 {
-                    player->attack(npc);
-                    subject.notify(PLAYER_ATTACK_SUCCESS, npc);
+                    int damage = player->attack(npc);
+                    subject.notify(PLAYER_ATTACK_SUCCESS, npc, std::to_string(damage));
                 }
                 // the probability didn't let the player attack
-                else subject.notify(PLAYER_ATTACK_FAILURE, npc);
+                else
+                    subject.notify(PLAYER_ATTACK_FAILURE, npc, Resources::dictionary["hit.miss"]);
 
                 // the npc dies
                 if (npc->getAttributes().health <= 0)
                 {
-                    subject.notify(NPC_DIES, npc);
+                    subject.notify(NPC_DIES, npc, sf::String("+") + std::to_string(npc->getAttributes().level*10) + "XP");
                     player->addExperience(npc->getAttributes().level*10);
                 }
 
@@ -848,7 +849,7 @@ namespace rr
     }
 
     void
-    Level::onNotify(Observer::Event event, Entity* entity)
+    Level::onNotify(Observer::Event event, Entity* entity, sf::String)
     {
         switch (event)
         {

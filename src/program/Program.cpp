@@ -16,7 +16,7 @@
 namespace rr
 {
 
-    sf::String Program::m_version("pre-alpha 0.7");
+    sf::String Program::m_version("pre-alpha 0.8");
 
     Program::Program()
     {

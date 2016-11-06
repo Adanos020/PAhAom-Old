@@ -215,13 +215,17 @@ namespace rr
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Makes the player attack an NPC.
+             ///
+             /// \return Damage dealt.
              ////////////////////////////////////////////////////////////////////////
-             void attack(NPC*);
+             int attack(NPC*);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Makes the player handle the damage dealt by an NPC.
+             ///
+             /// \brief Damage taken.
              ////////////////////////////////////////////////////////////////////////
-             void handleDamage(int damage);
+             int handleDamage(int damage);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Gives a specific amount of experience to the player.
