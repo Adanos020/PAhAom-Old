@@ -807,3 +807,113 @@ umiera.
 ;--------HIT MARKERS--------; 
 hit.miss 
 PUDŁO
+
+;---------DIALOGUES---------;
+; npc
+teacher.swordsman.question.1
+No i gdzie mój pierścień?
+
+; player
+teacher.swordsman.questfail.2
+Eeee...
+
+; npc
+teacher.swordsman.questfail.3
+Odejdź i nie wracaj póki go nie odzyskasz!
+
+; player
+teacher.swordsman.questsuccess.1
+Udało mi się go odzyskać.
+
+; npc
+teacher.swordsman.questsuccess.2
+Nareszcie! Dobra robota!
+
+; player
+teacher.swordsman.questsuccess.3
+Czy to znaczy, że od teraz jestem twoim uczniem?
+
+; npc
+teacher.swordsman.questsuccess.4
+Dopóki masz pieniądze, możesz u mnie trenować.
+
+; npc
+teacher.swordsman.conv.1
+Zaraz, kim jesteś? Nie mów mi, że też przyszedłeś się tu uczyć fechtunku.
+
+; player
+teacher.swordsman.conv.2
+Jestem tu właśnie po to. Obiło mi się o uszy, że nikt inny nie zna tajników walki bronią białą tak, jak ty. 
+
+; npc
+teacher.swordsman.conv.3
+To ci dopiero. Gdyby nie fakt, że żaden z innych pechowców tutaj nie walczy tak jak ja, dawno by mnie ubili. Nie lubią mnie, sukinkoty.
+
+; player
+teacher.swordsman.conv.4
+Trudno się nadziwić.
+
+; npc
+teacher.swordsman.conv.5
+A ty czasem czegoś nie chciałeś? Nie szukasz nauczyciela? A może raczej problemu?
+
+; player
+teacher.swordsman.conv.6
+Chciałem, żebyś mi pokazał parę sztuczek.
+
+; npc
+teacher.swordsman.conv.7
+Dobre sobie, przybłędo. Nie uczę byle kogo i jeśli nie poradzisz sobie z pewnym zadaniem, to znaczy że nie nadajesz się do trenowania ze mną.
+
+; player
+teacher.swordsman.conv.8
+Przywykłem, że nie ma tu nic za darmo. Czego potrzebujesz?
+
+; npc
+teacher.swordsman.conv.9
+Kiedyś odwiedził mnie taki jeden, też się tu pałętał i szukał przygód. Również chciał, żebym go uczył i wymyśliłem dla niego świetne szkolenie.
+
+; npc
+teacher.swordsman.conv.10
+Rozkazałem strzec mu mojego sygnetu przed innymi śmiałkami, którzy aspirują do nauki u mnie. Zabijał wszystkich i tym samym zdobywał doświadczenie w walce.
+
+; player
+teacher.swordsman.conv.11
+To dość okrutna metoda.
+
+; npc
+teacher.swordsman.conv.12
+Skuteczna. Gość miał swoją naukę, ja miałem spokój od trenowania żółtodziobów.
+
+; player
+teacher.swordsman.conv.13
+No dobra, zdobędę ten pierścień. Obyś tylko nie kazał mi uczyć się w podobny sposób.
+
+; player
+teacher.swordsman.teachme
+Ucz mnie.
+
+; player
+teacher.swordsman.skill
+Mistrzostwo walki bronią białą (10 punktów nauki, 2 złote)
+
+; player
+teacher.swordsman.strength5
+Siła +5 (5 punktów nauki, 1 złoty)
+
+; player
+teacher.swordsman.strength1
+Siła +1 (1 punkt nauki, 10 srebrników)
+
+; npc
+teacher.learnsuccess
+Tak trzymaj!
+
+; npc
+teacher.learnfailure
+Wróć później.
+
+; player
+teacher.bye
+Bywaj!
+

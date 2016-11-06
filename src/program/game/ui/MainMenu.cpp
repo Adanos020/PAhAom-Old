@@ -74,11 +74,11 @@ namespace rr
                  auto swLanguage = new Switch(sf::Vector2f(215, 30), sf::Vector2f(20, 60));
                       swLanguage->addOption("ENGLISH");
                       swLanguage->addOption("POLSKI");
-                      swLanguage->addOption(L"PAHAOMCÉQŨ");
+                      swLanguage->addOption(L"PYCTOLQ");
 
                       if      (Settings::game.language == "en") swLanguage->setCurrentOption("ENGLISH");
                       else if (Settings::game.language == "pl") swLanguage->setCurrentOption("POLSKI");
-                      else if (Settings::game.language == "fc") swLanguage->setCurrentOption(L"PAHAOMCÉQŨ");
+                      else if (Settings::game.language == "fc") swLanguage->setCurrentOption(L"PYCTOLQ");
 
                 auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
                      bQuit->setPosition(sf::Vector2f(wGame->getSize().x/2 - bQuit->getSize().x/2,
@@ -299,7 +299,7 @@ namespace rr
                         auto currentOption = wGame->getComponent <Switch> (0)->getCurrentOption();
                         if      (currentOption == "ENGLISH"    ) Settings::game.language = "en";
                         else if (currentOption == "POLSKI"     ) Settings::game.language = "pl";
-                        else if (currentOption == L"PAHAOMCÉQŨ") Settings::game.language = "fc";
+                        else if (currentOption == L"PYCTOLQ") Settings::game.language = "fc";
 
                         std::vector<std::string> splitted = split(wtoa(wGrap->getComponent <Switch> (0)->getCurrentOption()), 'x');
 
@@ -348,7 +348,7 @@ namespace rr
                     {
                         if      (Settings::game.language == "en") wGame->getComponent <Switch> (0)->setCurrentOption("ENGLISH");
                         else if (Settings::game.language == "pl") wGame->getComponent <Switch> (0)->setCurrentOption("POLSKI");
-                        else if (Settings::game.language == "fc") wGame->getComponent <Switch> (0)->setCurrentOption(L"PAHAOMCÉQŨ");
+                        else if (Settings::game.language == "fc") wGame->getComponent <Switch> (0)->setCurrentOption(L"PYCTOLQ");
 
                         wGrap->getComponent <Switch> (0)->setCurrentOption(std::to_string(Settings::graphics.resolution.x)+"x"+std::to_string(Settings::graphics.resolution.y));
                         wGrap->getComponent <Checkbox> (0)->check(Settings::graphics.fullscreen);

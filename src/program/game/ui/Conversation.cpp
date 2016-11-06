@@ -16,8 +16,8 @@ namespace rr
 {
 
     Conversation::Conversation(Player* p) :
-      m_wConv   ("", sf::Vector2f(Settings::graphics.resolution.x - 50, 200), sf::Vector2f(25, 25)),
-      m_wOpts   ("", sf::Vector2f(Settings::graphics.resolution.x - 50, 200), sf::Vector2f(25, Settings::graphics.resolution.y - 225)),
+      m_wConv   ("", sf::Vector2f(1230, 200), sf::Vector2f(25, 25)),
+      m_wOpts   ("", sf::Vector2f(1230, 200), sf::Vector2f(25, Settings::graphics.resolution.y - 225)),
       m_dialogue(nullptr),
       m_player  (p)
     {
@@ -26,7 +26,7 @@ namespace rr
         m_shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
         auto text = new Text(sf::Vector2f(20, 20), "", Resources::font.Unifont, 20);
-             text->wrap(m_wConv.getSize().x-40);
+             text->wrap(1190);
         m_wConv += text;
 
         m_wOpts += new Menu(sf::Vector2f(10, 10));
@@ -57,49 +57,49 @@ namespace rr
                 bool update = false;
                 if (m_player->getAttributes().crafting)
                 {
-                    if (answers->removeAnswer("Crafting (10SP, 2 gold)"))
+                    if (answers->removeAnswer(Resources::dictionary["teacher.carpenter.skill"]))
                         update = true;
                 }
 
                 if (m_player->getAttributes().alchemy)
                 {
-                    if (answers->removeAnswer("Alchemy (10SP, 2 gold)"))
+                    if (answers->removeAnswer(Resources::dictionary["teacher.alchemist.skill"]))
                         update = true;
                 }
 
                 if (m_player->getAttributes().melee_weapon_mastery)
                 {
-                    if (answers->removeAnswer("Melee Weapon Mastery (10SP, 2 gold)"))
+                    if (answers->removeAnswer(Resources::dictionary["teacher.swordsman.skill"]))
                         update = true;
                 }
 
                 if (m_player->getAttributes().ranged_weapon_mastery)
                 {
-                    if (answers->removeAnswer("Ranged Weapon Mastery (10SP, 2 gold)"))
+                    if (answers->removeAnswer(Resources::dictionary["teacher.sharpshooter.skill"]))
                         update = true;
                 }
 
                 if (m_player->getAttributes().eagle_eye)
                 {
-                    if (answers->removeAnswer("Enhanced Sight (10SP, 2 gold)"))
+                    if (answers->removeAnswer(Resources::dictionary["teacher.kungfu.skill1"]))
                         update = true;
                 }
 
                 if (m_player->getAttributes().mana_regeneration)
                 {
-                    if (answers->removeAnswer("Mana Regeneration (10SP, 2 gold)"))
+                    if (answers->removeAnswer(Resources::dictionary["teacher.kungfu.skill2"]))
                         update = true;
                 }
 
                 if (m_player->getAttributes().health_regeneration)
                 {
-                    if (answers->removeAnswer("Health Regeneration (10SP, 2 gold)"))
+                    if (answers->removeAnswer(Resources::dictionary["teacher.kungfu.skill3"]))
                         update = true;
                 }
 
                 if (m_player->getAttributes().faster_learning)
                 {
-                    if (answers->removeAnswer("Faster Learning (10SP, 2 gold)"))
+                    if (answers->removeAnswer(Resources::dictionary["teacher.kungfu.skill4"]))
                         update = true;
                 }
 
@@ -125,7 +125,7 @@ namespace rr
 
             // recognizing if the choice is a request for learning
             // a skill or increasing some attributes
-            if (action == "Melee Weapon Mastery (10SP, 2 gold)")
+            if (action == Resources::dictionary["teacher.swordsman.skill"])
             {
                 if (g->getPlayer()->getAttributes().skillPoints >= 10 && g->getInventory()->getGold() >= 2)
                 {
@@ -139,7 +139,8 @@ namespace rr
                     m_dialogue->goRight();
                 }
             }
-            else if (action == "+5STR (5SP, 1 gold)") {
+            else if (action == Resources::dictionary["teacher.swordsman.strength5"])
+            {
                 if (g->getPlayer()->getAttributes().skillPoints >= 5 && g->getInventory()->getGold() >= 1)
                 {
                     g->getPlayer()->increaseAttribute(Player::STRENGTH, 5, 5);
@@ -151,7 +152,7 @@ namespace rr
                     m_dialogue->goRight();
                 }
             }
-            else if (action == "+1STR (1SP, 10 silver)")
+            else if (action == Resources::dictionary["teacher.swordsman.strength1"])
             {
                 if (g->getPlayer()->getAttributes().skillPoints >= 1 && g->getInventory()->getSilver() >= 10)
                 {

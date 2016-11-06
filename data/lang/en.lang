@@ -807,3 +807,112 @@ dies.
 ;--------HIT MARKERS--------;
 hit.miss
 MISS
+
+;---------DIALOGUES---------;
+; npc
+teacher.swordsman.question.1
+So where is my ring?
+
+; player
+teacher.swordsman.questfail.2
+Uhm...
+
+; npc
+teacher.swordsman.questfail.3
+So don't come back until you find it!
+
+; player
+teacher.swordsman.questsuccess.1
+I've wound it!
+
+; npc
+teacher.swordsman.questsuccess.2
+Finally, good job!
+
+; player
+teacher.swordsman.questsuccess.3
+Does it mean that you can teach me now?
+
+; npc
+teacher.swordsman.questsuccess.4
+As long as you have money, you can practise with me.
+
+; npc
+teacher.swordsman.conv.1
+Wait, who are you? And don't tell me that you came to learn fencing too.
+
+; player
+teacher.swordsman.conv.2
+Exactly, I've come here to learn. I've heard that there is no better swordman than you. 
+
+; npc
+teacher.swordsman.conv.3
+Indeed! Unless the fact that no one fights as good as me, I would be dead already. These bastards don't like me too much.
+
+; player
+teacher.swordsman.conv.4
+It is hardly surprising.
+
+; npc
+teacher.swordsman.conv.5
+And didn't you want something? Don't you look for a teacher? Or rather a problem?
+
+; player
+teacher.swordsman.conv.6
+I would like you to show me some tricks.
+
+; npc
+teacher.swordsman.conv.7
+Hah, yes, you would. But I don't teach just anyone and unless you manage with some task, you wouldn't be a suitable learner.
+
+; player
+teacher.swordsman.conv.8
+I already got used to nothing being for free here. What do you need?
+
+; npc
+teacher.swordsman.conv.9
+Some time ago there was one who met me, as well as you he was seeking adventures. He also wanted me to teach him and I invented an amazing form of training for him.
+
+; npc
+teacher.swordsman.conv.10
+I asked him to keep my ring not to be stolen by the other daredevils aspiring to learn from me. He was killing all of them and in this way he gained in experience in combat.
+
+; player
+teacher.swordsman.conv.11
+It's quite a cruel form of training.
+
+; npc
+teacher.swordsman.conv.12
+Yet efficient. He had his education and I could rest from teaching greenhorns.
+
+; player
+teacher.swordsman.conv.13
+Fine, I'll get this ring. May you never make me learn in a way like this.
+
+; player
+teacher.swordsman.teachme
+Teach me.
+
+; player
+teacher.swordsman.skill
+Melee weapon mastery (10 skill points, 2 gold)
+
+; player
+teacher.swordsman.strength5
+Strength +5 (5 skill points, 1 gold)
+
+; player
+teacher.swordsman.strength1
+Strength +1 (1 skill point, 10 silver)
+
+; npc
+teacher.learnsuccess
+Keep going!
+
+; npc
+teacher.learnfailure
+Come back later.
+
+; player
+teacher.bye
+See you!

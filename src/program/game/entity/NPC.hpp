@@ -66,7 +66,7 @@ namespace rr
 
                float              m_velocity;
 
-               DialogueTree       m_dialogue;
+               DialogueTree*      m_currentDialogue;
 
                NPCState*          m_state;
                int                m_stepsToFollow;

@@ -56,60 +56,43 @@ namespace rr
         
         if (m_type == MAGE)
             m_body.setFrameTime(sf::seconds(.4f));
-        else  m_body.setFrameTime(sf::seconds(.2f));
+        else
+            m_body.setFrameTime(sf::seconds(.2f));
 
         // building dialogue trees
         switch (m_type)
         {
             case SWORDSMAN:
             {
-                auto root = new Answers();
+                auto conv1  = new Sentence(Sentence::_NPC  , Resources::dictionary["teacher.swordsman.conv.1"]);
+                auto conv2  = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.conv.2"]);
+                auto conv3  = new Sentence(Sentence::_NPC  , Resources::dictionary["teacher.swordsman.conv.3"]);
+                auto conv4  = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.conv.4"]);
+                auto conv5  = new Sentence(Sentence::_NPC  , Resources::dictionary["teacher.swordsman.conv.5"]);
+                auto conv6  = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.conv.6"]);
+                auto conv7  = new Sentence(Sentence::_NPC  , Resources::dictionary["teacher.swordsman.conv.7"]);
+                auto conv8  = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.conv.8"]);
+                auto conv9  = new Sentence(Sentence::_NPC  , Resources::dictionary["teacher.swordsman.conv.9"]);
+                auto conv10 = new Sentence(Sentence::_NPC  , Resources::dictionary["teacher.swordsman.conv.10"]);
+                auto conv11 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.conv.11"]);
+                auto conv12 = new Sentence(Sentence::_NPC  , Resources::dictionary["teacher.swordsman.conv.12"]);
+                auto conv13 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.conv.13"]);
 
-                auto sup = new Sentence(Sentence::PLAYER, "Sup nigga.");
-                    auto sup2 = new Sentence(Sentence::_NPC, "Sup. I can teach u magic with weapon but u first pay me lol.");
-                        auto sup3 = new Sentence(Sentence::PLAYER, "K lmao.");
-                        sup3->setLeft(root);
+                conv1->setLeft(conv2);
+                conv2->setLeft(conv3);
+                conv3->setLeft(conv4);
+                conv4->setLeft(conv5);
+                conv5->setLeft(conv6);
+                conv6->setLeft(conv7);
+                conv7->setLeft(conv8);
+                conv8->setLeft(conv9);
+                conv9->setLeft(conv10);
+                conv10->setLeft(conv11);
+                conv11->setLeft(conv12);
+                conv12->setLeft(conv13);
+                conv13->setLeft(nullptr); // end
 
-                    sup2->setLeft(sup3);
-
-                sup->setLeft(sup2);
-                root->addAnswer(sup);
-
-                auto teachme = new Sentence(Sentence::PLAYER, "Show me how to kick asses.");
-                    auto teaching = new Answers();
-                        auto gz = new Sentence(Sentence::_NPC, "Gz.");
-                        gz->setLeft(teaching);
-                        
-                        auto later = new Sentence(Sentence::_NPC, "Come later noob.");
-                        later->setLeft(teaching);
-
-                        auto cwm = new Sentence(Sentence::PLAYER, "Melee Weapon Mastery (10SP, 2 gold)");
-                        cwm->setLeft(gz);
-                        cwm->setRight(later);
-
-                        auto str5 = new Sentence(Sentence::PLAYER, "+5STR (5SP, 1 gold)");
-                        str5->setLeft(gz);
-                        str5->setRight(later);
-
-                        auto str1 = new Sentence(Sentence::PLAYER, "+1STR (1SP, 10 silver)");
-                        str1->setLeft(gz);
-                        str1->setRight(later);
-
-                        auto back = new Sentence(Sentence::PLAYER, "Maybe later kek.");
-                        back->setLeft(root);
-
-                    teaching->addAnswer(cwm);
-                    teaching->addAnswer(str5);
-                    teaching->addAnswer(str1);
-                    teaching->addAnswer(back);
-
-                teachme->setLeft(teaching);
-                root->addAnswer(teachme);
-
-                auto bye = new Sentence(Sentence::PLAYER, "K bye."); // end
-                root->addAnswer(bye);
-
-                m_dialogue.setTree(root, true);
+                m_dialogue.setTree(conv1, true);
             }
             break;
 

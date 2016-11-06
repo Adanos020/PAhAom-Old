@@ -46,7 +46,7 @@ namespace rr
             sf::Color newColor = m_text.getFillColor();
             newColor.a -= 6 * delta.asSeconds();
             m_text.setFillColor(newColor);
-            
+
             newColor = m_text.getOutlineColor();
             newColor.a -= 6 * delta.asSeconds();
             m_text.setOutlineColor(newColor);

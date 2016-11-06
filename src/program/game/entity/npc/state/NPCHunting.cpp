@@ -91,10 +91,14 @@ namespace rr
 
                 return &attacking;
             }
-            else if (npc->m_stepsToFollow > 0 || FOV::seesEntity(*level, npc, player))
+            else if (FOV::seesEntity(*level, npc, player))
             {
                 npc->setDestination(player->getGridPosition());
                 npc->m_stepsToFollow = 3;
+            }
+            else if (npc->m_stepsToFollow > 0)
+            {
+                npc->setDestination(player->getGridPosition());
             }
         }
 
