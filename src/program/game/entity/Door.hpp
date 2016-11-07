@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ENTITY_DOOR_HPP
-#define ENTITY_DOOR_HPP
+#pragma once
 
 #include "../Entity.hpp"
 
@@ -116,5 +115,3 @@ namespace rr
     };
 
 }
-
-#endif // ENTITY_DOOR_HPP

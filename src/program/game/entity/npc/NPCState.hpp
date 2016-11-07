@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef NPC_STATE_HPP
-#define NPC_STATE_HPP
+#pragma once
 
 #include "../Player.hpp"
 
@@ -58,5 +57,3 @@ namespace rr
 #include "../../Level.hpp"
 
 #include "../NPC.hpp"
-
-#endif // NPC_STATE_HPP

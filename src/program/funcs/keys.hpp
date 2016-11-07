@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef FUNCS_KEYS_HPP
-#define FUNCS_KEYS_HPP
+#pragma once
 
 #include <SFML/Window/Keyboard.hpp>
 
@@ -249,5 +248,3 @@ namespace rr
     }
 
 }
-
-#endif // FUNCS_KEYS_HPP

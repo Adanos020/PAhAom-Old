@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ITEM_MELEEWEAPON_HPP
-#define ITEM_MELEEWEAPON_HPP
+#pragma once
 
 #include "../Item.hpp"
 
@@ -106,5 +105,3 @@ namespace rr
     };
 
 }
-
-#endif // ITEM_MELEEWEAPON_HPP

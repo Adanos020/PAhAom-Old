@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ITEM_ALL_HPP
-#define ITEM_ALL_HPP
+#pragma once
 
 #include "Ammunition.hpp"
 #include "Book.hpp"
@@ -15,5 +14,3 @@
 #include "Potion.hpp"
 #include "RangedWeapon.hpp"
 #include "Rune.hpp"
-
-#endif // ITEM_ALL_HPP

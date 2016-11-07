@@ -4,17 +4,23 @@
  * Used library: SFML
  */
 
-#ifndef NPC_TEACHER_HPP
-#define NPC_TEACHER_HPP
+#pragma once
 
 #include "../NPC.hpp"
 
 namespace rr
 {
-
+/*
+    class NPC;
+    class DialogueTree;
+*/
     class Teacher : public NPC
     {
-    private: struct // Structure for buffs - each buff is represented by an integer
+    private: DialogueTree m_dialogue_quest;
+             DialogueTree m_dialogue_check;
+             DialogueTree m_dialogue_teach;
+    
+             struct // Structure for buffs - each buff is represented by an integer
              {      // which tells for how many turns is it going to be valid.
              public: int speed;
                      int regeneration;
@@ -38,6 +44,14 @@ namespace rr
                  KUNG_FU_MASTER
              };
 
+             enum DialogueType
+             {
+                 QUEST,
+                 CHECK,
+                 TEACH,
+                 NONE
+             };
+
              ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
              ////////////////////////////////////////////////////////////////////////
@@ -52,11 +66,35 @@ namespace rr
              /// \brief Returns the teachers's type.
              ///
              /// The possible values are:
-             /// - CLUB
-             /// - CROSSBOW
-             /// - DAGGER
+             /// - SWORDSMAN
+             /// - SHARPSHOOTER
+             /// - CARPENTER
+             /// - MAGE
+             /// - KUNG_FU_MASTER
              ////////////////////////////////////////////////////////////////////////
              Type getType() const { return m_type; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Sets the dialogue type.
+             ///
+             /// Possible values:
+             /// - QUEST
+             /// - CHECK
+             /// - TEACH
+             /// - NONE
+             ////////////////////////////////////////////////////////////////////////
+             void setDialogue(DialogueType);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the dialogue type.
+             ///
+             /// Possible values:
+             /// - QUEST
+             /// - CHECK
+             /// - TEACH
+             /// - NONE
+             ////////////////////////////////////////////////////////////////////////
+             DialogueType getDialogueType() const { return m_dialogueType; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Creates an exact copy of the teacher.
@@ -93,9 +131,8 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
      virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type m_type;
+    private: Type         m_type;
+             DialogueType m_dialogueType;
     };
 
 }
-
-#endif // NPC_TEACHER_HPP

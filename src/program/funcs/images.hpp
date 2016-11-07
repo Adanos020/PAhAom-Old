@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef FUNCS_IMAGES_HPP
-#define FUNCS_IMAGES_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -168,5 +167,3 @@ namespace rr
     }
 
 }
-
-#endif // FUNCS_IMAGES_HPP

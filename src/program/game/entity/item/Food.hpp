@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ITEM_FOOD_HPP
-#define ITEM_FOOD_HPP
+#pragma once
 
 #include "../Item.hpp"
 
@@ -83,5 +82,3 @@ namespace rr
     };
 
 }
-
-#endif // ITEM_FOOD_HPP

@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef NPC_HPP
-#define NPC_HPP
+#pragma once
 
 #include "../../../../lib/AnimatedSprite.hpp"
 #include "../../gui/ALL.hpp"
@@ -14,13 +13,12 @@
 #include "../Entity.hpp"
 #include "Player.hpp"
 
-#include "../Dialogue.hpp"
-
 namespace rr
 {
 
     class Player;
     class NPCState;
+    class DialogueTree;
 
     class NPC : public Entity
     {
@@ -290,5 +288,4 @@ namespace rr
 
 #include "npc/NPCState.hpp"
 
-#endif // NPC_HPP
-
+#include "../Dialogue.hpp"

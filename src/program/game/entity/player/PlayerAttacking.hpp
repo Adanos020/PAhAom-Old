@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef PLAYER_STATE_ATTACKING_HPP
-#define PLAYER_STATE_ATTACKING_HPP
+#pragma once
 
 #include "PlayerState.hpp"
 
@@ -26,5 +25,3 @@ namespace rr
     };
 
 }
-
-#endif // PLAYER_STATE_ATTACKING_HPP

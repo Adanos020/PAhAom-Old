@@ -20,12 +20,13 @@ namespace rr
 
     class Conversation : public sf::Drawable
     {
-    private: sf::RectangleShape m_shadow;
-             sf::String         m_npcName;
-             Window             m_wConv;
-             Window             m_wOpts;
-             DialogueTree*      m_dialogue;
-             Player*            m_player;
+    private: sf::RectangleShape    m_shadow;
+             sf::String            m_npcName;
+             Window                m_wConv;
+             Window                m_wOpts;
+             DialogueTree*         m_dialogue;
+             Player*               m_player;
+             NPC*                  m_npc;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.

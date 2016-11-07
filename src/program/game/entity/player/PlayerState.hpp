@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef PLAYER_STATE_HPP
-#define PLAYER_STATE_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -48,5 +47,3 @@ namespace rr
 #include "PlayerAttacking.hpp"
 
 #include "../Player.hpp"
-
-#endif

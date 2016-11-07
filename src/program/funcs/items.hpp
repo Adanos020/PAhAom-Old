@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef FUNCS_ITEMS_HPP
-#define FUNCS_ITEMS_HPP
+#pragma once
 
 #include <cstdio>
 
@@ -243,5 +242,3 @@ namespace rr
     }
 
 }
-
-#endif // FUNCS_ITEMS_HPP

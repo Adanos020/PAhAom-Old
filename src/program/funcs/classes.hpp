@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef FUNCS_CLASSES_HPP
-#define FUNCS_CLASSES_HPP
+#pragma once
 
 namespace rr
 {
@@ -27,5 +26,3 @@ namespace rr
     }
 
 }
-
-#endif // FUNCS_CLASSES_HPP

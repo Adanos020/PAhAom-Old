@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ITEM_COIN_HPP
-#define ITEM_COIN_HPP
+#pragma once
 
 #include "../Item.hpp"
 
@@ -90,5 +89,3 @@ namespace rr
     };
 
 }
-
-#endif // ITEM_COIN_HPP

@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ITEM_RUNE_HPP
-#define ITEM_RUNE_HPP
+#pragma once
 
 #include "../Item.hpp"
 
@@ -117,5 +116,3 @@ namespace rr
     };
 
 }
-
-#endif // ITEM_RUNE_HPP

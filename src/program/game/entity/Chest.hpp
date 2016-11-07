@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ENTITY_CHEST_HPP
-#define ENTITY_CHEST_HPP
+#pragma once
 
 #include "../../funcs/items.hpp"
 
@@ -127,5 +126,3 @@ namespace rr
     };
 
 }
-
-#endif // ENTITY_CHEST_HPP

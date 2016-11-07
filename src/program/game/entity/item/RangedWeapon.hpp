@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ITEM_RANGEDWEAPON_HPP
-#define ITEM_RANGEDWEAPON_HPP
+#pragma once
 
 #include "../Item.hpp"
 
@@ -81,5 +80,3 @@ namespace rr
     };
 
 }
-
-#endif // ITEM_RANGEDWEAPON_HPP

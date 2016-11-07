@@ -121,7 +121,10 @@ namespace rr
             // recognizing the choice
             auto chosen = ((Answers*) m_dialogue->getCurrentBranch())->find(action);
             if (chosen != nullptr)
+            {
+                m_npc->setDialogue(chosen->switchTo());
                 m_dialogue->setTree(chosen);
+            }
 
             // recognizing if the choice is a request for learning
             // a skill or increasing some attributes
@@ -230,6 +233,8 @@ namespace rr
                     m_wOpts.setVisible(false);
                     m_wConv.setVisible(true);
                 }
+
+                m_npc->setDialogue(m_dialogue->getCurrentBranch()->switchTo());
             }
         }
     }
@@ -237,8 +242,10 @@ namespace rr
     void
     Conversation::open(NPC* npc)
     {
+        m_npc      = npc;
         m_dialogue = npc->getDialogue();
         m_npcName  = npc->getName();
+        m_switchTo = m_dialogue->switchTo();
 
         if (instanceof <Answers, Branch> (m_dialogue->getCurrentBranch()))
         {

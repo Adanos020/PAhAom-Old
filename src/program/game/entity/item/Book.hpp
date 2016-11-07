@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ITEM_BOOK_HPP
-#define ITEM_BOOK_HPP
+#pragma once
 
 #include "../Item.hpp"
 
@@ -99,5 +98,3 @@ namespace rr
     };
 
 }
-
-#endif // ITEM_BOOK_HPP

@@ -7,18 +7,23 @@
 #ifndef DIALOGUE_HPP
 #define DIALOGUE_HPP
 
+#include "entity/npc/Teacher.hpp"
+
 namespace rr
 {
-    
+
     class Branch
     {
     private: Branch* m_left  = nullptr;
              Branch* m_right = nullptr;
+
+             Teacher::DialogueType m_switchTo = Teacher::DialogueType::NONE;
     
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Virtual destructor.
              ////////////////////////////////////////////////////////////////////////
-     virtual ~Branch() { if (m_left != nullptr) delete m_left; if (m_right != nullptr) delete m_right; }
+     virtual ~Branch() { if (m_left  != nullptr) delete m_left;
+                         if (m_right != nullptr) delete m_right; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the left link.
@@ -39,6 +44,16 @@ namespace rr
              /// \brief Returns the right link.
              ////////////////////////////////////////////////////////////////////////
              Branch* getRight() const { return m_right; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells to what type of dialogue does this tree switch it to.
+             ////////////////////////////////////////////////////////////////////////
+             void switchTo(Teacher::DialogueType t) const { m_switchTo = t; }
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Tells to what type of dialogue does this tree switch it to.
+             ////////////////////////////////////////////////////////////////////////
+             Teacher::DialogueType switchTo() const { return m_switchTo; }
     };
 
     class Sentence : public Branch

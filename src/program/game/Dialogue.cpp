@@ -17,11 +17,14 @@ namespace rr
 
     Sentence::Sentence(Sentence::Speaker s, sf::String sn) :
       m_speaker (s),
-      m_sentence(sn) {}
+      m_sentence(sn)
+    {}
 
-    DialogueTree::DialogueTree() :
-      m_current(nullptr),
-      m_root   (nullptr) {}
+    DialogueTree::DialogueTree(Teacher::DialogueType t) :
+      m_current (nullptr),
+      m_root    (nullptr),
+      m_switchTo(t)
+    {}
 
     void
     DialogueTree::setTree(Branch* tree, bool permanent)

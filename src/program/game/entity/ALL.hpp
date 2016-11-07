@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ENTITY_ALL_HPP
-#define ENTITY_ALL_HPP
+#pragma once
 
 #include "Chest.hpp"
 #include "Door.hpp"
@@ -13,5 +12,3 @@
 #include "Player.hpp"
 #include "Stairs.hpp"
 #include "npc/ALL.hpp"
-
-#endif // ENTITY_ALL_HPP

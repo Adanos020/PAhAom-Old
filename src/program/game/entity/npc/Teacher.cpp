@@ -36,7 +36,20 @@ namespace rr
         m_currentAnimation = copy.m_currentAnimation;
     }
 
-    void Teacher::initialize()
+    void
+    Teacher::setDialogue(Teacher::DialogueType dtype)
+    {
+        m_dialogueType = dtype;
+        switch (dtype)
+        {
+            case QUEST: m_currentDialogue = &m_dialogue_quest; break;
+            case CHECK: m_currentDialogue = &m_dialogue_check; break;
+            case TEACH: m_currentDialogue = &m_dialogue_teach; break;
+        }
+    }
+
+    void
+    Teacher::initialize()
     {
         m_standingLeft.setSpriteSheet(Resources::texture.npc);
 
@@ -64,6 +77,7 @@ namespace rr
         {
             case SWORDSMAN:
             {
+                // QUEST
                 auto conv1  = new Sentence(Sentence::_NPC  , Resources::dictionary["teacher.swordsman.conv.1"]);
                 auto conv2  = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.conv.2"]);
                 auto conv3  = new Sentence(Sentence::_NPC  , Resources::dictionary["teacher.swordsman.conv.3"]);
@@ -92,7 +106,71 @@ namespace rr
                 conv12->setLeft(conv13);
                 conv13->setLeft(nullptr); // end
 
-                m_dialogue.setTree(conv1, true);
+                conv13->switchTo(DialogueType::CHECK);
+
+                m_dialogue_quest.setTree(conv1, true);
+
+                // CHECK
+                auto check1 = new Sentence(Sentence::_NPC, Resources::dictionary["teacher.swordsman.question.1"]);
+
+                auto check2 = new Answers();
+                    auto check2_1 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.questfail.2"]);
+                    auto check2_2 = new Sentence(Sentence::_NPC  , Resources::dictionary["teacher.swordsman.questfail.3"]);
+
+                    auto check2_3 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.questsuccess.1"]);
+                    auto check2_4 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.questsuccess.2"]);
+
+                    check2_1->setLeft(check2_2);
+                    check2_2->setLeft(nullptr); // end
+                    
+                    check2_3->setLeft(check2_4);
+                    check2_4->setLeft(nullptr); // end
+
+                    check2_4->switchTo(DialogueType::TEACH);
+
+                    check2->addAnswer(check2_1);
+                    check2->addAnswer(check2_3);
+
+                check1->setLeft(check2);
+
+                m_dialogue_check.setTree(check1);
+
+                // TEACH
+                auto teach = new Answers();
+                    auto teach1 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.teachme"]);
+                    
+                    auto skills = new Answers();
+                        auto skills1 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.skill"]);
+                        auto skills2 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.strength5"]);
+                        auto skills3 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.strength1"]);
+                        auto skills4 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.later"]);
+
+                        auto success = new Sentence(Sentence::_NPC, Resources::dictionary["teacher.learnsuccess"]);
+                        auto failure = new Sentence(Sentence::_NPC, Resources::dictionary["teacher.learnfailure"]);
+
+                        skills1->setLeft(success);
+                        skills1->setRight(failure);
+
+                        skills2->setLeft(success);
+                        skills2->setRight(failure);
+
+                        skills3->setLeft(success);
+                        skills3->setRight(failure);
+
+                        skills4->setLeft(teach);
+
+                        success->setLeft(skills);
+                        failure->setLeft(skills);
+
+                    auto seeya = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.bye"]);
+
+                    teach->addAnswer(skills);
+                    teach->addAnswer(seeya);
+                    seeya->setLeft(nullptr); // end
+
+                m_dialogue_teach.setTree(teach);
+
+                m_currentDialogue = &m_dialogue_quest;
             }
             break;
 

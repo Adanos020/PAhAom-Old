@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ITEM_POTION_HPP
-#define ITEM_POTION_HPP
+#pragma once
 
 #include "../Item.hpp"
 
@@ -128,5 +127,3 @@ namespace rr
     };
 
 }
-
-#endif // ITEM_POTION_HPP

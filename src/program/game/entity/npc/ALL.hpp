@@ -4,11 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef NPC_ALL_HPP
-#define NPC_ALL_HPP
+#pragma once
 
 #include "Bandit.hpp"
-#include "Merchant.hpp"
 #include "Teacher.hpp"
-
-#endif // NPC_ALL_HPP

@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef FUNCS_RANDOM_HPP
-#define FUNCS_RANDOM_HPP
+#pragma once
 
 #include <cstdlib>
 #include <vector>
@@ -72,5 +71,3 @@ namespace rr
     }
 
 }
-
-#endif // FUNCS_RANDOM_HPP

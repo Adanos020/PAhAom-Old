@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ITEM_AMMUNITION_HPP
-#define ITEM_AMMUNITION_HPP
+#pragma once
 
 #include "../Item.hpp"
 
@@ -79,5 +78,3 @@ namespace rr
     };
 
 }
-
-#endif // ITEM_AMMUNITION_HPP

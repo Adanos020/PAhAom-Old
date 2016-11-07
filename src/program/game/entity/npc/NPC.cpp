@@ -91,7 +91,7 @@ namespace rr
     DialogueTree*
     NPC::getDialogue() const
     {
-        return (DialogueTree*) &m_dialogue;
+        return m_currentDialogue;
     }
 
     void

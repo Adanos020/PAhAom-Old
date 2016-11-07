@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef NPC_BANDIT_HPP
-#define NPC_BANDIT_HPP
+#pragma once
 
 #include "../Player.hpp"
 
@@ -89,5 +88,3 @@ namespace rr
 }
 
 #include "../NPC.hpp"
-
-#endif // NPC_BANDIT_HPP

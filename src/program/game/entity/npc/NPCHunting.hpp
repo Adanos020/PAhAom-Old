@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef NPC_STATE_HUNTING_HPP
-#define NPC_STATE_HUNTING_HPP
+#pragma once
 
 #include "NPCState.hpp"
 
@@ -31,5 +30,3 @@ namespace rr
     };
 
 }
-
-#endif // NPC_STATE_HUNTING_HPP
