@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ITEM_HPP
-#define ITEM_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -257,5 +256,3 @@ namespace rr
     };
 
 }
-
-#endif // ITEM_HPP

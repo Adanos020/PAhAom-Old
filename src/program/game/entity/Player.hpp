@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ENTITY_PLAYER_HPP
-#define ENTITY_PLAYER_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -310,5 +309,3 @@ namespace rr
 }
 
 #include "NPC.hpp"
-
-#endif // ENTITY_PLAYER_HPP

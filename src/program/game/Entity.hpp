@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef ENTITY_HPP
-#define ENTITY_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -91,5 +90,3 @@ namespace rr
     };
 
 }
-
-#endif // ENTITY_HPP

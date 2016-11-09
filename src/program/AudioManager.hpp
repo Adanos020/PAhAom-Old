@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef AUDIO_MANAGER_HPP
-#define AUDIO_MANAGER_HPP
+#pragma once
 
 #include <SFML/Audio.hpp>
 
@@ -80,5 +79,3 @@ namespace rr
     };
 
 }
-
-#endif // AUDIO_MANAGER_HPP

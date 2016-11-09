@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef MESSAGEMANAGER_HPP
-#define MESSAGEMANAGER_HPP
+#pragma once
 
 #include "../gui/Text.hpp"
 #include "../Observer.hpp"
@@ -95,5 +94,3 @@ namespace rr
     };
 
 }
-
-#endif // MESSAGEMANAGER_HPP

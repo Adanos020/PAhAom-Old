@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef UI_MAINMENU_HPP
-#define UI_MAINMENU_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -44,5 +43,3 @@ namespace rr
 }
 
 #include "../../Game.hpp"
-
-#endif // UI_MAINMENU_HPP

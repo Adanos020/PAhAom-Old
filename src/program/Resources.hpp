@@ -4,10 +4,9 @@
  * Used library: SFML
  */
 
-#ifndef RESOURCES_HPP
-#define RESOURCES_HPP
+#pragma once
 
-#include <unordered_map>
+#include <map>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -55,5 +54,3 @@ namespace rr
     };
 
 }
-
-#endif // RESOURCES_HPP

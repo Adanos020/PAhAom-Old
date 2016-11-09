@@ -139,7 +139,7 @@ namespace rr
                 auto npc = (NPC*) entity;
                 if (npc->detects(game->getPlayer()) != -1 && npc->getAttitude() != NPC::HOSTILE)
                 {
-                    game->getConversationUI()->open(npc);
+                    game->getConversationUI()->open((Teacher*) npc);
                     game->pause(true);
                 }
             }

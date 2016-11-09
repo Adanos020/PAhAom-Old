@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef OBSERVER_HPP
-#define OBSERVER_HPP
+#pragma once
 
 #include "game/Entity.hpp"
 
@@ -79,5 +78,3 @@ namespace rr
     };
 
 }
-
-#endif // OBSERVER_HPP

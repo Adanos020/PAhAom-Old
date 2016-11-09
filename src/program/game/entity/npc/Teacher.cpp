@@ -37,14 +37,17 @@ namespace rr
     }
 
     void
-    Teacher::setDialogue(Teacher::DialogueType dtype)
+    Teacher::setDialogue(Branch::SwitchTo dtype)
     {
-        m_dialogueType = dtype;
+        if (dtype != Branch::NONE)
+            m_dialogueType = dtype;
         switch (dtype)
         {
-            case QUEST: m_currentDialogue = &m_dialogue_quest; break;
-            case CHECK: m_currentDialogue = &m_dialogue_check; break;
-            case TEACH: m_currentDialogue = &m_dialogue_teach; break;
+            case Branch::QUEST: m_currentDialogue = &m_dialogue_quest; break;
+            case Branch::CHECK: m_currentDialogue = &m_dialogue_check; break;
+            case Branch::TEACH: m_currentDialogue = &m_dialogue_teach; break;
+
+            default: break;
         }
     }
 
@@ -106,7 +109,7 @@ namespace rr
                 conv12->setLeft(conv13);
                 conv13->setLeft(nullptr); // end
 
-                conv13->switchTo(DialogueType::CHECK);
+                conv13->switchTo = Branch::CHECK;
 
                 m_dialogue_quest.setTree(conv1, true);
 
@@ -126,7 +129,7 @@ namespace rr
                     check2_3->setLeft(check2_4);
                     check2_4->setLeft(nullptr); // end
 
-                    check2_4->switchTo(DialogueType::TEACH);
+                    check2_4->switchTo = Branch::TEACH;
 
                     check2->addAnswer(check2_1);
                     check2->addAnswer(check2_3);
@@ -162,10 +165,17 @@ namespace rr
                         success->setLeft(skills);
                         failure->setLeft(skills);
 
+                        skills->addAnswer(skills1);
+                        skills->addAnswer(skills2);
+                        skills->addAnswer(skills3);
+                        skills->addAnswer(skills4);
+
                     auto seeya = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.bye"]);
 
-                    teach->addAnswer(skills);
+                    teach->addAnswer(teach1);
                     teach->addAnswer(seeya);
+
+                    teach1->setLeft(skills);
                     seeya->setLeft(nullptr); // end
 
                 m_dialogue_teach.setTree(teach);
@@ -234,12 +244,14 @@ namespace rr
         
         sf::Vector2i position;
         int type;
+        int dtype;
 
         try
         {
             readFile <int> (file, position.x);
             readFile <int> (file, position.y);
             readFile <int> (file, type);
+            readFile <int> (file, dtype);
         }
         catch (std::invalid_argument ex)
         {
@@ -247,6 +259,7 @@ namespace rr
         }
 
         m_type = (Type) type;
+        m_dialogueType = (Branch::SwitchTo) dtype;
 
         initialize();
         setGridPosition(position);
@@ -260,7 +273,8 @@ namespace rr
         file << 21                              << ' '
              << (int) m_body.getPosition().x/80 << ' '
              << (int) m_body.getPosition().y/80 << ' '
-             << m_type;
+             << m_type                          << ' '
+             << m_dialogueType;
 
         return file;
     }

@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef UI_PAUSE_HPP
-#define UI_PAUSE_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -58,5 +57,3 @@ namespace rr
 }
 
 #include "../../Game.hpp"
-
-#endif // UI_PAUSE_HPP

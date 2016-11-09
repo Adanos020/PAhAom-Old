@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef HITMARKER_HPP
-#define HITMARKER_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -83,5 +82,3 @@ namespace rr
 }
 
 #include "entity/Player.hpp"
-
-#endif

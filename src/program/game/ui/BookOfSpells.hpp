@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef UI_BOOKOFSPELLS_HPP
-#define UI_BOOKOFSPELLS_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -55,5 +54,3 @@ namespace rr
 }
 
 #include "../../Game.hpp"
-
-#endif // UI_BOOKOFSPELLS_HPP

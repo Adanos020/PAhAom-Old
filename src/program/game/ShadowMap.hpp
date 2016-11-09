@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef SHADOWMAP_HPP
-#define SHADOWMAP_HPP
+#pragma once
 
 #include <vector>
 
@@ -67,5 +66,3 @@ namespace rr
     };
 
 }
-
-#endif // SHADOWMAP_HPP

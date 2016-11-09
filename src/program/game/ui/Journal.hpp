@@ -4,8 +4,7 @@
  * Used library: SFML
  */
  
-#ifndef UI_JOURNAL_HPP
-#define UI_JOURNAL_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -61,5 +60,3 @@ namespace rr
 }
 
 #include "../../Game.hpp"
-
-#endif // UI_JOURNAL_HPP

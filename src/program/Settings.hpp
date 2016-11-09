@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef SETTINGS_HPP
-#define SETTINGS_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -134,5 +133,3 @@ namespace rr
     };
 
 }
-
-#endif // SETTINGS_HPP

@@ -20,10 +20,9 @@ namespace rr
       m_sentence(sn)
     {}
 
-    DialogueTree::DialogueTree(Teacher::DialogueType t) :
+    DialogueTree::DialogueTree() :
       m_current (nullptr),
-      m_root    (nullptr),
-      m_switchTo(t)
+      m_root    (nullptr)
     {}
 
     void

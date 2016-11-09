@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef GAME_HPP
-#define GAME_HPP
+#pragma once
 
 #include <vector>
 
@@ -193,5 +192,3 @@ namespace rr
     };
 
 }
-
-#endif // GAME_HPP

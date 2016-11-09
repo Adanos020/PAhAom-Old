@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef UI_CONVERSATION_HPP
-#define UI_CONVERSATION_HPP
+#pragma once
 
 #include "../../gui/Window.hpp"
 
@@ -15,18 +14,18 @@ namespace rr
 {
 
     class Game;
-    class NPC;
+    class Teacher;
     class Player;
 
     class Conversation : public sf::Drawable
     {
     private: sf::RectangleShape    m_shadow;
-             sf::String            m_npcName;
+             sf::String            m_teacherName;
              Window                m_wConv;
              Window                m_wOpts;
              DialogueTree*         m_dialogue;
              Player*               m_player;
-             NPC*                  m_npc;
+             Teacher*              m_teacher;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Draws the window on the screen.
@@ -46,7 +45,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Opens the conversation window.
              ////////////////////////////////////////////////////////////////////////
-             void open(NPC*);
+             void open(Teacher*);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Closes the conversation window and unpauses the game.
@@ -63,7 +62,5 @@ namespace rr
 
 #include "../../Game.hpp"
 
-#include "../entity/NPC.hpp"
+#include "../entity/npc/Teacher.hpp"
 #include "../entity/Player.hpp"
-
-#endif // UI_CONVERSATION_HPP

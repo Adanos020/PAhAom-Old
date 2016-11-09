@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef UI_INVENTORY_HPP
-#define UI_INVENTORY_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -133,5 +132,3 @@ namespace rr
 
 #include "../../Game.hpp"
 #include "../entity/Player.hpp"
-
-#endif // UI_INVENTORY_HPP

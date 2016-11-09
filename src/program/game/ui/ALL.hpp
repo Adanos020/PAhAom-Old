@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef UI_ALL_HPP
-#define UI_ALL_HPP
+#pragma once
 
 #include "Attributes.hpp"
 #include "BookOfSpells.hpp"
@@ -16,5 +15,3 @@
 #include "HUD.hpp"
 #include "MainMenu.hpp"
 #include "PauseMenu.hpp"
-
-#endif // UI_ALL_HPP

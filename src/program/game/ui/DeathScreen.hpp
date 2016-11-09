@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef UI_DEATHSCREEN_HPP
-#define UI_DEATHSCREEN_HPP
+#pragma once
 
 #include "../../gui/Text.hpp"
 #include "../../gui/Button.hpp"
@@ -65,5 +64,3 @@ namespace rr
 }
 
 #include "../../Game.hpp"
-
-#endif // UI_DEATHSCREEN_HPP

@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef PATHFINDER_HPP
-#define PATHFINDER_HPP
+#pragma once
 
 #include <SFML/System/Vector2.hpp>
 #include <cmath>
@@ -67,5 +66,3 @@ namespace rr
     };
 
 }
-
-#endif // PATHFINDER_HPP

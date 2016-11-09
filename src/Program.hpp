@@ -4,12 +4,9 @@
  * Used library: SFML
  */
 
-#ifndef PROGRAM_HPP
-#define PROGRAM_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
-
-#include <map>
 
 #include "program/Settings.hpp"
 #include "program/Resources.hpp"
@@ -85,5 +82,3 @@ namespace rr
     };
 
 }
-
-#endif // PROGRAM_HPP

@@ -4,6 +4,8 @@
  * Used library: SFML
  */
 
+#include <iostream>
+
 #include "../../Settings.hpp"
 #include "../../Resources.hpp"
 
@@ -16,8 +18,9 @@ namespace rr
 {
 
     Conversation::Conversation(Player* p) :
-      m_wConv   ("", sf::Vector2f(1230, 200), sf::Vector2f(25, 25)),
-      m_wOpts   ("", sf::Vector2f(1230, 200), sf::Vector2f(25, Settings::graphics.resolution.y - 225)),
+      m_wConv   ("", sf::Vector2f(1130, 200), sf::Vector2f(25, 25)),
+      m_wOpts   ("", sf::Vector2f(1130, 200), sf::Vector2f(Settings::graphics.resolution.x - 1155,
+                                                           Settings::graphics.resolution.y - 225)),
       m_dialogue(nullptr),
       m_player  (p)
     {
@@ -26,7 +29,6 @@ namespace rr
         m_shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
         auto text = new Text(sf::Vector2f(20, 20), "", Resources::font.Unifont, 20);
-             text->wrap(1190);
         m_wConv += text;
 
         m_wOpts += new Menu(sf::Vector2f(10, 10));
@@ -122,7 +124,7 @@ namespace rr
             auto chosen = ((Answers*) m_dialogue->getCurrentBranch())->find(action);
             if (chosen != nullptr)
             {
-                m_npc->setDialogue(chosen->switchTo());
+                m_teacher->setDialogue(chosen->switchTo);
                 m_dialogue->setTree(chosen);
             }
 
@@ -191,6 +193,7 @@ namespace rr
                 else if (instanceof <Sentence, Branch> (m_dialogue->getCurrentBranch()))
                 {
                     m_wConv.getComponent <Text> (0)->setString(((Sentence*) m_dialogue->getCurrentBranch())->getSentence());
+                    m_wConv.getComponent <Text> (0)->wrap(1090);
                     m_wOpts.setVisible(false);
                     m_wConv.setVisible(true);
                 }
@@ -202,7 +205,8 @@ namespace rr
         }
         else if (m_wConv.isVisible())
         {
-            if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Escape))
+            if (event.type == sf::Event::KeyPressed &&
+                (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Escape))
                 m_dialogue->goLeft();
 
             if (m_dialogue->getCurrentBranch() == nullptr)
@@ -224,9 +228,10 @@ namespace rr
                 else if (instanceof <Sentence, Branch> (m_dialogue->getCurrentBranch()))
                 {
                     m_wConv.getComponent <Text> (0)->setString(((Sentence*) m_dialogue->getCurrentBranch())->getSentence());
+                    m_wConv.getComponent <Text> (0)->wrap(1090);
 
                     if (((Sentence*) m_dialogue->getCurrentBranch())->getSpeaker() == Sentence::_NPC)
-                        m_wConv.setHeader(m_npcName);
+                        m_wConv.setHeader(m_teacherName);
                     else
                         m_wConv.setHeader("");
 
@@ -234,18 +239,17 @@ namespace rr
                     m_wConv.setVisible(true);
                 }
 
-                m_npc->setDialogue(m_dialogue->getCurrentBranch()->switchTo());
+                m_teacher->setDialogue(m_dialogue->getCurrentBranch()->switchTo);
             }
         }
     }
 
     void
-    Conversation::open(NPC* npc)
+    Conversation::open(Teacher* teacher)
     {
-        m_npc      = npc;
-        m_dialogue = npc->getDialogue();
-        m_npcName  = npc->getName();
-        m_switchTo = m_dialogue->switchTo();
+        m_teacher     = teacher;
+        m_dialogue    = teacher->getDialogue();
+        m_teacherName = teacher->getName();
 
         if (instanceof <Answers, Branch> (m_dialogue->getCurrentBranch()))
         {
@@ -262,13 +266,18 @@ namespace rr
         else if (instanceof <Sentence, Branch> (m_dialogue->getCurrentBranch()))
         {
             m_wConv.getComponent <Text> (0)->setString(((Sentence*) m_dialogue->getCurrentBranch())->getSentence());
+            m_wConv.getComponent <Text> (0)->wrap(1090);
 
             if (((Sentence*) m_dialogue->getCurrentBranch())->getSpeaker() == Sentence::_NPC)
-                m_wConv.setHeader(m_npcName);
+                m_wConv.setHeader(m_teacherName);
             else
                 m_wConv.setHeader("");
 
             m_wConv.setVisible(true);
+        }
+        else if (m_dialogue->getCurrentBranch() == nullptr)
+        {
+            std::cerr << "what the actual fuck\n";
         }
     }
 
@@ -276,7 +285,9 @@ namespace rr
     Conversation::close(Game* g)
     {
         m_dialogue->reset();
+
         m_dialogue = nullptr;
+        m_teacher  = nullptr;
 
         m_wOpts.getComponent <Menu> (0)->clear();
 

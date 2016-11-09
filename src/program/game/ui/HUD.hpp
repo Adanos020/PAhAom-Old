@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef UI_HUD_HPP
-#define UI_HUD_HPP
+#pragma once
 
 #include "../../gui/Bar.hpp"
 #include "../../gui/Text.hpp"
@@ -39,5 +38,3 @@ namespace rr
     };
 
 }
-
-#endif // UI_HUD_HPP

@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef LEVEL_HPP
-#define LEVEL_HPP
+#pragma once
 
 #include <list>
 
@@ -228,5 +227,3 @@ namespace rr
 }
 
 #include "../Game.hpp"
-
-#endif // LEVEL_HPP

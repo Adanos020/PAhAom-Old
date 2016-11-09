@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef UI_ATTRIBUTES_HPP
-#define UI_ATTRIBUTES_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -63,5 +62,3 @@ namespace rr
 #include "../../Game.hpp"
 
 #include "../entity/Player.hpp"
-
-#endif // UI_ATTRIBUTES_HPP

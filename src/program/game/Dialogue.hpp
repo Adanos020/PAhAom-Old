@@ -4,20 +4,23 @@
  * Used library: SFML
  */
 
-#ifndef DIALOGUE_HPP
-#define DIALOGUE_HPP
-
-#include "entity/npc/Teacher.hpp"
+#pragma once
 
 namespace rr
 {
 
     class Branch
     {
+    public:  enum SwitchTo
+             {
+                 QUEST,
+                 CHECK,
+                 TEACH,
+                 NONE
+             } switchTo = NONE;
+
     private: Branch* m_left  = nullptr;
              Branch* m_right = nullptr;
-
-             Teacher::DialogueType m_switchTo = Teacher::DialogueType::NONE;
     
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Virtual destructor.
@@ -44,16 +47,6 @@ namespace rr
              /// \brief Returns the right link.
              ////////////////////////////////////////////////////////////////////////
              Branch* getRight() const { return m_right; }
-
-             ////////////////////////////////////////////////////////////////////////
-             /// \brief Tells to what type of dialogue does this tree switch it to.
-             ////////////////////////////////////////////////////////////////////////
-             void switchTo(Teacher::DialogueType t) const { m_switchTo = t; }
-
-             ////////////////////////////////////////////////////////////////////////
-             /// \brief Tells to what type of dialogue does this tree switch it to.
-             ////////////////////////////////////////////////////////////////////////
-             Teacher::DialogueType switchTo() const { return m_switchTo; }
     };
 
     class Sentence : public Branch
@@ -161,5 +154,3 @@ namespace rr
     };
 
 }
-
-#endif // DIALOGUE_HPP

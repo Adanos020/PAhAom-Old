@@ -4,8 +4,7 @@
  * Used library: SFML
  */
 
-#ifndef FOV_HPP
-#define FOV_HPP
+#pragma once
 
 #include "ShadowMap.hpp"
 
@@ -76,5 +75,3 @@ namespace rr
     };
 
 }
-
-#endif // FOV_HPP

@@ -60,7 +60,8 @@ namespace rr
                 first        = false;
             }
 
-            offset += m_text.getFont()->getGlyph(text[pos], m_text.getCharacterSize(), m_text.getStyle() == sf::Text::Bold).advance;
+            offset += m_text.getFont()->getGlyph(text[pos], m_text.getCharacterSize(),
+                                                 m_text.getStyle() == sf::Text::Bold).advance;
 
             if (!first && offset > width)
             {

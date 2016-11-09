@@ -19,6 +19,8 @@ namespace rr
     private: DialogueTree m_dialogue_quest;
              DialogueTree m_dialogue_check;
              DialogueTree m_dialogue_teach;
+
+             Branch::SwitchTo m_dialogueType;
     
              struct // Structure for buffs - each buff is represented by an integer
              {      // which tells for how many turns is it going to be valid.
@@ -42,14 +44,6 @@ namespace rr
                  CARPENTER,
                  MAGE,
                  KUNG_FU_MASTER
-             };
-
-             enum DialogueType
-             {
-                 QUEST,
-                 CHECK,
-                 TEACH,
-                 NONE
              };
 
              ////////////////////////////////////////////////////////////////////////
@@ -83,7 +77,7 @@ namespace rr
              /// - TEACH
              /// - NONE
              ////////////////////////////////////////////////////////////////////////
-             void setDialogue(DialogueType);
+             void setDialogue(Branch::SwitchTo);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the dialogue type.
@@ -94,7 +88,7 @@ namespace rr
              /// - TEACH
              /// - NONE
              ////////////////////////////////////////////////////////////////////////
-             DialogueType getDialogueType() const { return m_dialogueType; }
+             Branch::SwitchTo getDialogueType() const { return m_dialogueType; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Creates an exact copy of the teacher.
@@ -131,8 +125,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
      virtual std::ofstream& operator>>(std::ofstream&) override;
 
-    private: Type         m_type;
-             DialogueType m_dialogueType;
+    private: Type m_type;
     };
 
 }
