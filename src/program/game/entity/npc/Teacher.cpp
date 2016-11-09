@@ -169,13 +169,14 @@ namespace rr
                         skills->addAnswer(skills2);
                         skills->addAnswer(skills3);
                         skills->addAnswer(skills4);
+                        
+                    teach1->setLeft(skills);
 
                     auto seeya = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.bye"]);
 
                     teach->addAnswer(teach1);
                     teach->addAnswer(seeya);
 
-                    teach1->setLeft(skills);
                     seeya->setLeft(nullptr); // end
 
                 m_dialogue_teach.setTree(teach);

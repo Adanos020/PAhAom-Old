@@ -28,7 +28,7 @@ namespace rr
     void
     DialogueTree::setTree(Branch* tree, bool permanent)
     {
-        if (permanent)
+        if (permanent || m_root == nullptr)
             m_root = tree;
         m_current = tree;
     }
