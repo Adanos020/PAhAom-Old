@@ -45,35 +45,76 @@ namespace rr
     Bandit::initialize()
     {
         // loading the sprite sheets for the animations
-        m_standingLeft.setSpriteSheet(Resources::texture.enemies);
-        m_standingRight.setSpriteSheet(Resources::texture.enemies);
+        switch (m_type)
+        {
+            case CLUB:
+            {
+                m_standingLeft.setSpriteSheet(Resources::texture.npc_bully);
+                m_standingRight.setSpriteSheet(Resources::texture.npc_bully);
 
-        m_walkingLeft.setSpriteSheet(Resources::texture.enemies);
-        m_walkingRight.setSpriteSheet(Resources::texture.enemies);
+                m_walkingLeft.setSpriteSheet(Resources::texture.npc_bully);
+                m_walkingRight.setSpriteSheet(Resources::texture.npc_bully);
 
-        m_attackingLeft.setSpriteSheet(Resources::texture.enemies);
-        m_attackingRight.setSpriteSheet(Resources::texture.enemies);
+                m_attackingLeft.setSpriteSheet(Resources::texture.npc_bully);
+                m_attackingRight.setSpriteSheet(Resources::texture.npc_bully);
+            }
+            break;
+
+            case CROSSBOW:
+            {
+                m_standingLeft.setSpriteSheet(Resources::texture.npc_csbow);
+                m_standingRight.setSpriteSheet(Resources::texture.npc_csbow);
+
+                m_walkingLeft.setSpriteSheet(Resources::texture.npc_csbow);
+                m_walkingRight.setSpriteSheet(Resources::texture.npc_csbow);
+
+                m_attackingLeft.setSpriteSheet(Resources::texture.npc_csbow);
+                m_attackingRight.setSpriteSheet(Resources::texture.npc_csbow);
+            }
+            break;
+
+            case DAGGER:
+            {
+                m_standingLeft.setSpriteSheet(Resources::texture.npc_rogue);
+                m_standingRight.setSpriteSheet(Resources::texture.npc_rogue);
+
+                m_walkingLeft.setSpriteSheet(Resources::texture.npc_rogue);
+                m_walkingRight.setSpriteSheet(Resources::texture.npc_rogue);
+
+                m_attackingLeft.setSpriteSheet(Resources::texture.npc_rogue);
+                m_attackingRight.setSpriteSheet(Resources::texture.npc_rogue);
+            }
+            break;
+        }
 
         // adding the frames to the animations
-        m_standingLeft.addFrame(sf::IntRect(0, m_type*32 + 16, 16, 16));
+        m_standingLeft.addFrame(sf::IntRect(0, 16, 16, 16));
 
-        m_standingRight.addFrame(sf::IntRect(0, m_type*32, 16, 16));
+        m_standingRight.addFrame(sf::IntRect(0, 0, 16, 16));
 
-        m_walkingLeft.addFrame(sf::IntRect( 0, m_type*32 + 16, 16, 16));
-        m_walkingLeft.addFrame(sf::IntRect(16, m_type*32 + 16, 16, 16));
-        m_walkingLeft.addFrame(sf::IntRect( 0, m_type*32 + 16, 16, 16));
-        m_walkingLeft.addFrame(sf::IntRect(32, m_type*32 + 16, 16, 16));
+        m_walkingLeft.addFrame(sf::IntRect( 0, 16, 16, 16));
+        m_walkingLeft.addFrame(sf::IntRect(16, 16, 16, 16));
+        m_walkingLeft.addFrame(sf::IntRect( 0, 16, 16, 16));
+        m_walkingLeft.addFrame(sf::IntRect(32, 16, 16, 16));
 
-        m_walkingRight.addFrame(sf::IntRect( 0, m_type*32, 16, 16));
-        m_walkingRight.addFrame(sf::IntRect(16, m_type*32, 16, 16));
-        m_walkingRight.addFrame(sf::IntRect( 0, m_type*32, 16, 16));
-        m_walkingRight.addFrame(sf::IntRect(32, m_type*32, 16, 16));
+        m_walkingRight.addFrame(sf::IntRect( 0, 0, 16, 16));
+        m_walkingRight.addFrame(sf::IntRect(16, 0, 16, 16));
+        m_walkingRight.addFrame(sf::IntRect( 0, 0, 16, 16));
+        m_walkingRight.addFrame(sf::IntRect(32, 0, 16, 16));
 
-        m_attackingLeft.addFrame(sf::IntRect(0, m_type*32 + 16, 16, 16));
+        m_attackingLeft.addFrame(sf::IntRect( 0, 32, 16, 16));
+        m_attackingLeft.addFrame(sf::IntRect(16, 32, 16, 16));
+        m_attackingLeft.addFrame(sf::IntRect(32, 32, 16, 16));
+        m_attackingLeft.addFrame(sf::IntRect( 0, 32, 16, 16));
 
-        m_attackingRight.addFrame(sf::IntRect(0, m_type*32, 16, 16));
+        m_attackingRight.addFrame(sf::IntRect( 0, 48, 16, 16));
+        m_attackingRight.addFrame(sf::IntRect(16, 48, 16, 16));
+        m_attackingRight.addFrame(sf::IntRect(32, 48, 16, 16));
+        m_attackingRight.addFrame(sf::IntRect( 0, 48, 16, 16));
 
         m_currentAnimation = chance(1, 2) ? &m_standingLeft : &m_standingRight;
+
+        m_direction = (m_currentAnimation == &m_standingLeft) ? LEFT : RIGHT;
 
         // setting the animated sprite's properties
         m_body.setAnimation(*m_currentAnimation);

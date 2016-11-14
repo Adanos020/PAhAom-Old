@@ -109,7 +109,15 @@ namespace rr
     void
     NPC::setDirection(Direction direction)
     {
-        m_direction = direction;
+        if ((direction == LEFT)
+         || (direction == UPLEFT)
+         || (direction == DOWNLEFT))
+            m_direction = LEFT;
+
+        else if ((direction == RIGHT)
+              || (direction == UPRIGHT)
+              || (direction == DOWNRIGHT))
+            m_direction = RIGHT;
     }
 
     NPC::Direction
@@ -121,6 +129,8 @@ namespace rr
     void
     NPC::move(int tiles[], Direction di)
     {
+        setDirection(di);
+
         if (di == UP && (tiles[m_position.x + (m_position.y-1)*77] != 1 && tiles[m_position.x + (m_position.y-1)*77] != 5))
         {
             m_position = sf::Vector2i(m_position.x, m_position.y-1);
@@ -188,10 +198,6 @@ namespace rr
         if (newState != nullptr)
         {
             m_state = newState;
-#ifdef pah_debug
-            std::cout << getName().toAnsiString() << ": update -> state changed to "
-                << newState->toString().toAnsiString() << '\n';
-#endif
         }
 
         if (!m_body.isPlaying())
@@ -212,10 +218,6 @@ namespace rr
         if (state != nullptr)
         {
             m_state = state;
-#ifdef pah_debug
-            std::cout << getName().toAnsiString() << ": react -> state changed to "
-                << state->toString().toAnsiString() << '\n';
-#endif
         }
     }
 

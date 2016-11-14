@@ -31,7 +31,9 @@ namespace rr
                     sf::Texture tileset;
                     sf::Texture objects;
                     sf::Texture npc;
-                    sf::Texture enemies;
+                    sf::Texture npc_bully;
+                    sf::Texture npc_csbow;
+                    sf::Texture npc_rogue;
                     sf::Texture book_of_spells;
             } texture;
 /*

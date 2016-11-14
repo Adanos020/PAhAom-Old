@@ -32,7 +32,9 @@ namespace rr
             && texture.tileset       .loadFromFile("data/graphics/tileset.png")
             && texture.objects       .loadFromFile("data/graphics/objects.png")
             && texture.npc           .loadFromFile("data/graphics/npc.png")
-            && texture.enemies       .loadFromFile("data/graphics/enemies.png")
+            && texture.npc_bully     .loadFromFile("data/graphics/npc_bully.png")
+            && texture.npc_csbow     .loadFromFile("data/graphics/npc_csbow.png")
+            && texture.npc_rogue     .loadFromFile("data/graphics/npc_rogue.png")
             && texture.book_of_spells.loadFromFile("data/graphics/book_of_spells.png");
     }
 

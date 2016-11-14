@@ -122,12 +122,16 @@ namespace rr
 
                     auto check2_3 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.questsuccess.1"]);
                     auto check2_4 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.questsuccess.2"]);
+                    auto check2_5 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.questsuccess.3"]);
+                    auto check2_6 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.questsuccess.4"]);
 
                     check2_1->setLeft(check2_2);
                     check2_2->setLeft(nullptr); // end
                     
                     check2_3->setLeft(check2_4);
-                    check2_4->setLeft(nullptr); // end
+                    check2_4->setLeft(check2_5);
+                    check2_5->setLeft(check2_6);
+                    check2_6->setLeft(nullptr); // end
 
                     check2_4->switchTo = Branch::TEACH;
 
@@ -141,7 +145,7 @@ namespace rr
                 // TEACH
                 auto teach = new Answers();
                     auto teach1 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.teachme"]);
-                    
+
                     auto skills = new Answers();
                         auto skills1 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.skill"]);
                         auto skills2 = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.swordsman.strength5"]);
@@ -169,19 +173,16 @@ namespace rr
                         skills->addAnswer(skills2);
                         skills->addAnswer(skills3);
                         skills->addAnswer(skills4);
-                        
-                    teach1->setLeft(skills);
 
                     auto seeya = new Sentence(Sentence::PLAYER, Resources::dictionary["teacher.bye"]);
+
+                    teach1->setLeft(skills);
+                    seeya->setLeft(nullptr); // end
 
                     teach->addAnswer(teach1);
                     teach->addAnswer(seeya);
 
-                    seeya->setLeft(nullptr); // end
-
                 m_dialogue_teach.setTree(teach);
-
-                m_currentDialogue = &m_dialogue_quest;
             }
             break;
 
@@ -208,6 +209,15 @@ namespace rr
 
             }
             break;
+        }
+
+        switch (m_dialogueType)
+        {
+            case Branch::QUEST: m_currentDialogue = &m_dialogue_quest; break;
+            case Branch::CHECK: m_currentDialogue = &m_dialogue_check; break;
+            case Branch::TEACH: m_currentDialogue = &m_dialogue_teach; break;
+
+            default: m_currentDialogue = nullptr;
         }
     }
 

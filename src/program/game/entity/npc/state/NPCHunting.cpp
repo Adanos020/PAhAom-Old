@@ -31,10 +31,10 @@ namespace rr
             if (detector >= 0) // the npc detects player
             {
                 if ((detector == 0 || detector == 3 || detector == 5)
-                    && npc->getDirection() != NPC::LEFT) npc->setDirection(NPC::RIGHT);
+                    && npc->getDirection() != NPC::LEFT) npc->setDirection(NPC::LEFT);
                 
                 else if ((detector == 2 || detector == 4 || detector == 7)
-                    && npc->getDirection() != NPC::RIGHT) npc->setDirection(NPC::LEFT);
+                    && npc->getDirection() != NPC::RIGHT) npc->setDirection(NPC::RIGHT);
 
                 bool hit = false;
                 int damage = 0;
@@ -82,10 +82,12 @@ namespace rr
                 if (npc->getDirection() == NPC::LEFT)
                 {
                     npc->m_currentAnimation = &npc->m_attackingLeft;
+                    std::cout << "left\n";
                 }
                 else
                 {
                     npc->m_currentAnimation = &npc->m_attackingRight;
+                    std::cout << "right\n";
                 }
                 npc->m_body.setLooped(false);
 
