@@ -246,6 +246,78 @@ Another weapon which origins vanish in the mists of time. A slingshot allows to 
 item.ranged_weapon.description.bellows
 Used to throw the poisonous darts. It's perfect for preparing traps in the forest!
 
+item.ring.color.red
+Ring with a granade
+
+item.ring.color.blue
+Ring with a sapphire
+
+item.ring.color.brown
+Ring with a painite
+
+item.ring.color.green
+Ring with an emerald
+
+item.ring.color.cyan
+Ring with a turquoise
+
+item.ring.color.orange
+Ring with a peridot
+
+item.ring.color.magenta
+Ring with a ruby
+
+item.ring.color.yellow
+Ring with a citrine
+
+item.ring.color.white
+Ring with a diamond
+
+item.ring.type.health
+Ring of vitality
+
+item.ring.type.magic
+Ring of wisdom
+
+item.ring.type.strength
+Ring of might
+
+item.ring.type.dexterity
+Ring of nimbleness
+
+item.ring.type.accuracy
+Ring of perceptiveness
+
+item.ring.type.speed
+Ring of smooth movement
+
+item.ring.type.quest_swordsman
+Swordsman's ring
+
+item.ring.description.unknown
+
+
+item.ring.description.health
+
+
+item.ring.description.magic
+
+
+item.ring.description.strength
+
+
+item.ring.description.dexterity
+
+
+item.ring.description.accuracy
+
+
+item.ring.description.speed
+
+
+item.ring.description.quest_swordsman
+
+
 item.book.type.crafting
 "Crafting basics"
 

@@ -22,8 +22,8 @@ namespace rr
 
              Branch::SwitchTo m_dialogueType;
     
-             struct // Structure for buffs - each buff is represented by an integer
-             {      // which tells for how many turns is it going to be valid.
+             struct Buffs // Structure for buffs - each buff is represented by an integer
+             {            // which tells for how many turns is it going to be valid.
              public: int speed;
                      int regeneration;
                      int poison;
@@ -55,6 +55,11 @@ namespace rr
              /// \brief Copy constructor.
              ////////////////////////////////////////////////////////////////////////
              Teacher(Teacher const&);
+
+             ////////////////////////////////////////////////////////////////////////
+             /// \brief Returns the teacher's buffs.
+             ////////////////////////////////////////////////////////////////////////
+             Buffs getBuffs() const { return m_buffs; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the teachers's type.
@@ -98,12 +103,12 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Attacks other NPC.
              ////////////////////////////////////////////////////////////////////////
-     virtual int attack(NPC*) { return 0; }
+     virtual int attack(NPC*) override { return 0; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Attacks the player.
              ////////////////////////////////////////////////////////////////////////
-     virtual int attack(Player*) { return 0; }
+     virtual int attack(Player*) override { return 0; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Handles the damage that the teacher got.

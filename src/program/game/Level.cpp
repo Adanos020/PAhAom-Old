@@ -13,6 +13,7 @@
 #include "../Observer.hpp"
 #include "../funcs/files.hpp"
 #include "../funcs/items.hpp"
+#include "../funcs/random.hpp"
 
 #include "Level.hpp"
 
@@ -21,7 +22,7 @@ extern rr::Subject subject;
 namespace rr
 {
 
-    Level::Level(int number, Player* player) :
+    Level::Level(int number) :
       m_size       (sf::Vector2i(77, 43)),
       m_shadowMap  (ShadowMap(m_size)),
       m_regionCount(0),
@@ -700,31 +701,31 @@ namespace rr
                                 {
                                     if (j > 0 && j < m_size.y-1)
                                     {
-                                        if      ((m_tiles[i+1 + j*m_size.x] != WALL)) tileNumber += LEFT_RIGHT  *16;
-                                        else if ((m_tiles[i+1 + j*m_size.x] == WALL)) tileNumber += LEFT        *16;
+                                        if      (m_tiles[i+1 + j*m_size.x] != WALL) tileNumber += LEFT_RIGHT  *16;
+                                        else if (m_tiles[i+1 + j*m_size.x] == WALL) tileNumber += LEFT        *16;
                                     }
-                                    else if (j == 0)                                tileNumber += TOP_LEFT    *16;
-                                    else if (j == m_size.y-1)                        tileNumber += BOTTOM_LEFT *16;
+                                    else if (j == 0)          tileNumber += TOP_LEFT    *16;
+                                    else if (j == m_size.y-1) tileNumber += BOTTOM_LEFT *16;
                                 }
                                 else if (i == m_size.x-1)
                                 {
                                     if (j > 0 && j < m_size.y-1)
                                     {
-                                        if      ((m_tiles[i-1+j*m_size.x] != WALL))   tileNumber += LEFT_RIGHT  *16;
-                                        else if ((m_tiles[i-1+j*m_size.x] == WALL))   tileNumber += RIGHT       *16;
+                                        if      (m_tiles[i-1+j*m_size.x] != WALL) tileNumber += LEFT_RIGHT  *16;
+                                        else if (m_tiles[i-1+j*m_size.x] == WALL) tileNumber += RIGHT       *16;
                                     }
-                                    else if (j == 0)                                tileNumber += TOP_RIGHT   *16;
-                                    else if (j == m_size.y-1)                        tileNumber += BOTTOM_RIGHT*16;
+                                    else if (j == 0)          tileNumber += TOP_RIGHT   *16;
+                                    else if (j == m_size.y-1) tileNumber += BOTTOM_RIGHT*16;
                                 }
                                 else if (j == 0 && i > 0 && i < m_size.x-1)
                                 {
-                                    if      ((m_tiles[i+(j+1)*m_size.x] != WALL))     tileNumber += TOP_BOTTOM  *16;
-                                    else if ((m_tiles[i+(j+1)*m_size.x] == WALL))     tileNumber += TOP         *16;
+                                    if      (m_tiles[i+(j+1)*m_size.x] != WALL) tileNumber += TOP_BOTTOM  *16;
+                                    else if (m_tiles[i+(j+1)*m_size.x] == WALL) tileNumber += TOP         *16;
                                 }
                                 else if (j == m_size.y-1 && i > 0 && i < m_size.x-1)
                                 {
-                                    if      ((m_tiles[i+(j-1)*m_size.x] != WALL))     tileNumber += TOP_BOTTOM  *16;
-                                    else if ((m_tiles[i+(j-1)*m_size.x] == WALL))     tileNumber += BOTTOM      *16;
+                                    if      (m_tiles[i+(j-1)*m_size.x] != WALL) tileNumber += TOP_BOTTOM  *16;
+                                    else if (m_tiles[i+(j-1)*m_size.x] == WALL) tileNumber += BOTTOM      *16;
                                 }
                                 break;
 
@@ -861,8 +862,10 @@ namespace rr
 
             case NPC_DIES:
             {
-                m_tiles[entity->getGridPosition().x + entity->getGridPosition().y * m_size.x] = ROOM;
-                m_tilesAsInts[entity->getGridPosition().x + entity->getGridPosition().y * m_size.x] = 2;
+                auto position = entity->getGridPosition();
+
+                m_tiles[position.x + position.y * m_size.x] = ROOM;
+                m_tilesAsInts[position.x + position.y * m_size.x] = 2;
 
                 m_entities.erase(std::find(m_entities.begin(), m_entities.end(), entity));
                 if (entity->getSpecies() == Entity::N_P_C)
@@ -870,8 +873,14 @@ namespace rr
                     m_npcs.erase(std::find(m_npcs.begin(), m_npcs.end(), (NPC*) entity));
                     delete entity;
                 }
-                else if (entity->getSpecies() == Entity::ITEM)
-                    m_items.erase(std::find(m_items.begin(), m_items.end(), (Item*) entity));
+
+                if (chance(1, 5))
+                {
+                    Item* newitem = getRandomMoney();
+                    newitem->setGridPosition(position);
+                    m_items.push_back(newitem);
+                    m_entities.push_back(newitem);
+                }
             }
             break;
 
@@ -920,7 +929,8 @@ namespace rr
                     case  4: entity = new Food        (); readEntity(file, entity); addEntity(entity); break;
                     case  5: entity = new Potion      (); readEntity(file, entity); addEntity(entity); break;
                     case  6: entity = new RangedWeapon(); readEntity(file, entity); addEntity(entity); break;
-                    case  7: entity = new Rune        (); readEntity(file, entity); addEntity(entity); break;
+                    case  7: entity = new Ring        (); readEntity(file, entity); addEntity(entity); break;
+                    case  8: entity = new Rune        (); readEntity(file, entity); addEntity(entity); break;
                     case 20: entity = new Bandit      (); readEntity(file, entity); addEntity(entity); break;
                     case 21: entity = new Teacher     (); readEntity(file, entity); addEntity(entity); break;
                     case 40: entity = new Chest       (); readEntity(file, entity); addEntity(entity); break;

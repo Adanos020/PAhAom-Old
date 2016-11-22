@@ -297,11 +297,11 @@ namespace rr
                     {
                         puts(">Saving the settings...");
                         auto currentOption = wGame->getComponent <Switch> (0)->getCurrentOption();
-                        if      (currentOption == "ENGLISH"    ) Settings::game.language = "en";
-                        else if (currentOption == "POLSKI"     ) Settings::game.language = "pl";
+                        if      (currentOption == "ENGLISH" ) Settings::game.language = "en";
+                        else if (currentOption == "POLSKI"  ) Settings::game.language = "pl";
                         else if (currentOption == L"PYCTOLQ") Settings::game.language = "fc";
 
-                        std::vector<std::string> splitted = split(wtoa(wGrap->getComponent <Switch> (0)->getCurrentOption()), 'x');
+                        auto splitted = split(wGrap->getComponent <Switch> (0)->getCurrentOption().toAnsiString(), 'x');
 
                         Settings::graphics.resolution = sf::Vector2u(stoi(splitted[0]), stoi(splitted[1]));
                         Settings::graphics.fullscreen = wGrap->getComponent <Checkbox> (0)->isChecked();

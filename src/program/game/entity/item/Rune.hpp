@@ -94,13 +94,13 @@ namespace rr
              /// \brief Sets the rune's position relatively to the grid marked out by
              /// the level's tile map.
              ////////////////////////////////////////////////////////////////////////
-             void setGridPosition(sf::Vector2i) override;
+     virtual void setGridPosition(sf::Vector2i) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the rune's position relatively to the graphics card's
              /// coordinate system.
              ////////////////////////////////////////////////////////////////////////
-             void setPosition(sf::Vector2f) override;
+     virtual void setPosition(sf::Vector2f) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reads the rune from the file.

@@ -127,8 +127,7 @@ namespace rr
         subject.removeObserver(m_currentLevel);
         delete m_currentLevel;
 
-        m_currentLevel = new Level(m_levelNumber, &m_player);
-        //m_currentLevel->generateWorld();
+        m_currentLevel = new Level(m_levelNumber);
         subject.addObserver(m_currentLevel);
         m_player.setCurrentLevel(m_currentLevel);
 
@@ -161,7 +160,7 @@ namespace rr
 
         for (int i = 29; i >= 0; --i)
         {
-            m_currentLevel = new Level(i, &m_player);
+            m_currentLevel = new Level(i);
             m_currentLevel->generateWorld();
 
             file.open("save/level"+std::to_string(i)+".pah");
@@ -193,6 +192,7 @@ namespace rr
 
         //m_inventory.addItem(new Book(Book::SPELLS_BOOK));
         //m_inventory.addItem(new Coin(Coin::GOLDEN, Coin::SMALL, 3));
+        m_inventory.addItem(new Ring(Ring::HEALTH));
 
         m_audioManager.playMusic(AudioManager::PRISON);
 
@@ -247,7 +247,7 @@ namespace rr
 
             file.close();
 
-            m_currentLevel = new Level(m_levelNumber, &m_player);
+            m_currentLevel = new Level(m_levelNumber);
             m_player.setCurrentLevel(m_currentLevel);
 
             file.open("save/level"+std::to_string(m_levelNumber)+".pah");

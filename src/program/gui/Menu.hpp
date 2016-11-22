@@ -73,7 +73,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the menu's body's position.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getPosition() const { return m_position; }
+     virtual sf::Vector2f getPosition() const override { return m_position; }
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the menu's body's size.
@@ -83,7 +83,7 @@ namespace rr
              ////////////////////////////////////////////////////////////////////////
              /// \brief Returns the menu's body's size.
              ////////////////////////////////////////////////////////////////////////
-     virtual sf::Vector2f getSize() const { return sf::Vector2f(0, m_options.size()*40); }
+     virtual sf::Vector2f getSize() const override { return sf::Vector2f(0, m_options.size()*40); }
     };
 
 }

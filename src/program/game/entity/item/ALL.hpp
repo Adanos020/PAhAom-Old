@@ -13,4 +13,5 @@
 #include "Food.hpp"
 #include "Potion.hpp"
 #include "RangedWeapon.hpp"
+#include "Ring.hpp"
 #include "Rune.hpp"

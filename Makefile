@@ -1,12 +1,12 @@
 #    ==========================================================
 #     PAhAom makefile by Artem G (2016)
 #    =========================================================
-#     It's universal makefile for Windows and Unix systems.
+#     It's a universal makefile for Windows and Unix systems.
 #    =========================================================
 
 #Global definitions
 INC = 
-CFLAGS = -Wall -std=c++14 -DSFML_STATIC
+CFLAGS = -Wall -Wextra -std=c++14 -DSFML_STATIC
 RESINC = 
 LIBDIR = 
 LDFLAGS = -static-libgcc -static-libstdc++
@@ -64,9 +64,9 @@ ifeq ($(OS),Windows_NT)
 else
 	WORKDIR = $(shell pwd)
 	CC = gcc
-	CXX = g++
+	CXX = clang++
 	AR = ar
-	LD = g++
+	LD = clang++
 	WINDRES = windres
 	INC += 
 	CFLAGS += 
@@ -92,7 +92,7 @@ else
 	LIB_RELEASE +=  
 	LDFLAGS_RELEASE +=  
 	OUT_RELEASE = bin/Release/pahaom
-endif  
+endif
 
 #Objects list
 OBJ_DEBUG =\
@@ -150,6 +150,7 @@ src/program/game/entity/npc/state/NPCHunting.debug.o \
 src/program/game/entity/npc/state/NPCMoving.debug.o \
 src/program/game/entity/npc/state/NPCSleeping.debug.o \
 src/program/game/entity/item/Rune.debug.o \
+src/program/game/entity/item/Ring.debug.o \
 src/program/game/entity/item/Potion.debug.o \
 src/program/game/entity/item/Food.debug.o \
 src/program/game/entity/item/MeleeWeapon.debug.o \
@@ -213,6 +214,7 @@ src/program/game/entity/npc/state/NPCHunting.o \
 src/program/game/entity/npc/state/NPCMoving.o \
 src/program/game/entity/npc/state/NPCSleeping.o \
 src/program/game/entity/item/Rune.o \
+src/program/game/entity/item/Ring.o \
 src/program/game/entity/item/Potion.o \
 src/program/game/entity/item/Food.o \
 src/program/game/entity/item/MeleeWeapon.o \

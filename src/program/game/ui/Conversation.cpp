@@ -39,9 +39,9 @@ namespace rr
     {
         if (isOpen())
         {
-            target.draw(m_shadow);
-            target.draw(m_wConv);
-            target.draw(m_wOpts);
+            target.draw(m_shadow, states);
+            target.draw(m_wConv, states);
+            target.draw(m_wOpts, states);
         }
     }
 

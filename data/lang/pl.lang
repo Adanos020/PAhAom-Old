@@ -246,6 +246,78 @@ Kolejna broń, której początki giną w pomroce dziejów. Proca pozwala wystrze
 item.ranged_weapon.description.bellows
 Służy do wypuszczania zatrutych strzałek. Broń idealna do szykowania zasadzek w lesie!
 
+item.ring.color.red
+Pierścień z granatem
+
+item.ring.color.blue
+Pierścień z szafirem
+
+item.ring.color.brown
+Pierścień z painitem
+
+item.ring.color.green
+Pierścień z szmaragdem
+
+item.ring.color.cyan
+Pierścień z turkusem
+
+item.ring.color.orange
+Pierścień z perydotem
+
+item.ring.color.magenta
+Pierścień z rubinem
+
+item.ring.color.yellow
+Pierścień z cytrynem
+
+item.ring.color.white
+Pierścień z diamentem
+
+item.ring.type.health
+Pierścień witalności
+
+item.ring.type.magic
+Pierścień mądrości
+
+item.ring.type.strength
+Pierścień mocy
+
+item.ring.type.dexterity
+Pierścień zwinności
+
+item.ring.type.accuracy
+Pierścień spostrzegawczości
+
+item.ring.type.speed
+Pierścień gładkich ruchów
+
+item.ring.type.quest_swordsman
+Pierścień fechmistrza
+
+item.ring.description.unknown
+
+
+item.ring.description.health
+
+
+item.ring.description.magic
+
+
+item.ring.description.strength
+
+
+item.ring.description.dexterity
+
+
+item.ring.description.accuracy
+
+
+item.ring.description.speed
+
+
+item.ring.description.quest_swordsman
+
+
 item.book.type.crafting
 „Podstawy wytwarzania”
 
