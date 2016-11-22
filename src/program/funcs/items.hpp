@@ -97,12 +97,17 @@ namespace rr
             case  67: return new Food(Food::BAGUETTE , amount);
 
             /* RINGS */
-            case  70: return new Ring(Ring::HEALTH   , 5, amount);
-            case  71: return new Ring(Ring::MAGIC    , 5, amount);
-            case  72: return new Ring(Ring::STRENGTH , 5, amount);
-            case  73: return new Ring(Ring::DEXTERITY, 5, amount);
-            case  74: return new Ring(Ring::ACCURACY , 5, amount);
-            case  75: return new Ring(Ring::SPEED    , 5, amount);
+            case  70: return new Ring(Ring::HEALTH              , 5, amount);
+            case  71: return new Ring(Ring::MAGIC               , 5, amount);
+            case  72: return new Ring(Ring::STRENGTH            , 5, amount);
+            case  73: return new Ring(Ring::DEXTERITY           , 5, amount);
+            case  74: return new Ring(Ring::ACCURACY            , 5, amount);
+            case  75: return new Ring(Ring::SPEED               , 5, amount);
+            case  76: return new Ring(Ring::QUEST_SWORDSMAN     , 5, amount);
+            case  77: return new Ring(Ring::QUEST_SHARPSHOOTER  , 5, amount);
+            case  78: return new Ring(Ring::QUEST_CARPENTER     , 5, amount);
+            case  79: return new Ring(Ring::QUEST_MAGE          , 5, amount);
+            case  80: return new Ring(Ring::QUEST_KUNG_FU_MASTER, 5, amount);
 
             /* POTIONS */
             case 100: return new Potion(Potion::HEALING     , Potion::BIG         , amount);
@@ -177,7 +182,7 @@ namespace rr
             61, 62, 63, 64, 65, 66, 67,
 
             // RINGS
-            70, 71, 72, 73, 74, 75,
+            70, 71, 72, 73, 74, 75, // the rest of the rings are only for the quests
 
             // POTIONS
             100, 101, 102, 110, 111, 112, 120, 121, 122, 130, 131, 132,
