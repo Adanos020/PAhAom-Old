@@ -15,5 +15,3 @@ rm -rf src/program/game/entity/npc/ai/*.o
 rm -rf src/program/game/entity/player/*.o
 rm -rf src/program/game/entity/player/state/*.o
 make -j 4
-
-exit 0
