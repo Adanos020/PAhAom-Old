@@ -333,6 +333,16 @@ namespace rr
 
                         auto splitted = split(wGrap->getComponent <Switch> (0)->getCurrentOption().toAnsiString(), 'x');
 
+                        if (Settings::graphics.fullscreen != wGrap->getComponent <Checkbox> (0)->isChecked())
+                        {
+                            Settings::graphics.fullscreen = wGrap->getComponent <Checkbox> (0)->isChecked();
+                        }
+                        if (Settings::graphics.vsync != wGrap->getComponent <Checkbox> (1)->isChecked())
+                        {
+                            Settings::graphics.vsync = wGrap->getComponent <Checkbox> (1)->isChecked();
+                            rw.setVerticalSyncEnabled(Settings::graphics.vsync);
+                        }
+
                         {
                             if (Settings::graphics.resolution != sf::Vector2u(stoi(splitted[0]), stoi(splitted[1])))
                             {
@@ -346,9 +356,6 @@ namespace rr
                                 uiRelatedChanged = true;
                             }
                         }
-
-                        Settings::graphics.fullscreen = wGrap->getComponent <Checkbox> (0)->isChecked();
-                        Settings::graphics.vsync      = wGrap->getComponent <Checkbox> (1)->isChecked();
 
                         currentOption = wGrap->getComponent <Switch> (1)->getCurrentOption();
                         if      (currentOption == "x2") Settings::graphics.csettings.antialiasingLevel = 2;
