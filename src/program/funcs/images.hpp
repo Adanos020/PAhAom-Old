@@ -25,18 +25,18 @@ namespace rr
     inline void
     setIcon(sf::VertexArray& body, int layers, int icons[])
     {
-        body.resize(4*layers);
+        body.resize(4 * layers);
         body.setPrimitiveType(sf::Quads);
 
         for (int i = 0; i < layers; i++)
         {
-            int tu = icons[i]%16;
-            int tv = icons[i]/16;
+            int tu = icons[i] % 16;
+            int tv = icons[i] / 16;
 
-            body[4*i+0].texCoords =  sf::Vector2f(  tu  *16+0.0001f,   tv  *16+0.0001f);
-            body[4*i+1].texCoords =  sf::Vector2f((tu+1)*16-0.0001f,   tv  *16+0.0001f);
-            body[4*i+2].texCoords =  sf::Vector2f((tu+1)*16-0.0001f, (tv+1)*16-0.0001f);
-            body[4*i+3].texCoords =  sf::Vector2f(  tu  *16+0.0001f, (tv+1)*16-0.0001f);
+            body[4 * i+0].texCoords =  sf::Vector2f(  tu   * 16+0.0001f,   tv   * 16+0.0001f);
+            body[4 * i+1].texCoords =  sf::Vector2f((tu+1) * 16-0.0001f,   tv   * 16+0.0001f);
+            body[4 * i+2].texCoords =  sf::Vector2f((tu+1) * 16-0.0001f, (tv+1) * 16-0.0001f);
+            body[4 * i+3].texCoords =  sf::Vector2f(  tu   * 16+0.0001f, (tv+1) * 16-0.0001f);
         }
     }
 

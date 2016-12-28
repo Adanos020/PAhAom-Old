@@ -31,7 +31,7 @@ namespace rr
         {
             delete component;
         }
-        m_components.clear();
+        clear();
     }
 
     void
@@ -41,6 +41,12 @@ namespace rr
             c->setPosition(sf::Vector2f(m_body.getPosition().x + c->getPosition().x, m_body.getPosition().y + c->getPosition().y));
         c->setParentComponent(this);
         m_components.push_back(c);
+    }
+
+    void
+    Window::clear()
+    {
+        m_components.clear();
     }
 
     void

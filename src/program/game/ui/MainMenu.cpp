@@ -24,11 +24,20 @@
 namespace rr
 {
 
-    MainMenu::MainMenu() :
-      m_title  (Text  (sf::Vector2f(0, 0), "PAhAom"             , Resources::font.Pixel       , 100, sf::Color::Yellow)),
-      m_version(Text  (sf::Vector2f(0, 0), Program::getVersion(), Resources::font.FinalFantasy,  50, sf::Color::Yellow)),
-      m_wMenu  (Window("", sf::Vector2f(248, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225)))
+    MainMenu::MainMenu()
     {
+        reset();
+    }
+
+    void
+    MainMenu::reset()
+    {
+        m_wMenu.clear();
+
+        m_title   = Text(sf::Vector2f(0, 0), "PAhAom", Resources::font.Pixel, 100, sf::Color::Yellow);
+        m_version = Text(sf::Vector2f(0, 0), Program::getVersion(), Resources::font.FinalFantasy, 50, sf::Color::Yellow);
+        m_wMenu   = Window("", sf::Vector2f(248, 454), sf::Vector2f(25, Settings::graphics.resolution.y/2-225));
+
         m_backTexture.loadFromFile("data/graphics/menubkg.png");
         m_background.setTexture(&m_backTexture);
         m_background.setSize(sf::Vector2f(Settings::graphics.resolution.y*(16.f/9.f),

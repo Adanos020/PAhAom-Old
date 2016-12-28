@@ -17,29 +17,39 @@
 namespace rr
 {
 
-    PauseMenu::PauseMenu() :
-      m_title  (Text  (sf::Vector2f(0, 0), "PAhAom"             , Resources::font.Pixel       , 100, sf::Color::Yellow)),
-      m_version(Text  (sf::Vector2f(0, 0), Program::getVersion(), Resources::font.FinalFantasy,  50, sf::Color::Yellow)),
-      m_wMenu  (Window("", sf::Vector2f(244, 230), sf::Vector2f(25, Settings::graphics.resolution.y/2-153))            )
+    PauseMenu::PauseMenu()
     {
+        reset();
+    }
+
+    void
+    PauseMenu::reset()
+    {
+        m_wMenu.clear();
+
+        m_title   = Text(sf::Vector2f(0, 0), "PAhAom", Resources::font.Pixel, 100, sf::Color::Yellow);
+        m_version = Text(sf::Vector2f(0, 0), Program::getVersion(), Resources::font.FinalFantasy, 50, sf::Color::Yellow);
+        m_wMenu   = Window("", sf::Vector2f(244, 230), sf::Vector2f(25, Settings::graphics.resolution.y/2-153));
+
         m_shadow.setSize((sf::Vector2f) Settings::graphics.resolution);
         m_shadow.setPosition(sf::Vector2f(0, 0));
         m_shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
-        m_title  .setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-m_title  .getSize().x/2,  10));
-        m_version.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2-m_version.getSize().x/2, 100));
+        m_title.setPosition(sf::Vector2f(Settings::graphics.resolution.x / 2 - m_title.getSize().x/2, 10));
+        m_version.setPosition(sf::Vector2f(Settings::graphics.resolution.x / 2 - m_version.getSize().x/2, 100));
 
         m_wMenu += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.resume" ], 52);
         m_wMenu += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.help"   ], 52);
         m_wMenu += new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"   ], 52);
         for (int i = 0; i < 3; i++)
         {
-            m_wMenu.getComponent <Button> (i)->setPosition(m_wMenu.getPosition() + sf::Vector2f(m_wMenu.getSize().x/2 - m_wMenu.getComponent <Button> (i)->getSize().x/2,
-                                                        5 + i*75));
+            m_wMenu.getComponent <Button> (i)->setPosition(m_wMenu.getPosition()
+                                                + sf::Vector2f(m_wMenu.getSize().x/2 - m_wMenu.getComponent <Button> (i)->getSize().x/2, 5 + i*75));
         }
 
-        auto wHelp = new Window(Resources::dictionary["gui.button.help"], sf::Vector2f(325, 454), sf::Vector2f(Settings::graphics.resolution.x   - 350,
-                                                                                                               Settings::graphics.resolution.y/2 - 225));
+        auto wHelp = new Window(Resources::dictionary["gui.button.help"], sf::Vector2f(325, 454),
+                                sf::Vector2f(Settings::graphics.resolution.x   - 350,
+                                             Settings::graphics.resolution.y/2 - 225));
         {
             *wHelp += new Text(sf::Vector2f(20, 25), "Pro tip:",                                  Resources::font.Unifont, 30, sf::Color::Yellow);
             *wHelp += new Text(sf::Vector2f(20, 55), Resources::dictionary["gui.text.killurslf"], Resources::font.Unifont, 30, sf::Color::Red);

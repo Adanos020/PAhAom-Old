@@ -15,11 +15,21 @@
 namespace rr
 {
 
-    Attributes::Attributes() :
-      m_wAttr (Window(Resources::dictionary["gui.window.attributes"], sf::Vector2f(900, 310), (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(450, 155)))
+    Attributes::Attributes()
     {
-        m_shadow.setSize     ((sf::Vector2f) Settings::graphics.resolution);
-        m_shadow.setPosition (sf::Vector2f(0, 0));
+        reset();
+    }
+
+    void
+    Attributes::reset()
+    {
+        m_wAttr.clear();
+
+        m_wAttr = Window(Resources::dictionary["gui.window.attributes"], sf::Vector2f(900, 310),
+                         (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(450, 155));
+
+        m_shadow.setSize((sf::Vector2f) Settings::graphics.resolution);
+        m_shadow.setPosition(sf::Vector2f(0, 0));
         m_shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
         m_wAttr += new Text(sf::Vector2f(10,  25), Resources::dictionary["player.attributes.health"      ]  +":\n"

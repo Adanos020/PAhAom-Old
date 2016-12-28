@@ -24,14 +24,24 @@ namespace rr
 {
 
     Inventory::Inventory(Player* p) :
-      m_wInve (Window(Resources::dictionary["gui.window.inventory"], sf::Vector2f(765, 470), (sf::Vector2f) (Settings::graphics.resolution/2u - sf::Vector2u(382, 225)))),
       m_player(p),
       m_bronze(0),
       m_silver(0),
       m_gold  (0)
     {
-        m_shadow.setSize     ((sf::Vector2f) Settings::graphics.resolution);
-        m_shadow.setPosition (sf::Vector2f(0, 0));
+        reset();
+    }
+
+    void
+    Inventory::reset()
+    {
+        m_wInve.clear();
+
+        m_wInve = Window(Resources::dictionary["gui.window.inventory"], sf::Vector2f(765, 470),
+                         (sf::Vector2f) (Settings::graphics.resolution / 2u - sf::Vector2u(382, 225)));
+
+        m_shadow.setSize((sf::Vector2f) Settings::graphics.resolution);
+        m_shadow.setPosition(sf::Vector2f(0, 0));
         m_shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
         for (int i = 0; i < 4; ++i)
@@ -76,7 +86,6 @@ namespace rr
         {
             m_sCarryOn[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(Settings::graphics.resolution.x-90, Settings::graphics.resolution.y/2-250 + i*95));
         }
-
     }
 
     Inventory::~Inventory()
@@ -288,11 +297,18 @@ namespace rr
                 // HANDLING THE ITEM INFO WINDOW
                 if (!wOpts.isVisible() && slotPointed)
                 {
-                    component(wInfo, Text, 0)->setString(((Slot*)wInfo.getParentComponent())->getItem()->getDescription());
-                    component(wInfo, Text, 0)->wrap     ((wInfo.getHeader().getSize().x>=300.f) ? wInfo.getHeader().getSize().x+10 : 300.f);
+                    component(wInfo, Text, 0)->setString(((Slot*) wInfo.getParentComponent())->getItem()->getDescription());
+                    component(wInfo, Text, 0)->wrap     ((wInfo.getHeader().getSize().x >= 300.f) ? wInfo.getHeader().getSize().x + 10 : 300.f);
 
-                    wInfo.setHeader  (((Slot*)wInfo.getParentComponent())->getItem()->getName());
-                    wInfo.setSize    (component(wInfo, Text, 0)->getSize() + sf::Vector2f(10, 30));
+                    wInfo.setHeader(((Slot*) wInfo.getParentComponent())->getItem()->getName());
+                    if (wInfo.getHeader().getSize().x > component(wInfo, Text, 0)->getSize().x)
+                    {
+                        wInfo.setSize(wInfo.getHeader().getSize() + sf::Vector2f(10, 10 + component(wInfo, Text, 0)->getSize().y));
+                    }
+                    else
+                    {
+                        wInfo.setSize(component(wInfo, Text, 0)->getSize() + sf::Vector2f(10, 30));
+                    }
                     wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw) + sf::Vector2f(5, 5));
 
                     if (wInfo.getPosition().x+wInfo.getSize().x+5 > (float) rw.getSize().x)

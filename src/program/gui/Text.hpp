@@ -8,6 +8,7 @@
 #define GUI_TEXT_HPP
 
 #include "Component.hpp"
+#include "../Resources.hpp"
 
 namespace rr
 {
@@ -24,12 +25,14 @@ namespace rr
     public:  ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
              ////////////////////////////////////////////////////////////////////////
-             Text(sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Bold);
-             
+             Text(sf::String = "", sf::Font& = Resources::font.Unifont, unsigned chsize = 30, sf::Color = sf::Color::White,
+                  sf::Text::Style = sf::Text::Bold);
+
              ////////////////////////////////////////////////////////////////////////
              /// \brief Regular constructor.
              ////////////////////////////////////////////////////////////////////////
-             Text(sf::Vector2f position, sf::String, sf::Font&, unsigned chsize = 30, sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Bold);
+             Text(sf::Vector2f position, sf::String = "", sf::Font& = Resources::font.Unifont, unsigned chsize = 30,
+                  sf::Color = sf::Color::White, sf::Text::Style = sf::Text::Bold);
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the text's body's position.

@@ -1,15 +1,15 @@
 ;------------GUI------------;
 gui.button.newgame
-HOBA TVA
+HOBA TFA
 
 gui.button.resume
 BĖČHYB
 
 gui.button.save
-ČATŨW
+ČATŨV
 
 gui.button.load
-BYBITANJ
+BYBITAṄ
 
 gui.button.options
 OTUJE
@@ -21,176 +21,176 @@ gui.button.credits
 AỲOXIBI
 
 gui.button.quit
-VBINJYJ
+FBIṄYJ
 
 gui.button.game
-TVA
+TFA
 
 gui.button.graphical
-TVADŨQA
+TFADŨQA
 
 gui.button.sound
 YJBJEHQ
 
 gui.button.controls
-CTEPOBAHJE
+CTEPOBAḢE
 
 gui.checkbox.fullscreen
 TELHBI EQPAH
 
 gui.checkbox.vsync
-CBIHXPOHJŨČAÙJĖR TJEHOBA
+CBIHXPOḢŨČAÙJĖR TJEHOBA
 
 gui.menu.equip
-ČALYXJ
+ČALYẊ
 
 gui.menu.drink
-VBITŨNJ
+FBITŨṄ
 
 gui.menu.eat
-ČJEÙ
+ĊEÙ
 
 gui.menu.read
-TXÍEỲBITANJ
+TXÍEỲBITAṄ
 
 gui.menu.use
-YXJBINJ
+YẊBIṄ
 
 gui.menu.move_to_carryon
-AÒ TOÀTVEHYHETO
+AÒ TOÀTFEHYHETO
 
 gui.menu.drop
-VBIXÍYJ
+FBIXÍYJ
 
 gui.text.resolution
-POČÝELÝOWJYJ
+POČÝELÝOVJYJ
 
 gui.text.language
 JEHČBIQ
 
 gui.text.killurslf
-Wjeh čabũnj.
+Vjeh čabũṅ.
 
 gui.text.programming
-TVOTVAMOBAHJE
+TFOTFAMOBAḢE
 
 gui.text.soundtrack
-WJYJEHXJQA YJBJEHQOBA
+VJYJEHẊQA YJBJEHQOBA
 
 gui.text.literary_support
 OTŨCĖBI, AJĖRLOTŨ, ŨTT.
 
 gui.text.testers
-TECTOBAHJE
+TECTOBAḢE
 
 gui.text.usedlib
-YXJBITA BŨBLJETEQA
+YẊBITA BŨBLJETEQA
 
 gui.text.music
 MYČBIQA
 
 gui.text.effects
-EDEQTVI
+EDEQTFI
 
 gui.text.mute
-VBÍYJŨW
+FBÍYJŨV
 
 gui.text.move_up
 B typeh nyj
 
-gui.text.move_down
+gui.text.move_dovn
 B aỳl nyj
 
 gui.text.move_left
 B lebo nyj
 
 gui.text.move_right
-Bė tvabo nyj
+Bė tfabo nyj
 
 gui.text.interact
-Yjėrlanj
+Yjėrlaṅ
 
 gui.text.attack
-Ataqynj
+Ataqyṅ
 
 gui.text.pickup
-Toàhjewjé
+Toàḣevjé
 
 gui.text.open_inventory
 Eqbũtyheq
 
 gui.text.open_attributes
-Atvbibytvi
+Atfbibytfi
 
 gui.text.open_journal
-Yjehhjũq
+Yjehḣũq
 
 gui.text.open_map
 Mata
 
 gui.text.open_bookOfSpells
-Qwjehta čaqlehyj
+Qvjehta čaqlehyj
 
 gui.text.useslot_1
-Cxobqa 1 yxjbinj
+Cxobqa 1 yẋbiṅ
 
 gui.text.useslot_2
-Cxobqa 2 yxjbinj
+Cxobqa 2 yẋbiṅ
 
 gui.text.useslot_3
-Cxobqa 3 yxjbinj
+Cxobqa 3 yẋbiṅ
 
 gui.text.useslot_4
-Cxobqa 4 yxjbinj
+Cxobqa 4 yẋbiṅ
 
 gui.text.useslot_5
-Cxobqa 5 yxjbinj
+Cxobqa 5 yẋbiṅ
 
 gui.text.press_a_key
-Qlabũw hayjnwjėhjũnj.
+Qlabũv hayjnvjėḣũṅ.
 
 gui.text.generating_world
-Tehepobahje hobeto wjėbjėrta.
+Tehepobaḣe hobeto vjėbjėrta.
 
 gui.text.you_died
-TOLETLEWJĖ.
+TOLETLEVJĖ.
 
-gui.window.attributes
-ATVBIBYTVI
+gui.vindov.attributes
+ATĖFBIBYTFI
 
-gui.window.inventory
+gui.vindov.inventory
 EQBŨTYHEQ
 
-gui.window.journal
-YJEHHJŨQ
+gui.vindov.journal
+YJEHḢŨQ
 
-gui.window.game_map
+gui.vindov.game_map
 MATA
 
-gui.window.bookOfSpells
-QWJEHTA ČAQLEHYJ
+gui.vindov.bookOfSpells
+QVJEHTA ČAQLEHYJ
 
 ;------------ITEMS-------------;
 item.enchantment.name.cursed
-txíeqlehtvi
+txíeqlehtfi
 
 item.enchantment.description.cursed
-Teh txíeamjet txíeqlehtvi ject.
+Teh txíeamjet txíeqlehtfi ject.
 
 item.requirement.item
-Vbimatahbi txíeamjet:
+Fbimatahbi txíeamjet:
 
 item.requirement.strength
-Vbimataha wjũla:
+Fbimataha vjũla:
 
 item.requirement.dexterity
-Vbimataha čpehyhowjyj:
+Fbimataha čpehyhovjyj:
 
 item.weapon.damage_dealt
-Maqėcbimalhe ovpaxjehjėr:
+Maqėcbimalhe ofpaẋeḣėr:
 
 item.weapon.level
-Točjem yletwehjėr:
+Toċem yletveḣėr:
 
 item.ammunition.name.arrow
 Cėtxíala
@@ -205,16 +205,16 @@ item.ammunition.name.dart
 Cėtxíalqa č qypapoh
 
 item.ammunition.description.arrow
-Amyhjnujėr ala lyqy. Č točopy tvocėtvi qabaleq apebha tvotem čaqohjyohbi, jeahaq tvoàyqujėr aòbėvbix cėtxíal búale taqa tvocta hjeject.
+Amyḣnujėr ala lyqy. Č točopy tfocėtfi qabaleq apebha tfotem čaqoḣyohbi, jeahaq tfoàyqujėr aòbėfbix cėtxíal búale taqa tfocta ḣeject.
 
 item.ammunition.description.bolt
-Amyhjnujėr aò qywbi. Č tebhowjyjeh qomtlethjũ lanubi belt č cėtxíaloh tombilnyj vbi mytl.
+Amyḣnujėr aò qyvbi. Č tebhovjyjeh qomtletḣũ lanubi belt č cėtxíaloh tombilnyj fbi mytl.
 
 item.ammunition.description.rocks
-Otoyaqn ũ xíeỳhe qambiqũ b oàtobjeahjũm qvtalyje, jėrqo amyhjnujėr aòtvoùbi vbiqoxibictvibahe.
+Otoyaqn ũ xíeỳhe qambiqũ b oàtobjeaḣũm qftalyje, jėrqo amyḣnujėr aòtfoùbi fbiqoxibictfibahe.
 
 item.ammunition.description.dart
-Hacohýohe tvÿjnčhoh cėtxíalqũ aòxíyûahjėr be vpota. Vpohj ũ hjetočopha vbíyj moxje, ale b oàtobjeahjũx pehqax bapuo yxjbiteyha vbíyj moxje.
+Hacohýohe tfÿjnčhoh cėtxíalqũ aòxíyûaḣėr be fpota. Fpoḣ ũ ḣetočopha fbíyj moẋe, ale b oàtobjeaḣũx pehqax bapuo yẋbiteyha fbíyj moẋe.
 
 item.ammunition.name.shuriken
 Šuriqen
@@ -223,73 +223,73 @@ item.ranged_weapon.name.bow
 Lyq
 
 item.ranged_weapon.name.crossbow
-Qywa
+Qyva
 
 item.ranged_weapon.name.slingshot
-Tvoûa
+Tfoûa
 
-item.ranged_weapon.name.bellows
+item.ranged_weapon.name.bellovs
 Amyxabqa
 
 item.ranged_weapon.description.bow
-Vpohj hjemal taq ctapa jėrq lyùqowjyj, hawemy tatyhqobũ oà čapahjėr yjenjyb tobaxibiwbi, čė toyohtqy tvilqo ha tolobajėrx, totem taqxje ha bonjhje. Qohceqbehujeh teto daqty ũcėthjehje bjely tvityb lyqyb ject, ht. pedleqcėbinjhbix ybi qomtočbitovbix.
+Fpoḣ ḣemal taq ctapa jėrq lyùqovjyj, havemy tatyhqobũ oà čapaḣėr yjeṅyb tobaxibivbi, čė toyohtqy tfilqo ha tolobajėrx, totem taqẋe ha boṅḣe. Qohceqbehujeh teto daqty ũcėtḣeḣe bjely tfityb lyqyb ject, ht. pedleqcėbiṅhbix ybi qomtočbitofbix.
 
 item.ranged_weapon.description.crossbow
-Vpohj cėtxíelnya ýehcto yxjbibaha txíeč mjenjcqje mũlnuje, bapúo tvočjha vbíyj totvadũ. Belt č aòvpenj qywbi čévpojeh tėlbitoboh txíebnyj moxje.
+Fpoḣ cėtxíelnya ýehcto yẋbibaha txíeč mjeṅcqje mũlnuje, bapúo tfoċha fbíyj totfadũ. Belt č aòfpeṅ qyvbi čéfpojeh tėlbitoboh txíebnyj moẋe.
 
 item.ranged_weapon.description.slingshot
-Qolenjha vpohj, qtypenj toŷohtqũ bė tompoûe yjenjyb tũhoh. Tvoûa vbicėtxíelũbaỳj b cėtvoheh vpota qamjehje ũ toaòbhe toyjncéqũ točbala.
+Qoleṅha fpoḣ, qtypeṅ toŷohtqũ bė tompoûe yjeṅyb tũhoh. Tfoûa fbicėtxíelũbaỳj b cėtfoheh fpota qamjeḣe ũ toaòbhe toyjncéqũ točbala.
 
-item.ranged_weapon.description.bellows
-Aó vbitywýahjėr čatvytvix cėtxíaleq clyxjbi. Vpohj naèalha aòvbiqobahjėr čacaûeq b lewje!
+item.ranged_weapon.description.bellovs
+Aó fbityvýaḣėr čatfytfix cėtxíaleq clyẋbi. Fpoḣ naèalha aòfbiqobaḣėr čacaûeq b levje!
 
 item.ring.color.red
-Tjepwjyjehj čė tvahatem
+Tjepvjyjeḣ čė tfahatem
 
 item.ring.color.blue
-Tjepwjyjehj č wadũpem
+Tjepvjyjeḣ č vadũpem
 
 item.ring.color.brown
-Tjepwjyjehj č tanhjũtem
+Tjepvjyjeḣ č tanḣũtem
 
 item.ring.color.green
-Tjepwjyjehj čė wmapataem
+Tjepvjyjeḣ čė vmapataem
 
 item.ring.color.cyan
-Tjepwjyjehj č typqycem
+Tjepvjyjeḣ č typqycem
 
 item.ring.color.orange
-Tjepwjyjehj č tepoabitem
+Tjepvjyjeḣ č tepoabitem
 
 item.ring.color.magenta
-Tjepwjyjehj č pybũhem
+Tjepvjyjeḣ č pybũhem
 
 item.ring.color.yellow
-Tjepwjyjehj č ubitvbihem
+Tjepvjyjeḣ č ubitfbihem
 
 item.ring.color.white
-Tjepwjyjehj č ajėrmehtem
+Tjepvjyjeḣ č ajėrmehtem
 
 item.ring.type.health
-Tjepwjyjehj bũtalhowjyjn
+Tjepvjyjeḣ bũtalhovjyjn
 
 item.ring.type.magic
-Tjepwjyjehj mohapowjyjn
+Tjepvjyjeḣ mohapovjyjn
 
 item.ring.type.strength
-Tjepwjyjehj moùbi
+Tjepvjyjeḣ moùbi
 
 item.ring.type.dexterity
-Tjepwjyjehj čbũȟowjyjn
+Tjepvjyjeḣ čbũȟovjyjn
 
 item.ring.type.accuracy
-Tjepwjyjehj ctocėtxíetabýowjyjn
+Tjepvjyjeḣ ctocėtxíetabýovjyjn
 
 item.ring.type.speed
-Tjepwjyjehj tläqũx pyxyb
+Tjepvjyjeḣ tläqũx pyxyb
 
 item.ring.type.quest_swordsman
-Tjepwjyjehj dexmũcėctxía
+Tjepvjyjeḣ dexmũcėctxía
 
 item.ring.description.unknown
 
@@ -316,157 +316,157 @@ item.ring.description.quest_swordsman
 
 
 item.book.type.crafting
-«Toàctavbi vbitvaxíahjėr»
+«Toàctafbi fbitfaxíaḣėr»
 
 item.book.type.alchemy
-«Toàctavbi alxemjũ»
+«Toàctafbi alxemjũ»
 
 item.book.type.melee_weapon_mastery
-«Qwjehta dexmũcėtxíyb»
+«Qvjehta dexmũcėtxíyb»
 
 item.book.type.ranged_weapon_mastery
-«Qwjehta cėtxíelúyb»
+«Qvjehta cėtxíelúyb»
 
 item.book.type.eagle_eye
-«Bjehúenj bnyjeyj»
+«Bjehúeṅ bnyjeyj»
 
 item.book.type.mana_regen
-«Wtyqa meabitaùnjėn y.1 - matjėr»
+«Vtyqa meabitaùṅėn y.1 - matjėr»
 
 item.book.type.health_regen
-«Wtyqa meabitaùnjėn y.2 - čapobje»
+«Vtyqa meabitaùṅėn y.2 - čapobje»
 
 item.book.type.faster_learning
-«Topähjũq wbibqjenj hayqũ»
+«Topäḣũq vbibqjeṅ hayqũ»
 
 item.book.type.spells_book
-«Qwjehta čaqlehyj»
+«Qvjehta čaqlehyj»
 
 item.book.description.crafting
-Qomtleqcovbi topähjũq ala toŷohtqyjehubix manjctepqobnybi ũ člotvix pohýeq, qtyvbi toàctab vbitvaxíahjėr pyxjhbix txíeàmjetyb yjeh haÿbi.
+Qomtleqcofbi topäḣũq ala toŷohtqyjehubix maṅctepqobnybi ũ člotfix pohýeq, qtyfbi toàctab fbitfaxíaḣėr pyẋhbix txíeàmjetyb yjeh haÿbi.
 
 item.book.description.alchemy
-Yjehqũ tenj qwjehúe txibíäthowjyjn bwelaqũx čjyleq ybi cklähjũqyb točbicqũbahbix č totvopyb aòcėtxíexjew ũ blache mũqėctyvbi tvoxibíyj mytl behyjew.
+Yjehqũ teṅ qvjehúe txibíäthovjyjn bvelaqũx ċyleq ybi ckläḣũqyb točbicqũbahbix č totfopyb aòcėtxíeẋev ũ blache mũqėctyfbi tfoxibíyj mytl behyjev.
 
 item.book.description.melee_weapon_mastery
-Maxahjėr mjeŷem jėrq úetem aòwjyj maw? Bė balue yjehtle oàvbibaw? Bė tvim topähjnqy hobe, bapyjenj čäbahcobahe texhjũqũ balqũ [yjehqũ qtyvbim bė wtyûe dextyhqy wjehtoàwqolũw] točhaw.
+Maxaḣėr mjeŷem jėrq úetem aòvjyj mav? Bė balue yjehtle oàfbibav? Bė tfim topäḣnqy hobe, bapyjeṅ čäbahcobahe texḣũqũ balqũ [yjehqũ qtyfbim bė vtyûe dextyhqy vjehtoàvqolũv] točhav.
 
 item.book.description.ranged_weapon_mastery
-Cétxíelahje č lyqy ybi č qywbi bahalhe búale hjeject. Jewjėlũ ha aòtvaûobahjy texhjũqũ n úelhowjyjn yjn čalexjbi - ta qwjehxjqa bapúo tomoùha wjehoqaxje.
+Cétxíelaḣe č lyqy ybi č qyvbi bahalhe búale ḣeject. Jevjėlũ ha aòtfaûobaḣy texḣũqũ n úelhovjyjn yjn čaleẋbi - ta qvjehẋqa bapúo tomoùha vjehoqaẋe.
 
 item.book.description.eagle_eye
-Qto tam? Jewjėlũ ha qpytqobčpoyhowjyj haxíeqaw to yjehqũ tenj qwjehúe céboje tole bnuehjėr towexibiw. Aóclobhje.
+Qto tam? Jevjėlũ ha qpytqobčpoyhovjyj haxíeqav to yjehqũ teṅ qvjehúe céboje tole bnueḣėr tovexibiv. Aóclobḣe.
 
 item.book.description.mana_regen
-Cbynj ymbicél oybiwjyj n oxlohj - texhjũqũ meabitaùbinjhe bė tenj qwjehúe čabapte tvojeh petehepaùjeh mahbi txibictjewoh.
+Cbyṅ ymbicél oybivjyj n oxloḣ - texḣũqũ meabitaùbiṅhe bė teṅ qvjehúe čabapte tfojeh petehepaùjeh mahbi txibictjevoh.
 
 item.book.description.health_regen
-Ta hatũcaha txíeč mhjũxyb č äleqnx qpanh - texhjũqũ ymoxjlũbjėrjehue yjn petepaùjeh oàhjewjehbix pah čabjepa.
+Ta hatũcaha txíeč mḣũxyb č äleqnx qpanh - texḣũqũ ymoẋlũbjėrjehue yjn petepaùjeh oàḣevjehbix pah čabjepa.
 
 item.book.description.faster_learning
-Yjehqũ texhjũqom wbibqjeto ybitahjėr čabapétvix bė tenj qwjehúe - wbibyjenj bjeúeh txibicbajėrw.
+Yjehqũ texḣũqom vbibqjeto ybitaḣėr čabapétfix bė teṅ qvjehúe - vbibyjeṅ bjeúeh txibicbajėrv.
 
 item.book.description.spells_book
-Oá aòtviqy tenj qwjehtũ yjeh talúe émpobjeh. To qwjehta čaqlehyj vbiyj mywjũ! Tvitahje - úo ča matjėr b wjépoàqy wjehqévbije?
+Oá aòtfiqy teṅ qvjehtũ yjeh talúe émpobjeh. To qvjehta čaqlehyj fbiyj myvjũ! Tfitaḣe - úo ča matjėr b vjépoàqy vjehqéfbije?
 
 item.coin.gold
-Člotvi
+Člotfi
 
 item.coin.silver
-Cpevphjũq
+Cpefpḣũq
 
 item.coin.bronze
 Mjeyjėrq
 
 item.potion.effect.healing
-Mũqėctypa leyhjnya
+Mũqėctypa leyḣnya
 
 item.potion.effect.magic
 Mũqėctypa matnyha
 
 item.potion.effect.strength
-Mũqėctypa wjėlũbi
+Mũqėctypa vjėlũbi
 
 item.potion.effect.dexterity
-Mũqėctypa čpehyhowjyjn
+Mũqėctypa čpehyhovjyjn
 
 item.potion.effect.speed
-Mũqėctypa wbibqowjyjn
+Mũqėctypa vbibqovjyjn
 
 item.potion.effect.poison
-Mũqėctypa čatvÿjėr
+Mũqėctypa čatfÿjėr
 
 item.potion.effect.regeneration
-Mũqėctypa petehepaùnjėn
+Mũqėctypa petehepaùṅėn
 
 item.potion.effect.slowness
-Mũqėctypa cėtobolhjehjėr
+Mũqėctypa cėtobolḣeḣėr
 
 item.potion.effect.weakness
-Mũqėctypa oclabjehjėr
+Mũqėctypa oclabjeḣėr
 
 item.potion.color.red
-Ýevboha mũqėctypa
+Ýefboha mũqėctypa
 
 item.potion.color.blue
-Hjebjecqa mũqėctypa
+Ḣebjecqa mũqėctypa
 
 item.potion.color.brown
-Vpohčoba mũqėctypa
+Fpohčoba mũqėctypa
 
 item.potion.color.green
-Čjeloha mũqėctypa
+Ċeloha mũqėctypa
 
 item.potion.color.cyan
 Ubijėrhoba mũqėctypa
 
 item.potion.color.pink
-Pyxjoba mũqėctypa
+Pyẋoba mũqėctypa
 
 item.potion.color.magenta
 Mayehtoba mũqėctypa
 
 item.potion.color.yellow
-Xjylta mũqėctypa
+Ẋylta mũqėctypa
 
 item.potion.color.white
 Bjėrla mũqėctypa
 
 item.potion.description.unknown
-Qolopoba byteleyqa - a moxje to hatynj b wjépoàqy? Qto to bjeyjeyj moxje, jėrqũ edeqt vbitnyje tenj mũqėctyvbi txibihjewje?
+Qolopoba byteleyqa - a moẋe to hatyṅ b vjépoàqy? Qto to bjeyjeyj moẋe, jėrqũ edeqt fbitnyje teṅ mũqėctyfbi txibiḣevje?
 
 item.potion.description.healing
-Ta mũqėctypa tvoje pahbi čacqletũ ũ tehepalhje cqytqũ ctapyj č hanjpyxjhjenjwbimũ txíeyjnbhjnqamũ čalatoyjnyj wjehtoctapa.
+Ta mũqėctypa tfoje pahbi čacqletũ ũ tehepalḣe cqytqũ ctapyj č haṅpyẋḣeṅvbimũ txíeyjnbḣnqamũ čalatoyjnyj vjehtoctapa.
 
 item.potion.description.magic
-Qaxjaeto yacem cywbi - matyb texj! Xjevbi ytawjėnyj tvathjehje yjũcqahjėr bė vpotyb bėlbicqabnuamũ - teh mũqėctypeh ctoxjbinj ũ cboje čacovbi moúbi matnyhenj čpetehepynj.
+Qaẋaeto yacem cyvbi - matyb teẋ! Ẋefbi ytavjėnyj tfatḣeḣe yjũcqaḣėr bė fpotyb bėlbicqabnuamũ - teh mũqėctypeh ctoẋbiṅ ũ cboje čacofbi moúbi matnyheṅ čpetehepyṅ.
 
 item.potion.description.strength
-Jewjėlũ ÿjew, xje octathjũmũ yacbi čévbit xíäqo wjũlobhjeh oábjeûaw, a bėlbicqabnyhje txibitaqobayj totxíebyjew - teh hatynj ala yjebje ject.
+Jevjėlũ ÿjev, ẋe octatḣũmũ yacbi čéfbit xíäqo vjũlobḣeh oábjeûav, a bėlbicqabnyḣe txibitaqobayj totxíebyjev - teh hatyṅ ala yjebje ject.
 
 item.potion.description.dexterity
-Hjeqtype cbityaùje bė xjbiyjy towyqũbaya txibitýa tvoxeh hječpehyhe coh. Avbi ũx yhjũqhohyj teh hatynj ctoxjbinj: +x tyhqtyb čpehyhowjyjn (b čalexjhowjyjn oà bjelqowjyjn bytelqũ).
+Ḣeqtype cbityaùje bė ẋbiyjy tovyqũbaya txibitýa tfoxeh ḣečpehyhe coh. Afbi ũx yḣũqhohyj teh hatyṅ ctoẋbiṅ: +x tyhqtyb čpehyhovjyjn (b čaleẋhovjyjn oà bjelqovjyjn bytelqũ).
 
 item.potion.description.speed
-Yjehxjqo ča tvehämũ, čloyjejėrmũ ybi totvopamũ tohjnyj ject - ta mũqėctypa tvojeh vbibqowjyj čbjehqėwbi ũ towjyjũt lyb ÿjeỳqeh ylatvũ.
+Yjehẋqo ča tfehämũ, čloyjejėrmũ ybi totfopamũ toḣnyj ject - ta mũqėctypa tfojeh fbibqovjyj čbjehqėvbi ũ tovjyjũt lyb ÿjeỳqeh ylatfũ.
 
 item.potion.description.poison
-Dynj! Taq tvilqo úowjė úo äbho temy čaexlo ũ wjehqohtayj ča xjbíyjėr hjelybũlo.
+Dyṅ! Taq tfilqo úovjė úo äbho temy čaexlo ũ vjehqohtayj ča ẋbíyjėr ḣelybũlo.
 
 item.potion.description.regeneration
-Aó telhjũ čapobjėr hjeyjnwjehcėtjewbi? Jewjėlũ tvoxeh yjeptlũbowjyjn maw - ta mũqėctypa ala yjebje ject!
+Aó telḣũ čapobjėr ḣeyjnvjehcėtjevbi? Jevjėlũ tfoxeh yjeptlũbovjyjn mav - ta mũqėctypa ala yjebje ject!
 
 item.potion.description.slowness
-Qolenjhbi hatynj qtypeto letjenj hjetnyj, xbiba xje dovbi tohjehubim yjeh totvopom äyj xúew.
+Qoleṅhbi hatyṅ qtypeto letjeṅ ḣetnyj, xbiba ẋe dofbi toḣehubim yjeh totfopom äyj xúev.
 
 item.potion.description.weakness
-Ctäeq dopėmbi dépycėtvyjehubi ject. Avbi to yhjũqhohyj hanjletjenj teh mũqėctypeh vbixíyj. Ctoxjbiyje wjũleh tvonx čaqlehyj n yjecyb čėmhjenjwa.
+Ctäeq dopėmbi dépycėtfyjehubi ject. Afbi to yḣũqhohyj haṅletjeṅ teh mũqėctypeh fbixíyj. Ctoẋbiyje vjũleh tfonx čaqlehyj n yjecyb čėmḣeṅva.
 
 item.meleeweapon.name.knife
-Hyxj qyxeȟbi
+Hyẋ qyxeȟbi
 
 item.meleeweapon.name.dagger
-Wėtvilet
+Vėtfilet
 
 item.meleeweapon.name.sword
 Mjeỳ
@@ -481,10 +481,10 @@ item.meleeweapon.name.axe
 Totyp Anqajosa
 
 item.meleeweapon.name.double_axe
-Tjehwjyj tvola
+Tjehvjyj tfola
 
 item.meleeweapon.name.spear
-Blÿhjėr Aresa
+Blÿḣėr Aresa
 
 item.meleeweapon.name.halberd
 Xalabapä
@@ -502,58 +502,58 @@ item.meleeweapon.name.hammer
 Qamjeȟbi mlot
 
 item.meleeweapon.name.runic_sword
-Pyhjnyhbi mjey
+Pyḣnyhbi mjey
 
 item.meleeweapon.description.knife
-Ýehwjyjenj bapúo yxjbiteỳhe ũ bwexcėtvoȟe haxíehyje hjũxj tvabyjnboh vpohj ctahobũ, ale n bė tvim úely to vbiqoxibictayj moxjha.
+Ýehvjyjeṅ bapúo yẋbiteỳhe ũ bvexcėtfoȟe haxíehyje ḣũẋ tfabyjnboh fpoḣ ctahobũ, ale n bė tfim úely to fbiqoxibictayj moẋha.
 
 item.meleeweapon.description.dagger
-Alyxjéwbi oà hoxja, vpohj céqvbitobynjúyb ũ xíečjũmjewqyb, naealha aò vbiqohbibahjėr taq čbahenj «yjnxenj pobotvi» ybi balqũ bė bohcėqũx ylnyqax.
+Alyẋévbi oà hoẋa, fpoḣ céqfbitobyṅúyb ũ xíeċũmjevqyb, naealha aò fbiqohbibaḣėr taq čbaheṅ «yjnxeṅ pobotfi» ybi balqũ bė bohcėqũx ylnyqax.
 
 item.meleeweapon.description.sword
-Ao tenj qatetopnjėn čalnybiyj vpohj pyxjhenj alytowjyjn moxjha, ale tvocte ocėtxíe n pehqojewjyj č jelúem ylatvjėrjehubim tapobahje je xapaqtevbičyje. Mjey cbimbolem ctatycy bojebhjũqa ýehcto vbil ũ vbicoqoh točbíujeh očhaŷal.
+Ao teṅ qatetopṅėn čalnybiyj fpoḣ pyẋheṅ alytovjyjn moẋha, ale tfocte ocėtxíe n pehqojevjyj č jelúem ylatfjėrjehubim tapobaḣe je xapaqtefbičyje. Mjey cbimbolem ctatycy bojebḣũqa ýehcto fbil ũ fbicoqoh točbíujeh očhaŷal.
 
 item.meleeweapon.description.serrated_sword
-Ovbitũhalhbi vbihalačeq qtypeto cqyteỳhowjyj oqačjeh cėtvabyjnyj mjėrl behyjew. Pybhje dahtactvíyhbi úo hjeqtype bectje čė qtyvbimũ yjn wjehmjexibíyj txibinjyje.
+Ofbitũhalhbi fbihalačeq qtypeto cqyteỳhovjyj oqaċeh cėtfabyjnyj mjėrl behyjev. Pybḣe dahtactfíyhbi úo ḣeqtype bectje čė qtyfbimũ yjn vjehmjexibíyj txibiṅyje.
 
 item.meleeweapon.description.club
-Jėrqa maÿta ject, qaxjabi bnyjn. Jenj txíečhayehjem ýaexíayj ject, a txíeỳjexj ýaexíehje obyxem bė tlobeh otlywbiyj moxje. Letehtapéhbi tvypúa tenj maÿtn čawjė clobo äl xje ta b otlywahjy cobje pybėhbix hjema.
+Jėrqa maÿta ject, qaẋabi bnyjn. Jeṅ txíečhayeḣem ýaexíayj ject, a txíeỳjeẋ ýaexíeḣe obyxem bė tlobeh otlyvbiyj moẋe. Letehtapéhbi tfypúa teṅ maÿtn čavjė clobo äl ẋe ta b otlyvaḣy cobje pybėhbix ḣema.
 
 item.meleeweapon.description.axe
-Totyp teh b oqolnuax tvyxla otvomheto yjnqa ibėwbi pač čhalečjeho, ale daqt xje ha ocėtxíy wjėläyb qévbũ čhayj hjevbilo cohyjnyj točbala, xje totxíeàhjũ blawjyjnyjel cboje čaòlhowjyjn xíyuahjėr be vpotyb taqoh vpohjeh hjeúo txíeûehjũl.
+Totyp teh b oqolnuax tfyxla otfomheto yjnqa ibėvbi pač čhaleċeho, ale daqt ẋe ha ocėtxíy vjėläyb qéfbũ čhayj ḣefbilo cohyjnyj točbala, ẋe totxíeàḣũ blavjyjnyjel cboje čaòlhovjyjn xíyuaḣėr be fpotyb taqoh fpoḣeh ḣeúo txíeûeḣũl.
 
 item.meleeweapon.description.double_axe
-Teh zbypehyhbi totyp o zbyx ocėtxíax txíepaxjajehúoh ũ totehxjhoh vpohjeh ject, qtypoh tvilqo hanjwjũlhjenjvbi bojebhjũq bė telhjũ vbiqoxibicta. Čaeùbíaòbahje ha cbojeh hačbeh čaclyxjbil.
+Teh zbypehyhbi totyp o zbyx ocėtxíax txíepaẋajehúoh ũ totehẋhoh fpoḣeh ject, qtypoh tfilqo haṅvjũlḣeṅfbi bojebḣũq bė telḣũ fbiqoxibicta. Čaeùbíaòbaḣe ha cbojeh hačbeh čaclyẋbil.
 
 item.meleeweapon.description.spear
-Iha č hanjctapėwbix vpohjũ wjėbjėrta, jeahaq hjex o jenj cqyteỳhowjyjn daqt towjėräýbi, xje byjehxj totylapha ject - hje tvilqo jėrqo vpohj macobo yxjbibaha txíeč ybotje oàyjėrėlbi tjexotvi. Teh blÿhjeh cam Byt Bonjhbi toblotoclabũl, vbi ha jeto xbaleh úelhje ũ moùho ýaexíala.
+Iha č haṅctapėvbix fpoḣũ vjėbjėrta, jeahaq ḣex o jeṅ cqyteỳhovjyjn daqt tovjėräýbi, ẋe byjehẋ totylapha ject - ḣe tfilqo jėrqo fpoḣ macobo yẋbibaha txíeč ybotje oàyjėrėlbi tjexotfi. Teh blÿḣeh cam Byt Boṅhbi toblotoclabũl, fbi ha jeto xbaleh úelḣe ũ moùho ýaexíala.
 
 item.meleeweapon.description.halberd
-Ta vpohj qȧxibixjybqeh blÿhjũ n totopa txibitomũha - lohýohu čaletvi ũx oby. Totylapha jėrqo vpohj mjenjcqũx mũlnunjėn, yjehqũ cbenj býaòbje tvočjhe haxíehyje bė pehqax čaòlheto bojebhjũqa ctahobnyj moxje.
+Ta fpoḣ qȧxibiẋybqeh blÿḣũ n totopa txibitomũha - lohýohu čaletfi ũx oby. Totylapha jėrqo fpoḣ mjeṅcqũx mũlnuṅėn, yjehqũ cbeṅ býaòbje tfoċhe haxíehyje bė pehqax čaòlheto bojebḣũqa ctahobnyj moẋe.
 
 item.meleeweapon.description.lance
-Vpohj axíebúoba qojėrxíoha č aòwjėräjehubim qohjũ vbicepėctvem, vbiqoxibictvibaha aòlamahjėr vbiqyb txíeyjnbhjũqa toàýac wapėxjbi qabalepjũ.
+Fpoḣ axíebúoba qojėrxíoha č aòvjėräjehubim qoḣũ fbicepėctfem, fbiqoxibictfibaha aòlamaḣėr fbiqyb txíeyjnbḣũqa toàýac vapėẋbi qabalepjũ.
 
 item.meleeweapon.description.pique
-Alyxjwa oà blÿhjũ, hanjletjenj bė čbapėtvim vbiqy tjexotvi jėrqo vbohj aedehcbibha wjehcėtvabúa. Cėtvil balqũ tũqũhjepyb aò ctapoxjbithenj taqtviqũ xotlũtyb ũ dalahtũtyb habjehčyje.
+Alyẋva oà blÿḣũ, haṅletjeṅ bė čbapėtfim fbiqy tjexotfi jėrqo fboḣ aedehcbibha vjehcėtfabúa. Cėtfil balqũ tũqũḣepyb aò ctapoẋbitheṅ taqtfiqũ xotlũtyb ũ dalahtũtyb habjehčyje.
 
 item.meleeweapon.description.long_stick
-Alytje lacqũ teto tvity č behapobėhbimũ matamũ ybi tjeltėxibimamũ hanjyehwjyjenj qojėrxíohe coh, a yjehqũ cbenj alytowjyjn ũ bwexcėtvoȟowjyjn ha txibimahje txíeyjnbhjũqa ha abictahc točbalajeh.
+Alytje lacqũ teto tfity č behapobėhbimũ matamũ ybi tjeltėxibimamũ haṅyehvjyjeṅ qojėrxíohe coh, a yjehqũ cbeṅ alytovjyjn ũ bvexcėtfoȟovjyjn ha txibimaḣe txíeyjnbḣũqa ha abictahc točbalajeh.
 
 item.meleeweapon.description.hammer
-Qamjehj yjehxjqũ ject - mlot texj. Bobeù teto qamjeȟbi mlot ajėrbelhje yjehxjqoh ũ tobolhoh vpohjeh vbiyj mywjũ, qtypoh xbiba tvilqo qtowj o hjelyúqjenj wjũle wjehtoclytyje.
+Qamjeḣ yjehẋqũ ject - mlot teẋ. Bobeù teto qamjeȟbi mlot ajėrbelḣe yjehẋqoh ũ tobolhoh fpoḣeh fbiyj myvjũ, qtypoh xbiba tfilqo qtovj o ḣelyúqjeṅ vjũle vjehtoclytyje.
 
 item.meleeweapon.description.runic_sword
-Teh aòcqohale vbiqytvi ũ vbibaxjehbi mjey mjenjcúe ha matnyhoh pyheh [qtypa my aòätqobe, cteùjėrélhe blawjyjnbowjyn čatebhjũ] towjėrå.
+Teh aòcqohale fbiqytfi ũ fbibaẋehbi mjey mjeṅcúe ha matnyhoh pyheh [qtypa my aòätqobe, cteùjėrélhe blavjyjnbovjyn čatebḣũ] tovjėrå.
 
 item.food.name.meat
-Qabaleq wbihqũ
+Qabaleq vbihqũ
 
 item.food.name.sandvich
-Sandwičj
+Sandviċ
 
 item.food.name.apple
-Otvomhe jėrbėlqo
+Otfomhe jėrbėlqo
 
 item.food.name.beer
 Tũbo
@@ -568,28 +568,28 @@ item.food.name.baguette
 Batjetqa
 
 item.food.description.meat
-Ala vbitloàhjėrleto towyqũbaŷa txibitýa to tvabyjnwbi pavbitac vbíyj mywjũ. Habet le'qo toàbehúoha ject!
+Ala fbitloàḣėrleto tovyqũbaŷa txibitýa to tfabyjnvbi pafbitac fbíyj myvjũ. Habet le'qo toàbehúoha ject!
 
 item.food.description.sandvich
-Zbíe tanjabi xleba ũ cqlähjũqũ aòbolheto poûanjy tomjehubi hjũmũ. Qahatqũ bė pybėhbim cėtotnjy úo lÿje oà wjebje wjehpyxjhjeh.
+Zbíe taṅabi xleba ũ cqläḣũqũ aòbolheto poûaṅy tomjehubi ḣũmũ. Qahatqũ bė pybėhbim cėtotṅy úo lÿje oà vjebje vjehpyẋḣeh.
 
 item.food.description.apple
-Hjex to, jėrblohj qtypa teh oboù čpoyjnla olbximbi xoaòbayj mywjėrlbi! Teh oboù bjelqowjyjn abihjũ bėwbicėtqje baptowjyjn oàxjbibýe jėrbėlqa oýbiybiwjyje čabjepa.
+Ḣex to, jėrbloḣ qtypa teh oboù čpoyjnla olbximbi xoaòbayj myvjėrlbi! Teh oboù bjelqovjyjn abiḣũ bėvbicėtqje baptovjyjn oàẋbibýe jėrbėlqa oýbiybivjyje čabjepa.
 
 item.food.description.beer
-Cetqũ tatyhqyb tũb ũcėthjejeh xoỳjėrxj, hjũqt aò qohjúa tebėhbi hjeject, úo bė tvix loxax baxíoh. A moxje to č ũmétopty? Teto totylapheto tvyhqy cėtvybobayj točoctaje.
+Cetqũ tatyhqyb tũb ũcėtḣejeh xoỳjėrẋ, ḣũqt aò qoḣúa tebėhbi ḣeject, úo bė tfix loxax baxíoh. A moẋe to č ũmétopty? Teto totylapheto tfyhqy cėtfybobayj točoctaje.
 
 item.food.description.hot_dog
-Tapybqa bė bylúe, aò teto byqjet cypybeq. Oýbiybiwjyje ha yjetlo hanjletwe.
+Tapybqa bė bylúe, aò teto byqjet cypybeq. Oýbiybivjyje ha yjetlo haṅletve.
 
 item.food.description.hamburger
-Qotlet čė zbyx cėtvoh bylqoh otoŷohbi, aò teto bapúo oqačalbi. Mhotowjyj aòätqyb tvoje cepúe ũ xjolohaeq päyje.
+Qotlet čė zbyx cėtfoh bylqoh otoŷohbi, aò teto bapúo oqačalbi. Mhotovjyj aòätqyb tfoje cepúe ũ ẋolohaeq päyje.
 
 item.food.description.baguette
-Cbeto ýacy totylaphbi towjũleq xjolhjexibi b apėmnjėn hatoleohjcqjenj qtypa to b wjébjėrt čahjecla. To y čjpyael totylaphowjyjn tenj alytjenj n yjehqjenj bylqũ lexjbi.
+Cbeto ýacy totylaphbi tovjũleq ẋolḣexibi b apėmṅėn hatoleoḣcqjeṅ qtypa to b vjébjėrt čaḣecla. To y ċpyael totylaphovjyjn teṅ alytjeṅ n yjehqjeṅ bylqũ leẋbi.
 
 item.spell.symbol.shcha
-Pyha «šjčja»
+Pyha «ṡċa»
 
 item.spell.symbol.jus
 Pyha «jus»
@@ -625,22 +625,22 @@ item.spell.symbol.izhitsa
 Pyha «ižyca»
 
 item.spell.type.heal
-Leŷehje
+Leŷeḣe
 
 item.spell.type.firebolt
-Othjũcėtvi belt
+Otḣũcėtfi belt
 
 item.spell.type.lightning
 Tjepyh
 
 item.spell.type.iceBullet
-Loaòvbi toyjncq
+Loaòfbi toyjncq
 
 item.spell.type.teleport
 Teletoptaùjėr
 
 item.spell.type.fireRain
-Aewÿ othjėr
+Aevÿ otḣėr
 
 item.spell.type.storm
 Byxía
@@ -649,120 +649,120 @@ item.spell.type.iceWave
 Loaòba dala
 
 item.spell.type.timeFreezing
-Čatéxibimahje yacy
+Čatéxibimaḣe yacy
 
 item.spell.type.identify
-Naehtvidũqaùjėr
+Naehtfidũqaùjėr
 
 item.spell.type.uncurse
-Oybiwyehje čė qlohtévbi
+Oybivyeḣe čė qlohtéfbi
 
 item.spell.type.telekinesis
 Teleqũheča
 
 item.spell.description.unknown
-Hjebohtėtlũbje to matnyha pyha ject, a úo ča tvim nyje: xíÿjnyj tebhe čaqlehyje točbala. Hjectetvi cėtvjepyjnyj jėrqje bė ctahje hjejectewjė.
+Ḣebohtėtlũbje to matnyha pyha ject, a úo ča tfim nyje: xíÿjnyj tebhe čaqlehyje točbala. Ḣectetfi cėtfjepyjnyj jėrqje bė ctaḣe ḣejectevjė.
 
 item.spell.description.heal
-Cam cobje ctepem, xjetlaxíem ũ... a'teỳqoh! Ta pyha daleh leyhjnyenj eheptnjėn [qtypa tvoje pahbi čacqletjėr ũ wjũlbi txibivpaûa] vbičbala.
+Cam cobje ctepem, ẋetlaxíem ũ... a'teỳqoh! Ta pyha daleh leyḣnyeṅ eheptṅėn [qtypa tfoje pahbi čacqletjėr ũ vjũlbi txibifpaûa] fbičbala.
 
 item.spell.description.firebolt
-Wtahäpobe čaqlehyje äe'tyb wtyqũ matnyhenj. Xoyjėrxj čévbit bjely ovpaxjehj hječåje, č ayxjoh yehctotlũbowyjyeh to yxjbibaỳj moxjha.
+Vtahäpobe čaqlehyje äe'tyb vtyqũ matnyheṅ. Xoyjėrẋ čéfbit bjely ofpaẋeḣ ḣečåje, č ayẋoh yehctotlũbovyjyeh to yẋbibaỳj moẋha.
 
 item.spell.description.lightning
-Xoyjėrxj jenj xíayjenj hjũxj othjũctenj cėtxíalbi yxjbibaỳj moxjha, texj bjehqwe oà hjenj ovpaxjehjėr čåje. Tohäto cėtvabjėr, xje txíeč tebjeh ýac vpotobje cbonx čaòlhowjyjn cteújėrléhbix yxjbibayj hjemotoh.
+Xoyjėrẋ jeṅ xíayjeṅ ḣũẋ otḣũcteṅ cėtxíalbi yẋbibaỳj moẋha, teẋ bjehqve oà ḣeṅ ofpaẋeḣėr čåje. Tohäto cėtfabjėr, ẋe txíeč tebjeh ýac fpotobje cbonx čaòlhovjyjn cteújėrléhbix yẋbibayj ḣemotoh.
 
 item.spell.description.iceBullet
-Bėvbila loaỳ qtypa to ýaexíehjy bė vpota otlywehje toboaỳje.
+Bėfbila loaỳ qtypa to ýaexíeḣy bė fpota otlyveḣe toboaỳje.
 
 item.spell.description.teleport
-Tvabyjnba tvatqa ala técothjũqyb bwelaqnx. Xjähe ũȟe čaqlehyje yjn taq latvo txíea qapoh ÿjeù hjetočboln - hječalexjhje oà teto ybi to vpotũ totyp ybi cėtxíala behyje!
+Tfabyjnba tfatqa ala técotḣũqyb bvelaqnx. Ẋähe ũȟe čaqlehyje yjn taq latfo txíea qapoh ÿjeù ḣetočboln - ḣečaleẋḣe oà teto ybi to fpotũ totyp ybi cėtxíala behyje!
 
 item.spell.description.fireRain
-Totehxjéhbi yap odehcbibėhbi čåjehubi tobaxjhe ovpaxjehjėr obwapobe. Cbonėm vpotom topohubi tėvbiwėhjnu yxíohyj!
+Totehẋéhbi yap odehcbibėhbi čåjehubi tobaẋhe ofpaẋeḣėr obvapobe. Cbonėm fpotom topohubi tėfbivėḣnu yxíohyj!
 
 item.spell.description.storm
-Obwapoba bepcjėr bėlbicqabnubi č oàtobjeahje bėčmoùhjehbimũ edeqtamũ yjėrlahjėr. Tlowjėha vbiba!
+Obvapoba bepcjėr bėlbicqabnubi č oàtobjeaḣe bėčmoùḣehbimũ edeqtamũ yjėrlaḣėr. Tlovjėha fbiba!
 
 item.spell.description.iceWave
-Dala mpočy qtypa ovpaxjehjėr oà čjũmha čåje, ũ txíeyjnbhjũqyb ha obwaxíe yjėrlahjėr ýapy čampača.
+Dala mpočy qtypa ofpaẋeḣėr oà ċũmha čåje, ũ txíeyjnbḣũqyb ha obvaxíe yjėrlaḣėr ýapy čampača.
 
 item.spell.description.timeFreezing
-Wjébjėrt boqolo b ýawje čacėtvita. To totehxjhe čaqlehyje ject, qtype yjn bjele moxjlũbowjyjn hje tvilqo bė balue ale ũ txibi počbjehčbibahjy čatäeq äje.
+Vjébjėrt boqolo b ýavje čacėtfita. To totehẋhe čaqlehyje ject, qtype yjn bjele moẋlũbovjyjn ḣe tfilqo bė balue ale ũ txibi počbjehčbibaḣy čatäeq äje.
 
 item.spell.description.identify
-Ybi teh tjepwjyjehj matnyhe blawjyjnbowjyjn ma? A jewjėlũ taq, to jėrqje ohe coh? Ybi to vbitnyjy tenj mũqėctyvbi bė vbixoàqy ha ctale čamjewqam? To čaqlehyje blawjyjnbowjyjn matnyhbix txíeamjetyb ybi mũqėctyp oàqėvbiyj yjn točboln.
+Ybi teh tjepvjyjeḣ matnyhe blavjyjnbovjyjn ma? A jevjėlũ taq, to jėrqje ohe coh? Ybi to fbitnyjy teṅ mũqėctyfbi bė fbixoàqy ha ctale čamjevqam? To čaqlehyje blavjyjnbovjyjn matnyhbix txíeamjetyb ybi mũqėctyp oàqėfbiyj yjn točboln.
 
 item.spell.description.uncurse
-Ýap teh hetatvibhe cqytqũ qlohtv xíyûohbix ha yjebje ycyba, ũ xbũloboh oátophowjyj ha taqobe čatebhjėr.
+Ýap teh hetatfibhe cqytqũ qlohtf xíyûohbix ha yjebje ycyba, ũ xbũloboh oátophovjyj ha taqobe čatebḣėr.
 
 item.spell.description.telekinesis
-Ybim teleqũheča ject - qaxjabi bje. Qto hjebje, hjex jėrqũwjė txíeamjet ča tomoûoh ymbicly toàhjewjyj ũ txíehjewjyj cėtvybyje.
+Ybim teleqũheča ject - qaẋabi bje. Qto ḣebje, ḣex jėrqũvjė txíeamjet ča tomoûoh ymbicly toàḣevjyj ũ txíeḣevjyj cėtfybyje.
 
 ;-------------NPC-------------;
 npc.attitude.aggressive
-Atvecbibėhbi
+Atfecbibėhbi
 
 npc.attitude.neutral
-Heytvalhbi
+Heytfalhbi
 
 npc.attitude.passive
 Tacbibėhbi
 
 npc.bandit.name.bully
-Abahtyphjũq
+Abahtypḣũq
 
 npc.bandit.name.crossbowman
-Qywhjũq
+Qyvḣũq
 
 npc.bandit.name.rogue
-Xíečjũmjeweq
+Xíeċũmjeveq
 
 npc.teacher.name.swordsman
 Dexmũcėtxi
 
 npc.teacher.name.sharpshooter
-Cétxíeleù vbibopovbi
+Cétxíeleù fbibopofbi
 
 npc.teacher.name.carpenter
-Xíemjewjėlũq
+Xíemjevjėlũq
 
 npc.teacher.name.mage
 Mat
 
 npc.teacher.name.kung_fu_master
-Mũcėtxi kung-vu
+Mũcėtxi kung-fu
 
 ;-------------PLAYER--------------;
 player.attributes.health
 ČAPOBJE
 
 player.attributes.strength
-WJŨLA
+VJŨLA
 
 player.attributes.dexterity
-ČPEHYHOWJYJ
+ČPEHYHOVJYJ
 
 player.attributes.experience
-AOWJĖBJĖRAYEHJE
+AOVJĖBJĖRAYEḢE
 
 player.attributes.level
-TOČJEM
+TOĊEM
 
 player.attributes.skill_points
-TYHQĖTVI HAỲQŨ
+TYHQĖTFI HAỲQŨ
 
 player.skills.crafting
-XÍEMJEWJĖLŨCĖTVO
+XÍEMJEVJĖLŨCĖTFO
 
 player.skills.alchemy
 ALXEMJĖR
 
 player.skills.melee_weapon_mastery
-VPOHJ BJĖRLA
+FPOḢ BJĖRLA
 
 player.skills.ranged_weapon_mastery
-VPOHJ ABICTAHCOBA
+FPOḢ ABICTAHCOBA
 
 player.skills.better_sight
 COQOLN BÉČPOQ
@@ -774,101 +774,101 @@ player.skills.health_regen
 PETEHEPAÙJER ČAPOBJĖR
 
 player.skills.faster_learn
-VBIBWA HAỲQA
+FBIBVA HAỲQA
 
 ;------------MESSAGES-------------;
 message.welcome_to_level
-Ha točjemje bũtanj:
+Ha toċemje bũtaṅ:
 
 message.full_inventory
-Tvynj tleûaq telhbi ject!
+Tfyṅ tleûaq telhbi ject!
 
 message.item_equip_failure
-Čaloxjbiyj hjemoxjew:
+Čaloẋbiyj ḣemoẋev:
 
 message.item_discovered
-Oàqvbilewjė:
+Oàqfbilevjė:
 
 message.item_picked
-Toàhjeclewjė:
+Toàḣeclevjė:
 
 message.item_used.potion.healing
-O bjele čapobėwbi wjehÿjew.
+O bjele čapobėvbi vjehÿjev.
 
 message.item_used.potion.magic
-Bėčpoct matnyhenj eheptjũ ÿjew.
+Bėčpoct matnyheṅ eheptjũ ÿjev.
 
 message.item_used.potion.strength
-O bjele wjũlhjenjwbi wjehÿjew.
+O bjele vjũlḣeṅvbi vjehÿjev.
 
 message.item_used.potion.dexterity
-Jėrqvbiwjė haqyvbjėryj calto mytl wjehÿjew.
+Jėrqfbivjė haqyfbjėryj calto mytl vjehÿjev.
 
 message.item_used.potion.speed
-Jėrqvbiwjė tjetxíeheto Spidi Gonzalesa txíewjyjnthohyj mytl wjehÿjew.
+Jėrqfbivjė tjetxíeheto Spidi Gonzalesa txíevjyjnthohyj mytl vjehÿjev.
 
 message.item_used.potion.regeneration
-Xje čapač wjehvbileỳbiw ÿjew.
+Ẋe čapač vjehfbileỳbiv ÿjev.
 
 message.item_used.potion.poison
-Xje čapač wjehtoxibitaw ÿjew.
+Ẋe čapač vjehtoxibitav ÿjev.
 
 message.item_used.potion.slowness
-Jėrqvbiwjė úowjė yjehxjqjeto hjycėl wjehÿjew.
+Jėrqfbivjė úovjė yjehẋqjeto ḣycėl vjehÿjev.
 
 message.item_used.potion.weakness
-Jėrqvbiwjė xehyj aò xjbiyjėr cėtvayjnėl wjehÿjew.
+Jėrqfbivjė xehyj aò ẋbiyjėr cėtfayjnėl vjehÿjev.
 
 message.item_used.book.crafting
-Tepač txíeamjetvi vbitvaxíaỳj moxjew!
+Tepač txíeamjetfi fbitfaxíaỳj moẋev!
 
 message.item_used.book.alchemy
-Tepač mũqėctyvbi baxibíyj ymjew!
+Tepač mũqėctyfbi baxibíyj ymjev!
 
 message.item_used.book.melee_weapon_mastery
-Tepač vpohjeh bjėrloh wjehtoclytũbayj ymjew!
+Tepač fpoḣeh bjėrloh vjehtoclytũbayj ymjev!
 
 message.item_used.book.ranged_weapon_mastery
-Tepač vpohjeh abictahcoboh wjehtoclytũbaỳj ymjew!
+Tepač fpoḣeh abictahcoboh vjehtoclytũbaỳj ymjev!
 
 message.item_used.book.eagle_eye
-Tepač letjenj bnyjnw!
+Tepač letjeṅ bnyjnv!
 
 message.item_used.book.mana_regen
-Tepač maheh petehepobaỳj ymjew!
+Tepač maheh petehepobaỳj ymjev!
 
 message.item_used.book.health_regen
-Tepač čapobje petehepobaỳj ymjew!
+Tepač čapobje petehepobaỳj ymjev!
 
 message.item_used.book.faster_learning
-Tepač vbibyjenj wjehÿbiw!
+Tepač fbibyjeṅ vjehÿbiv!
 
 message.item_used.food
-To wjėbjethje cmaqobalo! Hon tepač mhjenj tloàhbi wjehÿjew.
+To vjėbjetḣe cmaqobalo! Hon tepač mḣeṅ tloàhbi vjehÿjev.
 
 message.player_hungry
-Tloàhbi jectewjé.
+Tloàhbi jectevjé.
 
 message.player_starving
-Č tloaỳ ymjepaw!
+Č tloaỳ ymjepav!
 
 message.player_attack_success
-obėvbiba.
+obėfbiba.
 
 message.player_attack_failure
-tvynj ataq yhjũqa.
+tfyṅ ataq yḣũqa.
 
 message.player_dies
-Ymaplewjė!
+Ymaplevjė!
 
 message.player_levelup
-Qolenjhbi točjem aòwjebjėryehjėr owjehthohlewjé! Xje mohaxíenjwbi jectewjė mbiwjėleyj moxjew, a tvoje maqėcbimalhe tyhqėtvi xjbíyjėr ũ mahbi bėčpocėlbi. Pybhjexj [jewjėlũ haÿbíyjela ũ tjehjehúe čhanjyjew] ýetowjė hobeto wjeȟaÿbiyj lyb cboje atvbibytvi čbjehqėwbiyj moxjew.
+Qoleṅhbi toċem aòvjebjėryeḣėr ovjehthohlevjé! Ẋe mohaxíeṅvbi jectevjė mbivjėleyj moẋev, a tfoje maqėcbimalhe tyhqėtfi ẋbíyjėr ũ mahbi bėčpocėlbi. Pybḣeẋ [jevjėlũ haÿbíyjela ũ tjeḣehúe čhaṅyjev] ýetovjė hobeto vjeȟaÿbiyj lyb cboje atfbibytfi čbjehqėvbiyj moẋev.
 
 message.npc_attack_success
-yjeh tvadjėr.
+yjeh tfadjėr.
 
 message.npc_attack_failure
-yjeh hjetvadjėr.
+yjeh ḣetfadjėr.
 
 message.npc_dies
 ymjepa.
@@ -880,7 +880,7 @@ TÝALO
 ;---------DIALOGUES---------;
 ; npc
 teacher.swordsman.question.1
-Hon tyje mynj tjepwjyjehj?
+Hon tyje myṅ tjepvjyjeḣ?
 
 ; player
 teacher.swordsman.questfail.2
@@ -888,100 +888,100 @@ Eeee...
 
 ; npc
 teacher.swordsman.questfail.3
-Oâenjyj ũ aòtyqũ to hjeoàčėvbibqaw - hjevpaûanj!
+Oâeṅyj ũ aòtyqũ to ḣeoàčėfbibqav - ḣefpaûaṅ!
 
 ; player
 teacher.swordsman.questsuccess.1
-To oàčėvbicqaỳj mũwjehyälo.
+To oàčėfbicqaỳj mũvjehyälo.
 
 ; npc
 teacher.swordsman.questsuccess.2
-Hapewyje! Aòvpa pobota!
+Hapevyje! Aòfpa pobota!
 
 ; player
 teacher.swordsman.questsuccess.3
-Ybi to čhaỳbi, xje oà tepač tvonėm ÿhjem jectem?
+Ybi to čhaỳbi, ẋe oà tepač tfonėm ÿḣem jectem?
 
 ; npc
 teacher.swordsman.questsuccess.4
-Aòtyqũ tjehjehue maw, y mhje tvehobaỳj moxjew.
+Aòtyqũ tjeḣehue mav, y mḣe tfehobaỳj moẋev.
 
 ; npc
 teacher.swordsman.conv.1
-Čapač, qũm jectewjė? Mũ hjemyb, xje texj dextyhqy ty wjehÿbíyj txibiweàlewjė.
+Čapač, qũm jectevjė? Mũ ḣemyb, ẋe teẋ dextyhqy ty vjehÿbíyj txibiveàlevjė.
 
 ; player
 teacher.swordsman.conv.2
-Ty blawjėhje toto jectem. Mũ o ywbi wjehobũlo, xje hjũqt ũȟbi tanjhjũqyb balqũ vpohjeh bjerloh taq jėrq tvi hjũqt hječha.
+Ty blavjėḣe toto jectem. Mũ o yvbi vjehobũlo, ẋe ḣũqt ũȟbi taṅḣũqyb balqũ fpoḣeh bjerloh taq jėrq tfi ḣũqt ḣečha.
 
 ; npc
 teacher.swordsman.conv.3
-To yjn aòtjepo. Tavbi hje daqt, xje xjäeh čūȟbix texobúyb tytanj taq jėrq jėr hjebalybi, äbho vbimhjeybũlũ. Hjemhjelybjeh, cyqũqotvi.
+To yjn aòtjepo. Tafbi ḣe daqt, ẋe ẋäeh čūȟbix texobúyb tytaṅ taq jėrq jėr ḣebalybi, äbho fbimḣeybũlũ. Ḣemḣelybjeh, cyqũqotfi.
 
 ; player
 teacher.swordsman.conv.4
-Tvyàho wjeȟayjnbnyj.
+Tfyàho vjeȟayjnbnyj.
 
 ; npc
 teacher.swordsman.conv.5
-A tvi ýacem ýetowjė hjexyjėrlewjė? Haÿbíyjela hjewyqaw? A moxje paýenj tvoblemy?
+A tfi ýacem ýetovjė ḣexyjėrlevjė? Haÿbíyjela ḣevyqav? A moẋe paýeṅ tfoblemy?
 
 ; player
 teacher.swordsman.conv.6
-Xjevbiwjė mũ tapeh wtÿeq toqačal, xyjėrlem.
+Ẋefbivjė mũ tapeh vtÿeq toqačal, xyjėrlem.
 
 ; npc
 teacher.swordsman.conv.7
-Aòvpe cobje, txibiblehaò. Vbile qoto hjeÿeh, ũ jewjėlũ čtebėhbim čåhjem cobje hjetopayjnw, to xje aò tvehobahjėr čemhoh hjewjeȟåjew čhaỳbi.
+Aòfpe cobje, txibiblehaò. Fbile qoto ḣeÿeh, ũ jevjėlũ čtebėhbim čåḣem cobje ḣetopayjnv, to ẋe aò tfehobaḣėr čemhoh ḣevjeȟåjev čhaỳbi.
 
 ; player
 teacher.swordsman.conv.8
-Xje ty ča äpmo hjnu hjema - txibivbiqlem. Ýeto totxíebyjew?
+Ẋe ty ča äpmo ḣnu ḣema - txibifbiqlem. Ýeto totxíebyjev?
 
 ; npc
 teacher.swordsman.conv.9
-Qjeàbiwjė taqũ ih mhjeoàbjeyjnėl, texj ty wjehtalehtal ũ txibityà wyqal. Pybhjexj xyjėrl, xjevbim toÿbil ũ ala hjeto wjėbjethe wqolehje vbimbiwjėlũlem.
+Qjeàbivjė taqũ ih mḣeoàbjeyjnėl, teẋ ty vjehtalehtal ũ txibityà vyqal. Pybḣeẋ xyjėrl, ẋefbim toÿbil ũ ala ḣeto vjėbjethe vqoleḣe fbimbivjėlũlem.
 
 ; npc
 teacher.swordsman.conv.10
-Mojeto cbithety txíeà ũȟbimũ wjėmjėrėlqamũ [qȧtyxibi aò haỳqũ y mhje actũpyjeh] cėtxíeu myqačalem. Bevbicėtqũx čabũjėrl ũ tvim cambim aòwjėraŷehje bė balúe čaòvbibal.
+Mojeto cbithety txíeà ũȟbimũ vjėmjėrėlqamũ [qȧtyxibi aò haỳqũ y mḣe actũpyjeh] cėtxíeu myqačalem. Befbicėtqũx čabũjėrl ũ tfim cambim aòvjėraŷeḣe bė balúe čaòfbibal.
 
 ; player
 teacher.swordsman.conv.11
-To aòwjyj oqpytha metoä.
+To aòvjyj oqpytha metoä.
 
 ; npc
 teacher.swordsman.conv.12
-Cqyteỳha. Towjyj cbojeh haÿqeh mjėrl, jėr ctoqynj oà tvehobahjėr xjyltoyjebyb mjėrlem.
+Cqyteỳha. Tovjyj cbojeh haÿqeh mjėrl, jėr ctoqyṅ oà tfehobaḣėr ẋyltoyjebyb mjėrlem.
 
 ; player
 teacher.swordsman.conv.13
-Hoàòvpa, teh tjepwjyjehj čaòbehaeh. Ovbiwjė tvilqo wjehÿbíyj b toboàhbi ctocyb mũhjeqačal.
+Hoàòfpa, teh tjepvjyjeḣ čaòbehaeh. Ofbivjė tfilqo vjehÿbíyj b toboàhbi ctocyb mũḣeqačal.
 
 ; player
 teacher.swordsman.teachme
-Mhjeÿ.
+Mḣeÿ.
 
 ; player
 teacher.swordsman.skill
-Mũcetxíocėtbo balqũ vpohjeh bjerloh (10 tyhqtyb hayqũ, 2 člote)
+Mũcetxíocėtbo balqũ fpoḣeh bjerloh (10 tyhqtyb hayqũ, 2 člote)
 
 ; player
 teacher.swordsman.strength5
-Wjũla +5 (5 tyhqtyb hayqũ, 1 člotvi)
+Vjũla +5 (5 tyhqtyb hayqũ, 1 člotfi)
 
 ; player
 teacher.swordsman.strength1
-Wjũla +1 (1 tyhqt hayqũ, 10 cpebhjūqyb)
+Vjũla +1 (1 tyhqt hayqũ, 10 cpebḣūqyb)
 
 ; npc
 teacher.learnsuccess
-Taq txibimanj!
+Taq txibimaṅ!
 
 ; npc
 teacher.learnfailure
-Tyčjhjenj vpÿj
+Tyċḣeṅ fpÿj
 
 ; player
 teacher.bye
-Vbibanj!
+Fbibaṅ!

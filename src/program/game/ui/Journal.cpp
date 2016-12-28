@@ -20,10 +20,19 @@ extern int       spellSymbols[12];
 namespace rr
 {
 
-    Journal::Journal() :
-      m_wJour(Resources::dictionary["gui.window.journal"], sf::Vector2f(725, 570),
-              sf::Vector2f(Settings::graphics.resolution.x/2-362.5, Settings::graphics.resolution.y/2-260))
+    Journal::Journal()
     {
+        reset();
+    }
+
+    void
+    Journal::reset()
+    {
+        m_wJour.clear();
+
+        m_wJour = Window(Resources::dictionary["gui.window.journal"], sf::Vector2f(725, 570),
+                         sf::Vector2f(Settings::graphics.resolution.x/2-362.5, Settings::graphics.resolution.y/2-260));
+
         m_shadow.setSize((sf::Vector2f) Settings::graphics.resolution);
         m_shadow.setPosition(sf::Vector2f(0, 0));
         m_shadow.setFillColor(sf::Color(0, 0, 0, 128));

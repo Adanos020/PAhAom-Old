@@ -18,14 +18,24 @@ namespace rr
 {
 
     Conversation::Conversation(Player* p) :
-      m_wConv   ("", sf::Vector2f(1130, 200), sf::Vector2f(25, 25)),
-      m_wOpts   ("", sf::Vector2f(1130, 200), sf::Vector2f(Settings::graphics.resolution.x - 1155,
-                                                           Settings::graphics.resolution.y - 225)),
-      m_dialogue(nullptr),
-      m_player  (p)
+      m_player(p)
     {
-        m_shadow.setSize     ((sf::Vector2f) Settings::graphics.resolution);
-        m_shadow.setPosition (sf::Vector2f(0, 0));
+        reset();
+    }
+
+    void
+    Conversation::reset()
+    {
+        m_wConv.clear();
+        m_wOpts.clear();
+
+        m_wConv = Window("", sf::Vector2f(1130, 200), sf::Vector2f(25, 25));
+        m_wOpts = Window("", sf::Vector2f(1130, 200),
+                         sf::Vector2f(Settings::graphics.resolution.x - 1155, Settings::graphics.resolution.y - 225));
+        m_dialogue = nullptr;
+
+        m_shadow.setSize((sf::Vector2f) Settings::graphics.resolution);
+        m_shadow.setPosition(sf::Vector2f(0, 0));
         m_shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
         auto text = new Text(sf::Vector2f(20, 20), "", Resources::font.Unifont, 20);

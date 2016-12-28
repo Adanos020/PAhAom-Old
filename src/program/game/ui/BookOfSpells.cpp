@@ -15,11 +15,21 @@
 namespace rr
 {
 
-    BookOfSpells::BookOfSpells() :
-      m_wBofs(Window(Resources::dictionary["gui.window.bookOfSpells"], sf::Vector2f(935, 650), (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(467.5f, 325)))
+    BookOfSpells::BookOfSpells()
     {
-        m_shadow.setSize     ((sf::Vector2f) Settings::graphics.resolution);
-        m_shadow.setPosition (sf::Vector2f(0, 0));
+        reset();
+    }
+
+    void
+    BookOfSpells::reset()
+    {
+        m_wBofs.clear();
+
+        m_wBofs = Window(Resources::dictionary["gui.window.bookOfSpells"], sf::Vector2f(935, 650),
+                         (sf::Vector2f) Settings::graphics.resolution/2.f - sf::Vector2f(467.5f, 325));
+
+        m_shadow.setSize((sf::Vector2f) Settings::graphics.resolution);
+        m_shadow.setPosition(sf::Vector2f(0, 0));
         m_shadow.setFillColor(sf::Color(0, 0, 0, 172));
 
         m_wBofs += new Image(sf::Vector2f(0, 0), Resources::texture.book_of_spells);
@@ -38,7 +48,8 @@ namespace rr
         m_wBofs += bQuit;
     }
 
-    void BookOfSpells::buttonEvents(sf::RenderWindow& rw, sf::Event& ev, Game* g)
+    void
+    BookOfSpells::buttonEvents(sf::RenderWindow& rw, sf::Event& ev, Game* g)
     {
         if (isOpen())
         {

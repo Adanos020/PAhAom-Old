@@ -37,7 +37,7 @@ namespace rr
              /// - VERTICAL
              /// \param color the color of the bar, not the border
              ////////////////////////////////////////////////////////////////////////
-             Bar(Plain, int max_length, sf::Color, sf::Vector2f pos);
+             Bar(Plain = Plain::HORIZONTAL, int max_length = 0, sf::Color = sf::Color::White, sf::Vector2f pos = sf::Vector2f(0, 0));
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the bar's body's position.

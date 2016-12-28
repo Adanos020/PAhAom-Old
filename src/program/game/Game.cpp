@@ -147,6 +147,20 @@ namespace rr
         save();
     }
 
+    void
+    Game::resetUI()
+    {
+        m_attributes.reset();
+        m_bookOfSpells.reset();
+        m_conversation.reset();
+        m_deathScreen.reset();
+        m_inventory.reset();
+        m_journal.reset();
+        m_hud.reset();
+        m_mainMenu.reset();
+        m_pauseMenu.reset();
+    }
+
     bool
     Game::loadNewGame()
     {

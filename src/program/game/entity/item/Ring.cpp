@@ -126,6 +126,34 @@ namespace rr
 
     }
 
+    void
+    Ring::setGridPosition(sf::Vector2i pos)
+    {
+        m_body[0].position = (sf::Vector2f) pos*80.f;
+        m_body[1].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f   );
+        m_body[2].position =  sf::Vector2f(pos.x*80.f+80, pos.y*80.f+80);
+        m_body[3].position =  sf::Vector2f(pos.x*80.f   , pos.y*80.f+80);
+
+        m_body[4].position = m_body[0].position;
+        m_body[5].position = m_body[1].position;
+        m_body[6].position = m_body[2].position;
+        m_body[7].position = m_body[3].position;
+    }
+
+    void
+    Ring::setPosition(sf::Vector2f pos)
+    {
+        m_body[0].position = pos;
+        m_body[1].position = sf::Vector2f(pos.x+80, pos.y   );
+        m_body[2].position = sf::Vector2f(pos.x+80, pos.y+80);
+        m_body[3].position = sf::Vector2f(pos.x   , pos.y+80);
+
+        m_body[4].position = m_body[0].position;
+        m_body[5].position = m_body[1].position;
+        m_body[6].position = m_body[2].position;
+        m_body[7].position = m_body[3].position;
+    }
+
     std::ifstream&
     Ring::operator<<(std::ifstream& file)
     {

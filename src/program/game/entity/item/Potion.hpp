@@ -104,13 +104,13 @@ namespace rr
              /// \brief Sets the potion's position relatively to the grid marked out
              /// by the level's tile map.
              ////////////////////////////////////////////////////////////////////////
-             void setPosition(sf::Vector2f) override;
+     virtual void setPosition(sf::Vector2f) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Sets the potion's position relatively to the graphics card's
              /// coordinate system.
              ////////////////////////////////////////////////////////////////////////
-             void setGridPosition(sf::Vector2i) override;
+     virtual void setGridPosition(sf::Vector2i) override;
 
              ////////////////////////////////////////////////////////////////////////
              /// \brief Reads the book from the file.
