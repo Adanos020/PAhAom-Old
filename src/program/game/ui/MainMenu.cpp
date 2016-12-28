@@ -306,13 +306,47 @@ namespace rr
                     {
                         puts(">Saving the settings...");
                         auto currentOption = wGame->getComponent <Switch> (0)->getCurrentOption();
-                        if      (currentOption == "ENGLISH" ) Settings::game.language = "en";
-                        else if (currentOption == "POLSKI"  ) Settings::game.language = "pl";
-                        else if (currentOption == L"PYCTOLQ") Settings::game.language = "fc";
+
+                        bool uiRelatedChanged = false;
+
+                        {
+                            auto prevLang = Settings::game.language;
+                            if (currentOption == "ENGLISH" )
+                            {
+                                Settings::game.language = "en";
+                            }
+                            else if (currentOption == "POLSKI")
+                            {
+                                Settings::game.language = "pl";
+                            }
+                            else if (currentOption == L"PYCTOLQ")
+                            {
+                                Settings::game.language = "fc";
+                            }
+
+                            if (Settings::game.language != prevLang)
+                            {
+                                Resources::loadDict();
+                                uiRelatedChanged = true;
+                            }
+                        }
 
                         auto splitted = split(wGrap->getComponent <Switch> (0)->getCurrentOption().toAnsiString(), 'x');
 
-                        Settings::graphics.resolution = sf::Vector2u(stoi(splitted[0]), stoi(splitted[1]));
+                        {
+                            if (Settings::graphics.resolution != sf::Vector2u(stoi(splitted[0]), stoi(splitted[1])))
+                            {
+                                Settings::graphics.resolution = sf::Vector2u(stoi(splitted[0]), stoi(splitted[1]));
+
+                                rw.close();
+                                rw.create(sf::VideoMode(Settings::graphics.resolution.x, Settings::graphics.resolution.y, 32), "PAhAom",
+                                                        Settings::graphics.fullscreen ? sf::Style::Fullscreen
+                                                                                      : sf::Style::Close, Settings::graphics.csettings);
+
+                                uiRelatedChanged = true;
+                            }
+                        }
+
                         Settings::graphics.fullscreen = wGrap->getComponent <Checkbox> (0)->isChecked();
                         Settings::graphics.vsync      = wGrap->getComponent <Checkbox> (1)->isChecked();
 
@@ -351,6 +385,11 @@ namespace rr
 
                         puts(">Done.");
                         wOpts->setVisible(false);
+
+                        if (uiRelatedChanged)
+                        {
+                            g->resetUI();
+                        }
                     }
 
                     if (wOpts->getComponent <Button> (5)->isPressed(rw, e))
@@ -359,7 +398,8 @@ namespace rr
                         else if (Settings::game.language == "pl") wGame->getComponent <Switch> (0)->setCurrentOption("POLSKI");
                         else if (Settings::game.language == "fc") wGame->getComponent <Switch> (0)->setCurrentOption(L"PYCTOLQ");
 
-                        wGrap->getComponent <Switch> (0)->setCurrentOption(std::to_string(Settings::graphics.resolution.x)+"x"+std::to_string(Settings::graphics.resolution.y));
+                        wGrap->getComponent <Switch> (0)->setCurrentOption(std::to_string(Settings::graphics.resolution.x) + "x"
+                                                                         + std::to_string(Settings::graphics.resolution.y));
                         wGrap->getComponent <Checkbox> (0)->check(Settings::graphics.fullscreen);
                         wGrap->getComponent <Checkbox> (1)->check(Settings::graphics.vsync);
 

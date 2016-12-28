@@ -40,8 +40,8 @@ namespace rr
     {
         m_gameView.setSize((sf::Vector2f) Settings::graphics.resolution);
 
-        m_mapView.setSize  (6160.f, 3440.f);
-        m_mapView.setCenter(m_mapView.getSize()/2.f);
+        m_mapView.setSize(6160.f, 3440.f);
+        m_mapView.setCenter(m_mapView.getSize() / 2.f);
 
         subject.addObserver(&m_journal);
         subject.addObserver(&m_inventory);
@@ -150,6 +150,11 @@ namespace rr
     void
     Game::resetUI()
     {
+        m_gameView.setSize((sf::Vector2f) Settings::graphics.resolution);
+
+        m_mapView.setSize(6160.f, 3440.f);
+        m_mapView.setCenter(m_mapView.getSize() / 2.f);
+
         m_attributes.reset();
         m_bookOfSpells.reset();
         m_conversation.reset();
