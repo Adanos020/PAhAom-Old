@@ -73,11 +73,22 @@ namespace rr
         }
         auto wOpts = new Window("", sf::Vector2f(142, 143), sf::Vector2f(0, 0));
         {
-             auto mOpts = new Menu(sf::Vector2f(5, 25));
-                  mOpts->addOption(Resources::dictionary["gui.menu.use"            ]);
-                  mOpts->addOption(Resources::dictionary["gui.menu.move_to_carryon"]);
-                  mOpts->addOption(Resources::dictionary["gui.menu.drop"           ]);
-             *wOpts += mOpts;
+            auto mOpts = new Menu(sf::Vector2f(5, 25));
+                 mOpts->addOption(Resources::dictionary["gui.menu.use"            ]);
+                 mOpts->addOption(Resources::dictionary["gui.menu.move_to_carryon"]);
+                 mOpts->addOption(Resources::dictionary["gui.menu.drop"           ]);
+
+            auto wChoose = new Window("", sf::Vector2f(142, 143), sf::Vector2f(0, 0));
+            {
+                auto mChoose = new Menu(sf::Vector2f(5, 25));
+                for (size_t i = 0; i < 5; ++i)
+                {
+                    mChoose.addOption(std::to_string(i+1));
+                }
+                wChoose += mChoose;
+                wChoose->setParentComponent(wOpts);
+            }
+            *wOpts += mOpts;
         }
 
         ((m_wInve |= wInfo) |= wOpts) += bQuit;
@@ -120,67 +131,76 @@ namespace rr
 #define component(w, c, i) w.getComponent<c>(i)
 #define wInfo (*component(m_wInve, Window, 0))
 #define wOpts (*component(m_wInve, Window, 1))
+#define wChos (*component(wOpts, Window, 0))
 ;
         if (m_wInve.isVisible())
         {
             if (wOpts.isVisible()) // ITEM OPTIONS WINDOW IS OPEN
             {
-                sf::String chosenOption = component(wOpts, Menu, 0)->getChosenOption(rw, e);
-                if (chosenOption == Resources::dictionary["gui.menu.use"])
+                if (!wChos.isVisible()) // CHOOSE HOTBAR SLOT WINDOW IS CLOSED
                 {
-                    Item* item = ((Slot*) wOpts.getParentComponent())->getItem();
-
-                    if (instanceof <Equipable, Item> (item))
+                    sf::String chosenOption = component(wOpts, Menu, 0)->getChosenOption(rw, e);
+                    if (chosenOption == Resources::dictionary["gui.menu.use"])
                     {
-                        bool equip = !((Equipable*) item)->isEquipped();
+                        Item* item = ((Slot*) wOpts.getParentComponent())->getItem();
 
-                        if (m_player->equipItem((Equipable*) item, equip))
-                            ((Equipable*) item)->equip(equip);
-
-                        if (instanceof <MeleeWeapon, Item> (item))
+                        if (instanceof <Equipable, Item> (item))
                         {
-                            for (int i = 0; i < 32; ++i)
+                            bool equip = !((Equipable*) item)->isEquipped();
+
+                            if (m_player->equipItem((Equipable*) item, equip))
+                                ((Equipable*) item)->equip(equip);
+
+                            if (instanceof <MeleeWeapon, Item> (item))
                             {
-                                if (instanceof <MeleeWeapon, Item> (component(m_wInve, Slot, i)->getItem()))
+                                for (int i = 0; i < 32; ++i)
                                 {
-                                    ((Equipable*) component(m_wInve, Slot, i)->getItem())->equip(false);
+                                    if (instanceof <MeleeWeapon, Item> (component(m_wInve, Slot, i)->getItem()))
+                                    {
+                                        ((Equipable*) component(m_wInve, Slot, i)->getItem())->equip(false);
+                                    }
                                 }
                             }
                         }
-                    }
-                    else
-                    {
-                        game->getPlayer()->useItem(item);
-                        if (item->isDisposable())
+                        else
                         {
-                            ((Slot*) wOpts.getParentComponent())->removeItem(1);
-                            sort();
+                            game->getPlayer()->useItem(item);
+                            if (item->isDisposable())
+                            {
+                                ((Slot*) wOpts.getParentComponent())->removeItem(1);
+                                sort();
+                            }
                         }
                     }
+                    else if (chosenOption == Resources::dictionary["gui.menu.drop"])
+                    {
+                        Item* item = ((Slot*) wOpts.getParentComponent())->getItem();
+                        item->setGridPosition(m_player->getGridPosition());
+
+                        if (instanceof <Equipable, Item> (item) && ((Equipable*) item)->isEquipped())
+                            ((Equipable*) item)->equip(false);
+
+                        subject.notify(Observer::ITEM_DROPPED, item);
+
+                        ((Slot*) wOpts.getParentComponent())->removeItem(false);
+                        sort();
+                    }
+                    else if (chosenOption == Resources::dictionary["gui.menu.to_carryon"])
+                    {
+                        wChos.setPosition(wOpts.getPosition() + sf::Vector2f(wOpts.getSize().x, 0));
+                        wChos.setVisible(true);
+                    }
+
+                    if (e.type == sf::Event::MouseButtonPressed && e.mouseButton.button != sf::Mouse::Middle)
+                    {
+                        wOpts.setParentComponent(nullptr);
+                        wOpts.setVisible(false);
+                    }
                 }
-                else if (chosenOption == Resources::dictionary["gui.menu.drop"])
+                else // CHOOSE HOTBAR SLOT WINDOW IS OPEN
                 {
-                    Item* item = ((Slot*) wOpts.getParentComponent())->getItem();
-                    item->setGridPosition(m_player->getGridPosition());
 
-                    if (instanceof <Equipable, Item> (item) && ((Equipable*) item)->isEquipped())
-                        ((Equipable*) item)->equip(false);
-
-                    subject.notify(Observer::ITEM_DROPPED, item);
-
-                    ((Slot*) wOpts.getParentComponent())->removeItem(false);
-                    sort();
-                }
-                else if (chosenOption == Resources::dictionary["gui.menu.to_carryon"])
-                {
-
-                }
-
-                if (e.type == sf::Event::MouseButtonPressed && e.mouseButton.button != sf::Mouse::Middle)
-                {
-                    wOpts.setParentComponent(nullptr);
-                    wOpts.setVisible(false);
-                }
+                } 
             }
             else // ITEM OPTIONS WINDOW IS NOT OPEN
             {
@@ -245,17 +265,17 @@ namespace rr
                             {
                                 wOpts.setParentComponent(component(m_wInve, Slot, i));
 
-                                Item* item = ((Slot*)wOpts.getParentComponent())->getItem();
+                                Item* item = ((Slot*) wOpts.getParentComponent())->getItem();
 
                                 if      (instanceof <Equipable, Item> (item)) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.equip"]);
                                 else if (instanceof <Potion   , Item> (item)) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.drink"]);
                                 else if (instanceof <Food     , Item> (item)) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.eat"  ]);
                                 else if (instanceof <Book     , Item> (item)) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.read" ]);
-                                else                                        component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.use"  ]);
+                                else                                          component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.use"  ]);
 
                                 wOpts.setHeader(item->getName());
-                                if (wOpts.getHeader().getSize().x+10 >= 142)
-                                    wOpts.setSize(sf::Vector2f(wOpts.getHeader().getSize().x+10, 143));
+                                if (wOpts.getHeader().getSize().x + 10 >= 142)
+                                    wOpts.setSize(sf::Vector2f(wOpts.getHeader().getSize().x + 10, 143));
                                 else
                                     wOpts.setSize(sf::Vector2f(142, 143));
                                 wOpts.setVisible(true);
