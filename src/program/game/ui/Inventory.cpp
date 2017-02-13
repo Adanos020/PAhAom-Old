@@ -84,13 +84,14 @@ namespace rr
 
         for (int i = 0; i < 5; ++i)
         {
-            m_sCarryOn[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(Settings::graphics.resolution.x-90, Settings::graphics.resolution.y/2-250 + i*95));
+            m_sHotbar[i] = new Slot(sf::Vector2f(80, 80),
+                                    sf::Vector2f(Settings::graphics.resolution.x / 2 - 250 + i * 95, 10));
         }
     }
 
     Inventory::~Inventory()
     {
-        for (auto slot : m_sCarryOn)
+        for (auto slot : m_sHotbar)
         {
             delete slot;
         }
@@ -103,7 +104,7 @@ namespace rr
         {
             m_wInve.getComponent <Slot> (i)->clear();
         }
-        for (auto slot : m_sCarryOn)
+        for (auto slot : m_sHotbar)
         {
             slot->clear();
         }
@@ -116,7 +117,7 @@ namespace rr
     Inventory::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* game)
     {
 
-#define component(w, c, i) w.getComponent <c> (i)
+#define component(w, c, i) w.getComponent<c>(i)
 #define wInfo (*component(m_wInve, Window, 0))
 #define wOpts (*component(m_wInve, Window, 1))
 ;
@@ -275,20 +276,20 @@ namespace rr
                 /* CARRY-ON */
                 for (int i = 0; i < 5; ++i)
                 {
-                    if (m_sCarryOn[i]->containsMouseCursor(rw) && !m_sCarryOn[i]->isEmpty())
+                    if (m_sHotbar[i]->containsMouseCursor(rw) && !m_sHotbar[i]->isEmpty())
                     {
-                        if (m_sCarryOn[i]->isPressed(rw, e) && !m_sCarryOn[i]->isEmpty())
+                        if (m_sHotbar[i]->isPressed(rw, e) && !m_sHotbar[i]->isEmpty())
                         {
-                            game->getPlayer()->useItem(m_sCarryOn[i]->getItem());
-                            if (m_sCarryOn[i]->getItem()->isDisposable())
+                            game->getPlayer()->useItem(m_sHotbar[i]->getItem());
+                            if (m_sHotbar[i]->getItem()->isDisposable())
                             {
-                                m_sCarryOn[i]->removeItem(1);
+                                m_sHotbar[i]->removeItem(1);
                                 sort();
                             }
                         }
                         else
                         {
-                            wInfo.setParentComponent(m_sCarryOn[i]);
+                            wInfo.setParentComponent(m_sHotbar[i]);
                             slotPointed = true;
                         }
                     }
@@ -491,7 +492,7 @@ namespace rr
             target.draw(m_shadow, states);
             target.draw(m_wInve , states);
         }
-        for (auto slot : m_sCarryOn)
+        for (auto slot : m_sHotbar)
         {
             target.draw(*slot  , states);
         }
