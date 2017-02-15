@@ -4,6 +4,7 @@
  * Used library: SFML
  */
 
+#include <cstdlib>
 #include <iostream>
 
 #include "Inventory.hpp"
@@ -78,17 +79,18 @@ namespace rr
                  mOpts->addOption(Resources::dictionary["gui.menu.move_to_carryon"]);
                  mOpts->addOption(Resources::dictionary["gui.menu.drop"           ]);
 
-            auto wChoose = new Window("", sf::Vector2f(142, 143), sf::Vector2f(0, 0));
+            auto wChoose = new Window("", sf::Vector2f(50, 203), sf::Vector2f(0, 0));
             {
-                auto mChoose = new Menu(sf::Vector2f(5, 25));
+                auto mChoose = new Menu(sf::Vector2f(5, 5));
                 for (size_t i = 0; i < 5; ++i)
                 {
-                    mChoose.addOption(std::to_string(i+1));
+                    mChoose->addOption(std::to_string(i+1));
                 }
-                wChoose += mChoose;
+                (*wChoose) += mChoose;
                 wChoose->setParentComponent(wOpts);
             }
             *wOpts += mOpts;
+            *wOpts += wChoose;
         }
 
         ((m_wInve |= wInfo) |= wOpts) += bQuit;
@@ -127,22 +129,21 @@ namespace rr
     void
     Inventory::buttonEvents(sf::RenderWindow& rw, sf::Event& e, Game* game)
     {
+#define component(w, c, i) w->getComponent<c>(i)
+        auto wInfo = m_wInve.getComponent<Window>(0);
+        auto wOpts = m_wInve.getComponent<Window>(1);
+        auto wChos =  wOpts->getComponent<Window>(0);
 
-#define component(w, c, i) w.getComponent<c>(i)
-#define wInfo (*component(m_wInve, Window, 0))
-#define wOpts (*component(m_wInve, Window, 1))
-#define wChos (*component(wOpts, Window, 0))
-;
         if (m_wInve.isVisible())
         {
-            if (wOpts.isVisible()) // ITEM OPTIONS WINDOW IS OPEN
+            if (wOpts->isVisible()) // ITEM OPTIONS WINDOW IS OPEN
             {
-                if (!wChos.isVisible()) // CHOOSE HOTBAR SLOT WINDOW IS CLOSED
+                if (!wChos->isVisible()) // CHOOSE HOTBAR SLOT WINDOW IS CLOSED
                 {
                     sf::String chosenOption = component(wOpts, Menu, 0)->getChosenOption(rw, e);
                     if (chosenOption == Resources::dictionary["gui.menu.use"])
                     {
-                        Item* item = ((Slot*) wOpts.getParentComponent())->getItem();
+                        Item* item = ((Slot*) wOpts->getParentComponent())->getItem();
 
                         if (instanceof <Equipable, Item> (item))
                         {
@@ -155,9 +156,9 @@ namespace rr
                             {
                                 for (int i = 0; i < 32; ++i)
                                 {
-                                    if (instanceof <MeleeWeapon, Item> (component(m_wInve, Slot, i)->getItem()))
+                                    if (instanceof <MeleeWeapon, Item> (component((&m_wInve), Slot, i)->getItem()))
                                     {
-                                        ((Equipable*) component(m_wInve, Slot, i)->getItem())->equip(false);
+                                        ((Equipable*) component((&m_wInve), Slot, i)->getItem())->equip(false);
                                     }
                                 }
                             }
@@ -167,14 +168,14 @@ namespace rr
                             game->getPlayer()->useItem(item);
                             if (item->isDisposable())
                             {
-                                ((Slot*) wOpts.getParentComponent())->removeItem(1);
+                                ((Slot*) wOpts->getParentComponent())->removeItem(1);
                                 sort();
                             }
                         }
                     }
                     else if (chosenOption == Resources::dictionary["gui.menu.drop"])
                     {
-                        Item* item = ((Slot*) wOpts.getParentComponent())->getItem();
+                        Item* item = ((Slot*) wOpts->getParentComponent())->getItem();
                         item->setGridPosition(m_player->getGridPosition());
 
                         if (instanceof <Equipable, Item> (item) && ((Equipable*) item)->isEquipped())
@@ -182,90 +183,114 @@ namespace rr
 
                         subject.notify(Observer::ITEM_DROPPED, item);
 
-                        ((Slot*) wOpts.getParentComponent())->removeItem(false);
+                        ((Slot*) wOpts->getParentComponent())->removeItem(false);
                         sort();
                     }
                     else if (chosenOption == Resources::dictionary["gui.menu.to_carryon"])
                     {
-                        wChos.setPosition(wOpts.getPosition() + sf::Vector2f(wOpts.getSize().x, 0));
-                        wChos.setVisible(true);
+                        wChos->setPosition(wOpts->getPosition() + sf::Vector2f(wOpts->getSize().x, 0));
+                        wChos->setVisible(true);
                     }
 
                     if (e.type == sf::Event::MouseButtonPressed && e.mouseButton.button != sf::Mouse::Middle)
                     {
-                        wOpts.setParentComponent(nullptr);
-                        wOpts.setVisible(false);
+                        wOpts->setParentComponent(nullptr);
+                        wOpts->setVisible(false);
                     }
                 }
-                else // CHOOSE HOTBAR SLOT WINDOW IS OPEN
+                else // HOTBAR SLOT CHOICE WINDOW IS OPEN
                 {
+                    sf::String chosenOption = component(wChos, Menu, 0)->getChosenOption(rw, e);
+                    if (chosenOption != "")
+                    {
+                        size_t index = atoi(chosenOption.toAnsiString().c_str());
+                        if (!m_sHotbar[index - 1]->addItem(((Slot*) wOpts->getParentComponent())->getItem()))
+                        {
+                            auto temp = m_sHotbar[index - 1]->getItem();
+                            m_sHotbar[index - 1]->removeItem(false);
+                            m_sHotbar[index - 1]->addItem(((Slot*) wOpts->getParentComponent())->getItem());
+                            ((Slot*) wOpts->getParentComponent())->removeItem();
+                            ((Slot*) wOpts->getParentComponent())->addItem(temp);
+                        }
+                        else
+                        {
+                            ((Slot*) wOpts->getParentComponent())->removeItem();
+                        }
+                        wOpts->setVisible(false);
+                        wOpts->setParentComponent(nullptr);
+                    }
 
+                    if (e.type == sf::Event::MouseButtonPressed && e.mouseButton.button != sf::Mouse::Middle)
+                    {
+                        wChos->setVisible(false);
+                        wOpts->setVisible(false);
+                    }
                 } 
             }
             else // ITEM OPTIONS WINDOW IS NOT OPEN
             {
-                if (component(m_wInve, Button, 0)->isPressed(rw, e))
+                if (component((&m_wInve), Button, 0)->isPressed(rw, e))
                     game->pause(false);
 
                 bool slotPointed = false;
                 /* BACKPACK */
                 for (int i = 0; i < 32; ++i)
                 {
-                    if (component(m_wInve, Slot, i)->containsMouseCursor(rw) && !component(m_wInve, Slot, i)->isEmpty())
+                    if (component((&m_wInve), Slot, i)->containsMouseCursor(rw) && !component((&m_wInve), Slot, i)->isEmpty())
                     {
                         // SLOT WAS LEFT-CLICKED
-                        if (component(m_wInve, Slot, i)->isPressed(rw, e) && !component(m_wInve, Slot, i)->isEmpty())
+                        if (component((&m_wInve), Slot, i)->isPressed(rw, e) && !component((&m_wInve), Slot, i)->isEmpty())
                         {
-                            if (instanceof <Equipable, Item> (component(m_wInve, Slot, i)->getItem()))
+                            if (instanceof <Equipable, Item> (component((&m_wInve), Slot, i)->getItem()))
                             {
-                                bool equip = !((Equipable*)component(m_wInve, Slot, i)->getItem())->isEquipped(); 
+                                bool equip = !((Equipable*)component((&m_wInve), Slot, i)->getItem())->isEquipped(); 
                                 
-                                if (m_player->equipItem((Equipable*) component(m_wInve, Slot, i)->getItem(), equip))
-                                    ((Equipable*)component(m_wInve, Slot, i)->getItem())->equip(equip);
+                                if (m_player->equipItem((Equipable*) component((&m_wInve), Slot, i)->getItem(), equip))
+                                    ((Equipable*)component((&m_wInve), Slot, i)->getItem())->equip(equip);
 
-                                if (instanceof <MeleeWeapon, Item> (component(m_wInve, Slot, i)->getItem()))
+                                if (instanceof <MeleeWeapon, Item> (component((&m_wInve), Slot, i)->getItem()))
                                 {
                                     for (int j = 0; j < 32; ++j)
                                     {
-                                        if (j != i && instanceof <MeleeWeapon, Item> (component(m_wInve, Slot, j)->getItem()))
+                                        if (j != i && instanceof <MeleeWeapon, Item> (component((&m_wInve), Slot, j)->getItem()))
                                         {
-                                            ((Equipable*) component(m_wInve, Slot, j)->getItem())->equip(false);
+                                            ((Equipable*) component((&m_wInve), Slot, j)->getItem())->equip(false);
                                         }
                                     }
                                 }
 
-                                if (instanceof <RangedWeapon, Item> (component(m_wInve, Slot, i)->getItem()))
+                                if (instanceof <RangedWeapon, Item> (component((&m_wInve), Slot, i)->getItem()))
                                 {
                                     for (int j = 0; j < 32; ++j)
                                     {
-                                        if (j != i && instanceof <RangedWeapon, Item> (component(m_wInve, Slot, j)->getItem()))
+                                        if (j != i && instanceof <RangedWeapon, Item> (component((&m_wInve), Slot, j)->getItem()))
                                         {
-                                            ((Equipable*) component(m_wInve, Slot, j)->getItem())->equip(false);
+                                            ((Equipable*) component((&m_wInve), Slot, j)->getItem())->equip(false);
                                         }
                                     }
                                 }
                             }
                             else
                             {
-                                game->getPlayer()->useItem(component(m_wInve, Slot, i)->getItem());
-                                if (component(m_wInve, Slot, i)->getItem()->isDisposable())
+                                game->getPlayer()->useItem(component((&m_wInve), Slot, i)->getItem());
+                                if (component((&m_wInve), Slot, i)->getItem()->isDisposable())
                                 {
-                                    component(m_wInve, Slot, i)->removeItem(1);
+                                    component((&m_wInve), Slot, i)->removeItem(1);
                                     sort();
                                 }
                             }
                         }
                         // SLOT WAS RIGHT-CLICKED
-                        else if (component(m_wInve, Slot, i)->isPressed(rw, e, sf::Mouse::Right) && !component(m_wInve, Slot, i)->isEmpty())
+                        else if (component((&m_wInve), Slot, i)->isPressed(rw, e, sf::Mouse::Right) && !component((&m_wInve), Slot, i)->isEmpty())
                         {
-                            wOpts.setPosition(component(m_wInve, Slot, i)->getPosition()
-                                             +component(m_wInve, Slot, i)->getSize());
+                            wOpts->setPosition(component((&m_wInve), Slot, i)->getPosition()
+                                             +component((&m_wInve), Slot, i)->getSize());
 
-                            if (wOpts.getParentComponent() != component(m_wInve, Slot, i))
+                            if (wOpts->getParentComponent() != component((&m_wInve), Slot, i))
                             {
-                                wOpts.setParentComponent(component(m_wInve, Slot, i));
+                                wOpts->setParentComponent(component((&m_wInve), Slot, i));
 
-                                Item* item = ((Slot*) wOpts.getParentComponent())->getItem();
+                                Item* item = ((Slot*) wOpts->getParentComponent())->getItem();
 
                                 if      (instanceof <Equipable, Item> (item)) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.equip"]);
                                 else if (instanceof <Potion   , Item> (item)) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.drink"]);
@@ -273,27 +298,27 @@ namespace rr
                                 else if (instanceof <Book     , Item> (item)) component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.read" ]);
                                 else                                          component(wOpts, Menu, 0)->setOption(0, Resources::dictionary["gui.menu.use"  ]);
 
-                                wOpts.setHeader(item->getName());
-                                if (wOpts.getHeader().getSize().x + 10 >= 142)
-                                    wOpts.setSize(sf::Vector2f(wOpts.getHeader().getSize().x + 10, 143));
+                                wOpts->setHeader(item->getName());
+                                if (wOpts->getHeader().getSize().x + 10 >= 142)
+                                    wOpts->setSize(sf::Vector2f(wOpts->getHeader().getSize().x + 10, 143));
                                 else
-                                    wOpts.setSize(sf::Vector2f(142, 143));
-                                wOpts.setVisible(true);
+                                    wOpts->setSize(sf::Vector2f(142, 143));
+                                wOpts->setVisible(true);
                             }
                             else
                             {
-                                wOpts.setParentComponent(nullptr);
-                                wOpts.setVisible(false);
+                                wOpts->setParentComponent(nullptr);
+                                wOpts->setVisible(false);
                             }
                         }
                         else
                         {
-                            wInfo.setParentComponent(component(m_wInve, Slot, i));
+                            wInfo->setParentComponent(component((&m_wInve), Slot, i));
                             slotPointed = true;
                         }
                     }
                 }
-                /* CARRY-ON */
+                /* HOTBAR */
                 for (int i = 0; i < 5; ++i)
                 {
                     if (m_sHotbar[i]->containsMouseCursor(rw) && !m_sHotbar[i]->isEmpty())
@@ -309,41 +334,41 @@ namespace rr
                         }
                         else
                         {
-                            wInfo.setParentComponent(m_sHotbar[i]);
+                            wInfo->setParentComponent(m_sHotbar[i]);
                             slotPointed = true;
                         }
                     }
                 }
 
                 // HANDLING THE ITEM INFO WINDOW
-                if (!wOpts.isVisible() && slotPointed)
+                if (!wOpts->isVisible() && slotPointed)
                 {
-                    component(wInfo, Text, 0)->setString(((Slot*) wInfo.getParentComponent())->getItem()->getDescription());
-                    component(wInfo, Text, 0)->wrap     ((wInfo.getHeader().getSize().x >= 300.f) ? wInfo.getHeader().getSize().x + 10 : 300.f);
+                    component(wInfo, Text, 0)->setString(((Slot*) wInfo->getParentComponent())->getItem()->getDescription());
+                    component(wInfo, Text, 0)->wrap     ((wInfo->getHeader().getSize().x >= 300.f) ? wInfo->getHeader().getSize().x + 10 : 300.f);
 
-                    wInfo.setHeader(((Slot*) wInfo.getParentComponent())->getItem()->getName());
-                    if (wInfo.getHeader().getSize().x > component(wInfo, Text, 0)->getSize().x)
+                    wInfo->setHeader(((Slot*) wInfo->getParentComponent())->getItem()->getName());
+                    if (wInfo->getHeader().getSize().x > component(wInfo, Text, 0)->getSize().x)
                     {
-                        wInfo.setSize(wInfo.getHeader().getSize() + sf::Vector2f(10, 10 + component(wInfo, Text, 0)->getSize().y));
+                        wInfo->setSize(wInfo->getHeader().getSize() + sf::Vector2f(10, 10 + component(wInfo, Text, 0)->getSize().y));
                     }
                     else
                     {
-                        wInfo.setSize(component(wInfo, Text, 0)->getSize() + sf::Vector2f(10, 30));
+                        wInfo->setSize(component(wInfo, Text, 0)->getSize() + sf::Vector2f(10, 30));
                     }
-                    wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw) + sf::Vector2f(5, 5));
+                    wInfo->setPosition((sf::Vector2f) sf::Mouse::getPosition(rw) + sf::Vector2f(5, 5));
 
-                    if (wInfo.getPosition().x+wInfo.getSize().x+5 > (float) rw.getSize().x)
-                        wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw)
-                                          -sf::Vector2f(wInfo.getPosition().x + wInfo.getSize().x - (float) rw.getSize().x, -5));
+                    if (wInfo->getPosition().x+wInfo->getSize().x+5 > (float) rw.getSize().x)
+                        wInfo->setPosition((sf::Vector2f) sf::Mouse::getPosition(rw)
+                                          -sf::Vector2f(wInfo->getPosition().x + wInfo->getSize().x - (float) rw.getSize().x, -5));
                                             
-                    if (wInfo.getPosition().y+wInfo.getSize().y+5 > (float) rw.getSize().y)
-                        wInfo.setPosition((sf::Vector2f) sf::Mouse::getPosition(rw)
-                                          -sf::Vector2f(-5, wInfo.getPosition().y + wInfo.getSize().y - (float) rw.getSize().y));
+                    if (wInfo->getPosition().y+wInfo->getSize().y+5 > (float) rw.getSize().y)
+                        wInfo->setPosition((sf::Vector2f) sf::Mouse::getPosition(rw)
+                                          -sf::Vector2f(-5, wInfo->getPosition().y + wInfo->getSize().y - (float) rw.getSize().y));
 
-                    wInfo.setVisible(true);
+                    wInfo->setVisible(true);
                 }
                 else
-                    wInfo.setVisible(false);
+                    wInfo->setVisible(false);
             }
         }
 
