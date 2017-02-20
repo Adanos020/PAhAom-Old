@@ -155,19 +155,19 @@ Tehepobaḣe hobeto vjėbjėrta.
 gui.text.you_died
 TOLETLEVJĖ.
 
-gui.vindov.attributes
+gui.window.attributes
 ATĖFBIBYTFI
 
-gui.vindov.inventory
+gui.window.inventory
 EQBŨTYHEQ
 
-gui.vindov.journal
+gui.window.journal
 YJEHḢŨQ
 
-gui.vindov.game_map
+gui.window.game_map
 MATA
 
-gui.vindov.bookOfSpells
+gui.window.bookOfSpells
 QVJEHTA ČAQLEHYJ
 
 ;------------ITEMS-------------;

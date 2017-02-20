@@ -98,8 +98,6 @@ namespace rr
                         csettings.antialiasingLevel = 4;
                         csettings.depthBits         = 24;
                         csettings.stencilBits       = 8;
-                        csettings.majorVersion      = 3;
-                        csettings.minorVersion      = 2;
                     }
             } graphics;
             
