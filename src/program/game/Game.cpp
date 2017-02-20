@@ -475,12 +475,6 @@ namespace rr
                 {
                     m_currentLevel->playerInteract(this);
                 }
-
-                if      (wasKeyPressed(event, Settings::keys.useslot_1)) {}
-                else if (wasKeyPressed(event, Settings::keys.useslot_2)) {}
-                else if (wasKeyPressed(event, Settings::keys.useslot_3)) {}
-                else if (wasKeyPressed(event, Settings::keys.useslot_4)) {}
-                else if (wasKeyPressed(event, Settings::keys.useslot_5)) {}
             }
         }
 

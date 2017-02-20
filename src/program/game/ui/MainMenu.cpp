@@ -162,8 +162,8 @@ namespace rr
                 ((((*wSoun += sbMusic) += cbMusic) += sbEffects) += cbEffects) += bQuit;
             }
 
-            auto wCont = new Window(Resources::dictionary["gui.button.controls"], sf::Vector2f(400, 570), sf::Vector2f(Settings::graphics.resolution.x   - 425,
-                                                                                                                       Settings::graphics.resolution.y/2 - 285));
+            auto wCont = new Window(Resources::dictionary["gui.button.controls"], sf::Vector2f(400, 470), sf::Vector2f(Settings::graphics.resolution.x   - 425,
+                                                                                                                       Settings::graphics.resolution.y/2 - 235));
             {
                 *wCont += new Text(sf::Vector2f(20, 25), Resources::dictionary["gui.text.move_up"          ]+"\n"
                                                         +Resources::dictionary["gui.text.move_down"        ]+"\n"
@@ -175,12 +175,7 @@ namespace rr
                                                         +Resources::dictionary["gui.text.open_attributes"  ]+"\n"
                                                         +Resources::dictionary["gui.text.open_journal"     ]+"\n"
                                                         +Resources::dictionary["gui.text.open_map"         ]+"\n"
-                                                        +Resources::dictionary["gui.text.open_bookOfSpells"]+"\n"
-                                                        +Resources::dictionary["gui.text.useslot_1"        ]+"\n"
-                                                        +Resources::dictionary["gui.text.useslot_2"        ]+"\n"
-                                                        +Resources::dictionary["gui.text.useslot_3"        ]+"\n"
-                                                        +Resources::dictionary["gui.text.useslot_4"        ]+"\n"
-                                                        +Resources::dictionary["gui.text.useslot_5"        ]+"\n", Resources::font.Unifont, 28);
+                                                        +Resources::dictionary["gui.text.open_bookOfSpells"]+"\n", Resources::font.Unifont, 28);
 
                 *wCont += new Button(sf::Vector2f(320,  27.5f), getKeyName(Settings::keys.move_up          ), 20);
                 *wCont += new Button(sf::Vector2f(320,  57.5f), getKeyName(Settings::keys.move_down        ), 20);
@@ -193,11 +188,6 @@ namespace rr
                 *wCont += new Button(sf::Vector2f(320, 269.5f), getKeyName(Settings::keys.open_journal     ), 20);
                 *wCont += new Button(sf::Vector2f(320, 299.5f), getKeyName(Settings::keys.open_map         ), 20);
                 *wCont += new Button(sf::Vector2f(320, 330.5f), getKeyName(Settings::keys.open_bookOfSpells), 20);
-                *wCont += new Button(sf::Vector2f(320, 360.0f), getKeyName(Settings::keys.useslot_1        ), 20);
-                *wCont += new Button(sf::Vector2f(320, 390.0f), getKeyName(Settings::keys.useslot_2        ), 20);
-                *wCont += new Button(sf::Vector2f(320, 420.5f), getKeyName(Settings::keys.useslot_3        ), 20);
-                *wCont += new Button(sf::Vector2f(320, 450.5f), getKeyName(Settings::keys.useslot_4        ), 20);
-                *wCont += new Button(sf::Vector2f(320, 480.5f), getKeyName(Settings::keys.useslot_5        ), 20);
 
                 auto bQuit = new Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 30);
                      bQuit->setPosition(sf::Vector2f(wCont->getSize().x/2 - bQuit->getSize().x/2,
@@ -227,7 +217,7 @@ namespace rr
                                                                                                                   Settings::graphics.resolution.y/2-232.5f));
         {
             *wCred += new Text(sf::Vector2f(20,  20), Resources::dictionary["gui.text.programming"], Resources::font.Unifont, 30);
-            *wCred += new Text(sf::Vector2f( 0,  50),  L"\tAdam 'Adanos' Gąsior", Resources::font.Unifont, 25, sf::Color::Yellow);
+            *wCred += new Text(sf::Vector2f( 0,  50),  L"\tCan't tell ya'", Resources::font.Unifont, 25, sf::Color::Yellow);
 
             *wCred += new Text(sf::Vector2f(20,  80), Resources::dictionary["gui.button.graphical"], Resources::font.Unifont, 30);
             *wCred += new Text(sf::Vector2f( 0, 110), "\tJan Lewandowski", Resources::font.Unifont, 25, sf::Color::Yellow);
@@ -246,8 +236,8 @@ namespace rr
             *wCred += new Text(sf::Vector2f( 0, 375), "\tSFML", Resources::font.Unifont, 25, sf::Color::Yellow);
 
             auto wQuit = new Button(sf::Vector2f(5, 255), Resources::dictionary["gui.button.quit"], 30);
-                 wQuit->setPosition(sf::Vector2f(wCred->getSize().x/2 - wQuit->getSize().x/2,
-                                                 wCred->getSize().y   - wQuit->getSize().y-10));
+                 wQuit->setPosition(sf::Vector2f(wCred->getSize().x / 2 - wQuit->getSize().x / 2,
+                                                 wCred->getSize().y     - wQuit->getSize().y - 10));
 
             *wCred += wQuit;
         }
@@ -274,7 +264,7 @@ namespace rr
             {
                 if (m_wMenu.getComponent <Button> (0)->isPressed(rw, e)) {
                     auto generatingWorld = Text(Resources::dictionary["gui.text.generating_world"], Resources::font.Unifont);
-                    generatingWorld.setPosition((sf::Vector2f) Settings::graphics.resolution/2.f - generatingWorld.getSize()/2.f);
+                    generatingWorld.setPosition((sf::Vector2f) Settings::graphics.resolution / 2.f - generatingWorld.getSize() / 2.f);
 
                     auto currView = rw.getView();
                     rw.setView(rw.getDefaultView());
@@ -378,11 +368,6 @@ namespace rr
                         Settings::keys.open_journal      = getKeyCode(wCont->getComponent <Button> ( 8)->getText().getString());
                         Settings::keys.open_map          = getKeyCode(wCont->getComponent <Button> ( 9)->getText().getString());
                         Settings::keys.open_bookOfSpells = getKeyCode(wCont->getComponent <Button> (10)->getText().getString());
-                        Settings::keys.useslot_1         = getKeyCode(wCont->getComponent <Button> (11)->getText().getString());
-                        Settings::keys.useslot_2         = getKeyCode(wCont->getComponent <Button> (12)->getText().getString());
-                        Settings::keys.useslot_3         = getKeyCode(wCont->getComponent <Button> (13)->getText().getString());
-                        Settings::keys.useslot_4         = getKeyCode(wCont->getComponent <Button> (14)->getText().getString());
-                        Settings::keys.useslot_5         = getKeyCode(wCont->getComponent <Button> (15)->getText().getString());
 
                         Settings::save();
 
@@ -430,11 +415,6 @@ namespace rr
                         wCont->getComponent <Button> ( 8)->getText().setString(getKeyName(Settings::keys.open_journal));
                         wCont->getComponent <Button> ( 9)->getText().setString(getKeyName(Settings::keys.open_map));
                         wCont->getComponent <Button> (10)->getText().setString(getKeyName(Settings::keys.open_bookOfSpells));
-                        wCont->getComponent <Button> (11)->getText().setString(getKeyName(Settings::keys.useslot_1));
-                        wCont->getComponent <Button> (12)->getText().setString(getKeyName(Settings::keys.useslot_2));
-                        wCont->getComponent <Button> (13)->getText().setString(getKeyName(Settings::keys.useslot_3));
-                        wCont->getComponent <Button> (14)->getText().setString(getKeyName(Settings::keys.useslot_4));
-                        wCont->getComponent <Button> (15)->getText().setString(getKeyName(Settings::keys.useslot_5));
 
                         wOpts->setVisible(false);
                     }
@@ -489,7 +469,7 @@ namespace rr
 
                 else if (wCont->isVisible())
                 {
-                    for (int i = 0; i < 16; i++)
+                    for (int i = 0; i < 11; i++)
                     {
                         if (!wWait->isVisible() && wCont->getComponent <Button> (i)->isPressed(rw, e))
                         {
@@ -504,7 +484,7 @@ namespace rr
                             wWait->setVisible(false);
                         }
                     }
-                    if (!wWait->isVisible() && wCont->getComponent <Button> (16)->isPressed(rw, e))
+                    if (!wWait->isVisible() && wCont->getComponent <Button> (11)->isPressed(rw, e))
                         wCont->setVisible(false);
                 }
 

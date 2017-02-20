@@ -53,11 +53,6 @@ namespace rr
         std::cout << "|open_journal             |" << getKeyName(keys.open_journal)     .toAnsiString() << std::setw(29-getKeyName(keys.open_journal)     .toAnsiString()     .size()) << "|\n";
         std::cout << "|open_map                 |" << getKeyName(keys.open_map)         .toAnsiString() << std::setw(29-getKeyName(keys.open_map)         .toAnsiString()     .size()) << "|\n";
         std::cout << "|open_bookOfSpells        |" << getKeyName(keys.open_bookOfSpells).toAnsiString() << std::setw(29-getKeyName(keys.open_bookOfSpells).toAnsiString()     .size()) << "|\n";
-        std::cout << "|useslot_1                |" << getKeyName(keys.useslot_1)        .toAnsiString() << std::setw(29-getKeyName(keys.useslot_1)        .toAnsiString()     .size()) << "|\n";
-        std::cout << "|useslot_2                |" << getKeyName(keys.useslot_2)        .toAnsiString() << std::setw(29-getKeyName(keys.useslot_2)        .toAnsiString()     .size()) << "|\n";
-        std::cout << "|useslot_3                |" << getKeyName(keys.useslot_3)        .toAnsiString() << std::setw(29-getKeyName(keys.useslot_3)        .toAnsiString()     .size()) << "|\n";
-        std::cout << "|useslot_4                |" << getKeyName(keys.useslot_4)        .toAnsiString() << std::setw(29-getKeyName(keys.useslot_4)        .toAnsiString()     .size()) << "|\n";
-        std::cout << "|useslot_5                |" << getKeyName(keys.useslot_5)        .toAnsiString() << std::setw(29-getKeyName(keys.useslot_5)        .toAnsiString()     .size()) << "|\n";
         std::cout << "+-----------------------------------------------------+\n";
     }
 
@@ -106,12 +101,6 @@ namespace rr
         oconfig << "open_journal:\t\t"   + std::to_string(keys.open_journal                   )+"\n";
         oconfig << "open_map:\t\t\t"     + std::to_string(keys.open_map                       )+"\n";
         oconfig << "open_bookOfSpells:\t"+ std::to_string(keys.open_bookOfSpells              )+"\n";
-        oconfig << ";---use slots---;\n";
-        oconfig << "useslot_1:\t"        + std::to_string(keys.useslot_1                      )+"\n";
-        oconfig << "useslot_2:\t"        + std::to_string(keys.useslot_2                      )+"\n";
-        oconfig << "useslot_3:\t"        + std::to_string(keys.useslot_3                      )+"\n";
-        oconfig << "useslot_4:\t"        + std::to_string(keys.useslot_4                      )+"\n";
-        oconfig << "useslot_5:\t"        + std::to_string(keys.useslot_5                      )+"\n";
         oconfig << ";---------------;\n";
 
         oconfig.close();
@@ -164,11 +153,6 @@ namespace rr
                     else if (param == "open_journal:"     ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_journal      = (sf::Keyboard::Key) keyCode; }
                     else if (param == "open_map:"         ) { readFile    <int>   (iconfig, keyCode                             ); keys.open_map          = (sf::Keyboard::Key) keyCode; }
                     else if (param == "open_bookOfSpells:") { readFile    <int>   (iconfig, keyCode                             ); keys.open_bookOfSpells = (sf::Keyboard::Key) keyCode; }
-                    else if (param == "useslot_1:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_1         = (sf::Keyboard::Key) keyCode; }
-                    else if (param == "useslot_2:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_2         = (sf::Keyboard::Key) keyCode; }
-                    else if (param == "useslot_3:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_3         = (sf::Keyboard::Key) keyCode; }
-                    else if (param == "useslot_4:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_4         = (sf::Keyboard::Key) keyCode; }
-                    else if (param == "useslot_5:"        ) { readFile    <int>   (iconfig, keyCode                             ); keys.useslot_5         = (sf::Keyboard::Key) keyCode; }
                     else                                  throw std::invalid_argument("Wrong parameter: "+param);
                 }
             }

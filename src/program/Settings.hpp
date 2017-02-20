@@ -30,12 +30,6 @@ namespace rr
                     sf::Keyboard::Key open_map;
                     sf::Keyboard::Key open_bookOfSpells;
 
-                    sf::Keyboard::Key useslot_1;
-                    sf::Keyboard::Key useslot_2;
-                    sf::Keyboard::Key useslot_3;
-                    sf::Keyboard::Key useslot_4;
-                    sf::Keyboard::Key useslot_5;
-
                     ////////////////////////////////////////////////////////////////////////
                     /// \brief Regular constructor.
                     ////////////////////////////////////////////////////////////////////////
@@ -52,11 +46,6 @@ namespace rr
                         open_journal      = sf::Keyboard::N;
                         open_map          = sf::Keyboard::M;
                         open_bookOfSpells = sf::Keyboard::V;
-                        useslot_1         = sf::Keyboard::Num1;
-                        useslot_2         = sf::Keyboard::Num2;
-                        useslot_3         = sf::Keyboard::Num3;
-                        useslot_4         = sf::Keyboard::Num4;
-                        useslot_5         = sf::Keyboard::Num5;
                     }
             } keys;
 

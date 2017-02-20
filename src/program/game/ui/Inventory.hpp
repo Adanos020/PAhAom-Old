@@ -26,7 +26,6 @@ namespace rr
     private: sf::RectangleShape m_shadow;
 
              Window             m_wInve;
-             Slot*              m_sHotbar[5];
              Player*            m_player;
 
              short              m_bronze;
