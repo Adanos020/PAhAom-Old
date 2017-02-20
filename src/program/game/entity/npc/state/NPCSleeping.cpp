@@ -11,7 +11,7 @@ namespace rr
 {
 
     NPCState*
-    NPCSleeping::update(sf::Time& delta, NPC* npc)
+    NPCSleeping::update(sf::Time&, NPC* npc)
     {
         if (npc->m_direction == NPC::LEFT && *npc->m_currentAnimation != npc->m_standingLeft)
             npc->m_currentAnimation = &npc->m_standingLeft;

@@ -66,7 +66,7 @@ namespace rr
             case HALBERD:        m_damageDealt = 60;
                                  m_requirement = 70;
                                  m_speed       =  4;
-                                 m_accuracy    =  7;
+                                 m_accuracy    =  8;
                                  m_iconIndex   = 22;
                                  break;
 
@@ -87,56 +87,56 @@ namespace rr
             case LANCE:          m_damageDealt = 50;
                                  m_requirement = 60;
                                  m_speed       =  4;
-                                 m_accuracy    =  6;
+                                 m_accuracy    =  7;
                                  m_iconIndex   = 24;
                                  break;
 
             case CLUB:           m_damageDealt = 40;
                                  m_requirement = 50;
                                  m_speed       =  6;
-                                 m_accuracy    =  7;
+                                 m_accuracy    =  8;
                                  m_iconIndex   = 38;
                                  break;
                              
             case SWORD:          m_damageDealt = 30;
                                  m_requirement = 30;
                                  m_speed       =  7;
-                                 m_accuracy    =  7;
+                                 m_accuracy    =  8;
                                  m_iconIndex   =  6;
                                  break;
 
             case SPEAR:          m_damageDealt = 30;
                                  m_requirement = 50;
                                  m_speed       =  6;
-                                 m_accuracy    =  6;
+                                 m_accuracy    =  7;
                                  m_iconIndex   = 23;
                                  break;
 
             case PIQUE:          m_damageDealt = 20;
                                  m_requirement = 25;
                                  m_speed       =  7;
-                                 m_accuracy    =  7;
+                                 m_accuracy    =  8;
                                  m_iconIndex   = 36;
                                  break;
 
             case LONG_STICK:     m_damageDealt = 15;
                                  m_requirement = 20;
                                  m_speed       =  8;
-                                 m_accuracy    =  7;
+                                 m_accuracy    =  8;
                                  m_iconIndex   = 37;
                                  break;
 
             case DAGGER:         m_damageDealt = 15;
                                  m_requirement =  5;
                                  m_speed       =  8;
-                                 m_accuracy    =  6;
+                                 m_accuracy    =  7;
                                  m_iconIndex   =  5;
                                  break;
                              
             case KNIFE:          m_damageDealt = 10;
                                  m_requirement =  5;
                                  m_speed       = 10;
-                                 m_accuracy    =  6;
+                                 m_accuracy    =  7;
                                  m_iconIndex   =  4;
                                  break;
         }

@@ -212,7 +212,7 @@ namespace rr
             else if ((*it)->getSpecies() == Entity::N_P_C)
             {
                 auto npc = (NPC*) *it;
-                npc->update(m_tilesAsInts, time);
+                npc->update(time);
             }
         }
     }
@@ -350,17 +350,17 @@ namespace rr
             sf::Vector2i rpos(rand()%((m_size.x-rsize.x)/2)*2+1, rand()%((m_size.y-rsize.y)/2)*2+1);
 
             bool intersects = false;
-            for (int i = rpos.x; i < rpos.x+rsize.x; ++i)
+            for (int j = rpos.x; j < rpos.x+rsize.x; ++j)
             {
-                if (m_tiles[i + (rpos.y-1)*m_size.x] == ROOM || m_tiles[i+(rpos.y+rsize.y+1)*m_size.x] == ROOM)
+                if (m_tiles[j + (rpos.y-1)*m_size.x] == ROOM || m_tiles[j+(rpos.y+rsize.y+1)*m_size.x] == ROOM)
                 {
                     intersects = true;
                     break;
                 }
             }
-            for (int i = rpos.y; i < rpos.y+rsize.y && !intersects; ++i)
+            for (int j = rpos.y; j < rpos.y+rsize.y && !intersects; ++j)
             {
-                if (m_tiles[rpos.x-1 + i*m_size.x] == ROOM || m_tiles[rpos.x+rsize.x+i*m_size.x] == ROOM)
+                if (m_tiles[rpos.x-1 + j*m_size.x] == ROOM || m_tiles[rpos.x+rsize.x+j*m_size.x] == ROOM)
                 {
                     intersects = true;
                     break;
@@ -369,12 +369,12 @@ namespace rr
 
             if (!intersects)
             {
-                for (int i = rpos.x; i < rpos.x+rsize.x; ++i)
+                for (int j = rpos.x; j < rpos.x+rsize.x; ++j)
                 {
-                    for (int j = rpos.y; j < rpos.y+rsize.y; ++j)
+                    for (int k = rpos.y; k < rpos.y+rsize.y; ++k)
                     {
-                        m_tiles  [i + j*m_size.x] = ROOM;
-                        m_regions[i + j*m_size.x] = m_regionCount;
+                        m_tiles  [j + k*m_size.x] = ROOM;
+                        m_regions[j + k*m_size.x] = m_regionCount;
                     }
                 }
 

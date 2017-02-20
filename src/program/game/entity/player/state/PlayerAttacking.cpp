@@ -13,7 +13,7 @@ namespace rr
 {
 
     PlayerState*
-    PlayerAttacking::update(sf::Time& delta, Player& player)
+    PlayerAttacking::update(sf::Time&, Player& player)
     {
         if (player.m_body.isPlaying())
             return nullptr;
@@ -22,9 +22,7 @@ namespace rr
     }
 
     PlayerState*
-    PlayerAttacking::handleInput(sf::Event& event, Player& player)
-    {
-        return nullptr;
-    }
+    PlayerAttacking::handleInput(sf::Event&, Player&)
+    { return nullptr; }
 
 }

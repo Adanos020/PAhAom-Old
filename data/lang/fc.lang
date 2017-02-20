@@ -18,7 +18,7 @@ gui.button.help
 TOMOÙ
 
 gui.button.credits
-AỲOXIBI
+AỲTOXIBI
 
 gui.button.quit
 FBIṄYJ
@@ -228,7 +228,7 @@ Qyva
 item.ranged_weapon.name.slingshot
 Tfoûa
 
-item.ranged_weapon.name.bellovs
+item.ranged_weapon.name.bellows
 Amyxabqa
 
 item.ranged_weapon.description.bow
@@ -240,7 +240,7 @@ Fpoḣ cėtxíelnya ýehcto yẋbibaha txíeč mjeṅcqje mũlnuje, bapúo tfoċ
 item.ranged_weapon.description.slingshot
 Qoleṅha fpoḣ, qtypeṅ toŷohtqũ bė tompoûe yjeṅyb tũhoh. Tfoûa fbicėtxíelũbaỳj b cėtfoheh fpota qamjeḣe ũ toaòbhe toyjncéqũ točbala.
 
-item.ranged_weapon.description.bellovs
+item.ranged_weapon.description.bellows
 Aó fbityvýaḣėr čatfytfix cėtxíaleq clyẋbi. Fpoḣ naèalha aòfbiqobaḣėr čacaûeq b levje!
 
 item.ring.color.red
@@ -292,28 +292,28 @@ item.ring.type.quest_swordsman
 Tjepvjyjeḣ dexmũcėctxía
 
 item.ring.description.unknown
-
+Teh tjepvjyjeḣ č ybicteto člota ū bečúeȟeto qleṅhoty txibiýetjeheto aò ḣeto fbiqytfi čoctal. Yjeqabe jėrqje matnyhe čaòlhovjyjn to čaqlåjehu čaòbehyjev?
 
 item.ring.description.health
-
+Matnyhe blavjyjnbovjyjn teto tjepvjyjeḣėr tfojeh petehepaùjeh čapobjėr txibictjevajeh.
 
 item.ring.description.magic
-
+Matnyhe blavjyjnbovjyjn teto tjepvjyjeḣėr nlovjyj mahbi [jėrqoh tomjevjyjnyj moẋew] čbjehqvajeh.
 
 item.ring.description.strength
-
+Matnyhe blavjyjnbovjyjn teto tjepvjyjeḣėr tfojeh vjũleh ataqy čbjehqvajeh.
 
 item.ring.description.dexterity
-
+Matnyhe blavjyjnbovjyjn teto tjepvjyjeḣėr tfojeh čpehyhovjyj čbjehqvajeh.
 
 item.ring.description.accuracy
-
+Matnyhe blavjyjnbovjyjn teto tjepvjyjeḣėr tfoje vahce ha tfadjeḣe txíeỳjnbḣũqa čbjehqvajeh.
 
 item.ring.description.speed
-
+Matnyhe blavjyjnbovjyjn teto tjepvjyjeḣėr tfojeh vbibqovjyj čbjehqvajeh.
 
 item.ring.description.quest_swordsman
-
+To teh tjepwjyjeḣ, o qtyfbim dexmũcėctxi mybũl. Letjeṅ my to č tovpotem čaḣevjyj.
 
 item.book.type.crafting
 «Toàctafbi fbitfaxíaḣėr»
@@ -865,10 +865,10 @@ message.player_levelup
 Qoleṅhbi toċem aòvjebjėryeḣėr ovjehthohlevjé! Ẋe mohaxíeṅvbi jectevjė mbivjėleyj moẋev, a tfoje maqėcbimalhe tyhqėtfi ẋbíyjėr ũ mahbi bėčpocėlbi. Pybḣeẋ [jevjėlũ haÿbíyjela ũ tjeḣehúe čhaṅyjev] ýetovjė hobeto vjeȟaÿbiyj lyb cboje atfbibytfi čbjehqėvbiyj moẋev.
 
 message.npc_attack_success
-yjeh tfadjėr.
+yjehtfadjėr.
 
 message.npc_attack_failure
-yjeh ḣetfadjėr.
+yjehḣetfadjėr.
 
 message.npc_dies
 ymjepa.

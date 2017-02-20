@@ -13,6 +13,7 @@
 #include "../Entity.hpp"
 #include "item/MeleeWeapon.hpp"
 #include "item/RangedWeapon.hpp"
+#include "item/Ring.hpp"
 #include "Item.hpp"
 #include "item/Book.hpp"
 
@@ -24,6 +25,7 @@ namespace rr
     class Level;
     class MeleeWeapon;
     class RangedWeapon;
+    class Ring;
     class Equipable;
     class NPC;
 
@@ -36,40 +38,43 @@ namespace rr
 
     private: struct Attrs // Structure for the player attributes.
              {
-             public: float health;
-                     float maxHealth;
-                     float mana;
-                     float maxMana;
-                     float strength;
-                     float dexterity;
-                     float experience;
-                     float nextLevel;
-                     int   level;
-                     float skillPoints;
-                     float armor;
-                 
-                     bool  crafting;
-                     bool  alchemy;
-                     bool  melee_weapon_mastery;
-                     bool  ranged_weapon_mastery;
-                     bool  eagle_eye;
-                     bool  mana_regeneration;
-                     bool  health_regeneration;
-                     bool  faster_learning;
+             public:
+                float health;
+                float maxHealth;
+                float mana;
+                float maxMana;
+                float strength;
+                float dexterity;
+                float experience;
+                float nextLevel;
+                int   level;
+                float skillPoints;
+                float armor;
+                
+                bool crafting;
+                bool alchemy;
+                bool melee_weapon_mastery;
+                bool ranged_weapon_mastery;
+                bool eagle_eye;
+                bool mana_regeneration;
+                bool health_regeneration;
+                bool faster_learning;
              } m_attrs;
 
              struct Buffs   // Structure for buffs - each buff is represented by an integer
              {              // which tells for how many turns is it going to be valid.
-             public: int speed;
-                     int regeneration;
-                     int poison;
-                     int slowness;
-                     int weakness;
-                     int hunger;
+             public:
+                int speed;
+                int regeneration;
+                int poison;
+                int slowness;
+                int weakness;
+                int hunger;
              } m_buffs;
 
              MeleeWeapon*       m_meleeWeapon;
              RangedWeapon*      m_rangedWeapon;
+             Ring*              m_ring;
 
              PlayerState*       m_state;
 

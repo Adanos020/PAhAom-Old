@@ -470,6 +470,18 @@ namespace rr
                 success = true;
             }
         }
+        else if (instanceof <Ring, Equipable> (item))
+        {
+            if (equip)
+            {
+                m_ring = (Ring*) item;
+            }
+            else
+            {
+                m_ring = nullptr;
+            }
+            success = true;
+        }
 
         if (success)
         {
@@ -479,7 +491,8 @@ namespace rr
                 subject.notify(Observer::ITEM_DISCOVERED, item);
             }
         }
-        else subject.notify(Observer::ITEM_EQUIP_FAILURE, item);
+        else
+            subject.notify(Observer::ITEM_EQUIP_FAILURE, item);
 
         return success;
     }

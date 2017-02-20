@@ -14,7 +14,7 @@ namespace rr
     // PRIVATE
 
     void
-    AudioManager::onNotify(Event event, Entity* entity, sf::String)
+    AudioManager::onNotify(Event event, Entity*, sf::String)
     {
         switch (event)
         {
@@ -93,7 +93,7 @@ namespace rr
     }
 
     void
-    AudioManager::playSound(SoundEffect sound, float volume)
+    AudioManager::playSound(SoundEffect sound, float)
     {
         switch (sound)
         {

@@ -295,28 +295,28 @@ item.ring.type.quest_swordsman
 Swordsman's ring
 
 item.ring.description.unknown
-
+This ring was created from pure gold and a priceless gem attached to it. What kind of powers will you gain by putting it on?
 
 item.ring.description.health
-
+The magical properties of this ring accelerate your regeneration of health.
 
 item.ring.description.magic
-
+The magical properties of this ring increase your mana capacity.
 
 item.ring.description.strength
-
+The magical properties of this ring increase your strength.
 
 item.ring.description.dexterity
-
+The magical properties of this ring increase your dexterity.
 
 item.ring.description.accuracy
-
+The magical properties of this ring increase your chances of hitting an enemy.
 
 item.ring.description.speed
-
+The magical properties of this ring increases your speed.
 
 item.ring.description.quest_swordsman
-
+This is the ring the swordsman was talking about. It would be better to give it back to him.
 
 item.book.type.crafting
 "Crafting basics"

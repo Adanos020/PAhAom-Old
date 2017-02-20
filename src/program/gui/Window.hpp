@@ -90,8 +90,8 @@ namespace rr
                      {
                          if (instanceof<T, Component>(m_components[i]))
                          {
-                             if (  index-- == 0
-                                 ) return (T*)m_components[i];
+                             if (index-- == 0)
+                                return (T*) m_components[i];
                          }
                      }
                  }

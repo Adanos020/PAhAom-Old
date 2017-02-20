@@ -343,18 +343,14 @@ namespace rr
                             rw.setVerticalSyncEnabled(Settings::graphics.vsync);
                         }
 
+                        if (Settings::graphics.resolution != sf::Vector2u(stoi(splitted[0]), stoi(splitted[1])))
                         {
-                            if (Settings::graphics.resolution != sf::Vector2u(stoi(splitted[0]), stoi(splitted[1])))
-                            {
-                                Settings::graphics.resolution = sf::Vector2u(stoi(splitted[0]), stoi(splitted[1]));
-
-                                rw.close();
-                                rw.create(sf::VideoMode(Settings::graphics.resolution.x, Settings::graphics.resolution.y, 32), "PAhAom",
-                                                        Settings::graphics.fullscreen ? sf::Style::Fullscreen
-                                                                                      : sf::Style::Close, Settings::graphics.csettings);
-
-                                uiRelatedChanged = true;
-                            }
+                            Settings::graphics.resolution = sf::Vector2u(stoi(splitted[0]), stoi(splitted[1]));
+                            rw.close();
+                            rw.create(sf::VideoMode(Settings::graphics.resolution.x, Settings::graphics.resolution.y, 32), "PAhAom",
+                                                    Settings::graphics.fullscreen ? sf::Style::Fullscreen
+                                                                                  : sf::Style::Close, Settings::graphics.csettings);
+                            uiRelatedChanged = true;
                         }
 
                         currentOption = wGrap->getComponent <Switch> (1)->getCurrentOption();

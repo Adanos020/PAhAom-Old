@@ -111,7 +111,7 @@ namespace rr
                /// The things updated in this function are the animations, states of
                /// the seeked path, moving the NPC, etc.
                ////////////////////////////////////////////////////////////////////////
-               void update(int tiles[], sf::Time& timeStep);
+               void update(sf::Time& timeStep);
 
                ////////////////////////////////////////////////////////////////////////
                /// \brief Attacks other NPC.

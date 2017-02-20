@@ -13,7 +13,7 @@ namespace rr
 {
 
     PlayerState*
-    PlayerStanding::update(sf::Time& delta, Player& player)
+    PlayerStanding::update(sf::Time&, Player& player)
     {
         if (player.m_currentAnimation == &player.m_walkingLeft
  //        || player.m_currentAnimation == &player.m_attackingLeft

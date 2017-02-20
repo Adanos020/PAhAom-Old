@@ -14,9 +14,7 @@ namespace rr
 
     DeathScreen::DeathScreen() :
       m_visible(false)
-    {
-        reset();
-    }
+    { reset(); }
 
     void
     DeathScreen::reset()
@@ -26,20 +24,20 @@ namespace rr
         m_bQuit = Button(sf::Vector2f(0, 0), Resources::dictionary["gui.button.quit"], 52);
 
         m_shadow.setSize((sf::Vector2f) Settings::graphics.resolution);
-        m_shadow.setPosition (sf::Vector2f(0, 0));
+        m_shadow.setPosition(sf::Vector2f(0, 0));
         m_shadow.setFillColor(sf::Color(255, 0, 0, 0));
 
         m_tYouDied.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2 - m_tYouDied.getSize().x/2 - 2.5f,
-                                            Settings::graphics.resolution.y/2 - m_tYouDied.getSize().y/0.5));
+                                             Settings::graphics.resolution.y/2 - m_tYouDied.getSize().y/0.5));
 
         m_bNewGame.setPosition(sf::Vector2f(Settings::graphics.resolution.x/2 - (m_bNewGame.getSize().x + m_bQuit.getSize().x + 7.5f) / 2,
-                                            Settings::graphics.resolution.y/2 + m_bNewGame.getSize().y * 0.25f));
+                                             Settings::graphics.resolution.y/2 + m_bNewGame.getSize().y * 0.25f));
 
         m_bQuit.setPosition(sf::Vector2f(m_bNewGame.getSize().x + 5, 0) + m_bNewGame.getPosition());
 
         m_endAnimation = sf::Time::Zero;
         m_tYouDied.setFillColor(sf::Color(255, 0, 0, 0));
-        m_shadow  .setFillColor(sf::Color(255, 0, 0, 0));
+        m_shadow.setFillColor(sf::Color(255, 0, 0, 0));
     }
 
     void

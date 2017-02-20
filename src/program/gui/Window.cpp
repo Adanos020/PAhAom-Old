@@ -38,7 +38,9 @@ namespace rr
     Window::addComponent(Component* c, bool attached)
     {
         if (attached)
+        {
             c->setPosition(sf::Vector2f(m_body.getPosition().x + c->getPosition().x, m_body.getPosition().y + c->getPosition().y));
+        }
         c->setParentComponent(this);
         m_components.push_back(c);
     }
@@ -56,8 +58,8 @@ namespace rr
         {
             component->setPosition(pos + component->getPosition() - m_body.getPosition());
         }
-        m_body  .setPosition(pos);
-        m_header.setPosition(sf::Vector2f(pos.x+5, pos.y));
+        m_body.setPosition(pos);
+        m_header.setPosition(sf::Vector2f(pos.x + 5, pos.y));
     }
 
     void

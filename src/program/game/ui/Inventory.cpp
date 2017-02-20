@@ -84,7 +84,8 @@ namespace rr
 
         for (int i = 0; i < 5; ++i)
         {
-            m_sCarryOn[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(Settings::graphics.resolution.x-90, Settings::graphics.resolution.y/2-250 + i*95));
+            m_sCarryOn[i] = new Slot(sf::Vector2f(80, 80), sf::Vector2f(Settings::graphics.resolution.x - 90,
+                                                                        Settings::graphics.resolution.y/2 - 250 + i*95));
         }
     }
 
@@ -141,6 +142,26 @@ namespace rr
                             for (int i = 0; i < 32; ++i)
                             {
                                 if (instanceof <MeleeWeapon, Item> (component(m_wInve, Slot, i)->getItem()))
+                                {
+                                    ((Equipable*) component(m_wInve, Slot, i)->getItem())->equip(false);
+                                }
+                            }
+                        }
+                        else if (instanceof <RangedWeapon, Item> (item))
+                        {
+                            for (int i = 0; i < 32; ++i)
+                            {
+                                if (instanceof <RangedWeapon, Item> (component(m_wInve, Slot, i)->getItem()))
+                                {
+                                    ((Equipable*) component(m_wInve, Slot, i)->getItem())->equip(false);
+                                }
+                            }
+                        }
+                        else if (instanceof <Ring, Item> (item))
+                        {
+                            for (int i = 0; i < 32; ++i)
+                            {
+                                if (instanceof <Ring, Item> (component(m_wInve, Slot, i)->getItem()))
                                 {
                                     ((Equipable*) component(m_wInve, Slot, i)->getItem())->equip(false);
                                 }
@@ -579,7 +600,7 @@ namespace rr
         return file;
     }
 
-    void Inventory::onNotify(Event event, Entity* entity, sf::String)
+    void Inventory::onNotify(Event event, Entity*, sf::String)
     {
         switch (event)
         {

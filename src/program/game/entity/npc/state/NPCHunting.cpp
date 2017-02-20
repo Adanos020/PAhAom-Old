@@ -17,10 +17,8 @@ namespace rr
 {
 
     NPCState*
-    NPCHunting::update(sf::Time& delta, NPC* npc)
-    {
-        return nullptr;
-    }
+    NPCHunting::update(sf::Time&, NPC*)
+    { return nullptr; }
 
     NPCState*
     NPCHunting::react(Level* level, NPC* npc, Player* player)

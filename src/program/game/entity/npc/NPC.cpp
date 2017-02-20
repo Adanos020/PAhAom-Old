@@ -192,7 +192,7 @@ namespace rr
     }
 
     void
-    NPC::update(int tiles[], sf::Time& delta)
+    NPC::update(sf::Time& delta)
     {
         auto newState = m_state->update(delta, this);
         if (newState != nullptr)

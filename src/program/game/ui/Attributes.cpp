@@ -53,7 +53,7 @@ namespace rr
     Attributes::update(Player* p)
     {
         m_wAttr.getComponent <Text> (1)->setString(std::to_string((int) p->getAttributes().health     )+"/"+std::to_string((int) p->getAttributes().maxHealth)+"\n"
-                                                  +std::to_string((int) p->getAttributes().mana       )+"/"+std::to_string((int) p->getAttributes().maxMana  )+"\n"
+                                                  +std::to_string((int) p->getAttributes().mana       )+"/"+std::to_string((int) p->getAttributes().maxMana)  +"\n"
                                                   +std::to_string((int) p->getAttributes().strength   )                                                       +"\n"
                                                   +std::to_string((int) p->getAttributes().dexterity  )                                                       +"\n"
                                                   +std::to_string((int) p->getAttributes().experience )+"/"+std::to_string((int) p->getAttributes().nextLevel)+"\n"

@@ -59,9 +59,7 @@ namespace rr
     }
 
     PlayerState*
-    PlayerMoving::handleInput(sf::Event& event, Player& player)
-    {
-        return nullptr;
-    }
+    PlayerMoving::handleInput(sf::Event&, Player&)
+    { return nullptr; }
 
 }

@@ -46,10 +46,8 @@ namespace rr
     }
 
     NPCState*
-    NPCMoving::react(Level* level, NPC* npc, Player* player)
-    {
-        return nullptr;
-    }
+    NPCMoving::react(Level*, NPC*, Player*)
+    { return nullptr; }
 
     sf::String
     NPCMoving::toString() const
